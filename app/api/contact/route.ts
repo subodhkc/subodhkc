@@ -8,9 +8,10 @@ export async function POST(request: NextRequest) {
   try {
     // Check if API key exists
     if (!process.env.RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is not set')
+      console.error('RESEND_API_KEY is not set in environment variables')
+      console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('RESEND')))
       return NextResponse.json(
-        { success: false, error: 'Email service not configured' },
+        { success: false, error: 'Email service not configured. Please contact administrator.' },
         { status: 500 }
       )
     }
