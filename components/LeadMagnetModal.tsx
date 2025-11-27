@@ -20,30 +20,32 @@ export default function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProp
     setStatus('loading')
 
     try {
-      // TODO: Send email to your backend/email service
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Send email with download link via API
+      const response = await fetch('/api/lead-magnet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send email')
+      }
       
       setStatus('success')
       
-      // Trigger PDF download
+      // Close modal after success
       setTimeout(() => {
-        const link = document.createElement('a')
-        link.href = '/Doc/Beyond Tpm Csm.pdf'
-        link.download = 'AI-Compliance-Framework-Enterprise-Guide.pdf'
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
-        
-        // Close modal after download starts
-        setTimeout(() => {
-          onClose()
-          setStatus('idle')
-          setEmail('')
-          setName('')
-        }, 2000)
-      }, 500)
+        onClose()
+        setStatus('idle')
+        setEmail('')
+        setName('')
+      }, 3000)
     } catch (error) {
+      console.error('Lead magnet error:', error)
       setStatus('idle')
+      alert('Something went wrong. Please try again.')
     }
   }
 
@@ -67,9 +69,10 @@ export default function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProp
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <CheckCircle2 className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Download Starting...</h3>
+              <h3 className="text-2xl font-bold mb-2">Check Your Email!</h3>
               <p className="text-muted-foreground">
-                Your AI Compliance Framework guide is downloading now. Check your email for additional resources!
+                We've sent the AI Compliance Framework guide to <strong>{email}</strong>. 
+                Check your inbox (and spam folder) for the download link and additional resources!
               </p>
             </div>
           ) : (

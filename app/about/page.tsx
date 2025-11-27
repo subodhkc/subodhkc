@@ -4,7 +4,7 @@ import Timeline from '@/components/Timeline'
 import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import Grid from '@/components/Grid'
-import { Award, GraduationCap, Briefcase, Heart } from 'lucide-react'
+import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users } from 'lucide-react'
 
 export const metadata = {
   title: 'About',
@@ -164,6 +164,88 @@ export default function AboutPage() {
 
       <Section subtitle="Journey" title="Career Milestones" className="bg-secondary/20">
         <Timeline items={journey} />
+      </Section>
+
+      <Section subtitle="Innovation" title="Patent-Pending AI Compliance Frameworks">
+        <div className="max-w-4xl mx-auto mb-8">
+          <p className="text-lg text-muted-foreground text-center">
+            Developed 5 patent-pending methodologies for AI compliance, drift detection, and governance at enterprise scale.
+          </p>
+        </div>
+        <Grid cols={2}>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-primary" />
+                Adversarial Project Twin
+              </CardTitle>
+              <CardDescription>
+                Drift and sabotage simulation framework that proactively identifies AI system vulnerabilities 
+                before they impact production. Enables real-time monitoring and automated remediation.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5 text-primary" />
+                AI Compliance Twin
+              </CardTitle>
+              <CardDescription>
+                Real-time regulatory enforcement engine that continuously validates AI systems against 
+                EU AI Act, GDPR, and sector-specific compliance requirements.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-primary" />
+                Modular Audit Engine
+              </CardTitle>
+              <CardDescription>
+                AI fairness and transparency scoring system with modular architecture. 
+                Provides audit-grade documentation and compliance reporting for enterprise deployments.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="h-5 w-5 text-primary" />
+                Precision Drift Detector
+              </CardTitle>
+              <CardDescription>
+                Numerical anomaly detection system for AI model performance monitoring. 
+                Identifies drift patterns before they impact business outcomes.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-primary" />
+                Compliance Fingerprint Layer
+              </CardTitle>
+              <CardDescription>
+                Tamper-evident traceability system for AI decision-making. 
+                Creates immutable audit trails for regulatory compliance and forensic analysis.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="h-5 w-5 text-primary" />
+                CSM Framework & SKC ResetFrame™
+              </CardTitle>
+              <CardDescription>
+                Cognitive Systems Management methodology and Meeting ResetFrame for enterprise AI program delivery. 
+                Deployed in multiple Fortune 50 pilots with proven results.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </Grid>
       </Section>
 
       <Section subtitle="Core Values" title="What Drives My Work">

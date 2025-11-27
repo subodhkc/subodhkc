@@ -20,12 +20,20 @@ export default function NewsletterSignup({ variant = 'default', className = '' }
     setStatus('loading')
 
     try {
-      // TODO: Integrate with your email service (Resend, ConvertKit, etc.)
-      // For now, just simulate success
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to subscribe')
+      }
       
       setStatus('success')
-      setMessage('Success! Check your email to confirm your subscription.')
+      setMessage('Success! Check your email for a welcome message and exclusive resources.')
       setEmail('')
       
       setTimeout(() => {
