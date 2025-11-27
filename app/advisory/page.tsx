@@ -98,7 +98,7 @@ export default function AdvisoryPage() {
     {
       phase: '3. Execution',
       description:
-        'Hands-on implementation support. I don\'t just provide recommendations—I help you execute them.',
+        'Hands-on implementation support. I don\'t just provide recommendations - I help you execute them.',
       duration: 'Ongoing',
     },
     {
