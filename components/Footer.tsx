@@ -4,10 +4,10 @@ import { Linkedin, Github, Twitter, Mail, BookOpen, FileText, Rss } from 'lucide
 const footerLinks = {
   main: [
     { name: 'About', href: '/about' },
+    { name: 'Services', href: '/services' },
     { name: 'HAIEC Platform', href: 'https://haiec.com/csm6' },
     { name: 'Writing', href: '/writing' },
     { name: 'Research', href: '/research' },
-    { name: 'Advisory', href: '/advisory' },
     { name: 'Speaking', href: '/speaking' },
     { name: 'Contact', href: '/contact' },
   ],
