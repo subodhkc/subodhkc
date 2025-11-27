@@ -73,7 +73,6 @@ I write about AI compliance, governance, and enterprise strategy:
 ### Featured Articles
 - 🔗 **[Medium](https://medium.com/@subodhkc)** - AI ethics, compliance frameworks, thought leadership
 - 🔗 **[HAIEC Blog](https://haiec.com/blog)** - Platform updates, case studies, best practices
-- 🔗 **[Dev.to](https://dev.to/subodhkc)** - Technical deep-dives, implementation guides
 
 **Topics I Cover:**
 - AI regulatory compliance (EU AI Act, GDPR, sector-specific)

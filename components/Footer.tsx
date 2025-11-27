@@ -44,11 +44,6 @@ const footerLinks = {
       href: 'https://haiec.com/blog',
       icon: Rss,
     },
-    {
-      name: 'Dev.to',
-      href: 'https://dev.to/subodhkc',
-      icon: FileText,
-    },
   ],
 }
 

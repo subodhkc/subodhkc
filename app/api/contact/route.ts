@@ -6,6 +6,15 @@ export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if API key exists
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is not set')
+      return NextResponse.json(
+        { success: false, error: 'Email service not configured' },
+        { status: 500 }
+      )
+    }
+
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const body = await request.json()
@@ -29,8 +38,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Send email using Resend
+    // Note: Use onboarding@resend.dev for testing, or verify your domain in Resend
     const { data, error } = await resend.emails.send({
-      from: 'Contact Form <noreply@subodhkc.com>',
+      from: 'Subodh KC Contact <onboarding@resend.dev>',
       to: ['Subodh.kc@haiec.com'],
       reply_to: email,
       subject: `New Contact Form Submission: ${interest}`,
