@@ -163,10 +163,10 @@ export default function AboutPage() {
           </p>
           
           <div className="flex justify-center mt-8">
-            <Link href="/Executive-Bio-Subodh-KC.md" target="_blank">
+            <Link href="/executive-bio">
               <Button size="lg" variant="outline" className="gap-2">
                 <Download className="h-5 w-5" />
-                Download Executive Bio
+                View Executive Bio
               </Button>
             </Link>
           </div>
