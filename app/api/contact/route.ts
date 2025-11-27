@@ -3,20 +3,32 @@ import { Resend } from 'resend'
 
 // Mark this route as dynamic to prevent build-time execution
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest) {
   try {
+    // Get API key from environment
+    const apiKey = process.env.RESEND_API_KEY
+    
+    // Debug logging
+    console.log('Environment check:', {
+      hasApiKey: !!apiKey,
+      apiKeyLength: apiKey?.length || 0,
+      nodeEnv: process.env.NODE_ENV,
+      vercelEnv: process.env.VERCEL_ENV,
+    })
+    
     // Check if API key exists
-    if (!process.env.RESEND_API_KEY) {
+    if (!apiKey) {
       console.error('RESEND_API_KEY is not set in environment variables')
-      console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('RESEND')))
+      console.error('All env vars:', Object.keys(process.env).sort())
       return NextResponse.json(
         { success: false, error: 'Email service not configured. Please contact administrator.' },
         { status: 500 }
       )
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY)
+    const resend = new Resend(apiKey)
 
     const body = await request.json()
     const { name, email, company, interest, message } = body
