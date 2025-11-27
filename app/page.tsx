@@ -1,13 +1,19 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
 import Grid from '@/components/Grid'
+import NewsletterSignup from '@/components/NewsletterSignup'
+import LeadMagnetModal from '@/components/LeadMagnetModal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Shield, Zap, Users, TrendingUp, CheckCircle2, BookOpen } from 'lucide-react'
 
 export default function Home() {
+  const [isLeadMagnetOpen, setIsLeadMagnetOpen] = useState(false)
   const expertise = [
     {
       icon: Shield,
@@ -230,11 +236,43 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Lead Magnet CTA */}
+      <Section className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Get the AI Compliance Framework Guide
+          </h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            Download our comprehensive guide featuring the Cognitive Systems Management (CSM) Framework, 
+            5 patent-pending methodologies, and enterprise implementation strategies.
+          </p>
+          <Button 
+            size="lg" 
+            onClick={() => setIsLeadMagnetOpen(true)}
+            className="text-lg px-8"
+          >
+            Download Free Guide
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </div>
+      </Section>
+
+      {/* Newsletter Signup */}
+      <Section>
+        <NewsletterSignup />
+      </Section>
+
       <CTA
         title="Ready to Build Compliant AI at Scale?"
         description="Whether you're starting your AI governance journey or scaling existing systems, I can help you navigate the complexity and build frameworks that work."
         primaryButton={{ text: 'Schedule a consultation', href: '/contact' }}
         secondaryButton={{ text: 'View advisory services', href: '/advisory' }}
+      />
+
+      {/* Lead Magnet Modal */}
+      <LeadMagnetModal 
+        isOpen={isLeadMagnetOpen} 
+        onClose={() => setIsLeadMagnetOpen(false)} 
       />
     </>
   )

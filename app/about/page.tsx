@@ -42,32 +42,88 @@ export default function AboutPage() {
 
   const journey = [
     {
-      date: '2022 - Present',
-      title: 'Sr Program Manager - AI Core Team Lead',
-      subtitle: 'HP Inc. (Fortune 50)',
+      date: '2025 - Present',
+      title: 'Sr Program Manager - AI Implementation & Governance',
+      subtitle: 'HP Inc. - Core Team Lead',
       description:
-        'Leading AI strategy and compliance initiatives across global enterprise. Driving technical programs that balance innovation velocity with regulatory requirements.',
+        'Leading strategic AI initiatives across enterprise systems. Accelerating AI adoption while ensuring responsible implementation aligned with organizational values. Developed 5 patent-pending frameworks for AI compliance and drift detection.',
+    },
+    {
+      date: '2023 - 2025',
+      title: 'Core Team Lead - Platform Enabling Applications',
+      subtitle: 'HP Inc. - 53 Applications Portfolio',
+      description:
+        'Led Core Team of TPMs managing 53 applications across Education, Manageability, and Conferencing platforms. Drove end-to-end program management for enterprise software solutions.',
+    },
+    {
+      date: '2023 - Present',
+      title: 'Technical Program Manager',
+      subtitle: 'HP Inc.',
+      description:
+        'Managed development and release of Power Manager and enterprise software solutions. Led cross-functional teams through Agile delivery, stakeholder engagement, and risk mitigation at Fortune 50 scale.',
     },
     {
       date: '2020 - Present',
-      title: 'Founder & Leader',
+      title: 'Founder & CEO',
       subtitle: 'Human AI Ethics Council (HAIEC)',
       description:
-        'Built comprehensive platform for AI governance, compliance, and ethical deployment. Created frameworks including Cognitive Systems Management, Red Audit Kit, and LegacyShift.',
+        'Built comprehensive platform for AI governance, compliance, and ethical deployment. Created Cognitive Systems Management (CSM) Framework, SKC Meeting ResetFrame™, Red Audit Kit, and LegacyShift methodology.',
+    },
+    {
+      date: '2022',
+      title: 'M.Sc. Engineering & Technology Management',
+      subtitle: 'Louisiana Tech University',
+      description:
+        'Completed Master\'s degree focusing on engineering management, technology strategy, and organizational leadership.',
     },
     {
       date: '2018 - 2022',
-      title: 'Technical Program Manager',
-      subtitle: 'Enterprise & Startup Experience',
+      title: 'Entrepreneur - Project Manager',
+      subtitle: 'Business Process Automation & Software Development',
       description:
-        'Drove complex, multi-stakeholder programs across SaaS development, information security, and application development at scale.',
+        'Performed business analysis and software development to automate business processes. Managed project timelines using Agile Scrum Framework. Provided Business Process Improvement and UI Enhancement services.',
     },
     {
-      date: '2020 - 2022',
-      title: 'Louisiana Tech University',
-      subtitle: 'Dean\'s Honor List & President\'s Honor List',
+      date: '2017 - 2018',
+      title: 'System Engineer II',
+      subtitle: 'ACTIVE Network',
       description:
-        'Completed education with 4.0 GPA recognition. Bulldog Scholarship recipient. Built foundation in information management, IT law, and technical leadership.',
+        'Collaborated with software development engineers on web-based applications. Wrote test cases and conducted automation testing. Used PowerShell scripting to automate daily operations and wrote complex SQL queries.',
+    },
+    {
+      date: '2016 - 2017',
+      title: 'System Analyst',
+      subtitle: 'Cummins Inc. @ TCS',
+      description:
+        'Led implementation of Manufacturing Execution System (MES). Managed $10M+ project lifecycle. Deployed 400+ stations in MES. Worked on migration from Mainframe to Windows Platform and Atoms to MES.',
+    },
+    {
+      date: '2014',
+      title: 'B.S. Computer & Information Systems Security',
+      subtitle: 'Louisiana Tech University - Graduated',
+      description:
+        'Graduated with Bachelor\'s degree. Dean\'s Honor List, President\'s Honor List, Bulldog Scholarship recipient. Six Sigma Green Belt certified.',
+    },
+    {
+      date: '2014',
+      title: 'Technology Strategist',
+      subtitle: 'Office of Intellectual Property & Commercialization - Louisiana Tech',
+      description:
+        'Conducted intellectual property valuation and market research. Led marketing initiatives for new product introduction. Coordinated with IP lawyers on patents and legal matters.',
+    },
+    {
+      date: '2013 - 2016',
+      title: 'Business System Analyst',
+      subtitle: 'Centaurus Technology Partners',
+      description:
+        'Worked on Red Hat Enterprise Linux infrastructure. Designed Puppet modules for automation. Managed AWS cloud applications. Handled 24x7 support rotation and recruited future analysts.',
+    },
+    {
+      date: '2010 - 2011',
+      title: 'Technical Field Operations Lead',
+      subtitle: 'Dallas Independent School District - No Child Left Behind (Gov Contract)',
+      description:
+        'Government contractor for No Child Left Behind project. Managed onsite and offshore teams covering DFW Metroplex. Provided 24x7 support for multiple school districts.',
     },
   ]
 
