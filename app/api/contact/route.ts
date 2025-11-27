@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Mark this route as dynamic to prevent build-time execution
+export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY)
+
     const body = await request.json()
     const { name, email, company, interest, message } = body
 
@@ -29,7 +32,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await resend.emails.send({
       from: 'Contact Form <noreply@subodhkc.com>',
       to: ['Subodh.kc@haiec.com'],
-      replyTo: email,
+      reply_to: email,
       subject: `New Contact Form Submission: ${interest}`,
       html: `
         <!DOCTYPE html>

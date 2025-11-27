@@ -1,214 +1,171 @@
-# Subodh KC - Personal Website
+<div align="center">
 
-A production-ready personal website built with Next.js 14, showcasing AI compliance expertise, thought leadership, and professional services.
+# 👋 Hi, I'm Subodh KC
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/personal-website)
+### AI Compliance Architect | Enterprise Technical Program Manager | HAIEC Founder
 
-## Overview
+**Strategic Systems. Sharp Execution. AI Compliance at Enterprise Scale.**
 
-This website positions Subodh KC as a leading AI Compliance Architect, Enterprise Technical Program Manager, and founder of HAIEC (Human AI Ethics Council).
+[![Website](https://img.shields.io/badge/🌐_Website-subodhkc.com-2563EB?style=for-the-badge)](https://subodhkc.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-subodhkc-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/subodhkc)
+[![Medium](https://img.shields.io/badge/Medium-@subodhkc-000000?style=for-the-badge&logo=medium)](https://medium.com/@subodhkc)
+[![Email](https://img.shields.io/badge/Email-Subodh.kc@haiec.com-EA4335?style=for-the-badge&logo=gmail)](mailto:Subodh.kc@haiec.com)
 
-**Theme:** Strategic Systems. Sharp Execution. AI Compliance at Enterprise Scale.
+</div>
 
-## 🚀 Live Demo
+---
 
-Visit: [subodhkc.com](https://subodhkc.com)
+## 🚀 About Me
 
-## ✨ Features
+I'm an **AI Compliance Architect** at a Fortune 50 company and founder of **HAIEC (Human AI Ethics Council)**, with 12+ years of experience driving complex AI programs at enterprise scale. I help organizations navigate the intersection of AI innovation, regulatory compliance, and ethical governance.
 
-- **Modern Tech Stack**: Next.js 14 with App Router, TypeScript, TailwindCSS
-- **Responsive Design**: Mobile-first, dark-mode optimized
-- **SEO Optimized**: Complete metadata, Open Graph tags, semantic HTML, sitemap, robots.txt
-- **Performance**: Optimized for Core Web Vitals
-- **Accessible**: WCAG compliant components
-- **Contact Form**: Integrated with Resend for email delivery to Subodh.kc@haiec.com
-- **Structured Data**: JSON-LD schema for better search engine understanding
-- **Security Headers**: Comprehensive security headers via Vercel configuration
+**What I Do:**
+- 🛡️ Build AI governance frameworks for Fortune 500 enterprises
+- 🎯 Lead technical programs managing $50M+ budgets and 100+ stakeholder teams
+- 🔬 Develop compliance architectures for EU AI Act, GDPR, and sector-specific regulations
+- 📊 Drive enterprise AI strategy from concept to production
+- 🎤 Speak and write about AI ethics, compliance, and responsible innovation
 
-## Pages
+---
 
-1. **Home** - Hero, value proposition, expertise showcase
-2. **About** - Biography, journey, values
-3. **HAIEC** - Platform overview, modules, case studies
-4. **Writing** - Published articles and thought leadership
-5. **Research** - Frameworks, methodologies, publications
-6. **Advisory** - Consulting services and engagement models
-7. **Speaking** - Topics, formats, booking information
-8. **Contact** - Multiple contact methods and form
+## 💼 Services & Collaboration
 
-## Quick Start
+### 🤝 Open for Consulting
 
-### Prerequisites
+I work with organizations on:
+- **AI Compliance & Governance** - Regulatory readiness, audit preparation, framework design
+- **Technical Program Leadership** - Fractional TPM for complex AI initiatives
+- **Executive Coaching** - Strategy, stakeholder management, organizational scaling
+- **Implementation Support** - Hands-on guidance deploying HAIEC frameworks
 
-- Node.js 18+
-- npm or yarn
+**Ideal Clients:** Fortune 500 enterprises, Series B+ startups, technical leaders scaling AI systems
 
-### Installation
+📅 **[Schedule a Consultation](https://subodhkc.com/contact)**
 
-```bash
-# Install dependencies
-npm install
+### 🌟 Collaboration Opportunities
 
-# Run development server
-npm run dev
+I'm actively seeking collaboration on:
+- **Open-source AI governance tools** - Building frameworks that democratize compliance
+- **Research partnerships** - AI ethics, regulatory technology, cognitive systems management
+- **Speaking engagements** - Conferences, podcasts, webinars on AI compliance and strategy
+- **Advisory boards** - AI startups, enterprise AI initiatives, ethics councils
 
-# Build for production
-npm run build
+💡 **Have an exciting project?** [Let's talk](https://subodhkc.com/contact)
 
-# Start production server
-npm start
+### 🎓 Mentorship Program
+
+I offer **mentorship for technical leaders** navigating:
+- AI compliance and governance strategy
+- Technical program management at scale
+- Career transitions into AI leadership roles
+- Enterprise stakeholder management
+
+**Open to:** Engineering managers, aspiring TPMs, AI practitioners, compliance professionals
+
+📧 **[Apply for Mentorship](https://subodhkc.com/contact)**
+
+---
+
+## 📝 Latest Writing
+
+I write about AI compliance, governance, and enterprise strategy:
+
+### Featured Articles
+- 🔗 **[Medium](https://medium.com/@subodhkc)** - AI ethics, compliance frameworks, thought leadership
+- 🔗 **[HAIEC Blog](https://haiec.com/blog)** - Platform updates, case studies, best practices
+- 🔗 **[Dev.to](https://dev.to/subodhkc)** - Technical deep-dives, implementation guides
+
+**Topics I Cover:**
+- AI regulatory compliance (EU AI Act, GDPR, sector-specific)
+- Enterprise AI governance frameworks
+- Technical program management at Fortune 50 scale
+- Cognitive systems management methodology
+- AI risk management and audit preparation
+
+📚 **[Read More on My Website](https://subodhkc.com/writing)**
+
+---
+
+## 🛠️ Tech Stack & Expertise
+
+```text
+AI & Compliance    ████████████████████  Expert
+Program Management ████████████████████  Expert
+Enterprise Strategy███████████████████   Advanced
+Python/TypeScript  ████████████████      Advanced
+Cloud Architecture ███████████████       Advanced
+SaaS Platforms     ███████████████       Advanced
 ```
 
-Visit `http://localhost:3000` to view the site.
+**Core Competencies:**
+- AI Governance & Regulatory Compliance
+- Technical Program Management (Fortune 50 scale)
+- Enterprise Architecture & System Design
+- Risk Management & Audit Preparation
+- Stakeholder Management & Executive Communication
+- Team Scaling & Organizational Design
 
-## Project Structure
+---
 
-```
-website/
-├── app/                    # Next.js app router pages
-│   ├── layout.tsx         # Root layout with navigation
-│   ├── page.tsx           # Home page
-│   ├── about/             # About page
-│   ├── haiec/             # HAIEC platform page
-│   ├── writing/           # Writing & articles page
-│   ├── research/          # Research & frameworks page
-│   ├── advisory/          # Advisory services page
-│   ├── speaking/          # Speaking engagements page
-│   ├── contact/           # Contact page
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── ui/               # Base UI components (Button, Card)
-│   ├── Navigation.tsx    # Site navigation
-│   ├── Footer.tsx        # Site footer
-│   ├── Hero.tsx          # Hero section component
-│   ├── Section.tsx       # Section wrapper component
-│   ├── CTA.tsx           # Call-to-action component
-│   ├── Grid.tsx          # Grid layout component
-│   └── Timeline.tsx      # Timeline component
-├── lib/                  # Utilities
-│   └── utils.ts          # Helper functions
-└── public/               # Static assets
+## 🏆 Achievements
 
-```
+- 🎯 **Led 50+ enterprise AI programs** managing $50M+ budgets
+- 🛡️ **Built compliance frameworks** adopted by Fortune 500 companies
+- 🚀 **Founded HAIEC** - AI ethics platform serving enterprise clients
+- 📊 **Managed 100+ stakeholder teams** across global organizations
+- 🎓 **Dean's Honor List & President's Honor List** recipient
+- 🌍 **Multilingual** - English, Nepali
 
-## Design System
+---
 
-### Colors
+## 📊 GitHub Stats
 
-- **Primary**: Electric Blue (#2563EB) - Main brand color
-- **Accent**: Cyan (#06B6D4) - Highlights and accents
-- **Background**: Deep Navy (#0A1929) - Dark mode base
-- **Text**: White/Gray scale - High contrast for readability
+<div align="center">
 
-### Typography
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=subodhkc&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0A1929&title_color=2563EB&icon_color=06B6D4&text_color=FFFFFF)
 
-- **Font**: Inter (sans-serif)
-- **Headings**: 600 weight, tight tracking
-- **Body**: 400-500 weight, relaxed leading
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=subodhkc&layout=compact&theme=tokyonight&hide_border=true&bg_color=0A1929&title_color=2563EB&text_color=FFFFFF)
 
-### Components
+</div>
 
-All components are built with:
-- TailwindCSS for styling
-- Class Variance Authority for variants
-- Responsive design patterns
-- Accessibility best practices
+---
 
-## Customization
+## 🎯 Current Focus
 
-### Update Content
-
-Content is embedded directly in page components. To update:
-
-1. Navigate to the relevant page in `app/[page]/page.tsx`
-2. Update the content arrays and text
-3. Changes will hot-reload in development
-
-### Styling
-
-Global styles: `app/globals.css`
-Component styles: Inline TailwindCSS classes
-Theme configuration: `tailwind.config.ts`
-
-### Contact Form
-
-The contact form is fully functional and integrated with Resend:
-
-1. **Email Service**: Uses Resend API for reliable email delivery
-2. **API Route**: `app/api/contact/route.ts` handles form submissions
-3. **Recipient**: All messages sent to `Subodh.kc@haiec.com`
-4. **Features**: Form validation, error handling, loading states, success confirmation
-
-**Setup Required**:
-- Add `RESEND_API_KEY` to Vercel environment variables
-- Verify domain in Resend dashboard
-
-## Deployment
-
-### Vercel (Recommended)
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-
-# Deploy to production
-vercel --prod
+```typescript
+const currentFocus = {
+  building: "AI compliance frameworks for enterprise scale",
+  learning: "EU AI Act implementation strategies",
+  collaborating: "Open-source governance tools",
+  speaking: "AI ethics and regulatory compliance",
+  mentoring: "Technical leaders in AI space"
+}
 ```
 
-Or connect your GitHub repository to Vercel for automatic deployments.
+---
 
-### Other Platforms
+## 📫 Let's Connect
 
-The site can be deployed to any platform supporting Next.js:
-- Netlify
-- AWS Amplify
-- Docker container
-- Self-hosted
+I'm always open to discussing:
+- 💼 **Consulting opportunities** - AI compliance, governance, technical program leadership
+- 🤝 **Collaboration** - Research, open-source projects, speaking engagements
+- 🎓 **Mentorship** - Technical leadership, AI strategy, career development
+- 💡 **Exciting projects** - Innovative AI initiatives, regulatory technology, ethics platforms
 
-Build command: `npm run build`
-Output directory: `.next`
+**Best ways to reach me:**
+- 🌐 Website: [subodhkc.com](https://subodhkc.com)
+- 📧 Email: [Subodh.kc@haiec.com](mailto:Subodh.kc@haiec.com)
+- 💼 LinkedIn: [linkedin.com/in/subodhkc](https://linkedin.com/in/subodhkc)
+- 📝 Medium: [@subodhkc](https://medium.com/@subodhkc)
 
-## Environment Variables
+---
 
-Copy `.env.example` to `.env.local` and configure:
+<div align="center">
 
-```bash
-NEXT_PUBLIC_SITE_URL=https://subodhkc.com
-# Add other variables as needed
-```
+### 💡 "Building AI systems that scale responsibly"
 
-## Performance
+**© 2025 Subodh KC. Strategic Systems. Sharp Execution.**
 
-- Lighthouse Score: 95+
-- First Contentful Paint: <1.5s
-- Largest Contentful Paint: <2.5s
-- Cumulative Layout Shift: <0.1
+⭐ **If you find my work valuable, consider starring my repositories!**
 
-## SEO
-
-- Semantic HTML structure
-- Complete metadata on all pages
-- Open Graph tags for social sharing
-- Sitemap generation ready
-- robots.txt ready
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## License
-
-© 2025 Subodh KC. All rights reserved.
-
-## Contact
-
-For questions or support:
-- Email: contact@subodhkc.com
-- LinkedIn: [linkedin.com/in/subodhkc](https://linkedin.com/in/subodhkc)
+</div>
