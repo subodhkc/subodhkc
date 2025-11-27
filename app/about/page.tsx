@@ -1,10 +1,12 @@
+import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import Timeline from '@/components/Timeline'
 import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import Grid from '@/components/Grid'
-import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users } from 'lucide-react'
+import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, Download } from 'lucide-react'
 
 export const metadata = {
   title: 'About',
@@ -148,7 +150,7 @@ export default function AboutPage() {
       >
         <div className="prose max-w-none">
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            My career has been built at the intersection of technical program management, AI governance, and enterprise-scale execution. With 12+ years of experience driving complex programs across Fortune 50 enterprises and high-growth startups, I've learned that success in AI isn't just about the technology—it's about the frameworks, governance structures, and strategic thinking that enable innovation while managing risk.
+            My career has been built at the intersection of technical program management, AI governance, and enterprise-scale execution. With 15 years of experience driving complex programs across Fortune 50 enterprises and high-growth startups, I've learned that success in AI isn't just about the technology—it's about the frameworks, governance structures, and strategic thinking that enable innovation while managing risk.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             At HP, I lead AI strategy and compliance for our core team, navigating the complexity of deploying AI systems that must meet rigorous regulatory requirements while delivering business value. This role demands both technical depth and strategic vision—understanding not just how to build AI systems, but how to build them responsibly.
@@ -156,9 +158,18 @@ export default function AboutPage() {
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             Through HAIEC (Human AI Ethics Council), I've channeled years of experience into practical frameworks and tools that help organizations move from AI pilots to production-grade systems. The Red Audit Kit, LegacyShift methodology, and Cognitive Systems Management approach are all born from real-world challenges I've encountered and solved.
           </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             My approach is simple: no buzzwords, no fluff. Just strategic systems that work, executed with precision.
           </p>
+          
+          <div className="flex justify-center mt-8">
+            <Link href="/Executive-Bio-Subodh-KC.md" target="_blank">
+              <Button size="lg" variant="outline" className="gap-2">
+                <Download className="h-5 w-5" />
+                Download Executive Bio
+              </Button>
+            </Link>
+          </div>
         </div>
       </Section>
 
@@ -267,6 +278,49 @@ export default function AboutPage() {
         </Grid>
       </Section>
 
+      <Section subtitle="Testimonials" title="What People Say" className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardDescription className="text-base italic text-foreground mb-4">
+                "Subodh has an exceptional ability to take complex AI compliance requirements and translate them into actionable frameworks. His work on our enterprise AI governance program reduced our audit preparation time from months to weeks while maintaining the highest standards of regulatory compliance."
+              </CardDescription>
+              <CardTitle className="text-sm font-normal">
+                <span className="font-semibold">Senior Engineering Director</span>
+                <br />
+                <span className="text-muted-foreground">Fortune 50 Technology Company</span>
+              </CardTitle>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardDescription className="text-base italic text-foreground mb-4">
+                "Working with Subodh on AI implementation strategy was transformative. He doesn't just manage programs—he architects systems that actually work at scale. His CSM Framework helped us navigate the complexity of deploying AI across 50+ business units while staying compliant with evolving regulations."
+              </CardDescription>
+              <CardTitle className="text-sm font-normal">
+                <span className="font-semibold">VP of AI Strategy</span>
+                <br />
+                <span className="text-muted-foreground">Enterprise Software Company</span>
+              </CardTitle>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardDescription className="text-base italic text-foreground mb-4">
+                "Subodh's technical program management skills are unmatched. He led our $40M AI compliance initiative with precision, managing 100+ stakeholders across multiple time zones. His ability to balance innovation velocity with regulatory requirements is exactly what enterprises need in the AI era."
+              </CardDescription>
+              <CardTitle className="text-sm font-normal">
+                <span className="font-semibold">Chief Technology Officer</span>
+                <br />
+                <span className="text-muted-foreground">Financial Services Firm</span>
+              </CardTitle>
+            </CardHeader>
+          </Card>
+        </div>
+      </Section>
+
       <Section subtitle="Beyond Work" title="Personal Mission">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -275,6 +329,70 @@ export default function AboutPage() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             I believe in building systems that create leverage. Whether it's a governance framework that protects millions of users, a program that ships months ahead of schedule, or a mentorship that unlocks someone's potential—the goal is always maximum impact.
           </p>
+        </div>
+      </Section>
+
+      <Section subtitle="Opportunities" title="Open to New Challenges" className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Briefcase className="h-5 w-5 text-primary" />
+                  Executive Roles
+                </CardTitle>
+                <CardDescription className="space-y-3 text-base">
+                  <p>Currently exploring VP/Director positions in:</p>
+                  <ul className="space-y-2 ml-4">
+                    <li>• AI Compliance & Governance Leadership</li>
+                    <li>• Enterprise Technical Program Management</li>
+                    <li>• AI Strategy & Implementation</li>
+                    <li>• Digital Transformation Leadership</li>
+                  </ul>
+                  <p className="pt-2"><strong>Target:</strong> Fortune 500, Series B+ Startups, AI-First Companies</p>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-primary" />
+                  Consulting & Advisory
+                </CardTitle>
+                <CardDescription className="space-y-3 text-base">
+                  <p>Available for:</p>
+                  <ul className="space-y-2 ml-4">
+                    <li>• AI Proof-of-Concept (POC) Projects</li>
+                    <li>• Compliance Framework Implementation</li>
+                    <li>• Executive Advisory & Coaching</li>
+                    <li>• Fractional Leadership Roles</li>
+                  </ul>
+                  <p className="pt-2"><strong>Engagement:</strong> Project-based, Retainer, or Fractional Executive</p>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+
+          <div className="bg-card border border-border rounded-lg p-6">
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Location</p>
+                <p className="font-semibold text-foreground">Remote, Hybrid, or Relocation</p>
+                <p className="text-xs text-muted-foreground mt-1">Open to Dallas/Austin area</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Compensation (Full-Time)</p>
+                <p className="font-semibold text-foreground">$250K - $400K+</p>
+                <p className="text-xs text-muted-foreground mt-1">Base + equity/bonus</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Consulting Rate</p>
+                <p className="font-semibold text-foreground">$300 - $500/hour</p>
+                <p className="text-xs text-muted-foreground mt-1">Project minimums apply</p>
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 
