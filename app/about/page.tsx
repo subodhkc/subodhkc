@@ -144,22 +144,35 @@ export default function AboutPage() {
       />
 
       <Section
-        subtitle="Background"
-        title="At the Intersection of Strategy & Execution"
-        description="I don't just manage programs. I architect systems that solve real problems while meeting the highest standards of compliance and governance."
+        subtitle="The Story"
+        title="From Field Operations to Fortune 50 AI Strategy"
+        description="Some leaders arrive through prestige. Others arrive through survival."
       >
         <div className="prose max-w-none">
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            My career has been built at the intersection of technical program management, AI governance, and enterprise-scale execution. With 15 years of experience driving complex programs across Fortune 50 enterprises and high-growth startups, I've learned that success in AI isn't just about the technology—it's about the frameworks, governance structures, and strategic thinking that enable innovation while managing risk.
+            I entered technology on the ground floor: fixing computers in underfunded schools, documenting broken systems, 
+            learning—up close—how much damage a bad workflow or a single misconfigured system can cause. I wasn't groomed 
+            for leadership. I earned it one failure mode at a time.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            At HP, I lead AI strategy and compliance for our core team, navigating the complexity of deploying AI systems that must meet rigorous regulatory requirements while delivering business value. This role demands both technical depth and strategic vision—understanding not just how to build AI systems, but how to build them responsibly.
+            From those early field operations, I developed a trait that has shaped my entire career: <strong>I don't accept 
+            chaos as "the way things are." I build structures that eliminate it.</strong>
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            Through HAIEC (Human AI Ethics Council), I've channeled years of experience into practical frameworks and tools that help organizations move from AI pilots to production-grade systems. The Red Audit Kit, LegacyShift methodology, and Cognitive Systems Management approach are all born from real-world challenges I've encountered and solved.
+            Fast forward 15 years. I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar 
+            AI portfolios, deploy systems used by millions, and design compliance architectures that withstand legal, operational, 
+            and engineering scrutiny. I built a governance platform (HAIEC) from scratch—quietly adopted in enterprise settings—and 
+            authored five patent-pending frameworks in drift detection, audit automation, and real-time AI enforcement.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            My approach is simple: no buzzwords, no fluff. Just strategic systems that work, executed with precision.
+            <strong>I bridge the world between AI ambition and organizational reality.</strong>
+          </p>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+            Most people see growing regulatory pressure as a blocker. I see it as a blueprint. Where others ship models, 
+            I ship systems that protect organizations from the failure modes they didn't even know existed.
+          </p>
+          <p className="text-lg text-foreground font-semibold leading-relaxed mb-6">
+            This is why teams trust me to lead the programs that matter.
           </p>
           
           <div className="flex justify-center mt-8">
@@ -259,23 +272,52 @@ export default function AboutPage() {
         </Grid>
       </Section>
 
-      <Section subtitle="Core Values" title="What Drives My Work">
-        <Grid cols={2}>
-          {values.map((value, index) => {
-            const Icon = value.icon
-            return (
-              <Card key={index}>
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle>{value.title}</CardTitle>
-                  <CardDescription>{value.description}</CardDescription>
-                </CardHeader>
-              </Card>
-            )
-          })}
-        </Grid>
+      <Section subtitle="What Makes Me Different" title="Why Teams Trust Me">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle>I See Failure Modes Before They Emerge</CardTitle>
+              <CardDescription className="text-base">
+                Years of drift detection, RCA, and governance work have trained me to anticipate what most teams 
+                discover only after outages or audit failures. I protect organizations from invisible risks before 
+                they become front-page news.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle>I Design Frameworks That Survive Contact With Real Organizations</CardTitle>
+              <CardDescription className="text-base">
+                Compliance is useless if engineers won't follow it. Engineering is dangerous if compliance can't see it. 
+                My systems bridge both worlds—creating governance structures that scale across dozens of teams without 
+                breaking velocity.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle>I Make Ambiguity Executable</CardTitle>
+              <CardDescription className="text-base">
+                When teams don't know how to proceed, I create structures that turn confusion into predictable delivery. 
+                I've operated at every altitude: from field technician → system engineer → program manager → founder → 
+                enterprise AI strategist. I understand every layer of the stack, technical and human.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle>I Don't Accept Chaos as "The Way Things Are"</CardTitle>
+              <CardDescription className="text-base">
+                Where others see regulatory pressure as a blocker, I see it as a blueprint. Where others ship models, 
+                I ship systems that protect organizations from failure modes they didn't even know existed. This discipline 
+                has shaped every framework, patent, and program I've delivered.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
       </Section>
 
       <Section subtitle="Testimonials" title="What People Say" className="bg-secondary/20">
@@ -321,13 +363,26 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section subtitle="Beyond Work" title="Personal Mission">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
+      <Section subtitle="Why This Work Matters" title="The Personal Note" className="bg-primary/5">
+        <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I'm passionate about mentoring the next generation of builders, particularly those from Nepal. Digital governance, AI compliance, and technical leadership aren't just career paths—they're opportunities to shape how technology serves society.
+            I grew up navigating systems that weren't designed for people like me. So I became someone who designs better systems.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I believe in building systems that create leverage. Whether it's a governance framework that protects millions of users, a program that ships months ahead of schedule, or a mentorship that unlocks someone's potential—the goal is always maximum impact.
+            Not just faster or smarter—<strong>safer, fairer, more accountable.</strong>
+          </p>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            AI will shape the next century. My mission is to ensure it does so without repeating the failures of the last one: 
+            hidden bias, silent drift, ungoverned decisions, and operational fragility.
+          </p>
+          <p className="text-lg text-foreground font-semibold leading-relaxed">
+            Everything I build—frameworks, programs, platforms, patents—follows one philosophy:
+          </p>
+          <p className="text-xl text-foreground font-bold leading-relaxed text-center py-4">
+            If a system can harm people, it must be governed as seriously as it is engineered.
+          </p>
+          <p className="text-lg text-muted-foreground leading-relaxed text-center">
+            This isn't just my work. It's my discipline.
           </p>
         </div>
       </Section>
