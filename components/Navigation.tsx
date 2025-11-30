@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, ChevronDown, Printer, Scale } from 'lucide-react'
+import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const products = [
@@ -12,6 +12,27 @@ const products = [
     description: 'Save web pages, print when ready',
     icon: Printer,
     badge: 'Free'
+  },
+  { 
+    name: 'PDF Redactor', 
+    href: '/products/pdf-redactor',
+    description: 'AI-powered sensitive data removal',
+    icon: EyeOff,
+    badge: 'Free'
+  },
+  { 
+    name: 'Doc Timeline', 
+    href: '/products/doc-timeline',
+    description: 'Document timeline extraction',
+    icon: Clock,
+    badge: 'Enterprise'
+  },
+  { 
+    name: 'SKC Log Analyser', 
+    href: '/products/skc-log-analyser',
+    description: 'AI log analysis & anomaly detection',
+    icon: Activity,
+    badge: 'Early Access'
   },
   { 
     name: 'CourtCase', 
@@ -115,9 +136,10 @@ export default function Navigation() {
                               <span className="text-sm font-medium text-foreground">{product.name}</span>
                               <span className={cn(
                                 "text-xs px-2 py-0.5 rounded-full",
-                                product.badge === 'Free' 
-                                  ? "bg-green-500/10 text-green-500" 
-                                  : "bg-amber-500/10 text-amber-500"
+                                product.badge === 'Free' && "bg-green-500/10 text-green-500",
+                                product.badge === 'Enterprise' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
+                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500"
                               )}>
                                 {product.badge}
                               </span>
@@ -191,9 +213,10 @@ export default function Navigation() {
                               <span>{product.name}</span>
                               <span className={cn(
                                 "text-xs px-2 py-0.5 rounded-full ml-auto",
-                                product.badge === 'Free' 
-                                  ? "bg-green-500/10 text-green-500" 
-                                  : "bg-amber-500/10 text-amber-500"
+                                product.badge === 'Free' && "bg-green-500/10 text-green-500",
+                                product.badge === 'Enterprise' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
+                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500"
                               )}>
                                 {product.badge}
                               </span>
