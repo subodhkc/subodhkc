@@ -135,15 +135,17 @@ export default function PDFRedactorPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             {downloadUnlocked ? (
               <>
-                <a href="#download" className="inline-flex">
+                <a href="https://github.com/subodhkc/PDF-Redactor/releases" target="_blank" rel="noopener noreferrer" className="inline-flex">
                   <Button size="lg" className="text-lg px-8 gap-2 bg-red-600 hover:bg-red-700">
                     <Download className="h-5 w-5" />
-                    Download Free Version
+                    Download for Windows
                   </Button>
                 </a>
-                <Button size="lg" variant="outline" className="text-lg px-8 gap-2">
-                  View Pro Features
-                </Button>
+                <a href="https://github.com/subodhkc/PDF-Redactor" target="_blank" rel="noopener noreferrer" className="inline-flex">
+                  <Button size="lg" variant="outline" className="text-lg px-8 gap-2">
+                    View on GitHub
+                  </Button>
+                </a>
               </>
             ) : (
               <>
@@ -373,12 +375,21 @@ export default function PDFRedactorPage() {
 
           {downloadUnlocked ? (
             <div className="space-y-4">
-              <Button size="lg" className="text-lg px-8 gap-2 bg-red-600 hover:bg-red-700">
-                <Download className="h-5 w-5" />
-                Download for Windows
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://github.com/subodhkc/PDF-Redactor/releases" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="text-lg px-8 gap-2 bg-red-600 hover:bg-red-700">
+                    <Download className="h-5 w-5" />
+                    Download for Windows
+                  </Button>
+                </a>
+                <a href="https://github.com/subodhkc/PDF-Redactor" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" variant="outline" className="text-lg px-8 gap-2">
+                    View Source on GitHub
+                  </Button>
+                </a>
+              </div>
               <p className="text-sm text-muted-foreground">
-                Mac version coming soon. Join waitlist for early access.
+                Open source • Mac version coming soon
               </p>
             </div>
           ) : (
