@@ -1,0 +1,223 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
+
+export const dynamic = 'force-dynamic'
+
+export async function POST(request: NextRequest) {
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is not set')
+      return NextResponse.json(
+        { success: false, error: 'Email service not configured' },
+        { status: 500 }
+      )
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY)
+    const body = await request.json()
+    const { email, source, product, waitlist } = body
+
+    if (!email) {
+      return NextResponse.json(
+        { success: false, error: 'Email is required' },
+        { status: 400 }
+      )
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid email format' },
+        { status: 400 }
+      )
+    }
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
+
+    // Different emails based on product/source
+    if (source === 'print-later') {
+      // Send Print Later download email
+      await resend.emails.send({
+        from: 'Subodh KC <onboarding@resend.dev>',
+        to: [email],
+        subject: '🖨️ Your Print Later Download is Ready!',
+        html: `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+              
+              <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center;">
+                <h1 style="color: white; margin: 0; font-size: 28px;">🖨️ Print Later</h1>
+                <p style="color: rgba(255, 255, 255, 0.9); margin: 10px 0 0 0;">Your download is ready!</p>
+              </div>
+
+              <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                
+                <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+                  Thanks for downloading <strong>Print Later</strong>! Here are your download options:
+                </p>
+
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="https://github.com/subodhkc/Print-Later/releases/download/v1.0.0/Print.Later.Setup.1.0.0.exe" 
+                     style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: 600; font-size: 16px; margin-bottom: 15px;">
+                    Download for Windows (93 MB)
+                  </a>
+                  <br><br>
+                  <a href="https://github.com/subodhkc/Print-Later" 
+                     style="display: inline-block; background: #1f2937; color: white; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; font-size: 14px;">
+                    View on GitHub
+                  </a>
+                </div>
+
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 8px;">
+                  <p style="color: #92400e; font-size: 14px; margin: 0;">
+                    <strong>Note:</strong> Windows SmartScreen may show a warning because the app is not code-signed. 
+                    Click "More info" → "Run anyway" to install.
+                  </p>
+                </div>
+
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; margin-top: 30px;">
+                  <h3 style="color: #065f46; margin-top: 0;">Quick Start:</h3>
+                  <ol style="color: #065f46; font-size: 14px; margin: 0; padding-left: 20px;">
+                    <li style="margin-bottom: 8px;">Run the installer</li>
+                    <li style="margin-bottom: 8px;">Install the browser extension (instructions in app)</li>
+                    <li style="margin-bottom: 8px;">Click the extension icon on any web page to save it</li>
+                    <li style="margin-bottom: 8px;">Print when you're ready!</li>
+                  </ol>
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
+                  <h3 style="color: #1f2937; margin-top: 0;">Your Privacy Matters</h3>
+                  <p style="color: #6b7280; font-size: 14px;">
+                    Print Later stores everything locally on your computer. No cloud uploads, no tracking, no accounts required. 
+                    Your documents are 100% yours.
+                  </p>
+                </div>
+
+              </div>
+
+              <div style="text-align: center; padding: 30px 20px; color: #9ca3af; font-size: 12px;">
+                <p style="margin: 0 0 10px 0;">
+                  <strong style="color: #6b7280;">Subodh KC</strong><br>
+                  Creator of Print Later
+                </p>
+                <p style="margin: 10px 0;">
+                  <a href="${siteUrl}" style="color: #2563eb; text-decoration: none;">subodhkc.com</a> | 
+                  <a href="https://github.com/subodhkc" style="color: #2563eb; text-decoration: none;">GitHub</a>
+                </p>
+              </div>
+
+            </body>
+          </html>
+        `,
+      })
+    } else if (source === 'courtcase-waitlist') {
+      // Send CourtCase waitlist confirmation
+      await resend.emails.send({
+        from: 'Subodh KC <onboarding@resend.dev>',
+        to: [email],
+        subject: '⚖️ You\'re on the CourtCase Waitlist!',
+        html: `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+              
+              <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 40px 30px; text-align: center;">
+                <h1 style="color: white; margin: 0; font-size: 28px;">⚖️ CourtCase</h1>
+                <p style="color: rgba(255, 255, 255, 0.9); margin: 10px 0 0 0;">You're on the priority list!</p>
+              </div>
+
+              <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                
+                <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+                  Thanks for joining the <strong>CourtCase</strong> waitlist! You'll be among the first to know when we launch.
+                </p>
+
+                <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                  <h3 style="color: #92400e; margin-top: 0;">What to Expect:</h3>
+                  <ul style="color: #92400e; font-size: 14px; margin: 0; padding-left: 20px;">
+                    <li style="margin-bottom: 8px;">Priority access when CourtCase launches</li>
+                    <li style="margin-bottom: 8px;">Early bird pricing (if applicable)</li>
+                    <li style="margin-bottom: 8px;">Direct input on features we build</li>
+                    <li style="margin-bottom: 8px;">Launch notification at <strong>courtcase.frontofai.com</strong></li>
+                  </ul>
+                </div>
+
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; margin-top: 30px;">
+                  <h3 style="color: #065f46; margin-top: 0;">While You Wait...</h3>
+                  <p style="color: #065f46; font-size: 14px; margin-bottom: 15px;">
+                    Check out <strong>Print Later</strong> — our free tool for saving web pages and printing them when you're ready. 
+                    Same privacy-first approach, available now!
+                  </p>
+                  <a href="${siteUrl}/products/print-later" 
+                     style="display: inline-block; background: #10B981; color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 14px;">
+                    Get Print Later Free →
+                  </a>
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
+                  <h3 style="color: #1f2937; margin-top: 0;">Privacy Promise</h3>
+                  <p style="color: #6b7280; font-size: 14px;">
+                    Like Print Later, CourtCase will store everything locally on your computer. 
+                    Your legal documents are sensitive — we'll never have access to them.
+                  </p>
+                </div>
+
+              </div>
+
+              <div style="text-align: center; padding: 30px 20px; color: #9ca3af; font-size: 12px;">
+                <p style="margin: 0 0 10px 0;">
+                  <strong style="color: #6b7280;">Subodh KC</strong><br>
+                  Creator of CourtCase & Print Later
+                </p>
+                <p style="margin: 10px 0;">
+                  <a href="${siteUrl}" style="color: #f59e0b; text-decoration: none;">subodhkc.com</a> | 
+                  <a href="https://github.com/subodhkc" style="color: #f59e0b; text-decoration: none;">GitHub</a>
+                </p>
+              </div>
+
+            </body>
+          </html>
+        `,
+      })
+    }
+
+    // Notify admin about new subscriber
+    await resend.emails.send({
+      from: 'Product Notification <onboarding@resend.dev>',
+      to: ['Subodh.kc@haiec.com'],
+      subject: `📦 New ${product || 'Product'} ${waitlist ? 'Waitlist' : 'Download'}: ${email}`,
+      html: `
+        <h2>New ${waitlist ? 'Waitlist Signup' : 'Product Download'}</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Product:</strong> ${product || 'Unknown'}</p>
+        <p><strong>Source:</strong> ${source || 'Unknown'}</p>
+        <p><strong>Type:</strong> ${waitlist ? 'Waitlist' : 'Download'}</p>
+        <p><strong>Time:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
+        <hr>
+        <p><small>Automated notification from subodhkc.com</small></p>
+      `,
+    })
+
+    console.log('Product subscription:', { email, source, product, waitlist, timestamp: new Date().toISOString() })
+
+    return NextResponse.json(
+      { success: true },
+      { status: 200 }
+    )
+  } catch (error) {
+    console.error('Product subscription error:', error)
+    return NextResponse.json(
+      { success: false, error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
