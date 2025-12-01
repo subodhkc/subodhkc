@@ -1,4 +1,4 @@
-'use client'
+table'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -40,7 +40,7 @@ export default function PrintLaterPage() {
     },
     {
       icon: FileText,
-      title: 'Your Print Queue',
+      title: 'Editable Print Queue',
       description: 'Everything in one place. Sort by date, search by title, print when your schedule allows.'
     },
     {
@@ -115,14 +115,16 @@ export default function PrintLaterPage() {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Stop Wasting Paper.
+            PrintLater Powers Your CTRL+P
             <br />
-            <span className="gradient-text">Print Smarter.</span>
+            <span className="gradient-text">Print Smarter.Copy Smarter </span>
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Ever printed a 47-page article when you only needed page 3? Print Later lets you save web pages, 
-            pick exactly what you need, and print when YOU&apos;RE ready. 100% local, zero cloud nonsense.
+
+          Each page you capture is stored locally on your device—never uploaded, never shared. 
+              Save anything you’re reading with Ctrl+P. When you’re ready, open App Print Later, pick the exact pages you want, reorder them, and print a clean packet.
+            Capture now, organize later. Fully private. Fully local, zero cloud nonsense.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
