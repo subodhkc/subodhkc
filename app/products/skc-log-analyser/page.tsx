@@ -345,7 +345,7 @@ export default function SKCLogAnalyserPage() {
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Built by Engineers, for Engineers</h3>
                 <p className="text-muted-foreground mb-6">
-                  SKC Log Analyser was born from years of on-call experience at Fortune 50 companies. 
+                  SKC log Analyser is a standalone tool that anyone can use , just upload log and get result . 
                   We built the tool we wished we had.
                 </p>
                 <div className="text-left space-y-3">
