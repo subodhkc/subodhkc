@@ -35,8 +35,8 @@ export default function PrintLaterPage() {
   const features = [
     {
       icon: Zap,
-      title: 'One-Click Capture',
-      description: 'See something worth printing? Click once. Done. The page is saved to your queue, ready when you are.'
+      title: 'Crtl + P',
+      description: 'See something worth printing? Cltrl +P and review later Done. The page is saved to your queue, ready when you are to organize it and print it. .'
     },
     {
       icon: FileText,
