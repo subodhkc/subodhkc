@@ -2,10 +2,17 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity } from 'lucide-react'
+import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const products = [
+  { 
+    name: 'llmverify', 
+    href: '/products/llmverify',
+    description: 'LLM output verification & guardrails',
+    icon: Shield,
+    badge: 'Open Source'
+  },
   { 
     name: 'Print Later', 
     href: '/products/print-later',
@@ -137,7 +144,8 @@ export default function Navigation() {
                               <span className={cn(
                                 "text-xs px-2 py-0.5 rounded-full",
                                 product.badge === 'Free' && "bg-green-500/10 text-green-500",
-                                product.badge === 'Enterprise' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
                                 product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
                                 product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500"
                               )}>
@@ -214,7 +222,8 @@ export default function Navigation() {
                               <span className={cn(
                                 "text-xs px-2 py-0.5 rounded-full ml-auto",
                                 product.badge === 'Free' && "bg-green-500/10 text-green-500",
-                                product.badge === 'Enterprise' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
                                 product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
                                 product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500"
                               )}>

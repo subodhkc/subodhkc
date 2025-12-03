@@ -356,8 +356,9 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
           <h2 className="text-2xl font-bold mb-6">Why I Built This</h2>
           <div className="prose max-w-none">
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-              I work on AI governance at a Fortune 50 company. I've seen what happens when teams ship AI features 
-              without proper guardrails—and I've seen the compliance overhead that comes with enterprise-grade solutions.
+              I've spent years building AI governance frameworks for large-scale enterprise deployments. I've seen what happens 
+              when teams ship AI features without proper guardrails—and I've seen the compliance overhead that comes with 
+              enterprise-grade solutions.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
               Most teams don't need a full ML pipeline for basic safety checks. They need something that works out of the box, 
