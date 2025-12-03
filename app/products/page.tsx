@@ -18,6 +18,16 @@ import { cn } from '@/lib/utils'
 
 const products = [
   {
+    name: 'llmverify',
+    href: '/products/llmverify',
+    description: 'Open-source LLM output monitoring, risk scoring, and classification for Node.js. Local-first guardrails that work without sending data to third parties.',
+    icon: Shield,
+    badge: 'Open Source',
+    badgeColor: 'bg-blue-500/10 text-blue-500',
+    features: ['Prompt injection detection', 'PII redaction', 'Hallucination scoring', 'Zero telemetry'],
+    cta: 'View Package'
+  },
+  {
     name: 'Print Later',
     href: '/products/print-later',
     description: 'Save web pages now, print them later. A free, open-source Windows app that lets you build a print queue and print when you\'re ready.',
