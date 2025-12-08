@@ -49,3 +49,30 @@ next-env.d.ts
 *.tmp
 *.temp
 .cache/
+
+# ========================================
+# MARKDOWN FILES - MASTER RULE
+# ========================================
+# Exclude all MD files except essential README.md
+# Strategy, planning, bugs, internal docs should NOT be public
+*.md
+!README.md
+!CHANGELOG.md
+!LICENSE.md
+
+# Specific internal docs to always exclude
+ACTION_PLAN.md
+ARCHITECTURE_AUDIT.md
+COMPETITIVE_ANALYSIS.md
+DEPLOYMENT*.md
+EXECUTIVE_SUMMARY.md
+FINAL_SUMMARY.md
+GITHUB_SETUP.md
+HEADHUNTER_AUDIT.md
+PROJECT_SUMMARY.md
+QUICK_START.md
+REDESIGN_TASKS.md
+SEO_STRATEGY.md
+START_HERE.md
+VERCEL_DEPLOYMENT.md
+**/Executive-Bio-*.md
