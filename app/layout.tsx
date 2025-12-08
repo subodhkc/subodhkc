@@ -4,6 +4,7 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import StructuredData from '@/components/StructuredData'
+import { headers } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -85,11 +86,27 @@ export const metadata: Metadata = {
   classification: 'Professional Services',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Check if this is a resume page (standalone, no nav/footer)
+  const headersList = await headers()
+  const pathname = headersList.get('x-pathname') || headersList.get('x-invoke-path') || ''
+  const isResumePage = pathname.startsWith('/resume')
+
+  // For resume pages, render without nav/footer
+  if (isResumePage) {
+    return (
+      <html lang="en">
+        <body className={`${inter.className} bg-white`}>
+          {children}
+        </body>
+      </html>
+    )
+  }
+
   return (
     <html lang="en" className="dark">
       <head>
