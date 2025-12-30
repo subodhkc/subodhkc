@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
@@ -10,7 +11,7 @@ import NewsletterSignup from '@/components/NewsletterSignup'
 import LeadMagnetModal from '@/components/LeadMagnetModal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { ArrowRight, Shield, Zap, Users, TrendingUp, CheckCircle2, BookOpen } from 'lucide-react'
+import { ArrowRight, Shield, Zap, Users, TrendingUp, CheckCircle2, BookOpen, Sparkles } from 'lucide-react'
 
 export default function Home() {
   const [isLeadMagnetOpen, setIsLeadMagnetOpen] = useState(false)
@@ -80,26 +81,33 @@ export default function Home() {
         subtitle="AI Compliance Architect"
         title={
           <>
-            Strategic Systems.
+            Turn AI Pilots Into
             <br />
-            <span className="gradient-text">Sharp Execution.</span>
+            <span className="gradient-text">Production Systems.</span>
             <br />
-            AI Compliance at Scale.
+            Without Regulatory Risk.
           </>
         }
-        description="Leading AI strategy and compliance at Fortune 50. Building governance frameworks that enable innovation while meeting enterprise regulatory requirements."
+        description="Enterprise leaders waste millions on AI experiments that never ship. I build the compliance architecture that lets you move fast—legally. Fortune 50 proven."
       >
-        <Link href="/contact">
-          <Button size="lg" className="group">
-            Work with me
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </Link>
-        <Link href="/about">
-          <Button size="lg" variant="outline">
-            Learn more
-          </Button>
-        </Link>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="flex flex-wrap gap-4 justify-center"
+        >
+          <Link href="/contact">
+            <Button size="lg" className="group animate-glow">
+              Start Your Transformation
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
+          <Link href="/about">
+            <Button size="lg" variant="outline">
+              See The Framework
+            </Button>
+          </Link>
+        </motion.div>
       </Hero>
 
       <Section
@@ -111,15 +119,27 @@ export default function Home() {
           {expertise.map((item, index) => {
             const Icon = item.icon
             return (
-              <Card key={index}>
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle>{item.title}</CardTitle>
-                  <CardDescription>{item.description}</CardDescription>
-                </CardHeader>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50">
+                  <CardHeader>
+                    <motion.div 
+                      className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Icon className="h-6 w-6 text-primary" />
+                    </motion.div>
+                    <CardTitle>{item.title}</CardTitle>
+                    <CardDescription>{item.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </motion.div>
             )
           })}
         </Grid>
@@ -128,15 +148,33 @@ export default function Home() {
       <Section
         subtitle="Track Record"
         title="Proven Results Across Enterprise & Startup"
-        className="bg-secondary/20"
+        className="bg-secondary/20 relative overflow-hidden"
       >
-        <div className="max-w-4xl">
+        <motion.div 
+          className="absolute inset-0 opacity-10"
+          animate={{ 
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{ duration: 20, repeat: Infinity, repeatType: 'reverse' }}
+          style={{
+            backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+        <div className="max-w-4xl relative z-10">
           <Grid cols={2} gap="md">
             {achievements.map((achievement, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+              <motion.div 
+                key={index} 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5 animate-pulse-glow" />
                 <p className="text-muted-foreground">{achievement}</p>
-              </div>
+              </motion.div>
             ))}
           </Grid>
         </div>
@@ -145,31 +183,56 @@ export default function Home() {
       <Section subtitle="Recent Work" title="Insights & Frameworks">
         <Grid cols={3}>
           {recentWork.map((item, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <div className="inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-3 py-1 mb-3 w-fit">
-                  <span className="text-xs font-medium text-accent">{item.category}</span>
-                </div>
-                <CardTitle className="text-xl">{item.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">{item.description}</p>
-                <Link
-                  href={item.href}
-                  className="text-primary hover:text-accent transition-colors inline-flex items-center text-sm font-medium"
-                >
-                  Read more
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </CardContent>
-            </Card>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15, duration: 0.5 }}
+              whileHover={{ y: -8 }}
+            >
+              <Card className="h-full transition-all duration-300 hover:shadow-xl hover:border-primary/50">
+                <CardHeader>
+                  <motion.div 
+                    className="inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-3 py-1 mb-3 w-fit"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <span className="text-xs font-medium text-accent">{item.category}</span>
+                  </motion.div>
+                  <CardTitle className="text-xl">{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground mb-4">{item.description}</p>
+                  <Link
+                    href={item.href}
+                    className="text-primary hover:text-accent transition-colors inline-flex items-center text-sm font-medium group"
+                  >
+                    Read more
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </Grid>
       </Section>
 
       <Section subtitle="HAIEC Platform" title="The AI Compliance Engine">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="grid md:grid-cols-2 gap-12 items-center relative">
+          <motion.div
+            className="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <h3 className="text-2xl font-semibold mb-4">
               Human AI Ethics Council
             </h3>
@@ -200,8 +263,14 @@ export default function Home() {
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-          </div>
-          <Card className="p-8">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Card className="p-8 animate-float">
             <div className="space-y-6">
               <div>
                 <h4 className="text-sm font-semibold text-foreground mb-2 uppercase tracking-wider">
@@ -233,27 +302,49 @@ export default function Home() {
               </div>
             </div>
           </Card>
+          </motion.div>
         </div>
       </Section>
 
       {/* Lead Magnet CTA */}
-      <Section className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Get the AI Compliance Framework Guide
-          </h2>
-          <p className="text-lg text-muted-foreground mb-6">
-            Download our comprehensive guide featuring the Cognitive Systems Management (CSM) Framework, 
-            5 patent-pending methodologies, and enterprise implementation strategies.
-          </p>
-          <Button 
-            size="lg" 
-            onClick={() => setIsLeadMagnetOpen(true)}
-            className="text-lg px-8"
+      <Section className="bg-secondary/20 relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 opacity-5"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          style={{
+            backgroundImage: 'conic-gradient(from 0deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)))',
+          }}
+        />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            Download Free Guide
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Sparkles className="h-5 w-5 text-primary animate-pulse" />
+              <h2 className="text-3xl font-bold">
+                Get the AI Compliance Framework Guide
+              </h2>
+              <Sparkles className="h-5 w-5 text-primary animate-pulse" />
+            </div>
+            <p className="text-lg text-muted-foreground mb-6">
+              Download our comprehensive guide featuring the Cognitive Systems Management (CSM) Framework, 
+              5 patent-pending methodologies, and enterprise implementation strategies.
+            </p>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                size="lg" 
+                onClick={() => setIsLeadMagnetOpen(true)}
+                className="text-lg px-8 animate-glow"
+              >
+                Download Free Guide
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </Section>
 

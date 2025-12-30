@@ -10,11 +10,11 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Subodh KC - AI Compliance Architect | Technical Program Manager | HAIEC Founder',
-    template: '%s | Subodh KC - AI Compliance Expert',
+    default: 'KC (Subodh KC) - AI Compliance Architect | Technical Program Manager | HAIEC Founder',
+    template: '%s | KC - AI Compliance Expert',
   },
   description:
-    'Subodh KC: Leading AI Compliance Architect at Fortune 50 company, HAIEC founder, and Enterprise Technical Program Manager. Expert in AI governance, regulatory compliance, and cognitive systems management. 12+ years driving enterprise-scale AI programs globally.',
+    'KC (Subodh KC): Leading AI Compliance Architect at Fortune 50 company, HAIEC founder, and Enterprise Technical Program Manager. Turning AI pilots into production systems without regulatory risk. Expert in AI governance, regulatory compliance, and cognitive systems management. 12+ years driving enterprise-scale AI programs globally.',
   keywords: [
     'Subodh KC',
     'Subodh KC AI',

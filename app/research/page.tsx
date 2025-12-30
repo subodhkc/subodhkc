@@ -4,7 +4,7 @@ import Grid from '@/components/Grid'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import CTA from '@/components/CTA'
-import { FileText, TrendingUp, Shield, Layers, AlertTriangle, CheckCircle2 } from 'lucide-react'
+import { FileText, TrendingUp, Shield, Layers, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -113,6 +113,26 @@ export default function ResearchPage() {
   ]
 
   const publications = [
+    {
+      title: 'The Instruction Stack Audit Framework (ISAF): A Technical Methodology for Tracing AI Accountability Across Nine Abstraction Layers',
+      venue: 'Zenodo',
+      type: 'Technical Report',
+      year: '2025',
+      summary:
+        'Addresses AI accountability failures by providing a nine-layer technical specification for documenting instruction propagation from hardware to outputs. Includes 127-checkpoint audit protocol, cryptographic verification, and risk scoring based on abstraction distance. Demonstrates application to EU AI Act, NIST AI RMF, and ISO/IEC 42001 compliance requirements.',
+      link: 'https://zenodo.org/records/18080355',
+      keywords: ['AI Governance', 'EU AI Act', 'NIST AI RMF', 'ISO 42001', 'Algorithmic Accountability'],
+    },
+    {
+      title: 'Deterministic Bias Detection for NYC Local Law 144: Why Reproducibility Matters More Than Accuracy',
+      venue: 'Zenodo',
+      type: 'Technical Report',
+      year: '2024',
+      summary:
+        'Presents a reproducibility-first architecture for detecting linguistic bias in job descriptions under NYC Local Law 144. Argues that regulatory compliance requires deterministic systems over probabilistic ML models. Details rule-based pattern matching, version-controlled lexicons, reproducible scoring, and cryptographic evidence generation for legally defensible documentation.',
+      link: 'https://zenodo.org/records/18056133',
+      keywords: ['NYC Local Law 144', 'Bias Detection', 'Regulatory Compliance', 'Deterministic Systems'],
+    },
     {
       title: 'From AI Pilots to Regulatory Readiness',
       venue: 'AI Governance Playbook',
@@ -232,12 +252,24 @@ export default function ResearchPage() {
       <Section subtitle="Publications" title="Published Work">
         <div className="space-y-4">
           {publications.map((pub, index) => (
-            <Card key={index}>
+            <Card key={index} className="transition-all duration-300 hover:shadow-lg hover:border-primary/50">
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     <CardTitle className="text-xl mb-2">{pub.title}</CardTitle>
                     <CardDescription>{pub.summary}</CardDescription>
+                    {pub.keywords && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {pub.keywords.map((keyword, idx) => (
+                          <span
+                            key={idx}
+                            className="text-xs px-2 py-1 rounded-md bg-accent/10 text-accent border border-accent/20"
+                          >
+                            {keyword}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-col items-end gap-1 flex-shrink-0">
                     <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1">
@@ -248,9 +280,19 @@ export default function ResearchPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Published in: {pub.venue}
-                </p>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-muted-foreground">
+                    Published in: {pub.venue}
+                  </p>
+                  {pub.link && (
+                    <Link href={pub.link} target="_blank" rel="noopener noreferrer">
+                      <Button size="sm" variant="outline" className="group">
+                        View Paper
+                        <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </Link>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}

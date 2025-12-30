@@ -1,0 +1,34 @@
+VERCEL DEPLOYMENT - CONTACT FORM FIX
+=====================================
+
+ISSUE: Contact form fails to send emails even though RESEND_API_KEY is in .env.local
+
+ROOT CAUSE: Environment variables in local .env.local are NOT automatically synced to Vercel deployment.
+
+SOLUTION - Add Environment Variable in Vercel Dashboard:
+--------------------------------------------------------
+
+1. Go to Vercel Dashboard: https://vercel.com/dashboard
+2. Select your project: subodhkc
+3. Go to Settings → Environment Variables
+4. Add new variable:
+   - Key: RESEND_API_KEY
+   - Value: re_hvQ3U6r_L59gcyUDf2EoLjQT6UGUhzUX
+   - Environment: Production, Preview, Development (check all)
+5. Click "Save"
+6. Redeploy your application (Deployments → ... → Redeploy)
+
+VERIFICATION:
+-------------
+After redeployment, test the contact form on your live site.
+Check Vercel deployment logs if issues persist.
+
+OPTIONAL - Custom Domain for Email:
+------------------------------------
+Currently using: onboarding@resend.dev (Resend test domain)
+For production, consider:
+1. Verify a custom domain in Resend dashboard
+2. Update from: field in app/api/contact/route.ts
+3. Example: 'KC Contact <contact@subodhkc.com>'
+
+This will improve email deliverability and professionalism.
