@@ -66,6 +66,14 @@ export default function ContactPage() {
 
   const contactMethods = [
     {
+      icon: MessageSquare,
+      title: 'Text Message (Fastest)',
+      description: 'For urgent inquiries and quick responses',
+      value: '682-224-9904',
+      link: 'sms:6822249904',
+      cta: 'Send text message',
+    },
+    {
       icon: Mail,
       title: 'Email',
       description: 'For general inquiries and opportunities',
@@ -80,14 +88,6 @@ export default function ContactPage() {
       value: 'linkedin.com/in/subodhkc',
       link: 'https://www.linkedin.com/in/subodhkc',
       cta: 'Connect on LinkedIn',
-    },
-    {
-      icon: Calendar,
-      title: 'Schedule a Call',
-      description: 'For advisory consultations and speaking',
-      value: 'Book 30-minute consultation',
-      link: '/contact#form',
-      cta: 'Book consultation',
     },
   ]
 
@@ -157,9 +157,17 @@ export default function ContactPage() {
                 <MessageSquare className="h-8 w-8 text-primary" />
               </div>
               <h3 className="text-2xl font-semibold mb-2">Message Sent!</h3>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-muted-foreground mb-4">
                 Thank you for reaching out. I'll review your message and get back to you within 24-48 hours.
               </p>
+              <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 mb-6">
+                <p className="text-sm font-medium text-accent mb-2">Need a faster response?</p>
+                <p className="text-sm text-muted-foreground mb-3">Text me for immediate assistance:</p>
+                <a href="sms:6822249904" className="inline-flex items-center gap-2 text-lg font-semibold text-primary hover:text-accent transition-colors">
+                  <MessageSquare className="h-5 w-5" />
+                  682-224-9904
+                </a>
+              </div>
               <Button onClick={() => setSubmitted(false)}>Send another message</Button>
             </Card>
           ) : (

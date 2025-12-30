@@ -55,10 +55,6 @@ const navigation = [
   { name: 'About', href: '/about' },
   { name: 'Products', href: '/products', hasDropdown: true },
   { name: 'Services', href: '/services' },
-  { name: 'HAIEC', href: '/haiec' },
-  { name: 'Writing', href: '/writing' },
-  { name: 'Research', href: '/research' },
-  { name: 'Speaking', href: '/speaking' },
   { name: 'Contact', href: '/contact' },
 ]
 

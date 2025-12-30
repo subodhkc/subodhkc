@@ -23,6 +23,37 @@ VERIFICATION:
 After redeployment, test the contact form on your live site.
 Check Vercel deployment logs if issues persist.
 
+TROUBLESHOOTING:
+----------------
+If email still fails after adding env variable:
+
+1. Check Vercel Function Logs:
+   - Go to Deployments → Select latest deployment → Functions
+   - Look for /api/contact logs
+   - Check for "Resend API error details" in logs
+
+2. Verify API Key is Active:
+   - Login to Resend dashboard: https://resend.com/
+   - Check API Keys section
+   - Ensure key is not expired or rate-limited
+
+3. Check Resend Sending Limits:
+   - Free tier: 100 emails/day, 3,000 emails/month
+   - Using onboarding@resend.dev has stricter limits
+   - Consider upgrading or verifying custom domain
+
+4. Test API Key Manually:
+   - Use curl or Postman to test Resend API directly
+   - Endpoint: POST https://api.resend.com/emails
+   - Headers: Authorization: Bearer YOUR_API_KEY
+
+FALLBACK CONTACT METHOD:
+-------------------------
+Added phone number for urgent inquiries:
+- Phone: 682-224-9904 (SMS enabled)
+- Displayed prominently on contact page
+- Shows after form submission with text prompt
+
 OPTIONAL - Custom Domain for Email:
 ------------------------------------
 Currently using: onboarding@resend.dev (Resend test domain)

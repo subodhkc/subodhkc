@@ -108,7 +108,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <StructuredData />
       </head>

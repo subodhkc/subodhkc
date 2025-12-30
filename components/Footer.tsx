@@ -5,11 +5,14 @@ const footerLinks = {
   main: [
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
-    { name: 'HAIEC Platform', href: 'https://haiec.com/csm6' },
+    { name: 'Products', href: '/products' },
+    { name: 'Contact', href: '/contact' },
+  ],
+  resources: [
     { name: 'Writing', href: '/writing' },
     { name: 'Research', href: '/research' },
     { name: 'Speaking', href: '/speaking' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Advisory', href: '/advisory' },
   ],
   social: [
     {
@@ -53,9 +56,9 @@ export default function Footer() {
       <div className="section-container py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="text-xl font-bold gradient-text mb-4">Subodh KC</h3>
+            <h3 className="text-xl font-bold gradient-text mb-4">KC</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Strategic Systems. Sharp Execution. AI Compliance at Enterprise Scale.
+              Turn AI Pilots Into Production Systems. Without Regulatory Risk.
             </p>
           </div>
 
@@ -102,32 +105,26 @@ export default function Footer() {
 
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-              Publications
+              Resources
             </h4>
             <ul className="space-y-2">
-              {footerLinks.external.map((item) => {
-                const Icon = item.icon
-                return (
-                  <li key={item.name}>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-                    >
-                      <Icon className="h-4 w-4" />
-                      {item.name}
-                    </a>
-                  </li>
-                )
-              })}
+              {footerLinks.resources.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Subodh KC. All rights reserved.
+            © {new Date().getFullYear()} KC (Subodh KC). All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link

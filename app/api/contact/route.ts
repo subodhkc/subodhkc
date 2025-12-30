@@ -119,15 +119,30 @@ export async function POST(request: NextRequest) {
     })
 
     if (error) {
-      console.error('Resend error:', error)
+      console.error('Resend API error details:', {
+        error,
+        errorMessage: error.message,
+        errorName: error.name,
+        fullError: JSON.stringify(error, null, 2)
+      })
       return NextResponse.json(
-        { success: false, error: 'Failed to send email' },
+        { 
+          success: false, 
+          error: 'Failed to send email. Please text 682-224-9904 for immediate assistance.',
+          details: error.message || 'Unknown error'
+        },
         { status: 500 }
       )
     }
 
-    // Log successful submission (optional - remove in production if not needed)
-    console.log('Contact form submission:', { name, email, interest, timestamp: new Date().toISOString() })
+    // Log successful submission
+    console.log('Contact form submission successful:', { 
+      name, 
+      email, 
+      interest, 
+      emailId: data?.id,
+      timestamp: new Date().toISOString() 
+    })
 
     return NextResponse.json(
       { success: true, data: { id: data?.id } },
