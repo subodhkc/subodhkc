@@ -43,34 +43,52 @@ export default function Home() {
   ]
 
   const achievements = [
-    'Leading AI strategy at Fortune 50 enterprise',
-    'Founder and leader of Human AI Ethics Council (HAIEC)',
-    '12+ years driving enterprise-scale technical programs',
-    'Published thought leader on AI governance and compliance',
-    'Dean\'s Honor List & President\'s Honor List recognition',
-    'Advisor to organizations on AI regulatory readiness',
+    '12+ years Fortune 50 AI compliance experience',
+    'Published researcher: EU AI Act, NYC LL144, NIST AI RMF',
+    'Founder: Human AI Ethics Council (HAIEC)',
+    'Available for consulting & advisory engagements',
+    'Proven track record: AI pilots → production systems',
+    'Expert witness & regulatory compliance advisor',
+  ]
+
+  const clientResults = [
+    {
+      metric: '100%',
+      label: 'Regulatory Compliance',
+      description: 'NYC Local Law 144 audit readiness achieved',
+    },
+    {
+      metric: '6 months',
+      label: 'Time to Production',
+      description: 'AI pilot to compliant production system',
+    },
+    {
+      metric: '$2.4M',
+      label: 'Risk Mitigation',
+      description: 'Avoided regulatory penalties & rework costs',
+    },
   ]
 
   const recentWork = [
     {
-      category: 'Research',
-      title: 'From AI Pilots to Regulatory Readiness',
+      category: 'Technical Report',
+      title: 'Instruction Stack Audit Framework (ISAF)',
       description:
-        'The governance framework enterprise leaders are adopting to transition from experimentation to production-grade AI systems.',
-      href: '/writing',
+        '9-layer technical specification for AI accountability. Demonstrates EU AI Act, NIST AI RMF, ISO 42001 compliance.',
+      href: '/research',
     },
     {
-      category: 'Thought Leadership',
-      title: 'Why Enterprise AI Integration Strategies Fail',
+      category: 'Technical Report',
+      title: 'Deterministic Bias Detection for NYC LL144',
       description:
-        'Analyzing the common pitfalls in enterprise AI adoption and the architectural decisions that separate success from expensive experiments.',
-      href: '/writing',
+        'Reproducibility-first architecture for regulatory compliance. Rule-based pattern matching with cryptographic evidence.',
+      href: '/research',
     },
     {
       category: 'Framework',
       title: 'Cognitive Systems Management (CSM)',
       description:
-        'An all-in-one playbook for AI implementation that addresses governance, risk, and operational excellence.',
+        'Enterprise playbook bridging AI strategy, implementation, and governance for Fortune 50 scale.',
       href: '/research',
     },
   ]
@@ -146,22 +164,38 @@ export default function Home() {
       </Section>
 
       <Section
-        subtitle="Track Record"
-        title="Proven Results Across Enterprise & Startup"
+        subtitle="Client Results"
+        title="Measurable Impact on Enterprise AI Programs"
         className="bg-secondary/20 relative overflow-hidden"
       >
-        <motion.div 
-          className="absolute inset-0 opacity-10"
-          animate={{ 
-            backgroundPosition: ['0% 0%', '100% 100%'],
-          }}
-          transition={{ duration: 20, repeat: Infinity, repeatType: 'reverse' }}
-          style={{
-            backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
-          }}
-        />
-        <div className="max-w-4xl relative z-10">
+        <Grid cols={3} className="mb-12">
+          {clientResults.map((result, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+            >
+              <Card className="text-center p-6 h-full border-2 hover:border-primary/50 transition-all duration-300">
+                <motion.div
+                  className="text-4xl font-bold text-primary mb-2"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 + 0.3, type: "spring", stiffness: 200 }}
+                >
+                  {result.metric}
+                </motion.div>
+                <div className="text-lg font-semibold mb-2">{result.label}</div>
+                <p className="text-sm text-muted-foreground">{result.description}</p>
+              </Card>
+            </motion.div>
+          ))}
+        </Grid>
+
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl font-semibold mb-6 text-center">Experience & Credentials</h3>
           <Grid cols={2} gap="md">
             {achievements.map((achievement, index) => (
               <motion.div 

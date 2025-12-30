@@ -10,59 +10,73 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'KC (Subodh KC) - AI Compliance Architect | Technical Program Manager | HAIEC Founder',
+    default: 'KC (Subodh KC) - AI Compliance Architect | Turn AI Pilots Into Production Systems',
     template: '%s | KC - AI Compliance Expert',
   },
   description:
-    'KC (Subodh KC): Leading AI Compliance Architect at Fortune 50 company, HAIEC founder, and Enterprise Technical Program Manager. Turning AI pilots into production systems without regulatory risk. Expert in AI governance, regulatory compliance, and cognitive systems management. 12+ years driving enterprise-scale AI programs globally.',
+    'AI Compliance Architect helping Fortune 50 companies turn AI pilots into production systems without regulatory risk. Expert in AI governance, NYC Local Law 144, EU AI Act, NIST AI RMF, ISO 42001. 12+ years enterprise AI experience. Available for consulting.',
   keywords: [
-    'Subodh KC',
-    'Subodh KC AI',
-    'Subodh KC professional',
-    'Subodh KC technical',
-    'Subodh KC compliance',
-    'AI Compliance Architect',
-    'Technical Program Manager',
-    'Enterprise AI Governance',
+    'AI Compliance Consultant',
+    'AI Governance Expert',
+    'Enterprise AI Consultant',
     'AI Regulatory Compliance',
-    'HAIEC founder',
-    'Human AI Ethics Council',
-    'Cognitive Systems Management',
-    'AI Strategy Consultant',
-    'Fortune 50 AI Leader',
-    'Enterprise AI Compliance',
-    'AI Governance Framework',
+    'NYC Local Law 144',
+    'EU AI Act Compliance',
+    'NIST AI RMF',
+    'ISO 42001',
     'AI Risk Management',
-    'AI Ethics Expert',
-    'Enterprise Technical Program Manager',
-    'AI Implementation Strategy',
-    'AI Compliance Consulting',
+    'Bias Detection',
+    'AI Audit Framework',
+    'Technical Program Manager',
+    'Fortune 50 AI',
+    'AI Production Systems',
+    'Responsible AI',
+    'AI Ethics Consultant',
+    'Model Governance',
+    'Cognitive Systems Management',
+    'HAIEC',
+    'Subodh KC',
+    'KC AI Consultant',
   ],
-  authors: [{ name: 'Subodh KC' }],
-  creator: 'Subodh KC',
+  authors: [{ name: 'KC (Subodh KC)', url: 'https://subodhkc.com' }],
+  creator: 'KC (Subodh KC)',
+  publisher: 'KC (Subodh KC)',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://subodhkc.com'),
+  alternates: {
+    canonical: '/',
+    types: {
+      'application/rss+xml': 'https://subodhkc.com/rss.xml',
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://subodhkc.com',
-    title: 'Subodh KC - AI Compliance Architect | Technical Program Manager | HAIEC Founder',
+    siteName: 'KC - AI Compliance Architect',
+    title: 'Turn AI Pilots Into Production Systems Without Regulatory Risk',
     description:
-      'Leading AI Compliance Architect at Fortune 50. Expert in AI governance, regulatory compliance, and enterprise AI strategy. Founder of HAIEC (Human AI Ethics Council).',
-    siteName: 'Subodh KC - Professional Portfolio',
+      'AI Compliance Architect with 12+ years Fortune 50 experience. Expert in EU AI Act, NYC Local Law 144, NIST AI RMF. Available for consulting on enterprise AI governance and regulatory compliance.',
     images: [
       {
-        url: 'https://subodhkc.com/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC - AI Compliance Architect and Technical Program Manager',
+        alt: 'KC - AI Compliance Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC - AI Compliance Architect | HAIEC Founder',
-    description: 'Leading AI Compliance Architect at Fortune 50. Expert in AI governance, regulatory compliance, and enterprise AI strategy.',
+    title: 'KC - Turn AI Pilots Into Production Systems',
+    description:
+      'AI Compliance Architect | Fortune 50 Experience | EU AI Act, NYC LL144, NIST AI RMF Expert | Available for Consulting',
     creator: '@subodhkc',
-    images: ['https://subodhkc.com/og-image.jpg'],
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -75,15 +89,8 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {
-    canonical: 'https://subodhkc.com',
-  },
-  verification: {
-    google: 'your-google-verification-code',
-    // Add after setting up Google Search Console
-  },
-  category: 'technology',
-  classification: 'Professional Services',
+  category: 'Technology',
+  classification: 'AI Consulting, AI Governance, Regulatory Compliance',
 }
 
 export default async function RootLayout({
@@ -111,6 +118,15 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <StructuredData />
+        <link rel="canonical" href="https://subodhkc.com" />
+        <meta name="author" content="KC (Subodh KC)" />
+        <meta name="geo.region" content="US" />
+        <meta name="geo.placename" content="United States" />
+        <meta name="language" content="English" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="theme-color" content="#10b981" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body className={inter.className}>
         <Navigation />
