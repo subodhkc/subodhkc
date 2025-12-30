@@ -10,11 +10,11 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'KC (Subodh KC) - AI Compliance Architect | Turn AI Pilots Into Production Systems',
-    template: '%s | KC - AI Compliance Expert',
+    default: 'Subodh KC - AI Compliance Architect | Turn AI Pilots Into Production Systems',
+    template: '%s | Subodh KC - AI Compliance Expert',
   },
   description:
-    'AI Compliance Architect helping Fortune 50 companies turn AI pilots into production systems without regulatory risk. Expert in AI governance, NYC Local Law 144, EU AI Act, NIST AI RMF, ISO 42001. 12+ years enterprise AI experience. Available for consulting.',
+    'Subodh KC - AI Compliance Architect helping Fortune 50 companies turn AI pilots into production systems without regulatory risk. Expert in AI governance, NYC Local Law 144, EU AI Act, NIST AI RMF, ISO 42001. 12+ years enterprise AI experience. Available for consulting.',
   keywords: [
     'AI Compliance Consultant',
     'AI Governance Expert',
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     'Subodh KC',
     'KC AI Consultant',
   ],
-  authors: [{ name: 'KC (Subodh KC)', url: 'https://subodhkc.com' }],
-  creator: 'KC (Subodh KC)',
-  publisher: 'KC (Subodh KC)',
+  authors: [{ name: 'Subodh KC', url: 'https://subodhkc.com' }],
+  creator: 'Subodh KC',
+  publisher: 'Subodh KC',
   formatDetection: {
     email: false,
     address: false,
@@ -57,10 +57,10 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://subodhkc.com',
-    siteName: 'KC - AI Compliance Architect',
-    title: 'Turn AI Pilots Into Production Systems Without Regulatory Risk',
+    siteName: 'Subodh KC - AI Compliance Architect',
+    title: 'Subodh KC - Turn AI Pilots Into Production Systems Without Regulatory Risk',
     description:
-      'AI Compliance Architect with 12+ years Fortune 50 experience. Expert in EU AI Act, NYC Local Law 144, NIST AI RMF. Available for consulting on enterprise AI governance and regulatory compliance.',
+      'Subodh KC - AI Compliance Architect with 12+ years Fortune 50 experience. Expert in EU AI Act, NYC Local Law 144, NIST AI RMF. Available for consulting on enterprise AI governance and regulatory compliance.',
     images: [
       {
         url: '/og-image.png',
@@ -72,9 +72,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'KC - Turn AI Pilots Into Production Systems',
+    title: 'Subodh KC - Turn AI Pilots Into Production Systems',
     description:
-      'AI Compliance Architect | Fortune 50 Experience | EU AI Act, NYC LL144, NIST AI RMF Expert | Available for Consulting',
+      'Subodh KC - AI Compliance Architect | Fortune 50 Experience | EU AI Act, NYC LL144, NIST AI RMF Expert | Available for Consulting',
     creator: '@subodhkc',
     images: ['/og-image.png'],
   },
@@ -119,7 +119,7 @@ export default async function RootLayout({
       <head>
         <StructuredData />
         <link rel="canonical" href="https://subodhkc.com" />
-        <meta name="author" content="KC (Subodh KC)" />
+        <meta name="author" content="Subodh KC" />
         <meta name="geo.region" content="US" />
         <meta name="geo.placename" content="United States" />
         <meta name="language" content="English" />
