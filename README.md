@@ -17,7 +17,7 @@
 
 ## 🚀 About Me
 
-I'm an **AI Compliance Architect** at a Fortune 50 company and founder of **HAIEC (Human AI Ethics Council)**, with 12+ years of experience driving complex AI programs at enterprise scale. I help organizations navigate the intersection of AI innovation, regulatory compliance, and ethical governance.
+I'm an **AI Compliance Architect** at a Fortune 50 company and founder of **HAIEC (Holistic AI Ethics Council)**, with 15+ years of experience driving complex programs at enterprise scale. I help organizations navigate the intersection of AI innovation, regulatory compliance, and ethical governance.
 
 **What I Do:**
 - 🛡️ Build AI governance frameworks for Fortune 500 enterprises
@@ -32,13 +32,7 @@ I'm an **AI Compliance Architect** at a Fortune 50 company and founder of **HAIE
 
 ### 🤝 Open for Consulting
 
-I work with organizations on:
-- **AI Compliance & Governance** - Regulatory readiness, audit preparation, framework design
-- **Technical Program Leadership** - Fractional TPM for complex AI initiatives
-- **Executive Coaching** - Strategy, stakeholder management, organizational scaling
-- **Implementation Support** - Hands-on guidance deploying HAIEC frameworks
-
-**Ideal Clients:** Fortune 500 enterprises, Series B+ startups, technical leaders scaling AI systems
+**Ideal Clients:** Fortune 500 enterprises, Series B+ startups, technical leaders scaling AI systems 
 
 📅 **[Schedule a Consultation](https://subodhkc.com/contact)**
 
