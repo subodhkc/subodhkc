@@ -77,18 +77,7 @@ I write about AI compliance, governance, and enterprise strategy:
 
 📚 **[Read More on My Website](https://subodhkc.com/writing)**
 
----
 
-## 🛠️ Tech Stack & Expertise
-
-```text
-AI & Compliance    ████████████████████  Expert
-Program Management ████████████████████  Expert
-Enterprise Strategy███████████████████   Advanced
-Python/TypeScript  ████████████████      Advanced
-Cloud Architecture ███████████████       Advanced
-SaaS Platforms     ███████████████       Advanced
-```
 
 **Core Competencies:**
 - AI Governance & Regulatory Compliance
@@ -106,20 +95,10 @@ SaaS Platforms     ███████████████       Advanced
 - 🛡️ **Built compliance frameworks** adopted by Fortune 500 companies
 - 🚀 **Founded HAIEC** - AI ethics platform serving enterprise clients
 - 📊 **Managed 100+ stakeholder teams** across global organizations
-- 🎓 **Dean's Honor List & President's Honor List** recipient
-- 🌍 **Multilingual** - English, Nepali
+- 🎓 **Dean's Honor List & President's Honor List** 
 
 ---
 
-## 📊 GitHub Stats
-
-<div align="center">
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=subodhkc&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0A1929&title_color=2563EB&icon_color=06B6D4&text_color=FFFFFF)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=subodhkc&layout=compact&theme=tokyonight&hide_border=true&bg_color=0A1929&title_color=2563EB&text_color=FFFFFF)
-
-</div>
 
 ---
 
