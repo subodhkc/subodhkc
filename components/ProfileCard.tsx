@@ -45,29 +45,29 @@ export default function ProfileCard() {
               transition={{ type: "spring", duration: 0.5 }}
               style={{
                 position: 'fixed',
-                left: buttonRect ? `${Math.min(buttonRect.left, window.innerWidth - 400)}px` : '50%',
-                top: buttonRect ? `${Math.min(buttonRect.bottom + 10, window.innerHeight - 500)}px` : '50%',
+                left: buttonRect ? `${Math.min(buttonRect.left, window.innerWidth - 280)}px` : '50%',
+                top: buttonRect ? `${Math.min(buttonRect.bottom + 10, window.innerHeight - 400)}px` : '50%',
                 transform: buttonRect ? 'none' : 'translate(-50%, -50%)',
+                maxHeight: '80vh',
               }}
-              className="z-50 w-full max-w-lg p-4"
+              className="z-50 w-full max-w-xs sm:max-w-sm p-3 overflow-y-auto"
             >
-              <Card className="p-8 relative shadow-2xl border-2">
+              <Card className="relative shadow-2xl border-2">
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary transition-colors"
+                  className="absolute top-2 right-2 p-1.5 rounded-full hover:bg-secondary transition-colors z-10"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4" />
                 </button>
 
-                <div className="flex flex-col items-center text-center">
-                  <div className="relative w-32 h-32 mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 rounded-full blur-xl opacity-50 animate-pulse-glow" />
-                    <div className="relative rounded-full overflow-hidden border-4 border-background shadow-xl">
+                <div className="p-4 space-y-3 flex flex-col items-center text-center">
+                  <div className="flex justify-center mb-3">
+                    <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-background shadow-xl">
                       <Image
                         src="/profile-photo.jpeg"
                         alt="Subodh Kumar Kc"
-                        width={128}
-                        height={128}
+                        width={64}
+                        height={64}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -79,52 +79,40 @@ export default function ProfileCard() {
                   </p>
 
                   <div className="w-full space-y-4 text-left">
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
-                      <GraduationCap className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <div className="flex-1">
-                        <p className="font-semibold text-sm mb-1">Education</p>
-                        <p className="text-sm text-muted-foreground">
-                          M.Sc. Engineering & Technology Management, Louisiana Tech
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          B.Sc. Computer Information Systems, Louisiana Tech
-                        </p>
-                      </div>
-                    </div>
+                    <div className="flex-1">
+                      <div className="space-y-2 pt-3 border-t border-border">
+                        <div className="flex items-start gap-2">
+                          <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-medium">Dallas-Fort Worth, Texas</p>
+                          </div>
+                        </div>
 
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
-                      <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <div className="flex-1">
-                        <p className="font-semibold text-sm mb-1">Location</p>
-                        <p className="text-sm text-muted-foreground">
-                          Dallas-Fort Worth Metroplex, Texas
-                        </p>
-                      </div>
-                    </div>
+                        <div className="flex items-start gap-2">
+                          <GraduationCap className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-medium">MS Computer Science</p>
+                            <p className="text-xs text-muted-foreground">UTA • Dean's Honor List</p>
+                          </div>
+                        </div>
 
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
-                      <Code className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <div className="flex-1">
-                        <p className="font-semibold text-sm mb-1">Expertise</p>
-                        <p className="text-sm text-muted-foreground">
-                          16+ years full-stack engineering experience
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          Backend, Frontend, Data Architecture
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          AI Compliance & Governance Specialist
-                        </p>
-                      </div>
-                    </div>
+                        <div className="flex items-start gap-2">
+                          <Code className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-medium">Full-Stack Developer</p>
+                            <p className="text-xs text-muted-foreground">AI Compliance & Governance</p>
+                          </div>
+                        </div>
 
-                    <div className="pt-4 border-t border-border space-y-3">
-                      <div className="flex justify-center">
-                        <VirtualBusinessCard />
+                        <div className="pt-3 border-t border-border space-y-2">
+                          <div className="flex justify-center">
+                            <VirtualBusinessCard />
+                          </div>
+                          <p className="text-xs text-muted-foreground text-center leading-tight">
+                            Father of two daughters | Building ethical AI systems
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-xs text-muted-foreground text-center">
-                        Father of two daughters | Family-focused professional building ethical AI systems
-                      </p>
                     </div>
                   </div>
                 </div>
