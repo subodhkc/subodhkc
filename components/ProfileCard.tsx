@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { MapPin, GraduationCap, Code, X } from 'lucide-react'
+import VirtualBusinessCard from './VirtualBusinessCard'
 
 export default function ProfileCard() {
   const [isOpen, setIsOpen] = useState(false)
@@ -117,7 +118,10 @@ export default function ProfileCard() {
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-border">
+                    <div className="pt-4 border-t border-border space-y-3">
+                      <div className="flex justify-center">
+                        <VirtualBusinessCard />
+                      </div>
                       <p className="text-xs text-muted-foreground text-center">
                         Father of two daughters | Family-focused professional building ethical AI systems
                       </p>

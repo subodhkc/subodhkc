@@ -136,11 +136,13 @@ export default function ContactPage() {
                   ) : (
                     <>
                       <p className="text-sm text-muted-foreground mb-4">{method.value}</p>
-                      <a href={method.link} target={method.link?.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
-                        <Button variant="outline" size="sm" className="w-full">
-                          {method.cta}
-                        </Button>
-                      </a>
+                      {method.link && (
+                        <a href={method.link} target={method.link.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
+                          <Button variant="outline" size="sm" className="w-full">
+                            {method.cta}
+                          </Button>
+                        </a>
+                      )}
                     </>
                   )}
                 </CardContent>

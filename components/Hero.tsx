@@ -27,7 +27,7 @@ export default function Hero({
 }: HeroProps) {
   if (layout === 'split' && imageSrc) {
     return (
-      <section className={cn('page-padding pt-24 md:pt-32 pb-16 md:pb-24 relative overflow-hidden', className)}>
+      <section className={cn('page-padding pt-16 md:pt-21 pb-16 md:pb-24 relative overflow-hidden', className)}>
         <div className="absolute inset-0 -z-10">
           <HeroAnimation />
         </div>
@@ -219,7 +219,7 @@ export default function Hero({
   }
 
   return (
-    <section className={cn('page-padding pt-32 relative overflow-hidden', className)}>
+    <section className={cn('page-padding pt-16 md:pt-21 relative overflow-hidden', className)}>
       {/* Animated background */}
       <div className="absolute inset-0 -z-10">
         <HeroAnimation />
