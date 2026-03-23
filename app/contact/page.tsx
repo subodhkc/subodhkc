@@ -7,7 +7,8 @@ import Grid from '@/components/Grid'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import PhoneNumber from '@/components/PhoneNumber'
-import { Mail, Linkedin, Calendar, MessageSquare } from 'lucide-react'
+import VirtualBusinessCard from '@/components/VirtualBusinessCard'
+import { Mail, Linkedin, Calendar, MessageSquare, Download } from 'lucide-react'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -73,6 +74,7 @@ export default function ContactPage() {
       value: 'protected',
       link: null,
       cta: 'Reveal number',
+      type: 'phone',
     },
     {
       icon: Mail,
@@ -81,6 +83,7 @@ export default function ContactPage() {
       value: 'Subodh.kc@haiec.com',
       link: 'mailto:Subodh.kc@haiec.com',
       cta: 'Send email',
+      type: 'email',
     },
     {
       icon: Linkedin,
@@ -89,6 +92,16 @@ export default function ContactPage() {
       value: 'linkedin.com/in/subodhkc',
       link: 'https://www.linkedin.com/in/subodhkc',
       cta: 'Connect on LinkedIn',
+      type: 'linkedin',
+    },
+    {
+      icon: Download,
+      title: 'Virtual Business Card',
+      description: 'Save my contact info to your device',
+      value: 'Download or share my digital card',
+      link: null,
+      cta: 'Get Business Card',
+      type: 'vcard',
     },
   ]
 
@@ -118,7 +131,7 @@ export default function ContactPage() {
       />
 
       <Section subtitle="Get in Touch" title="Choose Your Preferred Method">
-        <Grid cols={3}>
+        <Grid cols={4}>
           {contactMethods.map((method, index) => {
             const Icon = method.icon
             return (
@@ -131,8 +144,13 @@ export default function ContactPage() {
                   <CardDescription>{method.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {method.value === 'protected' ? (
+                  {method.type === 'phone' ? (
                     <PhoneNumber />
+                  ) : method.type === 'vcard' ? (
+                    <div className="space-y-4">
+                      <p className="text-sm text-muted-foreground">{method.value}</p>
+                      <VirtualBusinessCard />
+                    </div>
                   ) : (
                     <>
                       <p className="text-sm text-muted-foreground mb-4">{method.value}</p>

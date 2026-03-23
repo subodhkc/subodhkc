@@ -91,8 +91,8 @@ export default function ProfileCard() {
                         <div className="flex items-start gap-2">
                           <GraduationCap className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                           <div>
-                            <p className="text-xs font-medium">MS Computer Science</p>
-                            <p className="text-xs text-muted-foreground">UTA • Dean's Honor List</p>
+                            <p className="text-xs font-medium">MSc Engineering & Technology Mgmt</p>
+                            <p className="text-xs text-muted-foreground">LA Tech • Dean's Honor List</p>
                           </div>
                         </div>
 

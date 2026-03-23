@@ -136,10 +136,11 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} page-edge-gradient`}>
         <Navigation />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <StructuredData />
       </body>
     </html>
   )
