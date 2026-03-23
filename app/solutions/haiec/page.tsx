@@ -76,6 +76,9 @@ export default function HAIECPage() {
           </>
         }
         description="Evidence-first frameworks for behavioral AI governance. CSM6 framework and AI readiness assessments for enterprise compliance. Not a dashboard—an evidence layer."
+        imageSrc="/Haiec.png"
+        imageAlt="HAIEC Platform Overview"
+        layout="split"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -129,25 +132,40 @@ export default function HAIECPage() {
       </Section>
 
       <Section className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Platform Capabilities</h2>
           <p className="text-center text-muted-foreground mb-8">
             HAIEC provides a complete suite of tools for AI compliance and governance
           </p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {capabilities.map((capability, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
-                className="flex items-center gap-3"
-              >
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">{capability}</span>
-              </motion.div>
-            ))}
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              {capabilities.map((capability, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05, duration: 0.5 }}
+                  className="flex items-center gap-3"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span className="text-muted-foreground">{capability}</span>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              <img
+                src="/haiec process.png"
+                alt="HAIEC Compliance Process Flow"
+                className="w-full h-auto rounded-lg shadow-xl border border-border"
+              />
+            </motion.div>
           </div>
         </div>
       </Section>
@@ -182,30 +200,45 @@ export default function HAIECPage() {
       </Section>
 
       <Section>
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">Why HAIEC?</h2>
-          <div className="space-y-6">
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-3">Evidence-First Approach</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Dashboards are not evidence. HAIEC generates audit-grade documentation that stands up to regulatory scrutiny. 
-                Every claim is backed by deterministic testing and cryptographic proof.
-              </p>
-            </Card>
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-3">Production-Ready</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Not a research project. HAIEC is deployed in Fortune 50 environments, managing compliance for 
-                production AI systems at enterprise scale.
-              </p>
-            </Card>
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-3">Framework Aligned</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Built on peer-reviewed research and aligned with EU AI Act, NIST AI RMF, ISO 42001, and NYC Local Law 144. 
-                Open source core with deterministic engines you can verify.
-              </p>
-            </Card>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-8">Why HAIEC?</h2>
+          <div className="grid md:grid-cols-2 gap-8 items-start mb-12">
+            <div className="space-y-6">
+              <Card className="p-6">
+                <h3 className="text-xl font-semibold mb-3">Evidence-First Approach</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Dashboards are not evidence. HAIEC generates audit-grade documentation that stands up to regulatory scrutiny. 
+                  Every claim is backed by deterministic testing and cryptographic proof.
+                </p>
+              </Card>
+              <Card className="p-6">
+                <h3 className="text-xl font-semibold mb-3">Production-Ready</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Not a research project. HAIEC is deployed in Fortune 50 environments, managing compliance for 
+                  production AI systems at enterprise scale.
+                </p>
+              </Card>
+              <Card className="p-6">
+                <h3 className="text-xl font-semibold mb-3">Framework Aligned</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Built on peer-reviewed research and aligned with EU AI Act, NIST AI RMF, ISO 42001, and NYC Local Law 144. 
+                  Open source core with deterministic engines you can verify.
+                </p>
+              </Card>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="sticky top-24"
+            >
+              <img
+                src="/Ai Security Process flow.png"
+                alt="AI Security Process Flow"
+                className="w-full h-auto rounded-lg shadow-xl border border-border"
+              />
+            </motion.div>
           </div>
         </div>
       </Section>

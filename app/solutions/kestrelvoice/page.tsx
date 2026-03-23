@@ -77,6 +77,9 @@ export default function KestrelVoicePage() {
           </>
         }
         description="AI-powered voice operations for service businesses. Answer every call, book appointments automatically, recover missed revenue. 200ms response, 24/7 coverage."
+        imageSrc="/Kestrelvoice.png"
+        imageAlt="KestrelVoice Platform Overview"
+        layout="split"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -147,22 +150,37 @@ export default function KestrelVoicePage() {
       </Section>
 
       <Section>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Everything You Need</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
-                className="flex items-center gap-3"
-              >
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">{benefit}</span>
-              </motion.div>
-            ))}
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05, duration: 0.5 }}
+                  className="flex items-center gap-3"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span className="text-muted-foreground">{benefit}</span>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              <img
+                src="/voice-card-showcase.png.png"
+                alt="KestrelVoice Call Interface"
+                className="w-full h-auto rounded-lg shadow-xl border border-border"
+              />
+            </motion.div>
           </div>
         </div>
       </Section>

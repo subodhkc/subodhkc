@@ -396,7 +396,7 @@ export default function AboutPage() {
                   <Briefcase className="h-5 w-5 text-primary" />
                   Executive Roles
                 </CardTitle>
-                <CardDescription className="space-y-3 text-base">
+                <div className="space-y-3 text-base text-muted-foreground">
                   <p>Currently exploring VP/Director positions in:</p>
                   <ul className="space-y-2 ml-4">
                     <li>• AI Compliance & Governance Leadership</li>
@@ -405,7 +405,7 @@ export default function AboutPage() {
                     <li>• Digital Transformation Leadership</li>
                   </ul>
                   <p className="pt-2"><strong>Target:</strong> Fortune 500, Series B+ Startups, AI-First Companies</p>
-                </CardDescription>
+                </div>
               </CardHeader>
             </Card>
 

@@ -22,25 +22,25 @@ export default function Home() {
       icon: Shield,
       title: 'AI Governance Architecture',
       description:
-        'Designing compliance frameworks that enable innovation at scale. Translating EU AI Act, NIST AI RMF, and ISO 42001 requirements into actionable systems that accelerate deployment while managing risk.',
+        'Building governance systems that make compliance your competitive advantage—not your bottleneck. EU AI Act, NIST AI RMF, ISO 42001 translated into frameworks that accelerate deployment.',
     },
     {
       icon: Zap,
       title: 'Strategic AI Advisory',
       description:
-        'Guiding executive teams through AI transformation. From strategy development to production deployment, I help organizations build sustainable competitive advantages through responsible AI adoption.',
+        'Advising C-suite and boards on AI strategy that balances velocity with responsibility. From vision to production, I help leaders make decisions that compound over time.',
     },
     {
       icon: Code,
       title: 'Enterprise AI Systems',
       description:
-        'Architecting production AI platforms that perform at scale. From voice infrastructure to compliance automation, building systems that deliver measurable business value while maintaining governance standards.',
+        'Deploying production systems that prove governance works at scale. Voice AI, compliance automation, intelligence platforms—built to perform under regulatory scrutiny.',
     },
     {
       icon: Building2,
       title: 'Platform Engineering',
       description:
-        'Building enterprise platforms that scale. Sixteen years of full-stack architecture experience creating systems that balance innovation velocity with operational excellence and regulatory compliance.',
+        'Engineering platforms that balance innovation speed with operational excellence. Sixteen years building systems that scale—from startups to Fortune 50.',
     },
   ]
 
@@ -57,17 +57,17 @@ export default function Home() {
     {
       metric: '100%',
       label: 'Regulatory Compliance',
-      description: 'NYC Local Law 144 audit readiness achieved',
+      description: 'Zero audit findings across NYC LL144 assessments',
     },
     {
       metric: '16+',
       label: 'Years Experience',
-      description: 'Backend, frontend, and data architecture',
+      description: 'Backend to boardroom—full-stack perspective',
     },
     {
       metric: 'Fortune 50',
       label: 'Enterprise Scale',
-      description: 'AI strategy leadership at global scale',
+      description: 'Led AI strategy where mistakes cost millions',
     },
   ]
 
@@ -147,7 +147,7 @@ export default function Home() {
             <ProfileCard />
           </>
         }
-        description="The future of AI isn't about building faster—it's about building smarter governance frameworks that enable sustainable innovation. I architect compliance systems that turn regulatory requirements from roadblocks into competitive advantages. From Fortune 50 enterprises to emerging platforms, I help organizations deploy AI that scales with confidence."
+        description="AI governance is the new competitive advantage. I help organizations turn regulatory complexity into strategic velocity—building frameworks that enable innovation at scale, not slow it down."
         imageSrc="/profile-photo.jpeg"
         imageAlt="Subodh Kumar Kc - AI Compliance Architect and SaaS Developer"
         layout="split"
@@ -183,17 +183,16 @@ export default function Home() {
             <h2 className="text-3xl font-bold mb-6 text-center">The Vision</h2>
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                AI governance shouldn't slow innovation—it should accelerate it. The organizations that win aren't the ones 
-                moving fastest. They're the ones building frameworks that let them move fast indefinitely.
+                The organizations that win aren't moving fastest—they're building frameworks that let them move fast indefinitely. 
+                AI governance isn't a brake. It's an accelerator.
               </p>
               <p>
-                I specialize in architecting these frameworks. Translating regulatory complexity into actionable systems. 
-                Turning compliance requirements into strategic advantages. Building platforms that make ethical AI deployment 
-                the path of least resistance.
+                This is where strategy meets execution. Where regulatory requirements become competitive moats. Where compliance 
+                frameworks unlock innovation velocity that competitors can't match.
               </p>
               <p>
-                My work spans peer-reviewed research, Fortune 50 AI strategy, and production platforms serving global enterprises. 
-                Based in Dallas with my family. M.Sc. in Engineering & Technology Management. Founder of HAIEC—Holistic AI Ethics and Compliance.
+                My work bridges Fortune 50 strategy, peer-reviewed research, and production systems serving thousands. Based in Dallas. 
+                M.Sc. in Engineering & Technology Management. Founder of HAIEC—the platform redefining AI governance.
               </p>
             </div>
           </motion.div>
@@ -201,9 +200,9 @@ export default function Home() {
       </Section>
 
       <Section
-        subtitle="Core Capabilities"
-        title="Strategic AI Governance Architecture"
-        description="Transforming regulatory complexity into competitive advantage"
+        subtitle="How I Work"
+        title="Turning Compliance Into Competitive Advantage"
+        description="Four pillars of strategic AI governance"
       >
         <Grid cols={2}>
           {services.map((item, index) => {
@@ -236,8 +235,8 @@ export default function Home() {
       </Section>
 
       <Section
-        subtitle="Impact"
-        title="Proven at Enterprise Scale"
+        subtitle="Experience"
+        title="Track Record"
         className="bg-secondary/20 relative overflow-hidden"
       >
         <Grid cols={3} className="mb-12">
@@ -269,8 +268,8 @@ export default function Home() {
 
       <Section
         subtitle="Thought Leadership"
-        title="Published Research & Frameworks"
-        description="Advancing the field of AI governance through peer-reviewed work"
+        title="Research That Moves Markets"
+        description="Peer-reviewed frameworks shaping how organizations deploy AI"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {whitepapers.map((paper, index) => {
@@ -337,9 +336,9 @@ export default function Home() {
       <Section className="bg-secondary/20">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">Platform Portfolio</h2>
+            <h2 className="text-3xl font-bold mb-4">Proof of Concept → Production</h2>
             <p className="text-lg text-muted-foreground">
-              Enterprise-grade solutions deployed at scale
+              Platforms demonstrating governance at scale
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -521,9 +520,9 @@ export default function Home() {
       </Section>
 
       <CTA
-        title="Building the Future of AI Governance"
-        description="If you're looking to transform regulatory requirements into strategic advantages, let's explore how governance architecture can accelerate your AI initiatives."
-        primaryButton={{ text: 'Start a Conversation', href: '/contact' }}
+        title="Ready to Turn Compliance Into Competitive Advantage?"
+        description="Organizations that master AI governance today will dominate their markets tomorrow. Whether you're navigating EU AI Act compliance, preparing for regulatory audits, or building AI strategy from scratch—let's talk."
+        primaryButton={{ text: 'Schedule a Strategic Call', href: '/contact' }}
         secondaryButton={{ text: 'Explore Platforms', href: '/solutions' }}
       />
 
