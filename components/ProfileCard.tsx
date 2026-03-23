@@ -8,11 +8,18 @@ import { MapPin, GraduationCap, Code, X } from 'lucide-react'
 
 export default function ProfileCard() {
   const [isOpen, setIsOpen] = useState(false)
+  const [buttonRect, setButtonRect] = useState<DOMRect | null>(null)
+
+  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setButtonRect(rect)
+    setIsOpen(true)
+  }
 
   return (
     <>
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
         className="inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors group"
       >
         <span className="text-lg md:text-xl font-bold gradient-text">
@@ -35,7 +42,13 @@ export default function ProfileCard() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-lg p-4"
+              style={{
+                position: 'fixed',
+                left: buttonRect ? `${Math.min(buttonRect.left, window.innerWidth - 400)}px` : '50%',
+                top: buttonRect ? `${Math.min(buttonRect.bottom + 10, window.innerHeight - 500)}px` : '50%',
+                transform: buttonRect ? 'none' : 'translate(-50%, -50%)',
+              }}
+              className="z-50 w-full max-w-lg p-4"
             >
               <Card className="p-8 relative shadow-2xl border-2">
                 <button

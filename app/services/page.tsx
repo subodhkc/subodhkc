@@ -15,7 +15,7 @@ export default function ServicesPage() {
     {
       icon: Shield,
       title: 'AI Compliance & Governance',
-      description: 'Enterprise-grade governance frameworks that meet regulatory requirements while enabling innovation.',
+      description: 'Enterprise-grade governance frameworks that transform regulatory requirements into competitive advantages, enabling innovation at scale.',
       features: [
         'EU AI Act, GDPR, NIST compliance implementation',
         'Audit readiness programs (60% time reduction)',
@@ -27,7 +27,7 @@ export default function ServicesPage() {
     {
       icon: Briefcase,
       title: 'Technical Program Leadership',
-      description: 'End-to-end program management for complex AI initiatives at Fortune 50 scale.',
+      description: 'Strategic program orchestration for complex AI initiatives at Fortune 50 scale. Delivering measurable outcomes through cross-functional alignment and execution excellence.',
       features: [
         'Multi-stakeholder program orchestration (100+ teams)',
         '$50M+ portfolio management',
@@ -75,7 +75,7 @@ export default function ServicesPage() {
     {
       icon: Target,
       title: 'Fractional Leadership',
-      description: 'Part-time executive leadership for organizations needing AI governance expertise.',
+      description: 'Part-time executive leadership delivering VP/Director-level AI governance expertise without full-time overhead. Strategic impact on a flexible engagement model.',
       features: [
         'VP/Director-level strategic oversight',
         'Team building and capability development',

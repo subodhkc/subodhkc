@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
@@ -76,9 +77,6 @@ export default function HAIECPage() {
           </>
         }
         description="Evidence-first frameworks for behavioral AI governance. CSM6 framework and AI readiness assessments for enterprise compliance. Not a dashboard - an evidence layer."
-        imageSrc="/Haiec.png"
-        imageAlt="HAIEC Platform Overview"
-        layout="split"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -154,17 +152,21 @@ export default function HAIECPage() {
               ))}
             </div>
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <img
-                src="/haiec process.png"
-                alt="HAIEC Compliance Process Flow"
-                className="w-full h-auto rounded-lg shadow-xl border border-border"
-              />
+              <div className="relative shadow-2xl">
+                <Image
+                  src="/haiec process.png"
+                  alt="HAIEC Process Flow"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -227,17 +229,21 @@ export default function HAIECPage() {
               </Card>
             </div>
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="sticky top-24"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative"
             >
-              <img
-                src="/Ai Security Process flow.png"
-                alt="AI Security Process Flow"
-                className="w-full h-auto rounded-lg shadow-xl border border-border"
-              />
+              <div className="relative shadow-2xl">
+                <Image
+                  src="/Ai Security Process flow.png"
+                  alt="AI Security Process Flow"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

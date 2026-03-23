@@ -6,6 +6,7 @@ import Section from '@/components/Section'
 import Grid from '@/components/Grid'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import PhoneNumber from '@/components/PhoneNumber'
 import { Mail, Linkedin, Calendar, MessageSquare } from 'lucide-react'
 
 export default function ContactPage() {
@@ -69,9 +70,9 @@ export default function ContactPage() {
       icon: MessageSquare,
       title: 'Text Message (Fastest)',
       description: 'For urgent inquiries and quick responses',
-      value: '682-224-9904',
-      link: 'sms:6822249904',
-      cta: 'Send text message',
+      value: 'protected',
+      link: null,
+      cta: 'Reveal number',
     },
     {
       icon: Mail,
@@ -130,12 +131,18 @@ export default function ContactPage() {
                   <CardDescription>{method.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">{method.value}</p>
-                  <a href={method.link} target={method.link.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
-                    <Button variant="outline" size="sm" className="w-full">
-                      {method.cta}
-                    </Button>
-                  </a>
+                  {method.value === 'protected' ? (
+                    <PhoneNumber />
+                  ) : (
+                    <>
+                      <p className="text-sm text-muted-foreground mb-4">{method.value}</p>
+                      <a href={method.link} target={method.link?.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
+                        <Button variant="outline" size="sm" className="w-full">
+                          {method.cta}
+                        </Button>
+                      </a>
+                    </>
+                  )}
                 </CardContent>
               </Card>
             )

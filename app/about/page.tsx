@@ -32,7 +32,7 @@ export default function AboutPage() {
       icon: GraduationCap,
       title: 'Continuous Learning',
       description:
-        'Technology evolves. Regulations shift. Staying ahead means never stopping the pursuit of deeper expertise.',
+        'Technology evolves. Regulations shift. Markets transform. Sustained leadership requires relentless learning and adaptation.',
     },
     {
       icon: Heart,
@@ -48,7 +48,7 @@ export default function AboutPage() {
       title: 'Sr Program Manager - AI Implementation & Governance',
       subtitle: 'HP Inc. - Core Team Lead',
       description:
-        'Leading strategic AI initiatives across enterprise systems. Accelerating AI adoption while ensuring responsible implementation aligned with organizational values. Developed 5 patent-pending frameworks for AI compliance and drift detection.',
+        'Driving strategic AI transformation across enterprise systems at Fortune 50 scale. Accelerating AI adoption while architecting governance frameworks that enable innovation without regulatory risk. Developed 5 patent-pending methodologies for AI compliance, drift detection, and behavioral verification.',
     },
     {
       date: '2023 - 2025',
@@ -62,7 +62,7 @@ export default function AboutPage() {
       title: 'Technical Program Manager',
       subtitle: 'HP Inc.',
       description:
-        'Managed development and release of Power Manager and enterprise software solutions. Led cross-functional teams through Agile delivery, stakeholder engagement, and risk mitigation at Fortune 50 scale.',
+        'Directed development and release cycles for Power Manager and enterprise software portfolio. Led cross-functional teams through Agile delivery, executive stakeholder engagement, and proactive risk mitigation at Fortune 50 scale.',
     },
     {
       date: '2020 - Present',

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
@@ -77,9 +78,6 @@ export default function KestrelVoicePage() {
           </>
         }
         description="AI-powered voice operations for service businesses. Answer every call, book appointments automatically, recover missed revenue. 200ms response, 24/7 coverage."
-        imageSrc="/Kestrelvoice.png"
-        imageAlt="KestrelVoice Platform Overview"
-        layout="split"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -172,14 +170,18 @@ export default function KestrelVoicePage() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <img
-                src="/voice-card-showcase.png.png"
-                alt="KestrelVoice Call Interface"
-                className="w-full h-auto rounded-lg shadow-xl border border-border"
-              />
+              <div className="relative shadow-2xl">
+                <Image
+                  src="/voice-card-showcase.png.png"
+                  alt="KestrelVoice Showcase"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
