@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield } from 'lucide-react'
+import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield, Globe, Phone, Sparkles, FileText, Briefcase } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ProfileCard from './ProfileCard'
 
 const products = [
   { 
@@ -50,10 +51,54 @@ const products = [
   },
 ]
 
+const solutions = [
+  { 
+    name: 'HAIEC', 
+    href: '/solutions/haiec',
+    description: 'AI Compliance & Governance Platform',
+    icon: Shield,
+    badge: 'Enterprise',
+    external: 'https://www.haiec.com'
+  },
+  { 
+    name: 'KestrelVoice', 
+    href: '/solutions/kestrelvoice',
+    description: 'AI Voice Operations Platform',
+    icon: Phone,
+    badge: 'Production',
+    external: 'https://www.kestrelvoice.com'
+  },
+  { 
+    name: 'FrontOfAI', 
+    href: '/solutions/frontofai',
+    description: 'Enterprise AI Solutions Platform',
+    icon: Sparkles,
+    badge: 'Live',
+    external: 'https://frontofai.com'
+  },
+  { 
+    name: 'CourtCase', 
+    href: '/solutions/courtcase',
+    description: 'AI-Assisted Court Evidence Builder',
+    icon: Scale,
+    badge: 'Beta',
+    external: 'https://courtcase.frontofai.com'
+  },
+  { 
+    name: 'AI Briefing', 
+    href: '/solutions/ai-briefing',
+    description: 'Weekly AI Intelligence for IT Leaders',
+    icon: FileText,
+    badge: 'Free',
+    external: 'https://frontofai.com/briefing'
+  },
+]
+
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Products', href: '/products', hasDropdown: true },
+  { name: 'Solutions', href: '/solutions', hasDropdown: true, dropdownType: 'solutions' },
+  { name: 'Products', href: '/products', hasDropdown: true, dropdownType: 'products' },
   { name: 'Services', href: '/services' },
   { name: 'Contact', href: '/contact' },
 ]
@@ -62,7 +107,9 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [productsOpen, setProductsOpen] = useState(false)
+  const [solutionsOpen, setSolutionsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const solutionsDropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,6 +123,9 @@ export default function Navigation() {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setProductsOpen(false)
+      }
+      if (solutionsDropdownRef.current && !solutionsDropdownRef.current.contains(event.target as Node)) {
+        setSolutionsOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -93,9 +143,9 @@ export default function Navigation() {
     >
       <nav className="section-container flex items-center justify-between py-4">
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <span className="text-2xl font-bold gradient-text">KC</span>
-          </Link>
+          <div className="-m-1.5 p-1.5">
+            <ProfileCard />
+          </div>
         </div>
 
         <div className="flex lg:hidden">
@@ -112,23 +162,23 @@ export default function Navigation() {
         <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
           {navigation.map((item) => (
             item.hasDropdown ? (
-              <div key={item.name} className="relative" ref={dropdownRef}>
+              <div key={item.name} className="relative" ref={item.dropdownType === 'solutions' ? solutionsDropdownRef : dropdownRef}>
                 <button
-                  onClick={() => setProductsOpen(!productsOpen)}
+                  onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(!solutionsOpen) : setProductsOpen(!productsOpen)}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
                 >
                   {item.name}
-                  <ChevronDown className={cn("h-4 w-4 transition-transform", productsOpen && "rotate-180")} />
+                  <ChevronDown className={cn("h-4 w-4 transition-transform", (item.dropdownType === 'solutions' ? solutionsOpen : productsOpen) && "rotate-180")} />
                 </button>
-                {productsOpen && (
+                {(item.dropdownType === 'solutions' ? solutionsOpen : productsOpen) && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-background border border-border rounded-xl shadow-xl p-2 z-50">
-                    {products.map((product) => {
+                    {(item.dropdownType === 'solutions' ? solutions : products).map((product) => {
                       const Icon = product.icon
                       return (
                         <Link
                           key={product.name}
                           href={product.href}
-                          onClick={() => setProductsOpen(false)}
+                          onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(false) : setProductsOpen(false)}
                           className="flex items-start gap-3 p-3 rounded-lg hover:bg-secondary/50 transition-colors"
                         >
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -143,7 +193,10 @@ export default function Navigation() {
                                 product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
                                 product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
                                 product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
-                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500"
+                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500",
+                                product.badge === 'Production' && "bg-emerald-500/10 text-emerald-500",
+                                product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
+                                product.badge === 'Beta' && "bg-orange-500/10 text-orange-500"
                               )}>
                                 {product.badge}
                               </span>
@@ -182,9 +235,9 @@ export default function Navigation() {
         />
         <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-border">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
-              <span className="text-xl font-bold gradient-text">KC</span>
-            </Link>
+            <div className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
+              <ProfileCard />
+            </div>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-foreground"
@@ -204,7 +257,7 @@ export default function Navigation() {
                         {item.name}
                       </div>
                       <div className="pl-4 space-y-1">
-                        {products.map((product) => {
+                        {(item.dropdownType === 'solutions' ? solutions : products).map((product) => {
                           const Icon = product.icon
                           return (
                             <Link
@@ -221,7 +274,10 @@ export default function Navigation() {
                                 product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
                                 product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
                                 product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
-                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500"
+                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500",
+                                product.badge === 'Production' && "bg-emerald-500/10 text-emerald-500",
+                                product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
+                                product.badge === 'Beta' && "bg-orange-500/10 text-orange-500"
                               )}>
                                 {product.badge}
                               </span>

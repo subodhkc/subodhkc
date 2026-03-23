@@ -9,132 +9,204 @@ import CTA from '@/components/CTA'
 import Grid from '@/components/Grid'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import LeadMagnetModal from '@/components/LeadMagnetModal'
+import ProfileCard from '@/components/ProfileCard'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { ArrowRight, Shield, Zap, Users, TrendingUp, CheckCircle2, BookOpen, Sparkles } from 'lucide-react'
+import { ArrowRight, Shield, Zap, Users, TrendingUp, CheckCircle2, BookOpen, Sparkles, FileText, Download, ExternalLink, Award, Building2, Code } from 'lucide-react'
 
 export default function Home() {
   const [isLeadMagnetOpen, setIsLeadMagnetOpen] = useState(false)
-  const expertise = [
+
+  const services = [
     {
       icon: Shield,
-      title: 'AI Compliance Architecture',
+      title: 'AI Governance Architecture',
       description:
-        'Building enterprise-grade AI governance frameworks that meet regulatory requirements while enabling innovation at scale.',
+        'Designing compliance frameworks that enable innovation at scale. Translating EU AI Act, NIST AI RMF, and ISO 42001 requirements into actionable systems that accelerate deployment while managing risk.',
     },
     {
       icon: Zap,
-      title: 'Technical Program Leadership',
+      title: 'Strategic AI Advisory',
       description:
-        'Driving complex, multi-stakeholder programs across global enterprise environments with precision execution.',
+        'Guiding executive teams through AI transformation. From strategy development to production deployment, I help organizations build sustainable competitive advantages through responsible AI adoption.',
     },
     {
-      icon: TrendingUp,
-      title: 'Cognitive Systems Management',
+      icon: Code,
+      title: 'Enterprise AI Systems',
       description:
-        'Pioneering methodologies that bridge AI implementation strategy with operational governance and risk management.',
+        'Architecting production AI platforms that perform at scale. From voice infrastructure to compliance automation, building systems that deliver measurable business value while maintaining governance standards.',
     },
     {
-      icon: Users,
-      title: 'Executive Advisory',
+      icon: Building2,
+      title: 'Platform Engineering',
       description:
-        'Strategic counsel for C-suite leaders navigating AI adoption, compliance readiness, and digital transformation.',
+        'Building enterprise platforms that scale. Sixteen years of full-stack architecture experience creating systems that balance innovation velocity with operational excellence and regulatory compliance.',
     },
+  ]
+
+  const credentials = [
+    'Former Fortune 50 AI Strategy CTL',
+    'M.Sc. Engineering & Technology Management, Louisiana Tech',
+    '16+ years full-stack engineering experience',
+    'Published AI compliance researcher',
+    'Founder: HAIEC (Holistic AI Ethics and Compliance)',
+    'Father of two daughters | Dallas, Texas',
   ]
 
   const achievements = [
-    '12+ years Fortune 50 AI compliance experience',
-    'Published researcher: EU AI Act, NYC LL144, NIST AI RMF',
-    'Founder: Human AI Ethics Council (HAIEC)',
-    'Available for consulting & advisory engagements',
-    'Proven track record: AI pilots → production systems',
-    'Expert witness & regulatory compliance advisor',
-  ]
-
-  const clientResults = [
     {
       metric: '100%',
       label: 'Regulatory Compliance',
       description: 'NYC Local Law 144 audit readiness achieved',
     },
     {
-      metric: '6 months',
-      label: 'Time to Production',
-      description: 'AI pilot to compliant production system',
+      metric: '16+',
+      label: 'Years Experience',
+      description: 'Backend, frontend, and data architecture',
     },
     {
-      metric: '$2.4M',
-      label: 'Risk Mitigation',
-      description: 'Avoided regulatory penalties & rework costs',
+      metric: 'Fortune 50',
+      label: 'Enterprise Scale',
+      description: 'AI strategy leadership at global scale',
     },
   ]
 
-  const recentWork = [
+  const whitepapers = [
     {
-      category: 'Technical Report',
-      title: 'Instruction Stack Audit Framework (ISAF)',
-      description:
-        '9-layer technical specification for AI accountability. Demonstrates EU AI Act, NIST AI RMF, ISO 42001 compliance.',
-      href: '/research',
+      title: 'From Industrial Electrification to Artificial Intelligence',
+      subtitle: 'Institutional Lessons from Construction Governance for AI Risk Regulation',
+      description: 'Analyzes historical evolution of construction governance and maps these trajectories to contemporary AI governance developments. AI resembles industrial electrification: infrastructure-like, horizontally embedded, and systemically consequential.',
+      topics: ['AI Governance', 'Regulatory Frameworks', 'Institutional Theory', 'General-Purpose Technology'],
+      pages: '28 pages',
+      date: 'February 2025',
+      downloadUrl: 'https://zenodo.org/records/18664344',
+      icon: FileText
     },
     {
-      category: 'Technical Report',
-      title: 'Deterministic Bias Detection for NYC LL144',
-      description:
-        'Reproducibility-first architecture for regulatory compliance. Rule-based pattern matching with cryptographic evidence.',
-      href: '/research',
+      title: 'The CSM6 Framework',
+      subtitle: 'A New Standard for AI Compliance',
+      description: 'Comprehensive guide to the CSM6 (Compliance State Machine 6) framework. Learn how deterministic state machines ensure reproducible compliance assessments.',
+      topics: ['CSM6 Architecture', 'State Machine Design', 'Readiness Rules', 'Evidence Generation'],
+      pages: '42 pages',
+      date: 'December 2024',
+      downloadUrl: 'https://www.haiec.com/resources/whitepapers',
+      icon: Shield
     },
     {
-      category: 'Framework',
-      title: 'Cognitive Systems Management (CSM)',
-      description:
-        'Enterprise playbook bridging AI strategy, implementation, and governance for Fortune 50 scale.',
-      href: '/research',
+      title: 'Deterministic Compliance',
+      subtitle: 'Why AI-Testing-AI Fails',
+      description: 'Research paper proving why using AI to test AI creates circular dependencies and false confidence. Introduces deterministic Python engines as the solution.',
+      topics: ['AI Testing Limitations', 'Deterministic Engines', 'Reproducibility', 'Court-Defensible Evidence'],
+      pages: '28 pages',
+      date: 'November 2024',
+      downloadUrl: 'https://www.haiec.com/resources/whitepapers',
+      icon: Award
+    },
+    {
+      title: 'Bias Detection Methods',
+      subtitle: 'Statistical vs. Deterministic',
+      description: 'Comparative analysis of bias detection approaches. Covers disparate impact testing, statistical parity, and deterministic pattern matching.',
+      topics: ['Disparate Impact', 'Statistical Parity', 'Pattern Detection', 'NYC LL144 Compliance'],
+      pages: '35 pages',
+      date: 'October 2024',
+      downloadUrl: 'https://www.haiec.com/resources/whitepapers',
+      icon: TrendingUp
+    },
+  ]
+
+  const solutions = [
+    {
+      name: 'HAIEC',
+      description: 'AI Compliance & Governance Platform',
+      href: '/solutions/haiec',
+      external: 'https://www.haiec.com',
+      badge: 'Enterprise'
+    },
+    {
+      name: 'KestrelVoice',
+      description: 'AI Voice Operations Platform',
+      href: '/solutions/kestrelvoice',
+      external: 'https://www.kestrelvoice.com',
+      badge: 'Production'
+    },
+    {
+      name: 'FrontOfAI',
+      description: 'Enterprise AI Solutions',
+      href: '/solutions/frontofai',
+      external: 'https://frontofai.com',
+      badge: 'Live'
     },
   ]
 
   return (
     <>
       <Hero
-        subtitle="AI Compliance Architect"
+        subtitle="Former Fortune 50 AI Strategy CTL"
         title={
           <>
-            Turn AI Pilots Into
-            <br />
-            <span className="gradient-text">Production Systems.</span>
-            <br />
-            Without Regulatory Risk.
+            <ProfileCard />
           </>
         }
-        description="Enterprise leaders waste millions on AI experiments that never ship. I build the compliance architecture that lets you move fast—legally. Fortune 50 proven."
+        description="The future of AI isn't about building faster—it's about building smarter governance frameworks that enable sustainable innovation. I architect compliance systems that turn regulatory requirements from roadblocks into competitive advantages. From Fortune 50 enterprises to emerging platforms, I help organizations deploy AI that scales with confidence."
+        imageSrc="/profile-photo.jpeg"
+        imageAlt="Subodh Kumar Kc - AI Compliance Architect and SaaS Developer"
+        layout="split"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="flex flex-wrap gap-4 justify-center"
+          className="flex flex-wrap gap-4 justify-center lg:justify-start"
         >
           <Link href="/contact">
             <Button size="lg" className="group animate-glow">
-              Start Your Transformation
+              Let's Talk
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
-          <Link href="/about">
+          <Link href="/solutions">
             <Button size="lg" variant="outline">
-              See The Framework
+              See My Work
             </Button>
           </Link>
         </motion.div>
       </Hero>
 
+      <Section className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl font-bold mb-6 text-center">The Vision</h2>
+            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+              <p>
+                AI governance shouldn't slow innovation—it should accelerate it. The organizations that win aren't the ones 
+                moving fastest. They're the ones building frameworks that let them move fast indefinitely.
+              </p>
+              <p>
+                I specialize in architecting these frameworks. Translating regulatory complexity into actionable systems. 
+                Turning compliance requirements into strategic advantages. Building platforms that make ethical AI deployment 
+                the path of least resistance.
+              </p>
+              <p>
+                My work spans peer-reviewed research, Fortune 50 AI strategy, and production platforms serving global enterprises. 
+                Based in Dallas with my family. M.Sc. in Engineering & Technology Management. Founder of HAIEC—Holistic AI Ethics and Compliance.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </Section>
+
       <Section
-        subtitle="Core Expertise"
-        title="Building AI Systems That Scale. Securely."
-        description="At the intersection of technical program management, AI governance, and enterprise compliance."
+        subtitle="Core Capabilities"
+        title="Strategic AI Governance Architecture"
+        description="Transforming regulatory complexity into competitive advantage"
       >
         <Grid cols={2}>
-          {expertise.map((item, index) => {
+          {services.map((item, index) => {
             const Icon = item.icon
             return (
               <motion.div
@@ -154,7 +226,7 @@ export default function Home() {
                       <Icon className="h-6 w-6 text-primary" />
                     </motion.div>
                     <CardTitle>{item.title}</CardTitle>
-                    <CardDescription>{item.description}</CardDescription>
+                    <CardDescription className="text-base leading-relaxed">{item.description}</CardDescription>
                   </CardHeader>
                 </Card>
               </motion.div>
@@ -164,12 +236,12 @@ export default function Home() {
       </Section>
 
       <Section
-        subtitle="Client Results"
-        title="Measurable Impact on Enterprise AI Programs"
+        subtitle="Impact"
+        title="Proven at Enterprise Scale"
         className="bg-secondary/20 relative overflow-hidden"
       >
         <Grid cols={3} className="mb-12">
-          {clientResults.map((result, index) => (
+          {achievements.map((result, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -193,62 +265,125 @@ export default function Home() {
             </motion.div>
           ))}
         </Grid>
+      </Section>
 
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-semibold mb-6 text-center">Experience & Credentials</h3>
-          <Grid cols={2} gap="md">
-            {achievements.map((achievement, index) => (
-              <motion.div 
-                key={index} 
-                className="flex items-start gap-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+      <Section
+        subtitle="Thought Leadership"
+        title="Published Research & Frameworks"
+        description="Advancing the field of AI governance through peer-reviewed work"
+      >
+        <div className="grid md:grid-cols-2 gap-6">
+          {whitepapers.map((paper, index) => {
+            const Icon = paper.icon
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5 animate-pulse-glow" />
-                <p className="text-muted-foreground">{achievement}</p>
+                <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/50">
+                  <CardHeader>
+                    <div className="flex items-start gap-4 mb-3">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl mb-1">{paper.title}</CardTitle>
+                        <p className="text-sm text-muted-foreground font-medium">{paper.subtitle}</p>
+                      </div>
+                    </div>
+                    <CardDescription className="text-base leading-relaxed mb-4">
+                      {paper.description}
+                    </CardDescription>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {paper.topics.map((topic, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs px-2 py-1 rounded-full bg-secondary text-foreground border border-border"
+                        >
+                          {topic}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+                      <span>{paper.pages}</span>
+                      <span>{paper.date}</span>
+                    </div>
+                    <a href={paper.downloadUrl} target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" className="w-full group">
+                        <Download className="mr-2 h-4 w-4" />
+                        Download Free
+                        <ExternalLink className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </a>
+                  </CardHeader>
+                </Card>
               </motion.div>
-            ))}
-          </Grid>
+            )
+          })}
+        </div>
+        <div className="text-center mt-8">
+          <a href="https://www.haiec.com/resources/whitepapers" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" variant="outline" className="group">
+              View All Whitepapers
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </a>
         </div>
       </Section>
 
-      <Section subtitle="Recent Work" title="Insights & Frameworks">
-        <Grid cols={3}>
-          {recentWork.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-              whileHover={{ y: -8 }}
-            >
-              <Card className="h-full transition-all duration-300 hover:shadow-xl hover:border-primary/50">
-                <CardHeader>
-                  <motion.div 
-                    className="inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-3 py-1 mb-3 w-fit"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <span className="text-xs font-medium text-accent">{item.category}</span>
-                  </motion.div>
-                  <CardTitle className="text-xl">{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">{item.description}</p>
-                  <Link
-                    href={item.href}
-                    className="text-primary hover:text-accent transition-colors inline-flex items-center text-sm font-medium group"
-                  >
-                    Read more
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </Grid>
+      <Section className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-4">Platform Portfolio</h2>
+            <p className="text-lg text-muted-foreground">
+              Enterprise-grade solutions deployed at scale
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {solutions.map((solution, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="text-center">
+                    <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-3">
+                      {solution.badge}
+                    </span>
+                    <h3 className="text-xl font-bold mb-2">{solution.name}</h3>
+                    <p className="text-sm text-muted-foreground mb-4">{solution.description}</p>
+                    <div className="flex gap-2">
+                      <Link href={solution.href} className="flex-1">
+                        <Button variant="outline" size="sm" className="w-full">
+                          Details
+                        </Button>
+                      </Link>
+                      <a href={solution.external} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button size="sm" className="w-full">
+                          Visit
+                        </Button>
+                      </a>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/solutions">
+              <Button size="lg" className="group">
+                View All Solutions
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
+        </div>
       </Section>
 
       <Section subtitle="HAIEC Platform" title="The AI Compliance Engine">
@@ -268,7 +403,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <h3 className="text-2xl font-semibold mb-4">
-              Human AI Ethics Council
+              HAIEC: Holistic AI Ethics and Compliance
             </h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               HAIEC is a comprehensive platform for AI governance, compliance, and ethical deployment at enterprise scale. Built on years of real-world implementation experience, it provides the tools, frameworks, and audit capabilities organizations need to deploy AI responsibly.
@@ -340,7 +475,6 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Lead Magnet CTA */}
       <Section className="bg-secondary/20 relative overflow-hidden">
         <motion.div
           className="absolute inset-0 opacity-5"
@@ -382,19 +516,17 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Newsletter Signup */}
       <Section>
         <NewsletterSignup />
       </Section>
 
       <CTA
-        title="Ready to Build Compliant AI at Scale?"
-        description="Whether you're starting your AI governance journey or scaling existing systems, I can help you navigate the complexity and build frameworks that work."
-        primaryButton={{ text: 'Schedule a consultation', href: '/contact' }}
-        secondaryButton={{ text: 'View advisory services', href: '/advisory' }}
+        title="Building the Future of AI Governance"
+        description="If you're looking to transform regulatory requirements into strategic advantages, let's explore how governance architecture can accelerate your AI initiatives."
+        primaryButton={{ text: 'Start a Conversation', href: '/contact' }}
+        secondaryButton={{ text: 'Explore Platforms', href: '/solutions' }}
       />
 
-      {/* Lead Magnet Modal */}
       <LeadMagnetModal 
         isOpen={isLeadMagnetOpen} 
         onClose={() => setIsLeadMagnetOpen(false)} 

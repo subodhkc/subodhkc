@@ -2,7 +2,7 @@
 
 # 👋 Hi, I'm Subodh KC
 
-### AI Compliance Architect | Enterprise Technical Program Manager | HAIEC Founder
+### Former Fortune 50 AI Strategy CTL | AI Governance Architect | HAIEC Founder
 
 **Strategic Systems. Sharp Execution. AI Compliance at Enterprise Scale.**
 
@@ -17,14 +17,14 @@
 
 ## 🚀 About Me
 
-I'm an **AI Compliance Architect** at a Fortune 50 company and founder of **HAIEC (Human AI Ethics Council)**, with 12+ years of experience driving complex AI programs at enterprise scale. I help organizations navigate the intersection of AI innovation, regulatory compliance, and ethical governance.
+Former **AI Strategy CTL at a Fortune 50 company** and founder of **HAIEC (Holistic AI Ethics and Compliance)**. I architect governance frameworks that turn regulatory requirements into competitive advantages. M.Sc. in Engineering & Technology Management from Louisiana Tech. Sixteen years of full-stack engineering experience building systems that scale.
 
 **What I Do:**
-- 🛡️ Build AI governance frameworks for Fortune 500 enterprises
-- 🎯 Lead technical programs managing $50M+ budgets and 100+ stakeholder teams
-- 🔬 Develop compliance architectures for EU AI Act, GDPR, and sector-specific regulations
-- 📊 Drive enterprise AI strategy from concept to production
-- 🎤 Speak and write about AI ethics, compliance, and responsible innovation
+- 🛡️ Architect AI governance frameworks that enable innovation at scale
+- 🎯 Guide organizations through AI transformation and regulatory compliance
+- 🔬 Develop compliance systems for EU AI Act, NIST AI RMF, ISO 42001, NYC LL144
+- 📊 Build production AI platforms serving thousands of users
+- 🎤 Publish peer-reviewed research on AI governance and compliance
 
 ---
 
@@ -33,12 +33,12 @@ I'm an **AI Compliance Architect** at a Fortune 50 company and founder of **HAIE
 ### 🤝 Open for Consulting
 
 I work with organizations on:
-- **AI Compliance & Governance** - Regulatory readiness, audit preparation, framework design
-- **Technical Program Leadership** - Fractional TPM for complex AI initiatives
-- **Executive Coaching** - Strategy, stakeholder management, organizational scaling
-- **Implementation Support** - Hands-on guidance deploying HAIEC frameworks
+- **AI Governance Architecture** - Regulatory readiness, compliance frameworks, audit preparation
+- **Strategic AI Advisory** - Executive guidance for AI transformation initiatives
+- **Enterprise AI Systems** - Production platforms for voice AI and compliance automation
+- **Platform Engineering** - Full-stack systems that balance innovation and compliance
 
-**Ideal Clients:** Fortune 500 enterprises, Series B+ startups, technical leaders scaling AI systems
+**Ideal Clients:** Enterprise organizations, innovative startups, technical leaders deploying AI at scale
 
 📅 **[Schedule a Consultation](https://subodhkc.com/contact)**
 
@@ -88,32 +88,32 @@ I write about AI compliance, governance, and enterprise strategy:
 ## 🛠️ Tech Stack & Expertise
 
 ```text
-AI & Compliance    ████████████████████  Expert
-Program Management ████████████████████  Expert
-Enterprise Strategy███████████████████   Advanced
+AI Governance      ████████████████████  Expert
+Compliance Arch    ████████████████████  Expert
+Full-Stack Eng     ███████████████████   16+ Years
 Python/TypeScript  ████████████████      Advanced
 Cloud Architecture ███████████████       Advanced
-SaaS Platforms     ███████████████       Advanced
+Enterprise Systems ███████████████       Advanced
 ```
 
 **Core Competencies:**
-- AI Governance & Regulatory Compliance
-- Technical Program Management (Fortune 50 scale)
-- Enterprise Architecture & System Design
-- Risk Management & Audit Preparation
-- Stakeholder Management & Executive Communication
-- Team Scaling & Organizational Design
+- AI Governance & Regulatory Compliance (EU AI Act, NIST AI RMF, ISO 42001)
+- Strategic AI Advisory & Executive Guidance
+- Enterprise Architecture & Full-Stack Engineering (16+ years)
+- Compliance Framework Design & Audit Preparation
+- Production AI Systems (Voice, Automation, Intelligence)
+- Published Research & Thought Leadership
 
 ---
 
 ## 🏆 Achievements
 
-- 🎯 **Led 50+ enterprise AI programs** managing $50M+ budgets
-- 🛡️ **Built compliance frameworks** adopted by Fortune 500 companies
-- 🚀 **Founded HAIEC** - AI ethics platform serving enterprise clients
-- 📊 **Managed 100+ stakeholder teams** across global organizations
-- 🎓 **Dean's Honor List & President's Honor List** recipient
-- 🌍 **Multilingual** - English, Nepali
+- 🎯 **Former Fortune 50 AI Strategy CTL** - Led enterprise AI governance at global scale
+- 🛡️ **Published AI Governance Research** - Peer-reviewed frameworks for compliance
+- 🚀 **Founded HAIEC** - Holistic AI Ethics and Compliance platform
+- 📊 **Production Systems Deployed** - Voice AI and compliance platforms serving thousands
+- 🎓 **M.Sc. Engineering & Technology Management** - Louisiana Tech University
+- 🌍 **Based in Dallas, Texas** - Father of two daughters
 
 ---
 
@@ -133,11 +133,11 @@ SaaS Platforms     ███████████████       Advanced
 
 ```typescript
 const currentFocus = {
-  building: "AI compliance frameworks for enterprise scale",
-  learning: "EU AI Act implementation strategies",
-  collaborating: "Open-source governance tools",
-  speaking: "AI ethics and regulatory compliance",
-  mentoring: "Technical leaders in AI space"
+  building: "HAIEC - Holistic AI Ethics and Compliance platform",
+  researching: "Deterministic compliance engines and governance frameworks",
+  deploying: "Production AI systems (KestrelVoice, FrontOfAI)",
+  publishing: "Peer-reviewed AI governance research",
+  advising: "Organizations on AI transformation and compliance"
 }
 ```
 
@@ -161,9 +161,9 @@ I'm always open to discussing:
 
 <div align="center">
 
-### 💡 "Building AI systems that scale responsibly"
+### 💡 "Architecting governance frameworks that enable sustainable AI innovation"
 
-**© 2025 Subodh KC. Strategic Systems. Sharp Execution.**
+**© 2025 Subodh Kumar Kc. Former Fortune 50 AI Strategy CTL.**
 
 ⭐ **If you find my work valuable, consider starring my repositories!**
 
