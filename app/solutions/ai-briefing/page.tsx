@@ -26,7 +26,7 @@ export default function AIBriefingPage() {
     {
       icon: Users,
       title: 'Role-Based Views',
-      description: 'CTO, TPM, or Executive—get what matters to you. Customized intelligence for your role.',
+      description: 'CTO, TPM, or Executive - get what matters to you. Customized intelligence for your role.',
       stat: '3+'
     },
     {

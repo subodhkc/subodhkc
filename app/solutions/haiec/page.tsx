@@ -75,7 +75,7 @@ export default function HAIECPage() {
             <span className="gradient-text">Can You Defend Them?</span>
           </>
         }
-        description="Evidence-first frameworks for behavioral AI governance. CSM6 framework and AI readiness assessments for enterprise compliance. Not a dashboard—an evidence layer."
+        description="Evidence-first frameworks for behavioral AI governance. CSM6 framework and AI readiness assessments for enterprise compliance. Not a dashboard - an evidence layer."
         imageSrc="/Haiec.png"
         imageAlt="HAIEC Platform Overview"
         layout="split"

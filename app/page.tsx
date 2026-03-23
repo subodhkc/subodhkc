@@ -22,7 +22,7 @@ export default function Home() {
       icon: Shield,
       title: 'AI Governance Architecture',
       description:
-        'Building governance systems that make compliance your competitive advantage—not your bottleneck. EU AI Act, NIST AI RMF, ISO 42001 translated into frameworks that accelerate deployment.',
+        'Building governance systems that make compliance your competitive advantage - not your bottleneck. EU AI Act, NIST AI RMF, ISO 42001 translated into frameworks that accelerate deployment.',
     },
     {
       icon: Zap,
@@ -34,13 +34,13 @@ export default function Home() {
       icon: Code,
       title: 'Enterprise AI Systems',
       description:
-        'Deploying production systems that prove governance works at scale. Voice AI, compliance automation, intelligence platforms—built to perform under regulatory scrutiny.',
+        'Deploying production systems that prove governance works at scale. Voice AI, compliance automation, intelligence platforms - built to perform under regulatory scrutiny.',
     },
     {
       icon: Building2,
       title: 'Platform Engineering',
       description:
-        'Engineering platforms that balance innovation speed with operational excellence. Sixteen years building systems that scale—from startups to Fortune 50.',
+        'Engineering platforms that balance innovation speed with operational excellence. Sixteen years building systems that scale - from startups to Fortune 50.',
     },
   ]
 
@@ -62,7 +62,7 @@ export default function Home() {
     {
       metric: '16+',
       label: 'Years Experience',
-      description: 'Backend to boardroom—full-stack perspective',
+      description: 'Backend to boardroom - full-stack perspective',
     },
     {
       metric: 'Fortune 50',
@@ -147,7 +147,7 @@ export default function Home() {
             <ProfileCard />
           </>
         }
-        description="AI governance is the new competitive advantage. I help organizations turn regulatory complexity into strategic velocity—building frameworks that enable innovation at scale, not slow it down."
+        description="AI governance is the new competitive advantage. I help organizations turn regulatory complexity into strategic velocity - building frameworks that enable innovation at scale, not slow it down."
         imageSrc="/profile-photo.jpeg"
         imageAlt="Subodh Kumar Kc - AI Compliance Architect and SaaS Developer"
         layout="split"
@@ -172,6 +172,75 @@ export default function Home() {
         </motion.div>
       </Hero>
 
+      {/* Platform CTAs */}
+      <Section className="py-12 md:py-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            {/* HAIEC CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <Link href="https://www.haiec.com" target="_blank" rel="noopener noreferrer">
+                <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/50 cursor-pointer group">
+                  <CardHeader className="space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Shield className="h-6 w-6 text-primary" />
+                      </div>
+                      <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl mb-2">Get Free AI Exposure</CardTitle>
+                      <CardDescription className="text-base">
+                        HAIEC provides comprehensive AI governance and compliance assessment. Understand your AI risk exposure and regulatory readiness - completely free.
+                      </CardDescription>
+                    </div>
+                    <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground">
+                      Access HAIEC Platform
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </CardHeader>
+                </Card>
+              </Link>
+            </motion.div>
+
+            {/* KestrelVoice CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <Link href="https://www.kestrelvoice.com" target="_blank" rel="noopener noreferrer">
+                <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-accent/50 cursor-pointer group">
+                  <CardHeader className="space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Zap className="h-6 w-6 text-accent" />
+                      </div>
+                      <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl mb-2">Get AI Voice Infrastructure</CardTitle>
+                      <CardDescription className="text-base">
+                        KestrelVoice delivers production-ready AI voice operations. Answer every call, book appointments automatically, and never miss revenue opportunities - 24/7 coverage.
+                      </CardDescription>
+                    </div>
+                    <Button variant="outline" className="w-full group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent">
+                      Try KestrelVoice
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </CardHeader>
+                </Card>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </Section>
+
       <Section className="bg-secondary/20">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -183,7 +252,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold mb-6 text-center">The Vision</h2>
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                The organizations that win aren't moving fastest—they're building frameworks that let them move fast indefinitely. 
+                The organizations that win aren't moving fastest - they're building frameworks that let them move fast indefinitely. 
                 AI governance isn't a brake. It's an accelerator.
               </p>
               <p>
@@ -192,7 +261,7 @@ export default function Home() {
               </p>
               <p>
                 My work bridges Fortune 50 strategy, peer-reviewed research, and production systems serving thousands. Based in Dallas. 
-                M.Sc. in Engineering & Technology Management. Founder of HAIEC—the platform redefining AI governance.
+                M.Sc. in Engineering & Technology Management. Founder of HAIEC - the platform redefining AI governance.
               </p>
             </div>
           </motion.div>
@@ -521,7 +590,7 @@ export default function Home() {
 
       <CTA
         title="Ready to Turn Compliance Into Competitive Advantage?"
-        description="Organizations that master AI governance today will dominate their markets tomorrow. Whether you're navigating EU AI Act compliance, preparing for regulatory audits, or building AI strategy from scratch—let's talk."
+        description="Organizations that master AI governance today will dominate their markets tomorrow. Whether you're navigating EU AI Act compliance, preparing for regulatory audits, or building AI strategy from scratch - let's talk."
         primaryButton={{ text: 'Schedule a Strategic Call', href: '/contact' }}
         secondaryButton={{ text: 'Explore Platforms', href: '/solutions' }}
       />

@@ -110,20 +110,20 @@ export default function Hero({
                     ease: "easeOut"
                   }}
                 >
-                  {/* Continuous subtle rotation */}
+                  {/* Regular 360-degree spin every 4 seconds */}
                   <motion.div
                     className="relative w-full h-full"
                     animate={{
-                      rotateY: [0, 5, 0, -5, 0],
+                      rotateY: [0, 360],
                     }}
                     transition={{
-                      duration: 10,
+                      duration: 4,
                       repeat: Infinity,
-                      ease: "easeInOut"
+                      ease: "linear"
                     }}
                     whileHover={{
                       rotateY: 360,
-                      transition: { duration: 1.5, ease: "easeInOut" }
+                      transition: { duration: 1, ease: "easeInOut" }
                     }}
                     style={{
                       transformStyle: "preserve-3d",

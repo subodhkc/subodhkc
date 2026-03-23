@@ -61,25 +61,28 @@ export const metadata: Metadata = {
       'application/rss+xml': 'https://subodhkc.com/rss.xml',
     },
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Subodh Kumar Kc - AI Architect & Governance Expert',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://subodhkc.com',
+    siteName: 'Subodh Kumar Kc - AI Architect & Governance Expert',
+    title: 'Subodh Kumar Kc - AI Architect | Former Fortune 50 AI Strategy CTL',
     description:
-      'Former Fortune 50 AI Strategy CTL | AI Governance Architect | 16+ Years Full-Stack AI Development | EU AI Act, NIST AI RMF, ISO 42001 Expert',
+      'AI Architect and Governance Expert with 16+ years experience. Former Fortune 50 AI Strategy CTL. Specializing in EU AI Act, NIST AI RMF, ISO 42001 compliance. Building production AI systems at scale.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'KC - AI Compliance Architect',
+        alt: 'Subodh Kumar Kc - AI Architect & Governance Expert',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC - Turn AI Pilots Into Production Systems',
+    title: 'Subodh Kumar Kc - AI Architect & Governance Expert',
     description:
-      'Subodh KC - AI Compliance Architect | Fortune 50 Experience | EU AI Act, NYC LL144, NIST AI RMF Expert | Available for Consulting',
+      'Former Fortune 50 AI Strategy CTL | AI Governance Architect | 16+ Years Full-Stack AI Development | EU AI Act, NIST AI RMF, ISO 42001 Expert',
     creator: '@subodhkc',
     images: ['/og-image.png'],
   },

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Linkedin, Github, Twitter, Mail, BookOpen, FileText, Rss } from 'lucide-react'
+import { Linkedin, Github, Mail, BookOpen, FileText, Rss } from 'lucide-react'
 
 const footerLinks = {
   main: [
@@ -24,11 +24,6 @@ const footerLinks = {
       name: 'GitHub',
       href: 'https://github.com/subodhkc',
       icon: Github,
-    },
-    {
-      name: 'Twitter',
-      href: 'https://twitter.com/subodhkc',
-      icon: Twitter,
     },
     {
       name: 'Email',
