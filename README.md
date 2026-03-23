@@ -85,15 +85,6 @@ I write about AI compliance, governance, and enterprise strategy:
 
 ---
 
-## 🛠️ Tech Stack & Expertise
-
-```text
-AI Governance      ████████████████████  Expert
-Compliance Arch    ████████████████████  Expert
-Full-Stack Eng     ███████████████████   16+ Years
-Python/TypeScript  ████████████████      Advanced
-Cloud Architecture ███████████████       Advanced
-Enterprise Systems ███████████████       Advanced
 ```
 
 **Core Competencies:**
@@ -113,19 +104,11 @@ Enterprise Systems ███████████████       Advanced
 - 🚀 **Founded HAIEC** - Holistic AI Ethics and Compliance platform
 - 📊 **Production Systems Deployed** - Voice AI and compliance platforms serving thousands
 - 🎓 **M.Sc. Engineering & Technology Management** - Louisiana Tech University
-- 🌍 **Based in Dallas, Texas** - Father of two daughters
+- 🌍 **Based in Dallas, Texas**
 
 ---
 
-## 📊 GitHub Stats
 
-<div align="center">
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=subodhkc&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0A1929&title_color=2563EB&icon_color=06B6D4&text_color=FFFFFF)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=subodhkc&layout=compact&theme=tokyonight&hide_border=true&bg_color=0A1929&title_color=2563EB&text_color=FFFFFF)
-
-</div>
 
 ---
 
@@ -161,10 +144,10 @@ I'm always open to discussing:
 
 <div align="center">
 
-### 💡 "Architecting governance frameworks that enable sustainable AI innovation"
+###  "Architecting governance frameworks that enable sustainable AI innovation"
 
 **© 2025 Subodh Kumar Kc. Former Fortune 50 AI Strategy CTL.**
 
-⭐ **If you find my work valuable, consider starring my repositories!**
+
 
 </div>
