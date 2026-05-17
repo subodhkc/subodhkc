@@ -297,3 +297,99 @@ h1, h2, h3, h4, h5, h6 {
 .prose a {
   @apply text-primary hover:text-accent transition-colors underline;
 }
+/* app/globals.css — APPEND this block at the end of your existing globals.css
+ * (or replace your :root section). It introduces the operator design tokens
+ * and the global keyframes used by Hero animations.
+ *
+ * Coexists with your shadcn/ui --primary/--secondary tokens — those still work
+ * for inner pages. The new pages read --bg/--fg/--muted/--border/--card/etc.
+ */
+
+:root {
+  /* Operator surface (Console by default per Subodh's choice) */
+  --bg:         #15140f;
+  --fg:         #ebe6d8;
+  --muted:      #8a8576;
+  --border:     #2a2820;
+  --card:       #1c1a14;
+  --card-hover: #23211a;
+  --code:       #0e0d09;
+  --chip:       #26241c;
+
+  /* Phosphor accent — bright CRT green */
+  --accent:     #16d088;
+
+  /* Font stacks (load via next/font or <link> in layout.tsx) */
+  --font-sans:  "Geist", "Inter", system-ui, sans-serif;
+  --font-mono:  "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+/* Alternative themes — set data-theme on <html> or <body> to switch */
+[data-theme="paper"] {
+  --bg: #f6f4ef; --fg: #1c1a16; --muted: #6f6a5e;
+  --border: #e3ddd1; --card: #fbfaf6; --card-hover: #fffdf8;
+  --code: #efebde; --chip: #ebe6d8;
+  --accent: #c75c2a;
+}
+[data-theme="stark"] {
+  --bg: #ffffff; --fg: #0a0a0a; --muted: #737373;
+  --border: #e5e5e5; --card: #ffffff; --card-hover: #fafafa;
+  --code: #f4f4f4; --chip: #f0f0f0;
+}
+[data-theme="phosphor-light"] {
+  --bg: #0a1014; --fg: #d8efe0; --muted: #6e8a7a;
+  --border: #1b2a25; --card: #0f1719; --card-hover: #142022;
+  --code: #070d10; --chip: #16221e;
+  --accent: #16d088;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Hero animation keyframes (used by WordCycle, ShipLog, Constellation, Aurora) */
+@keyframes hero-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+@keyframes hero-blink {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 0; }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes flow {
+  0%   { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: -100; }
+}
+@keyframes node-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes underline-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Modal keyframes */
+@keyframes ra-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ra-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Constellation node hover label */
+svg g[style*="cursor: pointer"]:hover .node-label { opacity: 1 !important; transition: opacity .15s; }
+svg g[style*="cursor: pointer"]:hover circle[stroke="var(--accent)"] { opacity: 0.7; }
+
+/* Publication row accent rule draw-in */
+.paper-row:hover .paper-rule { height: 100%; }
+.paper-row:hover { background: var(--card); }
+
+/* Honor reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

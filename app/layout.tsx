@@ -1,20 +1,26 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
+import { SiteNavigation } from '@/components/SiteNavigation'
+import { SiteFooter } from '@/components/SiteFooter'
 import StructuredData from '@/components/StructuredData'
 import { headers } from 'next/headers'
 
-const inter = Inter({ subsets: ['latin'] })
+const geistSans = Geist({ subsets: ['latin'], variable: '--font-sans' })
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' })
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-serif',
+})
 
 export const metadata: Metadata = {
   title: {
-    default: 'Subodh Kumar Kc - AI Architect | AI Governance Expert | Former Fortune 50 AI Strategy CTL',
-    template: '%s | Subodh Kumar Kc - AI Architect',
+    default: 'Subodh KC — AI Architect | AI Governance Expert | Former Fortune 50 AI Strategy CTL',
+    template: '%s | Subodh KC',
   },
   description:
-    'Subodh Kumar Kc - AI Architect and Governance Expert. Former Fortune 50 AI Strategy CTL with 16+ years full-stack development experience. Specializing in AI governance frameworks, EU AI Act compliance, NIST AI RMF, ISO 42001. Building production AI systems that scale with confidence.',
+    'Subodh KC — AI Architect and Governance Expert. Former Fortune 50 AI Strategy CTL with 16+ years full-stack development experience. Specializing in AI governance frameworks, EU AI Act compliance, NIST AI RMF, ISO 42001. Building production AI systems that scale with confidence.',
   keywords: [
     'AI Architect',
     'AI Developer',
@@ -65,8 +71,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://subodhkc.com',
-    siteName: 'Subodh Kumar Kc - AI Architect & Governance Expert',
-    title: 'Subodh Kumar Kc - AI Architect | Former Fortune 50 AI Strategy CTL',
+    siteName: 'Subodh KC — AI Architect & Governance Expert',
+    title: 'Subodh KC — AI Architect | Former Fortune 50 AI Strategy CTL',
     description:
       'AI Architect and Governance Expert with 16+ years experience. Former Fortune 50 AI Strategy CTL. Specializing in EU AI Act, NIST AI RMF, ISO 42001 compliance. Building production AI systems at scale.',
     images: [
@@ -74,13 +80,13 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Subodh Kumar Kc - AI Architect & Governance Expert',
+        alt: 'Subodh KC — AI Architect & Governance Expert',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh Kumar Kc - AI Architect & Governance Expert',
+    title: 'Subodh KC — AI Architect & Governance Expert',
     description:
       'Former Fortune 50 AI Strategy CTL | AI Governance Architect | 16+ Years Full-Stack AI Development | EU AI Act, NIST AI RMF, ISO 42001 Expert',
     creator: '@subodhkc',
@@ -106,16 +112,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Check if this is a resume page (standalone, no nav/footer)
   const headersList = await headers()
   const pathname = headersList.get('x-pathname') || headersList.get('x-invoke-path') || ''
   const isResumePage = pathname.startsWith('/resume')
 
-  // For resume pages, render without nav/footer
   if (isResumePage) {
     return (
       <html lang="en">
-        <body className={`${inter.className} bg-white`}>
+        <body className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-white`}>
           {children}
         </body>
       </html>
@@ -123,7 +127,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
       <head>
         <StructuredData />
         <link rel="canonical" href="https://subodhkc.com" />
@@ -132,14 +136,12 @@ export default async function RootLayout({
         <meta name="geo.placename" content="United States" />
         <meta name="language" content="English" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="theme-color" content="#10b981" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <meta name="theme-color" content="#16d088" />
       </head>
-      <body className={`${inter.className} page-edge-gradient`}>
-        <Navigation />
+      <body>
+        <SiteNavigation />
         <main className="min-h-screen">{children}</main>
-        <Footer />
+        <SiteFooter />
         <StructuredData />
       </body>
     </html>
