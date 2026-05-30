@@ -90,7 +90,7 @@ export function SiteNavigation() {
           onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
         >
           <span style={{ fontSize: 13.5, fontWeight: 500 }}>{it.name}</span>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--muted)" }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-secondary)" }}>
             {it.desc}
           </span>
         </Link>
@@ -388,7 +388,7 @@ export function SiteNavigation() {
                   onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
                   <span style={{ fontSize: 13, fontWeight: 500 }}>{s.name}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 10.5, color: "var(--muted)" }}>{s.desc}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{s.desc}</span>
                 </Link>
               ))}
             </div>
@@ -414,7 +414,7 @@ export function SiteNavigation() {
                   onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
                   <span style={{ fontSize: 13, fontWeight: 500 }}>{p.name}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 10.5, color: "var(--muted)" }}>{p.desc}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{p.desc}</span>
                 </Link>
               ))}
             </div>

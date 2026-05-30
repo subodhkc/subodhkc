@@ -82,7 +82,7 @@ export function ShipLog() {
           width: "max-content",
           fontFamily: "var(--font-mono)",
           fontSize: 12,
-          color: "var(--muted)",
+          color: "var(--text-secondary)",
         }}
       >
         {items.map((it, i) => (

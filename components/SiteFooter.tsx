@@ -165,10 +165,10 @@ export function SiteFooter() {
               justifyContent: "space-between",
               alignItems: "baseline",
               fontFamily: "var(--font-mono)",
-              fontSize: 10.5,
+              fontSize: 11.5,
               letterSpacing: "0.06em",
               textTransform: "uppercase",
-              color: "var(--muted)",
+              color: "var(--text-secondary)",
             }}
           >
             <span>fig.02 — operator</span>
@@ -196,6 +196,7 @@ export function SiteFooter() {
               fontWeight: 500,
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
+              color: "var(--fg)",
             }}
           >
             <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>Architecting</span>{" "}
@@ -204,7 +205,7 @@ export function SiteFooter() {
           <p
             style={{
               fontSize: 15,
-              color: "var(--muted)",
+              color: "var(--text-secondary)",
               marginTop: 20,
               lineHeight: 1.65,
               maxWidth: 560,
@@ -263,13 +264,13 @@ export function SiteFooter() {
               fontSize: 11,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "var(--muted)",
+              color: "var(--text-secondary)",
               margin: "0 0 14px",
             }}
           >
             Newsletter
           </h4>
-          <p style={{ fontSize: 14, color: "var(--muted)", margin: "0 0 14px", maxWidth: 460 }}>
+          <p style={{ fontSize: 14, color: "var(--text-secondary)", margin: "0 0 14px", maxWidth: 460 }}>
             One email when something ships. No drips. No funnels.
           </p>
           {done ? (
@@ -338,7 +339,7 @@ export function SiteFooter() {
               fontSize: 11,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "var(--muted)",
+              color: "var(--text-secondary)",
               margin: "0 0 14px",
             }}
           >
@@ -351,17 +352,17 @@ export function SiteFooter() {
               </a>
             </li>
             <li>
-              <a href="https://linkedin.com/in/subodhkc" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--muted)", textDecoration: "none" }}>
+              <a href="https://linkedin.com/in/subodhkc" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--text-secondary)", textDecoration: "none" }}>
                 linkedin.com/in/subodhkc <Arrow kind="ext" />
               </a>
             </li>
             <li>
-              <a href="https://github.com/subodhkc" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--muted)", textDecoration: "none" }}>
+              <a href="https://github.com/subodhkc" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--text-secondary)", textDecoration: "none" }}>
                 github.com/subodhkc <Arrow kind="ext" />
               </a>
             </li>
             <li>
-              <a href="https://medium.com/@subodhkc" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--muted)", textDecoration: "none" }}>
+              <a href="https://medium.com/@subodhkc" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--text-secondary)", textDecoration: "none" }}>
                 medium.com/@subodhkc <Arrow kind="ext" />
               </a>
             </li>
@@ -375,13 +376,13 @@ export function SiteFooter() {
               fontSize: 11,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "var(--muted)",
+              color: "var(--text-secondary)",
               margin: "0 0 14px",
             }}
           >
             Now
           </h4>
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14, color: "var(--muted)" }}>
+          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14, color: "var(--text-secondary)" }}>
             <li><span style={{ color: "var(--fg)" }}>Building</span> HAIEC — compliance platform</li>
             <li><span style={{ color: "var(--fg)" }}>Deploying</span> KestrelVoice + FrontOfAI</li>
             <li><span style={{ color: "var(--fg)" }}>Researching</span> deterministic compliance</li>
@@ -398,7 +399,7 @@ export function SiteFooter() {
             fontSize: 11,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            color: "var(--muted)",
+            color: "var(--text-secondary)",
             margin: "0 0 16px",
           }}
         >
@@ -416,7 +417,7 @@ export function SiteFooter() {
         >
           {SITEMAP.map((col) => (
             <div key={col.head}>
-              <div style={{ color: "var(--muted)", marginBottom: 8 }}>{col.head}</div>
+              <div style={{ color: "var(--text-secondary)", marginBottom: 8 }}>{col.head}</div>
               <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 6 }}>
                 {col.items.map(([href, label]) => (
                   <li key={href}>

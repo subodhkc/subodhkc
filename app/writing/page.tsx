@@ -1,9 +1,12 @@
+'use client'
+
+import { useState } from 'react'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import Grid from '@/components/Grid'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ExternalLink, BookOpen, TrendingUp, Users } from 'lucide-react'
+import { ExternalLink, BookOpen, TrendingUp, Users, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -13,6 +16,38 @@ export const metadata = {
 }
 
 export default function WritingPage() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+  const [isSubscribing, setIsSubscribing] = useState(false)
+  const [subscribeError, setSubscribeError] = useState<string | null>(null)
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubscribing(true)
+    setSubscribeError(null)
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to subscribe')
+      }
+
+      setSubscribed(true)
+      setEmail('')
+    } catch (err) {
+      setSubscribeError(err instanceof Error ? err.message : 'Failed to subscribe. Please try again.')
+    } finally {
+      setIsSubscribing(false)
+    }
+  }
+
   const articles = [
     {
       title: 'From AI Pilots to Regulatory Readiness',
@@ -187,23 +222,47 @@ export default function WritingPage() {
       <Section subtitle="Newsletter" title="Stay Updated">
         <div className="max-w-2xl mx-auto">
           <Card className="text-center p-8">
-            <h3 className="text-2xl font-semibold mb-4">
-              Get insights delivered to your inbox
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Irregular updates on AI governance, compliance, and what's actually working in enterprise AI implementation. No spam. No fluff.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-              <Button>Subscribe</Button>
-            </div>
-            <p className="text-xs text-muted-foreground mt-4">
-              Join 500+ practitioners navigating AI compliance at scale
-            </p>
+            {subscribed ? (
+              <div className="space-y-4">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-2">You're subscribed!</h3>
+                <p className="text-muted-foreground">
+                  Check your inbox for a welcome email with AI insights and compliance updates.
+                </p>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-2xl font-semibold mb-4">
+                  Get insights delivered to your inbox
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  Irregular updates on AI governance, compliance, and what's actually working in enterprise AI implementation. No spam. No fluff.
+                </p>
+                {subscribeError && (
+                  <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                    <p className="text-red-500 text-sm">{subscribeError}</p>
+                  </div>
+                )}
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="flex-1 px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
+                  <Button type="submit" disabled={isSubscribing}>
+                    {isSubscribing ? 'Subscribing...' : 'Subscribe'}
+                  </Button>
+                </form>
+                <p className="text-xs text-muted-foreground mt-4">
+                  Join 500+ practitioners navigating AI compliance at scale
+                </p>
+              </>
+            )}
           </Card>
         </div>
       </Section>

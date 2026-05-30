@@ -49,10 +49,10 @@ export function WritingSection() {
         >
           §02
         </span>
-        <h2 style={{ margin: 0, fontSize: 22, fontWeight: 600, letterSpacing: "-0.015em" }}>
+        <h2 style={{ margin: 0, fontSize: 22, fontWeight: 600, letterSpacing: "-0.015em", color: "var(--fg)" }}>
           Writing & research
         </h2>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--muted)" }}>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-secondary)" }}>
           / {tab === "papers" ? `${PAPERS.length} publications` : `${FRAMEWORKS.length} frameworks`}
         </span>
 
@@ -77,7 +77,7 @@ export function WritingSection() {
                 appearance: "none",
                 border: "none",
                 background: tab === k ? "var(--fg)" : "transparent",
-                color: tab === k ? "var(--bg)" : "var(--muted)",
+                color: tab === k ? "var(--bg)" : "var(--text-secondary)",
                 fontFamily: "var(--font-mono)",
                 fontSize: 11.5,
                 padding: "5px 13px",
@@ -96,7 +96,7 @@ export function WritingSection() {
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: 12,
-            color: "var(--muted)",
+            color: "var(--text-secondary)",
             display: "inline-flex",
             alignItems: "center",
             gap: 4,
@@ -150,7 +150,7 @@ export function WritingSection() {
                     fontFamily: "var(--font-mono)",
                     fontSize: 11,
                     letterSpacing: "0.06em",
-                    color: "var(--muted)",
+                    color: "var(--text-secondary)",
                     textTransform: "uppercase",
                     paddingTop: 3,
                   }}
@@ -196,7 +196,7 @@ export function WritingSection() {
                       fontFamily: "var(--font-serif)",
                       fontStyle: "italic",
                       fontSize: 15,
-                      color: "var(--muted)",
+                      color: "var(--text-secondary)",
                     }}
                   >
                     {p.subtitle}
@@ -205,7 +205,7 @@ export function WritingSection() {
                     style={{
                       margin: "12px 0 0",
                       fontSize: 13.5,
-                      color: "var(--muted)",
+                      color: "var(--text-secondary)",
                       lineHeight: 1.55,
                       maxWidth: 760,
                       textWrap: "pretty",
@@ -224,7 +224,7 @@ export function WritingSection() {
                           padding: "3px 9px",
                           borderRadius: 999,
                           border: "1px solid var(--border)",
-                          color: "var(--muted)",
+                          color: "var(--text-secondary)",
                         }}
                       >
                         {t}
@@ -292,7 +292,7 @@ export function WritingSection() {
                     gap: 8,
                     fontFamily: "var(--font-mono)",
                     fontSize: 11,
-                    color: "var(--muted)",
+                    color: "var(--text-secondary)",
                   }}
                 >
                   <span
@@ -315,7 +315,7 @@ export function WritingSection() {
                 style={{
                   margin: "12px 0 14px",
                   fontSize: 13.5,
-                  color: "var(--muted)",
+                  color: "var(--text-secondary)",
                   lineHeight: 1.55,
                   textWrap: "pretty",
                 }}

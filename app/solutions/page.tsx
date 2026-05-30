@@ -8,6 +8,11 @@ import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Shield, Phone, Sparkles, Scale, FileText, ExternalLink } from 'lucide-react'
 
+export const metadata = {
+  title: 'Solutions - Enterprise AI Applications',
+  description: 'Production-ready AI applications serving enterprise clients. HAIEC compliance platform, KestrelVoice operations, FrontOfAI solutions, and CourtCase evidence builder.',
+}
+
 export default function SolutionsPage() {
   const solutions = [
     {

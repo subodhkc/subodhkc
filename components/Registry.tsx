@@ -78,10 +78,10 @@ export function Registry({
           >
             §01
           </span>
-          <h2 style={{ margin: 0, fontSize: 22, fontWeight: 600, letterSpacing: "-0.015em" }}>
+          <h2 style={{ margin: 0, fontSize: 22, fontWeight: 600, letterSpacing: "-0.015em", color: "var(--fg)" }}>
             The registry
           </h2>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--muted)" }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-secondary)" }}>
             showing {String(filtered.length).padStart(2, "0")} / {String(PRODUCTS.length).padStart(2, "0")}
           </span>
         </div>
@@ -143,7 +143,7 @@ export function Registry({
             }}
           >
             <span>{k === "all" ? "all" : KIND_LABEL[k].toLowerCase()}</span>
-            <span style={{ opacity: 0.55, fontVariantNumeric: "tabular-nums" }}>
+            <span style={{ color: "var(--text-secondary)", fontVariantNumeric: "tabular-nums" }}>
               {String(counts[k]).padStart(2, "0")}
             </span>
           </button>
@@ -191,7 +191,7 @@ export function Registry({
           style={{
             padding: "40px 0 80px",
             textAlign: "center",
-            color: "var(--muted)",
+            color: "var(--text-secondary)",
             fontFamily: "var(--font-mono)",
             fontSize: 13,
           }}

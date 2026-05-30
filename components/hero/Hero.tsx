@@ -53,6 +53,7 @@ export function Hero() {
             letterSpacing: "-0.04em",
             fontWeight: 600,
             textWrap: "balance",
+            color: "var(--fg)",
           }}
         >
           I&nbsp;
@@ -97,7 +98,7 @@ export function Hero() {
             marginTop: 26,
             fontSize: 17,
             lineHeight: 1.55,
-            color: "var(--muted)",
+            color: "var(--text-secondary)",
             textWrap: "pretty",
           }}
         >
@@ -127,10 +128,10 @@ export function Hero() {
               <div
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: 10.5,
+                  fontSize: 11.5,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  color: "var(--muted)",
+                  color: "var(--text-secondary)",
                   display: "flex",
                   alignItems: "center",
                   gap: 6,
@@ -160,7 +161,7 @@ export function Hero() {
               >
                 <Counter value={s.v} {...(s.fmt as any)} />
               </div>
-              <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 6 }}>{s.sub}</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 6 }}>{s.sub}</div>
             </div>
           ))}
         </div>

@@ -47,7 +47,7 @@ export function InstallLine({ label, copyText }: Props) {
           appearance: "none",
           background: "transparent",
           border: "none",
-          color: "var(--muted)",
+          color: "var(--text-secondary)",
           cursor: "pointer",
           padding: 2,
           display: "inline-flex",

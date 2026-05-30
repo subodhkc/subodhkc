@@ -16,6 +16,11 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+export const metadata = {
+  title: 'Products',
+  description: 'Privacy-first tools for productivity and AI governance. From open-source packages to enterprise solutions — all designed with local processing and data privacy in mind.',
+}
+
 const products = [
   {
     name: 'llmverify',

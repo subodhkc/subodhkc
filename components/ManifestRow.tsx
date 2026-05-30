@@ -11,7 +11,7 @@ const STATUS_COLOR: Record<ProductStatus, string> = {
   live: "#0a8a4a",
   stable: "#0a8a4a",
   beta: "#c79a2a",
-  soon: "#888",
+  soon: "#a0a0a0",
 };
 
 interface Props {
@@ -44,7 +44,7 @@ export function ManifestRow({ product, index, glyphStyle }: Props) {
 
   const inner = (
     <>
-      <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--muted)" }}>
+      <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>
         {String(index + 1).padStart(2, "0")}
       </span>
       <span
@@ -73,20 +73,20 @@ export function ManifestRow({ product, index, glyphStyle }: Props) {
           }}
         />
       </span>
-      <span style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.45 }}>{product.tagline}</span>
+      <span style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.45 }}>{product.tagline}</span>
       <span
         style={{
           fontFamily: "var(--font-mono)",
-          fontSize: 10.5,
+          fontSize: 11.5,
           letterSpacing: "0.04em",
           textTransform: "uppercase",
-          color: "var(--muted)",
+          color: "var(--text-secondary)",
           textAlign: "right",
         }}
       >
         {product.meta}
       </span>
-      <span style={{ color: "var(--muted)" }}>↗</span>
+      <span style={{ color: "var(--text-secondary)" }}>↗</span>
     </>
   );
 

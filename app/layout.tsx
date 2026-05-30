@@ -138,7 +138,7 @@ export default async function RootLayout({
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="theme-color" content="#16d088" />
       </head>
-      <body>
+      <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
         <SiteNavigation />
         <main className="min-h-screen">{children}</main>
         <SiteFooter />

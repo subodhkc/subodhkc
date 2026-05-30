@@ -20,7 +20,7 @@ const STATUS_COLOR: Record<ProductStatus, string> = {
   live: "#0a8a4a",
   stable: "#0a8a4a",
   beta: "#c79a2a",
-  soon: "#888",
+  soon: "#a0a0a0",
 };
 
 function StatusDot({ status }: { status: ProductStatus }) {
@@ -161,6 +161,7 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
             display: "flex",
             alignItems: "center",
             gap: 8,
+            color: "var(--fg)",
           }}
         >
           {product.name}
@@ -170,10 +171,10 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
           style={{
             margin: "3px 0 0",
             fontFamily: "var(--font-mono)",
-            fontSize: 10.5,
+            fontSize: 11.5,
             letterSpacing: "0.04em",
             textTransform: "uppercase",
-            color: "var(--muted)",
+            color: "var(--text-secondary)",
           }}
         >
           {product.meta}
@@ -185,7 +186,7 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
           margin: 0,
           fontSize: compact ? 13 : 13.5,
           lineHeight: 1.55,
-          color: "var(--muted)",
+          color: "var(--text-secondary)",
           flex: 1,
           textWrap: "pretty",
         }}
@@ -226,8 +227,8 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
             rel="noopener noreferrer"
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: 11.5,
-              color: "var(--muted)",
+              fontSize: 12,
+              color: "var(--text-secondary)",
               display: "inline-flex",
               alignItems: "center",
               gap: 5,

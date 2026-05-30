@@ -99,7 +99,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
             background: "transparent",
             border: "none",
             cursor: "pointer",
-            color: "var(--muted)",
+            color: "var(--text-secondary)",
             padding: 4,
           }}
         >
@@ -162,7 +162,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
               </svg>
             </div>
             <h4 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Note received.</h4>
-            <p style={{ marginTop: 8, fontSize: 14, color: "var(--muted)", lineHeight: 1.55, maxWidth: 440 }}>
+            <p style={{ marginTop: 8, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.55, maxWidth: 440 }}>
               I review every request personally. You'll hear back within 2 business days with next steps or
               scheduling a short call. If it's urgent, you can also reach me at{" "}
               <a href="mailto:Subodh.kc@haiec.com" style={{ color: "var(--accent)" }}>
@@ -191,7 +191,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
           </div>
         ) : (
           <>
-            <p style={{ marginTop: 14, fontSize: 14, color: "var(--muted)", lineHeight: 1.6 }}>
+            <p style={{ marginTop: 14, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>
               {product.name} isn't shipping a public download yet — I'm onboarding a small group of early
               operators by hand to make sure it's solving the right problem. Send a short note about your use
               case and I'll get back personally with access details.
@@ -209,7 +209,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                       fontSize: 10.5,
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
-                      color: "var(--muted)",
+                      color: "var(--text-secondary)",
                     }}
                   >
                     name
@@ -238,7 +238,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                       fontSize: 10.5,
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
-                      color: "var(--muted)",
+                      color: "var(--text-secondary)",
                     }}
                   >
                     work email
@@ -329,7 +329,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: 12,
-                    color: "var(--muted)",
+                    color: "var(--text-secondary)",
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 5,
