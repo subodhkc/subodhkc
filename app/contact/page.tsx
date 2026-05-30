@@ -10,11 +10,6 @@ import PhoneNumber from '@/components/PhoneNumber'
 import VirtualBusinessCard from '@/components/VirtualBusinessCard'
 import { Mail, Linkedin, Calendar, MessageSquare, Download } from 'lucide-react'
 
-export const metadata = {
-  title: 'Contact',
-  description: 'Get in touch with Subodh KC for AI governance consulting, technical program leadership, speaking engagements, or collaboration opportunities. Available for advisory, fractional leadership, and project engagements.',
-}
-
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',

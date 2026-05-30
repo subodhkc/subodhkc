@@ -9,12 +9,6 @@ import { Button } from '@/components/ui/button'
 import { ExternalLink, BookOpen, TrendingUp, Users, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 
-export const metadata = {
-  title: 'Writing',
-  description:
-    'Thought leadership on AI governance, compliance, and enterprise implementation. Published insights on regulatory readiness, system failures, and what actually works at scale.',
-}
-
 export default function WritingPage() {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
