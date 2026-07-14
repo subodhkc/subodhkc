@@ -59,9 +59,9 @@ export function FrameworkDecisionTree() {
         <text x="230" y="176" className="fill-muted-foreground" style={{ fontSize: 10, fontWeight: 600 }}>Model-centric</text>
 
         {/* Data-heavy: Analytics focus? */}
-        <rect x="0" y="204" width="160" height="50" rx="10" fill="url(#fdt-grad-q)" stroke="hsl(var(--primary) / 0.3)" strokeWidth="1.5" />
-        <text x="80" y="226" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Analytics focus?</text>
-        <text x="80" y="242" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10 }}>Dashboards, plots</text>
+        <rect x="10" y="204" width="160" height="50" rx="10" fill="url(#fdt-grad-q)" stroke="hsl(var(--primary) / 0.3)" strokeWidth="1.5" />
+        <text x="90" y="226" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Analytics focus?</text>
+        <text x="90" y="242" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10 }}>Dashboards, plots</text>
 
         {/* Model-centric: Gradio */}
         <rect x="220" y="204" width="120" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
@@ -69,61 +69,61 @@ export function FrameworkDecisionTree() {
         <text x="280" y="242" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10 }}>ChatInterface, multimodal</text>
 
         {/* Analytics branch */}
-        <line x1="80" y1="254" x2="80" y2="274" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
-        <line x1="30" y1="274" x2="130" y2="274" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
-        <line x1="30" y1="274" x2="30" y2="294" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1.5" markerEnd="url(#fdt-arrow-yes)" />
-        <line x1="130" y1="274" x2="130" y2="294" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" markerEnd="url(#fdt-arrow)" />
+        <line x1="90" y1="254" x2="90" y2="274" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
+        <line x1="40" y1="274" x2="140" y2="274" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
+        <line x1="40" y1="274" x2="40" y2="294" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1.5" markerEnd="url(#fdt-arrow-yes)" />
+        <line x1="140" y1="274" x2="140" y2="294" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" markerEnd="url(#fdt-arrow)" />
 
-        <text x="35" y="270" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>Yes</text>
-        <text x="110" y="270" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>No</text>
+        <text x="45" y="270" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>Yes</text>
+        <text x="120" y="270" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>No</text>
 
         {/* Dash */}
-        <rect x="-15" y="298" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
-        <text x="30" y="320" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Dash</text>
-        <text x="30" y="336" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Plotly, callbacks</text>
+        <rect x="5" y="298" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
+        <text x="50" y="320" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Dash</text>
+        <text x="50" y="336" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Plotly, callbacks</text>
 
         {/* Not analytics: Event-driven? */}
-        <rect x="90" y="298" width="120" height="50" rx="10" fill="url(#fdt-grad-q)" stroke="hsl(var(--primary) / 0.3)" strokeWidth="1.5" />
-        <text x="150" y="320" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Event-driven?</text>
-        <text x="150" y="336" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>vs script rerun</text>
+        <rect x="100" y="298" width="120" height="50" rx="10" fill="url(#fdt-grad-q)" stroke="hsl(var(--primary) / 0.3)" strokeWidth="1.5" />
+        <text x="160" y="320" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Event-driven?</text>
+        <text x="160" y="336" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>vs script rerun</text>
 
         {/* Event-driven branch */}
-        <line x1="150" y1="348" x2="150" y2="368" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
-        <line x1="110" y1="368" x2="190" y2="368" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
-        <line x1="110" y1="368" x2="110" y2="388" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1.5" markerEnd="url(#fdt-arrow-yes)" />
-        <line x1="190" y1="368" x2="190" y2="388" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" markerEnd="url(#fdt-arrow)" />
+        <line x1="160" y1="348" x2="160" y2="368" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
+        <line x1="120" y1="368" x2="200" y2="368" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
+        <line x1="120" y1="368" x2="120" y2="388" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1.5" markerEnd="url(#fdt-arrow-yes)" />
+        <line x1="200" y1="368" x2="200" y2="388" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" markerEnd="url(#fdt-arrow)" />
 
-        <text x="115" y="364" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>Yes</text>
-        <text x="165" y="364" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>No</text>
+        <text x="125" y="364" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>Yes</text>
+        <text x="175" y="364" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>No</text>
 
         {/* NiceGUI */}
-        <rect x="65" y="392" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
-        <text x="110" y="414" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>NiceGUI</text>
-        <text x="110" y="430" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Event-driven</text>
+        <rect x="75" y="392" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
+        <text x="120" y="414" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>NiceGUI</text>
+        <text x="120" y="430" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Event-driven</text>
 
         {/* Full product? */}
-        <rect x="170" y="392" width="120" height="50" rx="10" fill="url(#fdt-grad-q)" stroke="hsl(var(--primary) / 0.3)" strokeWidth="1.5" />
-        <text x="230" y="414" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Full product?</text>
-        <text x="230" y="430" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Polished app</text>
+        <rect x="180" y="392" width="120" height="50" rx="10" fill="url(#fdt-grad-q)" stroke="hsl(var(--primary) / 0.3)" strokeWidth="1.5" />
+        <text x="240" y="414" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Full product?</text>
+        <text x="240" y="430" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Polished app</text>
 
         {/* Full product branch */}
-        <line x1="230" y1="442" x2="230" y2="462" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
-        <line x1="190" y1="462" x2="270" y2="462" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
-        <line x1="190" y1="462" x2="190" y2="482" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1.5" markerEnd="url(#fdt-arrow-yes)" />
-        <line x1="270" y1="462" x2="270" y2="482" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" markerEnd="url(#fdt-arrow)" />
+        <line x1="240" y1="442" x2="240" y2="462" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
+        <line x1="200" y1="462" x2="280" y2="462" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
+        <line x1="200" y1="462" x2="200" y2="482" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1.5" markerEnd="url(#fdt-arrow-yes)" />
+        <line x1="280" y1="462" x2="280" y2="482" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" markerEnd="url(#fdt-arrow)" />
 
-        <text x="195" y="458" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>Yes</text>
-        <text x="245" y="458" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>No</text>
+        <text x="205" y="458" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>Yes</text>
+        <text x="255" y="458" className="fill-muted-foreground" style={{ fontSize: 9, fontWeight: 600 }}>No</text>
 
         {/* Reflex */}
-        <rect x="145" y="486" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
-        <text x="190" y="508" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Reflex</text>
-        <text x="190" y="524" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Full-stack Python</text>
+        <rect x="155" y="486" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
+        <text x="200" y="508" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Reflex</text>
+        <text x="200" y="524" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Full-stack Python</text>
 
         {/* Streamlit */}
-        <rect x="225" y="486" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
-        <text x="270" y="508" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Streamlit</text>
-        <text x="270" y="524" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Forms, chat, data</text>
+        <rect x="235" y="486" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
+        <text x="280" y="508" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 700 }}>Streamlit</text>
+        <text x="280" y="524" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>Forms, chat, data</text>
 
         {/* Panel — separate leaf from data-heavy not-analytics path */}
         <rect x="340" y="298" width="90" height="50" rx="8" fill="url(#fdt-grad-leaf)" stroke="hsl(var(--accent) / 0.3)" strokeWidth="1.5" />
@@ -131,7 +131,7 @@ export function FrameworkDecisionTree() {
         <text x="385" y="336" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 9 }}>PyData, notebooks</text>
 
         {/* Connector to Panel from the "No analytics" path */}
-        <line x1="130" y1="274" x2="385" y2="274" stroke="hsl(var(--muted-foreground) / 0.3)" strokeWidth="1" strokeDasharray="3 2" />
+        <line x1="140" y1="274" x2="385" y2="274" stroke="hsl(var(--muted-foreground) / 0.3)" strokeWidth="1" strokeDasharray="3 2" />
         <line x1="385" y1="274" x2="385" y2="298" stroke="hsl(var(--muted-foreground) / 0.3)" strokeWidth="1" strokeDasharray="3 2" markerEnd="url(#fdt-arrow)" />
         <text x="360" y="270" className="fill-muted-foreground" style={{ fontSize: 9 }}>PyData team?</text>
 

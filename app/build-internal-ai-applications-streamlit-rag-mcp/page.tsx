@@ -7,7 +7,7 @@ import { StreamlitArchitectureDiagram } from '@/components/diagrams/StreamlitArc
 import { MCPArchitectureDiagram } from '@/components/diagrams/MCPArchitectureDiagram'
 import { FrameworkDecisionTree } from '@/components/diagrams/FrameworkDecisionTree'
 import { DeliveryRoadmapTimeline } from '@/components/diagrams/DeliveryRoadmapTimeline'
-import { Database, Search, Shield, Bot, FileText, AlertTriangle, CheckCircle2, ArrowRight, Layers, Zap, Eye, Code, Server, Workflow, GitBranch } from 'lucide-react'
+import { Database, Search, Shield, Bot, FileText, AlertTriangle, CheckCircle2, Layers, Zap, Eye, Code, Server, Workflow, GitBranch } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -27,12 +27,14 @@ export const metadata = {
     publishedTime: '2026-07-14',
     modifiedTime: '2026-07-14',
     tags: ['Streamlit', 'MCP', 'RAG', 'OpenAI', 'Internal AI', 'Python'],
+    images: ['https://subodhkc.com/og-default.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Build Internal AI Apps with Streamlit, RAG and MCP',
     description:
       'A practical architecture guide for teams that need useful internal software—not another AI demonstration.',
+    images: ['https://subodhkc.com/og-default.png'],
   },
   robots: {
     index: true,
@@ -74,7 +76,7 @@ const articleSchema = {
   image: 'https://subodhkc.com/og-default.png',
   inLanguage: 'en',
   articleSection: 'AI Architecture',
-  wordCount: 5500,
+  wordCount: 8500,
   keywords: ['Streamlit', 'MCP', 'RAG', 'OpenAI', 'internal AI', 'Python', 'agentic workflow', 'row-level security'],
 }
 
