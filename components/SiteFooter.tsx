@@ -76,6 +76,26 @@ export function SiteFooter() {
   const [submitting, setSubmitting] = React.useState(false);
   const [done, setDone] = React.useState(false);
 
+  React.useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://hebtx.chambermaster.com/Content/Script/Member.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.onload = () => {
+      if ((window as unknown as { MNI?: unknown }).MNI) {
+        const MNI = (window as unknown as { MNI: { Widgets: { Member: new (id: string, opts: Record<string, unknown>) => { create: () => void } } } }).MNI;
+        new MNI.Widgets.Member("mni-membership-639195539486791546", {
+          member: 18363,
+          styleTemplate: "#@id{text-align:center;position:relative}#@id .mn-widget-member-name{font-weight:700}#@id .mn-widget-member-logo{max-width:100%}",
+        }).create();
+      }
+    };
+    document.body.appendChild(script);
+    return () => {
+      script.remove();
+    };
+  }, []);
+
   const onSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
@@ -430,6 +450,23 @@ export function SiteFooter() {
         </div>
       </div>
 
+      {/* HEB Chamber Member badge */}
+      <div
+        className="footer-chamber-badge"
+        style={{
+          maxWidth: 1240,
+          margin: "0 auto",
+          padding: "20px 28px",
+          borderTop: "1px solid var(--border)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+        }}
+      >
+        <div id="mni-membership-639195539486791546" />
+      </div>
+
       {/* Bottom bar */}
       <div
         style={{
@@ -476,6 +513,9 @@ export function SiteFooter() {
         @media (max-width: 480px) {
           .footer-sitemap-grid {
             grid-template-columns: 1fr 1fr !important;
+          }
+          .footer-chamber-badge {
+            padding: 16px 20px !important;
           }
         }
       `}</style>
