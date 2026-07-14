@@ -123,6 +123,11 @@
         "name": "How to Build a Secure Enterprise RAG System",
         "description": "Production enterprise RAG architecture — embeddings, vector databases, hybrid search, row-level security, RAG poisoning prevention, agentic RAG, evaluation",
         "url": "https://subodhkc.com/secure-enterprise-rag-architecture"
+      },
+      {
+        "name": "How to Build Internal AI Applications with Streamlit",
+        "description": "Practical architecture guide for internal AI applications with Streamlit, OpenAI, RAG, MCP, custom tools, security, framework comparisons and delivery roadmap",
+        "url": "https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp"
       }
     ]
   },
@@ -148,6 +153,16 @@
     "secure RAG system",
     "RAG row-level security",
     "vector database selection",
-    "agentic RAG"
+    "agentic RAG",
+    "how to build internal AI applications with Streamlit",
+    "Streamlit OpenAI application architecture",
+    "Streamlit RAG chatbot",
+    "how to create MCP server in Python",
+    "Streamlit MCP integration",
+    "Streamlit vs Gradio",
+    "Streamlit vs FastAPI",
+    "Model Context Protocol tutorial",
+    "Streamlit agentic workflow",
+    "internal AI application security"
   ]
 }

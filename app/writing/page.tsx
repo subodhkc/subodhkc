@@ -44,6 +44,15 @@ export default function WritingPage() {
 
   const articles = [
     {
+      title: 'How to Build Internal AI Applications with Streamlit',
+      description:
+        'A practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP — plus security, framework comparisons and a delivery roadmap.',
+      publication: 'subodhkc.com',
+      date: 'July 2026',
+      url: '/build-internal-ai-applications-streamlit-rag-mcp',
+      topics: ['Streamlit', 'MCP', 'RAG', 'OpenAI', 'Internal AI', 'Python'],
+    },
+    {
       title: 'How to Build a Secure Enterprise RAG System',
       description:
         'A comprehensive guide to building production enterprise RAG systems — embedding models, vector databases (PostgreSQL pgvector, MongoDB, Databricks), hybrid search, row-level security, RAG poisoning prevention, agentic RAG, and evaluation metrics.',

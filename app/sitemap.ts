@@ -150,6 +150,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/build-internal-ai-applications-streamlit-rag-mcp`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/writing`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

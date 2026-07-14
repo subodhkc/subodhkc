@@ -59,6 +59,7 @@ const SITEMAP = [
     items: [
       ["/writing", "writing"],
       ["/secure-enterprise-rag-architecture", "secure RAG architecture"],
+      ["/build-internal-ai-applications-streamlit-rag-mcp", "internal AI apps with Streamlit"],
       ["/research", "research"],
       ["/speaking", "speaking"],
       ["/advisory", "advisory"],
