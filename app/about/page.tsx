@@ -283,6 +283,51 @@ export default function AboutPage() {
         </Grid>
       </Section>
 
+      <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-sm text-muted-foreground mb-6 text-center">
+            Comprehensive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Link href="/guides/texas-ai-law" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">Texas AI Law (TRAIGA)</CardTitle>
+                  <CardDescription className="text-sm">
+                    HB 149. Effective Jan 2026. Built on the HAIEC TRAIGA compliance engine.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/eu-ai-act" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">EU AI Act</CardTitle>
+                  <CardDescription className="text-sm">
+                    Risk-tiered regulation. Mapped to the ISAF framework published in Zenodo.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/nyc-local-law-144" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">NYC Local Law 144</CardTitle>
+                  <CardDescription className="text-sm">
+                    AEDT bias audits. Informed by deterministic bias detection research.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+          <div className="mt-4 text-center">
+            <Link href="/guides" className="text-sm text-primary hover:underline">
+              View all compliance guides →
+            </Link>
+          </div>
+        </div>
+      </Section>
+
       <Section subtitle="What Makes Me Different" title="Why Teams Trust Me">
         <div className="max-w-4xl mx-auto space-y-6">
           <Card className="border-l-4 border-l-primary">

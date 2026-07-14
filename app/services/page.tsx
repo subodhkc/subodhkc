@@ -4,6 +4,7 @@ import CTA from '@/components/CTA'
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import Grid from '@/components/Grid'
+import Link from 'next/link'
 import {
   Shield, Briefcase, Users, Zap, CheckCircle2, Target, Award,
   Network, Database, Workflow, Bot, Phone, Activity, Lock, FileCheck, Gauge, Cpu, Radio,
@@ -322,6 +323,51 @@ export default function ServicesPage() {
               </CardDescription>
             </CardHeader>
           </Card>
+        </div>
+      </Section>
+
+      <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-sm text-muted-foreground mb-6">
+            Deep-dive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Link href="/guides/texas-ai-law" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">Texas AI Law (TRAIGA)</CardTitle>
+                  <CardDescription className="text-sm">
+                    HB 149. Effective Jan 2026. Penalties $10K-$200K. 60-day cure period.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/eu-ai-act" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">EU AI Act</CardTitle>
+                  <CardDescription className="text-sm">
+                    Risk-tiered regulation. Full enforcement Aug 2026. Penalties up to €35M.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/nyc-local-law-144" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">NYC Local Law 144</CardTitle>
+                  <CardDescription className="text-sm">
+                    AEDT bias audits. Active enforcement. $500-$1,500/day penalties.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+          <div className="mt-4 text-center">
+            <Link href="/guides" className="text-sm text-primary hover:underline">
+              View all compliance guides →
+            </Link>
+          </div>
         </div>
       </Section>
 

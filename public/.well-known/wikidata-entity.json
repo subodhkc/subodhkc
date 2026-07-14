@@ -115,6 +115,30 @@
     "P2035": { "label": "GitHub username", "value": "subodhkc" },
     "P4173": { "label": "Medium username", "value": "subodhkc" }
   },
+  "notableWorks": {
+    "complianceGuides": [
+      {
+        "name": "AI Compliance Laws Guide",
+        "url": "https://subodhkc.com/guides",
+        "description": "Hub page comparing EU AI Act, NYC Local Law 144, and Texas TRAIGA"
+      },
+      {
+        "name": "Texas AI Law (TRAIGA / HB 149) Compliance Guide",
+        "url": "https://subodhkc.com/guides/texas-ai-law",
+        "description": "Texas Responsible AI Governance Act compliance guide"
+      },
+      {
+        "name": "EU AI Act Compliance & Readiness Guide",
+        "url": "https://subodhkc.com/guides/eu-ai-act",
+        "description": "EU AI Act risk classification and compliance guide"
+      },
+      {
+        "name": "NYC Local Law 144 Compliance Guide",
+        "url": "https://subodhkc.com/guides/nyc-local-law-144",
+        "description": "NYC LL144 AEDT bias audit compliance guide"
+      }
+    ]
+  },
   "wikidataQID": "Q140546484",
   "wikidataUrl": "https://www.wikidata.org/wiki/Q140546484",
   "instructions": "Wikidata entry created: https://www.wikidata.org/wiki/Q140546484. This file serves as a machine-readable reference for the Wikidata entity. The sameAs arrays in StructuredData.tsx and /person/subodh-kc/page.tsx have been updated with the Wikidata URL."

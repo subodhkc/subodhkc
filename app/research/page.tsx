@@ -352,6 +352,46 @@ export default function ResearchPage() {
         </div>
       </Section>
 
+      <Section subtitle="Applied Guides" title="Compliance Law Guides" className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-sm text-muted-foreground mb-6">
+            These research frameworks inform practical compliance guides for the AI regulations that matter most.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Link href="/guides/texas-ai-law" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">Texas AI Law (TRAIGA)</CardTitle>
+                  <CardDescription className="text-sm">
+                    HB 149. Effective Jan 2026. Built on the HAIEC TRAIGA compliance engine.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/eu-ai-act" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">EU AI Act</CardTitle>
+                  <CardDescription className="text-sm">
+                    See how ISAF maps to Article 9 requirements across nine abstraction layers.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/nyc-local-law-144" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">NYC Local Law 144</CardTitle>
+                  <CardDescription className="text-sm">
+                    Deterministic bias detection for reproducible, defensible audit evidence.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+        </div>
+      </Section>
+
       <Section subtitle="Collaboration" title="Research Partnerships">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">

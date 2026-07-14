@@ -4,6 +4,7 @@ import { Hero } from "@/components/hero/Hero";
 import { Registry } from "@/components/Registry";
 import { WritingSection } from "@/components/writing/WritingSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { ComplianceGuidesSection } from "@/components/home/ComplianceGuidesSection";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 export const metadata = {
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Hero />
       <Registry />
       <TestimonialsSection />
+      <ComplianceGuidesSection />
       <WritingSection />
       <NewsletterSection />
     </AccessProvider>

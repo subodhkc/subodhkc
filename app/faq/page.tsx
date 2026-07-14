@@ -43,7 +43,11 @@ const faqs = [
       },
       {
         q: 'What frameworks should my organization follow for AI compliance?',
-        a: 'The primary frameworks are EU AI Act (for any organization touching EU users), NIST AI RMF (US federal and enterprise standard), ISO 42001 (international AI management system), and NYC Local Law 144 (for automated employment decision tools). Your applicable framework depends on your industry, geography, and use case. Subodh KC offers readiness and applicability assessments to determine exactly which frameworks apply to your organization.',
+        a: 'The primary frameworks are EU AI Act (for any organization touching EU users), NIST AI RMF (US federal and enterprise standard), ISO 42001 (international AI management system), NYC Local Law 144 (for automated employment decision tools), and Texas TRAIGA / HB 149 (for AI systems with a Texas nexus). Your applicable framework depends on your industry, geography, and use case. Subodh KC offers readiness and applicability assessments and has written detailed compliance guides for the EU AI Act, NYC LL144, and Texas AI law.',
+      },
+      {
+        q: 'What is the Texas AI law (TRAIGA / HB 149)?',
+        a: 'The Texas Responsible AI Governance Act (TRAIGA), enacted as House Bill 149, is a comprehensive state law regulating AI systems in Texas. It takes effect January 1, 2026, and covers Chapters 551-554 of the Texas Business and Commerce Code. The Texas Attorney General has exclusive enforcement authority, with penalties ranging from $10K-$12K for curable violations to $80K-$200K for uncurable violations of prohibited practices. Read the complete Texas AI law compliance guide for details.',
       },
       {
         q: 'How do I prepare for an AI audit?',

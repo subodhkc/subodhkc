@@ -30,6 +30,7 @@ const training = [
 const navLinks = [
   { label: "about", href: "/about" },
   { label: "services", href: "/services" },
+  { label: "guides", href: "/guides" },
   { label: "writing", href: "/writing" },
   { label: "research", href: "/research" },
   { label: "contact", href: "/contact" },
@@ -262,6 +263,7 @@ export function SiteNavigation() {
             </div>
 
             <Link href="/services" style={{ color: "var(--muted)", textDecoration: "none" }}>services</Link>
+            <Link href="/guides" style={{ color: "var(--muted)", textDecoration: "none" }}>guides</Link>
             <Link href="/writing" style={{ color: "var(--muted)", textDecoration: "none" }}>writing</Link>
             <Link href="/research" style={{ color: "var(--muted)", textDecoration: "none" }}>research</Link>
             <Link href="/contact" style={{ color: "var(--muted)", textDecoration: "none" }}>contact</Link>
