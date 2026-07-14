@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export function StickyCTA() {
   const [visible, setVisible] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +15,10 @@ export function StickyCTA() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  if (pathname === '/contact' || pathname?.startsWith('/resume')) {
+    return null
+  }
 
   return (
     <div

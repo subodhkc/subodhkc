@@ -50,3 +50,34 @@ jobs:
 
       - name: Output Deployment URL
         run: echo "Deployment URL - ${{ steps.deploy.outputs.url }}"
+
+      - name: Ping IndexNow after production deploy
+        if: github.event.inputs.environment == 'production'
+        run: |
+          sleep 30
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "host": "subodhkc.com",
+              "key": "subodhkcindexnowkey2026",
+              "keyLocation": "https://subodhkc.com/subodhkcindexnowkey2026.txt",
+              "urlList": [
+                "https://subodhkc.com",
+                "https://subodhkc.com/about",
+                "https://subodhkc.com/services",
+                "https://subodhkc.com/advisory",
+                "https://subodhkc.com/course",
+                "https://subodhkc.com/webinar/ai-laws-small-business",
+                "https://subodhkc.com/faq",
+                "https://subodhkc.com/person/subodh-kc",
+                "https://subodhkc.com/contact"
+              ]
+            }')
+          echo "IndexNow response: $RESPONSE"
+
+      - name: Submit sitemap to Google
+        if: github.event.inputs.environment == 'production'
+        run: |
+          curl -s -o /dev/null -w "Google sitemap ping: %{http_code}\n" \
+            "https://www.google.com/ping?sitemap=https://subodhkc.com/sitemap.xml"

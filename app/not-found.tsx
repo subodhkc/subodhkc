@@ -8,6 +8,10 @@ import { Compass, Mail, BookOpen, Shield, Wrench, Users } from 'lucide-react'
 export const metadata = {
   title: 'Page Not Found',
   description: 'The page you are looking for does not exist. Explore Subodh KC\'s AI architecture, governance, and advisory services.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default function NotFound() {

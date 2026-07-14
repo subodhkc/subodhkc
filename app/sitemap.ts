@@ -197,5 +197,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.3,
     },
+    {
+      url: `${baseUrl}/subodhkcindexnowkey2026.txt`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.1,
+    },
   ]
 }

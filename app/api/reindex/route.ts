@@ -36,6 +36,7 @@ const ALL_SITE_URLS = [
   'https://subodhkc.com/ai.txt',
   'https://subodhkc.com/.well-known/ai-plugin.json',
   'https://subodhkc.com/.well-known/wikidata-entity.json',
+  'https://subodhkc.com/subodhkcindexnowkey2026.txt',
 ]
 
 export async function POST(request: NextRequest) {
