@@ -44,6 +44,15 @@ export default function WritingPage() {
 
   const articles = [
     {
+      title: 'How to Build a Secure Enterprise RAG System',
+      description:
+        'A comprehensive guide to building production enterprise RAG systems — embedding models, vector databases (PostgreSQL pgvector, MongoDB, Databricks), hybrid search, row-level security, RAG poisoning prevention, agentic RAG, and evaluation metrics.',
+      publication: 'subodhkc.com',
+      date: 'July 2026',
+      url: '/secure-enterprise-rag-architecture',
+      topics: ['RAG', 'Vector Database', 'Row-Level Security', 'Agentic AI'],
+    },
+    {
       title: 'From AI Pilots to Regulatory Readiness',
       description:
         'The governance framework enterprise leaders are adopting to transition from AI experimentation to production-grade, compliant systems. Practical insights on navigating regulatory requirements while maintaining innovation velocity.',

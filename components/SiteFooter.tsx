@@ -58,6 +58,7 @@ const SITEMAP = [
     head: "Insight",
     items: [
       ["/writing", "writing"],
+      ["/secure-enterprise-rag-architecture", "secure RAG architecture"],
       ["/research", "research"],
       ["/speaking", "speaking"],
       ["/advisory", "advisory"],
