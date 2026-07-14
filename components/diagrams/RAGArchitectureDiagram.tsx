@@ -7,6 +7,7 @@ export function RAGArchitectureDiagram() {
         role="img"
         aria-label="Enterprise RAG architecture diagram showing the flow from data sources through processing, embedding, storage, retrieval, and generation"
       >
+        <title>Enterprise RAG Architecture Diagram</title>
         <defs>
           <linearGradient id="grad-ingest" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="hsl(var(--primary) / 0.15)" />

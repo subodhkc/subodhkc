@@ -7,6 +7,7 @@ export function RAGDecisionTree() {
         role="img"
         aria-label="Decision tree for choosing RAG architecture: question type determines search method, which determines storage and security requirements"
       >
+        <title>RAG Decision Tree</title>
         <defs>
           <linearGradient id="dt-grad-q" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="hsl(var(--primary) / 0.12)" />
