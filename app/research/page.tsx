@@ -134,6 +134,16 @@ export default function ResearchPage() {
       keywords: ['NYC Local Law 144', 'Bias Detection', 'Regulatory Compliance', 'Deterministic Systems'],
     },
     {
+      title: 'From Industrial Electrification to Artificial Intelligence: Institutional Lessons from Construction Governance for AI Risk Regulation',
+      venue: 'Zenodo',
+      type: 'Working Paper',
+      year: '2025',
+      summary:
+        'Analyzes the institutional evolution of construction governance and applies its structural lessons to AI risk regulation. Draws from historical developments in mechanization, electrification, occupational safety regulation, professional licensing, and insurance enforcement to propose a phased governance maturation model for AI systems.',
+      link: 'https://zenodo.org/records/18664344',
+      keywords: ['AI Risk Regulation', 'Governance Maturation', 'General Purpose Technology', 'Institutional Lessons', 'Regulatory Consolidation'],
+    },
+    {
       title: 'From AI Pilots to Regulatory Readiness',
       venue: 'AI Governance Playbook',
       type: 'Framework Paper',

@@ -25,7 +25,7 @@ export const PAPERS: Paper[] = [
     ],
     summary:
       "Nine-layer technical specification for documenting instruction propagation from hardware to outputs. 127-checkpoint audit protocol, cryptographic verification, abstraction-distance risk scoring.",
-    href: "https://zenodo.org",
+    href: "https://zenodo.org/records/18080355",
   },
   {
     title: "Deterministic Bias Detection for NYC Local Law 144",
@@ -40,7 +40,24 @@ export const PAPERS: Paper[] = [
     ],
     summary:
       "Reproducibility-first architecture for detecting linguistic bias in job descriptions. Rule-based pattern matching, version-controlled lexicons, cryptographic evidence generation for legally defensible documentation.",
-    href: "https://zenodo.org",
+    href: "https://zenodo.org/records/18056133",
+  },
+  {
+    title: "From Industrial Electrification to Artificial Intelligence",
+    subtitle:
+      "Institutional Lessons from Construction Governance for AI Risk Regulation",
+    venue: "Zenodo",
+    year: "2025",
+    topics: [
+      "AI Risk Regulation",
+      "Governance Maturation",
+      "General Purpose Technology",
+      "Institutional Lessons",
+      "Regulatory Consolidation",
+    ],
+    summary:
+      "Analyzes institutional evolution of construction governance and applies structural lessons to AI risk regulation. Proposes a phased governance maturation model drawing from mechanization, electrification, occupational safety, professional licensing, and insurance enforcement.",
+    href: "https://zenodo.org/records/18664344",
   },
   {
     title: "From AI Pilots to Regulatory Readiness",
