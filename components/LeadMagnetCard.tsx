@@ -12,9 +12,9 @@ interface LeadMagnetCardProps {
 }
 
 export function LeadMagnetCard({
-  title = 'Free AI Compliance Checklist',
-  description = 'Get a practical 25-point checklist covering EU AI Act, NIST AI RMF, and ISO 42001 readiness — delivered to your inbox.',
-  resourceName = 'AI Compliance Checklist',
+  title = 'Free AI Governance & Compliance Framework Guide',
+  description = 'Get a practical guide covering the Cognitive Systems Management (CSM) Framework, 5 patent-pending methodologies, and enterprise implementation strategies for AI governance and compliance.',
+  resourceName = 'AI Governance & Compliance Framework Guide',
 }: LeadMagnetCardProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -31,7 +31,7 @@ export function LeadMagnetCard({
       const response = await fetch('/api/lead-magnet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
+        body: JSON.stringify({ name, email, resourceName }),
       })
 
       const data = await response.json()

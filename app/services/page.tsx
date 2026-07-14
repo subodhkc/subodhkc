@@ -325,12 +325,12 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      <Section subtitle="Free Resource" title="AI Compliance Checklist" className="bg-secondary/20">
+      <Section subtitle="Free Resource" title="AI Governance & Compliance Framework Guide" className="bg-secondary/20">
         <div className="max-w-md mx-auto">
           <LeadMagnetCard
-            title="Free AI Compliance Checklist"
-            description="25-point practical checklist covering EU AI Act, NIST AI RMF, and ISO 42001 readiness. Know exactly where you stand before your next audit."
-            resourceName="Compliance Checklist"
+            title="Free AI Governance & Compliance Framework Guide"
+            description="A practical guide covering the CSM Framework, 5 patent-pending methodologies, and enterprise implementation strategies for AI governance and compliance."
+            resourceName="AI Governance & Compliance Framework Guide"
           />
         </div>
       </Section>

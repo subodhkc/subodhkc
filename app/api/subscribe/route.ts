@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   try {
     if (!process.env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not set')
@@ -38,7 +43,7 @@ export async function POST(request: NextRequest) {
     if (source === 'print-later') {
       // Send Print Later download email
       await resend.emails.send({
-        from: 'Subodh KC <onboarding@resend.dev>',
+        from: 'Subodh KC <noreply@subodhkc.com>',
         to: [email],
         subject: '🖨️ Your Print Later Download is Ready!',
         html: `
@@ -118,7 +123,7 @@ export async function POST(request: NextRequest) {
     } else if (source === 'pdf-redactor') {
       // Send PDF Redactor download email
       await resend.emails.send({
-        from: 'Subodh KC <onboarding@resend.dev>',
+        from: 'Subodh KC <noreply@subodhkc.com>',
         to: [email],
         subject: '🔒 Your PDF Redactor Download is Ready!',
         html: `
@@ -185,7 +190,7 @@ export async function POST(request: NextRequest) {
       // Send Doc Timeline pricing request confirmation
       const { name, company, useCase, volume } = body
       await resend.emails.send({
-        from: 'Subodh KC <onboarding@resend.dev>',
+        from: 'Subodh KC <noreply@subodhkc.com>',
         to: [email],
         subject: '📊 Doc Timeline Generator - Pricing Request Received',
         html: `
@@ -252,7 +257,7 @@ export async function POST(request: NextRequest) {
       
       // Send detailed notification to admin for pricing requests
       await resend.emails.send({
-        from: 'Product Notification <onboarding@resend.dev>',
+        from: 'Product Notification <noreply@subodhkc.com>',
         to: ['Subodh.kc@haiec.com'],
         subject: `💰 PRICING REQUEST: Doc Timeline Generator - ${company || 'Unknown Company'}`,
         html: `
@@ -275,7 +280,7 @@ export async function POST(request: NextRequest) {
     } else if (source === 'skc-log-analyser') {
       // Send SKC Log Analyser early access confirmation
       await resend.emails.send({
-        from: 'Subodh KC <onboarding@resend.dev>',
+        from: 'Subodh KC <noreply@subodhkc.com>',
         to: [email],
         subject: '📊 SKC Log Analyser - Early Access Granted!',
         html: `
@@ -337,7 +342,7 @@ export async function POST(request: NextRequest) {
     } else if (source === 'courtcase-waitlist') {
       // Send CourtCase waitlist confirmation
       await resend.emails.send({
-        from: 'Subodh KC <onboarding@resend.dev>',
+        from: 'Subodh KC <noreply@subodhkc.com>',
         to: [email],
         subject: '⚖️ You\'re on the CourtCase Waitlist!',
         html: `
@@ -411,7 +416,7 @@ export async function POST(request: NextRequest) {
 
     // Notify admin about new subscriber
     await resend.emails.send({
-      from: 'Product Notification <onboarding@resend.dev>',
+      from: 'Product Notification <noreply@subodhkc.com>',
       to: ['Subodh.kc@haiec.com'],
       subject: `📦 New ${product || 'Product'} ${waitlist ? 'Waitlist' : 'Download'}: ${email}`,
       html: `

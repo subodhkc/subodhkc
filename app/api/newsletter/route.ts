@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
               </p>
 
               <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
-                You've joined 1,000+ technical leaders who stay ahead of AI regulations and governance best practices.
+                You've joined 500+ practitioners navigating AI compliance at scale.
               </p>
 
               <div style="background: #f0fdf4; border-left: 4px solid #10B981; padding: 20px; margin-bottom: 30px; border-radius: 8px;">
@@ -88,13 +88,13 @@ export async function POST(request: NextRequest) {
                   As a subscriber, you get exclusive access to:
                 </p>
                 <ul style="color: #1e3a8a; font-size: 14px; margin: 0; padding-left: 20px;">
-                  <li style="margin-bottom: 8px;">AI Compliance Framework Guide (PDF)</li>
+                  <li style="margin-bottom: 8px;">AI Governance & Compliance Framework Guide (PDF)</li>
                   <li style="margin-bottom: 8px;">CSM Framework Templates</li>
                   <li style="margin-bottom: 8px;">Audit Readiness Checklists</li>
                   <li style="margin-bottom: 8px;">Monthly Office Hours (Q&A)</li>
                 </ul>
                 <div style="text-align: center; margin-top: 20px;">
-                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/resources" 
+                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/services" 
                      style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 12px 30px; border-radius: 6px; font-weight: 600; font-size: 14px;">
                     Access Resources →
                   </a>

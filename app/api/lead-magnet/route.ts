@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY)
     const body = await request.json()
-    const { name, email } = body
+    const { name, email, resourceName } = body
 
     if (!name || !email) {
       return NextResponse.json(
@@ -40,32 +40,35 @@ export async function POST(request: NextRequest) {
     const safeName = esc(name)
     const safeEmail = esc(email)
 
+    const resourceTitle = resourceName || 'AI Governance & Compliance Framework Guide'
+    const safeResource = esc(resourceTitle)
+
     // Send welcome email with download link
     const { data, error } = await resend.emails.send({
       from: 'Subodh KC <noreply@subodhkc.com>',
       to: [email],
-      subject: '🎉 Your AI Compliance Framework Guide is Ready!',
+      subject: `🎉 Your ${safeResource} is Ready!`,
       html: `
         <!DOCTYPE html>
         <html>
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Your AI Compliance Framework Guide</title>
+            <title>Your ${safeResource}</title>
           </head>
           <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
             
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
               <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 700;">Welcome, ${safeName}! 🎉</h1>
-              <p style="color: rgba(255, 255, 255, 0.9); margin: 10px 0 0 0; font-size: 16px;">Your AI Compliance Framework Guide is ready</p>
+              <p style="color: rgba(255, 255, 255, 0.9); margin: 10px 0 0 0; font-size: 16px;">Your ${safeResource} is ready</p>
             </div>
 
             <!-- Main Content -->
             <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
               
               <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
-                Thank you for downloading the <strong>AI Compliance Framework: Enterprise Implementation Guide</strong>!
+                Thank you for downloading the <strong>${safeResource}</strong>!
               </p>
 
               <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
@@ -92,10 +95,10 @@ export async function POST(request: NextRequest) {
               <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-top: 30px;">
                 <h3 style="color: #10B981; margin-top: 0; font-size: 18px;">What's Next?</h3>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
-                  You're now subscribed to receive weekly AI insights and compliance updates. Here's what you can expect:
+                  You're now subscribed to receive AI insights and compliance updates. Here's what you can expect:
                 </p>
                 <ul style="color: #6b7280; font-size: 14px; margin: 0; padding-left: 20px;">
-                  <li style="margin-bottom: 8px;">Weekly AI governance and compliance insights</li>
+                  <li style="margin-bottom: 8px;">AI governance and compliance insights</li>
                   <li style="margin-bottom: 8px;">Enterprise implementation case studies</li>
                   <li style="margin-bottom: 8px;">Regulatory updates (EU AI Act, GDPR, sector-specific)</li>
                   <li style="margin-bottom: 8px;">Exclusive frameworks and methodologies</li>
@@ -127,7 +130,7 @@ export async function POST(request: NextRequest) {
                 <a href="https://haiec.com/csm6" style="color: #10B981; text-decoration: none;">HAIEC Platform</a>
               </p>
               <p style="margin: 15px 0 0 0; color: #d1d5db; font-size: 11px;">
-                You're receiving this because you downloaded the AI Compliance Framework guide from subodhkc.com<br>
+                You're receiving this because you downloaded the ${safeResource} from subodhkc.com<br>
                 <a href="#" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a>
               </p>
             </div>
@@ -149,12 +152,12 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: 'Lead Notification <noreply@subodhkc.com>',
       to: ['Subodh.kc@haiec.com'],
-      subject: `🎯 New Lead: ${safeName} downloaded AI Compliance Guide`,
+      subject: `🎯 New Lead: ${safeName} downloaded ${safeResource}`,
       html: `
         <h2>New Lead Magnet Download</h2>
         <p><strong>Name:</strong> ${safeName}</p>
         <p><strong>Email:</strong> ${safeEmail}</p>
-        <p><strong>Downloaded:</strong> AI Compliance Framework Guide</p>
+        <p><strong>Downloaded:</strong> ${safeResource}</p>
         <p><strong>Time:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
         <hr>
         <p><small>Automated notification from subodhkc.com</small></p>

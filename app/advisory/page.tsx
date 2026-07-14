@@ -345,12 +345,12 @@ export default function AdvisoryPage() {
         </div>
       </Section>
 
-      <Section subtitle="Free Resource" title="AI Governance Framework Guide" className="bg-secondary/20">
+      <Section subtitle="Free Resource" title="AI Governance & Compliance Framework Guide" className="bg-secondary/20">
         <div className="max-w-md mx-auto">
           <LeadMagnetCard
-            title="AI Governance Framework Guide"
-            description="A practical guide to building AI governance frameworks that scale — covering risk classification, compliance workflows, and audit-ready documentation patterns."
-            resourceName="Governance Guide"
+            title="Free AI Governance & Compliance Framework Guide"
+            description="A practical guide to building AI governance frameworks that scale — covering the CSM Framework, risk classification, compliance workflows, and audit-ready documentation patterns."
+            resourceName="AI Governance & Compliance Framework Guide"
           />
         </div>
       </Section>
