@@ -15,6 +15,13 @@ export const metadata = {
   alternates: {
     canonical: 'https://subodhkc.com/about',
   },
+  openGraph: {
+    title: 'About Subodh KC | AI Systems Architect and Founder',
+    description:
+      'Learn about Subodh KC — AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
+    url: 'https://subodhkc.com/about',
+    type: 'profile',
+  },
 }
 
 export default function AboutPage() {

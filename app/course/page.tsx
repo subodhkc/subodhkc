@@ -246,6 +246,20 @@ export default function CoursePage() {
         description="A live, instructor-led masterclass covering AI architecture, governance frameworks, compliance automation, and audit readiness. Built for engineers, architects, and leaders who need to ship AI systems that pass scrutiny."
       />
 
+      <div className="max-w-4xl mx-auto px-6 -mt-4 mb-4">
+        <div className="flex items-center gap-3 p-4 rounded-lg bg-primary/10 border border-primary/20">
+          <Clock className="h-5 w-5 text-primary flex-shrink-0" />
+          <div className="flex-1">
+            <p className="text-sm font-medium text-foreground">
+              Next session: 1st & 3rd Thursday of every month, 8:00 PM CST
+            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Limited class size — message early to secure your spot
+            </p>
+          </div>
+        </div>
+      </div>
+
       <Section subtitle="Details" title="Course Schedule & Format">
         <div className="max-w-4xl mx-auto">
           <Grid cols={2}>

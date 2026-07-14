@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
+import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import Grid from '@/components/Grid'
 import {
@@ -14,6 +15,13 @@ export const metadata = {
     'AI architecture, agentic systems, RAG, MCP integrations, voice AI deployment, compliance automation, and governance frameworks. From pilot to production at enterprise scale.',
   alternates: {
     canonical: 'https://subodhkc.com/services',
+  },
+  openGraph: {
+    title: 'AI Architecture, Deployment & Governance Services | Subodh KC',
+    description:
+      'AI architecture, agentic systems, RAG, MCP integrations, voice AI deployment, compliance automation, and governance frameworks. From pilot to production at enterprise scale.',
+    url: 'https://subodhkc.com/services',
+    type: 'website',
   },
 }
 
@@ -314,6 +322,16 @@ export default function ServicesPage() {
               </CardDescription>
             </CardHeader>
           </Card>
+        </div>
+      </Section>
+
+      <Section subtitle="Free Resource" title="AI Compliance Checklist" className="bg-secondary/20">
+        <div className="max-w-md mx-auto">
+          <LeadMagnetCard
+            title="Free AI Compliance Checklist"
+            description="25-point practical checklist covering EU AI Act, NIST AI RMF, and ISO 42001 readiness. Know exactly where you stand before your next audit."
+            resourceName="Compliance Checklist"
+          />
         </div>
       </Section>
 

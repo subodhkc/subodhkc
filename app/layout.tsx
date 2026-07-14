@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import './globals.css'
 import { SiteNavigation } from '@/components/SiteNavigation'
 import { SiteFooter } from '@/components/SiteFooter'
+import { StickyCTA } from '@/components/StickyCTA'
 import StructuredData from '@/components/StructuredData'
 import { headers } from 'next/headers'
 
@@ -63,9 +64,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://subodhkc.com'),
   alternates: {
     canonical: '/',
-    types: {
-      'application/rss+xml': 'https://subodhkc.com/rss.xml',
-    },
   },
   openGraph: {
     type: 'website',
@@ -162,6 +160,7 @@ export default async function RootLayout({
         <SiteNavigation />
         <main className="min-h-screen">{children}</main>
         <SiteFooter />
+        <StickyCTA />
       </body>
     </html>
   )

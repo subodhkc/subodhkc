@@ -3,6 +3,8 @@ import { AccessProvider } from "@/components/AccessProvider";
 import { Hero } from "@/components/hero/Hero";
 import { Registry } from "@/components/Registry";
 import { WritingSection } from "@/components/writing/WritingSection";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 export const metadata = {
   title: "Subodh KC | AI Systems Architect & Governance Expert",
@@ -15,7 +17,9 @@ export default function HomePage() {
     <AccessProvider>
       <Hero />
       <Registry />
+      <TestimonialsSection />
       <WritingSection />
+      <NewsletterSection />
     </AccessProvider>
   );
 }

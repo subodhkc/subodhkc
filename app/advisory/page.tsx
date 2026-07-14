@@ -4,6 +4,7 @@ import Grid from '@/components/Grid'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import CTA from '@/components/CTA'
+import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import {
   Target,
   Shield,
@@ -22,6 +23,13 @@ export const metadata = {
     'Strategic advisory services for AI architecture, governance, and technical program leadership. Executive coaching, implementation support, and fractional leadership for enterprise AI initiatives.',
   alternates: {
     canonical: 'https://subodhkc.com/advisory',
+  },
+  openGraph: {
+    title: 'AI Advisory & Consulting | Subodh KC',
+    description:
+      'Strategic advisory services for AI architecture, governance, and technical program leadership. Executive coaching, implementation support, and fractional leadership for enterprise AI initiatives.',
+    url: 'https://subodhkc.com/advisory',
+    type: 'website',
   },
 }
 
@@ -334,6 +342,16 @@ export default function AdvisoryPage() {
               </CardHeader>
             </Card>
           </div>
+        </div>
+      </Section>
+
+      <Section subtitle="Free Resource" title="AI Governance Framework Guide" className="bg-secondary/20">
+        <div className="max-w-md mx-auto">
+          <LeadMagnetCard
+            title="AI Governance Framework Guide"
+            description="A practical guide to building AI governance frameworks that scale — covering risk classification, compliance workflows, and audit-ready documentation patterns."
+            resourceName="Governance Guide"
+          />
         </div>
       </Section>
 

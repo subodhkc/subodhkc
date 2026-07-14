@@ -147,6 +147,20 @@ export default function WebinarPage() {
         description="A free monthly webinar breaking down the AI regulations, compliance requirements, and policies every small business needs to know. No legal jargon. Just practical guidance you can act on."
       />
 
+      <div className="max-w-4xl mx-auto px-6 -mt-4 mb-4">
+        <div className="flex items-center gap-3 p-4 rounded-lg bg-primary/10 border border-primary/20">
+          <Calendar className="h-5 w-5 text-primary flex-shrink-0" />
+          <div className="flex-1">
+            <p className="text-sm font-medium text-foreground">
+              Next session: 2nd Monday of every month, 12:00 PM CST
+            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Free registration — spots are limited to ensure quality Q&amp;A time
+            </p>
+          </div>
+        </div>
+      </div>
+
       <Section subtitle="Details" title="Webinar Schedule & Format">
         <div className="max-w-4xl mx-auto">
           <Grid cols={2}>

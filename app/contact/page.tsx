@@ -107,6 +107,9 @@ export default function ContactPage() {
 
   const interestAreas = [
     'Advisory & Consulting',
+    'AI Governance & Compliance Course',
+    'AI Laws Webinar (Small Business)',
+    'AI Compliance Assessment',
     'HAIEC Platform',
     'Speaking Engagement',
     'Executive Coaching',
