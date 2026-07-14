@@ -72,11 +72,16 @@ const SITEMAP = [
   },
 ] as const;
 
+let chamberScriptLoaded = false;
+
 export function SiteFooter() {
   const [submitting, setSubmitting] = React.useState(false);
   const [done, setDone] = React.useState(false);
 
   React.useEffect(() => {
+    if (chamberScriptLoaded) return;
+    chamberScriptLoaded = true;
+
     const script = document.createElement("script");
     script.src = "https://hebtx.chambermaster.com/Content/Script/Member.js";
     script.type = "text/javascript";
@@ -95,9 +100,6 @@ export function SiteFooter() {
       }
     };
     document.body.appendChild(script);
-    return () => {
-      script.remove();
-    };
   }, []);
 
   const onSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
