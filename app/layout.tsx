@@ -131,12 +131,15 @@ export default async function RootLayout({
       <head>
         <StructuredData />
         <link rel="canonical" href="https://subodhkc.com" />
+        <link rel="icon" href="/icon-32.png" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="author" content="Subodh KC" />
         <meta name="geo.region" content="US" />
         <meta name="geo.placename" content="United States" />
         <meta name="language" content="English" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="theme-color" content="#16d088" />
+        <meta name="theme-color" content="#0A1929" />
       </head>
       <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
         <SiteNavigation />
