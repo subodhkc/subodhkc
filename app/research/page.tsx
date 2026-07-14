@@ -8,10 +8,46 @@ import { FileText, TrendingUp, Shield, Layers, AlertTriangle, CheckCircle2, Arro
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Research',
+  title: 'AI Governance Research & Frameworks | Subodh KC',
   description:
-    'Research and frameworks on AI compliance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies for enterprise AI governance.',
+    'Research and frameworks on AI governance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies. Published in Zenodo with peer-reviewed methodologies.',
+  alternates: {
+    canonical: 'https://subodhkc.com/research',
+  },
 }
+
+const articleSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    headline: 'The Instruction Stack Audit Framework (ISAF): A Technical Methodology for Tracing AI Accountability Across Nine Abstraction Layers',
+    author: { '@type': 'Person', name: 'Subodh KC' },
+    datePublished: '2025',
+    url: 'https://zenodo.org/records/18080355',
+    publisher: { '@type': 'Organization', name: 'Zenodo' },
+    keywords: ['AI Governance', 'EU AI Act', 'NIST AI RMF', 'ISO 42001', 'Algorithmic Accountability'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    headline: 'Deterministic Bias Detection for NYC Local Law 144: Why Reproducibility Matters More Than Accuracy',
+    author: { '@type': 'Person', name: 'Subodh KC' },
+    datePublished: '2024',
+    url: 'https://zenodo.org/records/18056133',
+    publisher: { '@type': 'Organization', name: 'Zenodo' },
+    keywords: ['NYC Local Law 144', 'Bias Detection', 'Regulatory Compliance', 'Deterministic Systems'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    headline: 'From Industrial Electrification to Artificial Intelligence: Institutional Lessons from Construction Governance for AI Risk Regulation',
+    author: { '@type': 'Person', name: 'Subodh KC' },
+    datePublished: '2025',
+    url: 'https://zenodo.org/records/18664344',
+    publisher: { '@type': 'Organization', name: 'Zenodo' },
+    keywords: ['AI Risk Regulation', 'Governance Maturation', 'General Purpose Technology', 'Institutional Lessons'],
+  },
+]
 
 export default function ResearchPage() {
   const frameworks = [
@@ -171,6 +207,13 @@ export default function ResearchPage() {
 
   return (
     <>
+      {articleSchemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <Hero
         subtitle="Research & Frameworks"
         title={

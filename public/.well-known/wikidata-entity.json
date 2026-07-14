@@ -1,0 +1,121 @@
+{
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Subodh KC",
+    "alternateName": ["Subodh K.C.", "Subodh Khatri Chhetri"],
+    "givenName": "Subodh",
+    "familyName": "KC",
+    "jobTitle": "AI Systems Architect & Governance Expert",
+    "description": "AI Systems Architect and Governance Expert with 16+ years of experience building production AI systems at enterprise scale. Sr. Program Manager — AI Implementation & Governance at HP Inc. (Fortune 50). Founder of KestrelVoice, co-founder of HAIEC. 5 patent-pending frameworks in AI compliance and drift detection.",
+    "url": "https://subodhkc.com",
+    "email": "subodh.kc@haiec.com",
+    "image": "https://subodhkc.com/portrait.jpeg",
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q140546484",
+      "https://www.linkedin.com/in/subodhkc",
+      "https://twitter.com/subodhkc",
+      "https://github.com/subodhkc",
+      "https://medium.com/@subodhkc",
+      "https://kestrelvoice.com",
+      "https://frontofai.com",
+      "https://haiec.com"
+    ],
+    "knowsAbout": [
+      "AI Architecture",
+      "Agentic AI Systems",
+      "RAG & Enterprise Knowledge Systems",
+      "MCP & API Integrations",
+      "Voice AI Operations",
+      "AI Governance",
+      "Technical Program Management",
+      "Enterprise AI Strategy",
+      "Cognitive Systems Management",
+      "AI Regulatory Compliance",
+      "EU AI Act",
+      "NIST AI RMF",
+      "ISO 42001",
+      "NYC Local Law 144",
+      "AI Risk Management",
+      "AI Ethics",
+      "Compliance Architecture",
+      "Drift Detection",
+      "Audit Readiness"
+    ],
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "Louisiana Tech University"
+    },
+    "worksFor": {
+      "@type": "Organization",
+      "name": "HP Inc."
+    },
+    "founder": [
+      {
+        "@type": "Organization",
+        "name": "KestrelVoice",
+        "url": "https://kestrelvoice.com",
+        "description": "AI voice operations platform"
+      }
+    ],
+    "coFounder": [
+      {
+        "@type": "Organization",
+        "name": "HAIEC",
+        "url": "https://haiec.com",
+        "description": "Enterprise AI governance and compliance platform"
+      }
+    ],
+    "award": ["Dean's Honor List", "President's Honor List"],
+    "knowsLanguage": ["English", "Nepali"],
+    "nationality": {
+      "@type": "Country",
+      "name": "United States"
+    },
+    "birthPlace": {
+      "@type": "Place",
+      "name": "Kathmandu",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "Nepal"
+      }
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    }
+  },
+  "wikidataProperties": {
+    "P31": { "label": "instance of", "value": "Q5", "valueLabel": "human" },
+    "P19": { "label": "place of birth", "value": "Kathmandu", "qualifier": "Q854", "qualifierLabel": "Kathmandu" },
+    "P27": { "label": "citizenship", "value": "Q30", "valueLabel": "United States" },
+    "P106": {
+      "label": "occupation",
+      "values": [
+        "Q108831243",
+        "Q108831243"
+      ],
+      "valueLabels": ["AI architect", "compliance professional"]
+    },
+    "P108": { "label": "employer", "value": "HP Inc.", "note": "Create HP Inc. Q-ID reference" },
+    "P69": {
+      "label": "educated at",
+      "value": "Louisiana Tech University"
+    },
+    "P1412": { "label": "languages spoken or signed", "values": ["English", "Nepali"] },
+    "P551": { "label": "residence", "value": "Dallas, Texas" },
+    "P856": { "label": "official website", "value": "https://subodhkc.com" },
+    "P2013": { "label": "Facebook ID", "value": "subodhkc", "note": "If applicable" },
+    "P2002": { "label": "Twitter/X username", "value": "subodhkc" },
+    "P2031": { "label": "LinkedIn personal profile ID", "value": "subodhkc" },
+    "P4000": { "label": "Flattr user name", "value": "", "note": "If applicable" },
+    "P6634": { "label": "LinkedIn personal profile ID", "value": "in/subodhkc" },
+    "P2035": { "label": "GitHub username", "value": "subodhkc" },
+    "P4173": { "label": "Medium username", "value": "subodhkc" }
+  },
+  "wikidataQID": "Q140546484",
+  "wikidataUrl": "https://www.wikidata.org/wiki/Q140546484",
+  "instructions": "Wikidata entry created: https://www.wikidata.org/wiki/Q140546484. This file serves as a machine-readable reference for the Wikidata entity. The sameAs arrays in StructuredData.tsx and /person/subodh-kc/page.tsx have been updated with the Wikidata URL."
+}

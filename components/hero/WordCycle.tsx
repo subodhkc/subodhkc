@@ -42,7 +42,7 @@ export function WordCycle({ words, intervalMs = 2800 }: Props) {
         fontFamily: "var(--font-serif)",
         fontStyle: "italic",
         fontWeight: 400,
-        minWidth: `${longest.length * 0.54}em`,
+        minWidth: `${longest.length * 0.62}em`,
       }}
     >
       <span style={{ visibility: "hidden", gridArea: "1 / 1", whiteSpace: "nowrap" }}>

@@ -9,9 +9,12 @@ import Grid from '@/components/Grid'
 import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, Download } from 'lucide-react'
 
 export const metadata = {
-  title: 'About',
+  title: 'About Subodh KC | AI Systems Architect and Founder',
   description:
-    'Learn about Subodh KC - AI Compliance Architect, Technical Program Manager, and founder of HAIEC. From Louisiana Tech to leading AI strategy at Fortune 50.',
+    'Learn about Subodh KC — AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
+  alternates: {
+    canonical: 'https://subodhkc.com/about',
+  },
 }
 
 export default function AboutPage() {
@@ -151,7 +154,8 @@ export default function AboutPage() {
         <div className="prose max-w-none">
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             I entered technology on the ground floor: fixing computers in underfunded schools, documenting broken systems, 
-            learning—up close—how much damage a bad workflow or a single misconfigured system can cause. I wasn't groomed 
+            learning—up close—how much damage a bad workflow or a single misconfigured system can cause. Growing up in
+            Kathmandu, Nepal before moving to the United States, I wasn't groomed 
             for leadership. I earned it one failure mode at a time.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
@@ -159,7 +163,7 @@ export default function AboutPage() {
             chaos as "the way things are." I build structures that eliminate it.</strong>
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            Fast forward 15 years. I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar 
+            Fast forward 16 years. I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar 
             AI portfolios, deploy systems used by millions, and design compliance architectures that withstand legal, operational, 
             and engineering scrutiny. I built a governance platform (HAIEC) from scratch—quietly adopted in enterprise settings—and 
             authored five patent-pending frameworks in drift detection, audit automation, and real-time AI enforcement.

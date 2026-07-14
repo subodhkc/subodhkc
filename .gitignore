@@ -76,3 +76,6 @@ SEO_STRATEGY.md
 START_HERE.md
 VERCEL_DEPLOYMENT.md
 **/Executive-Bio-*.md
+
+.vercel
+.env*

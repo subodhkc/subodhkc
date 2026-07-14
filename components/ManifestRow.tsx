@@ -1,4 +1,4 @@
-// components/ManifestRow.tsx — list layout row for the registry
+// components/ManifestRow.tsx — list layout row for the production systems grid
 "use client";
 
 import * as React from "react";

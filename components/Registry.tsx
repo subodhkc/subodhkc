@@ -1,4 +1,4 @@
-// components/Registry.tsx — filterable/searchable product grid + manifest list
+// components/Registry.tsx — filterable/searchable production systems grid + manifest list
 "use client";
 
 import * as React from "react";
@@ -79,7 +79,7 @@ export function Registry({
             §01
           </span>
           <h2 style={{ margin: 0, fontSize: 22, fontWeight: 600, letterSpacing: "-0.015em", color: "var(--fg)" }}>
-            The registry
+            Production systems
           </h2>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-secondary)" }}>
             showing {String(filtered.length).padStart(2, "0")} / {String(PRODUCTS.length).padStart(2, "0")}

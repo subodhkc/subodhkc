@@ -71,26 +71,26 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://subodhkc.com',
-    siteName: 'Subodh KC — AI Architect & Governance Expert',
-    title: 'Subodh KC — AI Architect | Former Fortune 50 AI Strategy CTL',
+    siteName: 'Subodh KC — AI Systems Architect & Governance Expert',
+    title: 'Subodh KC | AI Systems Architect & Governance Expert',
     description:
-      'AI Architect and Governance Expert with 16+ years experience. Former Fortune 50 AI Strategy CTL. Specializing in EU AI Act, NIST AI RMF, ISO 42001 compliance. Building production AI systems at scale.',
+      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. Production AI systems — architecture, deployment, and governance at enterprise scale.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC — AI Architect & Governance Expert',
+        alt: 'Subodh KC — AI Systems Architect & Governance Expert',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC — AI Architect & Governance Expert',
+    title: 'Subodh KC — AI Systems Architect & Governance Expert',
     description:
-      'Former Fortune 50 AI Strategy CTL | AI Governance Architect | 16+ Years Full-Stack AI Development | EU AI Act, NIST AI RMF, ISO 42001 Expert',
+      'Former Fortune 50 AI Strategy CTL | Founder of KestrelVoice | Co-founder of HAIEC | 16+ Years Production AI Systems | EU AI Act, NIST AI RMF, ISO 42001 Expert',
     creator: '@subodhkc',
-    images: ['/og-image.png'],
+    images: ['/portrait.jpeg'],
   },
   robots: {
     index: true,
@@ -140,6 +140,23 @@ export default async function RootLayout({
         <meta name="language" content="English" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="theme-color" content="#2b2e33" />
+        {process.env.NEXT_PUBLIC_GSC_VERIFICATION && (
+          <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GSC_VERIFICATION} />
+        )}
+        <meta name="person" content="Subodh KC" />
+        <meta name="person-type" content="AI Systems Architect & Governance Expert" />
+        <meta name="profile:first_name" content="Subodh" />
+        <meta name="profile:last_name" content="KC" />
+        <meta name="profile:username" content="subodhkc" />
+        <link rel="llms-txt" href="https://subodhkc.com/llms.txt" type="text/plain" />
+        <link rel="ai-txt" href="https://subodhkc.com/ai.txt" type="application/json" />
+        <link rel="llms-full-txt" href="https://subodhkc.com/llms-full.txt" type="text/plain" />
+        <link rel="me" href="https://www.linkedin.com/in/subodhkc" />
+        <link rel="me" href="https://github.com/subodhkc" />
+        <link rel="me" href="https://twitter.com/subodhkc" />
+        <link rel="me" href="https://medium.com/@subodhkc" />
+        <link rel="alternate" hrefLang="en" href="https://subodhkc.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://subodhkc.com" />
       </head>
       <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
         <SiteNavigation />

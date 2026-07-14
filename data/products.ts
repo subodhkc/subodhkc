@@ -1,6 +1,6 @@
 // data/products.ts
-// Single source of truth for the personal product registry. The homepage Hero
-// constellation, Registry grid/list, and product cards all read from here.
+// Single source of truth for the production systems catalog. The homepage Hero
+// constellation, systems grid/list, and product cards all read from here.
 
 import type { GlyphKind } from "@/components/Glyph";
 

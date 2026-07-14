@@ -3,86 +3,123 @@ import Section from '@/components/Section'
 import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import Grid from '@/components/Grid'
-import { Shield, Briefcase, Users, Zap, CheckCircle2, TrendingUp, Target, Award } from 'lucide-react'
+import {
+  Shield, Briefcase, Users, Zap, CheckCircle2, Target, Award,
+  Network, Database, Workflow, Bot, Phone, Activity, Lock, FileCheck, Gauge, Cpu, Radio,
+} from 'lucide-react'
 
 export const metadata = {
-  title: 'Services - AI Governance & Program Leadership',
-  description: 'Enterprise AI compliance, governance frameworks, technical program management, and executive advisory services. From POC to production-grade systems.',
+  title: 'AI Architecture, Deployment & Governance Services | Subodh KC',
+  description:
+    'AI architecture, agentic systems, RAG, MCP integrations, voice AI deployment, compliance automation, and governance frameworks. From pilot to production at enterprise scale.',
+  alternates: {
+    canonical: 'https://subodhkc.com/services',
+  },
 }
 
 export default function ServicesPage() {
-  const services = [
+  const pillars = [
+    {
+      icon: Cpu,
+      subtitle: 'Pillar 01',
+      title: 'AI Architecture & Integration',
+      description:
+        'Designing and building production AI systems that integrate with your existing stack — from agentic workflows to enterprise knowledge systems.',
+      services: [
+        {
+          icon: Bot,
+          name: 'Agentic AI Systems',
+          desc: 'Multi-agent orchestration, tool-use pipelines, and autonomous workflow design with guardrails.',
+        },
+        {
+          icon: Database,
+          name: 'RAG & Enterprise Knowledge Systems',
+          desc: 'Retrieval-augmented generation pipelines, vector databases, and enterprise knowledge architectures.',
+        },
+        {
+          icon: Network,
+          name: 'MCP & API Integrations',
+          desc: 'Model Context Protocol servers, API orchestration, and secure data connectors for production AI.',
+        },
+        {
+          icon: Workflow,
+          name: 'Workflow & Data Architecture',
+          desc: 'End-to-end data pipelines, event-driven architectures, and AI workflow orchestration at scale.',
+        },
+        {
+          icon: Zap,
+          name: 'AI Pilot Recovery',
+          desc: 'Rescuing stalled AI pilots — diagnosing architecture failures, rebuilding for production, and getting to deployment.',
+        },
+      ],
+    },
+    {
+      icon: Radio,
+      subtitle: 'Pillar 02',
+      title: 'AI Operations & Deployment',
+      description:
+        'Deploying AI systems into production — voice agents, customer intake, monitoring, and the operational hardening that keeps systems running.',
+      services: [
+        {
+          icon: Phone,
+          name: 'Voice & Chat Agents',
+          desc: 'Production voice AI (powered by KestrelVoice) and chat agents for customer-facing operations.',
+        },
+        {
+          icon: Users,
+          name: 'Customer Intake & Booking',
+          desc: 'AI-driven intake flows, appointment scheduling, and automated customer onboarding pipelines.',
+        },
+        {
+          icon: Network,
+          name: 'Human Escalation',
+          desc: 'Seamless AI-to-human handoff architecture, escalation policies, and context preservation.',
+        },
+        {
+          icon: Activity,
+          name: 'Monitoring & Observability',
+          desc: 'Real-time AI system monitoring, drift detection, latency tracking, and automated alerting.',
+        },
+        {
+          icon: Gauge,
+          name: 'Production Hardening',
+          desc: 'Performance optimization, failure mode testing, load testing, and operational readiness reviews.',
+        },
+      ],
+    },
     {
       icon: Shield,
-      title: 'AI Compliance & Governance',
-      description: 'Enterprise-grade governance frameworks that transform regulatory requirements into competitive advantages, enabling innovation at scale.',
-      features: [
-        'EU AI Act, GDPR, NIST compliance implementation',
-        'Audit readiness programs (60% time reduction)',
-        'Real-time regulatory enforcement systems',
-        'Model documentation and risk scoring',
+      subtitle: 'Pillar 03',
+      title: 'AI Governance & Assurance',
+      description:
+        'Building governance structures that scale — from readiness assessments to evidence architecture and drift controls.',
+      services: [
+        {
+          icon: Target,
+          name: 'Readiness & Applicability Assessments',
+          desc: 'Evaluate AI system readiness, regulatory applicability, and organizational maturity before deployment.',
+        },
+        {
+          icon: Lock,
+          name: 'AI Security & Compliance',
+          desc: 'EU AI Act, NIST AI RMF, ISO 42001, NYC LL144 compliance implementation and audit readiness.',
+        },
+        {
+          icon: FileCheck,
+          name: 'Evidence Architecture',
+          desc: 'Audit-grade evidence generation, documentation pipelines, and compliance evidence repositories.',
+        },
+        {
+          icon: Activity,
+          name: 'Testing & Drift Controls',
+          desc: 'Patent-pending drift detection frameworks, bias testing, and automated quality gates in CI/CD.',
+        },
+        {
+          icon: Briefcase,
+          name: 'Governance Operating Models',
+          desc: 'AI governance committees, policy frameworks, and operating models that survive contact with real organizations.',
+        },
       ],
-      deliverables: 'Compliance frameworks, audit documentation, governance playbooks',
-    },
-    {
-      icon: Briefcase,
-      title: 'Technical Program Leadership',
-      description: 'Strategic program orchestration for complex AI initiatives at Fortune 50 scale. Delivering measurable outcomes through cross-functional alignment and execution excellence.',
-      features: [
-        'Multi-stakeholder program orchestration (100+ teams)',
-        '$50M+ portfolio management',
-        'Global deployment coordination',
-        'Risk mitigation and strategic execution',
-      ],
-      deliverables: 'Program roadmaps, execution frameworks, stakeholder alignment',
-    },
-    {
-      icon: Zap,
-      title: 'AI Proof-of-Concept (POC) Projects',
-      description: 'Rapid validation of AI use cases with production-ready architecture from day one.',
-      features: [
-        'Use case validation and feasibility analysis',
-        'Prototype development with compliance built-in',
-        'Production readiness assessment',
-        'Scalability and risk evaluation',
-      ],
-      deliverables: 'Working prototypes, technical documentation, production roadmap',
-    },
-    {
-      icon: Users,
-      title: 'Executive Advisory & Coaching',
-      description: 'Strategic guidance for executives navigating AI transformation and regulatory complexity.',
-      features: [
-        'AI strategy development and roadmap planning',
-        'Regulatory landscape navigation',
-        'Organizational readiness assessment',
-        'Executive coaching and mentorship',
-      ],
-      deliverables: 'Strategic plans, risk assessments, executive briefings',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Drift Detection & Monitoring',
-      description: 'Patent-pending frameworks for identifying AI system degradation before it impacts users.',
-      features: [
-        'Precision drift detection implementation',
-        'Real-time monitoring dashboards',
-        'Automated alerting and remediation',
-        'Root cause analysis frameworks',
-      ],
-      deliverables: 'Monitoring systems, alert configurations, RCA playbooks',
-    },
-    {
-      icon: Target,
-      title: 'Fractional Leadership',
-      description: 'Part-time executive leadership delivering VP/Director-level AI governance expertise without full-time overhead. Strategic impact on a flexible engagement model.',
-      features: [
-        'VP/Director-level strategic oversight',
-        'Team building and capability development',
-        'Framework implementation and adoption',
-        'Vendor evaluation and technology selection',
-      ],
-      deliverables: 'Strategic direction, team development, operational frameworks',
     },
   ]
 
@@ -92,14 +129,14 @@ export default function ServicesPage() {
       title: 'Project-Based',
       description: 'Fixed-scope engagements with clear deliverables and timelines.',
       duration: '3-6 months',
-      ideal: 'POC projects, compliance implementations, framework development',
+      ideal: 'AI architecture, pilot recovery, compliance implementations, framework development',
     },
     {
       icon: Award,
       title: 'Retainer',
       description: 'Ongoing advisory and strategic guidance with flexible scope.',
       duration: '6-12 months',
-      ideal: 'Executive advisory, continuous improvement, strategic planning',
+      ideal: 'Executive advisory, continuous improvement, governance oversight, strategic planning',
     },
     {
       icon: Users,
@@ -115,57 +152,54 @@ export default function ServicesPage() {
       <Hero
         title={
           <>
-            Services That Bridge
+            AI Architecture,
             <br />
-            <span className="gradient-text">AI Ambition & Reality</span>
+            <span className="gradient-text">Deployment & Governance</span>
           </>
         }
-        description="From POC to production-grade systems. From regulatory chaos to operational maturity. I help organizations build AI systems that work at scale—safely, compliantly, and reliably."
+        description="From agentic workflows and RAG to compliance automation and enterprise governance. I help organizations architect, deploy, and govern production AI systems."
       />
 
-      <Section subtitle="What I Offer" title="Core Services">
-        <div className="max-w-6xl mx-auto space-y-8">
-          {services.map((service, index) => {
-            const Icon = service.icon
-            return (
-              <Card key={index} className="border-l-4 border-l-primary">
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-xl mb-2">{service.title}</CardTitle>
-                      <CardDescription className="text-base mb-4">
-                        {service.description}
-                      </CardDescription>
-                      
-                      <div className="grid md:grid-cols-2 gap-6 mt-4">
-                        <div>
-                          <h4 className="font-semibold text-foreground mb-2">What's Included:</h4>
-                          <ul className="space-y-1">
-                            {service.features.map((feature, idx) => (
-                              <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                                <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                                <span>{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
+      {pillars.map((pillar, pIndex) => {
+        const PillarIcon = pillar.icon
+        return (
+          <Section
+            key={pIndex}
+            subtitle={pillar.subtitle}
+            title={pillar.title}
+            description={pillar.description}
+            className={pIndex === 1 ? 'bg-secondary/20' : undefined}
+          >
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <PillarIcon className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <Grid cols={3}>
+                {pillar.services.map((service, sIndex) => {
+                  const Icon = service.icon
+                  return (
+                    <Card key={sIndex} className="border-l-4 border-l-primary">
+                      <CardHeader>
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <Icon className="h-5 w-5 text-primary" />
+                          </div>
+                          <CardTitle className="text-lg">{service.name}</CardTitle>
                         </div>
-                        
-                        <div>
-                          <h4 className="font-semibold text-foreground mb-2">Deliverables:</h4>
-                          <p className="text-sm text-muted-foreground">{service.deliverables}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            )
-          })}
-        </div>
-      </Section>
+                        <CardDescription className="text-sm">
+                          {service.desc}
+                        </CardDescription>
+                      </CardHeader>
+                    </Card>
+                  )
+                })}
+              </Grid>
+            </div>
+          </Section>
+        )
+      })}
 
       <Section subtitle="How We Work" title="Engagement Models" className="bg-secondary/20">
         <Grid cols={3}>
@@ -241,8 +275,8 @@ export default function ServicesPage() {
             <CardHeader>
               <CardTitle>I See Failure Modes Before They Emerge</CardTitle>
               <CardDescription className="text-base">
-                Years of drift detection, RCA, and governance work have trained me to anticipate what most teams 
-                discover only after outages or audit failures. I protect organizations from invisible risks before 
+                Years of drift detection, RCA, and governance work have trained me to anticipate what most teams
+                discover only after outages or audit failures. I protect organizations from invisible risks before
                 they become front-page news.
               </CardDescription>
             </CardHeader>
@@ -252,8 +286,8 @@ export default function ServicesPage() {
             <CardHeader>
               <CardTitle>I Design Frameworks That Survive Contact With Real Organizations</CardTitle>
               <CardDescription className="text-base">
-                Compliance is useless if engineers won't follow it. Engineering is dangerous if compliance can't see it. 
-                My systems bridge both worlds—creating governance structures that scale across dozens of teams without 
+                Compliance is useless if engineers won't follow it. Engineering is dangerous if compliance can't see it.
+                My systems bridge both worlds—creating governance structures that scale across dozens of teams without
                 breaking velocity.
               </CardDescription>
             </CardHeader>
@@ -263,8 +297,8 @@ export default function ServicesPage() {
             <CardHeader>
               <CardTitle>I've Operated at Every Altitude</CardTitle>
               <CardDescription className="text-base">
-                From field technician → system engineer → program manager → founder → enterprise AI strategist. 
-                I understand every layer of the stack, technical and human. This means I can translate between 
+                From field technician → system engineer → program manager → founder → enterprise AI strategist.
+                I understand every layer of the stack, technical and human. This means I can translate between
                 engineering, legal, risk, and executive stakeholders.
               </CardDescription>
             </CardHeader>
@@ -274,8 +308,8 @@ export default function ServicesPage() {
             <CardHeader>
               <CardTitle>No Buzzwords. Just Systems That Work.</CardTitle>
               <CardDescription className="text-base">
-                If I say a program will take 6 months, it takes 6 months. If I say we can reduce audit time by 60%, 
-                we do. My reputation is built on delivery, not promises. Everything I build is battle-tested at 
+                If I say a program will take 6 months, it takes 6 months. If I say we can reduce audit time by 60%,
+                we do. My reputation is built on delivery, not promises. Everything I build is battle-tested at
                 Fortune 50 scale.
               </CardDescription>
             </CardHeader>
@@ -285,7 +319,7 @@ export default function ServicesPage() {
 
       <CTA
         title="Let's Discuss Your AI Challenge"
-        description="Whether you need help with compliance, program leadership, or building frameworks that scale—I bring 15 years of experience, 5 patent-pending methodologies, and a track record of delivering results in the most demanding environments."
+        description="Whether you need architecture, deployment, governance, or all three — I bring 16+ years of experience, 5 patent-pending methodologies, and a track record of delivering results in the most demanding environments."
         primaryButton={{ text: 'Schedule a Conversation', href: '/contact' }}
         secondaryButton={{ text: 'View Executive Bio', href: '/executive-bio' }}
       />

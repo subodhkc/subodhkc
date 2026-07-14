@@ -20,6 +20,9 @@ export const metadata = {
   title: 'HAIEC - Human AI Ethics Council',
   description:
     'Comprehensive AI governance, compliance, and ethical deployment platform. Built on years of real-world experience. Features precision drift detection, Red Audit Kit, and Cognitive Systems Management.',
+  alternates: {
+    canonical: 'https://subodhkc.com/haiec',
+  },
 }
 
 export default function HAIECPage() {

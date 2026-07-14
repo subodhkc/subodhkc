@@ -22,15 +22,15 @@ export default function CoinbaseResumePage() {
             </div>
             <div className="text-right text-xs text-zinc-600 leading-relaxed shrink-0">
               <p className="font-medium text-zinc-900">Dallas, TX (Hybrid)</p>
-              <p>subodh@subodhkc.com</p>
+              <p>Subodh.kc@haiec.com</p>
               <p className="text-blue-600">subodhkc.com · linkedin.com/in/subodhkc · github.com/subodhkc</p>
             </div>
           </div>
           
           {/* Summary */}
           <p className="mt-3 text-xs text-zinc-700 leading-relaxed">
-            <span className="font-semibold text-zinc-900">12+ years</span> in technology with <span className="font-semibold text-zinc-900">3 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
-            Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span>, reducing manual review by <span className="font-semibold text-zinc-900">40–60%</span>. 
+            <span className="font-semibold text-zinc-900">16+ years</span> building AI and compliance systems at <span className="font-semibold text-zinc-900">Fortune 50</span> scale, with <span className="font-semibold text-zinc-900">3 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
+            Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">$50M+</span> AI portfolios, reducing manual review by <span className="font-semibold text-zinc-900">40–60%</span>. 
             Shipped AI-native products for drift detection, autonomous RCA, and compliance mapping. 
             <span className="font-semibold text-zinc-900">5 patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.
           </p>
@@ -57,6 +57,11 @@ export default function CoinbaseResumePage() {
             <div className="flex items-center gap-2">
               <span className="text-xl font-bold text-amber-600">5</span>
               <span className="text-xs text-zinc-600">Patent Filings</span>
+            </div>
+            <div className="w-px h-6 bg-zinc-300" />
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-bold text-rose-600">$50M+</span>
+              <span className="text-xs text-zinc-600">Portfolio Oversight</span>
             </div>
           </div>
         </section>
@@ -181,6 +186,27 @@ export default function CoinbaseResumePage() {
                 </div>
               </div>
             </section>
+
+            {/* PUBLICATIONS */}
+            <section>
+              <h2 className="text-[10px] font-bold tracking-widest uppercase text-blue-600 mb-2 pb-1 border-b border-blue-200">
+                Publications & Research
+              </h2>
+              <div className="text-xs space-y-1.5">
+                <div>
+                  <p className="font-semibold text-zinc-900">The Instruction Stack Audit Framework (ISAF)</p>
+                  <p className="text-zinc-600">Zenodo · 2025 — Nine-layer AI accountability methodology, 127-checkpoint audit protocol</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-zinc-900">Deterministic Bias Detection for NYC Local Law 144</p>
+                  <p className="text-zinc-600">Zenodo · 2024 — Reproducibility-first architecture for regulatory bias detection</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-zinc-900">From Industrial Electrification to Artificial Intelligence</p>
+                  <p className="text-zinc-600">Zenodo · 2025 — Institutional lessons for AI risk regulation maturation</p>
+                </div>
+              </div>
+            </section>
           </div>
 
           {/* RIGHT COLUMN */}
@@ -263,8 +289,10 @@ export default function CoinbaseResumePage() {
                 Why Coinbase
               </h2>
               <p className="text-[10px] text-zinc-700 leading-relaxed">
-                I want to build the future of finance at a company that demands excellence. 
-                Compliance automation at Coinbase scale—reducing friction for customers while managing regulatory risk—is exactly the kind of hard, high-impact problem I've spent my career preparing for.
+                Coinbase sits at the intersection of regulated finance and decentralized innovation — the exact boundary where I've built my career. 
+                My work in AI compliance automation, transaction-risk heuristics, and audit-grade evidence generation maps directly to Coinbase's challenges: 
+                on-chain risk monitoring, EDD workflow automation, and building compliance infrastructure that scales with crypto markets without slowing customers down. 
+                I want to help Coinbase prove that regulatory excellence is a competitive advantage, not a tax on innovation.
               </p>
             </section>
           </div>

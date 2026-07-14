@@ -8,9 +8,12 @@ import { Mic, Users, Briefcase, GraduationCap, CheckCircle2, ArrowRight } from '
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Speaking',
+  title: 'Speaking & Keynotes | AI Governance & Strategy | Subodh KC',
   description:
-    'Book Subodh KC for keynotes, workshops, and technical talks on AI compliance, governance, enterprise program management, and strategic execution at scale.',
+    'Book Subodh KC for keynotes, workshops, and technical talks on AI architecture, governance, enterprise program management, and strategic execution at scale.',
+  alternates: {
+    canonical: 'https://subodhkc.com/speaking',
+  },
 }
 
 export default function SpeakingPage() {
@@ -155,7 +158,7 @@ export default function SpeakingPage() {
             <span className="gradient-text">AI Governance & Strategy</span>
           </>
         }
-        description="No buzzwords. No fluff. Strategic insights from 12+ years building AI systems and driving programs at Fortune 50 scale."
+        description="No buzzwords. No fluff. Strategic insights from 16+ years building AI systems and driving programs at Fortune 50 scale."
       >
         <Link href="/contact">
           <Button size="lg" className="group">
@@ -166,6 +169,7 @@ export default function SpeakingPage() {
       </Hero>
 
       <Section
+        id="topics"
         subtitle="Topics"
         title="What I Talk About"
         description="Practical, actionable insights from real-world experience implementing AI compliance and driving technical programs at enterprise scale."

@@ -20,13 +20,14 @@ export function Counter({
   fixed = 0,
   formatK = false,
 }: Props) {
-  const [n, setN] = React.useState(0);
+  const [n, setN] = React.useState(value);
   const ref = React.useRef<HTMLSpanElement>(null);
   const started = React.useRef(false);
 
   React.useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    setN(0);
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {

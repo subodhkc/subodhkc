@@ -17,9 +17,12 @@ import {
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Advisory & Consulting',
+  title: 'AI Advisory & Consulting | Subodh KC',
   description:
-    'Strategic advisory services for AI compliance, governance, and technical program leadership. Executive coaching, implementation support, and fractional leadership for enterprise AI initiatives.',
+    'Strategic advisory services for AI architecture, governance, and technical program leadership. Executive coaching, implementation support, and fractional leadership for enterprise AI initiatives.',
+  alternates: {
+    canonical: 'https://subodhkc.com/advisory',
+  },
 }
 
 export default function AdvisoryPage() {
@@ -170,7 +173,7 @@ export default function AdvisoryPage() {
             <span className="gradient-text">Enterprise AI Leaders</span>
           </>
         }
-        description="12+ years of experience driving AI compliance, governance, and technical programs at Fortune 50 scale. I help organizations navigate complexity and execute with precision."
+        description="16+ years of experience driving AI compliance, governance, and technical programs at Fortune 50 scale. I help organizations navigate complexity and execute with precision."
       >
         <Link href="/contact">
           <Button size="lg" className="group">

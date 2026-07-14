@@ -61,12 +61,21 @@ const SITEMAP = [
       ["/research", "research"],
       ["/speaking", "speaking"],
       ["/advisory", "advisory"],
+      ["/faq", "faq"],
+    ],
+  },
+  {
+    head: "Training",
+    items: [
+      ["/course", "AI Governance Course"],
+      ["/webinar/ai-laws-small-business", "AI Laws Webinar"],
     ],
   },
   {
     head: "About me",
     items: [
       ["/executive-bio", "executive bio"],
+      ["/person/subodh-kc", "person profile"],
       ["/resume/coinbase", "resume"],
       ["/haiec", "haiec platform"],
     ],
@@ -448,7 +457,7 @@ export function SiteFooter() {
           className="footer-sitemap-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
+            gridTemplateColumns: "repeat(6, 1fr)",
             gap: 28,
             fontFamily: "var(--font-mono)",
             fontSize: 12,
