@@ -82,12 +82,16 @@ export function SiteFooter() {
     script.type = "text/javascript";
     script.async = true;
     script.onload = () => {
-      if ((window as unknown as { MNI?: unknown }).MNI) {
-        const MNI = (window as unknown as { MNI: { Widgets: { Member: new (id: string, opts: Record<string, unknown>) => { create: () => void } } } }).MNI;
-        new MNI.Widgets.Member("mni-membership-639195539486791546", {
-          member: 18363,
-          styleTemplate: "#@id{text-align:center;position:relative}#@id .mn-widget-member-name{font-weight:700}#@id .mn-widget-member-logo{max-width:100%}",
-        }).create();
+      const w = window as unknown as { MNI?: { Widgets: { Member: new (id: string, opts: Record<string, unknown>) => { create: () => void } } } };
+      if (w.MNI) {
+        try {
+          new w.MNI.Widgets.Member("mni-membership-639195539486791546", {
+            member: 18363,
+            styleTemplate: "#@id{text-align:center;position:relative}#@id .mn-widget-member-name{font-weight:700}#@id .mn-widget-member-logo{max-width:100%}",
+          }).create();
+        } catch (e) {
+          console.error("ChamberMaster widget init failed:", e);
+        }
       }
     };
     document.body.appendChild(script);
@@ -461,7 +465,7 @@ export function SiteFooter() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          overflow: "hidden",
+          minHeight: 80,
         }}
       >
         <div id="mni-membership-639195539486791546" />

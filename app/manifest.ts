@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Leading AI Compliance Architect at Fortune 50, HAIEC founder, and Enterprise Technical Program Manager',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0A1929',
-    theme_color: '#2563EB',
+    background_color: '#2b2e33',
+    theme_color: '#2b2e33',
     icons: [
       {
         src: '/icon-32.png',

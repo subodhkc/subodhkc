@@ -66,7 +66,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
         position: "fixed",
         inset: 0,
         zIndex: 80,
-        background: "color-mix(in oklab, var(--bg) 70%, #000 30%)",
+        background: "color-mix(in oklab, var(--bg) 80%, #000 20%)",
         backdropFilter: "blur(6px)",
         WebkitBackdropFilter: "blur(6px)",
         display: "grid",

@@ -139,13 +139,12 @@ export default async function RootLayout({
         <meta name="geo.placename" content="United States" />
         <meta name="language" content="English" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="theme-color" content="#0A1929" />
+        <meta name="theme-color" content="#2b2e33" />
       </head>
       <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
         <SiteNavigation />
         <main className="min-h-screen">{children}</main>
         <SiteFooter />
-        <StructuredData />
       </body>
     </html>
   )
