@@ -7,21 +7,10 @@ export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest) {
   try {
-    // Get API key from environment
     const apiKey = process.env.RESEND_API_KEY
-    
-    // Debug logging
-    console.log('Environment check:', {
-      hasApiKey: !!apiKey,
-      apiKeyLength: apiKey?.length || 0,
-      nodeEnv: process.env.NODE_ENV,
-      vercelEnv: process.env.VERCEL_ENV,
-    })
-    
-    // Check if API key exists
+
     if (!apiKey) {
-      console.error('RESEND_API_KEY is not set in environment variables')
-      console.error('All env vars:', Object.keys(process.env).sort())
+      console.error('RESEND_API_KEY is not set')
       return NextResponse.json(
         { success: false, error: 'Email service not configured. Please contact administrator.' },
         { status: 500 }
@@ -50,10 +39,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send email using Resend
-    // Note: Use onboarding@resend.dev for testing, or verify your domain in Resend
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    const safeName = esc(name)
+    const safeEmail = esc(email)
+    const safeCompany = company ? esc(company) : ''
+    const safeInterest = esc(interest)
+    const safeMessage = esc(message)
+
     const { data, error } = await resend.emails.send({
-      from: 'KC Contact Form <onboarding@resend.dev>',
+      from: 'KC Contact Form <noreply@subodhkc.com>',
       to: ['Subodh.kc@haiec.com'],
       reply_to: email,
       subject: `New Contact Form Submission: ${interest}`,
@@ -76,35 +70,35 @@ export async function POST(request: NextRequest) {
                 
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #4b5563; display: inline-block; width: 120px;">Name:</strong>
-                  <span style="color: #1f2937;">${name}</span>
+                  <span style="color: #1f2937;">${safeName}</span>
                 </div>
                 
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #4b5563; display: inline-block; width: 120px;">Email:</strong>
-                  <a href="mailto:${email}" style="color: #2563EB; text-decoration: none;">${email}</a>
+                  <a href="mailto:${safeEmail}" style="color: #2563EB; text-decoration: none;">${safeEmail}</a>
                 </div>
                 
-                ${company ? `
+                ${safeCompany ? `
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #4b5563; display: inline-block; width: 120px;">Company:</strong>
-                  <span style="color: #1f2937;">${company}</span>
+                  <span style="color: #1f2937;">${safeCompany}</span>
                 </div>
                 ` : ''}
                 
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #4b5563; display: inline-block; width: 120px;">Interest:</strong>
-                  <span style="color: #1f2937; background: #dbeafe; padding: 4px 12px; border-radius: 4px; display: inline-block;">${interest}</span>
+                  <span style="color: #1f2937; background: #dbeafe; padding: 4px 12px; border-radius: 4px; display: inline-block;">${safeInterest}</span>
                 </div>
               </div>
               
               <div style="background: white; padding: 25px; border-radius: 8px;">
                 <h2 style="color: #2563EB; margin-top: 0; font-size: 18px; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">Message</h2>
-                <div style="color: #1f2937; white-space: pre-wrap; line-height: 1.8;">${message}</div>
+                <div style="color: #1f2937; white-space: pre-wrap; line-height: 1.8;">${safeMessage}</div>
               </div>
               
               <div style="margin-top: 20px; padding: 15px; background: #eff6ff; border-left: 4px solid #2563EB; border-radius: 4px;">
                 <p style="margin: 0; color: #1e40af; font-size: 14px;">
-                  <strong>Quick Action:</strong> Reply directly to this email to respond to ${name}
+                  <strong>Quick Action:</strong> Reply directly to this email to respond to ${safeName}
                 </p>
               </div>
             </div>
@@ -119,17 +113,11 @@ export async function POST(request: NextRequest) {
     })
 
     if (error) {
-      console.error('Resend API error details:', {
-        error,
-        errorMessage: error.message,
-        errorName: error.name,
-        fullError: JSON.stringify(error, null, 2)
-      })
+      console.error('Resend API error:', error.message)
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Failed to send email. Please text 682-224-9904 for immediate assistance.',
-          details: error.message || 'Unknown error'
+          error: 'Failed to send email. Please text 682-224-9904 for immediate assistance.'
         },
         { status: 500 }
       )

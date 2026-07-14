@@ -15,9 +15,6 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
-  env: {
-    RESEND_API_KEY: process.env.RESEND_API_KEY,
-  },
   async headers() {
     return [
       {

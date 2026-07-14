@@ -32,9 +32,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    const safeName = esc(name)
+    const safeEmail = esc(email)
+
     // Send welcome email with download link
     const { data, error } = await resend.emails.send({
-      from: 'Subodh KC <onboarding@resend.dev>',
+      from: 'Subodh KC <noreply@subodhkc.com>',
       to: [email],
       subject: '🎉 Your AI Compliance Framework Guide is Ready!',
       html: `
@@ -49,7 +53,7 @@ export async function POST(request: NextRequest) {
             
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
-              <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 700;">Welcome, ${name}! 🎉</h1>
+              <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 700;">Welcome, ${safeName}! 🎉</h1>
               <p style="color: rgba(255, 255, 255, 0.9); margin: 10px 0 0 0; font-size: 16px;">Your AI Compliance Framework Guide is ready</p>
             </div>
 
@@ -139,13 +143,13 @@ export async function POST(request: NextRequest) {
 
     // Also notify you about the new lead
     await resend.emails.send({
-      from: 'Lead Notification <onboarding@resend.dev>',
+      from: 'Lead Notification <noreply@subodhkc.com>',
       to: ['Subodh.kc@haiec.com'],
-      subject: `🎯 New Lead: ${name} downloaded AI Compliance Guide`,
+      subject: `🎯 New Lead: ${safeName} downloaded AI Compliance Guide`,
       html: `
         <h2>New Lead Magnet Download</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Name:</strong> ${safeName}</p>
+        <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>Downloaded:</strong> AI Compliance Framework Guide</p>
         <p><strong>Time:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
         <hr>

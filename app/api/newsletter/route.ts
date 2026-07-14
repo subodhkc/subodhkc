@@ -32,9 +32,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    const safeEmail = esc(email)
+
     // Send welcome email for newsletter subscription
     const { data, error } = await resend.emails.send({
-      from: 'Subodh KC <onboarding@resend.dev>',
+      from: 'Subodh KC <noreply@subodhkc.com>',
       to: [email],
       subject: '✅ Welcome to AI Insights & Compliance Updates',
       html: `
@@ -158,12 +161,12 @@ export async function POST(request: NextRequest) {
 
     // Notify you about new subscriber
     await resend.emails.send({
-      from: 'Newsletter Notification <onboarding@resend.dev>',
+      from: 'Newsletter Notification <noreply@subodhkc.com>',
       to: ['Subodh.kc@haiec.com'],
-      subject: `📧 New Newsletter Subscriber: ${email}`,
+      subject: `📧 New Newsletter Subscriber: ${safeEmail}`,
       html: `
         <h2>New Newsletter Subscription</h2>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>Source:</strong> Newsletter Signup Form</p>
         <p><strong>Time:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
         <hr>
