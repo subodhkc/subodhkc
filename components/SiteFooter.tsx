@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -72,35 +73,47 @@ const SITEMAP = [
   },
 ] as const;
 
-let chamberScriptLoaded = false;
+let chamberWidgetInit = false;
 
 export function SiteFooter() {
   const [submitting, setSubmitting] = React.useState(false);
   const [done, setDone] = React.useState(false);
+  const [chamberError, setChamberError] = React.useState(false);
+
+  const initChamberWidget = React.useCallback(() => {
+    if (chamberWidgetInit) return;
+    const w = window as unknown as { MNI?: { Widgets: { Member: new (id: string, opts: Record<string, unknown>) => { create: () => void } } } };
+    if (w.MNI) {
+      chamberWidgetInit = true;
+      try {
+        new w.MNI.Widgets.Member("mni-membership-639195539486791546", {
+          member: 18363,
+          styleTemplate: "#@id{text-align:center;position:relative}#@id .mn-widget-member-name{font-weight:700}#@id .mn-widget-member-logo{max-width:100%}",
+        }).create();
+      } catch (e) {
+        console.error("ChamberMaster widget init failed:", e);
+        setChamberError(true);
+      }
+    }
+  }, []);
 
   React.useEffect(() => {
-    if (chamberScriptLoaded) return;
-    chamberScriptLoaded = true;
-
-    const script = document.createElement("script");
-    script.src = "https://hebtx.chambermaster.com/Content/Script/Member.js";
-    script.type = "text/javascript";
-    script.async = true;
-    script.onload = () => {
-      const w = window as unknown as { MNI?: { Widgets: { Member: new (id: string, opts: Record<string, unknown>) => { create: () => void } } } };
+    if (chamberWidgetInit) return;
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      const w = window as unknown as { MNI?: unknown };
       if (w.MNI) {
-        try {
-          new w.MNI.Widgets.Member("mni-membership-639195539486791546", {
-            member: 18363,
-            styleTemplate: "#@id{text-align:center;position:relative}#@id .mn-widget-member-name{font-weight:700}#@id .mn-widget-member-logo{max-width:100%}",
-          }).create();
-        } catch (e) {
-          console.error("ChamberMaster widget init failed:", e);
-        }
+        clearInterval(interval);
+        initChamberWidget();
+      } else if (attempts > 20) {
+        clearInterval(interval);
+        console.error("ChamberMaster script loaded but MNI not available after 10s");
+        setChamberError(true);
       }
-    };
-    document.body.appendChild(script);
-  }, []);
+    }, 500);
+    return () => clearInterval(interval);
+  }, [initChamberWidget]);
 
   const onSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -471,7 +484,39 @@ export function SiteFooter() {
         }}
       >
         <div id="mni-membership-639195539486791546" />
+        {chamberError && (
+          <a
+            href="https://hebtx.chambermaster.com/list/mbr/subodh-kc-18363"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "8px 16px",
+              border: "1px solid var(--border)",
+              borderRadius: 8,
+              background: "var(--card)",
+              color: "var(--fg)",
+              textDecoration: "none",
+              fontSize: 13,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            HEB Chamber Member
+          </a>
+        )}
       </div>
+
+      <Script
+        src="https://hebtx.chambermaster.com/Content/Script/Member.js"
+        strategy="afterInteractive"
+        onLoad={() => initChamberWidget()}
+        onError={() => {
+          console.error("ChamberMaster script failed to load");
+          setChamberError(true);
+        }}
+      />
 
       {/* Bottom bar */}
       <div
