@@ -29,7 +29,7 @@ export function VoiceAgentArchitectureDiagram() {
         {/* Layer labels */}
         <text x="400" y="22" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Presentation</text>
         <text x="400" y="142" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Voice Runtime</text>
-        <text x="400" y="322" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Infrastructure &amp; Data</text>
+        <text x="400" y="322" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Telephony · Demand Engine · Data</text>
 
         {/* Layer 1: Presentation */}
         <rect x="50" y="30" width="700" height="100" rx="12" fill="url(#va-grad-pres)" stroke="hsl(var(--primary) / 0.15)" strokeWidth="1" />

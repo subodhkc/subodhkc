@@ -1,7 +1,7 @@
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
-import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import Link from 'next/link'
 import Grid from '@/components/Grid'
@@ -721,7 +721,7 @@ export default function AIVoiceAgentArchitecturePage() {
               const Icon = relatedIcons[i]
               return (
                 <Link key={resource.href} href={resource.href}>
-                  <Card className="h-full hover:border-primary/40 transition-colors">
+                  <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -731,6 +731,9 @@ export default function AIVoiceAgentArchitecturePage() {
                       </div>
                       <CardDescription className="text-xs leading-relaxed">{resource.desc}</CardDescription>
                     </CardHeader>
+                    <CardContent>
+                      <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read article <ArrowRight className="h-3 w-3" /></span>
+                    </CardContent>
                   </Card>
                 </Link>
               )

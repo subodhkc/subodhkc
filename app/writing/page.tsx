@@ -71,6 +71,24 @@ export default function WritingPage() {
       topics: ['Streamlit', 'MCP', 'RAG', 'OpenAI', 'Internal AI', 'Python'],
     },
     {
+      title: 'AI Voice Agent Architecture: How Kestrel Voice Works',
+      description:
+        'Production architecture for AI voice agent platforms — telephony, custom Python orchestration, realtime AI, adaptive three-layer intent routing, RAG pipeline, tool execution with verification, four-level degradation, post-call intelligence, learning pipeline, outbound dialer, meeting bridge, AI copilot, sequential ring, SMS, video, WebRTC, security architecture, technology decisions, and limitations.',
+      publication: 'subodhkc.com',
+      date: 'July 2026',
+      url: '/ai-voice-agent-architecture',
+      topics: ['AI Voice Agents', 'Voice Orchestration', 'RAG', 'Telephony', 'Kestrel Voice', 'Security'],
+    },
+    {
+      title: 'Why AI Voice Agents Fail in Production — and How to Deploy One Safely',
+      description:
+        'Ten failure modes, a production architecture, AI voice control ladder, security threat model, TCPA and TRAIGA compliance for voice, and a six-phase deployment plan.',
+      publication: 'subodhkc.com',
+      date: 'July 2026',
+      url: '/why-ai-voice-agents-fail-in-production',
+      topics: ['AI Voice Agents', 'Failure Modes', 'Voice AI Safety', 'TCPA', 'Deployment'],
+    },
+    {
       title: 'How to Build a Secure Enterprise RAG System',
       description:
         'A comprehensive guide to building production enterprise RAG systems — embedding models, vector databases (PostgreSQL pgvector, MongoDB, Databricks), hybrid search, row-level security, RAG poisoning prevention, agentic RAG, and evaluation metrics.',

@@ -158,6 +158,16 @@
         "name": "HAIEC AI Exposure Assessment",
         "description": "Comprehensive AI exposure assessment with deterministic analysis, adversarial testing, and evidence-grade compliance outputs",
         "url": "https://subodhkc.com/solutions/haiec/exposure-assessment"
+      },
+      {
+        "name": "AI Voice Agent Architecture: How Kestrel Voice Works",
+        "description": "Production architecture for AI voice agent platforms — telephony, adaptive orchestration, RAG, tools, degradation, security, post-call intelligence, learning pipeline, outbound dialer, meeting bridge, AI copilot, multi-channel",
+        "url": "https://subodhkc.com/ai-voice-agent-architecture"
+      },
+      {
+        "name": "Why AI Voice Agents Fail in Production",
+        "description": "Ten failure modes, production architecture, AI voice control ladder, security threat model, TCPA and TRAIGA compliance, six-phase deployment plan",
+        "url": "https://subodhkc.com/why-ai-voice-agents-fail-in-production"
       }
     ]
   },
