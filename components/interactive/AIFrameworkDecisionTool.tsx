@@ -16,6 +16,7 @@ interface Recommendation {
   required: boolean
   reason: string
   icon: typeof Award
+  priority: 'start-here' | 'next' | 'ongoing'
 }
 
 export function AIFrameworkDecisionTool() {
@@ -43,6 +44,7 @@ export function AIFrameworkDecisionTool() {
         ? 'Recommended for systems handling sensitive data to structure risk governance.'
         : 'Good starting point for any AI system to establish governance and risk management.',
       icon: Layers,
+      priority: 'start-here',
     })
 
     // ISO/IEC 42001
@@ -54,6 +56,7 @@ export function AIFrameworkDecisionTool() {
         ? 'Formal AI management-system certification provides assurance for customers and regulators.'
         : 'Consider if customers request formal AI management certification or if operating across multiple jurisdictions.',
       icon: Award,
+      priority: 'next',
     })
 
     // SOC 2
@@ -65,6 +68,7 @@ export function AIFrameworkDecisionTool() {
         ? 'Enterprise customers typically require SOC 2 for service organizations processing their data.'
         : 'Not typically needed for internal-only AI tools unless customer-facing.',
       icon: ClipboardCheck,
+      priority: 'next',
     })
 
     // ISO/IEC 27001
@@ -76,6 +80,7 @@ export function AIFrameworkDecisionTool() {
         ? 'Information-security management system is foundational when handling sensitive or regulated data.'
         : 'Recommended baseline for any organization, but especially when handling sensitive data.',
       icon: Shield,
+      priority: 'start-here',
     })
 
     // OWASP GenAI + MITRE ATLAS testing
@@ -89,15 +94,16 @@ export function AIFrameworkDecisionTool() {
           : 'Important for testing AI-specific vulnerabilities like prompt injection and retrieval poisoning.'
         : 'Recommended for any AI application to validate against AI-specific attack vectors.',
       icon: FileText,
+      priority: 'next',
     })
 
     // Legal/sector-specific
-    const legalNeeded = isHealthcare || aiUseCase === 'hiring-screening' || aiUseCase === 'lending-credit' || customerDemand === 'multi-jurisdiction'
-    const legalLabel = isHealthcare
+    const legalNeeded = isHealthcare || businessType === 'hr-hiring' || businessType === 'financial' || aiUseCase === 'hiring-screening' || aiUseCase === 'lending-credit' || aiUseCase === 'clinical-decision' || customerDemand === 'multi-jurisdiction'
+    const legalLabel = isHealthcare || aiUseCase === 'clinical-decision'
       ? 'Healthcare AI laws (HIPAA, TRAIGA healthcare disclosure, state medical AI)'
-      : aiUseCase === 'hiring-screening'
+      : businessType === 'hr-hiring' || aiUseCase === 'hiring-screening'
       ? 'Employment AI laws (NYC LL 144, state bias-audit requirements, EEOC)'
-      : aiUseCase === 'lending-credit'
+      : businessType === 'financial' || aiUseCase === 'lending-credit'
       ? 'Financial AI laws (ECOA, FCRA, fair lending, CFPB guidance)'
       : customerDemand === 'multi-jurisdiction'
       ? 'Multi-jurisdiction AI laws (EU AI Act, TRAIGA, state laws)'
@@ -109,6 +115,19 @@ export function AIFrameworkDecisionTool() {
         ? 'Sector-specific legal requirements apply based on use case, data, and jurisdiction.'
         : 'Conduct a basic legal applicability review for your jurisdiction and use case.',
       icon: FileText,
+      priority: 'start-here',
+    })
+
+    // CSA AI Controls Matrix — for SaaS and cloud-based AI
+    const csaNeeded = isSaaS || hasAgentActions || aiUseCase === 'rag-assistant'
+    recs.push({
+      name: 'CSA AI Controls Matrix',
+      required: csaNeeded,
+      reason: csaNeeded
+        ? 'Detailed cloud-AI control objectives with mappings to ISO/IEC 42001 and EU AI Act.'
+        : 'Consider for cloud-based AI systems needing structured control mapping.',
+      icon: Layers,
+      priority: 'ongoing',
     })
 
     return recs
@@ -223,21 +242,27 @@ export function AIFrameworkDecisionTool() {
         {showResults && allAnswered && (
           <>
             <div className="space-y-3">
-              <p className="text-sm font-medium text-foreground">Based on your answers, here are the frameworks and controls you should consider:</p>
-              {recommendations.map((rec) => {
+              <p className="text-sm font-medium text-foreground">Based on your answers, here are the frameworks and controls you should consider, ordered by priority:</p>
+              {[...recommendations].sort((a, b) => {
+                const order = { 'start-here': 0, 'next': 1, 'ongoing': 2 }
+                return order[a.priority] - order[b.priority]
+              }).map((rec) => {
                 const Icon = rec.icon
+                const priorityLabel = rec.priority === 'start-here' ? 'Start here' : rec.priority === 'next' ? 'Next' : 'Ongoing'
+                const priorityColor = rec.priority === 'start-here' ? 'text-blue-600 dark:text-blue-400' : rec.priority === 'next' ? 'text-primary' : 'text-muted-foreground'
                 return (
                   <div key={rec.name} className={`rounded-lg border p-4 ${rec.required ? 'border-primary/30 bg-primary/5' : 'border-border bg-muted/20'}`}>
                     <div className="flex items-start gap-3">
                       <Icon className={`h-5 w-5 flex-shrink-0 mt-0.5 ${rec.required ? 'text-primary' : 'text-muted-foreground'}`} />
                       <div className="flex-1">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <p className="text-sm font-semibold text-foreground">{rec.name}</p>
                           {rec.required ? (
                             <span className="inline-flex items-center gap-1 text-xs font-medium text-primary"><CheckCircle2 className="h-3 w-3" /> Recommended</span>
                           ) : (
                             <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground"><ArrowRight className="h-3 w-3" /> Optional</span>
                           )}
+                          <span className={`inline-flex items-center text-xs font-medium ${priorityColor}`}>· {priorityLabel}</span>
                         </div>
                         <p className="text-xs text-muted-foreground mt-1">{rec.reason}</p>
                       </div>

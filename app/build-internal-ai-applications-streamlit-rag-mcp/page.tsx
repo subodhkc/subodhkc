@@ -855,6 +855,24 @@ if __name__ == "__main__":
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Related Guides & Resources</h2>
           <Grid cols={2} gap="md">
+            <Link href="/how-to-secure-and-govern-ai" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">How to Secure and Govern AI</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Seven layers of AI compliance — NIST AI RMF, ISO/IEC 42001, SOC 2, OWASP GenAI, and continuous evidence. Includes interactive framework decision tool.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read guide <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
             <Link href="/secure-enterprise-rag-architecture" className="block">
               <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
                 <CardHeader>

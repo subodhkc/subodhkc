@@ -738,6 +738,15 @@ USING (
         </div>
       </Section>
 
+      {/* Cross-link */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
+            <p>For the complete AI compliance stack — how NIST AI RMF, ISO/IEC 42001, SOC 2, and AI-specific security testing fit together — read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link>.</p>
+          </div>
+        </div>
+      </Section>
+
       {/* CTA */}
       <Section className="pt-8 pb-16">
         <div className="max-w-4xl mx-auto">

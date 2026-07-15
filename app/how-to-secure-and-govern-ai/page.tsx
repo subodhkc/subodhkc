@@ -2,6 +2,7 @@ import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import Link from 'next/link'
 import Grid from '@/components/Grid'
 import { AIFrameworkDecisionTool } from '@/components/interactive/AIFrameworkDecisionTool'
@@ -196,6 +197,16 @@ const csm6 = [
   ['Strategy', 'Control depth, assurance investment, adoption plan, and risk acceptance'],
   ['Compliance', 'Legal mapping, framework alignment, testing evidence, and independent assurance'],
 ]
+
+const howToSchema = {
+  '@context': 'https://schema.org', '@type': 'HowTo',
+  name: 'Six-Phase AI Secure and Govern Implementation Roadmap',
+  description: 'A practical six-phase roadmap to move from AI discovery through continuous evidence and improvement.',
+  step: phases.map((ph, i) => ({
+    '@type': 'HowToStep', position: i + 1, name: ph.p, text: ph.o,
+  })),
+}
+
 const scenarios = [
   { t: 'Small business using an AI receptionist', icon: Building2, n: ['AI inventory', 'Basic applicable-law review', 'NIST AI RMF-inspired ownership', 'Data and access controls', 'Prompt and tool testing', 'Human escalation', 'Incident handling'], nn: 'Probably does not need ISO/IEC 42001 certification or SOC 2 solely because it uses an AI receptionist.' },
   { t: 'Internal enterprise RAG assistant', icon: Database, n: ['NIST AI RMF profile', 'AI impact assessment', 'ISO/IEC 27001-aligned security', 'Privacy controls', 'Row-level security', 'Approved RAG sources', 'Retrieval evaluation', 'Prompt-injection testing', 'Continuous access review'], nn: 'External certification may not be necessary if the application is internal.' },
@@ -209,6 +220,7 @@ export default function HowToSecureAndGovernAIPage() {
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Hero subtitle="AI Security & Governance" title={<>How to Secure and Govern AI:<br /><span className="gradient-text">NIST, ISO and SOC 2</span></>} description="AI laws, NIST AI RMF, ISO/IEC 42001, SOC 2, security testing, and continuous evidence work together — not as alternatives. Learn the seven layers of AI compliance, risk management, security, and assurance." />
 
@@ -557,6 +569,17 @@ export default function HowToSecureAndGovernAIPage() {
             <Card><CardHeader><CardTitle className="text-base flex items-center gap-2"><Gavel className="h-4 w-4 text-primary" /> Does the Texas AI Law Apply to My Business?</CardTitle><CardDescription className="text-sm">Plain-English TRAIGA guide with interactive applicability checker, disclosure rules, and penalties.</CardDescription></CardHeader><CardContent><Link href="/does-texas-ai-law-apply-to-my-business" className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read guide <ArrowRight className="h-3 w-3" /></Link></CardContent></Card>
             <Card><CardHeader><CardTitle className="text-base flex items-center gap-2"><Database className="h-4 w-4 text-primary" /> Secure Enterprise RAG Architecture</CardTitle><CardDescription className="text-sm">RAG security architecture covering RLS, tenant isolation, retrieval governance, and prompt-injection defense.</CardDescription></CardHeader><CardContent><Link href="/secure-enterprise-rag-architecture" className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read guide <ArrowRight className="h-3 w-3" /></Link></CardContent></Card>
           </Grid>
+        </div>
+      </Section>
+
+      {/* Lead Magnet */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto">
+          <LeadMagnetCard
+            title="AI Secure & Govern Framework Checklist"
+            description="Get a practical checklist covering AI inventory, legal applicability, governance, risk assessment, AI-specific security controls, validation, and continuous evidence — aligned with NIST AI RMF, ISO/IEC 42001, SOC 2, OWASP GenAI, and MITRE ATLAS."
+            resourceName="AI Secure & Govern Framework Checklist"
+          />
         </div>
       </Section>
 
