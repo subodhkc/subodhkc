@@ -154,6 +154,205 @@ export default function AIIncidentEvidenceChecklistPage() {
         </div>
       </Section>
 
+      {/* Who Needs This */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Who Needs This Checklist and At What Level</h2>
+          <p className="text-sm text-muted-foreground">Not every organization needs the full four-phase evidence preservation plan. Use this guide to determine your required level of preparation.</p>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Card className="border-l-4 border-l-red-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-red-600" />
+                  Level 1: Full evidence plan
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Who:</strong> Healthcare (HIPAA breach notification), financial services (SEC/FINRA), HR/hiring (NYC LL 144, California FEHA, Illinois HB-3773, EU AI Act), legal (privilege), public companies (SOX), EU operations (GDPR/AI Act), any organization handling PHI, biometric data, or making regulated AI decisions.</span>
+                  <span className="block"><strong className="text-foreground">Requirements:</strong> Full four-phase checklist, pre-incident evidence preservation plan, legal hold capability, 4-year record retention (California FEHA), 6-month log retention (EU AI Act), regulatory notification templates, tabletop exercises twice per year, dedicated incident response team with legal counsel.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-amber-600" />
+                  Level 2: Core evidence plan
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Who:</strong> Mid-size companies (50-500 employees) using AI for internal operations with confidential business data, SaaS AI tools with customer data exposure, companies subject to CCPA or state breach notification laws.</span>
+                  <span className="block"><strong className="text-foreground">Requirements:</strong> Phases 1-2 (containment + evidence preservation), 2-year record retention, breach notification process aligned to state laws, annual tabletop exercise, incident response team with security lead and legal advisor on retainer.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-green-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-green-600" />
+                  Level 3: Basic evidence plan
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Who:</strong> Small businesses (&lt;50 employees) using AI for internal productivity with no sensitive data, no regulated decisions, no external customer data exposure.</span>
+                  <span className="block"><strong className="text-foreground">Requirements:</strong> Phase 1 (containment) + basic log preservation, 1-year record retention, simple incident response checklist, identify a security advisor to call if an incident occurs. Document this plan even if simple — having no plan is the biggest risk.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-900 dark:text-amber-200">
+              <AlertTriangle className="h-4 w-4 inline mr-1" />
+              <strong>Important:</strong> If you use AI in hiring, lending, healthcare, or any consequential decision — regardless of company size — you need Level 1. The data sensitivity and regulatory exposure determine the level, not just company size. A 10-person startup using AI to screen resumes in NYC needs the full evidence plan because NYC LL 144 applies.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Monitoring & Tracking */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Monitoring & Tracking to Set Up Before an Incident</h2>
+          <p className="text-sm text-muted-foreground">Evidence preservation only works if you are already logging the right data. Set up these monitoring capabilities proactively — you cannot retroactively capture logs that were never enabled.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Prompt and response logging</CardTitle>
+                <CardDescription className="text-sm mt-1">Log all user prompts, model responses, tool calls, and tool responses with timestamps, user IDs, and session IDs. This is the primary evidence in any AI incident — without it, you cannot reconstruct what the model was asked, what it did, and what went wrong. Retain for at least 6 months (EU AI Act Article 26 minimum) or 4 years (California FEHA for hiring decisions).</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Tool call audit trail</CardTitle>
+                <CardDescription className="text-sm mt-1">Every tool invocation (API call, database query, file access, email send) must be logged with: tool name, parameters, caller identity, approval status (auto vs. human-approved), and result. This trail is critical for proving whether a tool was called legitimately or via prompt injection. Store in an append-only audit log that cannot be modified after the fact.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">RAG document provenance tracking</CardTitle>
+                <CardDescription className="text-sm mt-1">Track which documents were in the RAG knowledge base at the time of each query, including document source, upload date, uploader identity, and content hash. If a RAG poisoning incident occurs, you need to identify which document injected malicious instructions and who uploaded it. Maintain document version history — do not overwrite, create new versions.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Model version and configuration history</CardTitle>
+                <CardDescription className="text-sm mt-1">Log the model version, system prompt, temperature, and tool configuration at the time of each session. If the vendor updates the model or you change the system prompt, you need to know which version was active when an incident occurred. This is essential for reproducing incidents and for regulatory investigations.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">User access and authentication logs</CardTitle>
+                <CardDescription className="text-sm mt-1">Log all authentication events, session creation, role changes, and access grants. In a tenant isolation breach or unauthorized access incident, these logs establish who had access and when. Integrate with your identity provider (Okta, Entra ID, etc.) for centralized audit trail.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Data egress monitoring</CardTitle>
+                <CardDescription className="text-sm mt-1">Monitor and log all outbound network traffic from the AI application, including API calls to external LLM providers, file downloads, and email sends. Set alerts for anomalous egress patterns (large data transfers, calls to unknown endpoints, off-hours activity). This is your primary detection mechanism for data exfiltration incidents.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Bias audit and decision logs (hiring AI)</CardTitle>
+                <CardDescription className="text-sm mt-1">For AI hiring tools, log every screening decision, ranking, score, and outcome with candidate demographics (where legally permitted), selection rates by demographic group, and impact ratios. Maintain the annual bias audit report and all supporting data. California FEHA requires 4-year retention of automated-decision system data. NYC LL 144 requires the bias audit summary to be publicly available.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Candidate notification records</CardTitle>
+                <CardDescription className="text-sm mt-1">For AI hiring, maintain records of when and how candidates were notified of AI use. Include: notification method (job posting, email, in-app), notification date, notification content, and candidate acknowledgment where required. Illinois AIVIA requires consent before AI-analyzed video interviews — log consent records. These records are your primary defense in a notification failure claim.</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      {/* AI in Hiring */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">AI in Hiring: Evidence, Notification & Disclaimer Requirements</h2>
+          <p className="text-sm text-muted-foreground">AI in hiring is one of the most heavily regulated AI use cases. Multiple jurisdictions enforce specific notification, audit, and evidence preservation requirements. If you use AI to screen, rank, score, or evaluate candidates, these obligations apply to you.</p>
+
+          <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 text-red-600" />
+              NYC Local Law 144 (AEDT) — In effect since July 2023, actively enforced
+            </h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Who:</strong> Any employer or employment agency using an Automated Employment Decision Tool (AEDT) to substantially assist in screening candidates for hiring or promotion in New York City.</p>
+              <p><strong className="text-foreground">Bias audit:</strong> Annual independent bias audit by a qualified, independent third-party auditor. The vendor cannot audit their own tool. Audit must include selection rates, impact ratios, and scoring distributions across protected categories.</p>
+              <p><strong className="text-foreground">Public disclosure:</strong> Summary of bias audit results must be publicly available on the employer&apos;s website. Include the audit date, auditor name, and key findings.</p>
+              <p><strong className="text-foreground">Candidate notice:</strong> Notify candidates at least 10 business days before the tool is used. Notification must state that an AEDT will be used and describe the tool&apos;s function. Notice can be in the job posting, on the careers website, or via email — but it must be specific and actionable.</p>
+              <p><strong className="text-foreground">Penalties:</strong> $500 for the first violation, $1,500 for each subsequent violation. Each day the tool runs without a current bias audit is a separate violation. Each candidate who does not receive notice is a separate violation. A single non-compliant hiring season can result in tens of thousands of dollars in fines.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> Bias audit reports, candidate notification records, AEDT configuration and version history, selection decisions with timestamps, and all data provided to or generated by the AEDT.</p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Illinois — Two active laws</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">AI Video Interview Act (AIVIA, in effect since 2020):</strong> Requires notice before the interview that AI will analyze the video, explanation of what characteristics the AI evaluates, written consent from the applicant, and deletion of the video within 30 days of applicant request. Videos may not be shared except with those evaluating the candidate.</p>
+              <p><strong className="text-foreground">HB-3773 (effective January 1, 2026):</strong> Amends the Illinois Human Rights Act — using AI that results in discrimination in employment decisions is a civil rights violation. Imposes affirmative notice requirements when AI is used for recruiting, hiring, promotion, or other employment decisions. Unlike many AI statutes, this law focuses on discriminatory effect, not just intent.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> Video interview consent records, AI analysis results, notification records, deletion request logs, and all employment decision data showing AI involvement.</p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">California FEHA Regulations — In effect since October 1, 2025</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Who:</strong> All employers covered by the Fair Employment and Housing Act (generally 5+ employees) using automated decision systems (ADS) in employment decisions.</p>
+              <p><strong className="text-foreground">Requirements:</strong> Unlawful to use ADS in a way that discriminates on a protected basis. Anti-bias testing and proactive efforts are central evidence in discrimination claims. Employers must preserve automated-decision system data — including data provided by or about applicants, data reflecting employment decisions, and data used to develop or customize the ADS — for <strong className="text-foreground">4 years</strong>.</p>
+              <p><strong className="text-foreground">Vendor liability:</strong> California extended liability to AI vendors under an agency theory (Mobley v. Workday). If a vendor&apos;s tool disparately impacts protected groups, both the employer and the vendor are on the hook.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> All ADS data (inputs, outputs, scoring criteria, training data), anti-bias testing results, documentation of testing quality and scope, and records of responsive actions taken when risks were identified.</p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Colorado SB 189 — Effective January 1, 2027</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Who:</strong> Deployers (employers) and developers of automated decision-making technology (ADMT) used in consequential decisions affecting Colorado residents, including employment.</p>
+              <p><strong className="text-foreground">Requirements:</strong> When an adverse decision is made using ADMT, provide disclosures within 30 days including a plain-language explanation of the decision, the role of the ADMT, instructions for requesting further information, and rights including meaningful human review. Records must be retained for at least 3 years. 60-day pre-enforcement cure period sunsets January 1, 2030.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> ADMT decision records, disclosure records, human review documentation, and all data supporting the adverse decision.</p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">EU AI Act — Annex III: High-Risk (Employment)</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Classification:</strong> AI systems for recruitment, selection, promotion, termination, task allocation, and performance monitoring are classified as high-risk under Annex III. There is no de minimis carve-out for small employers.</p>
+              <p><strong className="text-foreground">Article 5 prohibitions (in effect since February 2025):</strong> Emotion recognition AI in the workplace is banned. AI interview tools that infer enthusiasm, confidence, or cultural fit from facial micro-expressions are illegal in the EU.</p>
+              <p><strong className="text-foreground">Article 50 transparency (in effect):</strong> Candidates must be informed when they are interacting with an AI system.</p>
+              <p><strong className="text-foreground">Article 26 deployer obligations (high-risk regime, August 2026 or December 2027 per Digital Omnibus):</strong> Human oversight with authority to override, inform workers&apos; representatives before deployment, retain automatically generated logs for at least 6 months, fundamental rights impact assessment (FRIA) where required.</p>
+              <p><strong className="text-foreground">GDPR Article 22:</strong> Right not to be subject to solely automated decisions with legal or similarly significant effects. Candidates must be offered human review of any solely automated rejection.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> System logs (6-month minimum), human oversight records, FRIA documentation, candidate notification records, worker representative consultation records, and conformity assessment documentation.</p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Other State Requirements</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Texas HB 149 (effective January 1, 2026):</strong> Prohibits AI deployed with intent to unlawfully discriminate. Narrower than other states — disparate impact alone does not establish a violation. Stricter restrictions on government use of AI in employment.</p>
+              <p><strong className="text-foreground">Maryland HB 1202 (in effect since October 2020):</strong> Requires consent before using facial recognition technology in hiring. Maintain consent records as evidence.</p>
+              <p><strong className="text-foreground">Pending legislation:</strong> Washington, New Jersey, Massachusetts, DC, and several other states have introduced bills that would impose bias audit requirements, disclosure mandates, or impact assessment obligations for AI hiring tools. The trajectory is clear: what NYC introduced is becoming a national standard.</p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Required Candidate Notifications & Disclaimers — Checklist</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p>Use this checklist to ensure compliant candidate notifications across jurisdictions:</p>
+              <ul className="ml-4 space-y-1.5">
+                <li className="list-disc"><strong className="text-foreground">Job posting disclosure:</strong> State that AI will be used in the screening/evaluation process. Required by NYC LL 144 (10 business days before use) and EU AI Act Article 50.</li>
+                <li className="list-disc"><strong className="text-foreground">Pre-assessment notification:</strong> Before any AI-administered assessment (test, video interview, resume scoring), notify the candidate of: (a) AI use, (b) what the AI evaluates, (c) how results will be used, and (d) their right to request a human review (EU AI Act, Illinois AIVIA, Colorado SB 189).</li>
+                <li className="list-disc"><strong className="text-foreground">Video interview consent:</strong> Obtain explicit written consent before AI analysis of video interviews. Include right to request deletion within 30 days (Illinois AIVIA).</li>
+                <li className="list-disc"><strong className="text-foreground">Adverse decision disclosure:</strong> When AI contributed to a rejection, provide: (a) notice that AI was used, (b) plain-language explanation of the decision, (c) the role of the AI system, (d) instructions for requesting more information, and (e) right to human review (Colorado SB 189, EU AI Act, GDPR Article 22).</li>
+                <li className="list-disc"><strong className="text-foreground">Biometric data disclaimer:</strong> If any biometric data is collected (facial analysis, voice patterns), provide a separate biometric data notice and obtain explicit consent (Illinois BIPA, Maryland HB 1202). Do not use emotion recognition AI — it is banned in the EU and high-risk everywhere else.</li>
+                <li className="list-disc"><strong className="text-foreground">Data retention notice:</strong> Inform candidates how long their data and AI-generated assessments will be retained (4 years under California FEHA, 3 years under Colorado SB 189, 6 months for logs under EU AI Act).</li>
+                <li className="list-disc"><strong className="text-foreground">Bias audit availability:</strong> In NYC, the bias audit summary must be publicly accessible. Include a link or reference in the job posting or careers page.</li>
+                <li className="list-disc"><strong className="text-foreground">Vendor disclosure:</strong> If the AI tool is provided by a third-party vendor, disclose the vendor name and provide contact information for data requests (GDPR Article 13/14, various state laws).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       {/* Sample Incident Walkthrough */}
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto space-y-4">

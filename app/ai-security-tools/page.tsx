@@ -251,6 +251,94 @@ export default function AISecurityToolsPage() {
         </div>
       </Section>
 
+      {/* Industry Coverage */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Industry Coverage</h2>
+          <p className="text-sm text-muted-foreground">The blast radius calculator includes one-click scenario presets for common industry deployments. Here is how the risk factors differ by industry.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-red-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-red-600" />
+                  Healthcare (PHI)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> PHI data, 100–1,000+ users, action tools (lab lookups, order entry), RAG from EHR, internal server deployment.</span>
+                  <span className="block"><strong className="text-foreground">Key risks:</strong> RAG poisoning via clinical documents, PHI leakage in model prompts to external APIs, unauthorized access through shared clinical workstations, HIPAA breach notification obligations.</span>
+                  <span className="block"><strong className="text-foreground">Regulatory:</strong> HIPAA, TRAIGA (if using AI for clinical decisions), state health privacy laws.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-orange-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-orange-600" />
+                  Financial Services
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Confidential/financial data, 100–1,000+ users, action tools (trade tickets, email), RAG from research corpus, auto-approval enabled.</span>
+                  <span className="block"><strong className="text-foreground">Key risks:</strong> Indirect injection via uploaded research notes, unauthorized trade execution, insider data leakage through shared RAG corpus, SEC/FINRA reporting obligations.</span>
+                  <span className="block"><strong className="text-foreground">Regulatory:</strong> SEC, FINRA, SOX, GDPR (if EU clients), TRAIGA.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-red-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-red-600" />
+                  HR / Hiring
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> PII/biometric data, 10–100 users, admin tools (candidate status changes), cloud deployment, RAG from resume database.</span>
+                  <span className="block"><strong className="text-foreground">Key risks:</strong> Algorithmic bias in screening decisions, disparate impact on protected classes, unauthorized use of biometric data (facial analysis), missing bias audits, failure to notify candidates of AI use.</span>
+                  <span className="block"><strong className="text-foreground">Regulatory:</strong> NYC Local Law 144 (bias audits + candidate notice), Illinois HB-3773 + AIVIA, California FEHA regulations (Oct 2025), Colorado SB 189 (Jan 2027), EU AI Act Annex III (high-risk), Texas HB 149, Maryland HB 1202.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-amber-600" />
+                  Legal
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Confidential/privileged data, 10–100 users, read-only tools, RAG from case documents, internal server.</span>
+                  <span className="block"><strong className="text-foreground">Key risks:</strong> Privilege waiver through AI processing, RAG poisoning via opposing party documents, unauthorized disclosure of case strategy, malpractice exposure from hallucinated citations.</span>
+                  <span className="block"><strong className="text-foreground">Regulatory:</strong> State bar AI ethics rules, ABA Model Rules 1.1 (competence) and 1.6 (confidentiality), EU AI Act (if EU clients).</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-amber-600" />
+                  Retail / E-commerce
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Public/internal data, 1,000+ users, read-only or write tools, cloud or public deployment, RAG from product catalog.</span>
+                  <span className="block"><strong className="text-foreground">Key risks:</strong> Customer PII exposure through chatbot interactions, prompt injection via customer messages, pricing manipulation through RAG poisoning of product data, CCPA/GDPR data deletion obligations.</span>
+                  <span className="block"><strong className="text-foreground">Regulatory:</strong> CCPA, GDPR, state consumer privacy laws, FTC AI guidelines.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-green-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-green-600" />
+                  Small Business
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Internal data, 1–10 users, read-only tools, local or internal server, no RAG or MCP.</span>
+                  <span className="block"><strong className="text-foreground">Key risks:</strong> Shadow AI (employees using personal ChatGPT with company data), lack of formal AI policy, missing vendor review for adopted SaaS AI tools, no incident response plan.</span>
+                  <span className="block"><strong className="text-foreground">Regulatory:</strong> Generally lighter obligations, but CCPA (if California customers), GDPR (if EU customers), and industry-specific rules may still apply.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
       {/* Scenario Example */}
       <Section className="pt-8">
         <div className="max-w-4xl mx-auto space-y-4">
@@ -268,6 +356,21 @@ export default function AISecurityToolsPage() {
                 <li className="list-decimal"><strong className="text-foreground">Scenario Library:</strong> Review the indirect prompt injection via RAG document scenario (PI-02). The team realizes that a malicious document uploaded to the EHR knowledge base could instruct the model to call the lab-result tool and exfiltrate results. They add document provenance tracking and human approval for all action tools.</li>
                 <li className="list-decimal"><strong className="text-foreground">Risk Register:</strong> Create entries for each identified risk with owners from IT, Security, and Compliance. Set the RAG poisoning risk to High likelihood given that clinicians can upload documents.</li>
                 <li className="list-decimal"><strong className="text-foreground">Vendor Checklist:</strong> Evaluate the EHR vendor and MCP server provider against the 60-item checklist before signing the integration agreement.</li>
+              </ol>
+            </div>
+          </div>
+          <div className="rounded-lg border border-border p-6 space-y-4">
+            <div>
+              <p className="text-sm font-semibold text-foreground mb-1">Scenario: HR department deploying AI resume screening</p>
+              <p className="text-sm text-muted-foreground">A mid-size company (200 employees) in New York City and California wants to use an AI-powered ATS that ranks resumes and scores video interviews. The HR team uses the tools to assess risk and compliance obligations.</p>
+            </div>
+            <div className="space-y-2">
+              <ol className="ml-4 space-y-2 text-sm text-muted-foreground">
+                <li className="list-decimal"><strong className="text-foreground">Blast Radius Calculator:</strong> Load the HR/Hiring preset. Result: confidential data (PII), 50 users, admin tools, cloud deployment, RAG enabled, auto-approval. Score: <span className="text-red-600 font-medium">Critical (score 29/44)</span> — driven by admin access to candidate records and auto-approval without human review.</li>
+                <li className="list-decimal"><strong className="text-foreground">Agent Matrix:</strong> Toggle admin on candidate records (critical) and read on job descriptions (low). The matrix immediately flags admin access as critical-risk — the tool should not have admin authority over candidate status without human approval.</li>
+                <li className="list-decimal"><strong className="text-foreground">Risk Register:</strong> Create entries for algorithmic bias (R-16), missing bias audit (R-17), candidate notification failure (R-18), and unauthorized biometric analysis (R-19). Set all to High likelihood given multi-state operations.</li>
+                <li className="list-decimal"><strong className="text-foreground">Vendor Checklist:</strong> Evaluate the ATS vendor against the full 60-item checklist. Require evidence of independent bias audit (NYC LL 144), compliance with Illinois AIVIA (video interview consent), California FEHA alignment, and EU AI Act Annex III high-risk classification documentation.</li>
+                <li className="list-decimal"><strong className="text-foreground">Incident Evidence Checklist:</strong> Prepare the evidence preservation plan in advance — if a candidate files a discrimination claim, the company must preserve all screening decisions, model outputs, scoring criteria, and bias audit records for 4 years (California FEHA requirement).</li>
               </ol>
             </div>
           </div>

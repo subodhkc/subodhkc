@@ -251,6 +251,37 @@ export function AIBlastRadiusCalculator() {
           </div>
         )}
 
+        {/* Industry Scenarios */}
+        <div className="border-t border-border pt-4 space-y-3">
+          <p className="text-sm font-medium text-foreground">Industry scenarios — click to load:</p>
+          <div className="grid gap-2">
+            {[
+              { label: 'Healthcare: clinical AI assistant (PHI, 500+ users, action tools, RAG)', config: { d: 'phi' as DataType, u: 'large' as UserScale, t: 'action' as ToolAccess, dep: 'internal-server' as Deployment, mcp: true, rag: true, auto: false } },
+              { label: 'Financial services: research assistant (confidential, 200+ users, action tools, RAG)', config: { d: 'confidential' as DataType, u: 'large' as UserScale, t: 'action' as ToolAccess, dep: 'internal-server' as Deployment, mcp: false, rag: true, auto: true } },
+              { label: 'HR / Hiring: AI resume screener (PII, 50+ users, admin, cloud)', config: { d: 'confidential' as DataType, u: 'medium' as UserScale, t: 'admin' as ToolAccess, dep: 'cloud' as Deployment, mcp: false, rag: true, auto: true } },
+              { label: 'Legal: case document assistant (confidential, 100+ users, read-only, RAG)', config: { d: 'confidential' as DataType, u: 'medium' as UserScale, t: 'readonly' as ToolAccess, dep: 'internal-server' as Deployment, mcp: false, rag: true, auto: false } },
+              { label: 'Retail: customer support chatbot (public, 1000+ users, read-only, public)', config: { d: 'public' as DataType, u: 'enterprise' as UserScale, t: 'readonly' as ToolAccess, dep: 'public' as Deployment, mcp: false, rag: false, auto: false } },
+              { label: 'Small business: internal summarizer (internal, 5 users, read-only, local)', config: { d: 'internal' as DataType, u: 'small' as UserScale, t: 'readonly' as ToolAccess, dep: 'local' as Deployment, mcp: false, rag: false, auto: false } },
+            ].map((scenario) => (
+              <button
+                key={scenario.label}
+                onClick={() => {
+                  setDataType(scenario.config.d)
+                  setUserScale(scenario.config.u)
+                  setToolAccess(scenario.config.t)
+                  setDeployment(scenario.config.dep)
+                  setMcpConnected(scenario.config.mcp)
+                  setRagEnabled(scenario.config.rag)
+                  setAutoApproval(scenario.config.auto)
+                }}
+                className="text-left text-xs rounded-lg border border-border p-2.5 hover:border-primary/40 hover:bg-primary/5 transition-colors text-muted-foreground"
+              >
+                {scenario.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <Button variant="outline" size="sm" onClick={() => { setDataType('none'); setUserScale('small'); setToolAccess('readonly'); setDeployment('local'); setMcpConnected(false); setRagEnabled(false); setAutoApproval(false) }} className="w-full">
           <RotateCcw className="h-4 w-4 mr-2" /> Reset
         </Button>

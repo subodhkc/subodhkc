@@ -176,6 +176,124 @@ export default function AIVendorDueDiligenceChecklistPage() {
         </div>
       </Section>
 
+      {/* Industry-Tiered Approach */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Not Every Check Applies to Every Business</h2>
+          <p className="text-sm text-muted-foreground">The full 60-item checklist is the maximum bar for enterprises handling sensitive data at scale. Smaller organizations or lower-risk use cases should scope down — but document what they skipped and why.</p>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Card className="border-l-4 border-l-red-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-red-600" />
+                  Tier 1: Full checklist (60 items)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Who:</strong> Healthcare (PHI), financial services (financial data), HR/hiring (PII + biometric), legal (privileged data), enterprises (1,000+ users), public companies, regulated industries, EU operations.</span>
+                  <span className="block"><strong className="text-foreground">When:</strong> Vendor processes sensitive data, has action/admin tool access, or is used in regulated decisions (hiring, lending, clinical, legal).</span>
+                  <span className="block"><strong className="text-foreground">All 60 items apply.</strong> No exemptions. Require SOC 2 Type II, DPA, right to audit, breach notification, and full contractual protections.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-amber-600" />
+                  Tier 2: Core checklist (~35 items)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Who:</strong> Mid-size companies (50–500 employees) handling internal business data (not PHI/financial/biometric), SaaS AI tools for internal productivity, non-regulated use cases.</span>
+                  <span className="block"><strong className="text-foreground">Skip:</strong> CMEK, on-premise deployment, sub-processor geographic restrictions (unless EU customers), disaster recovery plan review, dedicated CISO liaison, tabletop exercise requirements.</span>
+                  <span className="block"><strong className="text-foreground">Must keep:</strong> Data handling, DPA, encryption, SOC 2 (or equivalent), breach notification, API key rotation, audit logs, data deletion on termination, no-training-on-data clause.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-green-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-green-600" />
+                  Tier 3: Essential checklist (~15 items)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block"><strong className="text-foreground">Who:</strong> Small businesses (&lt;50 employees) using AI for internal productivity with no sensitive data, no regulated decisions, no external customer data exposure.</span>
+                  <span className="block"><strong className="text-foreground">Skip:</strong> SOC 2 (accept SOC 2 Type I or security questionnaire), penetration test, CMEK, on-premise, RBAC requirements (if single-tenant), sub-processor review, insurance verification, right to audit.</span>
+                  <span className="block"><strong className="text-foreground">Must keep:</strong> Data ownership, no-training-on-data opt-out, breach notification, basic encryption, data deletion on termination, API key rotation. Document why other items were skipped.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-900 dark:text-amber-200">
+              <AlertTriangle className="h-4 w-4 inline mr-1" />
+              <strong>Important:</strong> Tier 3 does NOT apply if you handle PHI, financial records, biometric data, hiring decisions, or operate in the EU. A small business handling PHI still needs the full Tier 1 checklist — the data sensitivity determines the tier, not just the company size.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Alternatives for New Vendors */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">When the Vendor Is New or Unproven</h2>
+          <p className="text-sm text-muted-foreground">Startups and early-stage AI vendors may not have SOC 2, penetration tests, or a compliance track record. If the business value justifies the risk, use these alternative verification and protection mechanisms.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Cyber liability insurance with AI coverage</CardTitle>
+                <CardDescription className="text-sm mt-1">Require the vendor to carry cyber liability insurance that explicitly covers AI-related harm (hallucination, bias, data leakage). Minimum coverage should match your liability cap. Request a certificate of insurance with your company named as an additional insured. If the vendor cannot obtain AI-specific coverage, require a general cyber policy with a stated AI endorsement or exclusion review.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Source code or data escrow</CardTitle>
+                <CardDescription className="text-sm mt-1">Require the vendor to deposit source code, model weights, or critical configuration in an escrow account with a third-party escrow agent. If the vendor goes out of business, is acquired, or fails to meet SLAs, you gain access to the escrowed materials. This is especially important for AI vendors where model continuity matters — if the vendor disappears, you need the ability to continue operations or migrate.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Milestone-based contracting</CardTitle>
+                <CardDescription className="text-sm mt-1">Instead of a multi-year contract, structure the agreement in 90-day or 6-month milestones with renewal gates. Each gate requires the vendor to demonstrate progress on security certifications, complete a security questionnaire, and provide evidence of controls. This limits exposure while the vendor matures their security program. Include a termination-for-convenience clause for the first 12 months.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Performance bond or letter of credit</CardTitle>
+                <CardDescription className="text-sm mt-1">For high-value contracts, require a performance bond or irrevocable letter of credit from a reputable financial institution. This ensures funds are available to cover damages if the vendor breaches contract or causes AI-related harm. The bond amount should cover your estimated maximum loss from a worst-case AI incident (data breach, regulatory fine, litigation cost).</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Third-party security attestation</CardTitle>
+                <CardDescription className="text-sm mt-1">If SOC 2 is not yet available, require a completed CAIQ (Consensus Assessments Initiative Questionnaire), a SIG (Standardized Information Gathering) questionnaire, or a letter of attestation from a reputable security firm. These are lighter than SOC 2 but demonstrate security awareness. Set a contractual deadline for SOC 2 Type II (typically 12–18 months) with termination rights if not achieved.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Data residency and processing guarantees</CardTitle>
+                <CardDescription className="text-sm mt-1">For new vendors, require contractual guarantees on data residency (specific regions), processing location, and sub-processor disclosure. Include audit rights for data handling practices — even if full SOC 2 is not yet available, the vendor should allow you to verify how your data is stored, processed, and deleted. Require a data flow diagram and a signed DPA before any data is shared.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Indemnification for AI-specific harm</CardTitle>
+                <CardDescription className="text-sm mt-1">Standard indemnification clauses often do not cover AI-specific harm. Add explicit indemnification for: hallucination-related damages, algorithmic bias or discrimination claims, unauthorized data training on your data, and regulatory fines caused by the vendor's AI system. Cap the indemnification at a meaningful amount (not just the contract value) and ensure it survives contract termination.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Reference customers and pilot testing</CardTitle>
+                <CardDescription className="text-sm mt-1">Require the vendor to provide 2–3 reference customers you can contact. Ask specifically about security incidents, data handling, and whether the vendor met its contractual commitments. Conduct a limited-scope pilot (30–60 days) with non-sensitive data before full deployment. Document pilot results and require remediation of any identified issues before production rollout.</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+          <div className="rounded-lg border border-border bg-muted/20 p-4">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">When to walk away from a new vendor:</strong> If they refuse to sign a DPA, will not provide any security documentation, cannot name a single reference customer, have no plan for SOC 2 or equivalent, and resist milestone-based contracting — the risk is not manageable. No AI tool is worth an unmanageable security and compliance exposure.
+            </p>
+          </div>
+        </div>
+      </Section>
+
       {/* Red Flags */}
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto space-y-4">
