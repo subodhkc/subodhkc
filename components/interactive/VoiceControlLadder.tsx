@@ -105,6 +105,19 @@ export function VoiceControlLadder() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        <div className="flex items-center gap-1 h-2 rounded-full overflow-hidden">
+          <div className="flex-1 h-full bg-green-500/60" />
+          <div className="flex-1 h-full bg-green-500/40" />
+          <div className="flex-1 h-full bg-amber-500/60" />
+          <div className="flex-1 h-full bg-amber-500/40" />
+          <div className="flex-1 h-full bg-orange-500/60" />
+          <div className="flex-1 h-full bg-red-500/60" />
+          <div className="flex-1 h-full bg-red-600/70" />
+        </div>
+        <div className="flex justify-between text-xs text-muted-foreground -mt-2">
+          <span>Lower risk</span>
+          <span>Higher risk</span>
+        </div>
         <div className="space-y-1.5">
           {levels.map((lvl) => {
             const Icon = lvl.icon

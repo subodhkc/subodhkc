@@ -286,6 +286,17 @@ export function VoiceAgentReadinessChecker() {
 
         {showResults && allAnswered && (
           <>
+            <div className="rounded-lg border border-border bg-muted/20 p-3">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">Your selections:</p>
+              <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1 text-xs text-foreground">
+                <p><span className="text-muted-foreground">Use case:</span> {useCaseOptions.find(o => o.value === useCase)?.label}</p>
+                <p><span className="text-muted-foreground">Call volume:</span> {volumeOptions.find(o => o.value === volume)?.label}</p>
+                <p><span className="text-muted-foreground">Data:</span> {dataOptions.find(o => o.value === dataSensitivity)?.label}</p>
+                <p><span className="text-muted-foreground">Actions:</span> {actionOptions.find(o => o.value === agentAction)?.label}</p>
+                <p><span className="text-muted-foreground">Compliance:</span> {complianceOptions.find(o => o.value === compliance)?.label}</p>
+              </div>
+            </div>
+
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="rounded-lg border border-border bg-muted/20 p-4">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Deployment Path</p>

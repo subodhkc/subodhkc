@@ -11,7 +11,7 @@ import {
   Phone, Zap, Shield, AlertTriangle, Building2, HeartPulse,
   CheckCircle2, FileText, Users, ArrowRight, Lock,
   ClipboardCheck, RefreshCw, Gavel, Database, Cpu, Webhook, TrendingUp, Ban,
-  Eye, Pencil, Volume2, PhoneCall, Gauge, Fingerprint,
+  Volume2, PhoneCall, Gauge, Fingerprint,
 } from 'lucide-react'
 
 export const metadata = {
@@ -192,6 +192,7 @@ const scorecardCategories = [
   { title: 'Workflow quality', items: ['Intent accuracy', 'Required-field capture', 'Tool success', 'Booking completion', 'Transfer completion', 'Unsupported-answer rate', 'Policy adherence', 'Emergency-routing accuracy'], icon: ClipboardCheck },
   { title: 'Voice experience', items: ['Time to first audio', 'Turn-response latency', 'Silence duration', 'False interruptions', 'Barge-in success', 'Repeated questions', 'Transcription correction', 'Language-switch errors'], icon: Volume2 },
   { title: 'Governance and reliability', items: ['Calls with transcripts', 'Calls with recordings', 'Actions with tool evidence', 'Fallback rate', 'Human-review rate', 'Incident rate', 'Cost-guardrail triggers', 'Prompt and model traceability'], icon: Shield },
+  { title: 'Cost and efficiency', items: ['Cost per call', 'Cost per completed outcome', 'Model usage cost', 'Telephony cost', 'Human review cost', 'Containment savings', 'Revenue recovered', 'ROI'], icon: Gauge },
 ]
 
 const kestrelControls = [
@@ -325,8 +326,9 @@ export default function WhyAIVoiceAgentsFailPage() {
       <Section className="pb-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-5">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-sm text-foreground/90 leading-relaxed">
-              <strong className="text-foreground">In summary:</strong> A polished AI voice demonstration is easy to understand. Production is where the real system begins. This guide covers ten failure modes, a production architecture, a three-layer voice decision model, an AI voice control ladder, a security threat model, compliance obligations including TCPA and Texas TRAIGA, an outcome-based ROI scorecard, a six-phase deployment plan, and how Kestrel Voice and HAIEC work together.
+              A polished AI voice demonstration is easy to understand. Production is where the real system begins. This guide covers ten failure modes, a production architecture, a three-layer voice decision model, an AI voice control ladder, a security threat model, compliance obligations including TCPA and Texas TRAIGA, an outcome-based ROI scorecard, a six-phase deployment plan, and how Kestrel Voice and HAIEC work together.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {['AI Voice Agents', 'Voice Orchestration', 'AI Telephony', 'Compliance', 'Security', 'ROI'].map((tag) => (
