@@ -133,6 +133,31 @@
         "name": "Does the Texas AI Law Apply to My Business?",
         "description": "Plain-English TRAIGA guide for small businesses with interactive applicability checker, final-law-vs-draft matrix, penalties, healthcare AI, biometrics, and 10-step readiness plan",
         "url": "https://subodhkc.com/does-texas-ai-law-apply-to-my-business"
+      },
+      {
+        "name": "AI Security Tools & Calculators",
+        "description": "Interactive blast radius calculator, agent read/write/action matrix, prompt-injection scenario library, and downloadable checklists",
+        "url": "https://subodhkc.com/ai-security-tools"
+      },
+      {
+        "name": "AI Risk Register Template",
+        "description": "Structured AI risk register with 15 pre-populated risks across data, prompt injection, tool abuse, infrastructure, and compliance",
+        "url": "https://subodhkc.com/ai-risk-register"
+      },
+      {
+        "name": "AI Vendor Due-Diligence Checklist",
+        "description": "60-item checklist for evaluating AI vendors across data handling, security, model transparency, compliance, contracts, and incident response",
+        "url": "https://subodhkc.com/ai-vendor-due-diligence-checklist"
+      },
+      {
+        "name": "AI Incident Evidence Checklist",
+        "description": "Four-phase evidence preservation checklist for AI security incidents: containment, preservation, root cause, remediation",
+        "url": "https://subodhkc.com/ai-incident-evidence-checklist"
+      },
+      {
+        "name": "HAIEC AI Exposure Assessment",
+        "description": "Comprehensive AI exposure assessment with deterministic analysis, adversarial testing, and evidence-grade compliance outputs",
+        "url": "https://subodhkc.com/solutions/haiec/exposure-assessment"
       }
     ]
   },
@@ -176,6 +201,18 @@
     "Texas AI law final version versus draft",
     "Texas AI law healthcare disclosure",
     "Texas AI law hiring tools",
-    "Texas biometric AI law"
+    "Texas biometric AI law",
+    "AI blast radius calculator",
+    "AI agent read write action matrix",
+    "prompt injection scenario library",
+    "AI security assessment tools",
+    "AI risk register",
+    "AI vendor due diligence",
+    "AI incident response",
+    "AI exposure assessment",
+    "HAIEC AI security",
+    "AI vendor security assessment",
+    "AI forensics",
+    "AI evidence preservation"
   ]
 }

@@ -7,8 +7,9 @@ import { StreamlitArchitectureDiagram } from '@/components/diagrams/StreamlitArc
 import { MCPArchitectureDiagram } from '@/components/diagrams/MCPArchitectureDiagram'
 import { FrameworkDecisionTree } from '@/components/diagrams/FrameworkDecisionTree'
 import { DeliveryRoadmapTimeline } from '@/components/diagrams/DeliveryRoadmapTimeline'
-import { Database, Search, Shield, Bot, FileText, AlertTriangle, CheckCircle2, Layers, Zap, Eye, Code, Server, Workflow, GitBranch } from 'lucide-react'
+import { Database, Search, Shield, Bot, FileText, AlertTriangle, CheckCircle2, Layers, Zap, Eye, Code, Server, Workflow, GitBranch, ArrowRight, Scale } from 'lucide-react'
 import Link from 'next/link'
+import Grid from '@/components/Grid'
 
 export const metadata = {
   title: 'Build Internal AI Apps with Streamlit, RAG and MCP | Subodh KC',
@@ -78,6 +79,7 @@ const articleSchema = {
   articleSection: 'AI Architecture',
   wordCount: 8500,
   keywords: ['Streamlit', 'MCP', 'RAG', 'OpenAI', 'internal AI', 'Python', 'agentic workflow', 'row-level security'],
+  about: ['Internal AI application architecture', 'Streamlit for AI applications', 'Model Context Protocol', 'RAG implementation', 'AI application security', 'Row-level security for AI'],
 }
 
 const breadcrumbSchema = {
@@ -156,15 +158,16 @@ const tocItems = [
   { label: 'Security and Compliance', href: '#security-compliance' },
   { label: 'Common Architecture Mistakes', href: '#common-mistakes' },
   { label: 'Final Perspective', href: '#final-perspective' },
+  { label: 'Related Guides', href: '#related-guides' },
   { label: 'FAQ', href: '#faq' },
 ]
 
 export default function StreamlitRAGMCPPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Hero
         title="How to Build Internal AI Applications with Streamlit"
@@ -177,6 +180,15 @@ export default function StreamlitRAGMCPPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 14, 2026</span>
             <span className="flex items-center gap-1.5"><Eye className="h-4 w-4" /> 30 min read</span>
             <span>By Subodh KC</span>
+          </div>
+          <div className="mt-3 rounded-lg border border-border bg-muted/30 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong className="text-foreground">Last reviewed:</strong> July 14, 2026</p>
+            <p><strong className="text-foreground">Scope:</strong> Architecture guide for internal AI applications using Streamlit, OpenAI, RAG, and MCP — covering security, state management, framework selection, and delivery roadmap</p>
+          </div>
+          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-900 dark:text-amber-200">
+              <strong>Educational notice:</strong> This guide explains architecture patterns in practical terms. Production deployments should undergo organization-specific security review, compliance assessment, and operational validation.
+            </p>
           </div>
         </div>
       </Section>
@@ -192,6 +204,23 @@ export default function StreamlitRAGMCPPage() {
               ))}
             </div>
           </details>
+        </div>
+      </Section>
+
+      {/* Synopsis */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
+            <p className="text-base md:text-lg leading-relaxed text-foreground/90">
+              Streamlit is one of the fastest ways to build internal AI applications — combining chat, forms, dashboards, file workflows, and tool execution in Python. But the interface is not the architecture. This guide covers the complete picture: using OpenAI without an agent framework, custom orchestration, what MCP actually is and when to use it, RAG with row-level security, Session State versus durable storage, caching risks, authentication and authorization, framework selection (Streamlit vs Gradio vs Dash vs React), a seven-phase delivery roadmap, and the security review that should not be deferred. For teams that need useful internal software — not another AI demonstration.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {['Python teams building internal AI', 'Architects evaluating Streamlit', 'Engineering leads planning AI deployments', 'Security teams reviewing AI applications', 'Developers evaluating MCP', 'Anyone building RAG with Streamlit'].map((audience) => (
+                <span key={audience} className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground">{audience}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
 
@@ -818,6 +847,87 @@ if __name__ == "__main__":
             description="Get a practical checklist covering framework selection, OpenAI integration, MCP decisions, RAG in Streamlit, RLS, caching risks, security review and delivery roadmap phases — based on the framework in this article."
             resourceName="Internal AI Application Architecture Checklist"
           />
+        </div>
+      </Section>
+
+      {/* Related Guides */}
+      <Section className="pt-4" id="related-guides">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Related Guides & Resources</h2>
+          <Grid cols={2} gap="md">
+            <Link href="/secure-enterprise-rag-architecture" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Search className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">Secure Enterprise RAG Architecture</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Comprehensive guide to RAG with vector databases, hybrid search, row-level security, tenant isolation, and evidence-grade retrieval.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read guide <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/does-texas-ai-law-apply-to-my-business" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Scale className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">Does the Texas AI Law Apply to My Business?</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Plain-English TRAIGA guide with interactive applicability checker, disclosure rules, penalties, and a ten-step readiness plan for small businesses.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read guide <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/texas-ai-law" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">Full TRAIGA / HB 149 Compliance Guide</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Section-by-section analysis of the Texas AI law, including developer and deployer duties, regulatory sandbox, Texas AI Council, and defense pathways.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read guide <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/solutions/haiec" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <CheckCircle2 className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">HAIEC AI Security & Compliance Platform</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Deterministic analysis for prompt injection, RAG poisoning, tool abuse, authentication gaps, tenant isolation, and evidence-grade compliance outputs.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Explore platform <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+          </Grid>
         </div>
       </Section>
 

@@ -44,6 +44,15 @@ export default function WritingPage() {
 
   const articles = [
     {
+      title: 'AI Security Tools & Calculators',
+      description:
+        'Interactive AI security tools — blast radius calculator, agent read/write/action matrix, prompt-injection scenario library, plus downloadable risk register, vendor due-diligence checklist, and incident evidence checklist.',
+      publication: 'subodhkc.com',
+      date: 'July 2026',
+      url: '/ai-security-tools',
+      topics: ['AI Security', 'Prompt Injection', 'AI Risk', 'MCP Security', 'RAG Security'],
+    },
+    {
       title: 'Does the Texas AI Law Apply to My Business?',
       description:
         'A plain-English TRAIGA guide for small and midsize businesses — interactive applicability checker, disclosure rules, penalties, healthcare AI, biometrics, final-law-vs-draft matrix, and a 10-step readiness plan.',
