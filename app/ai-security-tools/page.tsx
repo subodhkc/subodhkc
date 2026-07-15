@@ -49,6 +49,14 @@ export const metadata = {
     'internal AI application security',
     'MCP security analysis',
     'RAG security review',
+    'AI hiring compliance checklist',
+    'NYC Local Law 144 compliance',
+    'AI bias audit requirements',
+    'shadow AI policy',
+    'AI security risk assessment',
+    'AI governance tools',
+    'AI procurement security checklist',
+    'AI incident response plan template',
   ],
 }
 
@@ -59,6 +67,38 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
     { '@type': 'ListItem', position: 2, name: 'Writing', item: 'https://subodhkc.com/writing' },
     { '@type': 'ListItem', position: 3, name: 'AI Security Tools', item: 'https://subodhkc.com/ai-security-tools' },
+  ],
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Are these tools free to use?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. All three interactive tools are free and run entirely in your browser. No data is sent to a server. The downloadable checklists and templates are available through the lead magnet form.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do these tools work for non-Streamlit AI applications?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. While the tools were designed alongside the Streamlit architecture guide, the risk factors, agent capabilities, and attack scenarios apply to any internal AI application built with Python, React, or any other framework. The blast radius factors (data type, user scale, tool access, deployment model) are framework-agnostic.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How often should I re-run the blast radius calculation?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Re-run it whenever the application architecture changes: new data sources, new tool integrations, new MCP servers, expanded user populations, or deployment model changes. At minimum, review quarterly as part of your AI governance cycle.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I use the scenario library for security training?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The scenario library is designed for both planning and training. Each scenario includes a concrete attack example and defense strategies, making it suitable for tabletop exercises, developer training, and security awareness sessions.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What should I do if the blast radius calculator shows Critical?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Do not deploy without a completed security assessment. Follow the recommendations provided with the Critical result, and consider engaging a professional AI security assessment. The HAIEC AI Exposure Assessment provides deterministic analysis, adversarial testing, and evidence-grade compliance outputs.' },
+    },
   ],
 }
 
@@ -100,6 +140,7 @@ export default function AISecurityToolsPage() {
     <>
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Hero
         subtitle="Interactive Security Tools"

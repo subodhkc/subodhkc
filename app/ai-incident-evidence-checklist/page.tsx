@@ -3,7 +3,7 @@ import Section from '@/components/Section'
 import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
-import { FileText, Shield, AlertTriangle, ArrowRight, CheckCircle2, Clock, Database, Bug } from 'lucide-react'
+import { FileText, Shield, AlertTriangle, ArrowRight, CheckCircle2, Clock, Database, Bug, XCircle } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -28,7 +28,46 @@ export const metadata = {
     description: 'A structured checklist for preserving evidence after an AI security incident.',
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
-  keywords: ['AI incident evidence checklist', 'AI incident response', 'AI security incident', 'AI forensics', 'AI evidence preservation', 'AI security breach response'],
+  keywords: ['AI incident evidence checklist', 'AI incident response', 'AI security incident', 'AI forensics', 'AI evidence preservation', 'AI security breach response', 'AI incident notification deadline', 'AI evidence chain of custody', 'AI incident response plan template', 'AI hiring compliance checklist', 'NYC Local Law 144 compliance', 'AI lending compliance checklist', 'AI breach notification requirements', 'AI incident report template', 'AI hiring bias audit evidence'],
+}
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'AI Incident Evidence Checklist',
+  description: 'A structured checklist for preserving evidence after an AI security incident: logs, prompts, outputs, tool calls, authorization records, and timeline reconstruction.',
+  author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  datePublished: '2026-07-15',
+  dateModified: '2026-07-15',
+  url: 'https://subodhkc.com/ai-incident-evidence-checklist',
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is an AI security incident different from a traditional application security incident?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Traditional incidents involve network intrusions, malware, or access control failures. AI incidents additionally involve: prompt injection (the attack vector is natural language, not code), RAG poisoning (the data source is the attack vector), tool abuse (the model is manipulated into taking actions), and model-driven authorization bypass (the application trusts model output for access decisions). The evidence is different too — you need prompts, model outputs, retrieved chunks, and tool call chains, not just network logs.' },
+    },
+    {
+      '@type': 'Question',
+      name: "What if we don't have logging set up when an incident occurs?",
+      acceptedAnswer: { '@type': 'Answer', text: 'This is unfortunately common. Preserve what you can: Streamlit Session State if the app is still running, any cloud provider logs (API gateway, load balancer), database audit logs, and the model vendor API logs if accessible. Document the logging gap as a finding in your post-incident report and implement evidence-grade logging as a P0 remediation item. The incident itself is evidence that your logging was insufficient.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Who should be on the AI incident response team?',
+      acceptedAnswer: { '@type': 'Answer', text: 'At minimum: an incident commander (coordinates response), an AI engineer (understands the application architecture), a security analyst (preserves evidence and performs analysis), and a legal/compliance officer (assesses regulatory obligations). For incidents involving PHI or financial data, add the relevant data owner. For MCP-related incidents, add the engineer responsible for the MCP server integration.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long should we retain AI incident evidence?',
+      acceptedAnswer: { '@type': 'Answer', text: "Follow your organization's retention policy, but at minimum: 7 years for incidents involving PHI (HIPAA), 6 years for EU AI Act compliance documentation, and until any litigation or regulatory inquiry is fully resolved. AI incident evidence should be retained longer than traditional IT evidence because AI-related liability (bias, discrimination, hallucination harm) may surface months or years after the incident." },
+    },
+  ],
 }
 
 const breadcrumbSchema = {
@@ -116,6 +155,8 @@ export default function AIIncidentEvidenceChecklistPage() {
   return (
     <>
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Hero
         subtitle="AI Incident Response Resource"
@@ -348,6 +389,243 @@ export default function AIIncidentEvidenceChecklistPage() {
                 <li className="list-disc"><strong className="text-foreground">Bias audit availability:</strong> In NYC, the bias audit summary must be publicly accessible. Include a link or reference in the job posting or careers page.</li>
                 <li className="list-disc"><strong className="text-foreground">Vendor disclosure:</strong> If the AI tool is provided by a third-party vendor, disclose the vendor name and provide contact information for data requests (GDPR Article 13/14, various state laws).</li>
               </ul>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Regulatory Notification Timelines */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Regulatory Notification Timelines — Quick Reference</h2>
+          <p className="text-sm text-muted-foreground">AI incidents may trigger statutory notification deadlines. Missing these deadlines can result in separate fines and penalties. Assess obligations early in Phase 3 — do not wait until the investigation is complete.</p>
+          <div className="rounded-lg border border-border overflow-hidden">
+            <table className="w-full text-xs md:text-sm">
+              <thead className="bg-muted/50">
+                <tr>
+                  <th className="text-left p-3 font-semibold">Regulation</th>
+                  <th className="text-left p-3 font-semibold">Who must notify</th>
+                  <th className="text-left p-3 font-semibold">Deadline</th>
+                  <th className="text-left p-3 font-semibold">Notify whom</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">HIPAA (PHI breach)</td>
+                  <td className="p-3 text-muted-foreground">Covered entities and business associates</td>
+                  <td className="p-3 text-foreground/90">60 days from discovery to HHS; affected individuals without unreasonable delay</td>
+                  <td className="p-3 text-muted-foreground">HHS Secretary, affected individuals, media (if 500+ in a state)</td>
+                </tr>
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">GDPR Article 33</td>
+                  <td className="p-3 text-muted-foreground">Data controllers and processors</td>
+                  <td className="p-3 text-foreground/90">72 hours from awareness</td>
+                  <td className="p-3 text-muted-foreground">Relevant supervisory authority; affected data subjects without undue delay if high risk</td>
+                </tr>
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">EU AI Act Article 73</td>
+                  <td className="p-3 text-muted-foreground">Deployers and providers of high-risk AI systems</td>
+                  <td className="p-3 text-foreground/90">15 days for serious incidents; 48 hours for incidents causing harm to health or safety</td>
+                  <td className="p-3 text-muted-foreground">Relevant market surveillance authority and competent authority</td>
+                </tr>
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">CCPA / CPRA</td>
+                  <td className="p-3 text-muted-foreground">Businesses handling California resident data</td>
+                  <td className="p-3 text-foreground/90">Without unreasonable delay; no later than 90 days from discovery</td>
+                  <td className="p-3 text-muted-foreground">Affected California residents; California Attorney General (if 500+ residents)</td>
+                </tr>
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">State breach laws (general)</td>
+                  <td className="p-3 text-muted-foreground">Entities handling state residents&apos; PII</td>
+                  <td className="p-3 text-foreground/90">Varies by state: 30–90 days from discovery</td>
+                  <td className="p-3 text-muted-foreground">Affected residents; state Attorney General (thresholds vary)</td>
+                </tr>
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">NYC LL 144 (hiring)</td>
+                  <td className="p-3 text-muted-foreground">Employers using AEDTs in NYC</td>
+                  <td className="p-3 text-foreground/90">No incident notification, but bias audit must be current at all times</td>
+                  <td className="p-3 text-muted-foreground">NYC DCWP (audit compliance); candidates (10 business days before use)</td>
+                </tr>
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">Colorado SB 189 (ADMT)</td>
+                  <td className="p-3 text-muted-foreground">Deployers of ADMT in consequential decisions</td>
+                  <td className="p-3 text-foreground/90">30 days from adverse decision to provide disclosure</td>
+                  <td className="p-3 text-muted-foreground">Affected individual</td>
+                </tr>
+                <tr className="hover:bg-muted/20">
+                  <td className="p-3 font-medium">SEC (public companies)</td>
+                  <td className="p-3 text-muted-foreground">Public companies subject to Reg S-K Item 1.05</td>
+                  <td className="p-3 text-foreground/90">4 business days from determination of material cybersecurity incident</td>
+                  <td className="p-3 text-muted-foreground">SEC via Form 8-K</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-900 dark:text-amber-200">
+              <AlertTriangle className="h-4 w-4 inline mr-1" />
+              <strong>Important:</strong> These are general guidelines. Consult your legal team for jurisdiction-specific requirements. Some states have shorter deadlines or additional notification content requirements. The clock starts at <em>discovery</em>, not at full investigation completion.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Chain of Custody */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Evidence Chain of Custody</h2>
+          <p className="text-sm text-muted-foreground">Preserved evidence is only useful if its integrity can be proven. A broken chain of custody can render evidence inadmissible in legal proceedings or regulatory investigations.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Hash and timestamp everything</CardTitle>
+                <CardDescription className="text-sm mt-1">When you capture evidence (logs, session state, documents), immediately compute SHA-256 hashes and record UTC timestamps. Store hashes separately from the evidence itself. If evidence is challenged, the hash proves it has not been modified since capture. Use a trusted timestamping service (RFC 3161) for legal-grade timestamps.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Append-only evidence storage</CardTitle>
+                <CardDescription className="text-sm mt-1">Store all captured evidence in an append-only repository (e.g., WORM storage, S3 Object Lock in compliance mode). No one — including the incident commander — should be able to modify or delete evidence after it is stored. Access to evidence should require break-glass procedures with logged access.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Access logging on evidence</CardTitle>
+                <CardDescription className="text-sm mt-1">Every access to the evidence store must be logged: who accessed, when, what was accessed, and why. This meta-log is itself evidence of chain of custody integrity. Restrict access to the incident response team and legal counsel only. Use a separate identity provider group for evidence access.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Custody transfer documentation</CardTitle>
+                <CardDescription className="text-sm mt-1">If evidence changes hands (e.g., from incident commander to legal team, or from internal team to external forensic firm), document the transfer: date, time, from whom, to whom, what was transferred, and hash verification on receipt. Each transfer is a link in the chain — a missing link breaks the chain.</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      {/* Internal & External Communications */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Incident Communications: Who to Notify and What Not to Say</h2>
+          <p className="text-sm text-muted-foreground">Communication during an AI security incident can make or break the response. Poor communication can trigger regulatory penalties, litigation, and reputational damage that exceeds the incident itself.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-green-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  Internal notification order
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1">
+                  <span className="block">1. Incident commander (immediately)</span>
+                  <span className="block">2. Security lead and AI engineer (within 15 minutes)</span>
+                  <span className="block">3. Legal/compliance officer (within 1 hour)</span>
+                  <span className="block">4. Executive sponsor (within 2 hours for Critical/High)</span>
+                  <span className="block">5. Affected data owners (within 4 hours)</span>
+                  <span className="block">6. All employees (only if operational impact requires it)</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-green-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  External notification protocol
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1">
+                  <span className="block">1. Regulators — per statutory deadlines (see timeline table above)</span>
+                  <span className="block">2. Affected customers/users — per breach notification obligations</span>
+                  <span className="block">3. AI vendor — if their system was involved or their data was exposed</span>
+                  <span className="block">4. Law enforcement — if criminal activity is suspected</span>
+                  <span className="block">5. Media — only through designated spokesperson, only when legally required or strategically necessary</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-red-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <XCircle className="h-4 w-4 text-red-600" />
+                  What NOT to do
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1">
+                  <span className="block">Do NOT discuss the incident on Slack, Teams, or email beyond the incident response channel</span>
+                  <span className="block">Do NOT delete any logs, messages, or data — even seemingly irrelevant ones</span>
+                  <span className="block">Do NOT speculate about root cause in writing until Phase 3 analysis is complete</span>
+                  <span className="block">Do NOT notify affected parties before legal review of notification content</span>
+                  <span className="block">Do NOT post about the incident on social media or company blog without legal approval</span>
+                  <span className="block">Do NOT blame the AI vendor publicly before contractual dispute resolution is initiated</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-amber-600" />
+                  Privilege considerations
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">Route incident communications through legal counsel where possible to maintain attorney-client privilege. Label incident-related documents as &quot;Prepared at the direction of counsel — Privileged and Confidential.&quot; Use a dedicated incident email distribution list managed by legal. Avoid creating discoverable documents (e.g., Slack threads, informal emails) that contain analysis or speculation.</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      {/* Post-Incident Report Template */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Post-Incident Report — Required Sections</h2>
+          <p className="text-sm text-muted-foreground">The post-incident report is the deliverable that regulators, legal counsel, and executives will review. Include all of these sections to ensure completeness.</p>
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <ol className="ml-4 space-y-3 text-sm text-muted-foreground">
+              <li className="list-decimal"><strong className="text-foreground">Executive summary:</strong> One-page overview — what happened, when, impact, root cause in one sentence, remediation status. Written for non-technical executives.</li>
+              <li className="list-decimal"><strong className="text-foreground">Timeline of events:</strong> Chronological log from first anomalous event through containment, evidence preservation, root cause analysis, and remediation. Include timestamps in UTC.</li>
+              <li className="list-decimal"><strong className="text-foreground">Incident scope:</strong> What data was affected, how many users were impacted, which systems were involved, what tools were called, what MCP servers were connected.</li>
+              <li className="list-decimal"><strong className="text-foreground">Root cause analysis:</strong> The complete chain — trigger, propagation, impact, detection. Identify whether the cause was adversarial input, configuration error, code defect, or vendor issue. Include evidence references (log IDs, hash values).</li>
+              <li className="list-decimal"><strong className="text-foreground">Evidence inventory:</strong> List of all preserved evidence with hashes, storage locations, access logs, and chain of custody documentation.</li>
+              <li className="list-decimal"><strong className="text-foreground">Regulatory notifications:</strong> Which regulators were notified, when, what was communicated, and what deadlines were met. Include notification content and delivery confirmation.</li>
+              <li className="list-decimal"><strong className="text-foreground">Remediation actions:</strong> What was fixed, what controls were added, what tests were run to verify the fix, and what remains open. Include target dates for open items.</li>
+              <li className="list-decimal"><strong className="text-foreground">Lessons learned:</strong> What went well, what went poorly, what would be done differently. Include process improvements, tooling improvements, and training needs.</li>
+              <li className="list-decimal"><strong className="text-foreground">Risk register updates:</strong> Which risk register entries were created, updated, or closed as a result of this incident. Reference the <Link href="/ai-risk-register" className="text-primary hover:underline">AI Risk Register</Link>.</li>
+              <li className="list-decimal"><strong className="text-foreground">Sign-off:</strong> Incident commander, security lead, legal/compliance officer, and executive sponsor. Include date and signature for each.</li>
+            </ol>
+          </div>
+        </div>
+      </Section>
+
+      {/* AI in Lending */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">AI in Lending: Evidence & Compliance Requirements</h2>
+          <p className="text-sm text-muted-foreground">AI used in credit decisions, loan underwriting, and insurance pricing is subject to fair lending laws. If you use AI to evaluate, score, or decide loan, credit, or insurance applications, these obligations apply.</p>
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">ECOA / Regulation B — Adverse Action Notices</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Who:</strong> Any creditor using AI (including third-party models) for credit decisions — including fintech companies, banks, credit unions, and alternative lenders.</p>
+              <p><strong className="text-foreground">Requirements:</strong> When AI contributes to a credit denial or adverse action, you must provide an adverse action notice within 30 days stating the specific principal reasons for denial. &quot;The AI said no&quot; is not a valid reason — you must identify the specific factors (e.g., insufficient credit history, high debt-to-income ratio). If the AI model is a black box, you have a compliance problem.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> Model inputs used for each decision, model output (score, recommendation, factors), adverse action notice sent to applicant, and the model version and configuration at time of decision.</p>
+            </div>
+          </div>
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Fair Credit Reporting Act (FCRA)</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Who:</strong> Entities using AI to generate credit scores or consumer reports, including CRAs and users of consumer report information for credit decisions.</p>
+              <p><strong className="text-foreground">Requirements:</strong> If AI-generated scores are used as consumer reports, FCRA requires reasonable procedures to ensure maximum possible accuracy. Consumers have the right to dispute inaccurate information. If AI contributes to an adverse action, the user must provide the consumer with the credit score used and key factors.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> AI-generated scores, input data, dispute records, reinvestigation results, and adverse action notices with score disclosure.</p>
+            </div>
+          </div>
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">CFPB Guidance on AI in Credit Decisions</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Adverse action explanations:</strong> The CFPB has confirmed that creditors using complex AI models must still provide specific, accurate reasons for denial. Citing &quot;complex algorithms&quot; or &quot;proprietary models&quot; is not sufficient. The creditor must understand and explain what factors drove the decision.</p>
+              <p><strong className="text-foreground">Anti-discrimination:</strong> AI models must not result in disparate impact on protected classes. Even if the model does not use protected characteristics as inputs, proxy variables (zip code, name, occupation) can create discriminatory outcomes. Regular fair lending testing is required.</p>
+              <p><strong className="text-foreground">Evidence to preserve:</strong> Model explainability documentation, fair lending testing results, disparate impact analysis, proxy variable audit, and all decision records with factor explanations.</p>
+            </div>
+          </div>
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">State Insurance AI Laws</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Colorado Insurance Regulation 7-42-17:</strong> Requires insurers using AI for underwriting or pricing to maintain a governance framework, perform bias testing, and document decision logic. Evidence of the AI governance program and testing must be available to the Colorado Division of Insurance on request.</p>
+              <p><strong className="text-foreground">Other states:</strong> Connecticut, Illinois, and several others have introduced similar insurance AI accountability requirements. The National Association of Insurance Commissioners (NAIC) has adopted a model bulletin on AI use in insurance.</p>
             </div>
           </div>
         </div>

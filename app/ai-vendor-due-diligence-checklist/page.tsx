@@ -28,7 +28,46 @@ export const metadata = {
     description: 'A comprehensive checklist for evaluating AI vendors: data handling, security, model transparency, compliance, and contracts.',
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
-  keywords: ['AI vendor due diligence', 'AI vendor checklist', 'AI procurement checklist', 'AI vendor security assessment', 'AI vendor evaluation', 'AI vendor compliance'],
+  keywords: ['AI vendor due diligence', 'AI vendor checklist', 'AI procurement checklist', 'AI vendor security assessment', 'AI vendor evaluation', 'AI vendor compliance', 'AI vendor risk assessment template', 'AI vendor security questionnaire', 'AI vendor contract requirements', 'AI vendor SOC 2 requirements', 'AI startup vendor evaluation', 'AI vendor bias audit requirements', 'AI vendor data processing agreement', 'AI vendor continuous monitoring'],
+}
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'AI Vendor Due-Diligence Checklist',
+  description: 'A comprehensive checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, incident response, and contractual protections.',
+  author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  datePublished: '2026-07-15',
+  dateModified: '2026-07-15',
+  url: 'https://subodhkc.com/ai-vendor-due-diligence-checklist',
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'When should I re-evaluate an existing AI vendor?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Re-evaluate annually at minimum. Additionally, re-evaluate when: the vendor is acquired or changes ownership, the vendor announces a new model or architecture change, your data scope expands (e.g., you start sending PHI when you previously only sent public data), a security incident occurs at the vendor, your regulatory obligations change, or the vendor sub-processor list changes without notification.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What if the vendor is a startup without SOC 2 yet?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Startups may not have SOC 2 Type II yet, but they should have a clear timeline and evidence of progress. Require: a signed security plan with target dates, a completed security questionnaire (e.g., CAIQ), penetration test results, and contractual commitments for certification within 12 months. Weigh the risk against the business value — a startup handling PHI without SOC 2 is a different risk profile than one handling public data.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I require the vendor to support on-premise deployment?',
+      acceptedAnswer: { '@type': 'Answer', text: 'For highly sensitive data (PHI, biometric, financial records, source code), on-premise or customer-managed cloud deployment significantly reduces data exposure. If the vendor cannot support this, require: DLP scanning on outbound prompts, a DPA with strict no-training-on-data clauses, customer-managed encryption keys (CMEK), and a documented data deletion process with verification.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I evaluate a vendor that uses third-party models (e.g., OpenAI, Anthropic)?',
+      acceptedAnswer: { '@type': 'Answer', text: 'The vendor should disclose which third-party models they use and provide the model provider security documentation. You need to evaluate both the vendor (your direct contractor) and the model provider (a sub-processor). Ensure the vendor DPA covers sub-processor obligations, and that data flow to the model provider is documented. If the vendor cannot disclose the model provider, that is a red flag.' },
+    },
+  ],
 }
 
 const breadcrumbSchema = {
@@ -85,6 +124,9 @@ const checklistSections = [
       'Does the vendor provide bias audit results or fairness evaluations?',
       'How does the vendor handle model deprecation and migration?',
       'Does the vendor expose tool/function calling, MCP, or agent capabilities? If so, what are the security controls?',
+      'Does the vendor conduct adversarial testing or red-teaming on their own models? What is the cadence and scope?',
+      'Can the vendor disclose training data provenance — what data was used to train the model, and whether any copyrighted or licensed data is included?',
+      'Does the vendor use open-source models (e.g., HuggingFace, Ollama)? If so, what are the license terms and attribution requirements?',
     ],
   },
   {
@@ -100,6 +142,7 @@ const checklistSections = [
       'Does the vendor have insurance coverage for AI-related liabilities?',
       'What jurisdictions does the vendor operate in and are there cross-border data transfer implications?',
       'Does the vendor have a process for handling government or law enforcement data requests?',
+      'Does the vendor maintain a model versioning policy with backward compatibility guarantees? What happens when the model is updated or deprecated?',
     ],
   },
   {
@@ -115,6 +158,7 @@ const checklistSections = [
       'Are there restrictions on the vendor using your data to train models?',
       'Is there a change-of-control clause that triggers re-evaluation on acquisition?',
       'Are there clauses addressing AI-specific risks (model deprecation, bias, hallucination liability)?',
+      'Does the vendor disclose whether their own sub-processors use AI on your data? If so, what are the controls and notification requirements?',
     ],
   },
   {
@@ -138,6 +182,8 @@ export default function AIVendorDueDiligenceChecklistPage() {
   return (
     <>
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Hero
         subtitle="AI Procurement Resource"
@@ -317,6 +363,52 @@ export default function AIVendorDueDiligenceChecklistPage() {
                 <p className="text-sm text-foreground/90">{flag}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Continuous Monitoring */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Continuous Vendor Monitoring — After the Contract Is Signed</h2>
+          <p className="text-sm text-muted-foreground">Due diligence does not end at contract signing. AI vendors change models, add sub-processors, and evolve their architecture continuously. Set up these monitoring practices to catch issues before they become incidents.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Annual re-evaluation</CardTitle>
+                <CardDescription className="text-sm mt-1">Re-run the full checklist at least once per year. Schedule it on contract anniversary. Include updated SOC 2 reports, new penetration test results, and any architecture changes. Document the re-evaluation results and compare against the prior year — track regressions.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Sub-processor change monitoring</CardTitle>
+                <CardDescription className="text-sm mt-1">Subscribe to the vendor&apos;s sub-processor notification list. When a new sub-processor is added, review their security posture and data access scope. If the sub-processor is an AI model provider, evaluate them as you would any AI vendor. Contractually require 30 days notice before new sub-processors are activated.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Vendor incident notification</CardTitle>
+                <CardDescription className="text-sm mt-1">Contractually require the vendor to notify you within 24 hours of any security incident that could affect your data. Include AI-specific incidents: model poisoning, training data leakage, prompt injection vulnerabilities discovered in their platform, and bias audit failures. Require a post-incident report within 14 days.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Model change impact assessment</CardTitle>
+                <CardDescription className="text-sm mt-1">When the vendor announces a model update or architecture change, assess the impact on your use case before the update is applied. Require a 30-day notice period for model changes. Test your prompts and workflows against the new model in a staging environment. If the vendor cannot provide a staging environment, require version pinning for your contract.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">SLA compliance tracking</CardTitle>
+                <CardDescription className="text-sm mt-1">Track the vendor&apos;s uptime, latency, and support response times against the contracted SLAs. Log every deviation. If SLA breaches accumulate, invoke service credits or termination clauses. For AI-specific SLAs (model availability, token throughput, response quality), track separately from infrastructure SLAs.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Bias audit and compliance renewal</CardTitle>
+                <CardDescription className="text-sm mt-1">For vendors used in hiring, lending, or other regulated decisions, track bias audit expiration dates. Require the vendor to provide updated audit results before the current audit expires. If the vendor&apos;s audit lapses, suspend use of the tool until a new audit is completed — continuing to use an unaudited tool is a regulatory violation.</CardDescription>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </Section>

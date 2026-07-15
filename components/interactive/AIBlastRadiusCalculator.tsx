@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { RotateCcw, Zap, Shield, AlertTriangle, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 
-type DataType = 'none' | 'public' | 'internal' | 'confidential' | 'phi' | 'biometric'
+type DataType = 'none' | 'public' | 'internal' | 'confidential' | 'pii' | 'phi' | 'biometric'
 type UserScale = 'small' | 'medium' | 'large' | 'enterprise'
 type ToolAccess = 'readonly' | 'write' | 'action' | 'admin'
 type Deployment = 'local' | 'internal-server' | 'cloud' | 'public'
@@ -16,6 +16,7 @@ const dataTypes: { value: DataType; label: string; weight: number }[] = [
   { value: 'public', label: 'Public information only', weight: 1 },
   { value: 'internal', label: 'Internal business data', weight: 3 },
   { value: 'confidential', label: 'Confidential / financial / proprietary', weight: 6 },
+  { value: 'pii', label: 'Personally identifiable information (PII / SSN, DL, financial account)', weight: 7 },
   { value: 'phi', label: 'Protected health information (PHI)', weight: 9 },
   { value: 'biometric', label: 'Biometric identifiers', weight: 9 },
 ]
@@ -49,6 +50,7 @@ export function AIBlastRadiusCalculator() {
   const [mcpConnected, setMcpConnected] = useState(false)
   const [ragEnabled, setRagEnabled] = useState(false)
   const [autoApproval, setAutoApproval] = useState(false)
+  const [multiTenant, setMultiTenant] = useState(false)
 
   const score = useMemo(() => {
     const data = dataTypes.find((d) => d.value === dataType)?.weight ?? 0
@@ -59,11 +61,12 @@ export function AIBlastRadiusCalculator() {
     if (mcpConnected) total += 3
     if (ragEnabled) total += 2
     if (autoApproval) total += 5
+    if (multiTenant) total += 4
     return total
-  }, [dataType, userScale, toolAccess, deployment, mcpConnected, ragEnabled, autoApproval])
+  }, [dataType, userScale, toolAccess, deployment, mcpConnected, ragEnabled, autoApproval, multiTenant])
 
   const riskLevel = useMemo(() => {
-    if (score <= 6) return {
+    if (score <= 7) return {
       label: 'Low',
       color: 'green',
       icon: Shield,
@@ -75,7 +78,7 @@ export function AIBlastRadiusCalculator() {
         'Keep the tool allow-list minimal: remove any tool that is not actively used',
       ],
     }
-    if (score <= 15) return {
+    if (score <= 17) return {
       label: 'Moderate',
       color: 'amber',
       icon: AlertTriangle,
@@ -88,7 +91,7 @@ export function AIBlastRadiusCalculator() {
         'Create an AI risk register entry for this application and assign an owner',
       ],
     }
-    if (score <= 25) return {
+    if (score <= 29) return {
       label: 'High',
       color: 'orange',
       icon: AlertTriangle,
@@ -207,6 +210,7 @@ export function AIBlastRadiusCalculator() {
             { label: 'Connected to MCP servers (external tool discovery)', state: mcpConnected, set: setMcpConnected },
             { label: 'RAG enabled (retrieves from document corpus)', state: ragEnabled, set: setRagEnabled },
             { label: 'Automatic tool execution (no human approval)', state: autoApproval, set: setAutoApproval },
+            { label: 'Multi-tenant architecture (shared infrastructure across organizations)', state: multiTenant, set: setMultiTenant },
           ].map((factor) => (
             <label key={factor.label} className="flex items-center gap-3 text-sm cursor-pointer">
               <input
@@ -225,7 +229,7 @@ export function AIBlastRadiusCalculator() {
             <Icon className="h-6 w-6" />
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide">Blast Radius: {riskLevel.label}</p>
-              <p className="text-xs opacity-80">Score: {score} / 44</p>
+              <p className="text-xs opacity-80">Score: {score} / 48</p>
             </div>
           </div>
           <p className="text-sm text-foreground/90">{riskLevel.description}</p>
@@ -251,6 +255,28 @@ export function AIBlastRadiusCalculator() {
           </div>
         )}
 
+        {/* Score Explanation */}
+        <details className="rounded-lg border border-border p-3 group">
+          <summary className="text-xs font-medium text-muted-foreground cursor-pointer flex items-center justify-between">
+            How is this score calculated?
+            <span className="text-muted-foreground group-open:rotate-180 transition-transform">⌄</span>
+          </summary>
+          <div className="mt-3 space-y-2 text-xs text-muted-foreground">
+            <p>The score is the sum of weighted factors:</p>
+            <ul className="ml-4 space-y-1">
+              <li className="list-disc"><strong className="text-foreground">Data type</strong> (0–9): No sensitive data = 0, Public = 1, Internal = 3, Confidential = 6, PII = 7, PHI/Biometric = 9</li>
+              <li className="list-disc"><strong className="text-foreground">User scale</strong> (1–8): 1–10 users = 1, 11–100 = 3, 101–1,000 = 5, 1,000+ = 8</li>
+              <li className="list-disc"><strong className="text-foreground">Tool access</strong> (1–10): Read-only = 1, Write = 5, Action = 8, Admin = 10</li>
+              <li className="list-disc"><strong className="text-foreground">Deployment</strong> (1–7): Local = 1, Internal server = 2, Cloud = 4, Public = 7</li>
+              <li className="list-disc"><strong className="text-foreground">MCP connected</strong>: +3 (external tool discovery expands attack surface)</li>
+              <li className="list-disc"><strong className="text-foreground">RAG enabled</strong>: +2 (document corpus is an injection vector)</li>
+              <li className="list-disc"><strong className="text-foreground">Automatic execution</strong>: +5 (no human checkpoint before actions)</li>
+              <li className="list-disc"><strong className="text-foreground">Multi-tenant</strong>: +4 (cross-tenant leakage risk)</li>
+            </ul>
+            <p className="mt-2">Risk bands: 0–7 Low, 8–17 Moderate, 18–29 High, 30+ Critical.</p>
+          </div>
+        </details>
+
         {/* Industry Scenarios */}
         <div className="border-t border-border pt-4 space-y-3">
           <p className="text-sm font-medium text-foreground">Industry scenarios — click to load:</p>
@@ -258,10 +284,13 @@ export function AIBlastRadiusCalculator() {
             {[
               { label: 'Healthcare: clinical AI assistant (PHI, 500+ users, action tools, RAG)', config: { d: 'phi' as DataType, u: 'large' as UserScale, t: 'action' as ToolAccess, dep: 'internal-server' as Deployment, mcp: true, rag: true, auto: false } },
               { label: 'Financial services: research assistant (confidential, 200+ users, action tools, RAG)', config: { d: 'confidential' as DataType, u: 'large' as UserScale, t: 'action' as ToolAccess, dep: 'internal-server' as Deployment, mcp: false, rag: true, auto: true } },
-              { label: 'HR / Hiring: AI resume screener (PII, 50+ users, admin, cloud)', config: { d: 'confidential' as DataType, u: 'medium' as UserScale, t: 'admin' as ToolAccess, dep: 'cloud' as Deployment, mcp: false, rag: true, auto: true } },
+              { label: 'HR / Hiring: AI resume screener (PII, 50+ users, admin, cloud)', config: { d: 'pii' as DataType, u: 'medium' as UserScale, t: 'admin' as ToolAccess, dep: 'cloud' as Deployment, mcp: false, rag: true, auto: true } },
               { label: 'Legal: case document assistant (confidential, 100+ users, read-only, RAG)', config: { d: 'confidential' as DataType, u: 'medium' as UserScale, t: 'readonly' as ToolAccess, dep: 'internal-server' as Deployment, mcp: false, rag: true, auto: false } },
               { label: 'Retail: customer support chatbot (public, 1000+ users, read-only, public)', config: { d: 'public' as DataType, u: 'enterprise' as UserScale, t: 'readonly' as ToolAccess, dep: 'public' as Deployment, mcp: false, rag: false, auto: false } },
               { label: 'Small business: internal summarizer (internal, 5 users, read-only, local)', config: { d: 'internal' as DataType, u: 'small' as UserScale, t: 'readonly' as ToolAccess, dep: 'local' as Deployment, mcp: false, rag: false, auto: false } },
+              { label: 'Government: citizen services AI (PII, 1000+ users, action tools, cloud, multi-tenant)', config: { d: 'pii' as DataType, u: 'enterprise' as UserScale, t: 'action' as ToolAccess, dep: 'cloud' as Deployment, mcp: true, rag: true, auto: false } },
+              { label: 'Education: student advising AI (PII + FERPA, 500+ users, read-only, cloud)', config: { d: 'pii' as DataType, u: 'large' as UserScale, t: 'readonly' as ToolAccess, dep: 'cloud' as Deployment, mcp: false, rag: true, auto: false } },
+              { label: 'Insurance: claims processing AI (PII + financial, 200+ users, action tools, RAG)', config: { d: 'pii' as DataType, u: 'large' as UserScale, t: 'action' as ToolAccess, dep: 'internal-server' as Deployment, mcp: false, rag: true, auto: true } },
             ].map((scenario) => (
               <button
                 key={scenario.label}
@@ -282,7 +311,7 @@ export function AIBlastRadiusCalculator() {
           </div>
         </div>
 
-        <Button variant="outline" size="sm" onClick={() => { setDataType('none'); setUserScale('small'); setToolAccess('readonly'); setDeployment('local'); setMcpConnected(false); setRagEnabled(false); setAutoApproval(false) }} className="w-full">
+        <Button variant="outline" size="sm" onClick={() => { setDataType('none'); setUserScale('small'); setToolAccess('readonly'); setDeployment('local'); setMcpConnected(false); setRagEnabled(false); setAutoApproval(false); setMultiTenant(false) }} className="w-full">
           <RotateCcw className="h-4 w-4 mr-2" /> Reset
         </Button>
       </CardContent>

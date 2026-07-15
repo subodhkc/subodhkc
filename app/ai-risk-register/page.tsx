@@ -28,7 +28,46 @@ export const metadata = {
     description: 'A structured template for tracking AI system risks, likelihood, impact, controls, and remediation status.',
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
-  keywords: ['AI risk register', 'AI risk template', 'AI risk management', 'AI governance template', 'NIST AI RMF risk register', 'AI risk tracking'],
+  keywords: ['AI risk register', 'AI risk template', 'AI risk management', 'AI governance template', 'NIST AI RMF risk register', 'AI risk tracking', 'shadow AI risk', 'unauthorized AI use policy', 'AI hiring compliance risk', 'AI hallucination liability', 'AI model drift risk', 'AI vendor risk assessment', 'AI discrimination risk register', 'AI security risk matrix'],
+}
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'AI Risk Register Template',
+  description: 'A structured template for tracking AI system risks, likelihood, impact, controls, and remediation status across your AI portfolio.',
+  author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  datePublished: '2026-07-15',
+  dateModified: '2026-07-15',
+  url: 'https://subodhkc.com/ai-risk-register',
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is an AI risk register different from a traditional IT risk register?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Traditional IT risk registers focus on infrastructure, access control, and data breaches. An AI risk register must additionally cover prompt injection (where the attack vector is natural language), RAG poisoning (where the data source itself is the attack vector), tool abuse (where the model is manipulated into taking actions), model-driven authorization bypass (where the application trusts model output for access decisions), and supply-chain risks from MCP servers and model vendors. These risks do not exist in traditional software.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should every AI application have its own risk register?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Small, low-risk applications (e.g., a single-user summarization tool with no sensitive data) can share a portfolio-level register. Any application with access to confidential data, more than 10 users, or action/admin tools should have its own register entry with application-specific risks, controls, and owners.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I know when to add a new risk to the register?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Add a new risk whenever: (1) a new data source is connected, (2) a new tool or MCP server is integrated, (3) the user population expands significantly, (4) the deployment model changes, (5) a security incident occurs (even if caught before impact), or (6) a new regulatory requirement applies. Review the register quarterly and after any architecture change.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between likelihood and impact?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Likelihood is the probability that the risk will materialize given your current controls and architecture. Impact is the severity of consequences if it does materialize — considering data sensitivity, number of users affected, financial cost, regulatory exposure, and reputational damage. A risk with Low likelihood but Critical impact (e.g., PHI exposure) still demands immediate attention.' },
+    },
+  ],
 }
 
 const breadcrumbSchema = {
@@ -76,10 +115,20 @@ const riskCategories = [
     { id: 'R-21', risk: 'AI employment decisions made without human oversight or appeal mechanism', likelihood: 'Medium', impact: 'High', controls: 'Human-in-the-loop for all hiring decisions, documented override authority, candidate appeal process, EU AI Act Article 26-27 compliance (human oversight + fundamental rights impact assessment), GDPR Article 22 right to human review', owner: 'HR & Legal', status: 'Open' },
     { id: 'R-22', risk: 'AI vendor changes model or training data without bias re-audit notification', likelihood: 'Medium', impact: 'High', controls: 'Contract clause requiring vendor notification on model updates, right to re-audit on model change, version pinning where possible, annual re-evaluation regardless of vendor notifications', owner: 'HR & Procurement', status: 'Open' },
   ]},
+  { category: 'Model Behavior & Output Risks', risks: [
+    { id: 'R-26', risk: 'AI hallucination causing real-world harm (fabricated citations, invented medical advice, false financial data)', likelihood: 'Medium', impact: 'High', controls: 'Output validation against source data, grounding requirements, human review for consequential outputs, citation verification, disclaimer on AI-generated content, user training on hallucination risks', owner: 'Engineering & Legal', status: 'Open' },
+    { id: 'R-27', risk: 'Model drift or performance degradation over time without detection', likelihood: 'Medium', impact: 'Medium', controls: 'Continuous model performance monitoring, drift detection alerts, scheduled re-evaluation, vendor notification on model updates, A/B testing against baseline outputs', owner: 'Engineering', status: 'Open' },
+    { id: 'R-28', risk: 'AI-generated content infringing third-party copyright or IP', likelihood: 'Medium', impact: 'High', controls: 'Output similarity scanning, vendor indemnification for IP claims, training data provenance disclosure, opt-out from training on copyrighted data, content attribution where possible', owner: 'Legal & Engineering', status: 'Open' },
+    { id: 'R-29', risk: 'Third-party model provider outage or degradation with no fallback', likelihood: 'Low', impact: 'High', controls: 'Multi-provider architecture, cached response capability, degraded mode operation, SLA with provider, incident response playbook for provider outage', owner: 'Engineering', status: 'Open' },
+  ]},
+  { category: 'Organizational & Human Factors', risks: [
+    { id: 'R-30', risk: 'Lack of AI literacy and training for end users (blind trust in AI outputs)', likelihood: 'High', impact: 'Medium', controls: 'Mandatory AI literacy training, documented AI limitations, output review checkpoints, feedback mechanism for incorrect outputs, role-based training on when to trust vs. verify AI outputs', owner: 'HR & Security', status: 'Open' },
+    { id: 'R-31', risk: 'Cross-jurisdictional regulatory misalignment (compliant in one state/country but non-compliant in another)', likelihood: 'Medium', impact: 'High', controls: 'Jurisdictional compliance matrix, multi-state regulatory tracking, per-jurisdiction notification templates, legal review for cross-border deployments, modular compliance controls by region', owner: 'Legal & Compliance', status: 'Open' },
+  ]},
   { category: 'Compliance & Governance', risks: [
-    { id: 'R-23', risk: 'Missing AI system documentation for regulatory disclosure', likelihood: 'Medium', impact: 'High', controls: 'AI system registry, disclosure review process, automated documentation', owner: 'Compliance', status: 'Open' },
-    { id: 'R-24', risk: 'No incident response plan for AI security events', likelihood: 'Medium', impact: 'High', controls: 'AI incident response playbook, evidence preservation checklist, tabletop exercises', owner: 'Security', status: 'Open' },
-    { id: 'R-25', risk: 'Bias or discrimination in consequential AI decisions (non-hiring)', likelihood: 'Low', impact: 'High', controls: 'Bias testing, human review for consequential decisions, appeal process, NIST AI RMF alignment', owner: 'Compliance', status: 'Open' },
+    { id: 'R-32', risk: 'Missing AI system documentation for regulatory disclosure', likelihood: 'Medium', impact: 'High', controls: 'AI system registry, disclosure review process, automated documentation', owner: 'Compliance', status: 'Open' },
+    { id: 'R-33', risk: 'No incident response plan for AI security events', likelihood: 'Medium', impact: 'High', controls: 'AI incident response playbook, evidence preservation checklist, tabletop exercises', owner: 'Security', status: 'Open' },
+    { id: 'R-34', risk: 'Bias or discrimination in consequential AI decisions (non-hiring: lending, insurance, healthcare)', likelihood: 'Low', impact: 'High', controls: 'Bias testing, human review for consequential decisions, appeal process, NIST AI RMF alignment, ECOA/Regulation B compliance for lending, CFPB guidance adherence', owner: 'Compliance', status: 'Open' },
   ]},
 ]
 
@@ -94,6 +143,8 @@ export default function AIRiskRegisterPage() {
   return (
     <>
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Hero
         subtitle="AI Governance Resource"
@@ -126,8 +177,12 @@ export default function AIRiskRegisterPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              A risk register is the foundation of AI governance. This template covers data and privacy risks, prompt injection vectors, tool and action security, infrastructure and supply chain threats, and compliance gaps. Each risk includes likelihood, impact, recommended controls, an owner, and status tracking. Use it alongside the{' '}
-              <Link href="/ai-security-tools" className="text-primary font-medium hover:underline">AI Security Tools</Link>{' '}
+              A risk register is the foundation of AI governance. This template covers data and privacy risks, prompt injection vectors, tool and action security, infrastructure and supply chain threats, model behavior and output risks, organizational factors, and compliance gaps — aligned with the NIST AI RMF functions of Govern, Map, Measure, and Manage. Each risk includes likelihood, impact, recommended controls, an owner, and status tracking. Use it alongside the{' '}
+              <Link href="/ai-security-tools" className="text-primary font-medium hover:underline">AI Security Tools</Link>,{' '}
+              the{' '}
+              <Link href="/ai-vendor-due-diligence-checklist" className="text-primary font-medium hover:underline">Vendor Due-Diligence Checklist</Link>,{' '}
+              the{' '}
+              <Link href="/ai-incident-evidence-checklist" className="text-primary font-medium hover:underline">Incident Evidence Checklist</Link>,{' '}
               and the{' '}
               <Link href="/build-internal-ai-applications-streamlit-rag-mcp" className="text-primary font-medium hover:underline">Streamlit architecture guide</Link>.
             </p>
@@ -172,7 +227,7 @@ export default function AIRiskRegisterPage() {
                   Plan and monitor (Medium likelihood + Medium impact)
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block">Risks that are possible but not immediately threatening. Session State misuse (R-12) and missing documentation (R-13) fall here. These can escalate if the architecture changes.</span>
+                  <span className="block">Risks that are possible but not immediately threatening. Session State misuse (R-12) and missing documentation (R-32) fall here. These can escalate if the architecture changes.</span>
                   <span className="block"><strong className="text-foreground">Action:</strong> Add to roadmap, review quarterly, escalate if likelihood increases.</span>
                 </CardDescription>
               </CardHeader>
@@ -187,6 +242,40 @@ export default function AIRiskRegisterPage() {
                   <span className="block">Risks that are unlikely and low-impact. Document the decision to accept, the reasoning, and the conditions that would trigger re-evaluation.</span>
                   <span className="block"><strong className="text-foreground">Action:</strong> Document acceptance rationale. Review annually or after architecture changes.</span>
                 </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      {/* NIST AI RMF Mapping */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">NIST AI RMF Mapping</h2>
+          <p className="text-sm text-muted-foreground">This risk register aligns with the four functions of the NIST AI Risk Management Framework. Use this mapping to integrate the register into your broader AI governance program.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Govern — Policies, procedures, and accountability</CardTitle>
+                <CardDescription className="text-sm mt-1">Risks R-32 through R-34 (documentation, incident response, bias in consequential decisions). Establish who owns AI risk decisions, how risks are escalated, and what the organization's risk tolerance is. The risk register itself is a Govern artifact.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Map — Context and risk identification</CardTitle>
+                <CardDescription className="text-sm mt-1">Risks R-01 through R-03 (data and privacy), R-13 through R-16 (shadow AI), R-30 through R-31 (organizational factors). Understand where AI is used, what data it touches, who uses it, and what could go wrong. The blast radius calculator supports this function.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Measure — Assessment and testing</CardTitle>
+                <CardDescription className="text-sm mt-1">Risks R-04 through R-09 (prompt injection, tool abuse), R-17 through R-22 (hiring compliance), R-26 through R-27 (hallucination, drift). Quantify and track risks through testing, bias audits, and monitoring. The agent matrix and scenario library support this function.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm">Manage — Mitigation and response</CardTitle>
+                <CardDescription className="text-sm mt-1">Risks R-10 through R-12 (supply chain, vendor, session state), R-23 through R-25 (vendor changes), R-28 through R-29 (IP, provider outage). Implement controls, monitor effectiveness, and respond to incidents. The vendor checklist and incident evidence checklist support this function.</CardDescription>
               </CardHeader>
             </Card>
           </div>
