@@ -6,7 +6,7 @@ import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { TRAIGAApplicabilityChecker } from '@/components/traiga/TRAIGAApplicabilityChecker'
 import { TRAIGAEnforcementFlow } from '@/components/diagrams/TRAIGAEnforcementFlow'
 import { NISTLiteFramework } from '@/components/diagrams/NISTLiteFramework'
-import { Scale, Shield, AlertTriangle, Building2, HeartPulse, Fingerprint, CheckCircle2, FileText, Users, Zap, ArrowRight } from 'lucide-react'
+import { Scale, Shield, AlertTriangle, Building2, HeartPulse, Fingerprint, CheckCircle2, FileText, Users, Zap, ArrowRight, Phone } from 'lucide-react'
 import Link from 'next/link'
 import Grid from '@/components/Grid'
 
@@ -899,6 +899,24 @@ export default function DoesTexasAILawApplyPage() {
                   </CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
                     Explore platform <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/how-to-secure-and-govern-ai" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Phone className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">Why AI Voice Agents Fail in Production</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Ten failure modes, production architecture, AI voice control ladder, TCPA and TRAIGA compliance for voice, and a six-phase deployment plan. Includes an interactive readiness checker.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read article <ArrowRight className="h-3 w-3" />
                   </span>
                 </CardHeader>
               </Card>

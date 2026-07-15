@@ -62,6 +62,7 @@ const SITEMAP = [
       ["/build-internal-ai-applications-streamlit-rag-mcp", "internal AI apps with Streamlit"],
       ["/does-texas-ai-law-apply-to-my-business", "does the Texas AI law apply to my business?"],
       ["/how-to-secure-and-govern-ai", "how to secure and govern AI"],
+      ["/why-ai-voice-agents-fail-in-production", "why AI voice agents fail in production"],
       ["/ai-security-tools", "AI security tools & calculators"],
       ["/solutions/haiec/exposure-assessment", "AI exposure assessment"],
       ["/research", "research"],

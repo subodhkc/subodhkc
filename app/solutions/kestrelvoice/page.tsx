@@ -218,6 +218,14 @@ export default function KestrelVoicePage() {
         </div>
       </Section>
 
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
+            <p>Want to understand the architecture behind a production AI voice agent? Read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link> — ten failure modes, the three-layer voice decision model, AI voice control ladder, security threat model, TCPA and TRAIGA compliance, and a six-phase deployment plan.</p>
+          </div>
+        </div>
+      </Section>
+
       <CTA
         title="Ready to Never Miss a Call Again?"
         description="Join thousands of professionals using KestrelVoice to capture every opportunity. Set up in minutes, start answering calls instantly."

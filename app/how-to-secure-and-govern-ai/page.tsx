@@ -10,7 +10,7 @@ import {
   Shield, AlertTriangle, Building2, HeartPulse,
   CheckCircle2, FileText, Users, ArrowRight, Lock,
   ClipboardCheck, RefreshCw, Layers, Gavel, Award, Microscope,
-  Database, Cpu, Webhook,
+  Database, Cpu, Webhook, Phone,
 } from 'lucide-react'
 
 export const metadata = {
@@ -568,6 +568,7 @@ export default function HowToSecureAndGovernAIPage() {
             <Card><CardHeader><CardTitle className="text-base flex items-center gap-2"><FileText className="h-4 w-4 text-primary" /> AI Incident Evidence Checklist</CardTitle><CardDescription className="text-sm">Evidence preservation, regulatory notification timelines, chain of custody, and post-incident report template.</CardDescription></CardHeader><CardContent><Link href="/ai-incident-evidence-checklist" className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">View checklist <ArrowRight className="h-3 w-3" /></Link></CardContent></Card>
             <Card><CardHeader><CardTitle className="text-base flex items-center gap-2"><Gavel className="h-4 w-4 text-primary" /> Does the Texas AI Law Apply to My Business?</CardTitle><CardDescription className="text-sm">Plain-English TRAIGA guide with interactive applicability checker, disclosure rules, and penalties.</CardDescription></CardHeader><CardContent><Link href="/does-texas-ai-law-apply-to-my-business" className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read guide <ArrowRight className="h-3 w-3" /></Link></CardContent></Card>
             <Card><CardHeader><CardTitle className="text-base flex items-center gap-2"><Database className="h-4 w-4 text-primary" /> Secure Enterprise RAG Architecture</CardTitle><CardDescription className="text-sm">RAG security architecture covering RLS, tenant isolation, retrieval governance, and prompt-injection defense.</CardDescription></CardHeader><CardContent><Link href="/secure-enterprise-rag-architecture" className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read guide <ArrowRight className="h-3 w-3" /></Link></CardContent></Card>
+            <Card><CardHeader><CardTitle className="text-base flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> Why AI Voice Agents Fail in Production</CardTitle><CardDescription className="text-sm">Ten failure modes, production architecture, AI voice control ladder, TCPA and TRAIGA compliance for voice, and a six-phase deployment plan.</CardDescription></CardHeader><CardContent><Link href="/why-ai-voice-agents-fail-in-production" className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read article <ArrowRight className="h-3 w-3" /></Link></CardContent></Card>
           </Grid>
         </div>
       </Section>

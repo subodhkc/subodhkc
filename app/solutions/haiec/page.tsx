@@ -252,7 +252,7 @@ export default function HAIECPage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>Learn how HAIEC fits into the complete AI compliance stack: read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link> — the seven layers of AI compliance, framework comparison, and implementation roadmap.</p>
+            <p>Learn how HAIEC fits into the complete AI compliance stack: read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link> — the seven layers of AI compliance, framework comparison, and implementation roadmap. For AI voice agent-specific compliance, security, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>.</p>
           </div>
         </div>
       </Section>
