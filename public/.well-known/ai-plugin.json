@@ -128,6 +128,11 @@
         "name": "How to Build Internal AI Applications with Streamlit",
         "description": "Practical architecture guide for internal AI applications with Streamlit, OpenAI, RAG, MCP, custom tools, security, framework comparisons and delivery roadmap",
         "url": "https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp"
+      },
+      {
+        "name": "Does the Texas AI Law Apply to My Business?",
+        "description": "Plain-English TRAIGA guide for small businesses with interactive applicability checker, final-law-vs-draft matrix, penalties, healthcare AI, biometrics, and 10-step readiness plan",
+        "url": "https://subodhkc.com/does-texas-ai-law-apply-to-my-business"
       }
     ]
   },
@@ -163,6 +168,14 @@
     "Streamlit vs FastAPI",
     "Model Context Protocol tutorial",
     "Streamlit agentic workflow",
-    "internal AI application security"
+    "internal AI application security",
+    "does the Texas AI law apply to my business",
+    "Texas AI law for small businesses",
+    "TRAIGA compliance checklist",
+    "Texas AI law applicability checker",
+    "Texas AI law final version versus draft",
+    "Texas AI law healthcare disclosure",
+    "Texas AI law hiring tools",
+    "Texas biometric AI law"
   ]
 }

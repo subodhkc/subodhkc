@@ -44,6 +44,15 @@ export default function WritingPage() {
 
   const articles = [
     {
+      title: 'Does the Texas AI Law Apply to My Business?',
+      description:
+        'A plain-English TRAIGA guide for small and midsize businesses — interactive applicability checker, disclosure rules, penalties, healthcare AI, biometrics, final-law-vs-draft matrix, and a 10-step readiness plan.',
+      publication: 'subodhkc.com',
+      date: 'July 2026',
+      url: '/does-texas-ai-law-apply-to-my-business',
+      topics: ['Texas AI Law', 'TRAIGA', 'HB 149', 'AI Compliance', 'Small Business'],
+    },
+    {
       title: 'How to Build Internal AI Applications with Streamlit',
       description:
         'A practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP — plus security, framework comparisons and a delivery roadmap.',
