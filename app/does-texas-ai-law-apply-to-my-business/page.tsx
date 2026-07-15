@@ -6,8 +6,9 @@ import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { TRAIGAApplicabilityChecker } from '@/components/traiga/TRAIGAApplicabilityChecker'
 import { TRAIGAEnforcementFlow } from '@/components/diagrams/TRAIGAEnforcementFlow'
 import { NISTLiteFramework } from '@/components/diagrams/NISTLiteFramework'
-import { Scale, Shield, AlertTriangle, Building2, HeartPulse, Fingerprint, CheckCircle2, FileText, Users, Zap } from 'lucide-react'
+import { Scale, Shield, AlertTriangle, Building2, HeartPulse, Fingerprint, CheckCircle2, FileText, Users, Zap, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import Grid from '@/components/Grid'
 
 export const metadata = {
   title: 'Does the Texas AI Law Apply to My Business? TRAIGA Guide | Subodh KC',
@@ -77,6 +78,7 @@ const articleSchema = {
   articleSection: 'AI Compliance',
   wordCount: 6500,
   keywords: ['Texas AI law', 'TRAIGA', 'HB 149', 'small business', 'AI compliance', 'applicability checker', 'healthcare AI', 'biometric AI'],
+  about: ['Texas Responsible Artificial Intelligence Governance Act', 'Texas HB 149', 'AI compliance for small businesses', 'Texas AI law applicability'],
 }
 
 const breadcrumbSchema = {
@@ -168,6 +170,7 @@ const tocItems = [
   { id: 'faq', label: 'FAQ' },
   { id: 'source-hierarchy', label: 'Official Source Hierarchy' },
   { id: 'final-takeaway', label: 'Final Takeaway' },
+  { id: 'related-guides', label: 'Related Guides' },
 ]
 
 export default function DoesTexasAILawApplyPage() {
@@ -217,12 +220,20 @@ export default function DoesTexasAILawApplyPage() {
         </div>
       </Section>
 
-      {/* Article Body */}
+      {/* Synopsis */}
       <Section className="pt-4">
-        <div className="max-w-4xl mx-auto space-y-6 text-base leading-relaxed text-foreground/90">
-          <p className="text-lg text-muted-foreground">
-            Texas did not enact a Colorado-style comprehensive high-risk AI governance regime. It enacted a more targeted law. This guide explains what the final TRAIGA statute actually says, what it does not say, and what small and midsize businesses should do about it.
-          </p>
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
+            <p className="text-base md:text-lg leading-relaxed text-foreground/90">
+              The Texas Responsible Artificial Intelligence Governance Act (TRAIGA), enacted through HB 149 and effective January 1, 2026, can apply to businesses of any size — but it is narrower than most commentary suggests. There is no small-business exemption, no general registration requirement, no mandatory impact assessment, and no universal private-chatbot disclosure rule. The law targets specific prohibited conduct (harm, crime, discrimination, illegal content), healthcare AI disclosure, biometric compliance, and Attorney General enforcement with a 60-day cure period. This guide explains what the final statute actually says, what it does not say, and what small and midsize businesses should do about it.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {['Texas-based businesses', 'Out-of-state companies serving Texas', 'Healthcare practices using AI', 'Employers using AI hiring tools', 'SaaS companies selling AI in Texas', 'Any business using AI chatbots'].map((audience) => (
+                <span key={audience} className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground">{audience}</span>
+              ))}
+            </div>
+          </div>
           <p className="text-sm text-muted-foreground">
             For the full statutory compliance guide with section-by-section analysis, see the{' '}
             <Link href="/guides/texas-ai-law" className="text-primary font-medium hover:underline">Texas AI Law (TRAIGA / HB 149) Compliance Guide</Link>.
@@ -359,7 +370,7 @@ export default function DoesTexasAILawApplyPage() {
                   </CardDescription>
                 </div>
               </div>
-              <div className="mt-3 ml-13 space-y-2 text-sm text-muted-foreground">
+              <div className="mt-3 ml-12 space-y-2 text-sm text-muted-foreground">
                 <p className="font-medium text-foreground">Example</p>
                 <p>A general customer-support assistant is not prohibited merely because a user asks a harmful question. The concern is whether the system is intentionally designed or deployed to encourage that conduct.</p>
                 <p className="font-medium text-foreground mt-2">Practical control: test whether the system gives actionable self-harm instructions, encourages violence, assists criminal planning, escalates vulnerable users toward harmful conduct, or uses manipulative engagement to prolong harmful conversations.</p>
@@ -402,6 +413,11 @@ export default function DoesTexasAILawApplyPage() {
                   </CardDescription>
                 </div>
               </div>
+              <div className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <p className="font-medium text-foreground">Example</p>
+                <p>A social-media content-moderation AI that is solely designed to suppress lawful political speech would be closer to this prohibition than a general-purpose AI that occasionally flags content under a vendor&rsquo;s standard policy.</p>
+                <p className="font-medium text-foreground mt-2">Practical control: document the system&rsquo;s intended purpose, review moderation rules for viewpoint neutrality, maintain human appeal channels, and avoid configurations whose sole function is to restrict protected expression.</p>
+              </div>
             </CardHeader>
           </Card>
 
@@ -417,6 +433,11 @@ export default function DoesTexasAILawApplyPage() {
                     The law prohibits intentionally developing or distributing AI systems for specified illegal sexual material, unlawful deepfakes, child pornography, or explicit text conversations that impersonate or imitate a child. Particularly relevant to image generators, video-generation platforms, companion chatbots, role-playing systems, and platforms serving minors.
                   </CardDescription>
                 </div>
+              </div>
+              <div className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <p className="font-medium text-foreground">Example</p>
+                <p>A companion-chatbot platform that allows users to generate explicit content impersonating minors would fall squarely within this prohibition. A general-purpose image generator with safety filters and age-gating is not the same as a system intentionally designed for that purpose.</p>
+                <p className="font-medium text-foreground mt-2">Practical controls: implement content filters, age verification, minor-safety guardrails, impersonation protections, reporting mechanisms, and human review of flagged outputs.</p>
               </div>
             </CardHeader>
           </Card>
@@ -802,6 +823,87 @@ export default function DoesTexasAILawApplyPage() {
               </Card>
             ))}
           </div>
+        </div>
+      </Section>
+
+      {/* Related Guides */}
+      <Section className="pt-4" id="related-guides">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Related AI Compliance Guides</h2>
+          <Grid cols={2} gap="md">
+            <Link href="/guides/texas-ai-law" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Scale className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">Full TRAIGA Compliance Guide</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Section-by-section analysis of the Texas AI law, including developer and deployer duties, regulatory sandbox, Texas AI Council, and defense pathways.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read guide <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/eu-ai-act" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">EU AI Act Guide</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Risk-tiered regulation for all AI placed on the EU market. Effective August 2026. Penalties up to &euro;35M or 7% of global revenue.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read guide <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/guides/nyc-local-law-144" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Building2 className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">NYC Local Law 144 Guide</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Bias audit requirements for automated employment decision tools. Active enforcement since July 2023. $500&ndash;$1,500/day per violation.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Read guide <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/solutions/haiec" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <CheckCircle2 className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base">HAIEC AI Compliance Platform</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm leading-relaxed">
+                    Automate AI system inventory, disclosure review, prohibited-use testing, evidence gaps, and cure-response package preparation.
+                  </CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                    Explore platform <ArrowRight className="h-3 w-3" />
+                  </span>
+                </CardHeader>
+              </Card>
+            </Link>
+          </Grid>
         </div>
       </Section>
 
