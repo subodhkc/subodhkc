@@ -810,6 +810,20 @@ export default function AIIncidentEvidenceChecklistPage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-xl font-bold tracking-tight mb-4">Related Resources</h2>
           <div className="grid gap-4 md:grid-cols-3">
+            <Link href="/how-to-secure-and-govern-ai" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-sm">How to Secure and Govern AI</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm">Seven layers of AI compliance — NIST AI RMF, ISO 42001, SOC 2, and continuous evidence.</CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Read guide <ArrowRight className="h-3 w-3" /></span>
+                </CardHeader>
+              </Card>
+            </Link>
             <Link href="/ai-security-tools" className="block">
               <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
                 <CardHeader>

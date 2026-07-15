@@ -249,6 +249,14 @@ export default function HAIECPage() {
         </div>
       </Section>
 
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
+            <p>Learn how HAIEC fits into the complete AI compliance stack: read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link> — the seven layers of AI compliance, framework comparison, and implementation roadmap.</p>
+          </div>
+        </div>
+      </Section>
+
       <CTA
         title="Ready to Verify Your AI Controls?"
         description="Join enterprise teams building compliant AI systems with HAIEC. Schedule a demo to see how we can help your organization."
