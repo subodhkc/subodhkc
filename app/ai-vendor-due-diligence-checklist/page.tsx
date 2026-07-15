@@ -3,7 +3,7 @@ import Section from '@/components/Section'
 import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
-import { FileText, Shield, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { FileText, Shield, ArrowRight, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -157,6 +157,11 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
+          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-900 dark:text-amber-200">
+              <strong>Educational notice:</strong> This checklist is a starting point for vendor evaluation, not a legal document. Adapt it to your jurisdiction, industry, and risk tolerance. Have your legal team review all contractual provisions before signing. Some items may not apply to your use case — document why if you skip them.
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -166,6 +171,75 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
               Selecting an AI vendor is not just a procurement decision — it is a security, compliance, and liability decision. This checklist covers six domains: data handling and privacy, security posture, model transparency, regulatory compliance, contractual protections, and operational incident response. Use it before signing any AI vendor contract, and revisit it annually or when the vendor architecture changes.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Red Flags */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Red Flags That Should Stop Procurement</h2>
+          <p className="text-sm text-muted-foreground">If a vendor exhibits any of these, pause and escalate to security leadership before proceeding.</p>
+          <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-6 space-y-3">
+            {[
+              'Cannot or will not sign a Data Processing Agreement (DPA) — walk away',
+              'Uses your data to train their models and cannot opt out — this is a data leakage and IP risk',
+              'No SOC 2 Type II or equivalent certification, and no plans to obtain one',
+              'Cannot provide model cards, capability documentation, or limitation disclosures',
+              'No documented incident response process — if they cannot handle their own incidents, they cannot protect your data',
+              'Refuses right-to-audit or limits it to self-assessment only',
+              'Liability caps that do not cover AI-specific harm (hallucination, bias, data leakage)',
+              'No breach notification timeline commitment, or timeline exceeds your regulatory requirements',
+              'Sub-processors are not disclosed or cannot be reviewed before contract signing',
+              'No API key rotation or scoped permissions — this indicates an immature security program',
+            ].map((flag) => (
+              <div key={flag} className="flex items-start gap-3">
+                <XCircle className="h-4 w-4 text-red-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-foreground/90">{flag}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Scoring Guidance */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Scoring Guidance</h2>
+          <p className="text-sm text-muted-foreground">Assign each item a score to compare vendors objectively.</p>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Card className="border-l-4 border-l-green-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  Meets (2 points)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">The vendor fully satisfies the requirement with documented evidence (certification, policy, contract clause, or technical demonstration).</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-amber-600" />
+                  Partially meets (1 point)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">The vendor has a plan or partial implementation. Document the gap, the vendor commitment, and the target date. Re-evaluate before renewal.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-red-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <XCircle className="h-4 w-4 text-red-600" />
+                  Does not meet (0 points)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">The vendor cannot or will not satisfy the requirement. Any 0-score item in Data Handling, Security Posture, or Contractual Protections should escalate to security leadership.</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+          <div className="rounded-lg border border-border bg-muted/20 p-4">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">Interpreting the total:</strong> 100–110 = low risk, proceed with standard contracting. 80–99 = moderate risk, require remediation plan before signing. 60–79 = high risk, require senior leadership approval and contractual commitments with deadlines. Below 60 = unacceptable risk — do not proceed without compensating controls or a different vendor.
             </p>
           </div>
         </div>
@@ -208,10 +282,43 @@ export default function AIVendorDueDiligenceChecklistPage() {
         </div>
       </Section>
 
+      {/* FAQ */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-xl font-bold tracking-tight mb-4">FAQ</h2>
+          {[
+            {
+              q: 'When should I re-evaluate an existing AI vendor?',
+              a: 'Re-evaluate annually at minimum. Additionally, re-evaluate when: the vendor is acquired or changes ownership, the vendor announces a new model or architecture change, your data scope expands (e.g., you start sending PHI when you previously only sent public data), a security incident occurs at the vendor, your regulatory obligations change, or the vendor sub-processor list changes without notification.',
+            },
+            {
+              q: 'What if the vendor is a startup without SOC 2 yet?',
+              a: 'Startups may not have SOC 2 Type II yet, but they should have a clear timeline and evidence of progress. Require: a signed security plan with target dates, a completed security questionnaire (e.g., CAIQ), penetration test results, and contractual commitments for certification within 12 months. Weigh the risk against the business value — a startup handling PHI without SOC 2 is a different risk profile than one handling public data.',
+            },
+            {
+              q: 'Should I require the vendor to support on-premise deployment?',
+              a: 'For highly sensitive data (PHI, biometric, financial records, source code), on-premise or customer-managed cloud deployment significantly reduces data exposure. If the vendor cannot support this, require: DLP scanning on outbound prompts, a DPA with strict no-training-on-data clauses, customer-managed encryption keys (CMEK), and a documented data deletion process with verification.',
+            },
+            {
+              q: 'How do I evaluate a vendor that uses third-party models (e.g., OpenAI, Anthropic)?',
+              a: 'The vendor should disclose which third-party models they use and provide the model provider security documentation. You need to evaluate both the vendor (your direct contractor) and the model provider (a sub-processor). Ensure the vendor DPA covers sub-processor obligations, and that data flow to the model provider is documented. If the vendor cannot disclose the model provider, that is a red flag.',
+            },
+          ].map((faq) => (
+            <details key={faq.q} className="rounded-lg border border-border p-4 group">
+              <summary className="text-sm font-medium text-foreground cursor-pointer flex items-center justify-between">
+                {faq.q}
+                <span className="text-muted-foreground group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </Section>
+
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-xl font-bold tracking-tight mb-4">Related Resources</h2>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-3">
             <Link href="/ai-security-tools" className="block">
               <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
                 <CardHeader>
@@ -219,7 +326,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <CheckCircle2 className="h-5 w-5 text-primary" />
                     </div>
-                    <CardTitle className="text-sm">AI Security Tools & Calculators</CardTitle>
+                    <CardTitle className="text-sm">AI Security Tools</CardTitle>
                   </div>
                   <CardDescription className="text-sm">Interactive blast radius calculator, agent matrix, and prompt-injection scenario library.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open tools <ArrowRight className="h-3 w-3" /></span>
@@ -233,10 +340,24 @@ export default function AIVendorDueDiligenceChecklistPage() {
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <FileText className="h-5 w-5 text-primary" />
                     </div>
-                    <CardTitle className="text-sm">AI Risk Register Template</CardTitle>
+                    <CardTitle className="text-sm">AI Risk Register</CardTitle>
                   </div>
                   <CardDescription className="text-sm">Structured template for tracking AI system risks, controls, and remediation status.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open template <ArrowRight className="h-3 w-3" /></span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/ai-incident-evidence-checklist" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-sm">Incident Evidence Checklist</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm">Four-phase checklist for preserving evidence after an AI security incident.</CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open checklist <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
             </Link>

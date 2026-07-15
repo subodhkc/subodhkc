@@ -105,6 +105,11 @@ export default function HAIECExposureAssessmentPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
+          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-900 dark:text-amber-200">
+              <strong>Educational notice:</strong> This page describes a professional assessment service. The scope, depth, and deliverables are customized to each engagement based on your architecture, data types, regulatory environment, and risk tolerance. Contact Subodh KC to discuss your specific needs.
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -165,6 +170,78 @@ export default function HAIECExposureAssessmentPage() {
         </div>
       </Section>
 
+      {/* What Makes HAIEC Different */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">What Makes HAIEC Different</h2>
+          <p className="text-sm text-muted-foreground">Generic security scans check for known vulnerabilities. HAIEC analyzes the AI-specific attack surface that traditional tools cannot see.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Bug className="h-4 w-4 text-primary" />
+                  Deterministic, not probabilistic
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">HAIEC performs static analysis on your prompts, tool definitions, RAG configurations, and authorization logic. It does not rely on LLM-based judgment calls — it identifies specific, reproducible security weaknesses with code-level precision.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Zap className="h-4 w-4 text-primary" />
+                  Adversarial runtime testing
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">Beyond static analysis, HAIEC executes runtime attacks: prompt injection, RAG poisoning, tool abuse, auth bypass, and cross-tenant access attempts. Tests both successful and failed attacks to verify that controls work under adversarial conditions.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-primary" />
+                  Evidence-grade outputs
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">Every finding includes the attack transcript, the control gap, the remediation recommendation, and the compliance mapping. The output is structured for regulators, auditors, and legal teams — not just engineering.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-primary/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Scale className="h-4 w-4 text-primary" />
+                  Multi-framework compliance mapping
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">Findings are mapped to TRAIGA, EU AI Act, NIST AI RMF, NYC LL 144, HIPAA, and GDPR requirements. One assessment produces documentation for multiple regulatory frameworks — no separate compliance audits needed.</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      {/* Deliverables */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">What You Receive</h2>
+          <p className="text-sm text-muted-foreground">Every HAIEC AI Exposure Assessment includes these deliverables.</p>
+          <div className="rounded-lg border border-border p-6 space-y-3">
+            {[
+              { title: 'Architecture & Trust Boundary Map', desc: 'A visual map of your AI application architecture showing all trust boundaries, data flows, tool integrations, MCP servers, and control points.' },
+              { title: 'Findings Report', desc: 'Each finding classified by severity, likelihood, and blast radius — with the attack transcript, control gap, and specific remediation recommendation.' },
+              { title: 'Risk Register Integration', desc: 'Findings pre-formatted for direct import into the AI risk register, with owners, controls, and remediation timeline.' },
+              { title: 'Compliance Mapping', desc: 'Cross-reference of each finding to applicable regulatory requirements under TRAIGA, EU AI Act, NIST AI RMF, NYC LL 144, HIPAA, and GDPR.' },
+              { title: 'Remediation Roadmap', desc: 'Prioritized remediation plan with P0/P1/P2 classification, estimated effort, and dependency mapping.' },
+              { title: 'Evidence Package', desc: 'All test results, attack transcripts, and analysis artifacts preserved in a structured format suitable for audit, regulatory inquiry, or litigation.' },
+            ].map((deliverable) => (
+              <div key={deliverable.title} className="flex items-start gap-3">
+                <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">{deliverable.title}</p>
+                  <p className="text-sm text-muted-foreground">{deliverable.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
       <Section className="pt-8">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
@@ -183,6 +260,43 @@ export default function HAIECExposureAssessmentPage() {
             description="Get a preliminary assessment scope document showing which areas of your AI application will be evaluated, what evidence will be collected, and how the output maps to your compliance obligations."
             resourceName="AI Exposure Assessment Preview"
           />
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-xl font-bold tracking-tight mb-4">FAQ</h2>
+          {[
+            {
+              q: 'How long does an AI Exposure Assessment take?',
+              a: 'A typical assessment takes 2–4 weeks depending on the complexity of the application, the number of integrations (MCP servers, tools, data sources), and the regulatory frameworks in scope. Phase 1 (scope and intake) takes 2–3 days, phases 2–4 (analysis and testing) take 1–2 weeks, and phases 5–6 (classification and reporting) take 3–5 days.',
+            },
+            {
+              q: 'Do you need access to our source code?',
+              a: 'Yes, for deterministic analysis. HAIEC performs static analysis on prompts, tool definitions, RAG configurations, authorization logic, and MCP server definitions. Source code access can be arranged through a mutual NDA with read-only access to a specific repository or branch. For runtime adversarial testing, we need access to a staging or test environment that mirrors production.',
+            },
+            {
+              q: 'Can the assessment be done without exposing production data?',
+              a: 'Yes. Adversarial testing is performed against a staging or test environment with synthetic or anonymized data. HAIEC does not need access to real PHI, PII, or confidential business data. The assessment evaluates the architecture and controls — not your actual data.',
+            },
+            {
+              q: 'How is this different from a penetration test?',
+              a: 'A traditional penetration test focuses on network, infrastructure, and web application vulnerabilities. HAIEC focuses on the AI-specific attack surface: prompt injection, RAG poisoning, tool abuse, model-driven authorization bypass, MCP supply-chain risks, and cross-tenant data leakage through vector search and caching. These are vulnerabilities that traditional pentesting tools and methodologies do not cover.',
+            },
+            {
+              q: 'What if we have multiple AI applications?',
+              a: 'HAIEC can assess multiple applications in a single engagement. Each application gets its own findings report, risk register entries, and compliance mapping. A portfolio-level summary is provided showing aggregate risk across all assessed applications, prioritized by blast radius.',
+            },
+          ].map((faq) => (
+            <details key={faq.q} className="rounded-lg border border-border p-4 group">
+              <summary className="text-sm font-medium text-foreground cursor-pointer flex items-center justify-between">
+                {faq.q}
+                <span className="text-muted-foreground group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{faq.a}</p>
+            </details>
+          ))}
         </div>
       </Section>
 

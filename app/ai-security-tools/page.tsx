@@ -6,7 +6,7 @@ import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { AIBlastRadiusCalculator } from '@/components/interactive/AIBlastRadiusCalculator'
 import { AgentReadWriteActionMatrix } from '@/components/interactive/AgentReadWriteActionMatrix'
 import { PromptInjectionScenarioLibrary } from '@/components/interactive/PromptInjectionScenarioLibrary'
-import { FileText, Shield, Download, ArrowRight } from 'lucide-react'
+import { FileText, Shield, Download, ArrowRight, AlertTriangle, XCircle } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -167,6 +167,59 @@ export default function AISecurityToolsPage() {
         </div>
       </Section>
 
+      {/* What These Tools Don't Cover */}
+      <Section className="pt-8" id="limitations">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">What These Tools Don't Cover</h2>
+          <p className="text-sm text-muted-foreground">These tools provide preliminary assessments. They are not a substitute for a formal security review.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <XCircle className="h-4 w-4 text-amber-600" />
+                  Runtime adversarial testing
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">The calculator and matrix estimate exposure based on your inputs. They do not execute live prompt-injection attacks, RAG poisoning attempts, or cross-tenant access tests against your running application.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <XCircle className="h-4 w-4 text-amber-600" />
+                  Code-level vulnerability analysis
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">These tools do not inspect your source code, MCP server definitions, RAG pipeline configuration, or authorization logic for implementation-level vulnerabilities.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <XCircle className="h-4 w-4 text-amber-600" />
+                  Regulatory compliance determination
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">The tools do not assess whether your specific deployment triggers obligations under TRAIGA, EU AI Act, HIPAA, NYC LL 144, or other regulations. Compliance depends on jurisdiction, data types, use case, and user population.</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <XCircle className="h-4 w-4 text-amber-600" />
+                  Vendor security verification
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">The tools do not verify whether your AI vendor actually enforces the controls they claim. Use the <Link href="/ai-vendor-due-diligence-checklist" className="text-primary hover:underline">vendor due-diligence checklist</Link> for structured procurement evaluation.</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+            <p className="text-sm text-foreground/90">
+              <strong>Need comprehensive analysis?</strong> The{' '}
+              <Link href="/solutions/haiec/exposure-assessment" className="text-primary font-medium hover:underline">HAIEC AI Exposure Assessment</Link>{' '}
+              performs deterministic code analysis, runtime adversarial testing, and produces evidence-grade compliance documentation.
+            </p>
+          </div>
+        </div>
+      </Section>
+
       {/* Downloadable Resources */}
       <Section className="pt-8" id="downloadable-resources">
         <div className="max-w-4xl mx-auto space-y-4">
@@ -195,6 +248,66 @@ export default function AISecurityToolsPage() {
               )
             })}
           </div>
+        </div>
+      </Section>
+
+      {/* Scenario Example */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">How to Use These Tools Together</h2>
+          <div className="rounded-lg border border-border p-6 space-y-4">
+            <div>
+              <p className="text-sm font-semibold text-foreground mb-1">Scenario: Healthcare internal AI assistant</p>
+              <p className="text-sm text-muted-foreground">A hospital IT team is building a Streamlit application that lets clinicians query patient records using natural language. The system uses RAG to retrieve from the EHR, connects to an MCP server for lab-result lookups, and is deployed on an internal server accessible to 500+ clinicians.</p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-foreground">Step-by-step assessment:</p>
+              <ol className="ml-4 space-y-2 text-sm text-muted-foreground">
+                <li className="list-decimal"><strong className="text-foreground">Blast Radius Calculator:</strong> Select PHI data, 101–1,000 users, action tool access, internal server deployment, MCP connected, RAG enabled. Result: <span className="text-red-600 font-medium">Critical (score 31/44)</span>. The tool recommends mandatory adversarial testing and dual authorization.</li>
+                <li className="list-decimal"><strong className="text-foreground">Agent Matrix:</strong> Toggle read on patient records (high), action on lab-result lookup (critical), and admin on user management (critical). The matrix flags 2 critical combinations — confirming that admin access should be removed from the agent scope entirely.</li>
+                <li className="list-decimal"><strong className="text-foreground">Scenario Library:</strong> Review the indirect prompt injection via RAG document scenario (PI-02). The team realizes that a malicious document uploaded to the EHR knowledge base could instruct the model to call the lab-result tool and exfiltrate results. They add document provenance tracking and human approval for all action tools.</li>
+                <li className="list-decimal"><strong className="text-foreground">Risk Register:</strong> Create entries for each identified risk with owners from IT, Security, and Compliance. Set the RAG poisoning risk to High likelihood given that clinicians can upload documents.</li>
+                <li className="list-decimal"><strong className="text-foreground">Vendor Checklist:</strong> Evaluate the EHR vendor and MCP server provider against the 60-item checklist before signing the integration agreement.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section className="pt-8" id="faq">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">FAQ</h2>
+          {[
+            {
+              q: 'Are these tools free to use?',
+              a: 'Yes. All three interactive tools are free and run entirely in your browser. No data is sent to a server. The downloadable checklists and templates are available through the lead magnet form.',
+            },
+            {
+              q: 'Do these tools work for non-Streamlit AI applications?',
+              a: 'Yes. While the tools were designed alongside the Streamlit architecture guide, the risk factors, agent capabilities, and attack scenarios apply to any internal AI application built with Python, React, or any other framework. The blast radius factors (data type, user scale, tool access, deployment model) are framework-agnostic.',
+            },
+            {
+              q: 'How often should I re-run the blast radius calculation?',
+              a: 'Re-run it whenever the application architecture changes: new data sources, new tool integrations, new MCP servers, expanded user populations, or deployment model changes. At minimum, review quarterly as part of your AI governance cycle.',
+            },
+            {
+              q: 'Can I use the scenario library for security training?',
+              a: 'Yes. The scenario library is designed for both planning and training. Each scenario includes a concrete attack example and defense strategies, making it suitable for tabletop exercises, developer training, and security awareness sessions.',
+            },
+            {
+              q: 'What should I do if the blast radius calculator shows Critical?',
+              a: 'Do not deploy without a completed security assessment. Follow the recommendations provided with the Critical result, and consider engaging a professional AI security assessment. The HAIEC AI Exposure Assessment provides deterministic analysis, adversarial testing, and evidence-grade compliance outputs.',
+            },
+          ].map((faq) => (
+            <details key={faq.q} className="rounded-lg border border-border p-4 group">
+              <summary className="text-sm font-medium text-foreground cursor-pointer flex items-center justify-between">
+                {faq.q}
+                <span className="text-muted-foreground group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{faq.a}</p>
+            </details>
+          ))}
         </div>
       </Section>
 

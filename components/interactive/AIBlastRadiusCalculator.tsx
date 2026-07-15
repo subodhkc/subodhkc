@@ -63,10 +63,62 @@ export function AIBlastRadiusCalculator() {
   }, [dataType, userScale, toolAccess, deployment, mcpConnected, ragEnabled, autoApproval])
 
   const riskLevel = useMemo(() => {
-    if (score <= 6) return { label: 'Low', color: 'green', icon: Shield, description: 'Limited exposure surface. Basic controls and documentation are likely sufficient.' }
-    if (score <= 15) return { label: 'Moderate', color: 'amber', icon: AlertTriangle, description: 'Meaningful exposure. Formal security review, RLS, and tool authorization are recommended.' }
-    if (score <= 25) return { label: 'High', color: 'orange', icon: AlertTriangle, description: 'Significant exposure. Mandatory security review, human approval for actions, and evidence-grade logging required.' }
-    return { label: 'Critical', color: 'red', icon: Zap, description: 'High blast radius. Full governance program, adversarial testing, and continuous monitoring are essential.' }
+    if (score <= 6) return {
+      label: 'Low',
+      color: 'green',
+      icon: Shield,
+      description: 'Limited exposure surface. Basic controls and documentation are likely sufficient.',
+      recommendations: [
+        'Document the AI system in your AI inventory with data types and user populations',
+        'Enable basic audit logging for all model interactions and tool calls',
+        'Review access controls quarterly — ensure only intended users can reach the application',
+        'Keep the tool allow-list minimal: remove any tool that is not actively used',
+      ],
+    }
+    if (score <= 15) return {
+      label: 'Moderate',
+      color: 'amber',
+      icon: AlertTriangle,
+      description: 'Meaningful exposure. Formal security review, RLS, and tool authorization are recommended.',
+      recommendations: [
+        'Conduct a formal security review covering prompt injection, tool authorization, and data access paths',
+        'Implement row-level security (RLS) before retrieval — never rely on the model to filter restricted content',
+        'Add human approval for any tool that writes, sends, or modifies data',
+        'Scope cache keys with tenant and user identity to prevent cross-tenant leakage',
+        'Create an AI risk register entry for this application and assign an owner',
+      ],
+    }
+    if (score <= 25) return {
+      label: 'High',
+      color: 'orange',
+      icon: AlertTriangle,
+      description: 'Significant exposure. Mandatory security review, human approval for actions, and evidence-grade logging required.',
+      recommendations: [
+        'Mandatory security review before production deployment — do not defer to post-launch',
+        'Human approval required for all action and admin tools — no automatic execution',
+        'Server-side authorization independent of model output for every sensitive operation',
+        'Evidence-grade logging: prompts, outputs, tool calls, authorization decisions, approver identity',
+        'Negative-access testing for cross-tenant data leakage before each release',
+        'Incident response playbook specific to this application, with evidence preservation checklist',
+        'Consider a HAIEC AI Exposure Assessment for deterministic analysis and adversarial testing',
+      ],
+    }
+    return {
+      label: 'Critical',
+      color: 'red',
+      icon: Zap,
+      description: 'High blast radius. Full governance program, adversarial testing, and continuous monitoring are essential.',
+      recommendations: [
+        'Do not deploy without a completed AI security assessment — the blast radius is too large for informal review',
+        'Full governance program: AI system registry, risk register, disclosure review, and compliance documentation',
+        'Mandatory adversarial testing: prompt injection, RAG poisoning, tool abuse, auth bypass, and cross-tenant access',
+        'Dual authorization for high-value actions (two humans must approve)',
+        'Continuous monitoring with alerting on anomalous tool calls, unusual retrieval patterns, and authorization failures',
+        'Quarterly security review and after any architecture change, new MCP integration, or data source expansion',
+        'Regulatory compliance assessment: TRAIGA, EU AI Act, HIPAA, NYC LL 144 — depending on data types and jurisdictions',
+        'Engage HAIEC for a comprehensive AI Exposure Assessment with evidence-grade outputs',
+      ],
+    }
   }, [score])
 
   const Icon = riskLevel.icon
@@ -173,10 +225,18 @@ export function AIBlastRadiusCalculator() {
             <Icon className="h-6 w-6" />
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide">Blast Radius: {riskLevel.label}</p>
-              <p className="text-xs opacity-80">Score: {score} / 50</p>
+              <p className="text-xs opacity-80">Score: {score} / 44</p>
             </div>
           </div>
           <p className="text-sm text-foreground/90">{riskLevel.description}</p>
+          <ul className="mt-3 space-y-1">
+            {riskLevel.recommendations.map((rec) => (
+              <li key={rec} className="flex items-start gap-2 text-xs text-foreground/80">
+                <span className="text-primary flex-shrink-0 mt-0.5">•</span>
+                <span>{rec}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {score > 15 && (

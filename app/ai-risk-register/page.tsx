@@ -99,6 +99,11 @@ export default function AIRiskRegisterPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
+          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-900 dark:text-amber-200">
+              <strong>Educational notice:</strong> This template provides a starting framework for AI risk management. Production deployments should undergo organization-specific risk assessment with qualified security and compliance professionals. Risks and controls should be tailored to your specific architecture, data types, and regulatory environment.
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -112,6 +117,96 @@ export default function AIRiskRegisterPage() {
               and the{' '}
               <Link href="/build-internal-ai-applications-streamlit-rag-mcp" className="text-primary font-medium hover:underline">Streamlit architecture guide</Link>.
             </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Risk Prioritization Framework */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Risk Prioritization Framework</h2>
+          <p className="text-sm text-muted-foreground">Not all risks are equal. Use this framework to decide what to fix first.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="border-l-4 border-l-red-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                  Fix immediately (Critical impact)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block">Any risk with Critical impact — regardless of likelihood — deserves immediate attention. A single occurrence could cause irreversible harm: PHI exposure, unauthorized fund transfers, or cross-tenant data breach.</span>
+                  <span className="block"><strong className="text-foreground">Action:</strong> Implement controls before the next release. Block deployment if the control is not in place.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-orange-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-orange-600" />
+                  Fix this quarter (High likelihood + High impact)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block">Risks that are both likely and impactful. These are not emergencies but will cause real incidents if left unaddressed. Direct prompt injection (R-04) and excessive tool permissions (R-07) typically fall here.</span>
+                  <span className="block"><strong className="text-foreground">Action:</strong> Assign owner, set target date within 90 days, track in weekly review.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-amber-600" />
+                  Plan and monitor (Medium likelihood + Medium impact)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block">Risks that are possible but not immediately threatening. Session State misuse (R-12) and missing documentation (R-13) fall here. These can escalate if the architecture changes.</span>
+                  <span className="block"><strong className="text-foreground">Action:</strong> Add to roadmap, review quarterly, escalate if likelihood increases.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="border-l-4 border-l-green-500/40">
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  Accept and document (Low likelihood + Low impact)
+                </CardTitle>
+                <CardDescription className="text-sm mt-1 space-y-1.5">
+                  <span className="block">Risks that are unlikely and low-impact. Document the decision to accept, the reasoning, and the conditions that would trigger re-evaluation.</span>
+                  <span className="block"><strong className="text-foreground">Action:</strong> Document acceptance rationale. Review annually or after architecture changes.</span>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      {/* Scenario Example */}
+      <Section className="pt-8">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Scenario: From Risk Identification to Remediation</h2>
+          <div className="rounded-lg border border-border p-6 space-y-4">
+            <p className="text-sm text-muted-foreground">A financial services firm builds an internal AI assistant using Streamlit and RAG. The engineering lead runs through the risk register and identifies the following chain:</p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500/10 text-red-600 text-xs font-bold flex items-center justify-center">1</span>
+                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Identify:</strong> R-05 (Indirect injection via poisoned RAG documents) — Likelihood: Medium, Impact: Critical. The firm allows analysts to upload research notes to the RAG corpus. A malicious or compromised analyst could inject instructions into a document that the model retrieves and follows.</div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500/10 text-orange-600 text-xs font-bold flex items-center justify-center">2</span>
+                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Assess:</strong> The blast radius is significant — the RAG corpus is shared across 200+ analysts, and the model has action tools (send email, create trade ticket). An injected instruction could cause the model to email restricted research to an external address.</div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/10 text-amber-600 text-xs font-bold flex items-center justify-center">3</span>
+                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Control:</strong> Implement document provenance tracking (each upload is attributed to a named user with timestamp), content scanning for injection patterns before indexing, and mandatory human approval for the send-email tool. Remove automatic execution for all action tools.</div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/10 text-green-600 text-xs font-bold flex items-center justify-center">4</span>
+                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Verify:</strong> Run negative-access tests: upload a document containing hidden instructions and verify the model does not follow them. Confirm the send-email tool requires human approval. Update the risk register status from Open to Mitigated.</div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">5</span>
+                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Monitor:</strong> Add alerting on documents matching injection patterns. Review the risk register entry quarterly. Re-assess if the user population expands, new tools are added, or the upload policy changes.</div>
+              </div>
+            </div>
           </div>
         </div>
       </Section>
@@ -176,10 +271,43 @@ export default function AIRiskRegisterPage() {
         </div>
       </Section>
 
+      {/* FAQ */}
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-xl font-bold tracking-tight mb-4">FAQ</h2>
+          {[
+            {
+              q: 'How is an AI risk register different from a traditional IT risk register?',
+              a: 'Traditional IT risk registers focus on infrastructure, access control, and data breaches. An AI risk register must additionally cover prompt injection (where the attack vector is natural language), RAG poisoning (where the data source itself is the attack vector), tool abuse (where the model is manipulated into taking actions), model-driven authorization bypass (where the application trusts model output for access decisions), and supply-chain risks from MCP servers and model vendors. These risks do not exist in traditional software.',
+            },
+            {
+              q: 'Should every AI application have its own risk register?',
+              a: 'Small, low-risk applications (e.g., a single-user summarization tool with no sensitive data) can share a portfolio-level register. Any application with access to confidential data, more than 10 users, or action/admin tools should have its own register entry with application-specific risks, controls, and owners.',
+            },
+            {
+              q: 'How do I know when to add a new risk to the register?',
+              a: 'Add a new risk whenever: (1) a new data source is connected, (2) a new tool or MCP server is integrated, (3) the user population expands significantly, (4) the deployment model changes, (5) a security incident occurs (even if caught before impact), or (6) a new regulatory requirement applies. Review the register quarterly and after any architecture change.',
+            },
+            {
+              q: 'What is the difference between likelihood and impact?',
+              a: 'Likelihood is the probability that the risk will materialize given your current controls and architecture. Impact is the severity of consequences if it does materialize — considering data sensitivity, number of users affected, financial cost, regulatory exposure, and reputational damage. A risk with Low likelihood but Critical impact (e.g., PHI exposure) still demands immediate attention.',
+            },
+          ].map((faq) => (
+            <details key={faq.q} className="rounded-lg border border-border p-4 group">
+              <summary className="text-sm font-medium text-foreground cursor-pointer flex items-center justify-between">
+                {faq.q}
+                <span className="text-muted-foreground group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </Section>
+
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-xl font-bold tracking-tight mb-4">Related Resources</h2>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-3">
             <Link href="/ai-security-tools" className="block">
               <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
                 <CardHeader>
@@ -187,7 +315,7 @@ export default function AIRiskRegisterPage() {
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <CheckCircle2 className="h-5 w-5 text-primary" />
                     </div>
-                    <CardTitle className="text-sm">AI Security Tools & Calculators</CardTitle>
+                    <CardTitle className="text-sm">AI Security Tools</CardTitle>
                   </div>
                   <CardDescription className="text-sm">Interactive blast radius calculator, agent matrix, and prompt-injection scenario library.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open tools <ArrowRight className="h-3 w-3" /></span>
@@ -201,9 +329,23 @@ export default function AIRiskRegisterPage() {
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <FileText className="h-5 w-5 text-primary" />
                     </div>
-                    <CardTitle className="text-sm">AI Incident Evidence Checklist</CardTitle>
+                    <CardTitle className="text-sm">Incident Evidence Checklist</CardTitle>
                   </div>
-                  <CardDescription className="text-sm">Structured checklist for preserving evidence after an AI security incident.</CardDescription>
+                  <CardDescription className="text-sm">Four-phase checklist for preserving evidence after an AI security incident.</CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open checklist <ArrowRight className="h-3 w-3" /></span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/ai-vendor-due-diligence-checklist" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-sm">Vendor Due-Diligence Checklist</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm">60-item checklist for evaluating AI vendors before procurement.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open checklist <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
