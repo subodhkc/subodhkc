@@ -198,6 +198,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/ai-voice-agent-architecture`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/solutions/haiec/exposure-assessment`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

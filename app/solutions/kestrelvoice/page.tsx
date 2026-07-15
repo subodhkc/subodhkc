@@ -226,6 +226,14 @@ export default function KestrelVoicePage() {
         </div>
       </Section>
 
+      <Section className="pt-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
+            <p>Want to see how Kestrel Voice works under the hood? Read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link> — the complete production architecture covering telephony, adaptive orchestration, RAG, tools, degradation, security, and evidence pipeline.</p>
+          </div>
+        </div>
+      </Section>
+
       <CTA
         title="Ready to Never Miss a Call Again?"
         description="Join thousands of professionals using KestrelVoice to capture every opportunity. Set up in minutes, start answering calls instantly."

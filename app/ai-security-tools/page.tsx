@@ -470,7 +470,7 @@ export default function AISecurityToolsPage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>For a comprehensive guide on how NIST AI RMF, ISO/IEC 42001, SOC 2, and AI-specific security testing fit together, read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link>. For AI voice agent-specific security, failure modes, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>.</p>
+            <p>For a comprehensive guide on how NIST AI RMF, ISO/IEC 42001, SOC 2, and AI-specific security testing fit together, read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link>. For AI voice agent-specific security, failure modes, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the complete production architecture behind Kestrel Voice — telephony, adaptive orchestration, RAG pipeline, tools, degradation, and security — read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link>.</p>
           </div>
         </div>
       </Section>

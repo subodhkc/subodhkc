@@ -63,6 +63,7 @@ const SITEMAP = [
       ["/does-texas-ai-law-apply-to-my-business", "does the Texas AI law apply to my business?"],
       ["/how-to-secure-and-govern-ai", "how to secure and govern AI"],
       ["/why-ai-voice-agents-fail-in-production", "why AI voice agents fail in production"],
+      ["/ai-voice-agent-architecture", "AI voice agent architecture"],
       ["/ai-security-tools", "AI security tools & calculators"],
       ["/solutions/haiec/exposure-assessment", "AI exposure assessment"],
       ["/research", "research"],
