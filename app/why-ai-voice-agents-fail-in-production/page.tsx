@@ -137,6 +137,7 @@ const tocItems = [
   { id: 'kestrel-haiec', label: 'How Kestrel Voice and HAIEC Work Together' },
   { id: 'kestrel-controls', label: 'What Each Control Protects Against' },
   { id: 'deployment-plan', label: 'A Practical Deployment Plan' },
+  { id: 'readiness-checker', label: 'Check Your Readiness' },
   { id: 'fifteen-questions', label: 'Fifteen Questions Business Leaders Should Ask' },
   { id: 'faq', label: 'Frequently Asked Questions' },
   { id: 'final-perspective', label: 'Final Perspective' },
@@ -299,6 +300,9 @@ export default function WhyAIVoiceAgentsFailPage() {
             <p><strong className="text-foreground">Last reviewed:</strong> July 15, 2026</p>
             <p><strong className="text-foreground">Scope:</strong> AI voice agent architecture, guardrails, security, compliance, customer experience, and ROI for organizations deploying AI-powered phone systems</p>
             <p><strong className="text-foreground">Disclosure:</strong> Kestrel Voice and HAIEC are platforms developed by Subodh KC. This article refers to Kestrel as the product through which these architectural principles have been applied directly, and HAIEC as the companion AI security, governance, and compliance-readiness platform. Neither platform eliminates AI risk. Their purpose is to make that risk more visible, controlled, testable, and supportable with evidence.</p>
+          </div>
+          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-900 dark:text-amber-200"><strong>Educational notice:</strong> This article provides general information about AI voice agent architecture, security, and compliance. Legal and regulatory applicability depends on the use case, jurisdiction, data, call purpose, and caller population. Telephony-specific obligations such as TCPA, HIPAA, and state biometric laws require case-by-case analysis.</p>
           </div>
         </div>
       </Section>
@@ -1044,7 +1048,7 @@ export default function WhyAIVoiceAgentsFailPage() {
       </Section>
 
       {/* Readiness Checker */}
-      <Section className="pb-4">
+      <Section id="readiness-checker" className="pb-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Check Your Readiness</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">Answer five questions about your planned AI voice deployment to get a deployment path recommendation, risk level, and prioritized control checklist.</p>
@@ -1118,6 +1122,9 @@ export default function WhyAIVoiceAgentsFailPage() {
                   </div>
                   <CardDescription className="text-xs">AI voice operations platform for service businesses. Answer every call, book appointments, recover missed revenue.</CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Explore Kestrel Voice <ArrowRight className="h-3 w-3" /></span>
+                </CardContent>
               </Card>
             </Link>
             <Link href="/solutions/haiec">
@@ -1131,6 +1138,9 @@ export default function WhyAIVoiceAgentsFailPage() {
                   </div>
                   <CardDescription className="text-xs">AI security, governance, and compliance-readiness platform with exposure assessment and audit-grade evidence.</CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Explore HAIEC <ArrowRight className="h-3 w-3" /></span>
+                </CardContent>
               </Card>
             </Link>
             <Link href="/does-texas-ai-law-apply-to-my-business">
@@ -1144,6 +1154,9 @@ export default function WhyAIVoiceAgentsFailPage() {
                   </div>
                   <CardDescription className="text-xs">Plain-English Texas AI law guide with interactive applicability checker, disclosure rules, and readiness plan.</CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read guide <ArrowRight className="h-3 w-3" /></span>
+                </CardContent>
               </Card>
             </Link>
             <Link href="/how-to-secure-and-govern-ai">
@@ -1157,6 +1170,9 @@ export default function WhyAIVoiceAgentsFailPage() {
                   </div>
                   <CardDescription className="text-xs">NIST AI RMF, ISO/IEC 42001, SOC 2, and the seven layers of AI compliance with an interactive framework decision tool.</CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read guide <ArrowRight className="h-3 w-3" /></span>
+                </CardContent>
               </Card>
             </Link>
             <Link href="/ai-security-tools">
@@ -1170,6 +1186,9 @@ export default function WhyAIVoiceAgentsFailPage() {
                   </div>
                   <CardDescription className="text-xs">Interactive blast radius calculator, agent read/write/action matrix, and prompt-injection scenario library.</CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Explore tools <ArrowRight className="h-3 w-3" /></span>
+                </CardContent>
               </Card>
             </Link>
             <Link href="/secure-enterprise-rag-architecture">
@@ -1183,6 +1202,9 @@ export default function WhyAIVoiceAgentsFailPage() {
                   </div>
                   <CardDescription className="text-xs">Enterprise RAG security covering row-level security, tenant isolation, retrieval governance, and the full RAG lifecycle.</CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read guide <ArrowRight className="h-3 w-3" /></span>
+                </CardContent>
               </Card>
             </Link>
           </Grid>

@@ -161,7 +161,9 @@ export function VoiceControlLadder() {
             <Shield className="h-4 w-4 inline mr-1 text-primary" />
             <strong>Read and write tools should be separated.</strong> The model may request a tool, but the application should enforce caller authorization, tenant scope, required fields, transaction limits, confirmation, idempotency, retry limits, and audit evidence. See the{' '}
             <Link href="/ai-security-tools" className="text-primary font-medium hover:underline">AI security tools</Link>{' '}
-            for interactive agent-capability analysis.
+            for interactive agent-capability analysis or{' '}
+            <Link href="/solutions/kestrelvoice" className="text-primary font-medium hover:underline">Kestrel Voice</Link>{' '}
+            for a platform that implements these control levels.
           </p>
         </div>
       </CardContent>

@@ -341,6 +341,14 @@ export function VoiceAgentReadinessChecker() {
                     <Link href="/ai-security-tools" className="text-primary font-medium hover:underline">AI security tools</Link>{' '}
                     for blast radius and prompt-injection analysis</span>
                 </li>
+                {(dataSensitivity === 'pii' || dataSensitivity === 'phi') && (
+                  <li className="flex items-start gap-2">
+                    <ArrowRight className="h-3 w-3 mt-1 text-primary flex-shrink-0" />
+                    <span>Review the{' '}
+                      <Link href="/secure-enterprise-rag-architecture" className="text-primary font-medium hover:underline">secure enterprise RAG architecture guide</Link>{' '}
+                      for tenant isolation, row-level security, and retrieval governance</span>
+                  </li>
+                )}
                 <li className="flex items-start gap-2">
                   <ArrowRight className="h-3 w-3 mt-1 text-primary flex-shrink-0" />
                   <span>Explore{' '}
