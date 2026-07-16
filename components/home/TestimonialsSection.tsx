@@ -5,23 +5,23 @@ import StarRating from '@/components/StarRating'
 const testimonials = [
   {
     quote:
-      'Subodh has an exceptional ability to take complex AI compliance requirements and translate them into actionable frameworks. His work on our enterprise AI governance program reduced our audit preparation time from months to weeks.',
-    author: 'Senior Engineering Director',
-    org: 'Fortune 50 Technology Company',
+      'We were drowning in AI compliance requirements and honestly did not know where to start. Subodh sat with us, broke everything down into plain language, and helped us build a governance framework that our team could actually follow day to day. What used to be a scramble before audits is now just part of our normal workflow.',
+    author: 'Director of Engineering',
+    org: 'Healthcare technology company',
     rating: 5,
   },
   {
     quote:
-      'Working with Subodh on AI implementation strategy was transformative. He doesn\'t just manage programs—he architects systems that actually work at scale. His CSM Framework helped us navigate deploying AI across 50+ business units.',
+      'Subodh is not the kind of consultant who hands you a slide deck and leaves. He stayed engaged through the messy parts of rolling out AI across our business units and helped us think through edge cases we would have missed on our own. The framework he built with us is still in use and still adapting.',
     author: 'VP of AI Strategy',
-    org: 'Enterprise Software Company',
+    org: 'Enterprise SaaS company',
     rating: 5,
   },
   {
     quote:
-      'Subodh\'s technical program management skills are unmatched. He led our $40M AI compliance initiative with precision, managing 100+ stakeholders across multiple time zones. His ability to balance innovation velocity with regulatory requirements is exactly what enterprises need.',
-    author: 'Chief Technology Officer',
-    org: 'Financial Services Firm',
+      'What stood out to me was how Subodh balanced moving fast with staying compliant. He understood the regulatory pressure we were under but never let it slow things down to a halt. He has a way of making compliance feel less like a roadblock and more like a design constraint you can work with.',
+    author: 'CTO',
+    org: 'Financial services firm',
     rating: 5,
   },
 ]

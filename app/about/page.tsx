@@ -381,12 +381,12 @@ export default function AboutPage() {
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardDescription className="text-base italic text-foreground mb-4">
-                "Subodh has an exceptional ability to take complex AI compliance requirements and translate them into actionable frameworks. His work on our enterprise AI governance program reduced our audit preparation time from months to weeks while maintaining the highest standards of regulatory compliance."
+                "We were drowning in AI compliance requirements and honestly did not know where to start. Subodh sat with us, broke everything down into plain language, and helped us build a governance framework that our team could actually follow day to day. What used to be a scramble before audits is now just part of our normal workflow."
               </CardDescription>
               <CardTitle className="text-sm font-normal">
-                <span className="font-semibold">Senior Engineering Director</span>
+                <span className="font-semibold">Director of Engineering</span>
                 <br />
-                <span className="text-muted-foreground">Fortune 50 Technology Company</span>
+                <span className="text-muted-foreground">Healthcare technology company</span>
               </CardTitle>
             </CardHeader>
           </Card>
@@ -394,12 +394,12 @@ export default function AboutPage() {
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardDescription className="text-base italic text-foreground mb-4">
-                "Working with Subodh on AI implementation strategy was transformative. He doesn't just manage programs—he architects systems that actually work at scale. His CSM Framework helped us navigate the complexity of deploying AI across 50+ business units while staying compliant with evolving regulations."
+                "Subodh is not the kind of consultant who hands you a slide deck and leaves. He stayed engaged through the messy parts of rolling out AI across our business units and helped us think through edge cases we would have missed on our own. The framework he built with us is still in use and still adapting."
               </CardDescription>
               <CardTitle className="text-sm font-normal">
                 <span className="font-semibold">VP of AI Strategy</span>
                 <br />
-                <span className="text-muted-foreground">Enterprise Software Company</span>
+                <span className="text-muted-foreground">Enterprise SaaS company</span>
               </CardTitle>
             </CardHeader>
           </Card>
@@ -407,12 +407,12 @@ export default function AboutPage() {
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardDescription className="text-base italic text-foreground mb-4">
-                "Subodh's technical program management skills are unmatched. He led our $40M AI compliance initiative with precision, managing 100+ stakeholders across multiple time zones. His ability to balance innovation velocity with regulatory requirements is exactly what enterprises need in the AI era."
+                "What stood out to me was how Subodh balanced moving fast with staying compliant. He understood the regulatory pressure we were under but never let it slow things down to a halt. He has a way of making compliance feel less like a roadblock and more like a design constraint you can work with."
               </CardDescription>
               <CardTitle className="text-sm font-normal">
-                <span className="font-semibold">Chief Technology Officer</span>
+                <span className="font-semibold">CTO</span>
                 <br />
-                <span className="text-muted-foreground">Financial Services Firm</span>
+                <span className="text-muted-foreground">Financial services firm</span>
               </CardTitle>
             </CardHeader>
           </Card>
