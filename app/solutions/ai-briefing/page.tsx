@@ -13,9 +13,9 @@ export default function AIBriefingPage() {
   const features = [
     {
       icon: Globe,
-      title: '45+ Sources Monitored',
+      title: '40+ Sources Monitored',
       description: 'From MIT to TechCrunch to White House briefings. Comprehensive coverage of AI developments.',
-      stat: '45+'
+      stat: '40+'
     },
     {
       icon: TrendingUp,
@@ -230,7 +230,7 @@ export default function AIBriefingPage() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Intelligence Sources</h2>
           <p className="text-center text-muted-foreground mb-8">
-            We monitor 45+ authoritative sources so you don't have to
+            We monitor 40+ authoritative sources so you don't have to
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             {sources.map((source, index) => (

@@ -216,8 +216,8 @@ export default function HAIECPage() {
               <Card className="p-6">
                 <h3 className="text-xl font-semibold mb-3">Production-Ready</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Not a research project. HAIEC is deployed in Fortune 50 environments, managing compliance for 
-                  production AI systems at enterprise scale.
+                  Not a research project. HAIEC is designed for enterprise environments, with tools and frameworks 
+                  built from real-world AI compliance work at scale.
                 </p>
               </Card>
               <Card className="p-6">

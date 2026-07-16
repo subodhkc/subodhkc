@@ -171,8 +171,8 @@ export default function AboutPage() {
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             Fast forward 16 years. I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar 
-            AI portfolios, deploy systems used by millions, and design compliance architectures that withstand legal, operational, 
-            and engineering scrutiny. I built a governance platform (HAIEC) from scratch—quietly adopted in enterprise settings—and 
+            AI portfolios, deploy systems at enterprise scale, and design compliance architectures that withstand legal, operational, 
+            and engineering scrutiny. I built a governance platform (HAIEC) from scratch—used in enterprise settings—and
             authored five patent-pending frameworks in drift detection, audit automation, and real-time AI enforcement.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
@@ -276,7 +276,7 @@ export default function AboutPage() {
               </CardTitle>
               <CardDescription>
                 Cognitive Systems Management methodology and Meeting ResetFrame for enterprise AI program delivery. 
-                Deployed in multiple Fortune 50 pilots with proven results.
+                Designed for enterprise AI programs with practical, repeatable delivery.
               </CardDescription>
             </CardHeader>
           </Card>

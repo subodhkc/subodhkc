@@ -14,7 +14,7 @@ export default function FrontOfAIPage() {
     {
       icon: FileText,
       title: 'AI Briefing',
-      description: 'Weekly AI intelligence for IT leaders. 45+ sources monitored, impact-scored stories, role-based views.',
+      description: 'Weekly AI intelligence for IT leaders. 40+ sources monitored, impact-scored stories, role-based views.',
       href: '/solutions/ai-briefing',
       external: 'https://frontofai.com/briefing',
       badge: 'Free'

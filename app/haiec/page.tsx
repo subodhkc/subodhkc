@@ -123,21 +123,21 @@ export default function HAIECPage() {
       challenge: 'Meeting AI Act compliance while maintaining model performance',
       solution:
         'Implemented HAIEC compliance engine with automated policy enforcement and continuous monitoring',
-      result: '100% regulatory compliance with <2% impact on model latency',
+      result: 'Established continuous compliance monitoring with minimal impact on model performance',
     },
     {
       industry: 'Healthcare',
       challenge: 'Auditing legacy AI systems for HIPAA and FDA requirements',
       solution:
         'Deployed Red Audit Kit with LegacyShift methodology for systematic modernization',
-      result: 'Achieved full compliance certification in 8 months vs. 18-month baseline',
+      result: 'Systematic modernization roadmap reduced compliance preparation time significantly',
     },
     {
       industry: 'Enterprise SaaS',
-      challenge: 'Detecting and managing model drift across 50+ production models',
+      challenge: 'Detecting and managing model drift across a large portfolio of production models',
       solution:
         'Integrated precision drift detection with automated alerting and remediation workflows',
-      result: '95% reduction in undetected drift incidents, 60% faster response time',
+      result: 'Improved drift detection coverage and reduced incident response time through automated alerting',
     },
   ]
 

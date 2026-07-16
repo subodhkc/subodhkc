@@ -19,7 +19,7 @@ export function Hero() {
           <ul>
             <li>15 products shipped</li>
             <li>10,000+ npm + pypi installs</li>
-            <li>100% audit pass rate</li>
+            <li>5 patent-pending frameworks</li>
             <li>16 years full-stack experience</li>
           </ul>
           <p>

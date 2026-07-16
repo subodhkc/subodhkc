@@ -55,7 +55,7 @@ export default function CourtCasePage() {
       description: 'Generate court-ready formatted documents and exhibits'
     },
     {
-      name: '35+ MCP Engines',
+      name: 'MCP Processing Engines',
       description: 'Specialized processing for different evidence types'
     }
   ]
@@ -83,7 +83,7 @@ export default function CourtCasePage() {
     'No AI training on your data',
     '10-day auto-delete policy',
     'US-based servers',
-    'SOC 2 compliant infrastructure',
+    'SOC 2 ready infrastructure',
     'Privacy-focused design'
   ]
 
@@ -141,7 +141,7 @@ export default function CourtCasePage() {
                 <p className="text-muted-foreground">Average processing time</p>
               </div>
               <div>
-                <p className="font-semibold text-primary">100% Private</p>
+                <p className="font-semibold text-primary">Private by Design</p>
                 <p className="text-muted-foreground">Your data, your control</p>
               </div>
             </div>

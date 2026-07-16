@@ -50,7 +50,7 @@ export default function KestrelVoicePage() {
       title: 'Service Businesses',
       description: 'HVAC, plumbing, electrical, and home services that need 24/7 call coverage and appointment booking.',
       icon: Users,
-      stats: '30-60% of calls missed without AI'
+stats: 'Missed calls mean lost revenue'
     },
     {
       title: 'Freelancers & Consultants',
@@ -103,7 +103,7 @@ export default function KestrelVoicePage() {
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">The Problem</h2>
           <p className="text-xl text-muted-foreground">
-            Most businesses miss <span className="text-primary font-semibold">30-60% of their calls</span>. 
+            Most service businesses miss a significant portion of their calls during busy hours, after hours, and emergencies. 
             Every missed call is lost revenue, frustrated customers, and opportunities for competitors.
           </p>
         </div>
@@ -236,7 +236,7 @@ export default function KestrelVoicePage() {
 
       <CTA
         title="Ready to Never Miss a Call Again?"
-        description="Join thousands of professionals using KestrelVoice to capture every opportunity. Set up in minutes, start answering calls instantly."
+        description="Start capturing every call opportunity with KestrelVoice. Quick setup, immediate coverage, and a receptionist that never takes a break."
         primaryButton={{ text: 'Start Free Trial', href: 'https://www.kestrelvoice.com' }}
         secondaryButton={{ text: 'Contact Sales', href: '/contact' }}
       />

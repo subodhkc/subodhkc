@@ -13,7 +13,7 @@ import { PRODUCTS } from "@/data/products";
 const KPIS = [
   { k: "products", v: 15, fmt: { suffix: "" }, sub: "shipped", live: false },
   { k: "installs", v: 10000, fmt: { formatK: true, suffix: "+" }, sub: "npm + pypi", live: true },
-  { k: "compliance", v: 100, fmt: { suffix: "%" }, sub: "audit pass", live: false },
+  { k: "patents", v: 5, fmt: { suffix: "" }, sub: "pending", live: false },
   { k: "experience", v: 16, fmt: { suffix: "y" }, sub: "full-stack", live: false },
 ];
 

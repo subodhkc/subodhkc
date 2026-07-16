@@ -95,8 +95,8 @@ export default function ExecutiveBioPage() {
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar AI portfolios, 
-              deploy systems used by millions, and design compliance architectures that withstand legal, operational, and 
-              engineering scrutiny. I built a governance platform (HAIEC) from scratch—quietly adopted in enterprise settings—and 
+              deploy systems at enterprise scale, and design compliance architectures that withstand legal, operational, and 
+              engineering scrutiny. I built a governance platform (HAIEC) from scratch—used in enterprise settings—and 
               authored five patent-pending frameworks in drift detection, audit automation, and real-time AI enforcement.
             </p>
             <p className="text-lg text-foreground font-semibold leading-relaxed">
@@ -177,7 +177,7 @@ export default function ExecutiveBioPage() {
               </div>
               <CardTitle>Systems Architecture & Reliability</CardTitle>
               <CardDescription className="text-base space-y-2">
-                <p>• Designed AI systems serving millions across Fortune 50 platforms</p>
+                <p>• Designed AI systems serving enterprise scale across Fortune 50 platforms</p>
                 <p>• Built traceability, explainability, and compliance fingerprinting layers</p>
                 <p>• Deep expertise in operational risk, regulatory enforcement, and system integrity</p>
               </CardDescription>
@@ -328,8 +328,8 @@ export default function ExecutiveBioPage() {
 
           <Card className="text-center border-2 border-primary/20">
             <CardHeader>
-              <div className="text-5xl font-bold text-primary mb-2">Millions</div>
-              <CardTitle className="text-lg">Users Protected</CardTitle>
+              <div className="text-5xl font-bold text-primary mb-2">Enterprise</div>
+              <CardTitle className="text-lg">Scale Delivery</CardTitle>
             </CardHeader>
           </Card>
         </div>

@@ -317,8 +317,8 @@ export default function ServicesPage() {
             <CardHeader>
               <CardTitle>No Buzzwords. Just Systems That Work.</CardTitle>
               <CardDescription className="text-base">
-                If I say a program will take 6 months, it takes 6 months. If I say we can reduce audit time by 60%,
-                we do. My reputation is built on delivery, not promises. Everything I build is battle-tested at
+                If I say a program will take 6 months, it takes 6 months. If I say we can reduce audit preparation time,
+                we do. My reputation is built on delivery, not promises. Everything I build is proven at
                 Fortune 50 scale.
               </CardDescription>
             </CardHeader>
