@@ -5,6 +5,7 @@ import { SiteNavigation } from '@/components/SiteNavigation'
 import { SiteFooter } from '@/components/SiteFooter'
 import { StickyCTA } from '@/components/StickyCTA'
 import StructuredData from '@/components/StructuredData'
+import { AnalyticsBeacon } from '@/components/AnalyticsBeacon'
 import { headers } from 'next/headers'
 
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-sans' })
@@ -128,7 +129,6 @@ export default async function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
       <head>
         <StructuredData />
-        <link rel="canonical" href="https://subodhkc.com" />
         <link rel="icon" href="/icon-32.png" type="image/png" sizes="32x32" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -161,6 +161,7 @@ export default async function RootLayout({
         <main className="min-h-screen">{children}</main>
         <SiteFooter />
         <StickyCTA />
+        <AnalyticsBeacon />
       </body>
     </html>
   )

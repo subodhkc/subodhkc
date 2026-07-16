@@ -568,7 +568,14 @@ export default function LocalAIReviewPage() {
                       {step === 3 && 'When works for you?'}
                     </span>
                   </div>
-                  <div className="h-1 bg-secondary rounded-full overflow-hidden">
+                  <div
+                    className="h-1 bg-secondary rounded-full overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={step}
+                    aria-valuemin={1}
+                    aria-valuemax={3}
+                    aria-label="Form progress"
+                  >
                     <motion.div
                       className="h-full bg-accent"
                       initial={{ width: '33%' }}
@@ -579,7 +586,10 @@ export default function LocalAIReviewPage() {
                 </div>
 
                 {error && (
-                  <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
+                  <div
+                    className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg"
+                    role="alert"
+                  >
                     <p className="text-sm text-destructive">{error}</p>
                   </div>
                 )}
@@ -718,6 +728,7 @@ export default function LocalAIReviewPage() {
                                   key={i}
                                   type="button"
                                   onClick={() => toggleCheck(item)}
+                                  aria-pressed={checked}
                                   className={`w-full text-left p-3 rounded-lg border transition-colors flex items-start gap-3 ${
                                     checked
                                       ? 'border-accent bg-accent/10'
@@ -799,6 +810,7 @@ export default function LocalAIReviewPage() {
                                   key={day}
                                   type="button"
                                   onClick={() => toggleDay(day)}
+                                  aria-pressed={selected}
                                   className={`px-4 py-2 rounded-lg border font-medium text-sm transition-colors ${
                                     selected
                                       ? 'border-accent bg-accent text-background'

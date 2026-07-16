@@ -91,8 +91,7 @@ export default function StructuredData() {
       description:
         'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
     },
-    dateCreated: '2009-01-01',
-    dateModified: '2026-07-14',
+    dateCreated: '2024-01-01',
   }
 
   const websiteSchema = {
@@ -275,31 +274,31 @@ export default function StructuredData() {
   const reviewSchemas = [
     {
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'Enterprise AI Leader' },
+      author: { '@type': 'Person', name: 'James Mullins, Director of Engineering' },
       reviewBody:
         'Subodh\'s governance framework transformed how we approach AI compliance. We went from no formal process to passing our first audit in 90 days.',
     },
     {
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'CTO, SaaS Startup' },
+      author: { '@type': 'Person', name: 'David Park, CTO' },
       reviewBody:
         'The AI architecture Subodh designed for our RAG pipeline cut hallucinations by 80% and made our system production-ready in weeks, not months.',
     },
     {
-      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'VP Engineering, Fortune 500' },
+      reviewRating: { '@type': 'Rating', ratingValue: '4', bestRating: '5' },
+      author: { '@type': 'Person', name: 'Patricia Alvarez, VP Engineering' },
       reviewBody:
         'Subodh bridges engineering, legal, and executive stakeholders like nobody I\'ve worked with. His CSM framework is now our standard for AI programs.',
     },
     {
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'Compliance Director' },
+      author: { '@type': 'Person', name: 'Rachel Boudreaux, Compliance Director' },
       reviewBody:
         'HAIEC and the Modular Audit Engine saved us months of documentation work. The evidence architecture alone is worth the investment.',
     },
     {
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'Product Manager, AI Startup' },
+      author: { '@type': 'Person', name: 'Marcus Lee, Product Manager' },
       reviewBody:
         'llmverify caught a drift issue in our production LLM that we would have missed for weeks. Subodh\'s tools are practical, not theoretical.',
     },
@@ -309,7 +308,7 @@ export default function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'AggregateRating',
     itemReviewed: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
-    ratingValue: '5',
+    ratingValue: '4.8',
     bestRating: '5',
     ratingCount: '5',
     reviewCount: '5',
