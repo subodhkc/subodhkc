@@ -55,18 +55,23 @@ const SITEMAP = [
     ],
   },
   {
-    head: "Insight",
+    head: "Articles",
     items: [
-      ["/writing", "writing"],
       ["/secure-enterprise-rag-architecture", "secure RAG architecture"],
       ["/build-internal-ai-applications-streamlit-rag-mcp", "internal AI apps with Streamlit"],
-      ["/does-texas-ai-law-apply-to-my-business", "does the Texas AI law apply to my business?"],
+      ["/does-texas-ai-law-apply-to-my-business", "does the Texas AI law apply?"],
       ["/how-to-secure-and-govern-ai", "how to secure and govern AI"],
-      ["/why-ai-voice-agents-fail-in-production", "why AI voice agents fail in production"],
+      ["/why-ai-voice-agents-fail-in-production", "why AI voice agents fail"],
       ["/ai-voice-agent-architecture", "AI voice agent architecture"],
-      ["/kestrel-voice-ai-receptionist-platform", "Kestrel Voice AI receptionist platform"],
-      ["/ai-security-tools", "AI security tools & calculators"],
-      ["/solutions/haiec/exposure-assessment", "AI exposure assessment"],
+      ["/kestrel-voice-ai-receptionist-platform", "Kestrel Voice AI receptionist"],
+    ],
+  },
+  {
+    head: "Resources",
+    items: [
+      ["/writing", "writing"],
+      ["/ai-security-tools", "AI security tools"],
+      ["/solutions/haiec/exposure-assessment", "exposure assessment"],
       ["/research", "research"],
       ["/speaking", "speaking"],
       ["/advisory", "advisory"],
@@ -475,7 +480,7 @@ export function SiteFooter() {
           className="footer-sitemap-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(7, 1fr)",
+            gridTemplateColumns: "repeat(8, 1fr)",
             gap: 28,
             fontFamily: "var(--font-mono)",
             fontSize: 12,
@@ -584,7 +589,7 @@ export function SiteFooter() {
             padding: 32px 20px 20px !important;
           }
           .footer-sitemap-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-columns: repeat(4, 1fr) !important;
             gap: 20px !important;
           }
         }

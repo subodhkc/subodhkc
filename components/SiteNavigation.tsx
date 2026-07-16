@@ -27,17 +27,20 @@ const training = [
   { name: "AI Laws Webinar", href: "/webinar/ai-laws-small-business", desc: "Free monthly webinar — 2nd Monday" },
 ];
 
+const resources = [
+  { name: "Guides", href: "/guides", desc: "AI compliance guides" },
+  { name: "Writing", href: "/writing", desc: "Articles & long-form writing" },
+  { name: "Research", href: "/research", desc: "Research papers & analysis" },
+];
+
 const navLinks = [
   { label: "about", href: "/about" },
   { label: "services", href: "/services" },
-  { label: "guides", href: "/guides" },
-  { label: "writing", href: "/writing" },
-  { label: "research", href: "/research" },
   { label: "contact", href: "/contact" },
 ];
 
 export function SiteNavigation() {
-  const [open, setOpen] = React.useState<null | "products" | "solutions" | "training">(null);
+  const [open, setOpen] = React.useState<null | "products" | "solutions" | "training" | "resources">(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
@@ -262,10 +265,31 @@ export function SiteNavigation() {
               {open === "training" && dropdown(training)}
             </div>
 
-            <Link href="/services" style={{ color: "var(--muted)", textDecoration: "none" }}>services</Link>
-            <Link href="/guides" style={{ color: "var(--muted)", textDecoration: "none" }}>guides</Link>
-            <Link href="/writing" style={{ color: "var(--muted)", textDecoration: "none" }}>writing</Link>
-            <Link href="/research" style={{ color: "var(--muted)", textDecoration: "none" }}>research</Link>
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setOpen(open === "resources" ? null : "resources")}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: "transparent",
+                  fontFamily: "inherit",
+                  fontSize: "inherit",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  color: open === "resources" ? "var(--fg)" : "var(--muted)",
+                }}
+              >
+                resources
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "resources" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                  <path d="M2 4 L5 7 L8 4" />
+                </svg>
+              </button>
+              {open === "resources" && dropdown(resources)}
+            </div>
+
             <Link href="/contact" style={{ color: "var(--muted)", textDecoration: "none" }}>contact</Link>
           </nav>
 
@@ -473,6 +497,32 @@ export function SiteNavigation() {
                 >
                   <span style={{ fontSize: 13, fontWeight: 500 }}>{t.name}</span>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{t.desc}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Resources section */}
+            <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, marginBottom: 24 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 10, padding: "0 12px" }}>Resources</div>
+              {resources.map((r) => (
+                <Link
+                  key={r.href}
+                  href={r.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    padding: "9px 12px",
+                    borderRadius: 6,
+                    textDecoration: "none",
+                    color: "var(--fg)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 500 }}>{r.name}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{r.desc}</span>
                 </Link>
               ))}
             </div>
