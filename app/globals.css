@@ -436,19 +436,105 @@ svg g[style*="cursor: pointer"]:hover { transform: scale(1.05); }
   opacity: 1;
 }
 
-/* ===== Diagram node hover: brighten connected edges ===== */
-.diagram-reveal svg g[data-node]:hover circle {
-  filter: drop-shadow(0 0 6px var(--accent));
-  transition: filter 0.2s ease;
-}
+/* ===== Diagram interactive nodes ===== */
 .diagram-reveal svg g[data-node] {
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
-.diagram-reveal svg g[data-node]:hover {
-  transform: scale(1.08);
+.diagram-reveal svg g[data-node]:hover,
+.diagram-reveal svg g[data-node]:focus-visible {
+  transform: scale(1.04);
   transform-origin: center;
   transform-box: fill-box;
+  outline: none;
+}
+.diagram-reveal svg g[data-node]:hover rect,
+.diagram-reveal svg g[data-node]:focus-visible rect {
+  filter: drop-shadow(0 0 6px var(--accent));
+  stroke-width: 2.5;
+  transition: filter 0.2s ease, stroke-width 0.2s ease;
+}
+/* Dim non-active nodes when one is hovered/focused */
+.diagram-reveal[data-has-active="true"] svg g[data-node]:not([data-active="true"]) {
+  opacity: 0.35;
+}
+/* Focus ring for keyboard nav */
+.diagram-reveal svg g[data-node]:focus-visible rect {
+  stroke: var(--accent);
+}
+
+/* ===== Diagram tooltip card ===== */
+.diagram-tooltip {
+  animation: tooltip-fade 0.15s ease-out;
+}
+@keyframes tooltip-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.diagram-tooltip-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-family: var(--font-sans);
+}
+.diagram-tooltip-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 2px;
+}
+.diagram-tooltip-subtitle {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.diagram-tooltip-details {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.diagram-tooltip-details li {
+  font-size: 10.5px;
+  color: var(--muted);
+  padding: 2px 0 2px 10px;
+  position: relative;
+  line-height: 1.4;
+}
+.diagram-tooltip-details li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 9px;
+}
+.diagram-tooltip-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.diagram-tooltip-link:hover {
+  text-decoration: underline;
+}
+.diagram-tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  transform: translateX(-50%);
+}
+.diagram-tooltip-arrow-bottom {
+  bottom: -6px;
+  border-top: 6px solid var(--border);
+}
+.diagram-tooltip-arrow-top {
+  top: -6px;
+  border-bottom: 6px solid var(--border);
 }
 
 /* ===== Terminal section headers ===== */

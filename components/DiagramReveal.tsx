@@ -36,6 +36,22 @@ export function DiagramReveal({ children, className = '' }: DiagramRevealProps) 
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const updateActive = () => {
+      const hasActive = el.querySelector('svg g[data-node][data-active="true"]')
+      el.setAttribute('data-has-active', hasActive ? 'true' : 'false')
+    }
+
+    const mo = new MutationObserver(updateActive)
+    mo.observe(el, { attributes: true, attributeFilter: ['data-active'], subtree: true })
+    updateActive()
+
+    return () => mo.disconnect()
+  }, [])
+
   return (
     <div ref={ref} className={`diagram-reveal ${className}`}>
       {children}
