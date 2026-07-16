@@ -3,7 +3,9 @@
 
 import * as React from "react";
 import { Glyph } from "@/components/Glyph";
+import { DiagramTooltip, useDiagramTooltip, type DiagramNodeData } from "@/components/DiagramTooltip";
 import type { Product } from "@/data/products";
+import { KIND_LABEL, STATUS_LABEL } from "@/data/products";
 
 interface Props {
   products: Product[];
@@ -51,15 +53,40 @@ const EDGES: Array<[number, number, number]> = [
   [12, 13, 0.2],
 ];
 
+interface ConstellationNodeData extends DiagramNodeData {
+  x: number
+  y: number
+  w: number
+  h: number
+  r: number
+  d: number
+}
+
 export function Constellation({ products }: Props) {
   const items = products.slice(0, NODES.length);
+  const svgRef = React.useRef<SVGSVGElement>(null);
+  const { activeNode, showNode, hideNode, toggleNode } = useDiagramTooltip();
 
-  const scrollToProduct = React.useCallback((id: string) => {
-    const el = document.getElementById(`product-${id}`);
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    window.scrollTo({ top: window.scrollY + r.top - 100, behavior: "smooth" });
-  }, []);
+  const nodeData: ConstellationNodeData[] = items.map((p, i) => {
+    const N = NODES[i];
+    return {
+      id: p.id,
+      title: p.name,
+      subtitle: p.tagline,
+      details: [
+        `Type: ${KIND_LABEL[p.kind]}`,
+        `Status: ${STATUS_LABEL[p.status]}`,
+        p.meta,
+      ],
+      link: { href: `#product-${p.id}`, label: `View ${p.name}` },
+      x: N.x - N.r,
+      y: N.y - N.r,
+      w: N.r * 2,
+      h: N.r * 2,
+      r: N.r,
+      d: N.d,
+    };
+  });
 
   return (
     <div
@@ -72,6 +99,8 @@ export function Constellation({ products }: Props) {
       }}
     >
       <svg
+        ref={svgRef}
+        className="constellation-svg"
         viewBox="0 0 1000 320"
         preserveAspectRatio="xMidYMid meet"
         style={{ width: "100%", height: "100%", display: "block", overflow: "visible" }}
@@ -100,12 +129,25 @@ export function Constellation({ products }: Props) {
         {items.map((p, i) => {
           const N = NODES[i];
           if (!N) return null;
+          const data = nodeData[i];
           return (
             <g
               key={p.id}
+              data-node={p.id}
+              tabIndex={0}
+              role="button"
+              aria-label={p.name}
               transform={`translate(${N.x} ${N.y})`}
               style={{ cursor: "pointer" }}
-              onClick={() => scrollToProduct(p.id)}
+              onMouseEnter={() => showNode(data)}
+              onMouseLeave={() => hideNode()}
+              onFocus={() => showNode(data)}
+              onBlur={() => hideNode()}
+              onClick={() => toggleNode(data)}
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (e.key === "Escape") hideNode();
+                if (e.key === "Enter") toggleNode(data);
+              }}
             >
               <circle r={N.r + 14} fill="transparent" />
               <g
@@ -147,6 +189,13 @@ export function Constellation({ products }: Props) {
           );
         })}
       </svg>
+      <DiagramTooltip
+        viewBoxW={1000}
+        viewBoxH={320}
+        active={activeNode}
+        svgRef={svgRef}
+        onClose={hideNode}
+      />
     </div>
   );
 }

@@ -371,10 +371,9 @@ body {
 @keyframes ra-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Constellation node hover label */
-svg g[style*="cursor: pointer"]:hover .node-label { opacity: 1 !important; transition: opacity .15s; }
-svg g[style*="cursor: pointer"]:hover circle[stroke="var(--accent)"] { opacity: 0.7; }
-svg g[style*="cursor: pointer"] { transition: transform 0.2s ease; }
-svg g[style*="cursor: pointer"]:hover { transform: scale(1.05); }
+.constellation-svg g[data-node]:hover .node-label { opacity: 1 !important; transition: opacity .15s; }
+.constellation-svg g[data-node]:hover circle[stroke="var(--accent)"] { opacity: 0.7; }
+.constellation-svg g[data-node]:hover circle[stroke="var(--border)"] { stroke-width: 1.5; }
 
 /* Publication row accent rule draw-in */
 .paper-row:hover .paper-rule { height: 100%; }
@@ -454,12 +453,19 @@ svg g[style*="cursor: pointer"]:hover { transform: scale(1.05); }
   stroke-width: 2.5;
   transition: filter 0.2s ease, stroke-width 0.2s ease;
 }
+.diagram-reveal svg g[data-node]:hover circle,
+.diagram-reveal svg g[data-node]:focus-visible circle {
+  filter: drop-shadow(0 0 6px var(--accent));
+  stroke-width: 2.5;
+  transition: filter 0.2s ease, stroke-width 0.2s ease;
+}
 /* Dim non-active nodes when one is hovered/focused */
 .diagram-reveal[data-has-active="true"] svg g[data-node]:not([data-active="true"]) {
   opacity: 0.35;
 }
 /* Focus ring for keyboard nav */
-.diagram-reveal svg g[data-node]:focus-visible rect {
+.diagram-reveal svg g[data-node]:focus-visible rect,
+.diagram-reveal svg g[data-node]:focus-visible circle {
   stroke: var(--accent);
 }
 
