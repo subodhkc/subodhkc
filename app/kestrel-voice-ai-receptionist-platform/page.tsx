@@ -167,7 +167,7 @@ export default function KestrelVoiceReceptionistPage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Where Kestrel Fits in the Voice-AI Market</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Voice-AI products are not all trying to solve the same problem. A buyer will commonly encounter four approaches. This is a category comparison, not a claim that every platform fits one description.
+            Voice-AI products are not all trying to solve the same problem. A buyer will commonly encounter five approaches. This is a category comparison, not a claim that every platform fits one description.
           </p>
           <KestrelMarketPositionDiagram />
           <div className="space-y-3">
