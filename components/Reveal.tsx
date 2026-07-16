@@ -19,7 +19,7 @@ export function Reveal({
   className = '',
   as: Tag = 'div',
 }: RevealProps) {
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const el = ref.current
@@ -51,7 +51,7 @@ export function Reveal({
 
   return (
     <Tag
-      ref={ref as any}
+      ref={((node: HTMLElement | null) => { ref.current = node }) as any}
       data-reveal-style={style}
       className={`reveal ${className}`}
     >

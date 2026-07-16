@@ -50,7 +50,7 @@ export function ScrollProgress() {
         width: '0%',
         zIndex: 200,
         pointerEvents: 'none',
-        transition: 'width 0.05s linear',
+        transition: 'none',
       }}
     />
   )

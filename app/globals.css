@@ -411,8 +411,8 @@ svg g[style*="cursor: pointer"]:hover { transform: scale(1.05); }
 /* ===== Diagram reveal: SVG path drawing on scroll ===== */
 .diagram-reveal svg line,
 .diagram-reveal svg path {
-  stroke-dasharray: var(--dash, 300);
-  stroke-dashoffset: var(--dash, 300);
+  stroke-dasharray: var(--dash, 1000);
+  stroke-dashoffset: var(--dash, 1000);
   transition: stroke-dashoffset 1.2s ease-out;
 }
 .diagram-reveal[data-diagram-visible="true"] svg line,
@@ -452,7 +452,7 @@ svg g[style*="cursor: pointer"]:hover { transform: scale(1.05); }
 }
 
 /* ===== Terminal section headers ===== */
-.terminal-section h2::before {
+.terminal-section h2[data-section-num]:not([data-section-num=""])::before {
   content: attr(data-section-num) " / ";
   font-family: var(--font-mono);
   font-size: 0.55em;
