@@ -185,6 +185,12 @@ export default function AboutPage() {
           <p className="text-lg text-foreground font-semibold leading-relaxed mb-6">
             This is why teams trust me to lead the programs that matter.
           </p>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+            Beyond enterprise work, I am registered as an <strong>AI Advisor</strong> with the{' '}
+            <strong>HEB Chamber of Commerce</strong> in the Dallas-Fort Worth area, where I help local and
+            founder-led businesses find practical, right-sized AI solutions — from AI call coverage to workflow
+            automation and compliance readiness.
+          </p>
           
           <div className="flex justify-center mt-8">
             <Link href="/executive-bio">
@@ -480,6 +486,7 @@ export default function AboutPage() {
                     <li>• Fractional Leadership Roles</li>
                   </ul>
                   <p className="pt-2"><strong>Engagement:</strong> Project-based, Retainer, or Fractional Executive</p>
+                  <p className="pt-2"><strong>HEB Chamber:</strong> Registered AI Advisor serving DFW local businesses</p>
                 </CardDescription>
               </CardHeader>
             </Card>
