@@ -1,10 +1,8 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
+import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Sparkles, CheckCircle2, ExternalLink, FileText, Shield, Code, TrendingUp, Users } from 'lucide-react'
@@ -87,10 +85,7 @@ export default function FrontOfAIPage() {
         }
         description="Turnkey AI workflows, compliance tools, and intelligence platforms. Everything an executive needs to lead through the AI era. Built for IT leaders who need signal, not noise."
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+        <div
           className="flex flex-wrap gap-4 justify-center"
         >
           <a href="https://frontofai.com" target="_blank" rel="noopener noreferrer">
@@ -104,10 +99,10 @@ export default function FrontOfAIPage() {
               Contact Us
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </Hero>
 
-      <Section className="bg-secondary/20">
+      <Section className="bg-secondary/20" sectionNum="§01">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">The Problem</h2>
           <p className="text-xl text-muted-foreground mb-8">
@@ -121,18 +116,13 @@ export default function FrontOfAIPage() {
         subtitle="Products & Tools"
         title="Developer & Enterprise Tools"
         description="AI infrastructure trusted by legal, engineering, and DevOps teams at scale"
+        sectionNum="§02"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {products.map((product, index) => {
             const Icon = product.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="up">
                 <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <CardHeader>
                     <div className="flex items-start justify-between mb-4">
@@ -161,7 +151,7 @@ export default function FrontOfAIPage() {
                     </div>
                   </CardHeader>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
@@ -171,18 +161,13 @@ export default function FrontOfAIPage() {
         subtitle="Our Principles"
         title="Built for Enterprise Reality"
         description="No prompt toys. No experiments. Just production-ready AI that works within your constraints."
+        sectionNum="§03"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {principles.map((principle, index) => {
             const Icon = principle.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="scale">
                 <Card className="h-full text-center p-6 hover:shadow-lg transition-all duration-300">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Icon className="h-8 w-8 text-primary" />
@@ -190,34 +175,29 @@ export default function FrontOfAIPage() {
                   <h3 className="text-xl font-semibold mb-2">{principle.title}</h3>
                   <p className="text-muted-foreground">{principle.description}</p>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
       </Section>
 
-      <Section className="bg-secondary/20">
+      <Section className="bg-secondary/20" sectionNum="§04">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Why FrontOfAI?</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
+              <Reveal key={index} delay={index * 50} style="left"
                 className="flex items-center gap-3"
               >
                 <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground">{feature}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
       </Section>
 
-      <Section>
+      <Section sectionNum="§05">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Intelligence Sources</h2>
           <Card className="p-8">

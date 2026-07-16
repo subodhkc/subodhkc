@@ -1,10 +1,8 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
+import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Scale, CheckCircle2, ExternalLink, FileText, Clock, Lock, Zap, Upload, Eye, Download } from 'lucide-react'
@@ -102,10 +100,7 @@ export default function CourtCasePage() {
         }
         description="Transform chaotic evidence into professionally formatted court packets with AI-powered timeline building, OCR, and exhibit management. Built for individuals and legal professionals."
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+        <div
           className="flex flex-wrap gap-4 justify-center"
         >
           <a href="https://courtcase.frontofai.com" target="_blank" rel="noopener noreferrer">
@@ -119,10 +114,10 @@ export default function CourtCasePage() {
               Request Demo
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </Hero>
 
-      <Section className="bg-secondary/20">
+      <Section className="bg-secondary/20" sectionNum="§01">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Not Sure If You Have a Case?</h2>
           <p className="text-xl text-muted-foreground mb-6">
@@ -153,18 +148,13 @@ export default function CourtCasePage() {
         subtitle="How It Works"
         title="Four Simple Steps"
         description="From evidence chaos to court-ready packets in minutes"
+        sectionNum="§02"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="up">
                 <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <CardHeader>
                     <div className="flex items-center gap-4 mb-4">
@@ -177,13 +167,13 @@ export default function CourtCasePage() {
                     <CardDescription className="text-base">{feature.description}</CardDescription>
                   </CardHeader>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
       </Section>
 
-      <Section>
+      <Section sectionNum="§03">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Document Processing Engines</h2>
           <p className="text-center text-muted-foreground mb-8">
@@ -191,18 +181,12 @@ export default function CourtCasePage() {
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             {engines.map((engine, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 50} style="left">
                 <Card className="p-4 hover:shadow-md transition-all duration-300">
                   <h3 className="font-semibold mb-1">{engine.name}</h3>
                   <p className="text-sm text-muted-foreground">{engine.description}</p>
                 </Card>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -213,18 +197,13 @@ export default function CourtCasePage() {
         title="Example Use Cases"
         description="Built for various legal scenarios"
         className="bg-secondary/20"
+        sectionNum="§04"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="scale">
                 <Card className="h-full text-center p-6 hover:shadow-lg transition-all duration-300">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Icon className="h-8 w-8 text-primary" />
@@ -232,13 +211,13 @@ export default function CourtCasePage() {
                   <h3 className="text-xl font-semibold mb-2">{useCase.title}</h3>
                   <p className="text-muted-foreground">{useCase.description}</p>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
       </Section>
 
-      <Section>
+      <Section sectionNum="§05">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <Lock className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -249,23 +228,18 @@ export default function CourtCasePage() {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {security.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
+              <Reveal key={index} delay={index * 50} style="left"
                 className="flex items-center gap-3"
               >
                 <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground">{item}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
       </Section>
 
-      <Section className="bg-secondary/20">
+      <Section className="bg-secondary/20" sectionNum="§06">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
           <Card className="p-8">

@@ -6,6 +6,7 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { StickyCTA } from '@/components/StickyCTA'
 import StructuredData from '@/components/StructuredData'
 import { AnalyticsBeacon } from '@/components/AnalyticsBeacon'
+import { ScrollProgress } from '@/components/ScrollProgress'
 import { headers } from 'next/headers'
 
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-sans' })
@@ -157,6 +158,7 @@ export default async function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://subodhkc.com" />
       </head>
       <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
+        <ScrollProgress />
         <SiteNavigation />
         <main className="min-h-screen">{children}</main>
         <SiteFooter />

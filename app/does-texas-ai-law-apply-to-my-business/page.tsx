@@ -6,6 +6,7 @@ import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { TRAIGAApplicabilityChecker } from '@/components/traiga/TRAIGAApplicabilityChecker'
 import { TRAIGAEnforcementFlow } from '@/components/diagrams/TRAIGAEnforcementFlow'
 import { NISTLiteFramework } from '@/components/diagrams/NISTLiteFramework'
+import { DiagramReveal } from '@/components/DiagramReveal'
 import { Scale, Shield, AlertTriangle, Building2, HeartPulse, Fingerprint, CheckCircle2, FileText, Users, Zap, ArrowRight, Phone } from 'lucide-react'
 import Link from 'next/link'
 import Grid from '@/components/Grid'
@@ -695,7 +696,9 @@ export default function DoesTexasAILawApplyPage() {
           <h3 className="text-lg font-semibold mt-4">Enforcement process</h3>
           <div className="max-w-4xl mx-auto">
             <h4 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">TRAIGA Enforcement Flow</h4>
-            <TRAIGAEnforcementFlow />
+            <DiagramReveal>
+              <TRAIGAEnforcementFlow />
+            </DiagramReveal>
             <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 \u2014 The AG must generally give written notice and wait 60 days before bringing an enforcement action.</p>
           </div>
           <p>Before bringing an action, the Attorney General generally must give written notice identifying the alleged violation and wait 60 days. An action may be avoided when the business cures the violation within the period, provides a written statement confirming the cure, supplies supporting documentation, and makes necessary policy changes reasonably designed to prevent recurrence.</p>
@@ -737,7 +740,9 @@ export default function DoesTexasAILawApplyPage() {
           <p>NIST\u2019s AI Risk Management Framework organizes AI risk activities through four functions: <strong>Govern</strong>, <strong>Map</strong>, <strong>Measure</strong>, and <strong>Manage</strong>. Its Generative AI Profile adapts those activities to risks associated with generative systems.</p>
           <div className="max-w-4xl mx-auto">
             <h4 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">NIST-Lite Framework for Small Businesses</h4>
-            <NISTLiteFramework />
+            <DiagramReveal>
+              <NISTLiteFramework />
+            </DiagramReveal>
             <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 \u2014 A practical four-function approach adapted for small organizations.</p>
           </div>
           <p className="text-sm text-muted-foreground">A small company does not need to imitate a Fortune 100 governance office. It does need to demonstrate deliberate ownership and reasonable controls.</p>

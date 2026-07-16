@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/ca
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { RAGArchitectureDiagram } from '@/components/diagrams/RAGArchitectureDiagram'
 import { RAGDecisionTree } from '@/components/diagrams/RAGDecisionTree'
+import { DiagramReveal } from '@/components/DiagramReveal'
 import { Database, Search, Shield, Bot, FileText, AlertTriangle, CheckCircle2, ArrowRight, Layers, Zap, Eye } from 'lucide-react'
 import Link from 'next/link'
 
@@ -213,7 +214,9 @@ export default function SecureEnterpriseRAGPage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <h3 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Enterprise RAG Architecture</h3>
-          <RAGArchitectureDiagram />
+          <DiagramReveal>
+            <RAGArchitectureDiagram />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 — Four-phase enterprise RAG pipeline: ingestion, storage with RLS, retrieval with hybrid search, and generation with citations. Audit logging spans all phases.</p>
         </div>
       </Section>
@@ -683,7 +686,9 @@ USING (
         </div>
         <div className="max-w-4xl mx-auto mt-4">
           <h3 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">RAG Decision Tree</h3>
-          <RAGDecisionTree />
+          <DiagramReveal>
+            <RAGDecisionTree />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 — Decision framework: impact level determines search method, which determines storage and security requirements. All paths converge on the 4-layer security model.</p>
         </div>
         <div className="max-w-4xl mx-auto space-y-4 mt-4">

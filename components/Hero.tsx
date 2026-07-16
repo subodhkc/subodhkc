@@ -1,8 +1,11 @@
+'use client'
+
 import { ReactNode } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import HeroAnimation from './HeroAnimation'
+import { DotGrid } from './hero/DotGrid'
+import { Aurora } from './hero/Aurora'
 
 interface HeroProps {
   title: string | ReactNode
@@ -29,7 +32,8 @@ export default function Hero({
     return (
       <section className={cn('page-padding pt-16 md:pt-21 pb-16 md:pb-24 relative overflow-hidden', className)}>
         <div className="absolute inset-0 -z-10">
-          <HeroAnimation />
+          <DotGrid />
+          <Aurora />
         </div>
         <div className="section-container relative z-10">
           <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 md:gap-12 lg:gap-20 items-center min-h-[500px] md:min-h-[600px]">
@@ -222,7 +226,8 @@ export default function Hero({
     <section className={cn('page-padding pt-16 md:pt-21 relative overflow-hidden', className)}>
       {/* Animated background */}
       <div className="absolute inset-0 -z-10">
-        <HeroAnimation />
+        <DotGrid />
+        <Aurora />
       </div>
       
       <div className="section-container relative z-10">

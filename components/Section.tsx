@@ -8,6 +8,7 @@ interface SectionProps {
   children: ReactNode
   className?: string
   id?: string
+  sectionNum?: string
 }
 
 export default function Section({
@@ -17,9 +18,10 @@ export default function Section({
   children,
   className,
   id,
+  sectionNum,
 }: SectionProps) {
   return (
-    <section id={id} className={cn('page-padding', className)}>
+    <section id={id} className={cn('page-padding terminal-section', className)}>
       <div className="section-container">
         {(title || subtitle || description) && (
           <div className="max-w-3xl mb-12">
@@ -29,7 +31,10 @@ export default function Section({
               </div>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              <h2
+                className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4"
+                data-section-num={sectionNum || ''}
+              >
                 {title}
               </h2>
             )}

@@ -1,9 +1,7 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
+import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Shield, Phone, Sparkles, Scale, FileText, ExternalLink } from 'lucide-react'
@@ -112,18 +110,13 @@ export default function SolutionsPage() {
         subtitle="Solutions Portfolio"
         title="Enterprise AI Applications"
         description="Production-ready applications serving thousands of users across compliance, voice operations, and AI intelligence."
+        sectionNum="§01"
       >
         <div className="space-y-8">
           {solutions.map((solution, index) => {
             const Icon = solution.icon
             return (
-              <motion.div
-                key={solution.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={solution.name} delay={index * 80} style="up">
                 <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="md:col-span-2 p-6">
@@ -182,13 +175,13 @@ export default function SolutionsPage() {
                     </div>
                   </div>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
       </Section>
 
-      <Section className="bg-secondary/20">
+      <Section className="bg-secondary/20" sectionNum="§02">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Need a Custom Solution?</h2>
           <p className="text-lg text-muted-foreground mb-8">

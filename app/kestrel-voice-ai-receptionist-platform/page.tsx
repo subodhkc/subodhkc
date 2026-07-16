@@ -8,6 +8,7 @@ import Grid from '@/components/Grid'
 import { KestrelMarketPositionDiagram } from '@/components/diagrams/KestrelMarketPositionDiagram'
 import { KestrelKnowledgeStackDiagram } from '@/components/diagrams/KestrelKnowledgeStackDiagram'
 import { VerifiedActionFlowDiagram } from '@/components/diagrams/VerifiedActionFlowDiagram'
+import { DiagramReveal } from '@/components/DiagramReveal'
 import { VoiceControlLadder } from '@/components/interactive/VoiceControlLadder'
 import { DeploymentPathSelector } from '@/components/interactive/DeploymentPathSelector'
 import {
@@ -169,7 +170,9 @@ export default function KestrelVoiceReceptionistPage() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             Voice-AI products are not all trying to solve the same problem. A buyer will commonly encounter five approaches. This is a category comparison, not a claim that every platform fits one description.
           </p>
-          <KestrelMarketPositionDiagram />
+          <DiagramReveal>
+            <KestrelMarketPositionDiagram />
+          </DiagramReveal>
           <div className="space-y-3">
             {marketApproaches.map((approach, i) => (
               <Card key={approach.title}>
@@ -314,7 +317,9 @@ export default function KestrelVoiceReceptionistPage() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             A receptionist needs to know more than a business name and greeting. Kestrel can combine several types of knowledge:
           </p>
-          <KestrelKnowledgeStackDiagram />
+          <DiagramReveal>
+            <KestrelKnowledgeStackDiagram />
+          </DiagramReveal>
           <div className="space-y-2">
             {knowledgeLayers.map((layer, i) => (
               <Card key={layer.title}>
@@ -356,7 +361,9 @@ export default function KestrelVoiceReceptionistPage() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             A natural-sounding call is not valuable if the agent does not complete the requested task. Consider an appointment request.
           </p>
-          <VerifiedActionFlowDiagram />
+          <DiagramReveal>
+            <VerifiedActionFlowDiagram />
+          </DiagramReveal>
           <div className="grid md:grid-cols-2 gap-4">
             <Card className="border-l-4 border-l-red-500/40">
               <CardHeader>

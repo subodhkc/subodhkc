@@ -7,6 +7,7 @@ import { StreamlitArchitectureDiagram } from '@/components/diagrams/StreamlitArc
 import { MCPArchitectureDiagram } from '@/components/diagrams/MCPArchitectureDiagram'
 import { FrameworkDecisionTree } from '@/components/diagrams/FrameworkDecisionTree'
 import { DeliveryRoadmapTimeline } from '@/components/diagrams/DeliveryRoadmapTimeline'
+import { DiagramReveal } from '@/components/DiagramReveal'
 import { Database, Search, Shield, Bot, FileText, AlertTriangle, CheckCircle2, Layers, Zap, Eye, Code, Server, Workflow, GitBranch, ArrowRight, Scale } from 'lucide-react'
 import Link from 'next/link'
 import Grid from '@/components/Grid'
@@ -302,7 +303,9 @@ export default function StreamlitRAGMCPPage() {
         </div>
         <div className="max-w-4xl mx-auto mt-4">
           <h3 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Six-Layer Internal AI Architecture</h3>
-          <StreamlitArchitectureDiagram />
+          <DiagramReveal>
+            <StreamlitArchitectureDiagram />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 — Each layer has a distinct responsibility. Security, evidence and monitoring span all layers as a cross-cutting concern.</p>
         </div>
         <div className="max-w-4xl mx-auto space-y-4 mt-4">
@@ -467,7 +470,9 @@ if question:
         </div>
         <div className="max-w-4xl mx-auto mt-4">
           <h3 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">MCP Architecture</h3>
-          <MCPArchitectureDiagram />
+          <DiagramReveal>
+            <MCPArchitectureDiagram />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 — The host application owns the model, authorization and tool registry. The MCP server exposes tools, resources and prompts to the host through a standardized protocol. The server is model-independent.</p>
         </div>
       </Section>
@@ -729,7 +734,9 @@ if __name__ == "__main__":
         </div>
         <div className="max-w-4xl mx-auto mt-4">
           <h3 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Framework Decision Tree</h3>
-          <FrameworkDecisionTree />
+          <DiagramReveal>
+            <FrameworkDecisionTree />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 3 — Decision tree for choosing a Python AI application framework based on product requirements.</p>
         </div>
         <div className="max-w-4xl mx-auto mt-4">
@@ -768,7 +775,9 @@ if __name__ == "__main__":
         </div>
         <div className="max-w-4xl mx-auto mt-4">
           <h3 className="text-center text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Delivery Roadmap Timeline</h3>
-          <DeliveryRoadmapTimeline />
+          <DiagramReveal>
+            <DeliveryRoadmapTimeline />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 4 — Seven phases from definition through operation. Each phase has measurable exit criteria.</p>
         </div>
         <div className="max-w-4xl mx-auto space-y-4 mt-4">

@@ -1,11 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
+import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Phone, CheckCircle2, ExternalLink, Clock, Calendar, Shield, Zap, Users, TrendingUp } from 'lucide-react'
@@ -79,10 +77,7 @@ stats: 'Missed calls mean lost revenue'
         }
         description="AI-powered voice operations for service businesses. Answer every call, book appointments automatically, recover missed revenue. 200ms response, 24/7 coverage."
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+        <div
           className="flex flex-wrap gap-4 justify-center"
         >
           <a href="https://www.kestrelvoice.com" target="_blank" rel="noopener noreferrer">
@@ -96,10 +91,10 @@ stats: 'Missed calls mean lost revenue'
               Schedule Demo
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </Hero>
 
-      <Section className="bg-secondary/20">
+      <Section className="bg-secondary/20" sectionNum="§01">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">The Problem</h2>
           <p className="text-xl text-muted-foreground">
@@ -120,18 +115,13 @@ stats: 'Missed calls mean lost revenue'
         subtitle="Key Features"
         title="What Callers Experience"
         description="Professional, intelligent call handling that feels natural"
+        sectionNum="§02"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="up">
                 <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <CardHeader>
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -141,38 +131,27 @@ stats: 'Missed calls mean lost revenue'
                     <CardDescription className="text-base">{feature.description}</CardDescription>
                   </CardHeader>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
       </Section>
 
-      <Section>
+      <Section sectionNum="§03">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Everything You Need</h2>
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
               {benefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05, duration: 0.5 }}
+                <Reveal key={index} delay={index * 50} style="left"
                   className="flex items-center gap-3"
                 >
                   <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
                   <span className="text-muted-foreground">{benefit}</span>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
+            <Reveal style="scale" className="relative">
               <div className="relative shadow-2xl">
                 <Image
                   src="/voice-card-showcase.png.png"
@@ -182,7 +161,7 @@ stats: 'Missed calls mean lost revenue'
                   className="w-full h-auto"
                 />
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </div>
       </Section>
@@ -192,18 +171,13 @@ stats: 'Missed calls mean lost revenue'
         title="Who Uses KestrelVoice?"
         description="Built for professionals who can't afford to miss calls"
         className="bg-secondary/20"
+        sectionNum="§04"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="scale">
                 <Card className="h-full p-6 hover:shadow-lg transition-all duration-300">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                     <Icon className="h-8 w-8 text-primary" />
@@ -212,7 +186,7 @@ stats: 'Missed calls mean lost revenue'
                   <p className="text-muted-foreground mb-3">{useCase.description}</p>
                   <p className="text-sm text-primary font-medium">{useCase.stats}</p>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>

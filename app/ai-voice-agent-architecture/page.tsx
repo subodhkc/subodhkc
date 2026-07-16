@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Grid from '@/components/Grid'
 import { VoiceAgentArchitectureDiagram } from '@/components/diagrams/VoiceAgentArchitectureDiagram'
 import { VoiceRAGPipelineDiagram } from '@/components/diagrams/VoiceRAGPipelineDiagram'
+import { DiagramReveal } from '@/components/DiagramReveal'
 import {
   Phone, PhoneCall, Shield, Zap, Database, Cpu, Webhook, Gauge,
   RefreshCw, AlertTriangle, Lock, CheckCircle2,
@@ -183,7 +184,9 @@ export default function AIVoiceAgentArchitecturePage() {
       <Section id="architecture-glance" className="pb-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Architecture at a Glance</h2>
-          <VoiceAgentArchitectureDiagram />
+          <DiagramReveal>
+            <VoiceAgentArchitectureDiagram />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 — Five-layer architecture: Presentation (Next.js), Voice Runtime (FastAPI on Modal), Telephony (Twilio), Demand Engine, and Data (Supabase/Postgres with pgvector).</p>
           <p className="text-sm text-muted-foreground leading-relaxed">The diagram shows the five layers of the system. Telephony (Twilio) handles the phone call and media stream. The Voice Runtime (FastAPI on Modal) processes the call through tenant resolution, mode selection, deterministic intercepts, AI conversation, and tool execution. The Data Layer (Supabase/Postgres with pgvector) stores tenant configurations, call logs, RAG chunks, and analytics. The Demand Engine handles CRM, onboarding, and reporting. The Presentation Layer (Next.js) provides the dashboard, RAG management, and configuration UI.</p>
           <p className="text-sm text-muted-foreground leading-relaxed">These are logically separated services with a consolidated deployment option — the voice runtime, demand engine, and scrapers share a single Modal container for cost efficiency, while the frontend runs on Vercel. The separation is logical, not physical, which simplifies operations without sacrificing isolation.</p>
@@ -337,7 +340,9 @@ export default function AIVoiceAgentArchitecturePage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Governed RAG</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice includes a retrieval-augmented generation system that grounds the AI in tenant-specific knowledge. The pipeline has four stages: ingestion, storage, retrieval, and refresh.</p>
-          <VoiceRAGPipelineDiagram />
+          <DiagramReveal>
+            <VoiceRAGPipelineDiagram />
+          </DiagramReveal>
           <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 — RAG pipeline: ingestion from three source types, tenant-scoped storage with RLS, keyword-triggered retrieval with similarity threshold, and SHA-256-based refresh tracking.</p>
           <Grid cols={2} gap="md">
             <Card>

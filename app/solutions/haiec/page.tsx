@@ -1,11 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
+import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Shield, CheckCircle2, ExternalLink, FileText, AlertTriangle, Lock, Zap } from 'lucide-react'
@@ -78,10 +76,7 @@ export default function HAIECPage() {
         }
         description="Evidence-first frameworks for behavioral AI governance. CSM6 framework and AI readiness assessments for enterprise compliance. Not a dashboard - an evidence layer."
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+        <div
           className="flex flex-wrap gap-4 justify-center"
         >
           <a href="https://www.haiec.com" target="_blank" rel="noopener noreferrer">
@@ -95,25 +90,20 @@ export default function HAIECPage() {
               Request Demo
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </Hero>
 
       <Section
         subtitle="Core Features"
         title="Comprehensive AI Governance"
         description="Everything you need to deploy AI systems with confidence and regulatory compliance."
+        sectionNum="§01"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="up">
                 <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <CardHeader>
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -123,13 +113,13 @@ export default function HAIECPage() {
                     <CardDescription className="text-base">{feature.description}</CardDescription>
                   </CardHeader>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
       </Section>
 
-      <Section className="bg-secondary/20">
+      <Section className="bg-secondary/20" sectionNum="§02">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Platform Capabilities</h2>
           <p className="text-center text-muted-foreground mb-8">
@@ -138,26 +128,15 @@ export default function HAIECPage() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
               {capabilities.map((capability, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05, duration: 0.5 }}
+                <Reveal key={index} delay={index * 50} style="left"
                   className="flex items-center gap-3"
                 >
                   <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
                   <span className="text-muted-foreground">{capability}</span>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
+            <Reveal style="left" className="relative">
               <div className="relative shadow-2xl">
                 <Image
                   src="/haiec process.png"
@@ -167,7 +146,7 @@ export default function HAIECPage() {
                   className="w-full h-auto"
                 />
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </div>
       </Section>
@@ -176,18 +155,13 @@ export default function HAIECPage() {
         subtitle="Use Cases"
         title="Who Uses HAIEC?"
         description="Built for organizations that need defensible AI governance"
+        sectionNum="§03"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={index} delay={index * 80} style="scale">
                 <Card className="h-full text-center p-6 hover:shadow-lg transition-all duration-300">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Icon className="h-8 w-8 text-primary" />
@@ -195,13 +169,13 @@ export default function HAIECPage() {
                   <h3 className="text-xl font-semibold mb-2">{useCase.title}</h3>
                   <p className="text-muted-foreground">{useCase.description}</p>
                 </Card>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>
       </Section>
 
-      <Section>
+      <Section sectionNum="§04">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Why HAIEC?</h2>
           <div className="grid md:grid-cols-2 gap-8 items-start mb-12">
@@ -228,13 +202,7 @@ export default function HAIECPage() {
                 </p>
               </Card>
             </div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
+            <Reveal style="right" className="relative">
               <div className="relative shadow-2xl">
                 <Image
                   src="/Ai Security Process flow.png"
@@ -244,7 +212,7 @@ export default function HAIECPage() {
                   className="w-full h-auto"
                 />
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </div>
       </Section>

@@ -380,6 +380,88 @@ svg g[style*="cursor: pointer"]:hover { transform: scale(1.05); }
 .paper-row:hover .paper-rule { height: 100%; }
 .paper-row:hover { background: var(--card); }
 
+/* ===== Reveal: directional scroll-in animations ===== */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+              transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal[data-reveal-style="up"]    { transform: translateY(20px); }
+.reveal[data-reveal-style="left"]  { transform: translateX(-24px); }
+.reveal[data-reveal-style="right"] { transform: translateX(24px); }
+.reveal[data-reveal-style="scale"] { transform: scale(0.92); }
+.reveal[data-reveal-style="fade"]  { transform: none; }
+
+.reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ===== Tilt: magnetic card 3D tilt ===== */
+.tilt-card {
+  transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.12s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+@media (hover: none) and (pointer: coarse) {
+  .tilt-card { transform: none !important; }
+}
+
+/* ===== Diagram reveal: SVG path drawing on scroll ===== */
+.diagram-reveal svg line,
+.diagram-reveal svg path {
+  stroke-dasharray: var(--dash, 300);
+  stroke-dashoffset: var(--dash, 300);
+  transition: stroke-dashoffset 1.2s ease-out;
+}
+.diagram-reveal[data-diagram-visible="true"] svg line,
+.diagram-reveal[data-diagram-visible="true"] svg path {
+  stroke-dashoffset: 0;
+}
+/* Keep markers and fills visible */
+.diagram-reveal svg rect,
+.diagram-reveal svg circle,
+.diagram-reveal svg text,
+.diagram-reveal svg polygon,
+.diagram-reveal svg marker {
+  opacity: 0;
+  transition: opacity 0.6s ease-out 0.3s;
+}
+.diagram-reveal[data-diagram-visible="true"] svg rect,
+.diagram-reveal[data-diagram-visible="true"] svg circle,
+.diagram-reveal[data-diagram-visible="true"] svg text,
+.diagram-reveal[data-diagram-visible="true"] svg polygon,
+.diagram-reveal[data-diagram-visible="true"] svg marker {
+  opacity: 1;
+}
+
+/* ===== Diagram node hover: brighten connected edges ===== */
+.diagram-reveal svg g[data-node]:hover circle {
+  filter: drop-shadow(0 0 6px var(--accent));
+  transition: filter 0.2s ease;
+}
+.diagram-reveal svg g[data-node] {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.diagram-reveal svg g[data-node]:hover {
+  transform: scale(1.08);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* ===== Terminal section headers ===== */
+.terminal-section h2::before {
+  content: attr(data-section-num) " / ";
+  font-family: var(--font-mono);
+  font-size: 0.55em;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  margin-right: 0.4em;
+  opacity: 0.8;
+}
+
 /* Honor reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -387,4 +469,13 @@ svg g[style*="cursor: pointer"]:hover { transform: scale(1.05); }
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .diagram-reveal svg line,
+  .diagram-reveal svg path { stroke-dashoffset: 0 !important; }
+  .diagram-reveal svg rect,
+  .diagram-reveal svg circle,
+  .diagram-reveal svg text,
+  .diagram-reveal svg polygon,
+  .diagram-reveal svg marker { opacity: 1 !important; }
+  .tilt-card { transform: none !important; }
 }

@@ -5,9 +5,37 @@ import * as React from "react";
 import { SHIP_LOG } from "@/data/ship-log";
 
 export function ShipLog() {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const marqueeRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const container = containerRef.current;
+    const marquee = marqueeRef.current;
+    if (!container || !marquee) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      marquee.style.animationPlayState = 'paused';
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          marquee.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+        });
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
   const items = [...SHIP_LOG, ...SHIP_LOG];
   return (
     <div
+      ref={containerRef}
       style={{
         borderTop: "1px solid var(--border)",
         borderBottom: "1px solid var(--border)",
@@ -74,6 +102,7 @@ export function ShipLog() {
       </div>
 
       <div
+        ref={marqueeRef}
         style={{
           display: "flex",
           gap: 0,
