@@ -496,7 +496,7 @@ export default function LocalAIReviewPage() {
       </Section>
 
       {/* What you'll get from the review */}
-      <Section subtitle="The Review" title="What you&apos;ll get" className="bg-secondary/20">
+      <Section subtitle="The Review" title="What you'll get" className="bg-secondary/20">
         <div className="max-w-2xl mx-auto">
           <div className="grid sm:grid-cols-2 gap-4">
             {REVIEW_BENEFITS.map((benefit, i) => (
