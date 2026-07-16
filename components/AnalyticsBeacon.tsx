@@ -7,11 +7,9 @@ export function AnalyticsBeacon() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const startTime = useRef(Date.now())
-  const hasTracked = useRef(false)
 
   useEffect(() => {
-    if (hasTracked.current) return
-    hasTracked.current = true
+    startTime.current = Date.now()
 
     const ref = searchParams.get('ref') || undefined
 
