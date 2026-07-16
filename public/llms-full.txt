@@ -363,6 +363,7 @@ Subodh KC authors comprehensive guides to the AI regulations that matter most. E
 - https://subodhkc.com/how-to-secure-and-govern-ai
 - https://subodhkc.com/why-ai-voice-agents-fail-in-production
 - https://subodhkc.com/ai-voice-agent-architecture
+- https://subodhkc.com/kestrel-voice-ai-receptionist-platform
 - https://subodhkc.com/ai-security-tools
 - https://subodhkc.com/ai-risk-register
 - https://subodhkc.com/ai-vendor-due-diligence-checklist

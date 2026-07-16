@@ -229,7 +229,7 @@ export default function KestrelVoicePage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>Want to see how Kestrel Voice works under the hood? Read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link> — the complete production architecture covering telephony, adaptive orchestration, RAG, tools, degradation, security, and evidence pipeline.</p>
+            <p>Want to see how Kestrel Voice works under the hood? Read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link> — the complete production architecture covering telephony, adaptive orchestration, RAG, tools, degradation, security, and evidence pipeline. For the product positioning and market comparison, read <Link href="/kestrel-voice-ai-receptionist-platform" className="text-primary font-medium hover:underline">Kestrel Voice AI Receptionist Platform</Link>.</p>
           </div>
         </div>
       </Section>

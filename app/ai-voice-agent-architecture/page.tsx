@@ -757,7 +757,7 @@ export default function AIVoiceAgentArchitecturePage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>For the failure modes this architecture prevents, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the RAG governance framework behind the retrieval pipeline, read <Link href="/secure-enterprise-rag-architecture" className="text-primary font-medium hover:underline">Secure Enterprise RAG Architecture</Link>. For the full AI compliance stack — NIST, ISO, SOC 2 — read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI</Link>.</p>
+            <p>For the failure modes this architecture prevents, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the product positioning and market comparison, read <Link href="/kestrel-voice-ai-receptionist-platform" className="text-primary font-medium hover:underline">Kestrel Voice AI Receptionist Platform</Link>. For the RAG governance framework behind the retrieval pipeline, read <Link href="/secure-enterprise-rag-architecture" className="text-primary font-medium hover:underline">Secure Enterprise RAG Architecture</Link>. For the full AI compliance stack — NIST, ISO, SOC 2 — read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI</Link>.</p>
           </div>
         </div>
       </Section>

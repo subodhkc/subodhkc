@@ -204,6 +204,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/kestrel-voice-ai-receptionist-platform`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/solutions/haiec/exposure-assessment`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

@@ -64,6 +64,7 @@ const SITEMAP = [
       ["/how-to-secure-and-govern-ai", "how to secure and govern AI"],
       ["/why-ai-voice-agents-fail-in-production", "why AI voice agents fail in production"],
       ["/ai-voice-agent-architecture", "AI voice agent architecture"],
+      ["/kestrel-voice-ai-receptionist-platform", "Kestrel Voice AI receptionist platform"],
       ["/ai-security-tools", "AI security tools & calculators"],
       ["/solutions/haiec/exposure-assessment", "AI exposure assessment"],
       ["/research", "research"],

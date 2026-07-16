@@ -11,7 +11,7 @@ import {
   Phone, Zap, Shield, AlertTriangle, Building2, HeartPulse,
   CheckCircle2, FileText, Users, ArrowRight, Lock,
   ClipboardCheck, RefreshCw, Gavel, Database, Cpu, Webhook, TrendingUp, Ban,
-  Volume2, PhoneCall, Gauge, Fingerprint, Layers,
+  Volume2, PhoneCall, Gauge, Fingerprint, Layers, Settings,
 } from 'lucide-react'
 
 export const metadata = {
@@ -1126,6 +1126,22 @@ export default function WhyAIVoiceAgentsFailPage() {
                 </CardHeader>
                 <CardContent>
                   <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Explore Kestrel Voice <ArrowRight className="h-3 w-3" /></span>
+                </CardContent>
+              </Card>
+            </Link>
+            <Link href="/kestrel-voice-ai-receptionist-platform">
+              <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Settings className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-sm">Kestrel Voice AI Receptionist Platform</CardTitle>
+                  </div>
+                  <CardDescription className="text-xs">No-code AI receptionist platform — market positioning, six strengths, deterministic controls, knowledge stack, verified actions, three deployment paths.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read article <ArrowRight className="h-3 w-3" /></span>
                 </CardContent>
               </Card>
             </Link>

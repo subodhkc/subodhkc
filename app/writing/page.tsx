@@ -80,6 +80,15 @@ export default function WritingPage() {
       topics: ['AI Voice Agents', 'Voice Orchestration', 'RAG', 'Telephony', 'Kestrel Voice', 'Security'],
     },
     {
+      title: 'Kestrel Voice: A No-Code AI Receptionist Platform Built for Real Business Calls',
+      description:
+        'Product positioning for Kestrel Voice as a hosted AI receptionist — no-code setup, custom Python orchestration, deterministic controls, managed knowledge, verified actions, operations dashboard, degradation, learning pipeline, multi-channel, security, three deployment paths, and HAIEC coordination.',
+      publication: 'subodhkc.com',
+      date: 'July 2026',
+      url: '/kestrel-voice-ai-receptionist-platform',
+      topics: ['AI Receptionist', 'No-Code Voice AI', 'Kestrel Voice', 'AI Voice Operations', 'HAIEC'],
+    },
+    {
       title: 'Why AI Voice Agents Fail in Production — and How to Deploy One Safely',
       description:
         'Ten failure modes, a production architecture, AI voice control ladder, security threat model, TCPA and TRAIGA compliance for voice, and a six-phase deployment plan.',
