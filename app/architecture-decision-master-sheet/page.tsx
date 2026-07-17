@@ -63,6 +63,7 @@ const articleSchema = {
   datePublished: '2026-07-17',
   dateModified: '2026-07-17',
   url: 'https://subodhkc.com/architecture-decision-master-sheet',
+  image: 'https://subodhkc.com/og-default.png',
 }
 
 const faqSchema = {
@@ -98,6 +99,11 @@ const faqSchema = {
       '@type': 'Question',
       name: 'How is the Definition of Done (DoD) different from a checklist item?',
       acceptedAnswer: { '@type': 'Answer', text: 'The DoD is a gate, not a checkbox. It is a specific, testable criterion that must be met before a layer is considered complete. For example, the DoD for Security & Policy is: "Security architecture documented; RLS implemented; encryption verified; audit logging active; security scan passing in CI." This prevents the common failure mode where teams believe a layer is "done" when it is merely "started."' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does the tool save my progress?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. When you assign owners, statuses, sprints, or ADR references in the PM Tracking tab, your edits are saved automatically to your browser via localStorage. Your data persists across sessions on the same browser. Use the Export CSV or JSON buttons to share your tracking data with your team, or the Reset button to start fresh.' },
     },
   ],
 }
@@ -138,6 +144,7 @@ const faqs = [
   { q: 'What documents does each layer specify?', a: 'Each layer specifies two document lists: Architect Documents (ADRs, design documents, diagrams, specifications) and PM Documents (sprint plans, review schedules, staffing plans, compliance timelines). These are the concrete deliverables that prove a decision was made, reviewed, and approved. If a layer has no documents, it has not been decided.' },
   { q: 'Can I use this sheet for projects without AI features?', a: 'Yes. The sheet includes a "Web app without AI" scenario that filters to Layers 1–14 and 18–25, skipping the conditional AI layers (Group E). However, if your team uses AI code assistants (Copilot, Cursor, Claude), the AI development risks on all layers still apply — they cover risks from using AI tools to write code, not just AI features in the product.' },
   { q: 'How is the Definition of Done (DoD) different from a checklist item?', a: 'The DoD is a gate, not a checkbox. It is a specific, testable criterion that must be met before a layer is considered complete. For example, the DoD for Security & Policy is: "Security architecture documented; RLS implemented; encryption verified; audit logging active; security scan passing in CI." This prevents the common failure mode where teams believe a layer is "done" when it is merely "started."' },
+  { q: 'Does the tool save my progress?', a: 'Yes. When you assign owners, statuses, sprints, or ADR references in the PM Tracking tab, your edits are saved automatically to your browser via localStorage. Your data persists across sessions on the same browser. Use the Export CSV or JSON buttons to share your tracking data with your team, or the Reset button to start fresh.' },
 ]
 
 export default function ArchitectureDecisionMasterSheetPage() {
@@ -216,7 +223,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-4xl mx-auto">
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-4">Quick Start — 5 Steps</h2>
-            <div className="grid gap-5 md:grid-cols-5">
+            <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">1</span>
@@ -572,7 +579,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
             Several architecture frameworks exist. This sheet is not a replacement for any of them — it is a <strong className="text-foreground">complementary tool</strong> that operationalizes their principles into a trackable, layer-by-layer checklist with AI risks and PM deliverables.
           </p>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
+            <table className="w-full text-sm border-collapse border border-border rounded-lg overflow-hidden">
               <thead>
                 <tr className="border-b border-border">
                   <th className="text-left py-2 px-3 font-semibold text-foreground">Framework</th>

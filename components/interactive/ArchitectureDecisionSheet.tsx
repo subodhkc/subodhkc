@@ -48,7 +48,7 @@ export function ArchitectureDecisionSheet() {
     if (activeFilters.group.length) result = result.filter(l => activeFilters.group.includes(l.g))
     if (activeFilters.crit.length) result = result.filter(l => activeFilters.crit.includes(l.crit))
     if (activeFilters.phase.length) result = result.filter(l => activeFilters.phase.includes(l.phase))
-    if (activeFilters.status.length) result = result.filter(l => activeFilters.status.includes(l.status))
+    if (activeFilters.status.length) result = result.filter(l => activeFilters.status.includes(trackingData[l.id]?.status || l.status))
     if (activeFilters.appl.length) result = result.filter(l => activeFilters.appl.includes(l.appl.split(' ')[0]))
     if (activeFilters.csmPillar.length) result = result.filter(l => activeFilters.csmPillar.includes(l.csmPillar))
     const q = searchQuery.toLowerCase().trim()
@@ -334,8 +334,8 @@ export function ArchitectureDecisionSheet() {
           { id: 'webapp', title: 'Web app without AI', desc: 'Layers 1–14, 18–25. Standard delivery decisions.' },
           { id: 'aiproduct', title: 'AI-powered product', desc: 'All 25 layers. Emphasis on AI Pipeline, Agents, Validation.' },
           { id: 'aitools', title: 'Using AI tools to develop', desc: 'All layers. Focus on AI Development Risks per layer.' },
-          { id: 'audit', title: 'Auditing existing system', desc: 'Start with Observability, Governance, Security.' },
-          { id: 'pilot', title: 'Recovering stalled AI pilot', desc: 'AI Pipeline, Agents, Observability, Governance first.' },
+          { id: 'audit', title: 'Auditing existing system', desc: '8 key layers: Observability, Governance, Security, Data, Services, API, Testing, Caching.' },
+          { id: 'pilot', title: 'Recovering stalled AI pilot', desc: '7 layers: AI Pipeline, Agents, Validation, Data, Security, Observability, Governance.' },
         ].map(s => (
           <div
             key={s.id}
@@ -379,6 +379,9 @@ export function ArchitectureDecisionSheet() {
             />
             <button className="export-btn" onClick={exportCSV}>Export CSV</button>
             <button className="export-btn" onClick={exportJSON}>Export JSON</button>
+            {Object.keys(trackingData).length > 0 && (
+              <button className="export-btn" onClick={() => { if (confirm('Reset all tracking data? This cannot be undone.')) { setTrackingData({}); try { localStorage.removeItem('arch-sheet-tracking') } catch { /* ignore */ } } }} style={{ color: 'var(--danger)' }}>Reset</button>
+            )}
           </div>
 
           <div className="filters">
