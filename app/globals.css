@@ -252,14 +252,119 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/* Keyboard focus indicator */
+:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Brand-colored text selection */
+::selection {
+  background: hsl(var(--accent) / 0.25);
+  color: hsl(var(--foreground));
+}
+
+/* Anchor links don't hide behind sticky nav */
+section[id], [id] {
+  scroll-margin-top: 80px;
+}
+
+/* Article body text — use on <div> wrappers around long-form content */
+.prose-article p {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .prose-article p {
+    font-size: 1rem;
+  }
+}
+.prose-article p:last-child {
+  margin-bottom: 0;
+}
+.prose-article strong {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+.prose-article h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+.prose-article h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.prose-article ul, .prose-article ol {
+  margin-bottom: 1rem;
+  padding-left: 1.25rem;
+}
+.prose-article li {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 768px) {
+  .prose-article li {
+    font-size: 1rem;
+  }
+}
+.prose-article li strong {
+  color: hsl(var(--foreground));
+}
+
+/* Key insight callout — for highlighting main takeaways */
+.insight-callout {
+  border-left: 3px solid hsl(var(--accent));
+  background: hsl(var(--accent) / 0.06);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+.insight-callout p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .insight-callout p {
+    font-size: 1rem;
+  }
+}
+.insight-callout strong {
+  color: hsl(var(--accent));
+}
+
+/* Section divider for long articles */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, hsl(var(--border)), transparent);
+  margin: 2.5rem 0;
+  border: none;
 }
 
 .prose {
@@ -268,14 +373,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .prose h2 {
   @apply text-2xl font-semibold text-foreground mt-8 mb-4;
+  letter-spacing: -0.02em;
 }
 
 .prose h3 {
   @apply text-xl font-semibold text-foreground mt-6 mb-3;
+  letter-spacing: -0.01em;
 }
 
 .prose p {
   @apply mb-4;
+  line-height: 1.7;
 }
 
 .prose ul {
@@ -284,6 +392,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .prose li {
   @apply text-muted-foreground;
+  line-height: 1.65;
+}
+
+.prose li strong {
+  @apply text-foreground;
+}
+
+.prose strong {
+  @apply text-foreground font-semibold;
 }
 
 .prose a {
@@ -335,10 +452,6 @@ h1, h2, h3, h4, h5, h6 {
   --border: #1b2a25; --card: #0f1719; --card-hover: #142022;
   --code: #070d10; --chip: #16221e;
   --accent: #16d088;
-}
-
-body {
-  font-family: var(--font-sans);
 }
 
 /* Hero animation keyframes (used by WordCycle, ShipLog, Constellation, Aurora) */

@@ -197,7 +197,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Who Needs This */}
       <Section className="pt-4">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Who Needs This Checklist and At What Level</h2>
           <p className="text-sm text-muted-foreground">Not every organization needs the full four-phase evidence preservation plan. Use this guide to determine your required level of preparation.</p>
           <div className="grid gap-4 md:grid-cols-3">
@@ -249,7 +249,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Monitoring & Tracking */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Monitoring & Tracking to Set Up Before an Incident</h2>
           <p className="text-sm text-muted-foreground">Evidence preservation only works if you are already logging the right data. Set up these monitoring capabilities proactively — you cannot retroactively capture logs that were never enabled.</p>
           <div className="grid gap-4 md:grid-cols-2">
@@ -307,7 +307,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* AI in Hiring */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">AI in Hiring: Evidence, Notification & Disclaimer Requirements</h2>
           <p className="text-sm text-muted-foreground">AI in hiring is one of the most heavily regulated AI use cases. Multiple jurisdictions enforce specific notification, audit, and evidence preservation requirements. If you use AI to screen, rank, score, or evaluate candidates, these obligations apply to you.</p>
 
@@ -396,7 +396,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Regulatory Notification Timelines */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Regulatory Notification Timelines — Quick Reference</h2>
           <p className="text-sm text-muted-foreground">AI incidents may trigger statutory notification deadlines. Missing these deadlines can result in separate fines and penalties. Assess obligations early in Phase 3 — do not wait until the investigation is complete.</p>
           <div className="rounded-lg border border-border overflow-hidden">
@@ -472,7 +472,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Chain of Custody */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Evidence Chain of Custody</h2>
           <p className="text-sm text-muted-foreground">Preserved evidence is only useful if its integrity can be proven. A broken chain of custody can render evidence inadmissible in legal proceedings or regulatory investigations.</p>
           <div className="grid gap-4 md:grid-cols-2">
@@ -506,7 +506,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Internal & External Communications */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Incident Communications: Who to Notify and What Not to Say</h2>
           <p className="text-sm text-muted-foreground">Communication during an AI security incident can make or break the response. Poor communication can trigger regulatory penalties, litigation, and reputational damage that exceeds the incident itself.</p>
           <div className="grid gap-4 md:grid-cols-2">
@@ -572,7 +572,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Post-Incident Report Template */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Post-Incident Report — Required Sections</h2>
           <p className="text-sm text-muted-foreground">The post-incident report is the deliverable that regulators, legal counsel, and executives will review. Include all of these sections to ensure completeness.</p>
           <div className="rounded-lg border border-border p-6 space-y-3">
@@ -594,7 +594,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* AI in Lending */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">AI in Lending: Evidence & Compliance Requirements</h2>
           <p className="text-sm text-muted-foreground">AI used in credit decisions, loan underwriting, and insurance pricing is subject to fair lending laws. If you use AI to evaluate, score, or decide loan, credit, or insurance applications, these obligations apply.</p>
           <div className="rounded-lg border border-border p-6 space-y-3">
@@ -633,7 +633,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Sample Incident Walkthrough */}
       <Section className="pt-4">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Sample Incident Walkthrough</h2>
           <p className="text-sm text-muted-foreground">A realistic scenario showing how the four phases connect in practice.</p>
           <div className="rounded-lg border border-border p-6 space-y-4">
@@ -665,7 +665,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       {/* Common Mistakes */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Common Mistakes in AI Incident Response</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="border-l-4 border-l-red-500/40">

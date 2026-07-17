@@ -199,7 +199,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: What Is the Architecture Decision Master Sheet */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">What Is the <span className="gradient-text">Architecture Decision Master Sheet</span>?</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             The Architecture Decision Master Sheet is an interactive reference covering <strong className="text-foreground">25 architecture layers</strong> that every software development project must consider — from product scope to governance. It is designed for <strong className="text-primary">PMs, architects, and tech leads</strong> who need a structured way to track decisions, risks, and deliverables across the full lifecycle of a software project, whether or not AI is part of the product.
@@ -344,7 +344,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: The 7 Layer Groups */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="max-w-3xl mx-auto space-y-6 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">The <span className="gradient-text">7 Layer Groups</span> Explained</h2>
 
           {[
@@ -375,7 +375,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: Real-World Example */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Real-World Example: Building an <span className="gradient-text">AI-Powered Customer Support Tool</span></h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Here is how a 5-person team would use this sheet to build an AI-powered customer support tool from scratch:
@@ -414,7 +414,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: AI Development Risks */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight"><span className="gradient-text">AI Development Risks</span>: What Is Different</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Building software with AI — whether AI is in the product or AI tools write the code — introduces risks that traditional architecture decision frameworks do not cover. This sheet addresses both dimensions:
@@ -447,7 +447,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: Documents Every PM and Architect Needs */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Documents Every <span className="gradient-text">PM and Architect</span> Needs</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Each of the 25 layers specifies two document lists: <strong className="text-foreground">Architect Documents</strong> and <strong className="text-foreground">PM Documents</strong>. These are the concrete deliverables that prove a decision was made, reviewed, and approved.
@@ -490,7 +490,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: CSM Alignment */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight"><span className="gradient-text">CSM Alignment</span>: How This Sheet Maps to the Four Pillars</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             The Architecture Decision Master Sheet operationalizes the <Link href="/haiec" className="text-primary font-medium hover:underline">Cognitive Systems Management (CSM)</Link> framework — the methodology underlying the HAIEC platform. CSM bridges AI strategy, technical execution, and governance into a single operating model with four pillars:
@@ -526,7 +526,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: Definition of Done */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight"><span className="gradient-text">Definition of Done</span>: Why It Matters</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Each of the 25 layers includes a <strong className="text-foreground">Definition of Done (DoD)</strong> — a specific, testable criterion that must be met before the layer is considered complete. The DoD is not a checklist item; it is a gate. Examples:
@@ -552,7 +552,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: Common Anti-Patterns */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Common <span className="text-red-500">Anti-Patterns</span></h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Every layer includes an <strong className="text-foreground">anti-pattern</strong> field — a description of what bad looks like. Here are the top anti-patterns across all 25 layers:
@@ -573,7 +573,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       {/* Article: How This Compares to Other Frameworks */}
       <Section className="pt-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">How This Compares to Other <span className="gradient-text">Architecture Frameworks</span></h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Several architecture frameworks exist. This sheet is not a replacement for any of them — it is a <strong className="text-foreground">complementary tool</strong> that operationalizes their principles into a trackable, layer-by-layer checklist with AI risks and PM deliverables.

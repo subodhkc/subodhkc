@@ -192,7 +192,7 @@ export default function AIRiskRegisterPage() {
 
       {/* Risk Prioritization Framework */}
       <Section className="pt-4">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Risk Prioritization Framework</h2>
           <p className="text-sm text-muted-foreground">Not all risks are equal. Use this framework to decide what to fix first.</p>
           <div className="grid gap-4 md:grid-cols-2">
@@ -250,7 +250,7 @@ export default function AIRiskRegisterPage() {
 
       {/* NIST AI RMF Mapping */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">NIST AI RMF Mapping</h2>
           <p className="text-sm text-muted-foreground">This risk register aligns with the four functions of the NIST AI Risk Management Framework. Use this mapping to integrate the register into your broader AI governance program.</p>
           <div className="grid gap-4 md:grid-cols-2">
@@ -284,7 +284,7 @@ export default function AIRiskRegisterPage() {
 
       {/* Scenario Example */}
       <Section className="pt-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Scenario: From Risk Identification to Remediation</h2>
           <div className="rounded-lg border border-border p-6 space-y-4">
             <p className="text-sm text-muted-foreground">A financial services firm builds an internal AI assistant using Streamlit and RAG. The engineering lead runs through the risk register and identifies the following chain:</p>
