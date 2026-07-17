@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useRef, Fragment } from 'react'
+import { useState, useMemo, useEffect, useRef, Fragment, useCallback } from 'react'
 import { layers, groups, csmPillars, glossary, scenarioMap, filterDefs, type Layer } from './architecture-data'
 
 type ViewType = 'layer' | 'phase' | 'ai' | 'csm'
@@ -29,7 +29,8 @@ const phases = ['Discovery', 'Design', 'Build', 'Launch', 'Operate']
 export function ArchitectureDecisionSheet() {
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({ group: [], crit: [], phase: [], status: [], appl: [], csmPillar: [] })
   const [currentView, setCurrentView] = useState<ViewType>('layer')
-  const [activeScenario, setActiveScenario] = useState<string | null>(null)
+  const [activeScenario, setActiveScenario] = useState<string | null>('aiproduct')
+  const [trackingData, setTrackingData] = useState<Record<number, { status: string; sprint: string; owner: string; adr: string; techDebt: string }>>({})
   const [searchQuery, setSearchQuery] = useState('')
   const [popupLayer, setPopupLayer] = useState<Layer | null>(null)
   const [activeTab, setActiveTab] = useState<TabType>('overview')
@@ -67,16 +68,17 @@ export function ArchitectureDecisionSheet() {
 
   const dashboardStats = useMemo(() => {
     const f = filteredLayers
+    const getStatus = (l: typeof f[0]) => trackingData[l.id]?.status || l.status
     return {
       total: f.length,
       critical: f.filter(l => l.crit === 'Critical').length,
       important: f.filter(l => l.crit === 'Important').length,
-      decided: f.filter(l => l.status === 'Decided').length,
-      blocked: f.filter(l => l.status === 'Blocked').length,
-      pending: f.filter(l => l.status === 'Not Started').length,
+      decided: f.filter(l => getStatus(l) === 'Decided').length,
+      blocked: f.filter(l => getStatus(l) === 'Blocked').length,
+      pending: f.filter(l => getStatus(l) === 'Not Started').length,
       aiLayers: f.filter(l => l.g === 'E').length,
     }
-  }, [filteredLayers])
+  }, [filteredLayers, trackingData])
 
   const toggleFilter = (key: keyof ActiveFilters, val: string) => {
     setActiveFilters(prev => {
@@ -156,9 +158,29 @@ export function ArchitectureDecisionSheet() {
     }
   }, [glossaryOpen])
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('arch-sheet-tracking')
+      if (saved) setTrackingData(JSON.parse(saved))
+    } catch { /* ignore */ }
+  }, [])
+
+  const updateTracking = useCallback((layerId: number, field: 'status' | 'sprint' | 'owner' | 'adr' | 'techDebt', value: string) => {
+    setTrackingData(prev => {
+      const next = { ...prev, [layerId]: { ...prev[layerId], [field]: value } }
+      try { localStorage.setItem('arch-sheet-tracking', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
+  const getTracking = (layerId: number) => trackingData[layerId] || {}
+
   const exportCSV = () => {
-    const headers = ['ID', 'Group', 'CSM Pillar', 'Name', 'Purpose', 'Criticality', 'Phase', 'Status', 'Effort']
-    const rows = filteredLayers.map(l => [l.id, l.g, l.csmPillar, l.name, l.purpose, l.crit, l.phase, l.status, l.effort])
+    const headers = ['ID', 'Group', 'CSM Pillar', 'Name', 'Purpose', 'Criticality', 'Phase', 'Applicability', 'Effort', 'Reversibility', 'RACI', 'Risks', 'Risk Severity', 'Mitigation', 'AI Pitfall', 'AI Quality Gate', 'Dependencies', 'Blocks', 'DoD', 'Arch Docs', 'PM Docs', 'Status', 'Sprint', 'Owner', 'ADR Ref', 'Tech Debt']
+    const rows = filteredLayers.map(l => {
+      const t = trackingData[l.id] || {}
+      return [l.id, l.g, l.csmPillar, l.name, l.purpose, l.crit, l.phase, l.appl, l.effort, l.rev, l.raci, l.risks, l.riskSev, l.mitigation, l.aiPitfall, l.aiGate, l.depends, l.blocks, l.dod, l.archDocs.join('; '), l.pmDocs.join('; '), t.status || l.status, t.sprint || l.sprint, t.owner || l.owner, t.adr || l.adr, t.techDebt || l.techDebt]
+    })
     const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n')
     const blob = new Blob([csv], { type: 'text/csv' })
     const url = URL.createObjectURL(blob)
@@ -170,7 +192,8 @@ export function ArchitectureDecisionSheet() {
   }
 
   const exportJSON = () => {
-    const blob = new Blob([JSON.stringify(filteredLayers, null, 2)], { type: 'application/json' })
+    const exportData = filteredLayers.map(l => ({ ...l, ...trackingData[l.id] }))
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
@@ -180,6 +203,7 @@ export function ArchitectureDecisionSheet() {
   }
 
   return (
+    <div className="arch-sheet-wrapper">
     <div className="arch-sheet">
       <style>{`
         .arch-sheet{--bg:#0a1020;--card:#121c38;--card2:#1a2748;--border:rgba(255,255,255,.08);--text:#e8eef9;--accent:#4ab3e4;--danger:#e5484d;--warning:#f5a623;--success:#30a46c;--info:#4ab3e4;--purple:#9b8cff;max-width:1100px;margin:0 auto;padding:20px;font-family:system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg);border-radius:16px}
@@ -269,6 +293,17 @@ export function ArchitectureDecisionSheet() {
         .arch-sheet .glossary-item p{margin:2px 0 0;font-size:12px;opacity:.85}
         .arch-sheet .arch-footer{margin-top:18px;padding:12px 0;border-top:1px solid var(--border);font-size:12px;opacity:.7;text-align:center}
         .arch-sheet .arch-footer a{color:var(--accent);text-decoration:none}
+        .arch-sheet-wrapper{position:relative;border-radius:18px;padding:4px;background:linear-gradient(135deg,rgba(74,179,228,.15),rgba(155,140,255,.1),transparent);margin:0 auto;max-width:1110px}
+        .arch-sheet select:focus,.arch-sheet input:focus{outline:2px solid var(--accent);outline-offset:1px}
+        @media print{
+          .arch-sheet-wrapper{background:none;padding:0}
+          .arch-sheet{background:#fff;color:#000;border-radius:0;padding:8px}
+          .arch-sheet .scenarios,.arch-sheet .controls,.arch-sheet .filters,.arch-sheet .view-toggle,.arch-sheet .glossary-btn,.arch-sheet .arch-footer{display:none!important}
+          .arch-sheet .table-container{max-height:none;overflow:visible;border:none}
+          .arch-sheet th{background:#eee;color:#000}
+          .arch-sheet tr{page-break-inside:avoid}
+          .arch-sheet .crit-badge,.arch-sheet .status-badge,.arch-sheet .csm-badge{border:1px solid #999!important}
+        }
         @media(max-width:768px){
           .arch-sheet{padding:10px 12px 30px}
           .arch-sheet .arch-header h2{font-size:22px}
@@ -392,7 +427,7 @@ export function ArchitectureDecisionSheet() {
                           <td>{layer.purpose}</td>
                           <td><span className={`crit-badge crit-${layer.crit}`}>{layer.crit}</span></td>
                           <td>{layer.phase}</td>
-                          <td><span className={`status-badge status-${layer.status.replace(/\s/g, '')}`}>{layer.status}</span></td>
+                          <td><span className={`status-badge status-${(getTracking(layer.id).status || layer.status).replace(/\s/g, '')}`}>{getTracking(layer.id).status || layer.status}</span></td>
                           <td>{layer.g === 'E' ? <span style={{ color: 'var(--danger)' }}>High</span> : <span style={{ opacity: 0.5 }}>—</span>}</td>
                         </tr>
                       </Fragment>
@@ -567,13 +602,53 @@ export function ArchitectureDecisionSheet() {
               {activeTab === 'pm' && (
                 <>
                   <div className="section-title">Tracking</div>
-                  <div className="kv"><div className="k">Status</div><div className="v"><span className={`status-badge status-${popupLayer.status.replace(/\s/g, '')}`}>{popupLayer.status}</span></div></div>
-                  <div className="kv"><div className="k">Sprint</div><div className="v">{popupLayer.sprint}</div></div>
-                  <div className="kv"><div className="k">Owner</div><div className="v">{popupLayer.owner}</div></div>
-                  <div className="kv"><div className="k">ADR Reference</div><div className="v">{popupLayer.adr}</div></div>
-                  <div className="kv"><div className="k">Tech Debt</div><div className="v">{popupLayer.techDebt}</div></div>
+                  <div className="kv"><div className="k">Status</div><div className="v">
+                    <select
+                      value={getTracking(popupLayer.id).status || popupLayer.status}
+                      onChange={e => updateTracking(popupLayer.id, 'status', e.target.value)}
+                      style={{ background: 'var(--card)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '6px', padding: '4px 8px', fontSize: '13px' }}
+                    >
+                      <option>Not Started</option>
+                      <option>In Discussion</option>
+                      <option>Decided</option>
+                      <option>Blocked</option>
+                    </select>
+                  </div></div>
+                  <div className="kv"><div className="k">Sprint</div><div className="v">
+                    <input
+                      value={getTracking(popupLayer.id).sprint || popupLayer.sprint}
+                      onChange={e => updateTracking(popupLayer.id, 'sprint', e.target.value)}
+                      placeholder={popupLayer.sprint}
+                      style={{ background: 'var(--card)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '6px', padding: '4px 8px', fontSize: '13px', width: '100%' }}
+                    />
+                  </div></div>
+                  <div className="kv"><div className="k">Owner</div><div className="v">
+                    <input
+                      value={getTracking(popupLayer.id).owner || popupLayer.owner}
+                      onChange={e => updateTracking(popupLayer.id, 'owner', e.target.value)}
+                      placeholder={popupLayer.owner}
+                      style={{ background: 'var(--card)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '6px', padding: '4px 8px', fontSize: '13px', width: '100%' }}
+                    />
+                  </div></div>
+                  <div className="kv"><div className="k">ADR Reference</div><div className="v">
+                    <input
+                      value={getTracking(popupLayer.id).adr || popupLayer.adr}
+                      onChange={e => updateTracking(popupLayer.id, 'adr', e.target.value)}
+                      placeholder={popupLayer.adr}
+                      style={{ background: 'var(--card)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '6px', padding: '4px 8px', fontSize: '13px', width: '100%' }}
+                    />
+                  </div></div>
+                  <div className="kv"><div className="k">Tech Debt</div><div className="v">
+                    <input
+                      value={getTracking(popupLayer.id).techDebt || popupLayer.techDebt}
+                      onChange={e => updateTracking(popupLayer.id, 'techDebt', e.target.value)}
+                      placeholder={popupLayer.techDebt}
+                      style={{ background: 'var(--card)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '6px', padding: '4px 8px', fontSize: '13px', width: '100%' }}
+                    />
+                  </div></div>
                   <div className="section-title">Definition of Done</div>
                   <div className="dod-box"><strong>DoD:</strong> {popupLayer.dod}</div>
+                  <p style={{ fontSize: '11px', opacity: 0.5, marginTop: '8px' }}>Changes save automatically to your browser. Export to CSV/JSON to share with your team.</p>
                 </>
               )}
             </div>
@@ -615,9 +690,10 @@ export function ArchitectureDecisionSheet() {
       )}
 
       <div className="arch-footer">
-        <p>Use this as a living checklist. Update owners, decisions, and risks per project.</p>
+        <p>Use this as a living checklist. Your tracking edits save automatically to your browser. Export to CSV/JSON to share with your team.</p>
         <p>Part of <a href="https://subodhkc.com">subodhkc.com</a> — AI Architecture, Governance & Advisory</p>
       </div>
+    </div>
     </div>
   )
 }

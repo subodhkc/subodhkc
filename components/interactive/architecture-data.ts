@@ -131,8 +131,8 @@ export const scenarioMap: Record<string, (l: Layer) => boolean> = {
   webapp: (l) => l.g !== 'E',
   aiproduct: () => true,
   aitools: () => true,
-  audit: (l) => [22, 25, 18, 10, 8].includes(l.id),
-  pilot: (l) => [15, 16, 22, 25].includes(l.id),
+  audit: (l) => [22, 25, 18, 10, 8, 7, 20, 11].includes(l.id),
+  pilot: (l) => [15, 16, 17, 22, 25, 10, 18].includes(l.id),
 }
 
 export const filterDefs: { key: keyof { group: string[]; crit: string[]; phase: string[]; status: string[]; appl: string[]; csmPillar: string[] }; label: string; options: { val: string; label: string }[] }[] = [
