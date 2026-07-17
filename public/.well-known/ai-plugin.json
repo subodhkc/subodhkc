@@ -155,6 +155,11 @@
         "url": "https://subodhkc.com/ai-incident-evidence-checklist"
       },
       {
+        "name": "Architecture Decision Master Sheet",
+        "description": "Interactive 25-layer architecture decision sheet with AI development risks, CSM pillar mapping, documents per step, and Definition of Done for every layer",
+        "url": "https://subodhkc.com/architecture-decision-master-sheet"
+      },
+      {
         "name": "HAIEC AI Exposure Assessment",
         "description": "Comprehensive AI exposure assessment with deterministic analysis, adversarial testing, and evidence-grade compliance outputs",
         "url": "https://subodhkc.com/solutions/haiec/exposure-assessment"

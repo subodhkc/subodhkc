@@ -186,6 +186,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/architecture-decision-master-sheet`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/how-to-secure-and-govern-ai`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

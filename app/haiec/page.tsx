@@ -229,6 +229,10 @@ export default function HAIECPage() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             CSM is the all-in-one playbook for AI implementation. It addresses the full lifecycle from strategic planning through production deployment, ensuring governance is embedded at every stage—not bolted on afterward.
           </p>
+          <p className="text-sm text-muted-foreground mt-4">
+            For a practical tool that operationalizes CSM across 25 architecture layers, explore the{' '}
+            <Link href="/architecture-decision-master-sheet" className="text-primary font-medium hover:underline">Architecture Decision Master Sheet</Link>.
+          </p>
         </div>
       </Section>
 

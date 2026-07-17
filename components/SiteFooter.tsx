@@ -64,6 +64,7 @@ const SITEMAP = [
       ["/why-ai-voice-agents-fail-in-production", "why AI voice agents fail"],
       ["/ai-voice-agent-architecture", "AI voice agent architecture"],
       ["/kestrel-voice-ai-receptionist-platform", "Kestrel Voice AI receptionist"],
+      ["/architecture-decision-master-sheet", "architecture decision master sheet"],
     ],
   },
   {

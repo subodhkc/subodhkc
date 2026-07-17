@@ -3,7 +3,7 @@ import Section from '@/components/Section'
 import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
-import { FileText, Shield, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react'
+import { FileText, Shield, AlertTriangle, CheckCircle2, ArrowRight, Layers } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -464,6 +464,20 @@ export default function AIRiskRegisterPage() {
                   </div>
                   <CardDescription className="text-sm">60-item checklist for evaluating AI vendors before procurement.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open checklist <ArrowRight className="h-3 w-3" /></span>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/architecture-decision-master-sheet" className="block">
+              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Layers className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-sm">Architecture Decision Master Sheet</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm">Interactive 25-layer architecture decision sheet with AI development risks and CSM pillar mapping.</CardDescription>
+                  <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open sheet <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
             </Link>

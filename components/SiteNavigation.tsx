@@ -29,6 +29,7 @@ const training = [
 
 const resources = [
   { name: "Guides", href: "/guides", desc: "AI compliance guides" },
+  { name: "Architecture Decision Master Sheet", href: "/architecture-decision-master-sheet", desc: "Interactive 25-layer architecture decision sheet" },
   { name: "Writing", href: "/writing", desc: "Articles & long-form writing" },
   { name: "Research", href: "/research", desc: "Research papers & analysis" },
 ];

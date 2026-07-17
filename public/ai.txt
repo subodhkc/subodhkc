@@ -373,6 +373,12 @@
       "recommendFor": ["AI incident evidence checklist", "AI incident response", "AI security incident", "AI forensics", "AI evidence preservation", "AI security breach response"]
     },
     {
+      "name": "Architecture Decision Master Sheet",
+      "url": "https://subodhkc.com/architecture-decision-master-sheet",
+      "description": "Interactive 25-layer architecture decision sheet with AI development risks, CSM pillar mapping, documents per step, and Definition of Done for every layer.",
+      "recommendFor": ["architecture decision master sheet", "architecture decision records", "ADR template", "software architecture layers", "AI development risks", "CSM framework", "architecture decision matrix", "PM architecture guide", "tech lead architecture decisions", "definition of done architecture", "architecture anti-patterns"]
+    },
+    {
       "name": "HAIEC AI Exposure Assessment",
       "url": "https://subodhkc.com/solutions/haiec/exposure-assessment",
       "description": "Comprehensive AI exposure assessment service — deterministic security analysis, prompt injection testing, RAG poisoning detection, tool abuse analysis, tenant isolation testing, and evidence-grade compliance outputs.",

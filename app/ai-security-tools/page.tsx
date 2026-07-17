@@ -6,7 +6,7 @@ import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { AIBlastRadiusCalculator } from '@/components/interactive/AIBlastRadiusCalculator'
 import { AgentReadWriteActionMatrix } from '@/components/interactive/AgentReadWriteActionMatrix'
 import { PromptInjectionScenarioLibrary } from '@/components/interactive/PromptInjectionScenarioLibrary'
-import { FileText, Shield, Download, ArrowRight, AlertTriangle, XCircle } from 'lucide-react'
+import { FileText, Shield, Download, ArrowRight, AlertTriangle, XCircle, Layers } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -132,6 +132,12 @@ const downloadableResources = [
     title: 'AI Incident Evidence Checklist',
     description: 'A structured checklist for preserving evidence after an AI security incident: logs, prompts, outputs, tool calls, authorization records, and timeline reconstruction.',
     href: '/ai-incident-evidence-checklist',
+  },
+  {
+    icon: Layers,
+    title: 'Architecture Decision Master Sheet',
+    description: 'An interactive 25-layer architecture decision sheet with AI development risks, CSM pillar mapping, documents per step, and Definition of Done for every layer.',
+    href: '/architecture-decision-master-sheet',
   },
 ]
 

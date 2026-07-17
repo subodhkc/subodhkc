@@ -6,6 +6,7 @@ export interface ShipEntry {
 }
 
 export const SHIP_LOG: ShipEntry[] = [
+  { ver: "arch-master-sheet", note: "25-layer interactive decision sheet", when: "new" },
   { ver: "llmverify v0.4.2", note: "drift detector for tools/", when: "4h" },
   { ver: "haiec-action v1.3.0", note: "EU AI Act rules pack", when: "1d" },
   { ver: "kestrelvoice", note: "after-hours scheduling GA", when: "2d" },

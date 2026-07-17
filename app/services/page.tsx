@@ -7,7 +7,7 @@ import Grid from '@/components/Grid'
 import Link from 'next/link'
 import {
   Shield, Briefcase, Users, Zap, CheckCircle2, Target, Award,
-  Network, Database, Workflow, Bot, Phone, Activity, Lock, FileCheck, Gauge, Cpu, Radio,
+  Network, Database, Workflow, Bot, Phone, Activity, Lock, FileCheck, Gauge, Cpu, Radio, Layers, ArrowRight,
 } from 'lucide-react'
 
 export const metadata = {
@@ -59,6 +59,12 @@ export default function ServicesPage() {
           icon: Zap,
           name: 'AI Pilot Recovery',
           desc: 'Rescuing stalled AI pilots — diagnosing architecture failures, rebuilding for production, and getting to deployment.',
+        },
+        {
+          icon: Layers,
+          name: 'Architecture Decision Master Sheet',
+          desc: 'Interactive 25-layer architecture decision sheet with AI development risks, CSM pillar mapping, and Definition of Done.',
+          href: '/architecture-decision-master-sheet',
         },
       ],
     },
@@ -188,8 +194,8 @@ export default function ServicesPage() {
               <Grid cols={3}>
                 {pillar.services.map((service, sIndex) => {
                   const Icon = service.icon
-                  return (
-                    <Card key={sIndex} className="border-l-4 border-l-primary">
+                  const card = (
+                    <Card key={sIndex} className="border-l-4 border-l-primary h-full">
                       <CardHeader>
                         <div className="flex items-start gap-3 mb-3">
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -200,8 +206,18 @@ export default function ServicesPage() {
                         <CardDescription className="text-sm">
                           {service.desc}
                         </CardDescription>
+                        {'href' in service && service.href && (
+                          <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
+                            Open tool <ArrowRight className="h-3 w-3" />
+                          </span>
+                        )}
                       </CardHeader>
                     </Card>
+                  )
+                  return 'href' in service && service.href ? (
+                    <Link key={sIndex} href={service.href} className="block">{card}</Link>
+                  ) : (
+                    <div key={sIndex}>{card}</div>
                   )
                 })}
               </Grid>

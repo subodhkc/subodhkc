@@ -89,7 +89,7 @@ export default function AdvisoryPage() {
         'Operational playbooks',
       ],
       engagement: '3-6 months',
-      ideal: 'Organizations adopting HAIEC platform or CSM methodology',
+      ideal: 'Organizations adopting HAIEC platform or CSM methodology — see the Architecture Decision Master Sheet for a practical tool that operationalizes CSM across 25 architecture layers.',
     },
   ]
 
