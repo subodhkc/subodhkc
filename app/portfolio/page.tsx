@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { useMemo, useState } from 'react';
+import BookViewer from './BookViewer';
 
 const BOOK_CSS = `
 :root{
@@ -602,18 +604,64 @@ const BOOK_HTML = `
 `;
 
 export default function PortfolioPage() {
+  const [mode, setMode] = useState<'flip' | 'scroll'>('flip');
+
+  const pages = useMemo(() => {
+    const html = BOOK_HTML.trim();
+    const matches = html.match(/<section[^>]*class="page[^"]*"[^>]*>[\s\S]*?<\/section>/g);
+    return matches || [html];
+  }, []);
+
   return (
     <>
       <style jsx global>{BOOK_CSS}</style>
+      <style jsx global>{`
+        .mode-toggle {
+          border: 1px solid rgba(255,255,255,.25);
+          background: rgba(255,255,255,.08);
+          color: #fff;
+          border-radius: 999px;
+          padding: 8px 13px;
+          font-weight: 750;
+          font-size: 12px;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .mode-toggle:hover { background: rgba(255,255,255,.15); }
+        .print-only { display: none; }
+        @media print {
+          .flip-mode { display: none !important; }
+          .print-only { display: block !important; }
+        }
+      `}</style>
       <div className="toolbar" role="toolbar" aria-label="Portfolio actions">
         <strong>AI That Works — Executive Portfolio</strong>
         <div className="actions">
           <button onClick={() => window.print()} aria-label="Print or save portfolio as PDF">Print / Save as PDF</button>
+          <button
+            className="mode-toggle"
+            onClick={() => setMode(mode === 'flip' ? 'scroll' : 'flip')}
+            aria-label="Toggle between flip book and scroll mode"
+          >
+            {mode === 'flip' ? '☰ Scroll' : '📖 Flip'}
+          </button>
           <Link href="/resume" aria-label="View resume page">View Resume</Link>
           <Link href="/local-ai-review" aria-label="Request an AI review">Request a Review</Link>
         </div>
       </div>
-      <div className="book" dangerouslySetInnerHTML={{ __html: BOOK_HTML }} />
+
+      {mode === 'flip' ? (
+        <div className="flip-mode">
+          <BookViewer pages={pages} pageCss={BOOK_CSS} />
+        </div>
+      ) : (
+        <div className="book" dangerouslySetInnerHTML={{ __html: BOOK_HTML }} />
+      )}
+
+      {/* Print fallback: always render scroll mode for print regardless of screen mode */}
+      <div className="book print-only" dangerouslySetInnerHTML={{ __html: BOOK_HTML }} />
     </>
   );
 }

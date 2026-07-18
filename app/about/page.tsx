@@ -192,7 +192,19 @@ export default function AboutPage() {
             automation and compliance readiness.
           </p>
           
-          <div className="flex justify-center mt-8">
+          <div className="flex flex-wrap justify-center gap-4 mt-8">
+            <Link href="/portfolio">
+              <Button size="lg" className="gap-2">
+                <Download className="h-5 w-5" />
+                View Executive Portfolio
+              </Button>
+            </Link>
+            <Link href="/resume">
+              <Button size="lg" variant="outline" className="gap-2">
+                <Download className="h-5 w-5" />
+                View Resume
+              </Button>
+            </Link>
             <Link href="/executive-bio">
               <Button size="lg" variant="outline" className="gap-2">
                 <Download className="h-5 w-5" />
@@ -518,7 +530,7 @@ export default function AboutPage() {
         title="Let's Work Together"
         description="Whether you need advisory on AI compliance, executive coaching, or help driving a complex technical program, I bring strategic thinking and proven execution."
         primaryButton={{ text: 'Get in touch', href: '/contact' }}
-        secondaryButton={{ text: 'View services', href: '/advisory' }}
+        secondaryButton={{ text: 'View Executive Portfolio', href: '/portfolio' }}
       />
     </>
   )
