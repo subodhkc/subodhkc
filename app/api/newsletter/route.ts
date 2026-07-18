@@ -39,12 +39,71 @@ export async function POST(request: NextRequest) {
     const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
     const safeEmail = esc(email)
 
-    // Send welcome email for newsletter subscription
+    // Send welcome email — magazine-specific when source is 'magazine'
+    const isMagazineSub = source === 'magazine'
     const { data, error } = await resend.emails.send({
       from: 'Subodh KC <noreply@subodhkc.com>',
       to: [email],
-      subject: '✅ Welcome to AI Insights & Compliance Updates',
-      html: `
+      subject: isMagazineSub ? '✅ You\'re on the list — AI That Works Magazine' : '✅ Welcome to AI Insights & Compliance Updates',
+      html: isMagazineSub ? `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>AI That Works Magazine — Subscription Confirmed</title>
+          </head>
+          <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+            <div style="background: linear-gradient(135deg, #071927 0%, #113349 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+              <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 700;">AI That Works</h1>
+              <p style="color: rgba(255, 255, 255, 0.9); margin: 10px 0 0 0; font-size: 16px;">Issue 02 — You\'re on the list</p>
+            </div>
+            <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+              <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+                Thanks for subscribing from <strong>AI That Works Magazine</strong>!
+              </p>
+              <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
+                You\'ll be notified the moment Issue 02 drops. No spam, no fluff — just field-tested AI strategy, systems, and governance. One issue at a time.
+              </p>
+              <div style="background: #f0fdf4; border-left: 4px solid #10B981; padding: 20px; margin-bottom: 30px; border-radius: 8px;">
+                <h3 style="color: #065f46; margin-top: 0; font-size: 18px;">What to Expect:</h3>
+                <ul style="margin: 0; padding-left: 20px; color: #065f46;">
+                  <li style="margin-bottom: 10px;"><strong>Issue 02 notification</strong> — delivered to your inbox on launch day</li>
+                  <li style="margin-bottom: 10px;"><strong>Field-tested frameworks</strong> — strategy, systems, governance, and field practice</li>
+                  <li style="margin-bottom: 10px;"><strong>No filler</strong> — one issue at a time, when it\'s ready</li>
+                </ul>
+              </div>
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/magazine" style="display: inline-block; background: #071927; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                  Read Issue 01 →
+                </a>
+              </div>
+              <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
+                <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
+                  <strong>About the author:</strong> Subodh KC — AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.
+                </p>
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/about" style="display: inline-block; color: #10B981; text-decoration: none; font-weight: 600; font-size: 14px;">
+                  Learn More →
+                </a>
+              </div>
+            </div>
+            <div style="text-align: center; padding: 30px 20px; color: #9ca3af; font-size: 12px;">
+              <p style="margin: 0 0 10px 0;">
+                <strong style="color: #6b7280;">Subodh KC</strong><br>
+                AI Systems Architect & Governance Expert
+              </p>
+              <p style="margin: 10px 0;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}" style="color: #10B981; text-decoration: none;">subodhkc.com</a> | 
+                <a href="https://linkedin.com/in/subodhkc" style="color: #10B981; text-decoration: none;">LinkedIn</a>
+              </p>
+              <p style="margin: 15px 0 0 0; color: #d1d5db; font-size: 11px;">
+                You\'re receiving this because you subscribed to AI That Works Magazine at subodhkc.com<br>
+                <a href="#" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a>
+              </p>
+            </div>
+          </body>
+        </html>
+      ` : `
         <!DOCTYPE html>
         <html>
           <head>
@@ -164,19 +223,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Add contact to Resend Audience for persistent subscriber storage
-    if (process.env.RESEND_AUDIENCE_ID) {
-      try {
-        await resend.contacts.create({
-          audienceId: process.env.RESEND_AUDIENCE_ID,
-          email,
-          firstName: '',
-          lastName: '',
-          unsubscribed: false,
-        })
-      } catch (audienceError) {
-        console.error('Failed to add contact to audience (non-blocking):', audienceError)
-      }
+    // Add contact to Resend for persistent subscriber storage
+    // Resend's new Contacts model is global — no audience ID needed.
+    // Contacts appear in the Resend dashboard under Contacts.
+    // Note: SDK v3.5.0 types still require audienceId, but the API doesn't.
+    try {
+      await (resend.contacts.create as any)({
+        email,
+        unsubscribed: false,
+      })
+    } catch (contactError) {
+      console.error('Failed to add contact to Resend (non-blocking):', contactError)
     }
 
     // Notify you about new subscriber

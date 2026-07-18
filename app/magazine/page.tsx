@@ -196,6 +196,14 @@ export default function MagazinePage() {
           padding: 4px 12px;
           margin-bottom: 14px;
         }
+        @media (max-width: 480px) {
+          .subscribe-section form {
+            flex-direction: column;
+          }
+          .subscribe-section input, .subscribe-section button {
+            width: 100%;
+          }
+        }
       `}</style>
 
       <div className="magazine-toolbar" role="toolbar" aria-label="Magazine actions">
