@@ -71,8 +71,8 @@ const BOOK_HTML = `
   <div class="cover-copy"><div class="edition">Executive portfolio / 2026 edition</div>
     <h1>AI THAT <span>WORKS</span></h1>
     <div class="sub">Strategy. Programs. Platforms. Governance.<br/>Turning AI ambition into operating systems, measurable value, and evidence that survives scrutiny.</div>
-    <div class="cover-tags"><span>AI Strategy</span><span>Program &amp; Portfolio Leadership</span><span>Production AI</span><span>Governance &amp; Reliability</span><span>Dallas\u2013Fort Worth</span></div>
-    <div class="name">Subodh KC</div><div class="role">AI Strategy &amp; Transformation Leader<br/>Enterprise Portfolio Operator \u00B7 AI Systems Architect \u00B7 Product &amp; Governance Builder</div>
+    <div class="cover-tags"><span>AI Strategy</span><span>Program &amp; Portfolio Leadership</span><span>Production AI</span><span>Governance &amp; Reliability</span><span>Dallas–Fort Worth</span></div>
+    <div class="name">Subodh KC</div><div class="role">AI Strategy &amp; Transformation Leader<br/>Enterprise Portfolio Operator · AI Systems Architect · Product &amp; Governance Builder</div>
   </div>
   <div class="cover-photo"><img src="/portrait.jpeg" alt="Subodh KC portrait"/></div>
 </div></section>
@@ -151,9 +151,9 @@ const BOOK_HTML = `
   <div class="columns-3">
     <div><span class="tag blue">Education</span><p style="margin-top:8px"><b>M.S. Engineering &amp; Technology Management</b><br/>B.S. technology / information systems discipline<br/>Louisiana Tech University</p></div>
     <div><span class="tag teal">Professional discipline</span><p style="margin-top:8px"><b>Six Sigma Green Belt</b><br/>AI ethics and governance study<br/>Failure analysis and systems thinking</p></div>
-    <div><span class="tag gold">Leadership arc</span><p style="margin-top:8px"><b>53-application enterprise portfolio</b><br/>Commercial Software AI Strategy Initiative<br/>Kestrel Voice \u00B7 HAIEC \u00B7 llmverify</p></div>
+    <div><span class="tag gold">Leadership arc</span><p style="margin-top:8px"><b>53-application enterprise portfolio</b><br/>Commercial Software AI Strategy Initiative<br/>Kestrel Voice · HAIEC · llmverify</p></div>
   </div>
-  <div class="card" style="margin-top:12px;background:linear-gradient(145deg,var(--softblue),#fff)"><h3>See these pillars at work</h3><p><b>Platforms:</b> Kestrel's origin story, page 11 \u00B7 <b>Governance:</b> HAIEC's evidence layer, page 14 \u00B7 <b>Everything, indexed:</b> The Field Guide, page 23.</p></div>
+  <div class="card" style="margin-top:12px;background:linear-gradient(145deg,var(--softblue),#fff)"><h3>See these pillars at work</h3><p><b>Platforms:</b> Kestrel's origin story, page 11 · <b>Governance:</b> HAIEC's evidence layer, page 14 · <b>Everything, indexed:</b> The Field Guide, page 23.</p></div>
   <div class="source">Profile synthesized from uploaded resumes, SubodhKC.com, GitHub, KestrelVoice.com, HAIEC.com, and prior project records. Bar lengths are illustrative emphasis, not a measured survey.</div><div class="pg">04</div>
 </div></section>
 
@@ -318,7 +318,7 @@ const BOOK_HTML = `
       <div class="mock-row"><div class="mock-icon">02</div><div><b>Appointment request</b><br/><span>Availability checked, context preserved</span></div><div class="pill">Booked</div></div>
       <div class="mock-row"><div class="mock-icon">03</div><div><b>Routine customer question</b><br/><span>Answer grounded in approved knowledge</span></div><div class="pill">Resolved</div></div>
       <div class="mock-row"><div class="mock-icon">04</div><div><b>Escalation to team</b><br/><span>Summary, transcript, reason, and urgency</span></div><div class="pill">Transferred</div></div>
-      <div style="margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(145deg,var(--navy),#13526d);color:#fff"><h3 style="color:#fff">One knowledge layer</h3><p style="color:#dbecef;margin-top:6px;font-size:8.5px">Phone \u00B7 Website chat \u00B7 Public AI profile \u00B7 Meeting intelligence \u00B7 Workflow actions</p></div>
+      <div style="margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(145deg,var(--navy),#13526d);color:#fff"><h3 style="color:#fff">One knowledge layer</h3><p style="color:#dbecef;margin-top:6px;font-size:8.5px">Phone · Website chat · Public AI profile · Meeting intelligence · Workflow actions</p></div>
     </div>
   </div>
   <div class="source">Evidence basis: public product surfaces plus internal call, telephony, transcript, booking, recording, and deployment records. Capability status is intentionally separated from platform availability.</div><div class="pg">12</div>
@@ -345,7 +345,7 @@ const BOOK_HTML = `
 <!-- 14 -->
 <section class="page" id="haiec-product"><div class="page-grid"></div><div class="page-inner">
   <div class="running"><b>HAIEC</b><span>Product strategy</span></div>
-  <p class="kicker">Holistic AI Ethics &amp; Compliance \u00B7 Evidence layer for operational AI</p><h2>AI adoption moves fast. Defensible evidence usually arrives late.</h2>
+  <p class="kicker">Holistic AI Ethics &amp; Compliance · Evidence layer for operational AI</p><h2>AI adoption moves fast. Defensible evidence usually arrives late.</h2>
   <div class="columns-2" style="margin-top:18px">
     <div class="case-content">
       <div class="card"><span class="status">Problem</span><h3 style="margin-top:6px">Policy is not proof</h3><p>AI systems may not be inventoried. Vendor claims substitute for internal evidence. Testing happens late. Ownership, authority, and human review are unclear. Artifacts remain scattered across teams.</p></div>
@@ -471,7 +471,7 @@ const BOOK_HTML = `
       <div style="background:#8b5713;color:#fff;border-radius:6px;padding:6px 3px;text-align:center;font-size:6.6px;font-weight:800">USER / OUTPUT</div>
     </div>
     <div class="columns-2" style="margin-top:14px">
-      <div><h3>Five named AI invention filings</h3><p class="small" style="margin-top:8px">Adversarial Project Twin \u00B7 Precision Drift Detector \u00B7 AI Compliance Twin \u00B7 Modular Audit Engine \u00B7 Compliance Fingerprint Layer. Filing type and status should be read against the private filing register.</p></div>
+      <div><h3>Five named AI invention filings</h3><p class="small" style="margin-top:8px">Adversarial Project Twin · Precision Drift Detector · AI Compliance Twin · Modular Audit Engine · Compliance Fingerprint Layer. Filing type and status should be read against the private filing register.</p></div>
       <div><h3>Editorial rule</h3><p class="small" style="margin-top:8px">Use exact status labels: technical report, working paper, published framework, patent application filed, or patent pending. Do not imply peer review where it did not occur.</p></div>
     </div>
   </div>
@@ -525,7 +525,7 @@ const BOOK_HTML = `
     <div class="case-content">
       <h3>Illustrative service-business journey</h3>
       <div class="card"><b>Current state</b><p>Calls arrive while staff are occupied. Lead details are inconsistent. Follow-up depends on the owner. Calendar and CRM are disconnected.</p></div>
-      <div class="card"><b>Sequence</b><p>Opportunity Snapshot \u2192 Kestrel AI Phone pilot \u2192 measure outcomes \u2192 connect CRM \u2192 apply HAIEC controls \u2192 decide whether to scale.</p></div>
+      <div class="card"><b>Sequence</b><p>Opportunity Snapshot → Kestrel AI Phone pilot → measure outcomes → connect CRM → apply HAIEC controls → decide whether to scale.</p></div>
       <div class="card"><b>Proof</b><p>Baseline, target, owner, human fallback, test cases, adoption, cost, failure criteria, and next decision date.</p></div>
     </div>
     <div class="case-label" style="background:linear-gradient(160deg,#0d4d57,#0f766e)"><div><p class="kicker" style="color:#bcece5">Ways to work together</p><h3>Strategy through execution</h3></div><ul style="margin:6px 0 0;padding-left:16px;color:rgba(255,255,255,.9);font-size:9.5px;line-height:1.9"><li>AI opportunity and portfolio review</li><li>Strategic program leadership</li><li>Focused AI pilot</li><li>Custom AI system</li><li>Texas AI defensibility review</li><li>Fractional AI leadership</li></ul></div>
@@ -579,13 +579,13 @@ const BOOK_HTML = `
   <div class="contact-grid" style="margin-top:20px">
     <div class="case-content">
       <div class="columns-2">
-        <div class="mini"><div class="icon">\u2713</div><h3 style="font-size:13px">Professional</h3><p><b>Resume and career:</b> subodhkc.com/about<br/><b>LinkedIn:</b> linkedin.com/in/subodhkc<br/><b>Portfolio:</b> subodhkc.com</p></div>
-        <div class="mini"><div class="icon" style="background:var(--softteal);color:var(--teal)">\u2713</div><h3 style="font-size:13px">Code and products</h3><p><b>GitHub:</b> github.com/subodhkc<br/><b>Kestrel:</b> kestrelvoice.com<br/><b>HAIEC:</b> haiec.com</p></div>
-        <div class="mini"><div class="icon" style="background:var(--softgold);color:var(--gold)">\u2713</div><h3 style="font-size:13px">Research and IP</h3><p><b>Research:</b> subodhkc.com/research<br/><b>Open source:</b> llmverify and selected repositories<br/><b>Patent status:</b> filing references available</p></div>
-        <div class="mini"><div class="icon">\u2713</div><h3 style="font-size:13px">Credentials</h3><p>M.S. Engineering &amp; Technology Management<br/>Six Sigma Green Belt<br/>AI ethics and governance education</p></div>
+        <div class="mini"><div class="icon">✓</div><h3 style="font-size:13px">Professional</h3><p><b>Resume and career:</b> subodhkc.com/about<br/><b>LinkedIn:</b> linkedin.com/in/subodhkc<br/><b>Portfolio:</b> subodhkc.com</p></div>
+        <div class="mini"><div class="icon" style="background:var(--softteal);color:var(--teal)">✓</div><h3 style="font-size:13px">Code and products</h3><p><b>GitHub:</b> github.com/subodhkc<br/><b>Kestrel:</b> kestrelvoice.com<br/><b>HAIEC:</b> haiec.com</p></div>
+        <div class="mini"><div class="icon" style="background:var(--softgold);color:var(--gold)">✓</div><h3 style="font-size:13px">Research and IP</h3><p><b>Research:</b> subodhkc.com/research<br/><b>Open source:</b> llmverify and selected repositories<br/><b>Patent status:</b> filing references available</p></div>
+        <div class="mini"><div class="icon">✓</div><h3 style="font-size:13px">Credentials</h3><p>M.S. Engineering &amp; Technology Management<br/>Six Sigma Green Belt<br/>AI ethics and governance education</p></div>
       </div>
       <div class="card" style="background:linear-gradient(145deg,var(--softblue),#fff)"><h3>Evidence and maturity key</h3><p><span class="tag blue">Operational</span> <span class="tag teal">Private beta / prototype</span> <span class="tag gold">Open source</span> <span class="tag">Research / filing</span></p><p class="small" style="margin-top:8px">Leadership: resume and professional records. Research: DOI and venue. IP: filing receipt. Product adoption and performance: dated registry, analytics, test, or customer evidence.</p></div>
-      <div class="card" style="background:linear-gradient(145deg,var(--softgold),#fff)"><h3>Local roots, enterprise discipline</h3><p>Based in Euless, Dallas-Fort Worth \u00B7 Member, HEB Area Chamber of Commerce \u00B7 Available for project, fractional, partnership, speaking, workshop, and senior AI transformation opportunities - locally and nationally.</p></div>
+      <div class="card" style="background:linear-gradient(145deg,var(--softgold),#fff)"><h3>Local roots, enterprise discipline</h3><p>Based in Euless, Dallas-Fort Worth · Member, HEB Area Chamber of Commerce · Available for project, fractional, partnership, speaking, workshop, and senior AI transformation opportunities - locally and nationally.</p></div>
     </div>
     <div class="qrbox"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://subodhkc.com/portfolio" alt="QR code to subodhkc.com/portfolio"/><p>Scan to view this portfolio online</p></div>
   </div>
@@ -597,7 +597,7 @@ const BOOK_HTML = `
   <p class="kicker" style="color:#8fd3da">Subodh KC / AI Strategy &amp; Transformation / Dallas-Fort Worth</p>
   <h1>Turn the right AI opportunity into an operating advantage.</h1>
   <div class="closing">Choose the right opportunity.<br/>Align the program.<br/>Build the system.<br/>Measure the outcome.<br/>Preserve the evidence.</div>
-  <div class="footerline"><p><b>Subodh KC</b><br/>Euless \u00B7 Dallas-Fort Worth<br/>subodhkc.com \u00B7 subodhkc@subodhkc.com</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https://subodhkc.com" alt="QR code"/></div>
+  <div class="footerline"><p><b>Subodh KC</b><br/>Euless · Dallas-Fort Worth<br/>subodhkc.com · subodhkc@subodhkc.com</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https://subodhkc.com" alt="QR code"/></div>
 </div></section>
 `;
 
@@ -605,12 +605,12 @@ export default function PortfolioPage() {
   return (
     <>
       <style jsx global>{BOOK_CSS}</style>
-      <div className="toolbar">
-        <strong>AI That Works \u2014 Executive Portfolio</strong>
+      <div className="toolbar" role="toolbar" aria-label="Portfolio actions">
+        <strong>AI That Works — Executive Portfolio</strong>
         <div className="actions">
-          <button onClick={() => window.print()}>Print / Save as PDF</button>
-          <Link href="/resume" legacyBehavior><a className="toolbar-link">View Resume</a></Link>
-          <a href="https://subodhkc.com/local-ai-review" target="_blank" rel="noopener noreferrer">Request a Review</a>
+          <button onClick={() => window.print()} aria-label="Print or save portfolio as PDF">Print / Save as PDF</button>
+          <Link href="/resume" aria-label="View resume page">View Resume</Link>
+          <Link href="/local-ai-review" aria-label="Request an AI review">Request a Review</Link>
         </div>
       </div>
       <div className="book" dangerouslySetInnerHTML={{ __html: BOOK_HTML }} />
