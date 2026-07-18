@@ -4,7 +4,7 @@ export function MagazineBadge() {
   return (
     <section className="py-20 px-6" style={{ background: '#0a1620' }}>
       <div className="max-w-5xl mx-auto">
-        <Link href="/magazine" className="block group" style={{ textDecoration: 'none' }}>
+        <Link href="/magazine" className="block group" style={{ textDecoration: 'none' }} aria-label="Read AI That Works Magazine, Issue 01 — 36-page field magazine on AI strategy, systems, and governance">
           <div
             className="relative overflow-hidden rounded-2xl"
             style={{
@@ -90,6 +90,8 @@ export function MagazineBadge() {
                       transition: 'all 0.2s',
                     }}
                     className="group-hover:bg-white/20"
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
                   >
                     Read the Magazine →
                   </div>

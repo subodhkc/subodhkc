@@ -224,6 +224,11 @@ export default function MagazinePage() {
 
       <div className="book print-only" dangerouslySetInnerHTML={{ __html: MAGAZINE_HTML }} />
 
+      <noscript>
+        <h1>AI That Works — Issue 01: From Demo to Operating System</h1>
+        <div dangerouslySetInnerHTML={{ __html: MAGAZINE_HTML }} />
+      </noscript>
+
       <div className="subscribe-section">
         {subscribed ? (
           <>
@@ -235,7 +240,7 @@ export default function MagazinePage() {
             <span className="issue-badge">Issue 02 — Coming Soon</span>
             <h3>Subscribe for the Next Issue</h3>
             <p>Get notified when Issue 02 arrives. No spam, no fluff — just field-tested AI strategy, systems, and governance. One issue at a time.</p>
-            {error && <div className="error-msg">{error}</div>}
+            {error && <div className="error-msg" role="alert" aria-live="assertive">{error}</div>}
             <form onSubmit={handleSubscribe}>
               <input
                 type="email"

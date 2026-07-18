@@ -18,11 +18,20 @@ export const metadata: Metadata = {
     url: 'https://subodhkc.com/magazine',
     publishedTime: '2026-07-18',
     authors: ['Subodh KC'],
+    images: [
+      {
+        url: 'https://subodhkc.com/magazine/img-1.png',
+        width: 1200,
+        height: 630,
+        alt: 'AI That Works — Issue 01 Magazine Cover',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI That Works — Issue 01 | Magazine by Subodh KC',
     description: 'A 36-page independent field magazine on AI strategy, systems, governance, and field practice.',
+    images: ['https://subodhkc.com/magazine/img-1.png'],
   },
 }
 

@@ -45,8 +45,13 @@ export default function MagazineViewer({ pages }: MagazineViewerProps) {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') next()
-      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        e.preventDefault()
+        next()
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault()
+        prev()
+      }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
@@ -147,7 +152,7 @@ export default function MagazineViewer({ pages }: MagazineViewerProps) {
               showPageCorners={true}
               drawShadow={true}
               flippingTime={700}
-              usePortrait={true}
+              usePortrait={isMobile}
               startPage={0}
               maxShadowOpacity={0.5}
               useMouseEvents={true}

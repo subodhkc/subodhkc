@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY)
     const body = await request.json()
-    const { email } = body
+    const { email, source } = body
 
     if (!email) {
       return NextResponse.json(
@@ -164,6 +164,21 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Add contact to Resend Audience for persistent subscriber storage
+    if (process.env.RESEND_AUDIENCE_ID) {
+      try {
+        await resend.contacts.create({
+          audienceId: process.env.RESEND_AUDIENCE_ID,
+          email,
+          firstName: '',
+          lastName: '',
+          unsubscribed: false,
+        })
+      } catch (audienceError) {
+        console.error('Failed to add contact to audience (non-blocking):', audienceError)
+      }
+    }
+
     // Notify you about new subscriber
     await resend.emails.send({
       from: 'Newsletter Notification <noreply@subodhkc.com>',
@@ -172,14 +187,14 @@ export async function POST(request: NextRequest) {
       html: `
         <h2>New Newsletter Subscription</h2>
         <p><strong>Email:</strong> ${safeEmail}</p>
-        <p><strong>Source:</strong> Newsletter Signup Form</p>
+        <p><strong>Source:</strong> ${source || 'Newsletter Signup Form'}</p>
         <p><strong>Time:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
         <hr>
         <p><small>Automated notification from subodhkc.com</small></p>
       `,
     })
 
-    console.log('Newsletter subscription:', { email, timestamp: new Date().toISOString() })
+    console.log('Newsletter subscription:', { email, source: source || 'newsletter', timestamp: new Date().toISOString() })
 
     return NextResponse.json(
       { success: true, data: { id: data?.id } },
