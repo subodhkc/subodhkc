@@ -14,21 +14,26 @@ const HTMLFlipBook = dynamic(() => import('react-pageflip'), {
 
 interface BookViewerProps {
   pages: string[];
-  pageCss: string;
 }
 
-export default function BookViewer({ pages, pageCss }: BookViewerProps) {
+export default function BookViewer({ pages }: BookViewerProps) {
   const bookRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(pages.length);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const safeWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
+  const pageWidth = isMobile ? Math.min(safeWidth - 32, 612) : 612;
+  const pageHeight = isMobile ? Math.round(pageWidth * 11 / 8.5) : 792;
 
   const flipNext = useCallback(() => {
     bookRef.current?.pageFlip()?.flipNext();
@@ -63,12 +68,8 @@ export default function BookViewer({ pages, pageCss }: BookViewerProps) {
     }
   };
 
-  const pageWidth = isMobile ? Math.min(window.innerWidth - 32, 612) : 612;
-  const pageHeight = isMobile ? Math.round(pageWidth * 11 / 8.5) : 792;
-
   return (
     <>
-      <style jsx global>{pageCss}</style>
       <style jsx global>{`
         .flip-book-wrapper {
           display: flex;
@@ -118,6 +119,10 @@ export default function BookViewer({ pages, pageCss }: BookViewerProps) {
         .flip-nav button:hover:not(:disabled) {
           background: rgba(10, 32, 53, 0.12);
         }
+        .flip-nav button:focus-visible {
+          outline: 2px solid #2563eb;
+          outline-offset: 2px;
+        }
         .flip-nav button:disabled {
           opacity: 0.35;
           cursor: not-allowed;
@@ -136,6 +141,7 @@ export default function BookViewer({ pages, pageCss }: BookViewerProps) {
 
       <div className="flip-book-wrapper" role="region" aria-label="Portfolio flip book">
         <div className="flip-book-container">
+          {mounted ? (
           <HTMLFlipBook
             ref={bookRef}
             width={pageWidth}
@@ -173,6 +179,9 @@ export default function BookViewer({ pages, pageCss }: BookViewerProps) {
               </div>
             ))}
           </HTMLFlipBook>
+          ) : (
+            <div style={{ width: pageWidth, height: pageHeight, background: '#fbfaf7', borderRadius: 4, boxShadow: '0 18px 50px rgba(10,32,53,.16)' }} />
+          )}
         </div>
 
         <div className="flip-nav">

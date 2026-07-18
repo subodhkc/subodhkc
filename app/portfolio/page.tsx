@@ -633,6 +633,7 @@ export default function PortfolioPage() {
         .print-only { display: none; }
         @media print {
           .flip-mode { display: none !important; }
+          .book:not(.print-only) { display: none !important; }
           .print-only { display: block !important; }
         }
       `}</style>
@@ -654,7 +655,7 @@ export default function PortfolioPage() {
 
       {mode === 'flip' ? (
         <div className="flip-mode">
-          <BookViewer pages={pages} pageCss={BOOK_CSS} />
+          <BookViewer pages={pages} />
         </div>
       ) : (
         <div className="book" dangerouslySetInnerHTML={{ __html: BOOK_HTML }} />

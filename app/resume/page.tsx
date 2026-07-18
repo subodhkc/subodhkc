@@ -14,11 +14,11 @@ export default function ResumePage() {
         @media print { .resume-toolbar { display: none !important; } }
       `}</style>
 
-      <div className="resume-toolbar sticky top-0 z-50 flex justify-between items-center px-4 py-2 bg-zinc-900 text-white shadow-md">
+      <div className="resume-toolbar sticky top-0 z-50 flex justify-between items-center px-4 py-2 bg-zinc-900 text-white shadow-md" role="toolbar" aria-label="Resume actions">
         <strong className="text-sm">Resume — Subodh KC</strong>
         <div className="flex gap-2">
-          <button onClick={() => window.print()} className="border border-white/25 bg-white/10 text-white rounded-full px-3 py-1.5 text-xs font-bold cursor-pointer hover:bg-white/20">Print / Save as PDF</button>
-          <Link href="/portfolio" className="bg-white text-zinc-900 rounded-full px-3 py-1.5 text-xs font-bold hover:bg-zinc-100">View Portfolio</Link>
+          <button onClick={() => window.print()} aria-label="Print or save resume as PDF" className="border border-white/25 bg-white/10 text-white rounded-full px-3 py-1.5 text-xs font-bold cursor-pointer hover:bg-white/20">Print / Save as PDF</button>
+          <Link href="/portfolio" aria-label="View executive portfolio" className="bg-white text-zinc-900 rounded-full px-3 py-1.5 text-xs font-bold hover:bg-zinc-100">View Portfolio</Link>
         </div>
       </div>
 

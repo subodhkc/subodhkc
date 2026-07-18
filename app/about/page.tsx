@@ -6,7 +6,7 @@ import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Grid from '@/components/Grid'
-import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, Download } from 'lucide-react'
+import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, Download, FileText, BookOpen, User } from 'lucide-react'
 
 export const metadata = {
   title: 'About Subodh KC | AI Systems Architect and Founder',
@@ -195,19 +195,19 @@ export default function AboutPage() {
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Link href="/portfolio">
               <Button size="lg" className="gap-2">
-                <Download className="h-5 w-5" />
+                <BookOpen className="h-5 w-5" />
                 View Executive Portfolio
               </Button>
             </Link>
             <Link href="/resume">
               <Button size="lg" variant="outline" className="gap-2">
-                <Download className="h-5 w-5" />
+                <FileText className="h-5 w-5" />
                 View Resume
               </Button>
             </Link>
             <Link href="/executive-bio">
               <Button size="lg" variant="outline" className="gap-2">
-                <Download className="h-5 w-5" />
+                <User className="h-5 w-5" />
                 View Executive Bio
               </Button>
             </Link>
@@ -530,7 +530,7 @@ export default function AboutPage() {
         title="Let's Work Together"
         description="Whether you need advisory on AI compliance, executive coaching, or help driving a complex technical program, I bring strategic thinking and proven execution."
         primaryButton={{ text: 'Get in touch', href: '/contact' }}
-        secondaryButton={{ text: 'View Executive Portfolio', href: '/portfolio' }}
+        secondaryButton={{ text: 'View services', href: '/advisory' }}
       />
     </>
   )
