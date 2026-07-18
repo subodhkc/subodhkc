@@ -71,11 +71,11 @@ const personSchema = {
     'Cognitive Systems Management',
   ],
   alumniOf: {
-    '@type': 'Organization',
+    '@type': 'CollegeOrUniversity',
     name: 'Louisiana Tech University',
   },
   worksFor: {
-    '@type': 'Organization',
+    '@type': 'Corporation',
     name: 'HP Inc.',
   },
   founder: {

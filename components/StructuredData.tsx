@@ -1,7 +1,7 @@
 export default function StructuredData() {
   const personSchema = {
     '@context': 'https://schema.org',
-    '@type': ['Person', 'ProfessionalService'],
+    '@type': 'Person',
     name: 'Subodh KC',
     alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri'],
     jobTitle: 'AI Systems Architect & Governance Expert',
@@ -52,12 +52,12 @@ export default function StructuredData() {
       description: 'Expert in AI architecture, governance, compliance automation, and enterprise AI deployment',
     },
     alumniOf: {
-      '@type': 'Organization',
+      '@type': 'CollegeOrUniversity',
       name: 'Louisiana Tech University',
     },
     worksFor: {
-      '@type': 'Organization',
-      name: 'Fortune 50 Company',
+      '@type': 'Corporation',
+      name: 'HP Inc.',
     },
     founder: {
       '@type': 'Organization',
