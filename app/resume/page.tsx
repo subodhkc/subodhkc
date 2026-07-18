@@ -1,6 +1,6 @@
 'use client';
 
-export default function CoinbaseResumePage() {
+export default function ResumePage() {
   return (
     <div className="min-h-screen bg-white text-zinc-900 antialiased">
       {/* Print Styles */}
@@ -22,7 +22,7 @@ export default function CoinbaseResumePage() {
             </div>
             <div className="text-right text-xs text-zinc-600 leading-relaxed shrink-0">
               <p className="font-medium text-zinc-900">Dallas, TX (Hybrid)</p>
-              <p>Subodh.kc@haiec.com</p>
+              <p>subodhkc@subodhkc.com</p>
               <p className="text-blue-600">subodhkc.com · linkedin.com/in/subodhkc · github.com/subodhkc</p>
             </div>
           </div>
@@ -122,8 +122,8 @@ export default function CoinbaseResumePage() {
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Launched <strong>LLMVerify</strong>—npm package for real-time AI behavior verification, drift detection, PII exposure</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Created <strong>AI Compliance Twin™</strong> (patent 63/808,089)—modular engine mapping AI behaviors to regulatory rules</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Built <strong>CourtCase Packet</strong>—legal workflow automation structuring events into evidence packets (similar to EDD)</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Developed precision drift detection engine (patent 19/284,705)—analogous to on-chain transaction-risk heuristics</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Built <strong>CourtCase Packet</strong>—legal workflow automation structuring events into evidence packets</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Developed precision drift detection engine (patent 19/284,705)—real-time anomaly detection for AI systems</li>
                 </ul>
               </div>
 
@@ -160,7 +160,7 @@ export default function CoinbaseResumePage() {
                 </div>
                 <div className="p-2 bg-zinc-50 border border-zinc-200 rounded">
                   <p className="font-semibold text-zinc-900">CourtCase Packet</p>
-                  <p className="text-zinc-600 text-[10px] mt-0.5">Structures events into timelines & evidence packets. Similar to EDD workflows.</p>
+                  <p className="text-zinc-600 text-[10px] mt-0.5">Structures events into timelines & evidence packets for legal workflows.</p>
                   <p className="text-blue-600 text-[10px] mt-1">github.com/subodhkc</p>
                 </div>
               </div>
@@ -253,15 +253,16 @@ export default function CoinbaseResumePage() {
               </div>
             </section>
 
-            {/* CRYPTO & FINANCE */}
+            {/* DOMAIN EXPERTISE */}
             <section>
               <h2 className="text-[10px] font-bold tracking-widest uppercase text-blue-600 mb-2 pb-1 border-b border-blue-200">
-                Crypto & Finance Fluency
+                Domain Expertise
               </h2>
               <ul className="text-xs text-zinc-700 space-y-0.5">
-                <li>• Wallets, keys, on-chain transactions, CEX vs DEX, DeFi primitives</li>
-                <li>• Transaction monitoring, address risk scoring, EDD narratives</li>
-                <li>• Order books, spreads, derivatives, ETFs, risk metrics</li>
+                <li>• Regulated industries: fintech, healthcare, hiring, lending</li>
+                <li>• AI governance: EU AI Act, NIST AI RMF, NYC LL 144, Texas AI law</li>
+                <li>• Enterprise compliance: SOC 2, audit trails, evidence preservation</li>
+                <li>• Risk monitoring, transaction scoring, EDD workflow automation</li>
                 <li>• Audit-grade data trails for regulated environments</li>
               </ul>
             </section>
@@ -283,16 +284,15 @@ export default function CoinbaseResumePage() {
               </div>
             </section>
 
-            {/* WHY COINBASE */}
+            {/* WHAT I'M LOOKING FOR */}
             <section className="mt-3 p-2 bg-blue-50 border border-blue-200 rounded">
               <h2 className="text-[10px] font-bold tracking-widest uppercase text-blue-700 mb-1">
-                Why Coinbase
+                What I'm Looking For
               </h2>
               <p className="text-[10px] text-zinc-700 leading-relaxed">
-                Coinbase sits at the intersection of regulated finance and decentralized innovation — the exact boundary where I've built my career. 
-                My work in AI compliance automation, transaction-risk heuristics, and audit-grade evidence generation maps directly to Coinbase's challenges: 
-                on-chain risk monitoring, EDD workflow automation, and building compliance infrastructure that scales with crypto markets without slowing customers down. 
-                I want to help Coinbase prove that regulatory excellence is a competitive advantage, not a tax on innovation.
+                Roles where AI meets regulated, high-stakes workflows — Senior PM, Director of AI Programs, or Head of AI Governance.
+                I thrive at the intersection of product, compliance, and engineering, building systems that make regulatory excellence
+                a competitive advantage rather than a tax on innovation. Open to fintech, healthcare, enterprise SaaS, and AI infrastructure companies.
               </p>
             </section>
           </div>

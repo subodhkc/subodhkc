@@ -23,7 +23,7 @@ export default function VirtualBusinessCard({ onOpen }: VirtualBusinessCardProps
 VERSION:3.0
 FN:Subodh Kumar Kc
 N:Kc;Subodh;Kumar;;
-EMAIL:Subodh.kc@haiec.com
+EMAIL:subodhkc@subodhkc.com
 TEL:+16822249904
 ADR:;;Dallas-Fort Worth;Texas;;75001;United States
 URL:https://subodhkc.com
@@ -113,9 +113,9 @@ END:VCARD`
                       <span className="text-sm font-medium">subodhkc.com</span>
                     </a>
 
-                    <a href="mailto:Subodh.kc@haiec.com" className="flex items-center gap-3 p-2 rounded-lg hover:bg-secondary transition-colors">
+                    <a href="mailto:subodhkc@subodhkc.com" className="flex items-center gap-3 p-2 rounded-lg hover:bg-secondary transition-colors">
                       <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span className="text-sm">Subodh.kc@haiec.com</span>
+                      <span className="text-sm">subodhkc@subodhkc.com</span>
                     </a>
 
                     <a href="tel:+16822249904" className="flex items-center gap-3 p-2 rounded-lg hover:bg-secondary transition-colors">

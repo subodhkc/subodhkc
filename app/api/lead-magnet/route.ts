@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
     // Also notify you about the new lead
     await resend.emails.send({
       from: 'Lead Notification <noreply@subodhkc.com>',
-      to: ['Subodh.kc@haiec.com'],
+      to: ['subodhkc@subodhkc.com'],
       subject: `🎯 New Lead: ${safeName} downloaded ${safeResource}`,
       html: `
         <h2>New Lead Magnet Download</h2>

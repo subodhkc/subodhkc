@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
 
               <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 20px; margin-top: 30px; border-radius: 8px;">
                 <p style="color: #92400e; font-size: 14px; margin: 0;">
-                  <strong>💡 Pro Tip:</strong> Add <strong>Subodh.kc@haiec.com</strong> to your contacts to ensure you never miss an update!
+                  <strong>💡 Pro Tip:</strong> Add <strong>subodhkc@subodhkc.com</strong> to your contacts to ensure you never miss an update!
                 </p>
               </div>
 
@@ -167,7 +167,7 @@ export async function POST(request: NextRequest) {
     // Notify you about new subscriber
     await resend.emails.send({
       from: 'Newsletter Notification <noreply@subodhkc.com>',
-      to: ['Subodh.kc@haiec.com'],
+      to: ['subodhkc@subodhkc.com'],
       subject: `📧 New Newsletter Subscriber: ${safeEmail}`,
       html: `
         <h2>New Newsletter Subscription</h2>

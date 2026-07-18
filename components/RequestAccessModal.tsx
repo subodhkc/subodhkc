@@ -165,8 +165,8 @@ export function RequestAccessModal({ product, onClose }: Props) {
             <p style={{ marginTop: 8, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.55, maxWidth: 440 }}>
               I review every request personally. You'll hear back within 2 business days with next steps or
               scheduling a short call. If it's urgent, you can also reach me at{" "}
-              <a href="mailto:Subodh.kc@haiec.com" style={{ color: "var(--accent)" }}>
-                Subodh.kc@haiec.com
+              <a href="mailto:subodhkc@subodhkc.com" style={{ color: "var(--accent)" }}>
+                subodhkc@subodhkc.com
               </a>
               .
             </p>
@@ -323,7 +323,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                   {submitting ? "sending…" : "send request →"}
                 </button>
                 <a
-                  href={`mailto:Subodh.kc@haiec.com?subject=Access%20request%3A%20${encodeURIComponent(
+                  href={`mailto:subodhkc@subodhkc.com?subject=Access%20request%3A%20${encodeURIComponent(
                     product.name
                   )}`}
                   style={{

@@ -8,7 +8,7 @@ export default function StructuredData() {
     description:
       'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years architecting, deploying, and governing production AI systems — including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
     url: 'https://subodhkc.com',
-    email: 'Subodh.kc@haiec.com',
+    email: 'subodhkc@subodhkc.com',
     image: 'https://subodhkc.com/portrait.jpeg',
     sameAs: [
       'https://www.wikidata.org/wiki/Q140546484',
@@ -121,7 +121,7 @@ export default function StructuredData() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'Subodh.kc@haiec.com',
+      email: 'subodhkc@subodhkc.com',
       contactType: 'Customer Service',
     },
   }

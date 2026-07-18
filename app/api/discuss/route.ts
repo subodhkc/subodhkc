@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: 'KC Hero CTA <noreply@subodhkc.com>',
-      to: ['Subodh.kc@haiec.com'],
+      to: ['subodhkc@subodhkc.com'],
       reply_to: email,
       subject: `AI System Discussion: ${company || name}`,
       html: `

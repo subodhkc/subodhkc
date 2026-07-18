@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     if (!apiKey) {
       console.error('RESEND_API_KEY is not set')
       return NextResponse.json(
-        { success: false, error: 'Email service not configured. Please text 682-224-9904 or email Subodh.kc@haiec.com.' },
+        { success: false, error: 'Email service not configured. Please text 682-224-9904 or email subodhkc@subodhkc.com.' },
         { status: 500 }
       )
     }
@@ -157,13 +157,13 @@ export async function POST(request: NextRequest) {
             <div style="background: #eff6ff; border-left: 4px solid #2563eb; padding: 15px; border-radius: 4px; margin-bottom: 25px;">
               <p style="margin: 0; color: #1e40af; font-size: 14px;">
                 <strong>Need to reach me sooner?</strong><br>
-                Email: <a href="mailto:Subodh.kc@haiec.com" style="color: #2563eb; text-decoration: none;">Subodh.kc@haiec.com</a><br>
+                Email: <a href="mailto:subodhkc@subodhkc.com" style="color: #2563eb; text-decoration: none;">subodhkc@subodhkc.com</a><br>
                 Text: 682-224-9904
               </p>
             </div>
 
             <p style="font-size: 13px; color: #6b7280; margin-bottom: 0;">
-              Tip: Save <strong>Subodh.kc@haiec.com</strong> to your contacts so this email and the follow-up do not
+              Tip: Save <strong>subodhkc@subodhkc.com</strong> to your contacts so this email and the follow-up do not
               go to spam.
             </p>
           </div>
@@ -207,10 +207,10 @@ What you shared with me:
 - Time slot: ${preferredTimeSlot}
 
 Need to reach me sooner?
-- Email: Subodh.kc@haiec.com
+- Email: subodhkc@subodhkc.com
 - Text: 682-224-9904
 
-Tip: Save Subodh.kc@haiec.com to your contacts so this email does not go to spam.
+Tip: Save subodhkc@subodhkc.com to your contacts so this email does not go to spam.
 
 --
 Subodh KC - Local AI Advisor
@@ -224,7 +224,7 @@ Reply to this email if you did not make this request.`
     const { data: userData, error: userError } = await resend.emails.send({
       from: 'Subodh KC <noreply@subodhkc.com>',
       to: [email],
-      reply_to: 'Subodh.kc@haiec.com',
+      reply_to: 'subodhkc@subodhkc.com',
       subject: 'Your Local AI Review Request - Next Steps',
       html: userHtml,
       text: userText,
@@ -233,7 +233,7 @@ Reply to this email if you did not make this request.`
     if (userError) {
       console.error('Resend user email error:', userError.message)
       return NextResponse.json(
-        { success: false, error: 'Failed to send confirmation email. Please text 682-224-9904 or email Subodh.kc@haiec.com.' },
+        { success: false, error: 'Failed to send confirmation email. Please text 682-224-9904 or email subodhkc@subodhkc.com.' },
         { status: 500 }
       )
     }
@@ -313,7 +313,7 @@ Reply to this email if you did not make this request.`
 
     const { data: internalData, error: internalError } = await resend.emails.send({
       from: 'Local AI Review <noreply@subodhkc.com>',
-      to: ['Subodh.kc@haiec.com'],
+      to: ['subodhkc@subodhkc.com'],
       reply_to: email,
       subject: `Local AI Review Request: ${businessName}`,
       html: internalHtml,
@@ -341,7 +341,7 @@ Reply to this email if you did not make this request.`
   } catch (error) {
     console.error('Local AI Review form error:', error)
     return NextResponse.json(
-      { success: false, error: 'Internal server error. Please text 682-224-9904 or email Subodh.kc@haiec.com.' },
+      { success: false, error: 'Internal server error. Please text 682-224-9904 or email subodhkc@subodhkc.com.' },
       { status: 500 }
     )
   }

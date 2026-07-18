@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: 'KC Course <noreply@subodhkc.com>',
-      to: ['Subodh.kc@haiec.com'],
+      to: ['subodhkc@subodhkc.com'],
       reply_to: email,
       subject: `Course Enrollment: AI Governance & Compliance — ${safeName}`,
       html: `
@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('Resend API error:', error.message)
       return NextResponse.json(
-        { success: false, error: 'Failed to send email. Please try again or email subodh.kc@haiec.com directly.' },
+        { success: false, error: 'Failed to send email. Please try again or email subodhkc@subodhkc.com directly.' },
         { status: 500 }
       )
     }

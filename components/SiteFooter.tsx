@@ -100,7 +100,7 @@ const SITEMAP = [
     items: [
       ["/executive-bio", "executive bio"],
       ["/person/subodh-kc", "person profile"],
-      ["/resume/coinbase", "resume"],
+      ["/resume", "resume"],
       ["/haiec", "haiec platform"],
     ],
   },
@@ -292,7 +292,7 @@ export function SiteFooter() {
               ["Executive Bio", "/executive-bio"],
               ["Speaking", "/speaking"],
               ["Advisory", "/advisory"],
-              ["Resume", "/resume/coinbase"],
+              ["Resume", "/resume"],
             ].map(([label, href]) => (
               <Link
                 key={label as string}
@@ -419,8 +419,8 @@ export function SiteFooter() {
           </h4>
           <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14 }}>
             <li>
-              <a href="mailto:Subodh.kc@haiec.com" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--fg)", textDecoration: "none" }}>
-                Subodh.kc@haiec.com <Arrow kind="ext" />
+              <a href="mailto:subodhkc@subodhkc.com" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--fg)", textDecoration: "none" }}>
+                subodhkc@subodhkc.com <Arrow kind="ext" />
               </a>
             </li>
             <li>

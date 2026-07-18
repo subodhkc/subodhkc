@@ -27,7 +27,7 @@ const footerLinks = {
     },
     {
       name: 'Email',
-      href: 'mailto:Subodh.kc@haiec.com',
+      href: 'mailto:subodhkc@subodhkc.com',
       icon: Mail,
     },
   ],

@@ -258,7 +258,7 @@ export async function POST(request: NextRequest) {
       // Send detailed notification to admin for pricing requests
       await resend.emails.send({
         from: 'Product Notification <noreply@subodhkc.com>',
-        to: ['Subodh.kc@haiec.com'],
+        to: ['subodhkc@subodhkc.com'],
         subject: `💰 PRICING REQUEST: Doc Timeline Generator - ${company || 'Unknown Company'}`,
         html: `
           <h2>New Enterprise Pricing Request</h2>
@@ -417,7 +417,7 @@ export async function POST(request: NextRequest) {
     // Notify admin about new subscriber
     await resend.emails.send({
       from: 'Product Notification <noreply@subodhkc.com>',
-      to: ['Subodh.kc@haiec.com'],
+      to: ['subodhkc@subodhkc.com'],
       subject: `📦 New ${product || 'Product'} ${waitlist ? 'Waitlist' : 'Download'}: ${email}`,
       html: `
         <h2>New ${waitlist ? 'Waitlist Signup' : 'Product Download'}</h2>
