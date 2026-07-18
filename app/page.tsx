@@ -6,6 +6,7 @@ import { WritingSection } from "@/components/writing/WritingSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { ComplianceGuidesSection } from "@/components/home/ComplianceGuidesSection";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
+import { MagazineBadge } from "@/components/home/MagazineBadge";
 
 export const metadata = {
   title: "Subodh KC | AI Systems Architect & Governance Expert",
@@ -18,6 +19,7 @@ export default function HomePage() {
     <AccessProvider>
       <Hero />
       <Registry />
+      <MagazineBadge />
       <TestimonialsSection />
       <ComplianceGuidesSection />
       <WritingSection />

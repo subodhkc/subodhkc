@@ -6,7 +6,7 @@ import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Grid from '@/components/Grid'
-import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, Download, FileText, BookOpen, User } from 'lucide-react'
+import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, Download, FileText, BookOpen, User, Newspaper } from 'lucide-react'
 
 export const metadata = {
   title: 'About Subodh KC | AI Systems Architect and Founder',
@@ -197,6 +197,12 @@ export default function AboutPage() {
               <Button size="lg" className="gap-2">
                 <BookOpen className="h-5 w-5" />
                 View Executive Portfolio
+              </Button>
+            </Link>
+            <Link href="/magazine">
+              <Button size="lg" variant="outline" className="gap-2">
+                <Newspaper className="h-5 w-5" />
+                Read the Magazine
               </Button>
             </Link>
             <Link href="/resume">

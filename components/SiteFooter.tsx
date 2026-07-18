@@ -102,6 +102,7 @@ const SITEMAP = [
       ["/person/subodh-kc", "person profile"],
       ["/resume", "resume"],
       ["/portfolio", "executive portfolio"],
+      ["/magazine", "AI magazine"],
       ["/haiec", "haiec platform"],
     ],
   },
