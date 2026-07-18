@@ -42,7 +42,7 @@ const personSchema = {
   description:
     'AI Systems Architect and Governance Expert with 16+ years of experience building production AI systems at enterprise scale. Sr. Program Manager — AI Implementation & Governance at HP Inc. (Fortune 50). Founder of KestrelVoice, co-founder of HAIEC. 5 patent-pending frameworks in AI compliance and drift detection.',
   url: 'https://subodhkc.com',
-  email: 'subodh.kc@haiec.com',
+  email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
   sameAs: [
     'https://www.wikidata.org/wiki/Q140546484',

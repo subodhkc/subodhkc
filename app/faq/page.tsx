@@ -109,7 +109,7 @@ const faqs = [
       },
       {
         q: 'How do I hire Subodh KC?',
-        a: 'Use the contact form at subodhkc.com/contact or email subodh.kc@haiec.com directly. Subodh offers project-based engagements (3-6 months, $25K-$150K), retainers (6-12 months), and fractional executive roles (12+ months, $10K-$25K/month). Consulting rate is $300-$500/hour with project minimums. He is also open to full-time Director/VP roles at Fortune 500, Series B+ startups, and AI-first companies.',
+        a: 'Use the contact form at subodhkc.com/contact or email subodhkc@subodhkc.com directly. Subodh offers project-based engagements (3-6 months, $25K-$150K), retainers (6-12 months), and fractional executive roles (12+ months, $10K-$25K/month). Consulting rate is $300-$500/hour with project minimums. He is also open to full-time Director/VP roles at Fortune 500, Series B+ startups, and AI-first companies.',
       },
       {
         q: 'Does Subodh KC offer training or courses?',

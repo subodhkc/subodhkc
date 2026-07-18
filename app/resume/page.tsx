@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function ResumePage() {
   return (
     <div className="min-h-screen bg-white text-zinc-900 antialiased">
@@ -9,7 +11,16 @@ export default function ResumePage() {
           @page { margin: 0.35in 0.4in; size: letter; }
           body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 11px; }
         }
+        @media print { .resume-toolbar { display: none !important; } }
       `}</style>
+
+      <div className="resume-toolbar sticky top-0 z-50 flex justify-between items-center px-4 py-2 bg-zinc-900 text-white shadow-md">
+        <strong className="text-sm">Resume — Subodh KC</strong>
+        <div className="flex gap-2">
+          <button onClick={() => window.print()} className="border border-white/25 bg-white/10 text-white rounded-full px-3 py-1.5 text-xs font-bold cursor-pointer hover:bg-white/20">Print / Save as PDF</button>
+          <Link href="/portfolio" className="bg-white text-zinc-900 rounded-full px-3 py-1.5 text-xs font-bold hover:bg-zinc-100">View Portfolio</Link>
+        </div>
+      </div>
 
       <div className="max-w-[8in] mx-auto px-6 py-6 print:px-0 print:py-0">
         

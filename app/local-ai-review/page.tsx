@@ -182,7 +182,7 @@ export default function LocalAIReviewPage() {
       setError(
         err instanceof Error
           ? err.message
-          : 'Something went wrong. Please text 682-224-9904 or email Subodh.kc@haiec.com and mention "Local AI Review."'
+          : 'Something went wrong. Please text 682-224-9904 or email subodhkc@subodhkc.com and mention "Local AI Review."'
       )
     } finally {
       setIsSubmitting(false)
@@ -535,7 +535,7 @@ export default function LocalAIReviewPage() {
                 {[
                   'I\'ll review your business context and reply within 1 business day to confirm a time.',
                   'You\'ll receive a one-page opportunity snapshot before our conversation.',
-                  'Expect an email from Subodh.kc@haiec.com — check your spam folder if you don\'t see it.',
+                  'Expect an email from subodhkc@subodhkc.com — check your spam folder if you don\'t see it.',
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 text-xs font-bold text-accent">
@@ -547,7 +547,7 @@ export default function LocalAIReviewPage() {
               </div>
               <div className="bg-primary/5 rounded-lg p-4 mb-6">
                 <p className="text-sm text-muted-foreground">
-                  Tip: Save <span className="font-medium text-foreground">Subodh.kc@haiec.com</span> to your contacts
+                  Tip: Save <span className="font-medium text-foreground">subodhkc@subodhkc.com</span> to your contacts
                   so our email doesn&apos;t go to spam.
                 </p>
               </div>

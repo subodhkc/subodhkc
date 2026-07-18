@@ -101,6 +101,7 @@ const SITEMAP = [
       ["/executive-bio", "executive bio"],
       ["/person/subodh-kc", "person profile"],
       ["/resume", "resume"],
+      ["/portfolio", "executive portfolio"],
       ["/haiec", "haiec platform"],
     ],
   },

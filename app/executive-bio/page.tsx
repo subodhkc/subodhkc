@@ -44,10 +44,10 @@ export default function ExecutiveBioPage() {
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <a href="mailto:Subodh.kc@haiec.com">
+            <a href="mailto:subodhkc@subodhkc.com">
               <Button variant="outline" className="gap-2">
                 <Mail className="h-4 w-4" />
-                Subodh.kc@haiec.com
+                subodhkc@subodhkc.com
               </Button>
             </a>
             <a href="https://linkedin.com/in/subodhkc" target="_blank" rel="noopener noreferrer">
