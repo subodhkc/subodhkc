@@ -101,7 +101,7 @@ export default function MagazinePage() {
           color: #fff;
           border-radius: 999px;
           padding: 8px 13px;
-          font-weight: 750;
+          font-weight: 700;
           font-size: 12px;
           cursor: pointer;
           display: inline-flex;
@@ -209,6 +209,7 @@ export default function MagazinePage() {
           >
             {mode === 'flip' ? '☰ Scroll' : '📖 Flip'}
           </button>
+          <Link href="/" aria-label="Back to homepage">Home</Link>
           <Link href="/about" aria-label="About the author">About Author</Link>
           <Link href="/contact" aria-label="Contact Subodh KC">Contact</Link>
         </div>
@@ -225,7 +226,9 @@ export default function MagazinePage() {
       <div className="book print-only" dangerouslySetInnerHTML={{ __html: MAGAZINE_HTML }} />
 
       <noscript>
+        <style>{`body{font-family:Georgia,serif;max-width:8.5in;margin:0 auto;padding:40px 20px;color:#1a1a1a;line-height:1.5}h1{font-size:28px;margin-bottom:16px}img{max-width:100%;height:auto}.page{margin-bottom:40px;padding:20px 0;border-bottom:1px solid #ddd}`}</style>
         <h1>AI That Works — Issue 01: From Demo to Operating System</h1>
+        <p>By Subodh KC — A 36-page independent field magazine on AI strategy, systems, governance, and field practice.</p>
         <div dangerouslySetInnerHTML={{ __html: MAGAZINE_HTML }} />
       </noscript>
 
@@ -244,10 +247,12 @@ export default function MagazinePage() {
             <form onSubmit={handleSubscribe}>
               <input
                 type="email"
+                name="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
                 aria-label="Email address"
               />
               <button type="submit" disabled={isSubscribing}>
