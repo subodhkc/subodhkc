@@ -56,8 +56,8 @@ export default function StructuredData() {
       name: 'Louisiana Tech University',
     },
     worksFor: {
-      '@type': 'Corporation',
-      name: 'HP Inc.',
+      '@type': 'Organization',
+      name: 'Fortune 50 Company',
     },
     founder: {
       '@type': 'Organization',
