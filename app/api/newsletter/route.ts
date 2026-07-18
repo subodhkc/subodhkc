@@ -227,13 +227,19 @@ export async function POST(request: NextRequest) {
     // Resend's new Contacts model is global — no audience ID needed.
     // Contacts appear in the Resend dashboard under Contacts.
     // Note: SDK v3.5.0 types still require audienceId, but the API doesn't.
+    // If contact already exists (re-subscription), this will throw — that's expected and non-blocking.
     try {
       await (resend.contacts.create as any)({
         email,
         unsubscribed: false,
       })
-    } catch (contactError) {
-      console.error('Failed to add contact to Resend (non-blocking):', contactError)
+    } catch (contactError: any) {
+      // 422 = contact already exists — not an error, just a re-subscription
+      if (contactError?.statusCode === 422 || contactError?.error?.statusCode === 422) {
+        console.log('Contact already exists in Resend (re-subscription):', email)
+      } else {
+        console.error('Failed to add contact to Resend (non-blocking):', contactError)
+      }
     }
 
     // Notify you about new subscriber

@@ -19,7 +19,7 @@ export function NewsletterSection() {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, source: 'homepage' }),
       })
 
       const data = await response.json()
@@ -53,17 +53,20 @@ export function NewsletterSection() {
               Irregular updates on AI governance, compliance frameworks, and what&apos;s actually working in enterprise AI implementation. No spam. No fluff.
             </p>
             {error && (
-              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg max-w-md mx-auto">
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg max-w-md mx-auto" role="alert" aria-live="assertive">
                 <p className="text-red-500 text-sm">{error}</p>
               </div>
             )}
             <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
+                name="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
+                aria-label="Email address"
                 className="flex-1 px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
               <Button type="submit" disabled={isSubscribing}>

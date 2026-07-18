@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://subodhkc.com/magazine/img-1.png',
-        width: 1200,
-        height: 630,
+        width: 760,
+        height: 594,
         alt: 'AI That Works — Issue 01 Magazine Cover',
       },
     ],

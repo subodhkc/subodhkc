@@ -31,9 +31,12 @@ export default function MagazineViewer({ pages }: MagazineViewerProps) {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const safeWidth = typeof window !== 'undefined' ? window.innerWidth : 1024
-  const pageWidth = isMobile ? Math.min(safeWidth - 32, 612) : 612
-  const pageHeight = isMobile ? Math.round(pageWidth * 11 / 8.5) : 792
+  const pageWidth = 612
+  const pageHeight = 792
+  const mobilePageWidth = mounted ? Math.min(window.innerWidth - 32, 612) : 375
+  const mobilePageHeight = Math.round(mobilePageWidth * 11 / 8.5)
+  const finalWidth = isMobile ? mobilePageWidth : pageWidth
+  const finalHeight = isMobile ? mobilePageHeight : pageHeight
 
   const next = useCallback(() => {
     bookRef.current?.pageFlip()?.flipNext()
@@ -141,8 +144,8 @@ export default function MagazineViewer({ pages }: MagazineViewerProps) {
           {mounted ? (
             <HTMLFlipBook
               ref={bookRef}
-              width={pageWidth}
-              height={pageHeight}
+              width={finalWidth}
+              height={finalHeight}
               size="fixed"
               minWidth={320}
               maxWidth={612}
@@ -174,7 +177,7 @@ export default function MagazineViewer({ pages }: MagazineViewerProps) {
               ))}
             </HTMLFlipBook>
           ) : (
-            <div style={{ width: pageWidth, height: pageHeight, background: '#fbf8f1', borderRadius: 4, boxShadow: '0 18px 50px rgba(7,25,39,.22)' }} />
+            <div style={{ width: finalWidth, height: finalHeight, background: '#fbf8f1', borderRadius: 4, boxShadow: '0 18px 50px rgba(7,25,39,.22)' }} />
           )}
         </div>
         <div className="flip-nav">
