@@ -186,8 +186,8 @@ export default function StreamlitRAGMCPPage() {
             <p><strong className="text-foreground">Last reviewed:</strong> July 14, 2026</p>
             <p><strong className="text-foreground">Scope:</strong> Architecture guide for internal AI applications using Streamlit, OpenAI, RAG, and MCP — covering security, state management, framework selection, and delivery roadmap</p>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> This guide explains architecture patterns in practical terms. Production deployments should undergo organization-specific security review, compliance assessment, and operational validation.
             </p>
           </div>

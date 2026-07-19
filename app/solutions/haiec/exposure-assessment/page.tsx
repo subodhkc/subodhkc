@@ -105,8 +105,8 @@ export default function HAIECExposureAssessmentPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> This page describes a professional assessment service. The scope, depth, and deliverables are customized to each engagement based on your architecture, data types, regulatory environment, and risk tolerance. Contact Subodh KC to discuss your specific needs.
             </p>
           </div>
@@ -244,8 +244,8 @@ export default function HAIECExposureAssessmentPage() {
 
       <Section className="pt-8">
         <div className="max-w-4xl mx-auto">
-          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
-            <p className="text-sm text-amber-900 dark:text-amber-200">
+          <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-200">
               <AlertTriangle className="h-4 w-4 inline mr-1" />
               <strong>When to get an assessment:</strong> Before production launch, after significant architecture changes, when adding MCP integrations, when expanding to new data sources, after a security incident, or when preparing for regulatory audit.
             </p>

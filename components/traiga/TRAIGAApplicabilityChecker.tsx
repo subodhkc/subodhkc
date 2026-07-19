@@ -60,7 +60,7 @@ export function TRAIGAApplicabilityChecker() {
     A: {
       title: 'Result A — Likely outside TRAIGA\u2019s direct scope',
       color: 'border-l-blue-500',
-      bg: 'bg-blue-50 dark:bg-blue-950/20',
+      bg: 'bg-blue-950/20',
       icon: Info,
       iconColor: 'text-blue-600',
       description: 'Either there is no meaningful Texas connection, or the software is likely deterministic automation rather than an AI system under TRAIGA.',
@@ -72,7 +72,7 @@ export function TRAIGAApplicabilityChecker() {
     B: {
       title: 'Result B — Within scope, but no obvious direct TRAIGA trigger identified',
       color: 'border-l-amber-500',
-      bg: 'bg-amber-50 dark:bg-amber-950/20',
+      bg: 'bg-amber-950/20',
       icon: CheckCircle2,
       iconColor: 'text-amber-600',
       description: 'The business may be within TRAIGA\u2019s broad scope, but the final law does not impose a general registration, impact-assessment, or chatbot-disclosure requirement merely because the business uses AI.',
@@ -86,7 +86,7 @@ export function TRAIGAApplicabilityChecker() {
     C: {
       title: 'Result C — A specific TRAIGA duty or prohibition may apply',
       color: 'border-l-orange-500',
-      bg: 'bg-orange-50 dark:bg-orange-950/20',
+      bg: 'bg-orange-950/20',
       icon: AlertTriangle,
       iconColor: 'text-orange-600',
       description: 'The identified use case triggers provision-specific review under TRAIGA. The business should identify the relevant statutory section and implement controls.',
@@ -100,7 +100,7 @@ export function TRAIGAApplicabilityChecker() {
     D: {
       title: 'Result D — Elevated regulated-use review needed',
       color: 'border-l-red-500',
-      bg: 'bg-red-50 dark:bg-red-950/20',
+      bg: 'bg-red-950/20',
       icon: Shield,
       iconColor: 'text-red-600',
       description: 'AI affects healthcare, employment, lending, insurance, children, biometrics, government services, constitutional rights, or other high-impact areas. TRAIGA may be only one part of the legal analysis.',
@@ -152,8 +152,8 @@ export function TRAIGAApplicabilityChecker() {
               This checker provides a preliminary classification. It is designed to identify issues requiring further review, not to provide a legal conclusion.
             </p>
           </div>
-          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> Applicability can depend on facts, contracts, industry rules, and other federal or state laws. This is not a substitute for legal advice.
             </p>
           </div>

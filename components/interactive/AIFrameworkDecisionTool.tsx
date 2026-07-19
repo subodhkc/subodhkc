@@ -249,7 +249,7 @@ export function AIFrameworkDecisionTool() {
               }).map((rec) => {
                 const Icon = rec.icon
                 const priorityLabel = rec.priority === 'start-here' ? 'Start here' : rec.priority === 'next' ? 'Next' : 'Ongoing'
-                const priorityColor = rec.priority === 'start-here' ? 'text-blue-600 dark:text-blue-400' : rec.priority === 'next' ? 'text-primary' : 'text-muted-foreground'
+                const priorityColor = rec.priority === 'start-here' ? 'text-blue-400' : rec.priority === 'next' ? 'text-primary' : 'text-muted-foreground'
                 return (
                   <div key={rec.name} className={`rounded-lg border p-4 ${rec.required ? 'border-primary/30 bg-primary/5' : 'border-border bg-muted/20'}`}>
                     <div className="flex items-start gap-3">
@@ -278,8 +278,8 @@ export function AIFrameworkDecisionTool() {
               </p>
             </div>
 
-            <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-              <p className="text-xs text-amber-900 dark:text-amber-200">
+            <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+              <p className="text-xs text-amber-200">
                 <strong>Disclaimer:</strong> This tool provides general guidance based on common patterns. It is not legal advice. Applicability depends on specific facts, contracts, jurisdictions, and use cases.
               </p>
             </div>

@@ -203,8 +203,8 @@ export default function DoesTexasAILawApplyPage() {
             <p><strong className="text-foreground">Law reviewed:</strong> Texas Business &amp; Commerce Code Chapters 551\u2013554, enacted through HB 149</p>
             <p><strong className="text-foreground">Effective date:</strong> January 1, 2026</p>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> This guide explains the statute in practical terms. Applicability can depend on facts, contracts, industry rules, and other federal or state laws. It is not a substitute for legal advice.
             </p>
           </div>

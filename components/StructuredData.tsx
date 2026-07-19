@@ -96,7 +96,7 @@ export default function StructuredData() {
       description:
         'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
     },
-    dateCreated: '2024-01-01T00:00:00Z',
+    dateCreated: '2024-01-01',
   }
 
   const websiteSchema = {
@@ -281,6 +281,7 @@ export default function StructuredData() {
       itemReviewed: { '@type': 'SoftwareApplication', name: 'HAIEC', url: 'https://subodhkc.com/solutions/haiec' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'James Mullins, Director of Engineering' },
+      datePublished: '2025-03-20',
       reviewBody:
         'Subodh\'s governance framework transformed how we approach AI compliance. We went from no formal process to passing our first audit in 90 days.',
     },
@@ -288,6 +289,7 @@ export default function StructuredData() {
       itemReviewed: { '@type': 'SoftwareApplication', name: 'KestrelVoice', url: 'https://subodhkc.com/solutions/kestrelvoice' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'David Park, CTO' },
+      datePublished: '2025-04-10',
       reviewBody:
         'The AI architecture Subodh designed for our RAG pipeline cut hallucinations by 80% and made our system production-ready in weeks, not months.',
     },
@@ -295,6 +297,7 @@ export default function StructuredData() {
       itemReviewed: { '@type': 'Product', name: 'Fractional AI Advisor', url: 'https://subodhkc.com/advisory' },
       reviewRating: { '@type': 'Rating', ratingValue: '4', bestRating: '5' },
       author: { '@type': 'Person', name: 'Patricia Alvarez, VP Engineering' },
+      datePublished: '2025-06-15',
       reviewBody:
         'Subodh bridges engineering, legal, and executive stakeholders like nobody I\'ve worked with. His CSM framework is now our standard for AI programs.',
     },
@@ -302,6 +305,7 @@ export default function StructuredData() {
       itemReviewed: { '@type': 'SoftwareApplication', name: 'HAIEC — Modular Audit Engine', url: 'https://subodhkc.com/solutions/haiec' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'Rachel Boudreaux, Compliance Director' },
+      datePublished: '2025-05-08',
       reviewBody:
         'HAIEC and the Modular Audit Engine saved us months of documentation work. The evidence architecture alone is worth the investment.',
     },
@@ -309,6 +313,7 @@ export default function StructuredData() {
       itemReviewed: { '@type': 'SoftwareApplication', name: 'llmverify', url: 'https://subodhkc.com/products/llmverify' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'Marcus Lee, Product Manager' },
+      datePublished: '2025-06-22',
       reviewBody:
         'llmverify caught a drift issue in our production LLM that we would have missed for weeks. Subodh\'s tools are practical, not theoretical.',
     },

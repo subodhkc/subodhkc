@@ -176,8 +176,8 @@ export default function AIIncidentEvidenceChecklistPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> This checklist is a general framework for AI incident evidence preservation. Your organization may have specific legal, regulatory, or contractual obligations that require additional steps. Coordinate with your legal team and compliance officers before an incident occurs — not during one.
             </p>
           </div>
@@ -238,8 +238,8 @@ export default function AIIncidentEvidenceChecklistPage() {
               </CardHeader>
             </Card>
           </div>
-          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
-            <p className="text-sm text-amber-900 dark:text-amber-200">
+          <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-200">
               <AlertTriangle className="h-4 w-4 inline mr-1" />
               <strong>Important:</strong> If you use AI in hiring, lending, healthcare, or any consequential decision — regardless of company size — you need Level 1. The data sensitivity and regulatory exposure determine the level, not just company size. A 10-person startup using AI to screen resumes in NYC needs the full evidence plan because NYC LL 144 applies.
             </p>
@@ -461,8 +461,8 @@ export default function AIIncidentEvidenceChecklistPage() {
               </tbody>
             </table>
           </div>
-          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
-            <p className="text-sm text-amber-900 dark:text-amber-200">
+          <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-200">
               <AlertTriangle className="h-4 w-4 inline mr-1" />
               <strong>Important:</strong> These are general guidelines. Consult your legal team for jurisdiction-specific requirements. Some states have shorter deadlines or additional notification content requirements. The clock starts at <em>discovery</em>, not at full investigation completion.
             </p>

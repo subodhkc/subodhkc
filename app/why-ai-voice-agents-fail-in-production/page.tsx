@@ -302,8 +302,8 @@ export default function WhyAIVoiceAgentsFailPage() {
             <p><strong className="text-foreground">Scope:</strong> AI voice agent architecture, guardrails, security, compliance, customer experience, and ROI for organizations deploying AI-powered phone systems</p>
             <p><strong className="text-foreground">Disclosure:</strong> Kestrel Voice and HAIEC are platforms developed by Subodh KC. This article refers to Kestrel as the product through which these architectural principles have been applied directly, and HAIEC as the companion AI security, governance, and compliance-readiness platform. Neither platform eliminates AI risk. Their purpose is to make that risk more visible, controlled, testable, and supportable with evidence.</p>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200"><strong>Educational notice:</strong> This article provides general information about AI voice agent architecture, security, and compliance. Legal and regulatory applicability depends on the use case, jurisdiction, data, call purpose, and caller population. Telephony-specific obligations such as TCPA, HIPAA, and state biometric laws require case-by-case analysis.</p>
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200"><strong>Educational notice:</strong> This article provides general information about AI voice agent architecture, security, and compliance. Legal and regulatory applicability depends on the use case, jurisdiction, data, call purpose, and caller population. Telephony-specific obligations such as TCPA, HIPAA, and state biometric laws require case-by-case analysis.</p>
           </div>
         </div>
       </Section>

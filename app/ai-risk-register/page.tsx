@@ -164,8 +164,8 @@ export default function AIRiskRegisterPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> This template provides a starting framework for AI risk management. Production deployments should undergo organization-specific risk assessment with qualified security and compliance professionals. Risks and controls should be tailored to your specific architecture, data types, and regulatory environment.
             </p>
           </div>
@@ -316,8 +316,8 @@ export default function AIRiskRegisterPage() {
 
       <Section className="pt-8">
         <div className="max-w-5xl mx-auto space-y-6">
-          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
-            <p className="text-sm text-amber-900 dark:text-amber-200">
+          <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-200">
               <AlertTriangle className="h-4 w-4 inline mr-1" />
               <strong>How to use:</strong> Copy this structure into a spreadsheet or governance tool. Assign owners, set target dates, and update status as controls are implemented. Review quarterly or after significant architecture changes.
             </p>

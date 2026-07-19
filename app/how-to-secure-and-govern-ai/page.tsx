@@ -231,8 +231,8 @@ export default function HowToSecureAndGovernAIPage() {
             <p><strong className="text-foreground">Last reviewed:</strong> July 15, 2026</p>
             <p><strong className="text-foreground">Scope:</strong> AI security, governance, compliance frameworks, and assurance for organizations of all sizes</p>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200"><strong>Educational notice:</strong> This article provides general information about AI governance, security, and assurance. Legal and regulatory applicability depends on the system, data, jurisdiction, industry, and intended use.</p>
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200"><strong>Educational notice:</strong> This article provides general information about AI governance, security, and assurance. Legal and regulatory applicability depends on the system, data, jurisdiction, industry, and intended use.</p>
           </div>
           <details className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
             <summary className="cursor-pointer text-sm font-semibold text-foreground">Table of Contents</summary>

@@ -174,12 +174,12 @@ export default function PDFRedactorPage() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="text-left">
                   <div className="text-sm font-medium text-muted-foreground mb-2">BEFORE</div>
-                  <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border font-mono text-sm space-y-2">
-                    <p>Name: <span className="bg-yellow-200 dark:bg-yellow-900 px-1">John Smith</span></p>
-                    <p>SSN: <span className="bg-yellow-200 dark:bg-yellow-900 px-1">123-45-6789</span></p>
-                    <p>Email: <span className="bg-yellow-200 dark:bg-yellow-900 px-1">john@email.com</span></p>
-                    <p>Card: <span className="bg-yellow-200 dark:bg-yellow-900 px-1">4532-1234-5678-9012</span></p>
-                    <p>Phone: <span className="bg-yellow-200 dark:bg-yellow-900 px-1">(555) 123-4567</span></p>
+                  <div className="bg-gray-900 p-4 rounded-lg border font-mono text-sm space-y-2">
+                    <p>Name: <span className="bg-yellow-900 px-1">John Smith</span></p>
+                    <p>SSN: <span className="bg-yellow-900 px-1">123-45-6789</span></p>
+                    <p>Email: <span className="bg-yellow-900 px-1">john@email.com</span></p>
+                    <p>Card: <span className="bg-yellow-900 px-1">4532-1234-5678-9012</span></p>
+                    <p>Phone: <span className="bg-yellow-900 px-1">(555) 123-4567</span></p>
                   </div>
                   <div className="flex items-center gap-2 mt-2 text-xs text-amber-500">
                     <AlertTriangle className="h-3 w-3" />
@@ -188,7 +188,7 @@ export default function PDFRedactorPage() {
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-medium text-muted-foreground mb-2">AFTER</div>
-                  <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border font-mono text-sm space-y-2">
+                  <div className="bg-gray-900 p-4 rounded-lg border font-mono text-sm space-y-2">
                     <p>Name: <span className="bg-black text-black px-1 rounded">████████</span></p>
                     <p>SSN: <span className="bg-black text-black px-1 rounded">███████████</span></p>
                     <p>Email: <span className="bg-black text-black px-1 rounded">██████████████</span></p>

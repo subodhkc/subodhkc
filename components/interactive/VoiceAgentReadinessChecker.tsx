@@ -317,7 +317,7 @@ export function VoiceAgentReadinessChecker() {
                 return order[a.priority] - order[b.priority]
               }).map((item) => {
                 const priorityLabel = item.priority === 'start-here' ? 'Start here' : item.priority === 'next' ? 'Next' : 'Ongoing'
-                const priorityColor = item.priority === 'start-here' ? 'text-blue-600 dark:text-blue-400' : item.priority === 'next' ? 'text-primary' : 'text-muted-foreground'
+                const priorityColor = item.priority === 'start-here' ? 'text-blue-400' : item.priority === 'next' ? 'text-primary' : 'text-muted-foreground'
                 return (
                   <div key={item.name} className="rounded-lg border border-border bg-muted/20 p-3">
                     <div className="flex items-center gap-2 flex-wrap">

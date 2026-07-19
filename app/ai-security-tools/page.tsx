@@ -166,8 +166,8 @@ export default function AISecurityToolsPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> These tools provide preliminary assessments for planning purposes. They do not replace a formal security review or legal compliance assessment.
             </p>
           </div>

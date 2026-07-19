@@ -203,8 +203,8 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 15, 2026</span>
             <span>By Subodh KC</span>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> This checklist is a starting point for vendor evaluation, not a legal document. Adapt it to your jurisdiction, industry, and risk tolerance. Have your legal team review all contractual provisions before signing. Some items may not apply to your use case — document why if you skip them.
             </p>
           </div>
@@ -268,8 +268,8 @@ export default function AIVendorDueDiligenceChecklistPage() {
               </CardHeader>
             </Card>
           </div>
-          <div className="rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-4">
-            <p className="text-sm text-amber-900 dark:text-amber-200">
+          <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-4">
+            <p className="text-sm text-amber-200">
               <AlertTriangle className="h-4 w-4 inline mr-1" />
               <strong>Important:</strong> Tier 3 does NOT apply if you handle PHI, financial records, biometric data, hiring decisions, or operate in the EU. A small business handling PHI still needs the full Tier 1 checklist — the data sensitivity determines the tier, not just the company size.
             </p>
