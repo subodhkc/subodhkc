@@ -22,14 +22,16 @@ const solutions = [
   { name: "AI Briefing", href: "/solutions/ai-briefing", desc: "Weekly AI Intelligence" },
 ];
 
-const training = [
-  { name: "AI Governance Course", href: "/course", desc: "Live masterclass — 1st & 3rd Thursday" },
-  { name: "AI Laws Webinar", href: "/webinar/ai-laws-small-business", desc: "Free monthly webinar — 2nd Monday" },
+const interactiveTools = [
+  { name: "Architecture Decision Master Sheet", href: "/architecture-decision-master-sheet", desc: "Interactive 25-layer architecture decision sheet" },
+  { name: "AI Security Tools", href: "/ai-security-tools", desc: "Blast radius, agent matrix, prompt injection library" },
+  { name: "AI Risk Register", href: "/ai-risk-register", desc: "34+ AI-specific risks with controls & tracking" },
+  { name: "Vendor Due-Diligence Checklist", href: "/ai-vendor-due-diligence-checklist", desc: "60-item AI vendor evaluation checklist" },
+  { name: "Incident Evidence Checklist", href: "/ai-incident-evidence-checklist", desc: "4-phase AI security incident checklist" },
 ];
 
 const resources = [
   { name: "Guides", href: "/guides", desc: "AI compliance guides" },
-  { name: "Architecture Decision Master Sheet", href: "/architecture-decision-master-sheet", desc: "Interactive 25-layer architecture decision sheet" },
   { name: "Writing", href: "/writing", desc: "Articles & long-form writing" },
   { name: "Research", href: "/research", desc: "Research papers & analysis" },
 ];
@@ -41,7 +43,7 @@ const navLinks = [
 ];
 
 export function SiteNavigation() {
-  const [open, setOpen] = React.useState<null | "products" | "solutions" | "training" | "resources">(null);
+  const [open, setOpen] = React.useState<null | "products" | "solutions" | "interactiveTools" | "resources">(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
@@ -244,7 +246,7 @@ export function SiteNavigation() {
 
             <div style={{ position: "relative" }}>
               <button
-                onClick={() => setOpen(open === "training" ? null : "training")}
+                onClick={() => setOpen(open === "interactiveTools" ? null : "interactiveTools")}
                 style={{
                   appearance: "none",
                   border: "none",
@@ -256,15 +258,15 @@ export function SiteNavigation() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  color: open === "training" ? "var(--fg)" : "var(--muted)",
+                  color: open === "interactiveTools" ? "var(--fg)" : "var(--muted)",
                 }}
               >
-                training
-                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "training" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                tools
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "interactiveTools" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
                   <path d="M2 4 L5 7 L8 4" />
                 </svg>
               </button>
-              {open === "training" && dropdown(training)}
+              {open === "interactiveTools" && dropdown(interactiveTools)}
             </div>
 
             <div style={{ position: "relative" }}>
@@ -477,10 +479,10 @@ export function SiteNavigation() {
               ))}
             </div>
 
-            {/* Training section */}
+            {/* Interactive Tools section */}
             <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, marginBottom: 24 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 10, padding: "0 12px" }}>Training</div>
-              {training.map((t) => (
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 10, padding: "0 12px" }}>Tools</div>
+              {interactiveTools.map((t) => (
                 <Link
                   key={t.href}
                   href={t.href}

@@ -172,8 +172,8 @@ export default function ArchitectureDecisionMasterSheetPage() {
             <span className="flex items-center gap-1.5"><FileText className="h-4 w-4" /> July 17, 2026</span>
             <span>By Subodh KC</span>
           </div>
-          <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-950/20 p-3">
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
+            <p className="text-xs text-amber-200">
               <strong>Educational notice:</strong> This master sheet provides a comprehensive framework for architecture decisions. Production deployments should undergo organization-specific architecture review with qualified architects and security professionals. Decisions should be tailored to your specific tech stack, team composition, and regulatory environment.
             </p>
           </div>
@@ -210,8 +210,8 @@ export default function ArchitectureDecisionMasterSheetPage() {
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             The sheet also includes <strong className="text-red-500">AI development risks</strong> for every layer — not just the AI-specific layers (Group E). If your team uses AI tools to write code, or if your product includes AI features, these risks apply to you.
           </p>
-          <div className="rounded-lg border border-purple-300 bg-purple-50 dark:bg-purple-950/20 p-4">
-            <p className="text-sm text-purple-900 dark:text-purple-200">
+          <div className="rounded-lg border border-purple-500/30 bg-purple-950/20 p-4">
+            <p className="text-sm text-purple-200">
               <strong>CSM-Aligned:</strong> Every layer maps to one of the four pillars of <Link href="/haiec" className="font-medium hover:underline">Cognitive Systems Management (CSM)</Link> — <span className="font-semibold">Strategic Alignment</span>, <span className="font-semibold">Technical Implementation</span>, <span className="font-semibold">Governance & Risk</span>, and <span className="font-semibold">Operational Excellence</span>. Use the CSM Pillar View in the interactive tool to see how the sheet operationalizes the framework.
             </p>
           </div>
@@ -359,7 +359,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
             <div key={g.group}>
               <h3 className="text-lg font-semibold">{g.group}</h3>
               <p className="text-sm text-muted-foreground mt-1">{g.desc}</p>
-              <p className="text-xs text-purple-600 dark:text-purple-400 mt-1">CSM Pillar: {g.csm}</p>
+              <p className="text-xs text-purple-400 mt-1">CSM Pillar: {g.csm}</p>
               <ul className="mt-2 space-y-1">
                 {g.items.map((item, i) => (
                   <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -516,8 +516,8 @@ export default function ArchitectureDecisionMasterSheetPage() {
               )
             })}
           </div>
-          <div className="rounded-lg border border-purple-300 bg-purple-50 dark:bg-purple-950/20 p-4">
-            <p className="text-sm text-purple-900 dark:text-purple-200">
+          <div className="rounded-lg border border-purple-500/30 bg-purple-950/20 p-4">
+            <p className="text-sm text-purple-200">
               <strong>Why CSM matters:</strong> Most architecture frameworks stop at technical decisions. CSM ensures that every technical decision is connected to business strategy, governance, and operations. The Architecture Decision Master Sheet is the practical tool that makes this connection explicit — every layer has a CSM pillar, and every pillar has concrete deliverables.
             </p>
           </div>
