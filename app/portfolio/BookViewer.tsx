@@ -31,7 +31,7 @@ export default function BookViewer({ pages }: BookViewerProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const safeWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
+  const safeWidth = mounted ? window.innerWidth : 1024;
   const pageWidth = isMobile ? Math.min(safeWidth - 32, 612) : 612;
   const pageHeight = isMobile ? Math.round(pageWidth * 11 / 8.5) : 792;
 
