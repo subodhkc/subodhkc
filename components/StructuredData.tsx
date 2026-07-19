@@ -278,35 +278,35 @@ export default function StructuredData() {
 
   const reviewSchemas = [
     {
-      itemReviewed: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+      itemReviewed: { '@type': 'SoftwareApplication', name: 'HAIEC', url: 'https://subodhkc.com/solutions/haiec' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'James Mullins, Director of Engineering' },
       reviewBody:
         'Subodh\'s governance framework transformed how we approach AI compliance. We went from no formal process to passing our first audit in 90 days.',
     },
     {
-      itemReviewed: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+      itemReviewed: { '@type': 'SoftwareApplication', name: 'KestrelVoice', url: 'https://subodhkc.com/solutions/kestrelvoice' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'David Park, CTO' },
       reviewBody:
         'The AI architecture Subodh designed for our RAG pipeline cut hallucinations by 80% and made our system production-ready in weeks, not months.',
     },
     {
-      itemReviewed: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+      itemReviewed: { '@type': 'Service', name: 'Fractional AI Advisor', url: 'https://subodhkc.com/advisory' },
       reviewRating: { '@type': 'Rating', ratingValue: '4', bestRating: '5' },
       author: { '@type': 'Person', name: 'Patricia Alvarez, VP Engineering' },
       reviewBody:
         'Subodh bridges engineering, legal, and executive stakeholders like nobody I\'ve worked with. His CSM framework is now our standard for AI programs.',
     },
     {
-      itemReviewed: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+      itemReviewed: { '@type': 'SoftwareApplication', name: 'HAIEC — Modular Audit Engine', url: 'https://subodhkc.com/solutions/haiec' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'Rachel Boudreaux, Compliance Director' },
       reviewBody:
         'HAIEC and the Modular Audit Engine saved us months of documentation work. The evidence architecture alone is worth the investment.',
     },
     {
-      itemReviewed: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+      itemReviewed: { '@type': 'SoftwareApplication', name: 'llmverify', url: 'https://subodhkc.com/products/llmverify' },
       reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
       author: { '@type': 'Person', name: 'Marcus Lee, Product Manager' },
       reviewBody:
