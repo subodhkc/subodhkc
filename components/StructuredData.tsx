@@ -292,7 +292,7 @@ export default function StructuredData() {
         'The AI architecture Subodh designed for our RAG pipeline cut hallucinations by 80% and made our system production-ready in weeks, not months.',
     },
     {
-      itemReviewed: { '@type': 'Service', name: 'Fractional AI Advisor', url: 'https://subodhkc.com/advisory' },
+      itemReviewed: { '@type': 'Product', name: 'Fractional AI Advisor', url: 'https://subodhkc.com/advisory' },
       reviewRating: { '@type': 'Rating', ratingValue: '4', bestRating: '5' },
       author: { '@type': 'Person', name: 'Patricia Alvarez, VP Engineering' },
       reviewBody:
