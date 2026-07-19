@@ -19,7 +19,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Executive Bio - Subodh KC | Director of AI Programs',
-  description: 'Builder of Systems That Don\'t Break. 16 years from field operations to Fortune 50 AI strategy. 5 patent-pending frameworks. $50M+ portfolios. This is the story behind the systems.',
+  description: 'Builder of Systems That Don\'t Break. 16+ years from field operations to Fortune 50 AI strategy. 5 patent-pending frameworks. $50M+ portfolios. This is the story behind the systems.',
   alternates: {
     canonical: 'https://subodhkc.com/executive-bio',
   },
@@ -91,7 +91,7 @@ export default function ExecutiveBioPage() {
               <strong className="text-foreground">I don't accept chaos as "the way things are." I build structures that eliminate it.</strong>
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Fast forward 16 years.
+              Fast forward 16+ years.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar AI portfolios, 

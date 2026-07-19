@@ -28,7 +28,6 @@ export const metadata: Metadata = {
     'AI Systems Architect',
     'AI Developer',
     'AI Governance Architect',
-    'AI Compliance Architect',
     'AI Strategy Consultant',
     'Enterprise AI Architect',
     'Full-Stack AI Developer',

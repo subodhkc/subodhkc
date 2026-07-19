@@ -286,7 +286,7 @@ export function SiteFooter() {
             }}
           >
             Former Fortune 50 AI Strategy CTL. Founder of HAIEC — Holistic AI Ethics & Compliance. M.Sc.
-            Engineering & Technology Management, Louisiana Tech. Sixteen years of full-stack engineering from
+            Engineering & Technology Management, Louisiana Tech. 16+ years of full-stack engineering from
             startups to global enterprise. Open for consulting, advisory boards, and research partnerships.
           </p>
           <div style={{ marginTop: 24, display: "flex", gap: 8, flexWrap: "wrap" }}>

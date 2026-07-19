@@ -123,7 +123,7 @@ export default function PersonPage() {
     { period: '2023 – 2024', role: 'Founder', org: 'KestrelVoice', description: 'Built AI voice operations platform — answers every call, books appointments, runs the front desk 24/7.' },
     { period: '2023 – Present', role: 'Co-founder', org: 'HAIEC', description: 'Built enterprise AI governance and compliance platform for EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144.' },
     { period: '2020 – 2024', role: 'AI Strategy & Program Leadership', org: 'Enterprise', description: 'Led AI transformation programs across Fortune 50 environments. Developed CSM framework adopted across multiple pilots.' },
-    { period: '2008 – 2020', role: 'Full-Stack Engineer → Program Manager', org: 'Various', description: '16 years from field technician to system engineer to program manager. Ground floor to executive strategy.' },
+    { period: '2008 – 2020', role: 'Full-Stack Engineer → Program Manager', org: 'Various', description: '16+ years from field technician to system engineer to program manager. Ground floor to executive strategy.' },
   ]
 
   const education = [

@@ -20,7 +20,7 @@ export function Hero() {
             <li>15 products shipped</li>
             <li>10,000+ npm + pypi installs</li>
             <li>5 patent-pending frameworks</li>
-            <li>16 years full-stack experience</li>
+            <li>16+ years full-stack experience</li>
           </ul>
           <p>
             <a href="/contact">Discuss an AI System</a> | <a href="/contact">Hire Subodh KC</a>

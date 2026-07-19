@@ -46,8 +46,13 @@ export default function StructuredData() {
       },
       estimatedSalary: {
         '@type': 'MonetaryAmountDistribution',
-        name: 'AI Systems Architect & Governance Expert',
+        name: 'AI Systems Architect',
         currency: 'USD',
+        percentile10: '120000',
+        percentile25: '150000',
+        percentile50: '180000',
+        percentile75: '220000',
+        percentile90: '280000',
       },
       description: 'Expert in AI architecture, governance, compliance automation, and enterprise AI deployment',
     },
@@ -304,16 +309,6 @@ export default function StructuredData() {
     },
   ]
 
-  const aggregateRatingSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'AggregateRating',
-    itemReviewed: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
-    ratingValue: '4.8',
-    bestRating: '5',
-    ratingCount: '5',
-    reviewCount: '5',
-  }
-
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -456,11 +451,6 @@ export default function StructuredData() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Review', ...review }) }}
         />
       ))}
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }}
-      />
       <script
         type="application/ld+json"
         suppressHydrationWarning

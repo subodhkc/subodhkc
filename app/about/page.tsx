@@ -170,7 +170,7 @@ export default function AboutPage() {
             chaos as "the way things are." I build structures that eliminate it.</strong>
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            Fast forward 16 years. I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar 
+            Fast forward 16+ years. I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar 
             AI portfolios, deploy systems at enterprise scale, and design compliance architectures that withstand legal, operational, 
             and engineering scrutiny. I built a governance platform (HAIEC) from scratch—used in enterprise settings—and
             authored five patent-pending frameworks in drift detection, audit automation, and real-time AI enforcement.
