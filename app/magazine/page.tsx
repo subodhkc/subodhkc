@@ -49,6 +49,13 @@ export default function MagazinePage() {
     <>
       <style jsx global>{MAGAZINE_CSS}</style>
       <style jsx global>{`
+        /* Override root layout chrome for fullscreen book experience */
+        body { background: #cfd5d9 !important; color: #071927 !important; }
+        .site-nav { display: none !important; }
+        footer#contact { display: none !important; }
+        main.min-h-screen { min-height: auto !important; }
+        /* Hide scroll progress bar */
+        body > div[style*="position: fixed"][style*="top: 0"][style*="height: 2"] { display: none !important; }
         .magazine-toolbar {
           position: sticky;
           top: 0;

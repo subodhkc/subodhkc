@@ -111,17 +111,20 @@ export default function MagazineViewer({ pages }: MagazineViewerProps) {
           margin-top: 20px;
         }
         .flip-nav button {
-          background: rgba(10, 32, 53, 0.06);
-          border: 1px solid rgba(10, 32, 53, 0.12);
+          background: #fff;
+          border: 2px solid #0a2035;
+          color: #0a2035;
           border-radius: 999px;
-          padding: 10px 18px;
+          padding: 10px 20px;
           font-weight: 700;
           font-size: 13px;
           cursor: pointer;
           transition: all 0.2s;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
         .flip-nav button:hover:not(:disabled) {
-          background: rgba(10, 32, 53, 0.12);
+          background: #0a2035;
+          color: #fff;
         }
         .flip-nav button:focus-visible {
           outline: 2px solid #2563eb;
@@ -137,9 +140,13 @@ export default function MagazineViewer({ pages }: MagazineViewerProps) {
           color: #0a2035;
           min-width: 80px;
           text-align: center;
+          background: #fff;
+          border-radius: 999px;
+          padding: 8px 12px;
+          border: 1px solid rgba(10,32,53,0.15);
         }
       `}</style>
-      <div className="flip-magazine-wrapper" role="region" aria-label="Magazine flip book">
+      <div className="flip-magazine-wrapper" role="region" aria-label="Magazine flip book" style={{ '--flip-scale': String(finalWidth / 816) } as React.CSSProperties}>
         <div className="flip-magazine-container">
           {mounted ? (
             <HTMLFlipBook

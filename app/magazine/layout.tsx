@@ -40,7 +40,7 @@ const magazineSchema = {
   '@type': ['PublicationIssue', 'CreativeWork'],
   name: 'AI That Works — Issue 01',
   issueNumber: 1,
-  datePublished: '2026-07-18',
+  datePublished: '2026-07-18T00:00:00Z',
   description: 'From demo to operating system. A 36-page independent field magazine on AI strategy, systems, governance, and field practice.',
   author: {
     '@type': 'Person',

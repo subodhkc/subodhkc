@@ -80,6 +80,8 @@ export default function BookViewer({ pages }: BookViewerProps) {
         .flip-book-container {
           position: relative;
           overflow: hidden;
+          border-radius: 6px;
+          box-shadow: 0 18px 50px rgba(10,32,53,.16);
         }
         .flip-book-container .page {
           width: 100%;
@@ -98,6 +100,13 @@ export default function BookViewer({ pages }: BookViewerProps) {
           height: 100%;
           overflow: hidden;
         }
+        /* Scale inch-based content to fit pixel-based flip book */
+        .flip-book-container .page-inner-content > section {
+          width: 8.5in;
+          transform: scale(var(--flip-scale, 0.75));
+          transform-origin: top left;
+          position: relative;
+        }
         .flip-nav {
           display: flex;
           align-items: center;
@@ -106,18 +115,20 @@ export default function BookViewer({ pages }: BookViewerProps) {
           margin-top: 16px;
         }
         .flip-nav button {
-          border: 1px solid rgba(10, 32, 53, 0.2);
-          background: rgba(10, 32, 53, 0.06);
+          border: 2px solid #0a2035;
+          background: #fff;
           color: #0a2035;
           border-radius: 999px;
-          padding: 10px 18px;
+          padding: 10px 20px;
           font-weight: 700;
           font-size: 13px;
           cursor: pointer;
           transition: all 0.2s;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
         .flip-nav button:hover:not(:disabled) {
-          background: rgba(10, 32, 53, 0.12);
+          background: #0a2035;
+          color: #fff;
         }
         .flip-nav button:focus-visible {
           outline: 2px solid #2563eb;
@@ -133,13 +144,17 @@ export default function BookViewer({ pages }: BookViewerProps) {
           color: #0a2035;
           min-width: 80px;
           text-align: center;
+          background: #fff;
+          border-radius: 999px;
+          padding: 8px 12px;
+          border: 1px solid rgba(10,32,53,0.15);
         }
         @media print {
           .flip-book-wrapper { display: none !important; }
         }
       `}</style>
 
-      <div className="flip-book-wrapper" role="region" aria-label="Portfolio flip book">
+      <div className="flip-book-wrapper" role="region" aria-label="Portfolio flip book" style={{ '--flip-scale': String(pageWidth / 816) } as React.CSSProperties}>
         <div className="flip-book-container">
           {mounted ? (
           <HTMLFlipBook

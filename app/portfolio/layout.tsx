@@ -17,7 +17,7 @@ const portfolioSchema = {
     url: 'https://subodhkc.com',
   },
   inLanguage: 'en-US',
-  datePublished: '2026-07-18',
+  datePublished: '2026-07-18T00:00:00Z',
   about: [
     'AI Strategy',
     'AI Program Leadership',

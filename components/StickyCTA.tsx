@@ -16,7 +16,7 @@ export function StickyCTA() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  if (pathname === '/contact' || pathname?.startsWith('/resume')) {
+  if (pathname === '/contact' || pathname?.startsWith('/resume') || pathname?.startsWith('/magazine') || pathname?.startsWith('/portfolio')) {
     return null
   }
 

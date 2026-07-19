@@ -111,6 +111,7 @@ export function SiteNavigation() {
   return (
     <>
       <header
+        className="site-nav"
         style={{
           position: "sticky",
           top: 0,
