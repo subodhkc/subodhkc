@@ -22,6 +22,7 @@ import {
   UserX,
   ArrowRight,
   Mail,
+  Briefcase,
   X
 } from 'lucide-react'
 
@@ -35,8 +36,8 @@ export default function PrintLaterPage() {
   const features = [
     {
       icon: Zap,
-      title: 'Crtl + P',
-      description: 'See something worth printing? Cltrl +P and review later Done. The page is saved to your queue, ready when you are to organize it and print it. .'
+      title: 'Ctrl + P',
+      description: 'See something worth printing? Press Ctrl+P and review later. Done. The page is saved to your queue, ready when you are to organize it and print it.'
     },
     {
       icon: FileText,
@@ -115,15 +116,14 @@ export default function PrintLaterPage() {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            PrintLater Powers Your CTRL+P
+            Print Later Powers Your CTRL+P
             <br />
-            <span className="gradient-text">Print Smarter.Copy Smarter </span>
+            <span className="gradient-text">Print Smarter. Copy Smarter.</span>
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-
-          Each page you capture is stored locally on your device—never uploaded, never shared. 
-              Save anything you’re reading with Ctrl+P. When you’re ready, open App Print Later, pick the exact pages you want, reorder them, and print a clean packet.
+            Each page you capture is stored locally on your device — never uploaded, never shared.
+            Save anything you’re reading with Ctrl+P. When you’re ready, open Print Later, pick the exact pages you want, reorder them, and print a clean packet.
             Capture now, organize later. Fully private. Fully local, zero cloud nonsense.
           </p>
 
@@ -278,6 +278,222 @@ export default function PrintLaterPage() {
           </div>
         </div>
       </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              How It Works
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Three steps from browsing to printed packet. No complicated setup.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-primary">1</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Save with Ctrl+P</h3>
+              <p className="text-muted-foreground">
+                Browse any web page. Press Ctrl+P and select Print Later as your printer. The page is saved to your local queue instantly.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-primary">2</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Organize Your Queue</h3>
+              <p className="text-muted-foreground">
+                Open the Print Later app. Sort by date, search by title, reorder pages. Select exactly which pages you need from each document.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-primary">3</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Print Your Packet</h3>
+              <p className="text-muted-foreground">
+                Combine pages from multiple documents into one print job. Hit print and get a clean, organized packet — no wasted paper.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Who Uses Print Later
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Built for anyone who prints from the web — and wants to do it smarter.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-blue-500" />
+                </div>
+                <CardTitle className="text-lg">Students & Researchers</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Save research papers, articles, and reference pages throughout the day. Print only the pages you need for your bibliography or study session.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
+                  <Briefcase className="h-6 w-6 text-purple-500" />
+                </div>
+                <CardTitle className="text-lg">Office Professionals</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Queue up reports, invoices, and meeting materials from multiple sources. Batch print everything at once instead of printing one page at a time.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-amber-500" />
+                </div>
+                <CardTitle className="text-lg">Legal Teams</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Save case documents, evidence pages, and reference materials throughout the day. Assemble organized print packets for court filings and client meetings.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4">
+                  <Layers className="h-6 w-6 text-green-500" />
+                </div>
+                <CardTitle className="text-lg">Anyone Who Prints</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Stop wasting paper on full-page prints when you only need one section. Stop losing track of what you wanted to print. Print Later fixes both.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is Print Later really free?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. Print Later is 100% free and open source. No premium tier, no hidden costs, no in-app purchases. The source code is available on GitHub for anyone to audit or contribute to.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Does Print Later work offline?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. Print Later runs entirely on your local machine. No internet connection is required after installation. Your saved pages and print queue are stored locally on your computer.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Can I print from multiple browsers?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. Print Later works as a system printer, so any browser that supports Ctrl+P (Chrome, Edge, Firefox) can save pages to your queue. All pages go into the same queue regardless of which browser you used.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">How is my data stored?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  All captured pages are stored locally on your computer in your user directory. Nothing is uploaded to the cloud, no telemetry is sent, and no account is required. You can delete your queue at any time.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">What operating systems are supported?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Print Later currently supports Windows 10 and Windows 11 (64-bit). Mac and Linux versions are being considered for future releases.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Why does Windows SmartScreen show a warning?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Print Later is open source and not code-signed with an expensive Microsoft certificate. Click &quot;More info&quot; → &quot;Run anyway&quot; to install. The app is safe — you can verify the source code on GitHub.
+                </p>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'Is Print Later really free?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Print Later is 100% free and open source. No premium tier, no hidden costs, no in-app purchases. The source code is available on GitHub for anyone to audit or contribute to.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Does Print Later work offline?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Print Later runs entirely on your local machine. No internet connection is required after installation. Your saved pages and print queue are stored locally on your computer.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I print from multiple browsers?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Print Later works as a system printer, so any browser that supports Ctrl+P (Chrome, Edge, Firefox) can save pages to your queue. All pages go into the same queue regardless of which browser you used.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How is my data stored?',
+                acceptedAnswer: { '@type': 'Answer', text: 'All captured pages are stored locally on your computer in your user directory. Nothing is uploaded to the cloud, no telemetry is sent, and no account is required. You can delete your queue at any time.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'What operating systems are supported?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Print Later currently supports Windows 10 and Windows 11 (64-bit). Mac and Linux versions are being considered for future releases.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Why does Windows SmartScreen show a warning?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Print Later is open source and not code-signed with an expensive Microsoft certificate. Click "More info" → "Run anyway" to install. The app is safe — you can verify the source code on GitHub.' },
+              },
+            ],
+          }),
+        }}
+      />
 
       {/* CTA Section */}
       <section className="py-20 px-4 bg-gradient-to-br from-primary/10 to-accent/10">

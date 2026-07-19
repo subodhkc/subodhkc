@@ -12,6 +12,18 @@ export const metadata = {
   title: 'About Subodh KC | AI Systems Architect and Founder',
   description:
     'Learn about Subodh KC — AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
+  keywords: [
+    'Subodh KC',
+    'AI systems architect',
+    'AI governance expert',
+    'Fortune 50 AI strategy',
+    'KestrelVoice founder',
+    'HAIEC co-founder',
+    'AI compliance',
+    'technical program manager',
+    'HP Inc AI',
+    'enterprise AI leadership',
+  ],
   alternates: {
     canonical: 'https://subodhkc.com/about',
   },
@@ -21,6 +33,11 @@ export const metadata = {
       'Learn about Subodh KC — AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Subodh KC | AI Systems Architect and Founder',
+    description: 'AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
   },
 }
 

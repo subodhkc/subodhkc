@@ -214,7 +214,7 @@ export default function StructuredData() {
       name: 'llmverify',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Cross-platform',
-      description: 'Runtime health monitor for LLM apps — drift detection, hallucination risk, latency, JSON quality.',
+      description: 'Open-source npm package for LLM output verification — prompt injection detection, PII redaction, hallucination risk scoring, and runtime health monitoring. 100% local processing, zero telemetry.',
       url: 'https://subodhkc.com/products/llmverify',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Free and open source (MIT)' },
       author: { '@type': 'Person', name: 'Subodh KC' },
@@ -261,6 +261,17 @@ export default function StructuredData() {
       description: 'AI-assisted court evidence builder — case files, deadlines, document packets management.',
       url: 'https://subodhkc.com/products/courtcase',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Public beta' },
+      author: { '@type': 'Person', name: 'Subodh KC' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: 'Print Later',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Windows 10/11',
+      description: 'Free Windows app to save web pages now and print them later. Queue pages with Ctrl+P, select exact pages, batch print. 100% local storage, no cloud, no tracking.',
+      url: 'https://subodhkc.com/products/print-later',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Free and open source' },
       author: { '@type': 'Person', name: 'Subodh KC' },
     },
     {
@@ -333,6 +344,7 @@ export default function StructuredData() {
       { '@type': 'ListItem', position: 6, name: 'SKC Log Analyser', url: 'https://subodhkc.com/products/skc-log-analyser' },
       { '@type': 'ListItem', position: 7, name: 'CourtCase', url: 'https://subodhkc.com/products/courtcase' },
       { '@type': 'ListItem', position: 8, name: 'FrontOfAI Briefing', url: 'https://subodhkc.com/solutions/frontofai' },
+      { '@type': 'ListItem', position: 9, name: 'Print Later', url: 'https://subodhkc.com/products/print-later' },
     ],
   }
 

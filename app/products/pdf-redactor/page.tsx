@@ -165,7 +165,7 @@ export default function PDFRedactorPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Windows & Mac • Free tier available • No account required
+            Windows • Free tier available • No account required
           </p>
 
           {/* Visual Demo */}
@@ -362,6 +362,244 @@ export default function PDFRedactorPage() {
           </Card>
         </div>
       </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              How It Works
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Four steps from raw document to court-admissible redacted PDF.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-red-500">1</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Drag & Drop</h3>
+              <p className="text-muted-foreground text-sm">
+                Drop any PDF into PDF Redactor. The tool accepts single files or batch uploads for enterprise workflows.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-red-500">2</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-3">AI Auto-Detects PII</h3>
+              <p className="text-muted-foreground text-sm">
+                The AI engine scans your document and highlights all sensitive data — SSNs, credit cards, names, addresses, and 50+ other PII types.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-red-500">3</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Review & Confirm</h3>
+              <p className="text-muted-foreground text-sm">
+                Review every detected item. Add custom patterns for industry-specific data. Remove false positives with one click.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-red-500">4</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Export Redacted PDF</h3>
+              <p className="text-muted-foreground text-sm">
+                Get a permanently redacted PDF with all sensitive data removed at the byte level. No hidden layers, no metadata leaks, no recovery possible.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Built for Your Industry
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              From legal discovery to healthcare compliance — PDF Redactor handles the sensitive data your industry demands.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="hover:border-red-500/50 transition-colors">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-red-500" />
+                </div>
+                <CardTitle className="text-lg">Legal</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Redact client names, case numbers, and privileged information from court filings, discovery documents, and evidence packets. Court-admissible output.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="hover:border-red-500/50 transition-colors">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-red-500" />
+                </div>
+                <CardTitle className="text-lg">Healthcare</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Remove PHI from medical records, insurance claims, and patient correspondence. HIPAA-compliant redaction with local processing — no data ever leaves your facility.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="hover:border-red-500/50 transition-colors">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-4">
+                  <Layers className="h-6 w-6 text-red-500" />
+                </div>
+                <CardTitle className="text-lg">Financial</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Redact account numbers, SSNs, and transaction details from bank statements, loan documents, and financial reports. GDPR and GLBA compliant.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="hover:border-red-500/50 transition-colors">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-4">
+                  <FileSearch className="h-6 w-6 text-red-500" />
+                </div>
+                <CardTitle className="text-lg">Government & FOIA</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Prepare documents for Freedom of Information Act responses. Remove classified information, personal details, and exempt content with full audit trails.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is the redaction permanent?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. Unlike simple black boxes that just cover text, PDF Redactor removes data at the byte level. There are no hidden layers, no metadata traces, and no way to recover the original content. The redaction is permanent and court-admissible.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Can redacted text be recovered?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  No. PDF Redactor flattens all annotations, clears document metadata, and removes data from all PDF layers. Once redacted, the sensitive information is gone — not hidden, not obscured, permanently deleted.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Does it work offline?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. PDF Redactor runs entirely on your local machine. All AI processing happens on your computer. No internet connection is required after installation, and no document data is ever transmitted.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">What file types are supported?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  PDF Redactor currently supports PDF files. The AI engine can detect PII in both text-based and scanned PDFs. Additional file formats are being evaluated for future releases.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is it really free?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. PDF Redactor is free with a tier of 50 pages per month. The core redaction engine is open source and available on GitHub. A Pro version with unlimited pages and batch processing is planned.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">How does it compare to Adobe Acrobat redaction?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Adobe Acrobat requires a subscription and cloud processing. PDF Redactor is free, runs locally, and uses AI to auto-detect PII — no manual searching. Acrobat requires you to manually find and mark each sensitive item. PDF Redactor finds them for you.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is it HIPAA and GDPR compliant?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  PDF Redactor is designed to help you meet HIPAA and GDPR requirements for document redaction. Because all processing is local, no PHI or personal data is transmitted to third parties. The audit trail feature provides documentation for compliance reporting.
+                </p>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'Is the redaction permanent?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Unlike simple black boxes that just cover text, PDF Redactor removes data at the byte level. There are no hidden layers, no metadata traces, and no way to recover the original content. The redaction is permanent and court-admissible.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can redacted text be recovered?',
+                acceptedAnswer: { '@type': 'Answer', text: 'No. PDF Redactor flattens all annotations, clears document metadata, and removes data from all PDF layers. Once redacted, the sensitive information is gone — not hidden, not obscured, permanently deleted.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Does it work offline?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. PDF Redactor runs entirely on your local machine. All AI processing happens on your computer. No internet connection is required after installation, and no document data is ever transmitted.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'What file types are supported?',
+                acceptedAnswer: { '@type': 'Answer', text: 'PDF Redactor currently supports PDF files. The AI engine can detect PII in both text-based and scanned PDFs. Additional file formats are being evaluated for future releases.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is it really free?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. PDF Redactor is free with a tier of 50 pages per month. The core redaction engine is open source and available on GitHub. A Pro version with unlimited pages and batch processing is planned.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How does it compare to Adobe Acrobat redaction?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Adobe Acrobat requires a subscription and cloud processing. PDF Redactor is free, runs locally, and uses AI to auto-detect PII — no manual searching. Acrobat requires you to manually find and mark each sensitive item. PDF Redactor finds them for you.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is it HIPAA and GDPR compliant?',
+                acceptedAnswer: { '@type': 'Answer', text: 'PDF Redactor is designed to help you meet HIPAA and GDPR requirements for document redaction. Because all processing is local, no PHI or personal data is transmitted to third parties. The audit trail feature provides documentation for compliance reporting.' },
+              },
+            ],
+          }),
+        }}
+      />
 
       {/* CTA Section */}
       <section className="py-20 px-4 bg-gradient-to-br from-red-500/10 to-background" id="download">

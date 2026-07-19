@@ -17,11 +17,36 @@ import {
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'HAIEC - Human AI Ethics Council',
+  title: 'HAIEC – AI Governance & Compliance Platform | Human AI Ethics Council',
   description:
-    'Comprehensive AI governance, compliance, and ethical deployment platform. Built on years of real-world experience. Features precision drift detection, Red Audit Kit, and Cognitive Systems Management.',
+    'HAIEC is a comprehensive AI governance, compliance, and ethical deployment platform. Features precision drift detection, Red Audit Kit, and Cognitive Systems Management. Built for EU AI Act, NIST AI RMF, and ISO 42001 compliance.',
+  keywords: [
+    'HAIEC',
+    'AI governance platform',
+    'AI compliance',
+    'AI ethics council',
+    'EU AI Act compliance',
+    'NIST AI RMF',
+    'ISO 42001',
+    'AI drift detection',
+    'Cognitive Systems Management',
+    'Red Audit Kit',
+    'AI regulatory compliance',
+    'Subodh KC'
+  ],
   alternates: {
     canonical: 'https://subodhkc.com/haiec',
+  },
+  openGraph: {
+    title: 'HAIEC – AI Governance & Compliance Platform',
+    description: 'Comprehensive AI governance, compliance, and ethical deployment platform. EU AI Act, NIST AI RMF, ISO 42001 aligned.',
+    type: 'website',
+    url: 'https://subodhkc.com/haiec',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'HAIEC – AI Governance & Compliance Platform',
+    description: 'Comprehensive AI governance, compliance, and ethical deployment platform.',
   },
 }
 

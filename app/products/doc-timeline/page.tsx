@@ -234,20 +234,20 @@ export default function DocTimelinePage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold mb-2">10M+</div>
-              <div className="text-primary-foreground/80">Documents Processed</div>
+              <div className="text-4xl font-bold mb-2">SOC 2</div>
+              <div className="text-primary-foreground/80">Compliant</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-primary-foreground/80">Enterprise Clients</div>
+              <div className="text-4xl font-bold mb-2">On-Prem</div>
+              <div className="text-primary-foreground/80">Deployment Available</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">99.7%</div>
-              <div className="text-primary-foreground/80">Extraction Accuracy</div>
+              <div className="text-4xl font-bold mb-2">AI</div>
+              <div className="text-primary-foreground/80">Powered Extraction</div>
             </div>
             <div>
               <div className="text-4xl font-bold mb-2">80%</div>
-              <div className="text-primary-foreground/80">Time Saved</div>
+              <div className="text-primary-foreground/80">Time Saved vs Manual</div>
             </div>
           </div>
         </div>

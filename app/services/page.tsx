@@ -14,6 +14,20 @@ export const metadata = {
   title: 'AI Architecture, Deployment & Governance Services | Subodh KC',
   description:
     'AI architecture, agentic systems, RAG, MCP integrations, voice AI deployment, compliance automation, and governance frameworks. From pilot to production at enterprise scale.',
+  keywords: [
+    'AI architecture services',
+    'AI deployment',
+    'AI governance',
+    'agentic AI systems',
+    'RAG pipeline architecture',
+    'MCP integrations',
+    'voice AI deployment',
+    'compliance automation',
+    'AI consulting',
+    'fractional AI executive',
+    'enterprise AI',
+    'Subodh KC'
+  ],
   alternates: {
     canonical: 'https://subodhkc.com/services',
   },
@@ -23,6 +37,11 @@ export const metadata = {
       'AI architecture, agentic systems, RAG, MCP integrations, voice AI deployment, compliance automation, and governance frameworks. From pilot to production at enterprise scale.',
     url: 'https://subodhkc.com/services',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Architecture, Deployment & Governance | Subodh KC',
+    description: 'AI architecture, agentic systems, RAG, MCP, voice AI, compliance automation. From pilot to production.',
   },
 }
 

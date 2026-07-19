@@ -344,6 +344,39 @@ export default function ContactPage() {
           </Card>
         </div>
       </Section>
+
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: "What's your typical response time?",
+                acceptedAnswer: { '@type': 'Answer', text: 'I aim to respond to all inquiries within 24-48 hours. For urgent matters, please indicate that in your message.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Do you take on freelance projects?',
+                acceptedAnswer: { '@type': 'Answer', text: 'I work primarily through advisory retainers, project engagements, and fractional leadership roles. Reach out to discuss your specific needs.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I book you for a podcast or interview?',
+                acceptedAnswer: { '@type': 'Answer', text: "Yes! I'm selective about media appearances but open to opportunities that align with my expertise in AI governance, compliance, and technical leadership." },
+              },
+              {
+                '@type': 'Question',
+                name: 'Are you available for mentorship?',
+                acceptedAnswer: { '@type': 'Answer', text: 'I dedicate time to mentoring emerging leaders, particularly those from Nepal or underrepresented communities in tech. Reach out to discuss mentorship opportunities.' },
+              },
+            ],
+          }),
+        }}
+      />
     </>
   )
 }

@@ -16,13 +16,43 @@ import {
   FileJson,
   Activity,
   Server,
-  Code2
+  Code2,
+  Bot
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'llmverify - Open Source LLM Output Verification for Node.js',
-  description: 'Local-first LLM output monitoring, risk scoring, and classification. Prompt injection detection, PII redaction, hallucination scoring. Zero telemetry, 100% local processing.',
-  keywords: ['llmverify', 'LLM guardrails', 'AI safety', 'prompt injection detection', 'PII redaction', 'hallucination detection', 'Node.js', 'npm package'],
+  title: 'llmverify – LLM Checker & Output Verification npm Package',
+  description: 'llmverify is an open-source npm package for LLM output verification, prompt injection detection, PII redaction, and hallucination risk scoring. 100% local processing, zero telemetry. Install with npm i llmverify.',
+  keywords: [
+    'llmverify',
+    'LLM checker',
+    'LLM checker npm package',
+    'LLM guardrails',
+    'AI safety',
+    'prompt injection detection',
+    'PII redaction',
+    'hallucination detection',
+    'LLM validation library',
+    'AI guardrails npm',
+    'npm package for AI safety',
+    'Node.js',
+    'npm package',
+    'Subodh KC'
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/products/llmverify',
+  },
+  openGraph: {
+    title: 'llmverify – LLM Checker & Output Verification npm Package',
+    description: 'Open-source npm package for LLM output verification. Prompt injection detection, PII redaction, hallucination scoring. 100% local, zero telemetry.',
+    type: 'website',
+    url: 'https://subodhkc.com/products/llmverify',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'llmverify – LLM Checker npm Package',
+    description: 'Open-source LLM output verification. Prompt injection detection, PII redaction, hallucination scoring. 100% local.',
+  },
 }
 
 export default function LLMVerifyPage() {
@@ -38,7 +68,7 @@ export default function LLMVerifyPage() {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            llmverify
+            llmverify — LLM Checker npm Package
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
@@ -370,6 +400,179 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
             </p>
           </div>
         </section>
+
+        {/* How It Works Section */}
+        <section className="mb-20">
+          <h2 className="text-2xl font-bold mb-6">How It Works</h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl font-bold text-primary">1</span>
+              </div>
+              <h3 className="font-semibold mb-2">Install the Package</h3>
+              <p className="text-sm text-muted-foreground">
+                Run <code className="bg-zinc-800 px-1.5 py-0.5 rounded text-xs">npm i llmverify</code> in your project. Zero dependencies, zero config required.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl font-bold text-primary">2</span>
+              </div>
+              <h3 className="font-semibold mb-2">Import & Wrap</h3>
+              <p className="text-sm text-muted-foreground">
+                Import llmverify and pass your LLM output through the verify function. Works with OpenAI, Anthropic, or any LLM provider.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl font-bold text-primary">3</span>
+              </div>
+              <h3 className="font-semibold mb-2">Configure Checks</h3>
+              <p className="text-sm text-muted-foreground">
+                Enable the checks you need: prompt injection detection, PII redaction, hallucination risk scoring, JSON validation. All run locally.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl font-bold text-primary">4</span>
+              </div>
+              <h3 className="font-semibold mb-2">Monitor Results</h3>
+              <p className="text-sm text-muted-foreground">
+                Get structured risk scores and flags for every LLM response. Block, log, or alert based on your own thresholds.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Use Cases Section */}
+        <section className="mb-20">
+          <h2 className="text-2xl font-bold mb-6">Use Cases</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-3">
+                <Bot className="h-6 w-6 text-primary" />
+                <h3 className="font-semibold">Chatbot Safety</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Detect prompt injection attacks in user messages before they reach your LLM. Block jailbreak attempts and keep your chatbot within its intended behavior.
+              </p>
+            </Card>
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-3">
+                <FileJson className="h-6 w-6 text-primary" />
+                <h3 className="font-semibold">RAG Pipeline Validation</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Validate LLM outputs in retrieval-augmented generation pipelines. Check for hallucination risk when the LLM generates answers from your knowledge base.
+              </p>
+            </Card>
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-3">
+                <Shield className="h-6 w-6 text-primary" />
+                <h3 className="font-semibold">AI Agent Guardrails</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Add safety checks to autonomous AI agents before they take actions. Verify outputs for PII leaks, prompt injection, and hallucination before executing tool calls.
+              </p>
+            </Card>
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-3">
+                <Activity className="h-6 w-6 text-primary" />
+                <h3 className="font-semibold">Customer Support AI Monitoring</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Monitor LLM-powered customer support responses for PII leaks and hallucination risk. Ensure your AI assistant never exposes sensitive customer data or fabricates answers.
+              </p>
+            </Card>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="mb-20">
+          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <Card className="p-5">
+              <h3 className="font-semibold mb-2">Is llmverify an AI model?</h3>
+              <p className="text-sm text-muted-foreground">
+                No. llmverify is a deterministic rule-based library. It uses pattern matching, regex, and heuristic scoring — not a neural network. This means results are reproducible, fast, and require no GPU or model inference.
+              </p>
+            </Card>
+            <Card className="p-5">
+              <h3 className="font-semibold mb-2">Does it send data anywhere?</h3>
+              <p className="text-sm text-muted-foreground">
+                No. llmverify makes zero network requests. All processing happens in your Node.js process. You can verify this with <code className="bg-zinc-800 px-1.5 py-0.5 rounded text-xs">tcpdump</code> or any network monitor — there is zero telemetry, zero data collection, zero phone-home behavior.
+              </p>
+            </Card>
+            <Card className="p-5">
+              <h3 className="font-semibold mb-2">What LLM providers are supported?</h3>
+              <p className="text-sm text-muted-foreground">
+                llmverify is provider-agnostic. It works with any LLM output — OpenAI, Anthropic, Google, Mistral, local models via Ollama, or any custom LLM. You pass the output text to llmverify, and it returns structured verification results.
+              </p>
+            </Card>
+            <Card className="p-5">
+              <h3 className="font-semibold mb-2">How accurate is prompt injection detection?</h3>
+              <p className="text-sm text-muted-foreground">
+                llmverify uses pattern-based detection which catches common injection patterns (ignore previous instructions, role-play attacks, encoding tricks). It is not 100% — novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.
+              </p>
+            </Card>
+            <Card className="p-5">
+              <h3 className="font-semibold mb-2">Can I use it in production?</h3>
+              <p className="text-sm text-muted-foreground">
+                Yes. llmverify is MIT licensed and production-ready. It is used in production by teams shipping AI features. The API is stable and backward-compatible. However, it should be used as one layer in a defense-in-depth strategy, not your only safety measure.
+              </p>
+            </Card>
+            <Card className="p-5">
+              <h3 className="font-semibold mb-2">How does it compare to Langfuse or guardrails AI?</h3>
+              <p className="text-sm text-muted-foreground">
+                Langfuse is an observability platform that requires a server and database. guardrails AI is a Python library with ML-based validation. llmverify is a zero-dependency npm package that runs locally with deterministic checks. Choose llmverify for lightweight, local-first guardrails. Choose Langfuse for full observability. Choose guardrails AI for ML-based validation in Python.
+              </p>
+            </Card>
+          </div>
+        </section>
+
+        {/* FAQ Schema */}
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: [
+                {
+                  '@type': 'Question',
+                  name: 'Is llmverify an AI model?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'No. llmverify is a deterministic rule-based library. It uses pattern matching, regex, and heuristic scoring — not a neural network. This means results are reproducible, fast, and require no GPU or model inference.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Does it send data anywhere?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'No. llmverify makes zero network requests. All processing happens in your Node.js process. There is zero telemetry, zero data collection, zero phone-home behavior.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'What LLM providers are supported?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify is provider-agnostic. It works with any LLM output — OpenAI, Anthropic, Google, Mistral, local models via Ollama, or any custom LLM. You pass the output text to llmverify, and it returns structured verification results.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'How accurate is prompt injection detection?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify uses pattern-based detection which catches common injection patterns. It is not 100% — novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Can I use it in production?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Yes. llmverify is MIT licensed and production-ready. It is used in production by teams shipping AI features. The API is stable and backward-compatible. However, it should be used as one layer in a defense-in-depth strategy, not your only safety measure.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'How does it compare to Langfuse or guardrails AI?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Langfuse is an observability platform that requires a server and database. guardrails AI is a Python library with ML-based validation. llmverify is a zero-dependency npm package that runs locally with deterministic checks. Choose llmverify for lightweight, local-first guardrails.' },
+                },
+              ],
+            }),
+          }}
+        />
 
         {/* Final CTA */}
         <section className="text-center">

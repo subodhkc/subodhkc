@@ -1,19 +1,22 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Print Later - Free Windows App to Save & Print Web Pages',
-  description: 'Save web pages now, print them later. Free, open-source Windows desktop app with browser extension. 100% local storage, no cloud, no tracking. Download now!',
+  title: 'Print Later – Free Windows App to Save & Print Web Pages Later',
+  description: 'Print Later is a free Windows app that lets you save web pages now and print them later. Queue pages with Ctrl+P, select exact pages, batch print. 100% local, no cloud, no tracking. Download free.',
   keywords: [
     'Print Later',
-    'save web pages',
-    'print queue',
+    'save web pages for printing',
+    'print queue app',
     'Windows print app',
+    'batch printing software',
+    'delayed printing Windows',
+    'print web pages later',
     'browser extension',
-    'PDF printer',
     'offline printing',
+    'Windows print manager',
     'document management',
-    'Subodh KC',
-    'open source'
+    'open source',
+    'Subodh KC'
   ],
   openGraph: {
     title: 'Print Later - Save Web Pages, Print When Ready',
