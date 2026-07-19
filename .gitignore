@@ -76,5 +76,9 @@ START_HERE.md
 VERCEL_DEPLOYMENT.md
 **/Executive-Bio-*.md
 
+# Backlink tooling (private configs, trackers, credentials)
+backlinks/*.yaml
+backlinks/*.yml
+
 .vercel
 .env*

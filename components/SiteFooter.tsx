@@ -553,6 +553,64 @@ export function SiteFooter() {
         }}
       />
 
+      {/* Listed On — directory badges (add as directories approve submissions) */}
+      <div
+        className="footer-listed-on"
+        style={{
+          maxWidth: 1240,
+          margin: "0 auto",
+          padding: "16px 28px",
+          borderTop: "1px solid var(--border)",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 12,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 10,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "var(--text-secondary)",
+            marginRight: 4,
+          }}
+        >
+          Listed on
+        </span>
+        {[
+          { label: "Product Hunt", url: "https://www.producthunt.com" },
+          { label: "AlternativeTo", url: "https://alternativeto.net" },
+          { label: "SourceForge", url: "https://sourceforge.net" },
+          { label: "dev.to", url: "https://dev.to" },
+          { label: "Stackviv", url: "https://stackviv.ai" },
+          { label: "The Next AI", url: "https://www.thenextai.com" },
+          { label: "AIToolSync", url: "https://aitoolsync.com" },
+          { label: "FreeAlternative", url: "https://freealternative.app" },
+        ].map(({ label, url }) => (
+          <a
+            key={label}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              padding: "4px 10px",
+              borderRadius: 999,
+              border: "1px solid var(--border)",
+              color: "var(--text-secondary)",
+              textDecoration: "none",
+              transition: "color 0.15s, border-color 0.15s",
+            }}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+
       {/* Bottom bar */}
       <div
         style={{
@@ -602,6 +660,10 @@ export function SiteFooter() {
           }
           .footer-chamber-badge {
             padding: 16px 20px !important;
+          }
+          .footer-listed-on {
+            padding: 12px 20px !important;
+            gap: 8px !important;
           }
         }
       `}</style>
