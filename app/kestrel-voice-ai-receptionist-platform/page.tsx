@@ -40,13 +40,13 @@ export const metadata = {
     type: 'article', authors: ['Subodh KC'],
     publishedTime: '2026-07-16', modifiedTime: '2026-07-16',
     tags: ['AI receptionist', 'no-code AI voice', 'Kestrel Voice', 'AI phone answering', 'AI receptionist platform', 'HAIEC', 'voice AI for business'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kestrel Voice AI Receptionist: No-Code Business Calls',
     description: 'Deploy a hosted AI receptionist without coding. Kestrel Voice combines business setup, RAG, appointments, transfers, guardrails, analytics, and custom workflows.',
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
   keywords: [
@@ -74,7 +74,7 @@ const articleSchema = {
   datePublished: '2026-07-16', dateModified: '2026-07-16',
   url: 'https://subodhkc.com/kestrel-voice-ai-receptionist-platform',
   mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://subodhkc.com/kestrel-voice-ai-receptionist-platform' },
-  image: 'https://subodhkc.com/og-default.png', inLanguage: 'en',
+  image: 'https://subodhkc.com/portrait.jpeg', inLanguage: 'en',
   articleSection: 'AI Voice Operations', wordCount: 6500,
   about: { '@type': 'SoftwareApplication', name: 'Kestrel Voice', applicationCategory: 'Voice AI Platform' },
 }

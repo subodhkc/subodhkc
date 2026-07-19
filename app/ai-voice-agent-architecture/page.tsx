@@ -32,13 +32,13 @@ export const metadata = {
     type: 'article', authors: ['Subodh KC'],
     publishedTime: '2026-07-15', modifiedTime: '2026-07-15',
     tags: ['AI voice agent architecture', 'voice agent RAG', 'AI telephony', 'Kestrel Voice', 'HAIEC', 'voice orchestration', 'AI voice guardrails'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI Voice Agent Architecture: How Kestrel Voice Works',
     description: 'Custom Python orchestration, realtime voice, deterministic guardrails, RAG, business tools, fallback modes, and operational evidence.',
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
   keywords: [
@@ -70,7 +70,7 @@ const articleSchema = {
   datePublished: '2026-07-15', dateModified: '2026-07-15',
   url: 'https://subodhkc.com/ai-voice-agent-architecture',
   mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://subodhkc.com/ai-voice-agent-architecture' },
-  image: 'https://subodhkc.com/og-default.png', inLanguage: 'en',
+  image: 'https://subodhkc.com/portrait.jpeg', inLanguage: 'en',
   articleSection: 'AI Voice Architecture', wordCount: 7500,
   about: { '@type': 'SoftwareApplication', name: 'Kestrel Voice', applicationCategory: 'Voice AI Platform' },
 }

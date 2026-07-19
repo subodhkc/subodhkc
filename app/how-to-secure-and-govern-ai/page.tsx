@@ -24,13 +24,13 @@ export const metadata = {
     type: 'article', authors: ['Subodh KC'],
     publishedTime: '2026-07-15', modifiedTime: '2026-07-15',
     tags: ['AI security', 'AI governance', 'NIST AI RMF', 'ISO 42001', 'SOC 2', 'AI compliance'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'How to Secure and Govern AI: NIST, ISO and SOC 2',
     description: 'Learn how AI laws, NIST AI RMF, ISO 42001, SOC 2, security testing, and continuous evidence work together to secure and govern AI.',
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
   keywords: [
@@ -63,7 +63,7 @@ const articleSchema = {
   datePublished: '2026-07-15', dateModified: '2026-07-15',
   url: 'https://subodhkc.com/how-to-secure-and-govern-ai',
   mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://subodhkc.com/how-to-secure-and-govern-ai' },
-  image: 'https://subodhkc.com/og-default.png', inLanguage: 'en',
+  image: 'https://subodhkc.com/portrait.jpeg', inLanguage: 'en',
   articleSection: 'AI Security & Governance', wordCount: 8500,
 }
 

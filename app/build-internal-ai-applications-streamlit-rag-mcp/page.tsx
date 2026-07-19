@@ -29,14 +29,14 @@ export const metadata = {
     publishedTime: '2026-07-14',
     modifiedTime: '2026-07-14',
     tags: ['Streamlit', 'MCP', 'RAG', 'OpenAI', 'Internal AI', 'Python'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Build Internal AI Apps with Streamlit, RAG and MCP',
     description:
       'A practical architecture guide for teams that need useful internal software—not another AI demonstration.',
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   robots: {
     index: true,
@@ -75,7 +75,7 @@ const articleSchema = {
   dateModified: '2026-07-14',
   url: 'https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp',
   mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp' },
-  image: 'https://subodhkc.com/og-default.png',
+  image: 'https://subodhkc.com/portrait.jpeg',
   inLanguage: 'en',
   articleSection: 'AI Architecture',
   wordCount: 8500,

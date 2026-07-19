@@ -20,7 +20,7 @@ export const metadata = {
     type: 'article',
     authors: ['Subodh KC'],
     tags: ['AI Risk Register', 'AI Risk Management', 'AI Governance', 'NIST AI RMF'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',

@@ -28,14 +28,14 @@ export const metadata = {
     publishedTime: '2026-07-15',
     modifiedTime: '2026-07-15',
     tags: ['Texas AI Law', 'TRAIGA', 'HB 149', 'AI Compliance', 'Small Business', 'Healthcare AI'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Does the Texas AI Law Apply to My Business? TRAIGA Guide',
     description:
       'A plain-English Texas AI law guide for small businesses. Check whether TRAIGA applies, review disclosure rules, penalties, examples, and final-law changes.',
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   robots: {
     index: true,
@@ -74,7 +74,7 @@ const articleSchema = {
   dateModified: '2026-07-15',
   url: 'https://subodhkc.com/does-texas-ai-law-apply-to-my-business',
   mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://subodhkc.com/does-texas-ai-law-apply-to-my-business' },
-  image: 'https://subodhkc.com/og-default.png',
+  image: 'https://subodhkc.com/portrait.jpeg',
   inLanguage: 'en',
   articleSection: 'AI Compliance',
   wordCount: 6500,

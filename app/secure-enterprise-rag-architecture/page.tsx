@@ -70,7 +70,7 @@ const articleSchema = {
   dateModified: '2026-07-14',
   url: 'https://subodhkc.com/secure-enterprise-rag-architecture',
   mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://subodhkc.com/secure-enterprise-rag-architecture' },
-  image: 'https://subodhkc.com/og-default.png',
+  image: 'https://subodhkc.com/portrait.jpeg',
   inLanguage: 'en',
   articleSection: 'AI Architecture',
   wordCount: 4200,

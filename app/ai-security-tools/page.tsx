@@ -24,7 +24,7 @@ export const metadata = {
     type: 'website',
     authors: ['Subodh KC'],
     tags: ['AI Security', 'Prompt Injection', 'AI Risk Assessment', 'MCP Security', 'RAG Security'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',

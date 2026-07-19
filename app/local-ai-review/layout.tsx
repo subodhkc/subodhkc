@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/portrait.jpeg',
-        width: 1200,
-        height: 630,
+        width: 1024,
+        height: 1024,
         alt: 'Subodh KC — Local AI Advisor | Complimentary AI Review for DFW Businesses',
       },
     ],

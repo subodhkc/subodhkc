@@ -21,7 +21,7 @@ export const metadata = {
     type: 'article',
     authors: ['Subodh KC'],
     tags: ['Architecture Decision Master Sheet', 'Architecture Decision Records', 'AI Development Risks', 'CSM Framework', 'Software Architecture', 'AI Governance', 'Tech Lead Guide', 'PM Architecture Guide'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',
@@ -63,7 +63,7 @@ const articleSchema = {
   datePublished: '2026-07-17',
   dateModified: '2026-07-17',
   url: 'https://subodhkc.com/architecture-decision-master-sheet',
-  image: 'https://subodhkc.com/og-default.png',
+  image: 'https://subodhkc.com/portrait.jpeg',
 }
 
 const faqSchema = {

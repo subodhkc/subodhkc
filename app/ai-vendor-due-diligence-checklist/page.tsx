@@ -20,7 +20,7 @@ export const metadata = {
     type: 'article',
     authors: ['Subodh KC'],
     tags: ['AI Vendor Due Diligence', 'AI Procurement', 'AI Security', 'AI Compliance'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',

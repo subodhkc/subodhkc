@@ -20,7 +20,7 @@ export const metadata = {
     type: 'website',
     authors: ['Subodh KC'],
     tags: ['AI Exposure Assessment', 'AI Security', 'HAIEC', 'Prompt Injection', 'AI Compliance'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',

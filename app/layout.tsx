@@ -19,13 +19,13 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Subodh KC — AI Architect | AI Governance Expert | Former Fortune 50 AI Strategy CTL',
+    default: 'Subodh KC — AI Systems Architect | AI Governance Expert | Former Fortune 50 AI Strategy CTL',
     template: '%s | Subodh KC',
   },
   description:
-    'Subodh KC — AI Architect and Governance Expert. Former Fortune 50 AI Strategy CTL with 16+ years full-stack development experience. Specializing in AI governance frameworks, EU AI Act compliance, NIST AI RMF, ISO 42001. Building production AI systems that scale with confidence.',
+    'Subodh KC — AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL with 16+ years full-stack development experience. Specializing in AI governance frameworks, EU AI Act compliance, NIST AI RMF, ISO 42001. Building production AI systems that scale with confidence.',
   keywords: [
-    'AI Architect',
+    'AI Systems Architect',
     'AI Developer',
     'AI Governance Architect',
     'AI Compliance Architect',
@@ -78,8 +78,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/portrait.jpeg',
-        width: 1200,
-        height: 630,
+        width: 1024,
+        height: 1024,
         alt: 'Subodh KC — AI Systems Architect & Governance Expert',
       },
     ],

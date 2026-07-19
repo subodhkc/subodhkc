@@ -23,8 +23,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://subodhkc.com/products/print-later/screenshot.png',
-        width: 1200,
-        height: 675,
+        width: 1467,
+        height: 900,
         alt: 'Print Later App Screenshot',
       },
     ],

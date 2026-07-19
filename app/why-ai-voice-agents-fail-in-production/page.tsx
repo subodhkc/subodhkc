@@ -25,13 +25,13 @@ export const metadata = {
     type: 'article', authors: ['Subodh KC'],
     publishedTime: '2026-07-15', modifiedTime: '2026-07-15',
     tags: ['AI voice agents', 'AI voice failure', 'voice agent architecture', 'AI telephony', 'AI compliance', 'Kestrel Voice', 'HAIEC'],
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Why AI Voice Agents Fail in Production—and How to Deploy One Safely',
     description: 'Learn why AI voice agents fail, how controlled orchestration reduces hallucinations and unsafe actions, and which metrics prove business value.',
-    images: ['https://subodhkc.com/og-default.png'],
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
   keywords: [
@@ -61,7 +61,7 @@ const articleSchema = {
   datePublished: '2026-07-15', dateModified: '2026-07-15',
   url: 'https://subodhkc.com/why-ai-voice-agents-fail-in-production',
   mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://subodhkc.com/why-ai-voice-agents-fail-in-production' },
-  image: 'https://subodhkc.com/og-default.png', inLanguage: 'en',
+  image: 'https://subodhkc.com/portrait.jpeg', inLanguage: 'en',
   articleSection: 'AI Voice Operations', wordCount: 9000,
 }
 
