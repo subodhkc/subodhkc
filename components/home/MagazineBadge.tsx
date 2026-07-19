@@ -79,7 +79,6 @@ export function MagazineBadge() {
                       gap: 8,
                       padding: '10px 20px',
                       borderRadius: 999,
-                      background: 'rgba(255, 255, 255, 0.1)',
                       border: '1px solid rgba(255, 255, 255, 0.2)',
                       color: '#fff',
                       fontFamily: "'Courier New', monospace",
@@ -87,11 +86,9 @@ export function MagazineBadge() {
                       fontWeight: 700,
                       letterSpacing: '0.06em',
                       textTransform: 'uppercase',
-                      transition: 'all 0.2s',
+                      transition: 'background-color 0.2s',
                     }}
-                    className="group-hover:bg-white/20"
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+                    className="bg-white/10 hover:bg-white/20"
                   >
                     Read the Magazine →
                   </div>
