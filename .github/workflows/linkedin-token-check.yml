@@ -1,0 +1,94 @@
+name: LinkedIn Token Expiry Check
+
+on:
+  schedule:
+    # Every Monday at 13:00 UTC (8:00 AM CST)
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+jobs:
+  check-token:
+    runs-on: ubuntu-latest
+    env:
+      LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+    steps:
+      - name: Check LinkedIn token validity
+        run: |
+          if [ -z "$LINKEDIN_ACCESS_TOKEN" ]; then
+            echo "::error::LINKEDIN_ACCESS_TOKEN not set in GitHub secrets"
+            exit 1
+          fi
+
+          # Try to introspect the token — LinkedIn doesn't have a standard introspect endpoint,
+          # but we can make a lightweight API call and check if it returns 401 (expired) or 200 (valid)
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
+            "https://api.linkedin.com/v2/userinfo")
+
+          if [ "$RESPONSE" = "200" ]; then
+            echo "LinkedIn token is valid (HTTP 200)"
+            echo "::notice::LinkedIn access token is valid and working"
+          elif [ "$RESPONSE" = "401" ]; then
+            echo "::error::LinkedIn token has EXPIRED (HTTP 401)"
+            echo "::error::Refresh the token by visiting:"
+            echo "::error::https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86ycwv5ydsptee&redirect_uri=https%3A%2F%2Fsubodhkc.com%2Fapi%2Flinkedin%2Fcallback&scope=openid%20profile%20w_member_social"
+            echo "::error::Then run: node scripts/linkedin-token-exchange.mjs --code=NEW_CODE"
+            echo "::error::Update GitHub secret: LINKEDIN_ACCESS_TOKEN"
+            exit 1
+          else
+            echo "::warning::Unexpected response from LinkedIn API (HTTP $RESPONSE)"
+            echo "::warning::Token may be invalid or API may be down"
+          fi
+
+      - name: Create issue if token expired
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ['linkedin-token', 'urgent']
+            });
+
+            // Don't create duplicate issues
+            if (issues.data.length > 0) {
+              console.log('Token expiry issue already exists — skipping');
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'LinkedIn access token has expired — auto-posting stopped',
+              body: [
+                '## LinkedIn Token Expired',
+                '',
+                'The LinkedIn access token has expired. Auto-posting to LinkedIn is **stopped** until the token is refreshed.',
+                '',
+                '### How to fix:',
+                '',
+                '1. Visit this URL in your browser:',
+                '   ```',
+                '   https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86ycwv5ydsptee&redirect_uri=https%3A%2F%2Fsubodhkc.com%2Fapi%2Flinkedin%2Fcallback&scope=openid%20profile%20w_member_social',
+                '   ```',
+                '',
+                '2. Copy the authorization code from the callback page',
+                '',
+                '3. Run locally:',
+                '   ```bash',
+                '   node scripts/linkedin-token-exchange.mjs --code=PASTE_CODE_HERE',
+                '   ```',
+                '',
+                '4. Update the GitHub secret:',
+                '   - Go to Settings → Secrets and variables → Actions',
+                '   - Update `LINKEDIN_ACCESS_TOKEN` with the new token',
+                '',
+                '5. Close this issue',
+                '',
+                '---',
+                '_This issue was created automatically by the `linkedin-token-check` workflow._'
+              ].join('\n'),
+              labels: ['linkedin-token', 'urgent']
+            });

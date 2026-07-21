@@ -207,32 +207,37 @@ async function postToLinkedIn(accessToken, memberId, text, articleUrl, articleTi
   const body = {
     author: `urn:li:person:${memberId}`,
     lifecycleState: 'PUBLISHED',
-    visibility: {
-      scope: 'PUBLIC',
-    },
-    commentary: text,
-    distribution: {
-      feedDistribution: 'MAIN_FEED',
-      targetEntities: [],
-      thirdPartyDistributionTypes: [],
-    },
-    content: {
-      article: {
-        source: articleUrl,
-        title: articleTitle,
-        description: articleDescription,
+    specificContent: {
+      'com.linkedin.ugc.ShareContent': {
+        shareCommentary: {
+          text: text,
+        },
+        shareMediaCategory: 'ARTICLE',
+        media: [
+          {
+            status: 'READY',
+            originalUrl: articleUrl,
+            title: {
+              text: articleTitle,
+            },
+            description: {
+              text: articleDescription || '',
+            },
+          },
+        ],
       },
     },
-    isReshareDisabledByAuthor: false,
+    visibility: {
+      'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC',
+    },
   }
 
-  const response = await fetch(`${LINKEDIN_API}/v2/posts`, {
+  const response = await fetch(`${LINKEDIN_API}/v2/ugcPosts`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
       'X-Restli-Protocol-Version': '2.0.0',
-      'LinkedIn-Version': '202406',
     },
     body: JSON.stringify(body),
   })

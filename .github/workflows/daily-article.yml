@@ -192,6 +192,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Download FrontOfAI article artifact
         if: needs.generate-frontofai-article.result == 'success' && needs.generate-frontofai-article.outputs.ran == 'true'
         uses: actions/download-artifact@v4
