@@ -81,9 +81,14 @@ jobs:
     needs: build-and-verify
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    env:
+      GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install Python dependencies for Google API
+        run: pip install cryptography
 
       - name: Wait for Vercel deployment
         run: sleep 60
@@ -121,8 +126,6 @@ jobs:
 
       - name: Submit URLs to Google Indexing API
         if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
-        env:
-          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
         run: |
           echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
 
@@ -195,8 +198,6 @@ jobs:
 
       - name: Submit sitemap to Google Search Console API
         if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
-        env:
-          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
         run: |
           echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
 

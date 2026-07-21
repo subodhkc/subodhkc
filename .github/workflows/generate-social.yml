@@ -41,7 +41,7 @@ jobs:
           if [ -n "$SLUG" ]; then
             node scripts/generate-social.mjs --slug="$SLUG" --force
           else
-            node scripts/generate-social.mjs --force
+            node scripts/generate-social.mjs
           fi
 
       - name: Commit generated content

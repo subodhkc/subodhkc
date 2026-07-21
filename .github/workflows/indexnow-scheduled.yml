@@ -9,9 +9,14 @@ on:
 jobs:
   ping-search-engines:
     runs-on: ubuntu-latest
+    env:
+      GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install Python dependencies for Google API
+        run: pip install cryptography
 
       - name: Fetch sitemap and extract all URLs
         id: sitemap
@@ -49,8 +54,6 @@ jobs:
 
       - name: Submit URLs to Google Indexing API
         if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
-        env:
-          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
         run: |
           # Write the service account JSON to a temp file
           echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
@@ -145,8 +148,6 @@ jobs:
 
       - name: Submit sitemap to Google Search Console
         if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
-        env:
-          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
         run: |
           echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
 

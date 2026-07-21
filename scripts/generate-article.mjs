@@ -76,6 +76,19 @@ function getExistingTitles(posts) {
   return posts.map((p) => p.title.toLowerCase())
 }
 
+function stripHtmlForCount(html) {
+  return html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 // Content pillars and topic queue — cycles through these
 const CONTENT_PILLARS = [
   {
@@ -324,17 +337,45 @@ INSTRUCTIONS:
 8. End with a practical takeaway
 9. Optimize for SEO: natural keyword usage
 10. Generate 6-10 relevant keywords/tags
-11. Write a compelling metaDescription (under 160 chars)
+11. Write a compelling metaDescription (under 160 chars) that includes the primary keyword
 12. Write a 1-2 sentence excerpt
+13. Include 2-3 internal links to existing posts where relevant (use format: <a href="/blog/slug">anchor text</a>)
+14. Include a FAQ section at the end with 3-5 questions and answers (wrapped in <h3> for questions, <p> for answers)
+
+SEO TITLE RULES:
+- Title must be under 60 characters
+- Title must include the primary keyword naturally
+- Title should be analysis-oriented, not just restating the news
+- Title should indicate expertise (analysis, implications, what it means, etc.)
+
+SEO META DESCRIPTION RULES:
+- Must be under 160 characters
+- Must include the primary keyword
+- Must be compelling enough to drive clicks
+- Must accurately describe the content
 
 OUTPUT FORMAT — return a JSON object with these exact fields:
 {
   "title": "SEO-optimized title (under 60 chars) — should be analysis-oriented, not just restating the news",
   "metaDescription": "Compelling meta description under 160 chars",
-  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong> tags. No class attributes. No script tags. Start with an <h2> not an <h1>.",
+  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <a> tags. No class attributes. No script tags. Start with an <h2> not an <h1>. Include internal links as <a href=\"/blog/slug\">text</a>. End with a FAQ section.",
   "keywords": ["keyword1", "keyword2", ...],
   "seedKeyword": "primary target keyword",
-  "excerpt": "1-2 sentence article excerpt"
+  "excerpt": "1-2 sentence article excerpt",
+  "faqJsonLd": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Question text here",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Answer text here"
+        }
+      }
+    ]
+  }
 }
 
 Do NOT include id, slug, createdAt, or any other fields — only the fields listed above.
@@ -420,17 +461,45 @@ REQUIREMENTS:
 6. End with a practical takeaway or action item
 7. Optimize for SEO: natural keyword usage, no keyword stuffing
 8. Generate 6-10 relevant keywords/tags
-9. Write a compelling metaDescription (under 160 chars)
+9. Write a compelling metaDescription (under 160 chars) that includes the primary keyword
 10. Write a 1-2 sentence excerpt
+11. Include 2-3 internal links to existing posts where relevant (use format: <a href="/blog/slug">anchor text</a>)
+12. Include a FAQ section at the end with 3-5 questions and answers (wrapped in <h3> for questions, <p> for answers)
+
+SEO TITLE RULES:
+- Title must be under 60 characters
+- Title must include the primary keyword naturally
+- Title should be compelling and specific (not generic)
+- Title should indicate the content type (guide, analysis, checklist, etc.)
+
+SEO META DESCRIPTION RULES:
+- Must be under 160 characters
+- Must include the primary keyword
+- Must be compelling enough to drive clicks
+- Must accurately describe the content
 
 OUTPUT FORMAT — return a JSON object with these exact fields:
 {
   "title": "SEO-optimized title (under 60 chars)",
   "metaDescription": "Compelling meta description under 160 chars",
-  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong> tags. No class attributes. No script tags. Start with an <h2> not an <h1>.",
+  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <a> tags. No class attributes. No script tags. Start with an <h2> not an <h1>. Include internal links as <a href=\"/blog/slug\">text</a>. End with a FAQ section.",
   "keywords": ["keyword1", "keyword2", ...],
   "seedKeyword": "primary target keyword",
-  "excerpt": "1-2 sentence article excerpt"
+  "excerpt": "1-2 sentence article excerpt",
+  "faqJsonLd": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Question text here",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Answer text here"
+        }
+      }
+    ]
+  }
 }
 
 Do NOT include id, slug, createdAt, or any other fields — only the fields listed above.
@@ -522,6 +591,36 @@ async function main() {
     article = await generateArticle(picked.topic, picked.pillar, posts)
   }
 
+  // Validate generated article
+  const warnings = []
+  if (article.title && article.title.length > 60) {
+    warnings.push(`Title is ${article.title.length} chars (recommended: under 60)`)
+  }
+  if (article.metaDescription && article.metaDescription.length > 160) {
+    warnings.push(`Meta description is ${article.metaDescription.length} chars (recommended: under 160)`)
+  }
+  const wordCount = stripHtmlForCount(article.contentHtml || '').split(/\s+/).filter(Boolean).length
+  if (wordCount < 1000) {
+    warnings.push(`Content is only ${wordCount} words (recommended: 1500+). Content may be too thin for SEO.`)
+  }
+  if (!article.keywords || article.keywords.length < 3) {
+    warnings.push(`Only ${article.keywords?.length || 0} keywords (recommended: 6-10)`)
+  }
+  if (!article.excerpt) {
+    warnings.push('No excerpt generated')
+  }
+
+  if (warnings.length > 0) {
+    console.log('\n  ⚠ SEO Warnings:')
+    for (const w of warnings) {
+      console.log(`    - ${w}`)
+    }
+  } else {
+    console.log('\n  ✓ All SEO checks passed')
+  }
+
+  console.log(`  Word count: ~${wordCount}`)
+
   // Build full post object
   const id = getNextId(posts)
   const slug = slugify(article.title)
@@ -544,7 +643,7 @@ async function main() {
     contentMarkdown: '',
     heroImageUrl: null,
     jsonLd: null,
-    faqJsonLd: null,
+    faqJsonLd: article.faqJsonLd || null,
     languageCode: 'en',
     createdAt: new Date().toISOString(),
     keywords: article.keywords || [],

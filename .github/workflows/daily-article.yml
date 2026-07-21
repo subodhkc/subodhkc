@@ -132,7 +132,7 @@ jobs:
 
           if [ -n "$(git status --porcelain data/blog/posts/ data/social/)" ]; then
             git add data/blog/posts/ data/social/
-            git commit -m "feat: daily AI articles (FrontOfAI + topic queue) + social content [skip ci]"
+            git commit -m "feat: daily AI articles (FrontOfAI + topic queue) + social content"
             git push
             echo "Articles auto-merged to main"
           else
