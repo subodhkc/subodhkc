@@ -17,6 +17,7 @@ export default function ContactPage() {
     company: '',
     interest: '',
     message: '',
+    website: '',
   })
 
   const [submitted, setSubmitted] = useState(false)
@@ -25,6 +26,9 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (formData.website) {
+      return
+    }
     setIsSubmitting(true)
     setError(null)
 
@@ -50,6 +54,7 @@ export default function ContactPage() {
         company: '',
         interest: '',
         message: '',
+        website: '',
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send message. Please try again.')
@@ -103,6 +108,15 @@ export default function ContactPage() {
       cta: 'Get Business Card',
       type: 'vcard',
     },
+    {
+      icon: Calendar,
+      title: 'Book a Call',
+      description: 'Schedule a 30-min consultation directly',
+      value: 'Pick a time that works for you',
+      link: 'https://calendly.com/subodhkc/30min',
+      cta: 'Open Calendar',
+      type: 'calendly',
+    },
   ]
 
   const interestAreas = [
@@ -154,6 +168,17 @@ export default function ContactPage() {
                       <p className="text-sm text-muted-foreground">{method.value}</p>
                       <VirtualBusinessCard />
                     </div>
+                  ) : method.type === 'calendly' ? (
+                    <>
+                      <p className="text-sm text-muted-foreground mb-4">{method.value}</p>
+                      {method.link && (
+                        <a href={method.link} target="_blank" rel="noopener noreferrer">
+                          <Button variant="outline" size="sm" className="w-full">
+                            {method.cta}
+                          </Button>
+                        </a>
+                      )}
+                    </>
                   ) : (
                     <>
                       <p className="text-sm text-muted-foreground mb-4">{method.value}</p>
@@ -209,6 +234,18 @@ export default function ContactPage() {
                   </div>
                 )}
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <div style={{ position: 'absolute', left: -9999, top: -9999, width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
+                    <label htmlFor="website">Website (leave blank)</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.website}
+                      onChange={handleChange}
+                    />
+                  </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">

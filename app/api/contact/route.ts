@@ -24,7 +24,14 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(apiKey)
 
     const body = await request.json()
-    const { name, email, company, interest, message } = body
+    const { name, email, company, interest, message, website } = body
+
+    if (website) {
+      return NextResponse.json(
+        { success: false, error: 'Spam detected' },
+        { status: 400 }
+      )
+    }
 
     // Validate required fields
     if (!name || !email || !interest || !message) {

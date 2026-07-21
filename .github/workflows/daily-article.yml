@@ -239,3 +239,58 @@ jobs:
             git commit -m "chore: update LinkedIn posted tracker" || echo "No changes to tracker"
             git push || echo "Push failed — tracker will be regenerated next run"
           fi
+
+      - name: Cross-post to Dev.to
+        if: success()
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: |
+          if [ -z "$DEVTO_API_KEY" ]; then
+            echo "::notice::DEVTO_API_KEY not set — skipping Dev.to cross-post"
+            exit 0
+          fi
+
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            LATEST=$(ls -t data/blog/posts/*.json | head -1)
+            SLUG=$(basename "$LATEST" .json)
+            echo "Cross-posting to Dev.to: $SLUG"
+            node scripts/cross-post-devto.mjs --slug="$SLUG" || echo "::warning::Dev.to cross-post failed for $SLUG"
+          else
+            echo "::warning::No blog posts found — skipping Dev.to cross-post"
+          fi
+
+      - name: Send Medium import reminder
+        if: success()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then
+            echo "::notice::RESEND_API_KEY not set — skipping Medium reminder"
+            exit 0
+          fi
+
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            LATEST=$(ls -t data/blog/posts/*.json | head -1)
+            SLUG=$(basename "$LATEST" .json)
+            echo "Sending Medium import reminder for: $SLUG"
+            node scripts/cross-post-medium.mjs --slug="$SLUG" || echo "::warning::Medium reminder failed for $SLUG"
+          fi
+
+      - name: Generate outreach plan
+        if: success()
+        run: |
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            LATEST=$(ls -t data/blog/posts/*.json | head -1)
+            SLUG=$(basename "$LATEST" .json)
+            echo "Generating outreach plan for: $SLUG"
+            node scripts/outreach-generator.mjs --slug="$SLUG" || echo "::warning::Outreach generation failed for $SLUG"
+          fi
+
+      - name: Commit cross-post trackers and outreach plans
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/blog/devto-posted.json data/blog/medium-posted.json data/outreach/ 2>/dev/null || true
+          git commit -m "chore: update cross-post trackers and outreach plans" || echo "No changes to commit"
+          git push || echo "Push failed — will retry next run"

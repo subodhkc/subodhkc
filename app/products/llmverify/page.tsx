@@ -601,6 +601,33 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
         </section>
 
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'llmverify',
+            description: 'Open-source LLM output verification, prompt injection detection, PII redaction, and hallucination risk scoring for Node.js.',
+            applicationCategory: 'DeveloperApplication',
+            operatingSystem: 'Cross-platform',
+            license: 'https://opensource.org/licenses/MIT',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Subodh KC',
+              url: 'https://subodhkc.com',
+            },
+            url: 'https://subodhkc.com/products/llmverify',
+            downloadUrl: 'https://www.npmjs.com/package/llmverify',
+          }),
+        }}
+      />
     </div>
   )
 }
