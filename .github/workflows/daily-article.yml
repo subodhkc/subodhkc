@@ -180,3 +180,62 @@ jobs:
             echo "No changes — article generation may have failed"
             exit 1
           fi
+
+  post-to-linkedin:
+    runs-on: ubuntu-latest
+    needs: [commit-and-push, generate-frontofai-article, generate-topic-queue-article]
+    if: needs.commit-and-push.result == 'success'
+    env:
+      LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+      LINKEDIN_MEMBER_ID: ${{ secrets.LINKEDIN_MEMBER_ID }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download FrontOfAI article artifact
+        if: needs.generate-frontofai-article.result == 'success' && needs.generate-frontofai-article.outputs.ran == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: frontofai-article
+          path: data/
+
+      - name: Download topic-queue article artifact
+        if: needs.generate-topic-queue-article.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: topic-queue-article
+          path: data/
+
+      - name: Post FrontOfAI article to LinkedIn
+        if: needs.generate-frontofai-article.result == 'success' && needs.generate-frontofai-article.outputs.ran == 'true'
+        run: |
+          if [ -z "$LINKEDIN_ACCESS_TOKEN" ] || [ -z "$LINKEDIN_MEMBER_ID" ]; then
+            echo "::warning::LINKEDIN_ACCESS_TOKEN or LINKEDIN_MEMBER_ID not set — skipping LinkedIn post"
+            exit 0
+          fi
+
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            LATEST=$(ls -t data/blog/posts/*.json | head -1)
+            SLUG=$(basename "$LATEST" .json)
+            echo "Posting to LinkedIn: $SLUG"
+            node scripts/post-linkedin.mjs --slug="$SLUG" || echo "::warning::LinkedIn post failed for $SLUG"
+          fi
+
+      - name: Post topic-queue article to LinkedIn
+        if: needs.generate-topic-queue-article.result == 'success'
+        run: |
+          if [ -z "$LINKEDIN_ACCESS_TOKEN" ] || [ -z "$LINKEDIN_MEMBER_ID" ]; then
+            echo "::warning::LINKEDIN_ACCESS_TOKEN or LINKEDIN_MEMBER_ID not set — skipping LinkedIn post"
+            exit 0
+          fi
+
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            # Get the second newest article (the first was already posted above)
+            FILES=$(ls -t data/blog/posts/*.json | head -2)
+            SECOND=$(echo "$FILES" | tail -1)
+            SLUG=$(basename "$SECOND" .json)
+            echo "Posting to LinkedIn: $SLUG"
+            # Wait 30s between posts to avoid rate limiting
+            sleep 30
+            node scripts/post-linkedin.mjs --slug="$SLUG" || echo "::warning::LinkedIn post failed for $SLUG"
+          fi

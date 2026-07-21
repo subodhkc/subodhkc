@@ -97,8 +97,10 @@ Generate the following in a single markdown document:
 - 1300-2000 characters
 - Start with a strong hook (not a question)
 - 3-5 key insights as bullet points
-- End with CTA to read full article
-- Include 3-5 relevant hashtags
+- End with a CTA to read full article (e.g., "Full article linked below" or "Link in the article card")
+- DO NOT include the URL in the post body — LinkedIn attaches the article link automatically
+- DO NOT include "Read the full article at [URL]" — the link card handles that
+- Include 3-5 relevant hashtags at the very end, each on its own line
 
 ## Reddit Post (r/MachineLearning or r/EnterpriseAI)
 - Title under 300 chars
@@ -290,8 +292,9 @@ async function main() {
   console.log(`Output: data/social/*.md`)
   console.log(`\nNext steps:`)
   console.log(`  1. Review each file in data/social/ — check AI Review section`)
-  console.log(`  2. Copy-paste to Twitter/X, LinkedIn, Reddit, HN, Dev.to`)
-  console.log(`  3. Or use with autoposting-cli when API keys are available`)
+  console.log(`  2. Post to LinkedIn automatically:`)
+  console.log(`     node scripts/post-linkedin.mjs --slug=<slug>`)
+  console.log(`  3. Copy-paste remaining platforms: Twitter/X, Reddit, HN, Dev.to`)
 }
 
 main().catch((err) => {
