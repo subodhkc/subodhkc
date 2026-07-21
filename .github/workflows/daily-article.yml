@@ -226,3 +226,14 @@ jobs:
           else
             echo "::warning::No blog posts found — skipping LinkedIn post"
           fi
+
+      - name: Commit posted tracker
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -f "data/social/posted.json" ]; then
+            git add data/social/posted.json
+            git commit -m "chore: update LinkedIn posted tracker" || echo "No changes to tracker"
+            git push || echo "Push failed — tracker will be regenerated next run"
+          fi

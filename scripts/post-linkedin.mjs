@@ -22,7 +22,7 @@
  *   2. Add product: "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect"
  *   3. Set redirect URL to https://subodhkc.com/api/linkedin/callback
  *   4. Visit in browser:
- *      https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_ID&redirect_uri=https://subodhkc.com/api/linkedin/callback&scope=openid%20profile%20w_member_social
+ *      https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_ID&redirect_uri=https://subodhkc.com/api/linkedin/callback&scope=openid%20profile%20w_member_social%20r_member_social
  *   5. After auth, exchange the code for a token (see scripts/linkedin-token-exchange.mjs)
  *   6. Store the token in .env.local as LINKEDIN_ACCESS_TOKEN
  *   7. For CI: store as GitHub secret LINKEDIN_ACCESS_TOKEN
@@ -40,6 +40,7 @@ const ROOT = path.resolve(__dirname, '..')
 
 const SITE_URL = 'https://subodhkc.com'
 const LINKEDIN_API = 'https://api.linkedin.com'
+const POSTED_TRACKER_PATH = path.join(ROOT, 'data', 'social', 'posted.json')
 
 function loadEnvLocal() {
   const envPath = path.join(ROOT, '.env.local')
@@ -200,10 +201,118 @@ function ensureHashtags(text, keywords) {
 }
 
 /**
- * Post to LinkedIn using the Posts API.
- * Uses article URL as the share link (appears as a link card, not raw URL in text).
+ * Upload an image to LinkedIn's media upload API.
+ * Returns the digitalmediaAsset URN needed for image posts.
  */
-async function postToLinkedIn(accessToken, memberId, text, articleUrl, articleTitle, articleDescription) {
+async function uploadImage(accessToken, memberId, imageUrl) {
+  // Step 1: Register the image upload
+  const registerBody = {
+    registerUploadRequest: {
+      recipes: ['urn:li:digitalmediaRecipe:feedshare-image'],
+      owner: `urn:li:person:${memberId}`,
+      serviceRelationships: [
+        {
+          relationshipType: 'OWNER',
+          identifier: 'urn:li:userGeneratedContent',
+        },
+      ],
+    },
+  }
+
+  const registerRes = await fetch(`${LINKEDIN_API}/v2/assets?action=registerUpload`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(registerBody),
+  })
+
+  if (!registerRes.ok) {
+    const err = await registerRes.text()
+    console.warn(`Image registration failed (${registerRes.status}): ${err}`)
+    return null
+  }
+
+  const registerData = await registerRes.json()
+  const uploadUrl = registerData.value?.uploadMechanism?.['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest']?.uploadUrl
+  const asset = registerData.value?.asset
+
+  if (!uploadUrl || !asset) {
+    console.warn('Image upload URL or asset not found in response')
+    return null
+  }
+
+  // Step 2: Download the image from the URL
+  const imgRes = await fetch(imageUrl)
+  if (!imgRes.ok) {
+    console.warn(`Failed to download image from ${imageUrl} (${imgRes.status})`)
+    return null
+  }
+
+  const imageBuffer = Buffer.from(await imgRes.arrayBuffer())
+
+  // Step 3: Upload the image binary to the upload URL
+  const uploadRes = await fetch(uploadUrl, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': imgRes.headers.get('content-type') || 'application/octet-stream',
+    },
+    body: imageBuffer,
+  })
+
+  if (!uploadRes.ok) {
+    const err = await uploadRes.text()
+    console.warn(`Image upload failed (${uploadRes.status}): ${err}`)
+    return null
+  }
+
+  console.log(`  Image uploaded: ${asset}`)
+  return asset
+}
+
+/**
+ * Post to LinkedIn using the UGC Posts API.
+ * Uses article URL as the share link (appears as a link card, not raw URL in text).
+ * If an image asset URN is provided, attaches the image instead of an article link card.
+ */
+async function postToLinkedIn(accessToken, memberId, text, articleUrl, articleTitle, articleDescription, imageAssetUrn) {
+  let media
+  let shareMediaCategory
+
+  if (imageAssetUrn) {
+    // Image post — higher engagement, article URL goes in the text (but we strip it, so it's in the link card metadata)
+    shareMediaCategory = 'IMAGE'
+    media = [
+      {
+        status: 'READY',
+        media: imageAssetUrn,
+        title: {
+          text: articleTitle,
+        },
+        description: {
+          text: articleDescription || '',
+        },
+      },
+    ]
+  } else {
+    // Article link card post
+    shareMediaCategory = 'ARTICLE'
+    media = [
+      {
+        status: 'READY',
+        originalUrl: articleUrl,
+        title: {
+          text: articleTitle,
+        },
+        description: {
+          text: articleDescription || '',
+        },
+      },
+    ]
+  }
+
   const body = {
     author: `urn:li:person:${memberId}`,
     lifecycleState: 'PUBLISHED',
@@ -212,19 +321,8 @@ async function postToLinkedIn(accessToken, memberId, text, articleUrl, articleTi
         shareCommentary: {
           text: text,
         },
-        shareMediaCategory: 'ARTICLE',
-        media: [
-          {
-            status: 'READY',
-            originalUrl: articleUrl,
-            title: {
-              text: articleTitle,
-            },
-            description: {
-              text: articleDescription || '',
-            },
-          },
-        ],
+        shareMediaCategory: shareMediaCategory,
+        media: media,
       },
     },
     visibility: {
@@ -251,11 +349,38 @@ async function postToLinkedIn(accessToken, memberId, text, articleUrl, articleTi
   return data
 }
 
+/**
+ * Load the posted tracker — prevents duplicate posts.
+ * Returns a map of slug -> { urn, postedAt }
+ */
+function loadPostedTracker() {
+  if (!fs.existsSync(POSTED_TRACKER_PATH)) return {}
+  try {
+    return JSON.parse(fs.readFileSync(POSTED_TRACKER_PATH, 'utf-8'))
+  } catch {
+    return {}
+  }
+}
+
+/**
+ * Save the posted tracker with a new entry.
+ */
+function savePostedTracker(tracker, slug, urn) {
+  tracker[slug] = {
+    urn: urn,
+    postedAt: new Date().toISOString(),
+  }
+  const dir = path.dirname(POSTED_TRACKER_PATH)
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(POSTED_TRACKER_PATH, JSON.stringify(tracker, null, 2))
+}
+
 async function main() {
   const args = process.argv.slice(2)
   const slugArg = args.find((a) => a.startsWith('--slug='))?.split('=')[1]
   const latestOnly = args.includes('--latest')
   const dryRun = args.includes('--dry-run')
+  const force = args.includes('--force')
 
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN
   const memberId = process.env.LINKEDIN_MEMBER_ID
@@ -289,6 +414,15 @@ async function main() {
     console.error('Usage: node scripts/post-linkedin.mjs --slug=<slug> [--dry-run]')
     console.error('       node scripts/post-linkedin.mjs --latest [--dry-run]')
     process.exit(1)
+  }
+
+  // Duplicate post prevention
+  const tracker = loadPostedTracker()
+  if (tracker[slug] && !dryRun && !force) {
+    console.error(`Already posted this article to LinkedIn on ${tracker[slug].postedAt}`)
+    console.error(`  URN: ${tracker[slug].urn}`)
+    console.error('Use --force to override.')
+    process.exit(0)
   }
 
   // Load social content
@@ -334,6 +468,13 @@ async function main() {
   }
 
   try {
+    // Upload hero image if available (2x engagement boost)
+    let imageAssetUrn = null
+    if (post.heroImageUrl) {
+      console.log('  Uploading hero image to LinkedIn...')
+      imageAssetUrn = await uploadImage(accessToken, memberId, post.heroImageUrl)
+    }
+
     const result = await postToLinkedIn(
       accessToken,
       memberId,
@@ -341,9 +482,15 @@ async function main() {
       articleUrl,
       post.title,
       post.metaDescription || post.excerpt || '',
+      imageAssetUrn,
     )
+    const urn = result.id || result.activity || 'unknown'
     console.log('Successfully posted to LinkedIn!')
-    console.log(`  Post URN: ${result.id || result.activity || 'unknown'}`)
+    console.log(`  Post URN: ${urn}`)
+
+    // Save to tracker to prevent duplicate posts
+    savePostedTracker(tracker, slug, urn)
+    console.log(`  Saved to posted tracker`)
   } catch (err) {
     console.error(`Failed to post: ${err.message}`)
     process.exit(1)

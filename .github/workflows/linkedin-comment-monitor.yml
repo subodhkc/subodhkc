@@ -1,0 +1,38 @@
+name: LinkedIn Comment Monitor
+
+on:
+  schedule:
+    # Every day at 22:00 UTC (5:00 PM CST) — check for comments after work hours
+    - cron: "0 22 * * *"
+  workflow_dispatch:
+
+jobs:
+  check-comments:
+    runs-on: ubuntu-latest
+    env:
+      LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Download posted tracker
+        uses: actions/download-artifact@v4
+        with:
+          name: frontofai-article
+          path: data/
+        continue-on-error: true
+
+      - name: Check for new LinkedIn comments
+        run: |
+          if [ -z "$LINKEDIN_ACCESS_TOKEN" ]; then
+            echo "::warning::LINKEDIN_ACCESS_TOKEN not set — skipping comment check"
+            exit 0
+          fi
+
+          node scripts/linkedin-comment-monitor.mjs || echo "::warning::Comment monitor failed"
