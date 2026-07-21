@@ -115,17 +115,22 @@ jobs:
 
           echo "Got Google OAuth2 access token"
 
-          # Submit each URL to Google Indexing API (max 200/day)
+          # Submit each URL to Google Indexing API (max 200/day, 3s delay to avoid 429)
           URLS='${{ steps.sitemap.outputs.urls }}'
           echo "$URLS" | python3 -c "
-          import json, sys, urllib.request, time
+          import json, sys, urllib.request, time, urllib.error
 
           token = '$ACCESS_TOKEN'
           urls = json.load(sys.stdin)
           success = 0
           fail = 0
+          rate_limited = False
 
           for url in urls[:200]:  # Daily quota is 200
+              if rate_limited:
+                  print(f'  SKIP: {url} — rate limited, stopping to preserve quota')
+                  fail += 1
+                  continue
               try:
                   data = json.dumps({'url': url, 'type': 'URL_UPDATED'}).encode()
                   req = urllib.request.Request(
@@ -138,12 +143,25 @@ jobs:
                   )
                   resp = urllib.request.urlopen(req)
                   success += 1
-                  time.sleep(0.5)  # Rate limit: ~120 req/min
+                  print(f'  OK: {url}')
+                  time.sleep(3)  # Rate limit: ~20 req/min to avoid 429
+              except urllib.error.HTTPError as e:
+                  if e.code == 429:
+                      print(f'  429 RATE LIMITED: {url} — stopping submissions')
+                      rate_limited = True
+                      fail += 1
+                  else:
+                      print(f'  FAIL: {url} — HTTP {e.code}: {e.reason}')
+                      fail += 1
+                  time.sleep(3)
               except Exception as e:
                   print(f'  FAIL: {url} — {e}')
                   fail += 1
+                  time.sleep(3)
 
           print(f'Google Indexing API: {success} submitted, {fail} failed')
+          if rate_limited:
+              print('::warning::Google Indexing API rate limited (429). Daily quota exhausted. Remaining URLs will be retried next run.')
           "
 
       - name: Submit sitemap to Google Search Console
@@ -189,15 +207,36 @@ jobs:
             exit 0
           fi
 
-          # Submit sitemap via GSC API
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X PUT "https://www.googleapis.com/webmasters/v3/sites/sc-domain:subodhkc.com/sitemaps/https://subodhkc.com/sitemap.xml" \
-            -H "Authorization: Bearer $ACCESS_TOKEN")
-          echo "GSC sitemap submission response: $RESPONSE"
-          if [ "$RESPONSE" = "200" ] || [ "$RESPONSE" = "204" ]; then
-            echo "Sitemap submitted to Google Search Console"
+          # Submit sitemap via GSC API (try both sc-domain and https%3A%2F%2F formats)
+          SITEMAP_URL=$(python3 -c "import urllib.parse; print(urllib.parse.quote('https://subodhkc.com/sitemap.xml', safe=''))")
+
+          # Try sc-domain format first
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -X PUT "https://www.googleapis.com/webmasters/v3/sites/sc-domain%3Asubodhkc.com/sitemaps/$SITEMAP_URL" \
+            -H "Authorization: Bearer $ACCESS_TOKEN" \
+            -H "Content-Type: application/json")
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          echo "GSC sitemap submission (sc-domain): $HTTP_CODE"
+          echo "Response: $BODY"
+
+          if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "204" ]; then
+            echo "Trying https:// format..."
+            RESPONSE2=$(curl -s -w "\n%{http_code}" \
+              -X PUT "https://www.googleapis.com/webmasters/v3/sites/https%3A%2F%2Fsubodhkc.com%2F/sitemaps/$SITEMAP_URL" \
+              -H "Authorization: Bearer $ACCESS_TOKEN" \
+              -H "Content-Type: application/json")
+            HTTP_CODE2=$(echo "$RESPONSE2" | tail -1)
+            BODY2=$(echo "$RESPONSE2" | head -n -1)
+            echo "GSC sitemap submission (https): $HTTP_CODE2"
+            echo "Response: $BODY2"
+            if [ "$HTTP_CODE2" = "200" ] || [ "$HTTP_CODE2" = "204" ]; then
+              echo "Sitemap submitted to Google Search Console"
+            else
+              echo "::warning::GSC sitemap submission failed with both formats (non-fatal)"
+            fi
           else
-            echo "::warning::GSC sitemap submission returned $RESPONSE (non-fatal)"
+            echo "Sitemap submitted to Google Search Console"
           fi
 
       - name: Verify IndexNow key is accessible
