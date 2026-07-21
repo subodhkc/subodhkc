@@ -77,23 +77,25 @@ jobs:
             exit 1
           fi
 
-  ping-indexnow:
+  ping-search-engines:
     needs: build-and-verify
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Wait for Vercel deployment
         run: sleep 60
 
-      - name: Fetch sitemap and ping IndexNow with all URLs
+      - name: Fetch sitemap and extract all URLs
+        id: sitemap
         run: |
-          # Fetch the live sitemap and extract all URLs
           SITEMAP=$(curl -s "https://subodhkc.com/sitemap.xml")
           if [ -z "$SITEMAP" ]; then
             echo "::warning::Could not fetch sitemap, using fallback URL list"
             URLS='["https://subodhkc.com","https://subodhkc.com/blog","https://subodhkc.com/feed.xml"]'
           else
-            # Extract URLs from sitemap XML
             URLS=$(echo "$SITEMAP" | grep -oP '(?<=<loc>)[^<]+' | sort -u | python3 -c "
           import sys, json
           urls = [line.strip() for line in sys.stdin if line.strip()]
@@ -101,7 +103,11 @@ jobs:
           ")
             echo "Found $(echo "$URLS" | python3 -c 'import sys,json; print(len(json.load(sys.stdin)))') URLs in sitemap"
           fi
+          echo "urls=$URLS" >> $GITHUB_OUTPUT
 
+      - name: Ping IndexNow with all sitemap URLs
+        run: |
+          URLS='${{ steps.sitemap.outputs.urls }}'
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json" \
@@ -113,12 +119,129 @@ jobs:
             echo "::warning::IndexNow returned $RESPONSE (non-fatal)"
           fi
 
-      - name: Submit sitemap to Google
+      - name: Submit URLs to Google Indexing API
+        if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
+        env:
+          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
         run: |
+          echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
+
+          ACCESS_TOKEN=$(python3 -c "
+          import json, urllib.request, urllib.parse, base64, time
+          from cryptography.hazmat.primitives import hashes, serialization
+          from cryptography.hazmat.primitives.asymmetric import padding
+
+          with open('/tmp/gcp-service-account.json') as f:
+              key = json.load(f)
+
+          header = {'alg': 'RS256', 'typ': 'JWT'}
+          payload = {
+              'iss': key['client_email'],
+              'scope': 'https://www.googleapis.com/auth/indexing',
+              'aud': 'https://oauth2.googleapis.com/token',
+              'exp': int(time.time()) + 3600,
+              'iat': int(time.time())
+          }
+
+          def b64encode(data):
+              return base64.urlsafe_b64encode(data).rstrip(b'=').decode()
+
+          header_b64 = b64encode(json.dumps(header, separators=(',', ':')).encode())
+          payload_b64 = b64encode(json.dumps(payload, separators=(',', ':')).encode())
+
+          private_key = serialization.load_pem_private_key(key['private_key'].encode(), password=None)
+          signature = private_key.sign(f'{header_b64}.{payload_b64}'.encode(), padding.PKCS1v15(), hashes.SHA256())
+          jwt = f'{header_b64}.{payload_b64}.{b64encode(signature)}'
+
+          data = urllib.parse.urlencode({'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer', 'assertion': jwt}).encode()
+          req = urllib.request.Request('https://oauth2.googleapis.com/token', data=data)
+          resp = urllib.request.urlopen(req)
+          print(json.loads(resp.read())['access_token'])
+          ")
+
+          if [ -z "$ACCESS_TOKEN" ]; then
+            echo "::warning::Could not get Google access token — skipping Indexing API"
+            exit 0
+          fi
+
+          echo "Got Google OAuth2 access token"
+
+          URLS='${{ steps.sitemap.outputs.urls }}'
+          echo "$URLS" | python3 -c "
+          import json, sys, urllib.request, time
+
+          token = '$ACCESS_TOKEN'
+          urls = json.load(sys.stdin)
+          success = 0
+          fail = 0
+
+          for url in urls[:200]:
+              try:
+                  data = json.dumps({'url': url, 'type': 'URL_UPDATED'}).encode()
+                  req = urllib.request.Request(
+                      'https://indexing.googleapis.com/v3/urlNotifications:publish',
+                      data=data,
+                      headers={'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'}
+                  )
+                  resp = urllib.request.urlopen(req)
+                  success += 1
+                  time.sleep(0.5)
+              except Exception as e:
+                  print(f'  FAIL: {url} — {e}')
+                  fail += 1
+
+          print(f'Google Indexing API: {success} submitted, {fail} failed')
+          "
+
+      - name: Submit sitemap to Google Search Console API
+        if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
+        env:
+          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
+        run: |
+          echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
+
+          ACCESS_TOKEN=$(python3 -c "
+          import json, urllib.request, urllib.parse, base64, time
+          from cryptography.hazmat.primitives import hashes, serialization
+          from cryptography.hazmat.primitives.asymmetric import padding
+
+          with open('/tmp/gcp-service-account.json') as f:
+              key = json.load(f)
+
+          header = {'alg': 'RS256', 'typ': 'JWT'}
+          payload = {
+              'iss': key['client_email'],
+              'scope': 'https://www.googleapis.com/auth/webmasters',
+              'aud': 'https://oauth2.googleapis.com/token',
+              'exp': int(time.time()) + 3600,
+              'iat': int(time.time())
+          }
+
+          def b64encode(data):
+              return base64.urlsafe_b64encode(data).rstrip(b'=').decode()
+
+          header_b64 = b64encode(json.dumps(header, separators=(',', ':')).encode())
+          payload_b64 = b64encode(json.dumps(payload, separators=(',', ':')).encode())
+
+          private_key = serialization.load_pem_private_key(key['private_key'].encode(), password=None)
+          signature = private_key.sign(f'{header_b64}.{payload_b64}'.encode(), padding.PKCS1v15(), hashes.SHA256())
+          jwt = f'{header_b64}.{payload_b64}.{b64encode(signature)}'
+
+          data = urllib.parse.urlencode({'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer', 'assertion': jwt}).encode()
+          req = urllib.request.Request('https://oauth2.googleapis.com/token', data=data)
+          resp = urllib.request.urlopen(req)
+          print(json.loads(resp.read())['access_token'])
+          ")
+
+          if [ -z "$ACCESS_TOKEN" ]; then
+            echo "::warning::Could not get Google access token for sitemap submission"
+            exit 0
+          fi
+
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
-            "https://www.google.com/ping?sitemap=https://subodhkc.com/sitemap.xml")
-          echo "Google sitemap ping response: $RESPONSE"
-          echo "Note: Google may have deprecated this endpoint. Sitemap is referenced in robots.txt for organic discovery."
+            -X PUT "https://www.googleapis.com/webmasters/v3/sites/sc-domain:subodhkc.com/sitemaps/https://subodhkc.com/sitemap.xml" \
+            -H "Authorization: Bearer $ACCESS_TOKEN")
+          echo "GSC sitemap submission response: $RESPONSE"
 
       - name: Verify live site is up
         run: |

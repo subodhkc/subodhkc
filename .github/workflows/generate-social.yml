@@ -1,0 +1,59 @@
+name: Generate Social Media Content
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/blog/posts/**'
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Specific post slug (leave empty for all)'
+        required: false
+        type: string
+
+jobs:
+  generate-social:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate social content for all posts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::warning::OPENAI_API_KEY secret not set — skipping social content generation"
+            exit 0
+          fi
+
+          SLUG="${{ github.event.inputs.slug }}"
+          if [ -n "$SLUG" ]; then
+            node scripts/generate-social.mjs --slug="$SLUG" --force
+          else
+            node scripts/generate-social.mjs --force
+          fi
+
+      - name: Commit generated content
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -n "$(git status --porcelain data/social/)" ]; then
+            git add data/social/
+            git commit -m "chore: auto-generate social media content for blog posts [skip ci]"
+            git push
+            echo "Social content committed and pushed"
+          else
+            echo "No changes to social content — already up to date"
+          fi
