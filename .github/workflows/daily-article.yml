@@ -11,7 +11,7 @@ on:
         required: false
         type: string
       source:
-        description: 'Content source'
+        description: 'Content source (auto runs both FrontOfAI + topic queue)'
         required: false
         type: choice
         default: 'auto'
@@ -21,10 +21,11 @@ on:
           - topic-queue
 
 jobs:
-  generate-article:
+  generate-frontofai-article:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    if: github.event_name == 'schedule' || github.event.inputs.source == 'auto' || github.event.inputs.source == 'frontofai'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,7 +37,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate article
+      - name: Generate article from FrontOfAI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           FRONTOFAI_API_KEY: ${{ secrets.FRONTOFAI_API_KEY }}
@@ -46,20 +47,76 @@ jobs:
             exit 1
           fi
 
-          TOPIC="${{ github.event.inputs.topic }}"
-          SOURCE="${{ github.event.inputs.source || 'auto' }}"
+          if [ -z "$FRONTOFAI_API_KEY" ]; then
+            echo "FRONTOFAI_API_KEY not set — skipping FrontOfAI article"
+            exit 0
+          fi
 
+          echo "Generating article from FrontOfAI..."
+          node scripts/generate-article.mjs --frontofai
+
+      - name: Generate social content for FrontOfAI article
+        if: success()
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            LATEST=$(ls -t data/blog/posts/*.json | head -1)
+            SLUG=$(basename "$LATEST" .json)
+            echo "Generating social content for: $SLUG"
+            node scripts/generate-social.mjs --slug="$SLUG" --force
+          fi
+
+      - name: Upload FrontOfAI article artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontofai-article
+          path: |
+            data/blog/posts/
+            data/social/
+          retention-days: 1
+
+  generate-topic-queue-article:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: generate-frontofai-article
+    if: github.event_name == 'schedule' || github.event.inputs.source == 'auto' || github.event.inputs.source == 'topic-queue'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Download FrontOfAI article artifact
+        if: github.event_name == 'schedule' || github.event.inputs.source != 'topic-queue'
+        uses: actions/download-artifact@v4
+        with:
+          name: frontofai-article
+          path: data/
+
+      - name: Generate article from topic queue
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::OPENAI_API_KEY secret not set"
+            exit 1
+          fi
+
+          TOPIC="${{ github.event.inputs.topic }}"
           if [ -n "$TOPIC" ]; then
             node scripts/generate-article.mjs --topic="$TOPIC"
-          elif [ "$SOURCE" = "frontofai" ] || ([ "$SOURCE" = "auto" ] && [ -n "$FRONTOFAI_API_KEY" ]); then
-            echo "Using FrontOfAI data source"
-            node scripts/generate-article.mjs --frontofai
           else
-            echo "Using topic queue (no FrontOfAI key or explicitly requested)"
             node scripts/generate-article.mjs
           fi
 
-      - name: Generate social content for new article
+      - name: Generate social content for topic queue article
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
@@ -68,16 +125,16 @@ jobs:
           echo "Generating social content for: $SLUG"
           node scripts/generate-social.mjs --slug="$SLUG" --force
 
-      - name: Commit and push to main (auto-merge)
+      - name: Commit and push both articles to main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           if [ -n "$(git status --porcelain data/blog/posts/ data/social/)" ]; then
             git add data/blog/posts/ data/social/
-            git commit -m "feat: daily AI article + social content [skip ci]"
+            git commit -m "feat: daily AI articles (FrontOfAI + topic queue) + social content [skip ci]"
             git push
-            echo "Article auto-merged to main"
+            echo "Articles auto-merged to main"
           else
             echo "No changes — article generation may have failed"
             exit 1
