@@ -55,25 +55,24 @@ jobs:
         if: github.event.inputs.environment == 'production'
         run: |
           sleep 30
+          # Fetch sitemap and extract all URLs dynamically
+          SITEMAP=$(curl -s "https://subodhkc.com/sitemap.xml")
+          if [ -z "$SITEMAP" ]; then
+            echo "::warning::Could not fetch sitemap, using fallback URL list"
+            URLS='["https://subodhkc.com","https://subodhkc.com/blog","https://subodhkc.com/feed.xml"]'
+          else
+            URLS=$(echo "$SITEMAP" | grep -oP '(?<=<loc>)[^<]+' | sort -u | python3 -c "
+          import sys, json
+          urls = [line.strip() for line in sys.stdin if line.strip()]
+          print(json.dumps(urls))
+          ")
+            echo "Found $(echo "$URLS" | python3 -c 'import sys,json; print(len(json.load(sys.stdin)))') URLs in sitemap"
+          fi
+
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json" \
-            -d '{
-              "host": "subodhkc.com",
-              "key": "subodhkcindexnowkey2026",
-              "keyLocation": "https://subodhkc.com/subodhkcindexnowkey2026.txt",
-              "urlList": [
-                "https://subodhkc.com",
-                "https://subodhkc.com/about",
-                "https://subodhkc.com/services",
-                "https://subodhkc.com/advisory",
-                "https://subodhkc.com/course",
-                "https://subodhkc.com/webinar/ai-laws-small-business",
-                "https://subodhkc.com/faq",
-                "https://subodhkc.com/person/subodh-kc",
-                "https://subodhkc.com/contact"
-              ]
-            }')
+            -d "{\"host\": \"subodhkc.com\", \"key\": \"subodhkcindexnowkey2026\", \"keyLocation\": \"https://subodhkc.com/subodhkcindexnowkey2026.txt\", \"urlList\": $URLS}")
           echo "IndexNow response: $RESPONSE"
 
       - name: Submit sitemap to Google

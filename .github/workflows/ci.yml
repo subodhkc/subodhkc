@@ -85,62 +85,27 @@ jobs:
       - name: Wait for Vercel deployment
         run: sleep 60
 
-      - name: Ping IndexNow with all site URLs
+      - name: Fetch sitemap and ping IndexNow with all URLs
         run: |
+          # Fetch the live sitemap and extract all URLs
+          SITEMAP=$(curl -s "https://subodhkc.com/sitemap.xml")
+          if [ -z "$SITEMAP" ]; then
+            echo "::warning::Could not fetch sitemap, using fallback URL list"
+            URLS='["https://subodhkc.com","https://subodhkc.com/blog","https://subodhkc.com/feed.xml"]'
+          else
+            # Extract URLs from sitemap XML
+            URLS=$(echo "$SITEMAP" | grep -oP '(?<=<loc>)[^<]+' | sort -u | python3 -c "
+          import sys, json
+          urls = [line.strip() for line in sys.stdin if line.strip()]
+          print(json.dumps(urls))
+          ")
+            echo "Found $(echo "$URLS" | python3 -c 'import sys,json; print(len(json.load(sys.stdin)))') URLs in sitemap"
+          fi
+
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json" \
-            -d '{
-              "host": "subodhkc.com",
-              "key": "subodhkcindexnowkey2026",
-              "keyLocation": "https://subodhkc.com/subodhkcindexnowkey2026.txt",
-              "urlList": [
-                "https://subodhkc.com",
-                "https://subodhkc.com/about",
-                "https://subodhkc.com/executive-bio",
-                "https://subodhkc.com/haiec",
-                "https://subodhkc.com/services",
-                "https://subodhkc.com/advisory",
-                "https://subodhkc.com/guides",
-                "https://subodhkc.com/guides/texas-ai-law",
-                "https://subodhkc.com/guides/eu-ai-act",
-                "https://subodhkc.com/guides/nyc-local-law-144",
-                "https://subodhkc.com/secure-enterprise-rag-architecture",
-                "https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp",
-                "https://subodhkc.com/does-texas-ai-law-apply-to-my-business",
-                "https://subodhkc.com/ai-security-tools",
-                "https://subodhkc.com/ai-risk-register",
-                "https://subodhkc.com/ai-vendor-due-diligence-checklist",
-                "https://subodhkc.com/ai-incident-evidence-checklist",
-                "https://subodhkc.com/solutions/haiec/exposure-assessment",
-                "https://subodhkc.com/solutions",
-                "https://subodhkc.com/solutions/haiec",
-                "https://subodhkc.com/solutions/kestrelvoice",
-                "https://subodhkc.com/solutions/frontofai",
-                "https://subodhkc.com/solutions/courtcase",
-                "https://subodhkc.com/solutions/ai-briefing",
-                "https://subodhkc.com/products",
-                "https://subodhkc.com/products/llmverify",
-                "https://subodhkc.com/products/print-later",
-                "https://subodhkc.com/products/pdf-redactor",
-                "https://subodhkc.com/products/doc-timeline",
-                "https://subodhkc.com/products/skc-log-analyser",
-                "https://subodhkc.com/products/courtcase",
-                "https://subodhkc.com/writing",
-                "https://subodhkc.com/research",
-                "https://subodhkc.com/speaking",
-                "https://subodhkc.com/contact",
-                "https://subodhkc.com/course",
-                "https://subodhkc.com/webinar/ai-laws-small-business",
-                "https://subodhkc.com/faq",
-                "https://subodhkc.com/person/subodh-kc",
-                "https://subodhkc.com/llms.txt",
-                "https://subodhkc.com/llms-full.txt",
-                "https://subodhkc.com/ai.txt",
-                "https://subodhkc.com/.well-known/ai-plugin.json",
-                "https://subodhkc.com/.well-known/wikidata-entity.json"
-              ]
-            }')
+            -d "{\"host\": \"subodhkc.com\", \"key\": \"subodhkcindexnowkey2026\", \"keyLocation\": \"https://subodhkc.com/subodhkcindexnowkey2026.txt\", \"urlList\": $URLS}")
           echo "IndexNow response: $RESPONSE"
           if [ "$RESPONSE" = "200" ] || [ "$RESPONSE" = "202" ]; then
             echo "IndexNow ping successful"

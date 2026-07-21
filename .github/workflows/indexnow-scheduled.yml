@@ -1,0 +1,72 @@
+name: Scheduled IndexNow Ping
+
+on:
+  schedule:
+    # Every Monday at 09:00 UTC (04:00 CST)
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  ping-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch sitemap and ping IndexNow
+        run: |
+          # Fetch the live sitemap and extract all URLs
+          SITEMAP=$(curl -s "https://subodhkc.com/sitemap.xml")
+          if [ -z "$SITEMAP" ]; then
+            echo "::warning::Could not fetch sitemap, aborting"
+            exit 1
+          fi
+
+          # Extract URLs from sitemap XML
+          URLS=$(echo "$SITEMAP" | grep -oP '(?<=<loc>)[^<]+' | sort -u | python3 -c "
+          import sys, json
+          urls = [line.strip() for line in sys.stdin if line.strip()]
+          print(json.dumps(urls))
+          ")
+
+          URL_COUNT=$(echo "$URLS" | python3 -c 'import sys,json; print(len(json.load(sys.stdin)))')
+          echo "Found $URL_COUNT URLs in sitemap"
+
+          # Ping IndexNow (Bing, Yandex, Seznam, Naver)
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\": \"subodhkc.com\", \"key\": \"subodhkcindexnowkey2026\", \"keyLocation\": \"https://subodhkc.com/subodhkcindexnowkey2026.txt\", \"urlList\": $URLS}")
+          echo "IndexNow response: $RESPONSE"
+          if [ "$RESPONSE" = "200" ] || [ "$RESPONSE" = "202" ]; then
+            echo "Weekly IndexNow ping successful — $URL_COUNT URLs submitted"
+          else
+            echo "::warning::IndexNow returned $RESPONSE (non-fatal)"
+          fi
+
+      - name: Verify IndexNow key is accessible
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://subodhkc.com/subodhkcindexnowkey2026.txt")
+          echo "IndexNow key file status: $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "IndexNow key file is accessible"
+          else
+            echo "::warning::IndexNow key file returned $STATUS"
+          fi
+
+      - name: Verify RSS feed is accessible
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://subodhkc.com/feed.xml")
+          echo "RSS feed status: $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "RSS feed is accessible"
+          else
+            echo "::warning::RSS feed returned $STATUS"
+          fi
+
+      - name: Verify sitemap is accessible
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://subodhkc.com/sitemap.xml")
+          echo "Sitemap status: $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "Sitemap is accessible"
+          else
+            echo "::warning::Sitemap returned $STATUS"
+          fi
