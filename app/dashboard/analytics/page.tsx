@@ -173,6 +173,30 @@ export default function AnalyticsDashboard() {
 
             <Card>
               <CardHeader>
+                <CardTitle className="text-lg">Event Breakdown (7d)</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {Object.keys(data.eventBreakdown || {}).length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No events yet</p>
+                ) : (
+                  <div className="space-y-2">
+                    {Object.entries(data.eventBreakdown)
+                      .sort(([, a], [, b]) => b - a)
+                      .map(([type, count]) => (
+                        <div key={type} className="flex items-center justify-between text-sm">
+                          <span className="inline-block px-2 py-0.5 rounded text-xs font-mono bg-primary/10">
+                            {type}
+                          </span>
+                          <span className="font-mono text-muted-foreground">{count}</span>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
                 <CardTitle className="text-lg">Recent Events</CardTitle>
               </CardHeader>
               <CardContent>

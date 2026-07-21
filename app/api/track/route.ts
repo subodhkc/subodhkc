@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       'unknown'
 
     const userAgent = request.headers.get('user-agent') || 'unknown'
-    const referer = body.ref || request.headers.get('referer') || null
+    const referer = body.ref || null
     const ipHash = ip !== 'unknown' ? hashIp(ip) : null
 
     const supabase = createBrowserClient()

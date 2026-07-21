@@ -8,7 +8,7 @@ interface RateLimitEntry {
 const store = new Map<string, RateLimitEntry>()
 
 const WINDOW_MS = 60_000
-const MAX_REQUESTS = 5
+const MAX_REQUESTS = 30
 const CLEANUP_INTERVAL_MS = 5 * 60_000
 let lastCleanup = Date.now()
 

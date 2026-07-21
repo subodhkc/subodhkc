@@ -156,6 +156,11 @@ export function SiteFooter() {
     const fd = new FormData(e.currentTarget);
     setSubmitting(true);
     try {
+      fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "form_submit", path: window.location.pathname, meta: { form: "newsletter" } }),
+      }).catch(() => {});
       await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -22,7 +22,7 @@ export function AnalyticsBeacon() {
   useEffect(() => {
     startTime.current = Date.now()
 
-    const ref = searchParams.get('ref') || undefined
+    const ref = searchParams.get('ref') || (document.referrer && document.referrer !== window.location.href ? document.referrer : undefined)
     const sessionId = getSessionId()
 
     fetch('/api/track', {
@@ -57,8 +57,29 @@ export function AnalyticsBeacon() {
       }
     }
 
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('[data-track-click]') as HTMLElement | null
+      if (!target) return
+      const sessionId = getSessionId()
+      const label = target.dataset.trackClick || target.textContent?.slice(0, 80) || 'unknown'
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'click',
+          path: pathname,
+          sessionId,
+          meta: { label },
+        }),
+      }).catch(() => {})
+    }
+
     document.addEventListener('visibilitychange', handleVisibilityChange)
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+    document.addEventListener('click', handleClick, true)
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      document.removeEventListener('click', handleClick, true)
+    }
   }, [pathname])
 
   return null

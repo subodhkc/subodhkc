@@ -35,6 +35,7 @@ export function StickyCTA() {
     >
       <Link
         href="/contact"
+        data-track-click="sticky-cta-talk"
         style={{
           display: 'inline-flex',
           alignItems: 'center',

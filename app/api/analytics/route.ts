@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString()
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString()
 
-  const [pageviews7d, pageviews30d, topPages7d, referrers7d, events7d, recentEvents, sessions7d] = await Promise.all([
+  const [pageviews7d, pageviews30d, topPages7d, referrers7d, events7d, recentEvents, sessions7d, durations7d] = await Promise.all([
     supabase
       .from('site_analytics_events')
       .select('id', { count: 'exact', head: true })
@@ -64,6 +64,13 @@ export async function GET(request: Request) {
       .select('session_id')
       .not('session_id', 'is', null)
       .gte('created_at', sevenDaysAgo),
+
+    supabase
+      .from('site_analytics_events')
+      .select('duration')
+      .eq('event_type', 'engagement')
+      .gt('duration', 0)
+      .gte('created_at', sevenDaysAgo),
   ])
 
   const pageCounts: Record<string, number> = {}
@@ -96,7 +103,7 @@ export async function GET(request: Request) {
     eventCounts[t] = (eventCounts[t] || 0) + 1
   }
 
-  const durations = (recentEvents.data || [])
+  const durations = (durations7d.data || [])
     .map((r) => (r as { duration?: number }).duration || 0)
     .filter((d) => d > 0)
   const avgDuration = durations.length > 0

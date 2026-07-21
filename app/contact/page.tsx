@@ -65,6 +65,12 @@ export default function ContactPage() {
     setError(null)
 
     try {
+      fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "form_submit", path: "/contact", meta: { form: "contact" } }),
+      }).catch(() => {});
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -78,6 +84,12 @@ export default function ContactPage() {
       if (!response.ok || !data.success) {
         throw new Error(data.error || 'Failed to send message')
       }
+
+      fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "conversion", path: "/contact", meta: { form: "contact" } }),
+      }).catch(() => {});
 
       setSubmitted(true)
       setFormData({
