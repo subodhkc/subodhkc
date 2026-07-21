@@ -6,6 +6,7 @@ import { sanitizeHtml, calculateReadingTime } from '@/lib/blog-utils'
 import { ShareButtons } from '@/components/blog/ShareButtons'
 import { BlogAuthorCard } from '@/components/blog/BlogAuthorCard'
 import { BlogNewsletterCTA } from '@/components/blog/BlogNewsletterCTA'
+import { TableOfContents } from '@/components/blog/TableOfContents'
 
 export const revalidate = 3600
 
@@ -222,6 +223,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           />
         </div>
       )}
+
+      <TableOfContents />
 
       <div
         className="blog-content"
