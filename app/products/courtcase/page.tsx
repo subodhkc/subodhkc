@@ -302,6 +302,31 @@ export default function CourtCasePage() {
           )}
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'CourtCase AI',
+            description: 'AI-powered legal case research and analysis tool for faster case preparation and precedent discovery.',
+            applicationCategory: 'LegalApplication',
+            operatingSystem: 'Web',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Subodh KC',
+              url: 'https://subodhkc.com',
+            },
+            url: 'https://subodhkc.com/products/courtcase',
+          }),
+        }}
+      />
     </div>
   )
 }

@@ -484,6 +484,31 @@ export default function SKCLogAnalyserPage() {
           </Card>
         </div>
       )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'SKC Log Analyser',
+            description: 'Standalone CLI-first log analysis tool. Upload logs and get instant insights. Built by engineers, for engineers.',
+            applicationCategory: 'DeveloperApplication',
+            operatingSystem: 'Cross-platform',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Subodh KC',
+              url: 'https://subodhkc.com',
+            },
+            url: 'https://subodhkc.com/products/skc-log-analyser',
+          }),
+        }}
+      />
     </div>
   )
 }

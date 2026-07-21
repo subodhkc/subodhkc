@@ -717,6 +717,31 @@ export default function PDFRedactorPage() {
           </Card>
         </div>
       )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'PDF Redactor',
+            description: 'Offline AI-powered PDF redaction tool. Remove sensitive information from legal documents without uploading to any server.',
+            applicationCategory: 'SecurityApplication',
+            operatingSystem: 'Cross-platform',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Subodh KC',
+              url: 'https://subodhkc.com',
+            },
+            url: 'https://subodhkc.com/products/pdf-redactor',
+          }),
+        }}
+      />
     </div>
   )
 }

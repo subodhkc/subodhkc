@@ -639,6 +639,31 @@ export default function PrintLaterPage() {
           </Card>
         </div>
       )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'PrintLater',
+            description: 'Save web pages now and print them later. Browser extension for deferred printing with queue management.',
+            applicationCategory: 'ProductivityApplication',
+            operatingSystem: 'Cross-platform',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Subodh KC',
+              url: 'https://subodhkc.com',
+            },
+            url: 'https://subodhkc.com/products/print-later',
+          }),
+        }}
+      />
     </div>
   )
 }

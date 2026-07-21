@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import Grid from '@/components/Grid'
@@ -9,6 +9,38 @@ import { Button } from '@/components/ui/button'
 import PhoneNumber from '@/components/PhoneNumber'
 import VirtualBusinessCard from '@/components/VirtualBusinessCard'
 import { Mail, Linkedin, Calendar, MessageSquare, Download } from 'lucide-react'
+
+function CalendlyEmbed({ url }: { url: string }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const existing = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')
+    if (existing) {
+      existing.remove()
+    }
+    const script = document.createElement('script')
+    script.src = 'https://assets.calendly.com/assets/external/widget.js'
+    script.async = true
+    document.body.appendChild(script)
+
+    if (containerRef.current) {
+      containerRef.current.innerHTML = ''
+      const widget = document.createElement('div')
+      widget.className = 'calendly-inline-widget'
+      widget.setAttribute('data-url', url)
+      widget.style.minWidth = '320px'
+      widget.style.height = '630px'
+      containerRef.current.appendChild(widget)
+    }
+
+    return () => {
+      const s = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')
+      if (s) s.remove()
+    }
+  }, [url])
+
+  return <div ref={containerRef} />
+}
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -118,11 +150,6 @@ export default function ContactPage() {
       type: 'calendly',
     },
   ]
-
-  const calendlyEmbed = `
-    <div class="calendly-inline-widget" data-url="https://calendly.com/subodhkc/30min?hide_landing_page_details=1&hide_gdpr_banner=1" style="min-width:320px;height:630px;"></div>
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-  `
 
   const interestAreas = [
     'Advisory & Consulting',
@@ -355,7 +382,7 @@ export default function ContactPage() {
           <p className="text-center text-muted-foreground mb-6">
             Prefer to skip the back-and-forth? Pick a time directly on my calendar.
           </p>
-          <div dangerouslySetInnerHTML={{ __html: calendlyEmbed }} />
+          <CalendlyEmbed url="https://calendly.com/subodhkc/30min?hide_landing_page_details=1&hide_gdpr_banner=1" />
         </div>
       </Section>
 

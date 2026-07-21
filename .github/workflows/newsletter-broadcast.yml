@@ -26,7 +26,7 @@ jobs:
             exit 0
           fi
 
-          node scripts/send-newsletter.mjs --dry-run
+          node scripts/send-newsletter.mjs
 
       - name: Notify on completion
         if: always()

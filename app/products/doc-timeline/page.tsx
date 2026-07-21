@@ -488,6 +488,31 @@ export default function DocTimelinePage() {
           </Card>
         </div>
       )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'DocTimeline',
+            description: 'AI-powered document timeline builder for legal discovery, insurance claims, compliance audits, and contract analysis.',
+            applicationCategory: 'BusinessApplication',
+            operatingSystem: 'Web',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Subodh KC',
+              url: 'https://subodhkc.com',
+            },
+            url: 'https://subodhkc.com/products/doc-timeline',
+          }),
+        }}
+      />
     </div>
   )
 }
