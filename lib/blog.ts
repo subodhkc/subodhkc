@@ -23,6 +23,7 @@ export interface BlogPostSummary {
   title: string
   slug: string
   metaDescription: string
+  contentHtml: string
   heroImageUrl: string | null
   excerpt: string | null
   createdAt: string
@@ -56,6 +57,7 @@ export function getAllPosts(): BlogPostSummary[] {
         title: post.title,
         slug: post.slug,
         metaDescription: post.metaDescription,
+        contentHtml: post.contentHtml,
         heroImageUrl: post.heroImageUrl,
         excerpt: post.excerpt,
         createdAt: post.createdAt,

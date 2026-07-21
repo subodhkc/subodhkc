@@ -1,7 +1,11 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getAllSlugs, getPostBySlug } from '@/lib/blog'
+import { getAllSlugs, getPostBySlug, getAllPosts } from '@/lib/blog'
+import { sanitizeHtml, calculateReadingTime } from '@/lib/blog-utils'
+import { ShareButtons } from '@/components/blog/ShareButtons'
+import { BlogAuthorCard } from '@/components/blog/BlogAuthorCard'
+import { BlogNewsletterCTA } from '@/components/blog/BlogNewsletterCTA'
 
 export const revalidate = 3600
 
@@ -31,12 +35,20 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
         type: 'article',
         images: post.heroImageUrl ? [{ url: post.heroImageUrl }] : undefined,
         publishedTime: post.createdAt,
+        authors: ['Subodh KC'],
       },
       twitter: {
         card: 'summary_large_image',
         title: post.title,
         description: post.metaDescription,
         images: post.heroImageUrl ? [post.heroImageUrl] : undefined,
+      },
+      robots: {
+        index: true,
+        follow: true,
+        'max-snippet': -1,
+        'max-image-preview': 'large',
+        'max-video-preview': -1,
       },
     }
   })
@@ -50,67 +62,99 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound()
   }
 
-  const jsonLdString = post.jsonLd
-    ? JSON.stringify({
-        ...post.jsonLd,
-        headline: post.title,
-        description: post.metaDescription,
-        image: post.heroImageUrl,
-        datePublished: post.createdAt,
-        dateModified: post.createdAt,
-        author: {
-          '@type': 'Person',
-          name: 'Subodh KC',
-          url: 'https://subodhkc.com',
-        },
-        publisher: {
-          '@type': 'Organization',
-          name: 'Subodh KC',
-          url: 'https://subodhkc.com',
-        },
-        mainEntityOfPage: {
-          '@type': 'WebPage',
-          '@id': `https://subodhkc.com/blog/${post.slug}`,
-        },
-      })
-    : null
+  const sanitizedHtml = sanitizeHtml(post.contentHtml)
+  const readingTime = calculateReadingTime(post.contentHtml)
 
-  const faqJsonLdString = post.faqJsonLd
-    ? JSON.stringify(post.faqJsonLd)
-    : null
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.metaDescription,
+    image: post.heroImageUrl ? [post.heroImageUrl] : undefined,
+    datePublished: post.createdAt,
+    dateModified: post.createdAt,
+    author: {
+      '@type': 'Person',
+      name: 'Subodh KC',
+      url: 'https://subodhkc.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Subodh KC',
+      url: 'https://subodhkc.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://subodhkc.com/portrait.jpeg',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://subodhkc.com/blog/${post.slug}`,
+    },
+    keywords: post.keywords.join(', '),
+    wordCount: post.contentHtml.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length,
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://subodhkc.com/blog' },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `https://subodhkc.com/blog/${post.slug}` },
+    ],
+  }
+
+  const allPosts = getAllPosts()
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== post.slug)
+    .map((p) => ({
+      ...p,
+      matchCount: p.keywords.filter((k) => post.keywords.includes(k)).length,
+    }))
+    .filter((p) => p.matchCount > 0)
+    .sort((a, b) => b.matchCount - a.matchCount)
+    .slice(0, 3)
 
   return (
     <article style={{ maxWidth: 760, margin: '0 auto', padding: '80px 28px 120px' }}>
-      {jsonLdString && (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      {post.faqJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdString }}
-        />
-      )}
-      {faqJsonLdString && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: faqJsonLdString }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(post.faqJsonLd) }}
         />
       )}
 
-      <div style={{ marginBottom: 24 }}>
-        <Link
-          href="/blog"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 12,
-            color: 'var(--text-secondary)',
-            textDecoration: 'none',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-          }}
-        >
-          ← back to blog
-        </Link>
+      {/* Breadcrumb */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          marginBottom: 24,
+          fontFamily: 'var(--font-mono)',
+          fontSize: 12,
+          color: 'var(--text-secondary)',
+        }}
+      >
+        <Link href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>home</Link>
+        <span>/</span>
+        <Link href="/blog" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>blog</Link>
+        <span>/</span>
+        <span style={{ color: 'var(--fg)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 300 }}>
+          {post.slug}
+        </span>
       </div>
 
+      {/* Meta row */}
       <div
         style={{
           fontFamily: 'var(--font-mono)',
@@ -130,10 +174,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             day: 'numeric',
           })}
         </time>
+        <span>·</span>
+        <span>{readingTime} min read</span>
         {post.keywords.length > 0 && (
-          <span style={{ color: 'var(--accent)' }}>
-            {post.keywords.join(' · ')}
-          </span>
+          <>
+            <span>·</span>
+            <span style={{ color: 'var(--accent)' }}>
+              {post.keywords.slice(0, 3).join(' · ')}
+            </span>
+          </>
         )}
       </div>
 
@@ -143,12 +192,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           fontWeight: 500,
           letterSpacing: '-0.02em',
           lineHeight: 1.15,
-          margin: '0 0 24px',
+          margin: '0 0 16px',
           color: 'var(--fg)',
         }}
       >
         {post.title}
       </h1>
+
+      <div style={{ marginBottom: 24 }}>
+        <ShareButtons title={post.title} slug={post.slug} />
+      </div>
 
       {post.heroImageUrl && (
         <div
@@ -172,12 +225,99 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <div
         className="blog-content"
-        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
       />
 
+      {/* Newsletter CTA */}
+      <div style={{ marginTop: 48, marginBottom: 48 }}>
+        <BlogNewsletterCTA />
+      </div>
+
+      {/* Author card */}
+      <BlogAuthorCard />
+
+      {/* Related posts */}
+      {relatedPosts.length > 0 && (
+        <div style={{ marginTop: 48 }}>
+          <h2
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 11,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--text-secondary)',
+              margin: '0 0 20px',
+            }}
+          >
+            Related articles
+          </h2>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              gap: 20,
+            }}
+          >
+            {relatedPosts.map((rp) => (
+              <Link
+                key={rp.slug}
+                href={`/blog/${rp.slug}`}
+                style={{
+                  display: 'block',
+                  padding: 20,
+                  borderRadius: 8,
+                  border: '1px solid var(--border)',
+                  background: 'var(--card)',
+                  textDecoration: 'none',
+                  color: 'var(--fg)',
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 10,
+                    color: 'var(--text-secondary)',
+                    marginBottom: 8,
+                  }}
+                >
+                  {new Date(rp.createdAt).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 500,
+                    lineHeight: 1.3,
+                    marginBottom: 6,
+                  }}
+                >
+                  {rp.title}
+                </div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--text-secondary)',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                  }}
+                >
+                  {rp.excerpt || rp.metaDescription}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Bottom bar */}
       <div
         style={{
-          marginTop: 64,
+          marginTop: 48,
           paddingTop: 32,
           borderTop: '1px solid var(--border)',
           display: 'flex',
@@ -204,15 +344,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         >
           ← all articles
         </Link>
-        <div
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            color: 'var(--text-secondary)',
-          }}
-        >
-          By Subodh KC · AI Systems Architect
-        </div>
+        <ShareButtons title={post.title} slug={post.slug} />
       </div>
 
       <style>{`
