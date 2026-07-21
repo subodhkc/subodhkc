@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
               </p>
               <p style="margin: 15px 0 0 0; color: #d1d5db; font-size: 11px;">
                 You\'re receiving this because you subscribed to AI That Works Magazine at subodhkc.com<br>
-                <a href="#" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a>
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/unsubscribe" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a>
               </p>
             </div>
           </body>
@@ -205,8 +205,8 @@ export async function POST(request: NextRequest) {
               </p>
               <p style="margin: 15px 0 0 0; color: #d1d5db; font-size: 11px;">
                 You're receiving this because you subscribed to AI Insights & Compliance Updates at subodhkc.com<br>
-                <a href="#" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a> | 
-                <a href="#" style="color: #9ca3af; text-decoration: underline;">Update Preferences</a>
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/unsubscribe" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a> | 
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/privacy" style="color: #9ca3af; text-decoration: underline;">Privacy Policy</a>
               </p>
             </div>
 

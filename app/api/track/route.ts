@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
 interface TrackEvent {
-  type: 'pageview' | 'click' | 'form_submit' | 'form_error' | 'conversion'
+  type: 'pageview' | 'engagement' | 'click' | 'form_submit' | 'form_error' | 'conversion'
   path: string
   ref?: string
   duration?: number

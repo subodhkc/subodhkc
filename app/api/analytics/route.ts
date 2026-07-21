@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString()
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString()
 
-  const [pageviews7d, pageviews30d, topPages7d, referrers7d, events7d, recentEvents] = await Promise.all([
+  const [pageviews7d, pageviews30d, topPages7d, referrers7d, events7d, recentEvents, sessions7d] = await Promise.all([
     supabase
       .from('site_analytics_events')
       .select('id', { count: 'exact', head: true })
@@ -50,7 +50,7 @@ export async function GET(request: Request) {
     supabase
       .from('site_analytics_events')
       .select('event_type')
-      .in('event_type', ['click', 'form_submit', 'form_error', 'conversion'])
+      .in('event_type', ['engagement', 'click', 'form_submit', 'form_error', 'conversion'])
       .gte('created_at', sevenDaysAgo),
 
     supabase
@@ -58,6 +58,12 @@ export async function GET(request: Request) {
       .select('*')
       .order('created_at', { ascending: false })
       .limit(50),
+
+    supabase
+      .from('site_analytics_events')
+      .select('session_id')
+      .not('session_id', 'is', null)
+      .gte('created_at', sevenDaysAgo),
   ])
 
   const pageCounts: Record<string, number> = {}
@@ -98,7 +104,7 @@ export async function GET(request: Request) {
     : 0
 
   const uniqueSessions = new Set(
-    (recentEvents.data || [])
+    (sessions7d.data || [])
       .map((r) => (r as { session_id?: string }).session_id)
       .filter(Boolean)
   ).size

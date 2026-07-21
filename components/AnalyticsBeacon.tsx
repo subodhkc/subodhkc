@@ -47,7 +47,7 @@ export function AnalyticsBeacon() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              type: 'pageview',
+              type: 'engagement',
               path: pathname,
               duration,
               sessionId,
