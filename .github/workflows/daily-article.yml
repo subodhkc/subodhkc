@@ -26,6 +26,8 @@ jobs:
     permissions:
       contents: write
     if: github.event_name == 'schedule' || github.event.inputs.source == 'auto' || github.event.inputs.source == 'frontofai'
+    outputs:
+      ran: ${{ steps.check.outputs.ran }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,6 +40,7 @@ jobs:
           node-version: '20'
 
       - name: Generate article from FrontOfAI
+        id: check
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           FRONTOFAI_API_KEY: ${{ secrets.FRONTOFAI_API_KEY }}
@@ -49,14 +52,16 @@ jobs:
 
           if [ -z "$FRONTOFAI_API_KEY" ]; then
             echo "FRONTOFAI_API_KEY not set — skipping FrontOfAI article"
+            echo "ran=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
           echo "Generating article from FrontOfAI..."
           node scripts/generate-article.mjs --frontofai
+          echo "ran=true" >> $GITHUB_OUTPUT
 
       - name: Generate social content for FrontOfAI article
-        if: success()
+        if: success() && steps.check.outputs.ran == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
@@ -68,6 +73,7 @@ jobs:
           fi
 
       - name: Upload FrontOfAI article artifact
+        if: always() && steps.check.outputs.ran == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: frontofai-article
@@ -81,7 +87,7 @@ jobs:
     permissions:
       contents: write
     needs: generate-frontofai-article
-    if: github.event_name == 'schedule' || github.event.inputs.source == 'auto' || github.event.inputs.source == 'topic-queue'
+    if: ${{ !cancelled() && (github.event_name == 'schedule' || github.event.inputs.source == 'auto' || github.event.inputs.source == 'topic-queue') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -94,7 +100,7 @@ jobs:
           node-version: '20'
 
       - name: Download FrontOfAI article artifact
-        if: github.event_name == 'schedule' || github.event.inputs.source != 'topic-queue'
+        if: needs.generate-frontofai-article.outputs.ran == 'true'
         uses: actions/download-artifact@v4
         with:
           name: frontofai-article
@@ -125,7 +131,42 @@ jobs:
           echo "Generating social content for: $SLUG"
           node scripts/generate-social.mjs --slug="$SLUG" --force
 
-      - name: Commit and push both articles to main
+      - name: Upload topic-queue article artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: topic-queue-article
+          path: |
+            data/blog/posts/
+            data/social/
+          retention-days: 1
+
+  commit-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: [generate-frontofai-article, generate-topic-queue-article]
+    if: ${{ !cancelled() }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download FrontOfAI article artifact
+        if: needs.generate-frontofai-article.outputs.ran == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: frontofai-article
+          path: data/
+
+      - name: Download topic-queue article artifact
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || github.event.inputs.source == 'auto' || github.event.inputs.source == 'topic-queue') }}
+        uses: actions/download-artifact@v4
+        with:
+          name: topic-queue-article
+          path: data/
+
+      - name: Commit and push articles to main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

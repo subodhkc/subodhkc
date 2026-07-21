@@ -51,7 +51,7 @@ jobs:
 
           if [ -n "$(git status --porcelain data/social/)" ]; then
             git add data/social/
-            git commit -m "chore: auto-generate social media content for blog posts [skip ci]"
+            git commit -m "chore: auto-generate social media content for blog posts"
             git push
             echo "Social content committed and pushed"
           else

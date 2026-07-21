@@ -5,6 +5,14 @@ export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request) {
   try {
+    const authToken = process.env.INDEXING_API_TOKEN
+    if (authToken) {
+      const provided = request.headers.get('Authorization')?.replace('Bearer ', '')
+      if (provided !== authToken) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+    }
+
     const { url, type } = await request.json()
 
     if (!url) {
