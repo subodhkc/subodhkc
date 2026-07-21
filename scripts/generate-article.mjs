@@ -400,7 +400,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
         { role: 'user', content: prompt },
       ],
       temperature: 0.8,
-      max_tokens: 4000,
+      max_tokens: 8000,
     }),
   })
 
@@ -412,6 +412,13 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
 
   const data = await response.json()
   const content = data.choices[0]?.message?.content
+
+  if (!content) {
+    console.error('OpenAI returned empty response (possibly truncated by max_tokens)')
+    console.error('Finish reason:', data.choices[0]?.finish_reason)
+    process.exit(1)
+  }
+
   const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()
 
   let article
@@ -524,7 +531,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
         { role: 'user', content: prompt },
       ],
       temperature: 0.8,
-      max_tokens: 4000,
+      max_tokens: 8000,
     }),
   })
 
@@ -536,6 +543,12 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
 
   const data = await response.json()
   const content = data.choices[0]?.message?.content
+
+  if (!content) {
+    console.error('OpenAI returned empty response (possibly truncated by max_tokens)')
+    console.error('Finish reason:', data.choices[0]?.finish_reason)
+    process.exit(1)
+  }
 
   // Strip markdown code fences if present
   const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()

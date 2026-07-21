@@ -100,7 +100,7 @@ jobs:
           node-version: '20'
 
       - name: Download FrontOfAI article artifact
-        if: needs.generate-frontofai-article.outputs.ran == 'true'
+        if: needs.generate-frontofai-article.result == 'success' && needs.generate-frontofai-article.outputs.ran == 'true'
         uses: actions/download-artifact@v4
         with:
           name: frontofai-article
@@ -153,14 +153,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download FrontOfAI article artifact
-        if: needs.generate-frontofai-article.outputs.ran == 'true'
+        if: needs.generate-frontofai-article.result == 'success' && needs.generate-frontofai-article.outputs.ran == 'true'
         uses: actions/download-artifact@v4
         with:
           name: frontofai-article
           path: data/
 
       - name: Download topic-queue article artifact
-        if: ${{ !cancelled() && (github.event_name == 'schedule' || github.event.inputs.source == 'auto' || github.event.inputs.source == 'topic-queue') }}
+        if: needs.generate-topic-queue-article.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: topic-queue-article

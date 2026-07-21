@@ -146,7 +146,15 @@ Format each section with markdown headers. Do not add any preamble or conclusion
   }
 
   const data = await response.json()
-  return data.choices[0]?.message?.content
+  const content = data.choices[0]?.message?.content
+
+  if (!content) {
+    console.error('OpenAI returned empty response (possibly truncated by max_tokens)')
+    console.error('Finish reason:', data.choices[0]?.finish_reason)
+    return null
+  }
+
+  return content
 }
 
 async function reviewSocialContent(post, socialContent) {
