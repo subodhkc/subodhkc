@@ -97,9 +97,9 @@ Generate the following in a single markdown document:
 - 1300-2000 characters
 - Start with a strong hook that states a counterintuitive insight or key finding (not a question)
 - 3-5 key insights as bullet points, each with a specific takeaway
-- End with a CTA like "Full article linked below" or "Thoughts?" (no raw URL)
-- DO NOT include the URL in the post body — LinkedIn attaches the article link automatically
-- DO NOT include "Read the full article at [URL]" — the link card handles that
+- End with a soft CTA like "Visit my blog at SubodhKC for more on this" or "Follow me for more AI governance insights"
+- DO NOT include any URL or link in the post body — no link card, no raw URL
+- DO NOT use phrases like "Full article linked below" or "Link in comments" — there is no link
 - DO NOT use engagement bait ("Agree?", "Comment below", "Who else thinks...")
 - DO NOT tag people (@mentions) unless they are directly quoted
 - Include 3-5 relevant hashtags at the very end, each on its own line

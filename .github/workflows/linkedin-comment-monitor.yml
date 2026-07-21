@@ -1,9 +1,9 @@
-name: LinkedIn Comment Monitor
+name: LinkedIn Comment Monitor (disabled — run manually)
 
 on:
-  schedule:
-    # Every day at 22:00 UTC (5:00 PM CST) — check for comments after work hours
-    - cron: "0 22 * * *"
+  # Schedule disabled — re-enable by uncommenting the cron below
+  # schedule:
+  #   - cron: "0 22 * * *"
   workflow_dispatch:
 
 jobs:

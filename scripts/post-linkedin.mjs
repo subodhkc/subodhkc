@@ -81,11 +81,14 @@ function cleanLinkedInPost(text, articleUrl) {
   // Remove any AI review content that may have been included
   cleaned = cleaned.replace(/## AI Review[\s\S]*$/i, '')
 
-  // Remove "Read the full article at ..." lines — URL is in the link card
+  // Remove "Read the full article at ..." lines — no link card anymore
   cleaned = cleaned.replace(/Read the full article at.*$/gim, '')
   cleaned = cleaned.replace(/Read more at.*$/gim, '')
   cleaned = cleaned.replace(/Check out the full article.*$/gim, '')
   cleaned = cleaned.replace(/Link in (the )?comments?.*$/gim, '')
+  cleaned = cleaned.replace(/Full article linked below.*$/gim, '')
+  cleaned = cleaned.replace(/Article linked below.*$/gim, '')
+  cleaned = cleaned.replace(/Link(ed)? below.*$/gim, '')
 
   // Remove raw URLs from the body — LinkedIn attaches the link separately
   // This is a best practice: raw URLs in the body hurt reach due to LinkedIn's algorithm
@@ -274,43 +277,26 @@ async function uploadImage(accessToken, memberId, imageUrl) {
 
 /**
  * Post to LinkedIn using the UGC Posts API.
- * Uses article URL as the share link (appears as a link card, not raw URL in text).
- * If an image asset URN is provided, attaches the image instead of an article link card.
+ * No URL or link card — text-only or image-only posts get highest reach.
+ * If an image asset URN is provided, attaches the image (still no link card).
  */
-async function postToLinkedIn(accessToken, memberId, text, articleUrl, articleTitle, articleDescription, imageAssetUrn) {
+async function postToLinkedIn(accessToken, memberId, text, imageAssetUrn) {
   let media
   let shareMediaCategory
 
   if (imageAssetUrn) {
-    // Image post — higher engagement, article URL goes in the text (but we strip it, so it's in the link card metadata)
+    // Image post — highest engagement, no URL
     shareMediaCategory = 'IMAGE'
     media = [
       {
         status: 'READY',
         media: imageAssetUrn,
-        title: {
-          text: articleTitle,
-        },
-        description: {
-          text: articleDescription || '',
-        },
       },
     ]
   } else {
-    // Article link card post
-    shareMediaCategory = 'ARTICLE'
-    media = [
-      {
-        status: 'READY',
-        originalUrl: articleUrl,
-        title: {
-          text: articleTitle,
-        },
-        description: {
-          text: articleDescription || '',
-        },
-      },
-    ]
+    // Text-only post — no link card, no URL, maximum reach
+    shareMediaCategory = 'NONE'
+    media = []
   }
 
   const body = {
@@ -479,9 +465,6 @@ async function main() {
       accessToken,
       memberId,
       finalText,
-      articleUrl,
-      post.title,
-      post.metaDescription || post.excerpt || '',
       imageAssetUrn,
     )
     const urn = result.id || result.activity || 'unknown'
