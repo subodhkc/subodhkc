@@ -57,6 +57,7 @@ const SITEMAP = [
   {
     head: "Articles",
     items: [
+      ["/blog", "blog"],
       ["/secure-enterprise-rag-architecture", "secure RAG architecture"],
       ["/build-internal-ai-applications-streamlit-rag-mcp", "internal AI apps with Streamlit"],
       ["/does-texas-ai-law-apply-to-my-business", "does the Texas AI law apply?"],

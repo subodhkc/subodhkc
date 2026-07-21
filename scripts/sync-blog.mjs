@@ -1,0 +1,164 @@
+#!/usr/bin/env node
+
+/**
+ * sync-blog.mjs — Fetch articles from BabyLoveGrowth API and save as JSON files.
+ *
+ * Usage:
+ *   node scripts/sync-blog.mjs
+ *
+ * Requires BABYLOVE_API_KEY in .env.local or environment.
+ */
+
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const PROJECT_ROOT = path.resolve(__dirname, '..')
+const POSTS_DIR = path.join(PROJECT_ROOT, 'data', 'blog', 'posts')
+
+const API_BASE = 'https://api.babylovegrowth.ai/api/integrations'
+
+function loadEnvLocal() {
+  const envPath = path.join(PROJECT_ROOT, '.env.local')
+  if (!fs.existsSync(envPath)) return
+  const content = fs.readFileSync(envPath, 'utf-8')
+  for (const line of content.split('\n')) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.startsWith('#')) continue
+    const eqIdx = trimmed.indexOf('=')
+    if (eqIdx === -1) continue
+    const key = trimmed.slice(0, eqIdx).trim()
+    let value = trimmed.slice(eqIdx + 1).trim()
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1)
+    }
+    if (!process.env[key]) {
+      process.env[key] = value
+    }
+  }
+}
+
+loadEnvLocal()
+
+const apiKey = process.env.BABYLOVE_API_KEY
+if (!apiKey) {
+  console.error('ERROR: BABYLOVE_API_KEY not found after loading .env.local')
+  process.exit(1)
+}
+
+async function fetchArticleList(offset = 0, limit = 50) {
+  const url = `${API_BASE}/v1/articles?limit=${limit}&offset=${offset}`
+  const res = await fetch(url, {
+    headers: {
+      'X-API-Key': apiKey,
+      'Content-Type': 'application/json',
+    },
+  })
+  if (!res.ok) {
+    throw new Error(`API error ${res.status}: ${await res.text()}`)
+  }
+  return res.json()
+}
+
+async function fetchArticleDetail(id) {
+  const url = `${API_BASE}/v1/articles/${id}`
+  const res = await fetch(url, {
+    headers: {
+      'X-API-Key': apiKey,
+      'Content-Type': 'application/json',
+    },
+  })
+  if (!res.ok) {
+    throw new Error(`API error ${res.status} for article ${id}: ${await res.text()}`)
+  }
+  return res.json()
+}
+
+async function syncAll() {
+  console.log('Fetching article list from BabyLoveGrowth API...')
+
+  const allSummaries = []
+  let offset = 0
+  const limit = 50
+
+  while (true) {
+    const batch = await fetchArticleList(offset, limit)
+    if (!Array.isArray(batch) || batch.length === 0) {
+      console.log(`  No more articles at offset ${offset}.`)
+      break
+    }
+    console.log(`  Fetched ${batch.length} articles at offset ${offset}.`)
+    allSummaries.push(...batch)
+    if (batch.length < limit) break
+    offset += limit
+  }
+
+  console.log(`\nTotal articles found: ${allSummaries.length}`)
+
+  if (allSummaries.length === 0) {
+    console.log('No articles to sync. Exiting.')
+    return
+  }
+
+  fs.mkdirSync(POSTS_DIR, { recursive: true })
+
+  let saved = 0
+  let skipped = 0
+
+  for (const summary of allSummaries) {
+    const slug = summary.slug || String(summary.id)
+    const existingPath = path.join(POSTS_DIR, `${slug}.json`)
+
+    try {
+      await new Promise((r) => setTimeout(r, 600))
+      const detail = await fetchArticleDetail(summary.id)
+
+      const postData = {
+        id: detail.id,
+        title: detail.title,
+        slug: detail.slug || slug,
+        metaDescription: detail.meta_description || detail.metaDescription || '',
+        contentHtml: detail.content_html || detail.contentHtml || '',
+        contentMarkdown: detail.content_markdown || detail.contentMarkdown || '',
+        heroImageUrl: detail.hero_image_url || detail.heroImageUrl || null,
+        jsonLd: detail.jsonLd || null,
+        faqJsonLd: detail.faqJsonLd || null,
+        languageCode: detail.languageCode || 'en',
+        createdAt: detail.created_at || detail.createdAt || new Date().toISOString(),
+        keywords: detail.keywords || [],
+        seedKeyword: detail.seedKeyword || null,
+        excerpt: summary.excerpt || null,
+      }
+
+      fs.writeFileSync(existingPath, JSON.stringify(postData, null, 2), 'utf-8')
+      console.log(`  ✓ Saved: ${slug}`)
+      saved++
+
+      await new Promise((r) => setTimeout(r, 600))
+    } catch (err) {
+      console.error(`  ✗ Failed to fetch detail for article ${summary.id} (${slug}): ${err.message}`)
+      skipped++
+    }
+  }
+
+  const existingFiles = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.json'))
+  const fetchedSlugs = new Set(allSummaries.map((s) => s.slug || String(s.id)))
+  let removed = 0
+  for (const file of existingFiles) {
+    const fileSlug = file.replace('.json', '')
+    if (!fetchedSlugs.has(fileSlug)) {
+      fs.unlinkSync(path.join(POSTS_DIR, file))
+      console.log(`  🗑 Removed stale: ${fileSlug}`)
+      removed++
+    }
+  }
+
+  console.log(`\nSync complete: ${saved} saved, ${skipped} skipped, ${removed} removed.`)
+  console.log(`Posts directory: ${POSTS_DIR}`)
+}
+
+syncAll().catch((err) => {
+  console.error('Sync failed:', err)
+  process.exit(1)
+})

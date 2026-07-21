@@ -31,6 +31,7 @@ const interactiveTools = [
 ];
 
 const resources = [
+  { name: "Blog", href: "/blog", desc: "AI governance & architecture articles" },
   { name: "Guides", href: "/guides", desc: "AI compliance guides" },
   { name: "Writing", href: "/writing", desc: "Articles & long-form writing" },
   { name: "Research", href: "/research", desc: "Research papers & analysis" },

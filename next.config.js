@@ -2,7 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.babylovegrowth.ai' },
+      { protocol: 'https', hostname: 'api.babylovegrowth.ai' },
+      { protocol: 'https', hostname: '**.babylovegrowth.ai' },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   compress: true,
