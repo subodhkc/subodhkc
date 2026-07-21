@@ -80,6 +80,7 @@ jobs:
           path: |
             data/blog/posts/
             data/social/
+            public/blog-images/
           retention-days: 1
 
   generate-topic-queue-article:
@@ -138,6 +139,7 @@ jobs:
           path: |
             data/blog/posts/
             data/social/
+            public/blog-images/
           retention-days: 1
 
   commit-and-push:
@@ -157,23 +159,23 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontofai-article
-          path: data/
+          path: .
 
       - name: Download topic-queue article artifact
         if: needs.generate-topic-queue-article.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: topic-queue-article
-          path: data/
+          path: .
 
       - name: Commit and push articles to main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          if [ -n "$(git status --porcelain data/blog/posts/ data/social/)" ]; then
-            git add data/blog/posts/ data/social/
-            git commit -m "feat: daily AI articles (FrontOfAI + topic queue) + social content"
+          if [ -n "$(git status --porcelain data/blog/posts/ data/social/ public/blog-images/)" ]; then
+            git add data/blog/posts/ data/social/ public/blog-images/
+            git commit -m "feat: daily AI articles (FrontOfAI + topic queue) + social content + hero images"
             git push
             echo "Articles auto-merged to main"
           else
@@ -202,14 +204,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontofai-article
-          path: data/
+          path: .
 
       - name: Download topic-queue article artifact
         if: needs.generate-topic-queue-article.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: topic-queue-article
-          path: data/
+          path: .
 
       - name: Post latest article to LinkedIn (one per day)
         run: |

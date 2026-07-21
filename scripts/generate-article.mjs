@@ -687,6 +687,22 @@ async function main() {
   const outputPath = path.join(postsDir, `${post.slug}.json`)
   fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
   console.log(`\nSaved to: data/blog/posts/${post.slug}.json`)
+
+  // Generate hero image with DALL-E 3
+  if (!dryRun && process.env.OPENAI_API_KEY) {
+    console.log('\nGenerating hero image with DALL-E 3...')
+    try {
+      const { execSync } = await import('child_process')
+      execSync(`node scripts/generate-hero-image.mjs --slug=${post.slug}`, {
+        cwd: ROOT,
+        stdio: 'inherit',
+      })
+    } catch (err) {
+      console.warn(`Hero image generation failed: ${err.message}`)
+      console.warn('Post saved successfully — image can be generated later with: node scripts/generate-hero-image.mjs --slug=' + post.slug)
+    }
+  }
+
   console.log(`\nNext steps:`)
   console.log(`  1. Review the generated article`)
   console.log(`  2. The GitHub Action will auto-generate social content`)
