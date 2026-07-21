@@ -170,9 +170,18 @@ async function main() {
     return
   }
 
-  console.log(`Sending Medium import reminders for ${slugsToProcess.length} article(s)...\n`)
+  console.log(`Sending Medium import reminders for ${slugsToProcess.length} article(s)...`)
+
+  // Daily cap: max 3 reminders per run to avoid email flooding
+  const MAX_REMINDERS = 3
+  let sent = 0
 
   for (const slug of slugsToProcess) {
+    if (sent >= MAX_REMINDERS) {
+      console.log(`\n  ⏸  Daily cap reached (${MAX_REMINDERS}). Remaining ${slugsToProcess.length - sent} will be reminded next run.`)
+      break
+    }
+
     const post = getPostBySlug(slug)
     if (!post) {
       console.error(`  ✗ ${slug}: post not found`)
@@ -189,6 +198,7 @@ async function main() {
       tracker[slug] = { reminded: true, date: new Date().toISOString() }
       saveTracker(tracker)
       console.log(`  ✓ ${slug}: import reminder sent`)
+      sent++
     } catch (err) {
       console.error(`  ✗ ${slug}: ${err.message}`)
     }
