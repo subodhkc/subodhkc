@@ -10,13 +10,21 @@ on:
         description: 'Specific topic (leave empty for auto-pick)'
         required: false
         type: string
+      source:
+        description: 'Content source'
+        required: false
+        type: choice
+        default: 'auto'
+        options:
+          - auto
+          - frontofai
+          - topic-queue
 
 jobs:
   generate-article:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,16 +39,23 @@ jobs:
       - name: Generate article
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          FRONTOFAI_API_KEY: ${{ secrets.FRONTOFAI_API_KEY }}
         run: |
           if [ -z "$OPENAI_API_KEY" ]; then
-            echo "::error::OPENAI_API_KEY secret not set — cannot generate article"
+            echo "::error::OPENAI_API_KEY secret not set"
             exit 1
           fi
 
           TOPIC="${{ github.event.inputs.topic }}"
+          SOURCE="${{ github.event.inputs.source || 'auto' }}"
+
           if [ -n "$TOPIC" ]; then
             node scripts/generate-article.mjs --topic="$TOPIC"
+          elif [ "$SOURCE" = "frontofai" ] || ([ "$SOURCE" = "auto" ] && [ -n "$FRONTOFAI_API_KEY" ]); then
+            echo "Using FrontOfAI data source"
+            node scripts/generate-article.mjs --frontofai
           else
+            echo "Using topic queue (no FrontOfAI key or explicitly requested)"
             node scripts/generate-article.mjs
           fi
 
@@ -48,41 +63,22 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          # Find the most recently created post file
           LATEST=$(ls -t data/blog/posts/*.json | head -1)
           SLUG=$(basename "$LATEST" .json)
           echo "Generating social content for: $SLUG"
           node scripts/generate-social.mjs --slug="$SLUG" --force
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "feat: daily AI article + social content [skip ci]"
-          title: "Daily Article: $(date -u '+%Y-%m-%d')"
-          body: |
-            ## Auto-Generated Daily Article
+      - name: Commit and push to main (auto-merge)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-            This PR contains a new AI-generated blog post and social media content.
-
-            ### Review Checklist
-            - [ ] Article title is compelling and SEO-optimized
-            - [ ] Content is accurate and adds value
-            - [ ] No hallucinated facts or sources
-            - [ ] Keywords are relevant
-            - [ ] Meta description is under 160 chars
-            - [ ] Social content in data/social/ is appropriate
-            - [ ] No duplicate of existing content
-
-            ### Auto-actions on merge
-            - IndexNow ping (Bing, Yandex, Seznam)
-            - Google Indexing API submission
-            - Sitemap update
-            - RSS feed update
-
-            Generated on $(date -u '+%Y-%m-%d %H:%M UTC')
-          branch: daily-article
-          branch-suffix: short-commit-hash
-          labels: |
-            auto-generated
-            content
+          if [ -n "$(git status --porcelain data/blog/posts/ data/social/)" ]; then
+            git add data/blog/posts/ data/social/
+            git commit -m "feat: daily AI article + social content [skip ci]"
+            git push
+            echo "Article auto-merged to main"
+          else
+            echo "No changes — article generation may have failed"
+            exit 1
+          fi

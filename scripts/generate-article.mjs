@@ -9,9 +9,11 @@
  * Usage:
  *   node scripts/generate-article.mjs                    # Auto-pick next topic
  *   node scripts/generate-article.mjs --topic="EU AI Act risk classification"
+ *   node scripts/generate-article.mjs --frontofai         # Generate from FrontOfAI top stories
  *   node scripts/generate-article.mjs --dry-run           # Generate but don't save
  *
  * Requires: OPENAI_API_KEY environment variable
+ * Optional:  FRONTOFAI_API_KEY for FrontOfAI data source
  * Outputs:  data/blog/posts/<slug>.json
  */
 
@@ -216,6 +218,173 @@ function pickNextTopic(posts) {
   }
 }
 
+const FRONTOFAI_URL = 'https://frontofai.com'
+
+async function fetchFrontOfAIStories() {
+  const apiKey = process.env.FRONTOFAI_API_KEY
+  if (!apiKey) {
+    console.error('ERROR: FRONTOFAI_API_KEY not set')
+    process.exit(1)
+  }
+
+  console.log('Fetching top stories from FrontOfAI...')
+
+  const url = `${FRONTOFAI_URL}/api/briefing/v1/haiec?limit=20&sort=impact&days=7&min_impact=6`
+  const response = await fetch(url, {
+    headers: { 'x-haiec-key': apiKey },
+  })
+
+  if (!response.ok) {
+    const error = await response.text()
+    console.error(`FrontOfAI API error (${response.status}): ${error}`)
+    process.exit(1)
+  }
+
+  const result = await response.json()
+  return result.data || []
+}
+
+function selectFrontOfAIStory(stories, posts) {
+  const existingTitles = getExistingTitles(posts)
+  const existingSlugs = getExistingSlugs(posts)
+
+  // Filter out stories we've already covered (by title similarity)
+  const unused = stories.filter((s) => {
+    const titleLower = (s.title || '').toLowerCase()
+    return !existingTitles.some((t) => t.includes(titleLower.slice(0, 40))) &&
+           !existingSlugs.has(slugify(s.title || ''))
+  })
+
+  if (unused.length === 0) {
+    // All covered — pick highest impact that's at least 3 days old
+    return stories[0]
+  }
+
+  // Pick highest impact unused story
+  return unused[0]
+}
+
+async function generateArticleFromFrontOfAI(story, posts) {
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) {
+    console.error('ERROR: OPENAI_API_KEY not set')
+    process.exit(1)
+  }
+
+  const existingPostsContext = posts
+    .slice(0, 10)
+    .map((p) => `- ${p.title} (slug: ${p.slug}, keywords: ${(p.keywords || []).join(', ')})`)
+    .join('\n')
+
+  const storyData = {
+    title: story.title || '',
+    summary: story.summary_short || '',
+    extendedSummary: story.summary_extended || '',
+    whyItMatters: story.why_this_matters || '',
+    actionItem: story.action_item || '',
+    actionOwner: story.action_owner || '',
+    actionTimeline: story.action_timeline || '',
+    impactScore: story.it_impact_score || 0,
+    source: story.source_name || '',
+    sourceUrl: story.source_url || '',
+    categories: (story.category_details || []).map((c) => c.name).join(', '),
+    publishedAt: story.published_at || '',
+  }
+
+  const prompt = `You are an expert AI governance and enterprise architecture writer. Write a comprehensive, SEO-optimized blog post for subodhkc.com based on a real news story from FrontOfAI.
+
+CONTENT NICHE: AI governance, enterprise AI architecture, AI compliance, AI security, legal tech AI
+TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers
+AUTHOR: Subodh KC — Fortune 50 AI governance and architecture experience
+TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X."
+
+SOURCE NEWS STORY (from FrontOfAI):
+Title: ${storyData.title}
+Source: ${storyData.source}
+Impact Score: ${storyData.impactScore}/10
+Categories: ${storyData.categories}
+Published: ${storyData.publishedAt}
+Summary: ${storyData.summary}
+Extended Summary: ${storyData.extendedSummary}
+Why It Matters: ${storyData.whyItMatters}
+Recommended Action: ${storyData.actionItem} (${storyData.actionOwner} - ${storyData.actionTimeline})
+Source URL: ${storyData.sourceUrl}
+
+EXISTING POSTS (for internal linking — reference where relevant):
+${existingPostsContext}
+
+INSTRUCTIONS:
+1. Write 1500-2500 words of original analysis and commentary on this news story
+2. Do NOT just restate the news — provide expert analysis, implications, and actionable guidance
+3. Structure with clear H2 and H3 headings
+4. Include practical steps, frameworks, or templates that readers can apply
+5. Connect the news to broader AI governance, compliance, or architecture themes
+6. Reference the source story and provide attribution
+7. Include a "What This Means for You" section with specific action items
+8. End with a practical takeaway
+9. Optimize for SEO: natural keyword usage
+10. Generate 6-10 relevant keywords/tags
+11. Write a compelling metaDescription (under 160 chars)
+12. Write a 1-2 sentence excerpt
+
+OUTPUT FORMAT — return a JSON object with these exact fields:
+{
+  "title": "SEO-optimized title (under 60 chars) — should be analysis-oriented, not just restating the news",
+  "metaDescription": "Compelling meta description under 160 chars",
+  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong> tags. No class attributes. No script tags. Start with an <h2> not an <h1>.",
+  "keywords": ["keyword1", "keyword2", ...],
+  "seedKeyword": "primary target keyword",
+  "excerpt": "1-2 sentence article excerpt"
+}
+
+Do NOT include id, slug, createdAt, or any other fields — only the fields listed above.
+Return ONLY the JSON object, no markdown code fences, no preamble.`
+
+  console.log(`Generating article from FrontOfAI story: ${storyData.title}`)
+  console.log(`Source: ${storyData.source} | Impact: ${storyData.impactScore}/10`)
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an expert content writer specializing in AI governance, enterprise AI architecture, and AI compliance. You write practical, implementation-focused content for technical leaders. You analyze news stories and provide expert commentary and actionable guidance. You return only valid JSON.',
+        },
+        { role: 'user', content: prompt },
+      ],
+      temperature: 0.8,
+      max_tokens: 4000,
+    }),
+  })
+
+  if (!response.ok) {
+    const error = await response.text()
+    console.error(`OpenAI API error (${response.status}): ${error}`)
+    process.exit(1)
+  }
+
+  const data = await response.json()
+  const content = data.choices[0]?.message?.content
+  const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()
+
+  let article
+  try {
+    article = JSON.parse(jsonStr)
+  } catch (e) {
+    console.error('Failed to parse OpenAI response as JSON')
+    console.error('Response:', content.slice(0, 500))
+    process.exit(1)
+  }
+
+  return article
+}
+
 async function generateArticle(topic, pillar, posts) {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {
@@ -317,27 +486,41 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
 async function main() {
   const args = process.argv.slice(2)
   const topicArg = args.find((a) => a.startsWith('--topic='))?.split('=')[1]
+  const useFrontOfAI = args.includes('--frontofai')
   const dryRun = args.includes('--dry-run')
 
   const posts = getAllPosts()
   console.log(`Found ${posts.length} existing posts`)
 
-  // Pick topic
-  let topic, pillar
-  if (topicArg) {
-    topic = topicArg
-    pillar = 'Custom'
+  let article, frontOfAIStory
+
+  if (useFrontOfAI) {
+    // Fetch top stories from FrontOfAI
+    const stories = await fetchFrontOfAIStories()
+    console.log(`Fetched ${stories.length} stories from FrontOfAI`)
+
+    if (stories.length === 0) {
+      console.error('No stories returned from FrontOfAI — falling back to topic queue')
+      const picked = pickNextTopic(posts)
+      article = await generateArticle(picked.topic, picked.pillar, posts)
+    } else {
+      // Select best unused story
+      frontOfAIStory = selectFrontOfAIStory(stories, posts)
+      console.log(`\nSelected story: ${frontOfAIStory.title}`)
+      console.log(`Impact: ${frontOfAIStory.it_impact_score}/10 | Source: ${frontOfAIStory.source_name}`)
+
+      article = await generateArticleFromFrontOfAI(frontOfAIStory, posts)
+    }
+  } else if (topicArg) {
+    console.log(`\nTopic: ${topicArg}`)
+    console.log(`Pillar: Custom`)
+    article = await generateArticle(topicArg, 'Custom', posts)
   } else {
     const picked = pickNextTopic(posts)
-    topic = picked.topic
-    pillar = picked.pillar
+    console.log(`\nTopic: ${picked.topic}`)
+    console.log(`Pillar: ${picked.pillar}`)
+    article = await generateArticle(picked.topic, picked.pillar, posts)
   }
-
-  console.log(`\nTopic: ${topic}`)
-  console.log(`Pillar: ${pillar}`)
-
-  // Generate article
-  const article = await generateArticle(topic, pillar, posts)
 
   // Build full post object
   const id = getNextId(posts)

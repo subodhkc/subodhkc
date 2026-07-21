@@ -149,10 +149,62 @@ Format each section with markdown headers. Do not add any preamble or conclusion
   return data.choices[0]?.message?.content
 }
 
+async function reviewSocialContent(post, socialContent) {
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) return null
+
+  const url = `${SITE_URL}/blog/${post.slug}`
+  const plainText = stripHtml(post.contentHtml).slice(0, 2000)
+
+  const prompt = `You are a social media editor. Review the following social media content for a blog post and provide a quality assessment.
+
+BLOG POST:
+Title: ${post.title}
+URL: ${url}
+Excerpt: ${post.excerpt || post.metaDescription}
+Content (first 2000 chars): ${plainText}
+
+SOCIAL CONTENT TO REVIEW:
+${socialContent}
+
+Review each section and provide:
+1. **Overall Score** (1-10)
+2. **Accuracy**: Does the social content accurately reflect the article? (yes/no + notes)
+3. **Hallucinations**: Any claims not supported by the article? (list them or "none")
+4. **Tone Consistency**: Is the tone appropriate for each platform? (notes)
+5. **CTA Quality**: Are the calls-to-action clear and compelling? (notes)
+6. **Platform-Specific Issues**: Any formatting problems for specific platforms? (list or "none")
+7. **Suggested Fixes**: Specific improvements (bullet points, or "none needed")
+
+Format as markdown. Be concise but specific.`
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are a strict social media editor who reviews content for accuracy, tone, and platform-appropriateness. You flag hallucinations and weak CTAs.' },
+        { role: 'user', content: prompt },
+      ],
+      temperature: 0.3,
+      max_tokens: 1000,
+    }),
+  })
+
+  if (!response.ok) return null
+  const data = await response.json()
+  return data.choices[0]?.message?.content
+}
+
 async function main() {
   const args = process.argv.slice(2)
   const slugArg = args.find((a) => a.startsWith('--slug='))?.split('=')[1]
   const latestOnly = args.includes('--latest')
+  const skipReview = args.includes('--no-review')
 
   let posts = getAllPosts()
   if (posts.length === 0) {
@@ -181,7 +233,6 @@ async function main() {
   for (const post of posts) {
     const outputPath = path.join(outputDir, `${post.slug}.md`)
 
-    // Skip if already generated and not forced
     if (fs.existsSync(outputPath) && !args.includes('--force')) {
       console.log(`SKIP: ${post.slug} (already exists, use --force to regenerate)`)
       continue
@@ -190,7 +241,7 @@ async function main() {
     try {
       const content = await generateSocialContent(post)
       if (content) {
-        const header = `# Social Media Content — ${post.title}
+        let fullOutput = `# Social Media Content — ${post.title}
 
 > Auto-generated on ${new Date().toISOString().split('T')[0]}
 > Article: ${SITE_URL}/blog/${post.slug}
@@ -198,7 +249,19 @@ async function main() {
 
 `
 
-        fs.writeFileSync(outputPath, header + content, 'utf-8')
+        fullOutput += content
+
+        // AI review
+        if (!skipReview) {
+          console.log(`  Reviewing social content...`)
+          const review = await reviewSocialContent(post, content)
+          if (review) {
+            fullOutput += `\n\n---\n\n## AI Review\n\n${review}\n`
+            console.log(`  ✓ AI review appended`)
+          }
+        }
+
+        fs.writeFileSync(outputPath, fullOutput, 'utf-8')
         console.log(`  ✓ Saved to data/social/${post.slug}.md`)
         success++
       } else {
@@ -210,7 +273,6 @@ async function main() {
       fail++
     }
 
-    // Rate limit: 500ms between posts
     if (posts.length > 1) {
       await new Promise((r) => setTimeout(r, 500))
     }
@@ -219,7 +281,7 @@ async function main() {
   console.log(`\nDone: ${success} generated, ${fail} failed`)
   console.log(`Output: data/social/*.md`)
   console.log(`\nNext steps:`)
-  console.log(`  1. Review each file in data/social/`)
+  console.log(`  1. Review each file in data/social/ — check AI Review section`)
   console.log(`  2. Copy-paste to Twitter/X, LinkedIn, Reddit, HN, Dev.to`)
   console.log(`  3. Or use with autoposting-cli when API keys are available`)
 }
