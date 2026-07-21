@@ -96,7 +96,7 @@ export default function StructuredData() {
       description:
         'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
     },
-    dateCreated: '2024-01-01',
+    dateCreated: '2024-01-01T00:00:00Z',
   }
 
   const websiteSchema = {
