@@ -67,6 +67,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const sanitizedHtml = sanitizeHtml(post.contentHtml)
   const readingTime = calculateReadingTime(post.contentHtml)
 
+  // Remove first image from content if it duplicates the hero image
+  let displayHtml = sanitizedHtml
+  if (post.heroImageUrl) {
+    const firstImgMatch = displayHtml.match(/<p>\s*<img[^>]+src="([^"]+)"/)
+    if (firstImgMatch && firstImgMatch[1] === post.heroImageUrl) {
+      displayHtml = displayHtml.replace(/<p>\s*<img[^>]+src="[^"]+"[^>]*>\s*<\/p>/, '')
+    }
+  }
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -229,7 +238,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <div
         className="blog-content"
-        dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+        dangerouslySetInnerHTML={{ __html: displayHtml }}
       />
 
       {/* Newsletter CTA */}
