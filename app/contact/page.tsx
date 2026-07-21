@@ -119,6 +119,11 @@ export default function ContactPage() {
     },
   ]
 
+  const calendlyEmbed = `
+    <div class="calendly-inline-widget" data-url="https://calendly.com/subodhkc/30min?hide_landing_page_details=1&hide_gdpr_banner=1" style="min-width:320px;height:630px;"></div>
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  `
+
   const interestAreas = [
     'Advisory & Consulting',
     'AI Governance & Compliance Course',
@@ -342,6 +347,15 @@ export default function ContactPage() {
               </CardContent>
             </Card>
           )}
+        </div>
+      </Section>
+
+      <Section subtitle="Schedule" title="Book a 30-Minute Call">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-center text-muted-foreground mb-6">
+            Prefer to skip the back-and-forth? Pick a time directly on my calendar.
+          </p>
+          <div dangerouslySetInnerHTML={{ __html: calendlyEmbed }} />
         </div>
       </Section>
 

@@ -161,13 +161,6 @@ export default async function RootLayout({
         <link rel="me" href="https://medium.com/@subodhkc" />
         <link rel="alternate" hrefLang="en" href="https://subodhkc.com" />
         <link rel="alternate" hrefLang="x-default" href="https://subodhkc.com" />
-        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
-          <script
-            defer
-            data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-            src="https://plausible.io/js/script.js"
-          />
-        )}
       </head>
       <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
         <ScrollProgress />

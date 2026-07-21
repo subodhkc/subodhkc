@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimit } from '@/lib/rate-limit'
+import { createBrowserClient } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -9,7 +10,19 @@ interface TrackEvent {
   path: string
   ref?: string
   duration?: number
+  sessionId?: string
   meta?: Record<string, string | number | boolean>
+}
+
+function hashIp(ip: string): string {
+  let hash = 0
+  const salted = `sk-analytics-${ip}`
+  for (let i = 0; i < salted.length; i++) {
+    const char = salted.charCodeAt(i)
+    hash = ((hash << 5) - hash) + char
+    hash = hash & hash
+  }
+  return `h_${Math.abs(hash).toString(36)}`
 }
 
 export async function POST(request: NextRequest) {
@@ -32,19 +45,35 @@ export async function POST(request: NextRequest) {
       'unknown'
 
     const userAgent = request.headers.get('user-agent') || 'unknown'
-    const referer = request.headers.get('referer') || 'direct'
+    const referer = body.ref || request.headers.get('referer') || null
+    const ipHash = ip !== 'unknown' ? hashIp(ip) : null
 
-    console.log('[ANALYTICS]', JSON.stringify({
-      type: body.type,
-      path: body.path,
-      ref: body.ref || null,
-      duration: body.duration || null,
-      meta: body.meta || null,
-      ip,
-      userAgent,
-      referer,
-      timestamp: new Date().toISOString(),
-    }))
+    const supabase = createBrowserClient()
+
+    if (supabase) {
+      const { error } = await supabase
+        .from('site_analytics_events')
+        .insert({
+          event_type: body.type,
+          path: body.path,
+          referrer: referer,
+          user_agent: userAgent,
+          ip_hash: ipHash,
+          session_id: body.sessionId || null,
+          duration: body.duration || 0,
+          meta: body.meta || {},
+        })
+
+      if (error) {
+        console.error('[ANALYTICS] Supabase insert error:', error.message)
+      }
+    } else {
+      console.log('[ANALYTICS] Supabase not configured — logging only:', JSON.stringify({
+        type: body.type,
+        path: body.path,
+        timestamp: new Date().toISOString(),
+      }))
+    }
 
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
