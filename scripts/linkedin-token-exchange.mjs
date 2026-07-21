@@ -11,11 +11,16 @@
  *   node scripts/linkedin-token-exchange.mjs --code=XXXX
  *
  * Prerequisites:
- *   1. Set LINKEDIN_CLIENT_ID and LINKEDIN_CLIENT_SECRET in .env.local
- *   2. Visit the auth URL in your browser:
- *      https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_ID&redirect_uri=https%3A%2F%2Fsubodhkc.com%2Fapi%2Flinkedin%2Fcallback&scope=openid%20profile%20w_member_social%20email
- *   3. After authorizing, copy the ?code= value from the redirect URL
- *   4. Run this script with --code=VALUE
+ *   1. In LinkedIn Developer Console (https://www.linkedin.com/developers/apps):
+ *      - Enable product: "Share on LinkedIn" (gives w_member_social scope)
+ *      - Enable product: "Sign In with LinkedIn using OpenID Connect" (gives openid, profile scopes)
+ *      - Set Auth redirect URL to: https://subodhkc.com/api/linkedin/callback
+ *      - Wait ~5 min for products to activate
+ *   2. Set LINKEDIN_CLIENT_ID and LINKEDIN_CLIENT_SECRET in .env.local
+ *   3. Visit the auth URL in your browser:
+ *      https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_ID&redirect_uri=https%3A%2F%2Fsubodhkc.com%2Fapi%2Flinkedin%2Fcallback&scope=openid%20profile%20w_member_social
+ *   4. After authorizing, copy the ?code= value from the redirect URL
+ *   5. Run this script with --code=VALUE
  *
  * The access token expires in ~60 days. Store it as:
  *   - .env.local: LINKEDIN_ACCESS_TOKEN=xxx
@@ -105,7 +110,13 @@ async function main() {
     console.error('Usage: node scripts/linkedin-token-exchange.mjs --code=OAUTH_CODE')
     console.error('')
     console.error('Get the code by visiting:')
-    console.error(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID || 'YOUR_ID'}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=openid%20profile%20w_member_social%20email`)
+    console.error(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID || 'YOUR_ID'}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=openid%20profile%20w_member_social`)
+    console.error('')
+    console.error('If you get unauthorized_scope_error:')
+    console.error('  1. Go to https://www.linkedin.com/developers/apps → your app → Products')
+    console.error('  2. Enable "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect"')
+    console.error('  3. Wait 5 minutes for products to activate')
+    console.error('  4. Try the URL again')
     process.exit(1)
   }
 

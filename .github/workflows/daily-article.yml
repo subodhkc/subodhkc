@@ -2,8 +2,8 @@ name: Daily AI Article Generation
 
 on:
   schedule:
-    # Every day at 10:00 UTC (05:00 CST)
-    - cron: "0 10 * * *"
+    # Every day at 14:00 UTC (09:00 CST) — optimal LinkedIn posting time
+    - cron: "0 14 * * *"
   workflow_dispatch:
     inputs:
       topic:
@@ -206,8 +206,7 @@ jobs:
           name: topic-queue-article
           path: data/
 
-      - name: Post FrontOfAI article to LinkedIn
-        if: needs.generate-frontofai-article.result == 'success' && needs.generate-frontofai-article.outputs.ran == 'true'
+      - name: Post latest article to LinkedIn (one per day)
         run: |
           if [ -z "$LINKEDIN_ACCESS_TOKEN" ] || [ -z "$LINKEDIN_MEMBER_ID" ]; then
             echo "::warning::LINKEDIN_ACCESS_TOKEN or LINKEDIN_MEMBER_ID not set — skipping LinkedIn post"
@@ -219,23 +218,6 @@ jobs:
             SLUG=$(basename "$LATEST" .json)
             echo "Posting to LinkedIn: $SLUG"
             node scripts/post-linkedin.mjs --slug="$SLUG" || echo "::warning::LinkedIn post failed for $SLUG"
-          fi
-
-      - name: Post topic-queue article to LinkedIn
-        if: needs.generate-topic-queue-article.result == 'success'
-        run: |
-          if [ -z "$LINKEDIN_ACCESS_TOKEN" ] || [ -z "$LINKEDIN_MEMBER_ID" ]; then
-            echo "::warning::LINKEDIN_ACCESS_TOKEN or LINKEDIN_MEMBER_ID not set — skipping LinkedIn post"
-            exit 0
-          fi
-
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            # Get the second newest article (the first was already posted above)
-            FILES=$(ls -t data/blog/posts/*.json | head -2)
-            SECOND=$(echo "$FILES" | tail -1)
-            SLUG=$(basename "$SECOND" .json)
-            echo "Posting to LinkedIn: $SLUG"
-            # Wait 30s between posts to avoid rate limiting
-            sleep 30
-            node scripts/post-linkedin.mjs --slug="$SLUG" || echo "::warning::LinkedIn post failed for $SLUG"
+          else
+            echo "::warning::No blog posts found — skipping LinkedIn post"
           fi

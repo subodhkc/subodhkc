@@ -22,7 +22,7 @@
  *   2. Add product: "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect"
  *   3. Set redirect URL to https://subodhkc.com/api/linkedin/callback
  *   4. Visit in browser:
- *      https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_ID&redirect_uri=https://subodhkc.com/api/linkedin/callback&scope=openid%20profile%20w_member_social%20email
+ *      https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_ID&redirect_uri=https://subodhkc.com/api/linkedin/callback&scope=openid%20profile%20w_member_social
  *   5. After auth, exchange the code for a token (see scripts/linkedin-token-exchange.mjs)
  *   6. Store the token in .env.local as LINKEDIN_ACCESS_TOKEN
  *   7. For CI: store as GitHub secret LINKEDIN_ACCESS_TOKEN
@@ -110,17 +110,61 @@ function cleanLinkedInPost(text, articleUrl) {
 }
 
 /**
- * Validate the post text meets LinkedIn requirements:
+ * Validate the post text meets LinkedIn requirements and best practices:
  * - Max 3000 characters for text posts
  * - Not empty
+ * - Has at least 1 hashtag (LinkedIn best practice for discoverability)
+ * - No more than 5 hashtags (LinkedIn algorithm penalizes hashtag stuffing)
+ * - No raw URLs remaining (should have been stripped by cleanLinkedInPost)
+ * - No excessive capitalization (LinkedIn flags as spammy)
+ * - No prohibited content patterns
  */
 function validatePost(text) {
   if (!text || text.length === 0) {
     throw new Error('LinkedIn post text is empty after cleaning')
   }
+
+  // Check for leftover raw URLs (should have been stripped)
+  const urlMatches = text.match(/https?:\/\//g)
+  if (urlMatches) {
+    console.warn('Warning: Raw URL found in post body — stripping (LinkedIn penalizes raw URLs)')
+    text = text.replace(/https?:\/\/\S+/g, '').trim()
+  }
+
+  // Check hashtags
+  const hashtags = text.match(/#\w+/g) || []
+  if (hashtags.length === 0) {
+    console.warn('Warning: No hashtags found — adding relevant ones from article keywords')
+    // Will be handled by caller — return text as-is and let caller append hashtags
+  } else if (hashtags.length > 5) {
+    console.warn(`Warning: ${hashtags.length} hashtags found — LinkedIn penalizes >5. Keeping first 5.`)
+    // Keep only first 5 hashtags
+    let count = 0
+    text = text.replace(/#\w+/g, (match) => {
+      count++
+      return count <= 5 ? match : ''
+    }).replace(/\n{3,}/g, '\n\n').trim()
+  }
+
+  // Check for excessive capitalization (LinkedIn spam flag)
+  const upperChars = text.replace(/[^A-Z]/g, '').length
+  const alphaChars = text.replace(/[^A-Za-z]/g, '').length
+  if (alphaChars > 0 && upperChars / alphaChars > 0.3) {
+    console.warn('Warning: Excessive capitalization detected — LinkedIn may flag as spam')
+  }
+
+  // Check for prohibited content patterns
+  const prohibited = [
+    /\b(buy now|click here|limited time|act now|free money|guaranteed)\b/i,
+  ]
+  for (const pattern of prohibited) {
+    if (pattern.test(text)) {
+      console.warn(`Warning: Potentially prohibited phrase detected: ${pattern.source}`)
+    }
+  }
+
   if (text.length > 3000) {
     console.warn(`Warning: Post is ${text.length} chars (LinkedIn max is 3000 for text). Truncating...`)
-    // Try to truncate at a sentence boundary
     const truncated = text.substring(0, 2950)
     const lastSentence = truncated.lastIndexOf('.')
     if (lastSentence > 2500) {
@@ -128,6 +172,30 @@ function validatePost(text) {
     }
     return truncated + '...'
   }
+  return text
+}
+
+/**
+ * Ensure hashtags are present and at the end of the post.
+ * If no hashtags found, append relevant ones from post keywords.
+ */
+function ensureHashtags(text, keywords) {
+  const existing = text.match(/#\w+/g) || []
+  if (existing.length >= 3) return text
+
+  // Build hashtags from keywords if we need more
+  const keywordTags = (keywords || [])
+    .filter((k) => !k.includes(' '))
+    .slice(0, 5 - existing.length)
+    .map((k) => `#${k.replace(/[^\w]/g, '')}`)
+
+  if (keywordTags.length > 0) {
+    // Remove existing hashtags, append all at end
+    let withoutTags = text.replace(/\s*#\w+\s*/g, '\n').trim()
+    const allTags = [...existing, ...keywordTags].slice(0, 5)
+    return `${withoutTags}\n\n${allTags.join(' ')}`
+  }
+
   return text
 }
 
@@ -243,8 +311,9 @@ async function main() {
   const articleUrl = `${SITE_URL}/blog/${slug}`
 
   // Clean and validate the post text
-  const cleanedText = cleanLinkedInSection(linkedInSection, articleUrl)
-  const finalText = validatePost(cleanedText)
+  const cleanedText = cleanLinkedInPost(linkedInSection, articleUrl)
+  let finalText = validatePost(cleanedText)
+  finalText = ensureHashtags(finalText, post.keywords || [])
 
   console.log(`\nPosting to LinkedIn:`)
   console.log(`  Article: ${post.title}`)

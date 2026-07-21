@@ -93,14 +93,17 @@ Generate the following in a single markdown document:
 - Use line breaks between tweets (---)
 
 ## LinkedIn Post
-- Professional, insight-driven tone
+- Professional, insight-driven tone (not promotional, not engagement-bait)
 - 1300-2000 characters
-- Start with a strong hook (not a question)
-- 3-5 key insights as bullet points
-- End with a CTA to read full article (e.g., "Full article linked below" or "Link in the article card")
+- Start with a strong hook that states a counterintuitive insight or key finding (not a question)
+- 3-5 key insights as bullet points, each with a specific takeaway
+- End with a CTA like "Full article linked below" or "Thoughts?" (no raw URL)
 - DO NOT include the URL in the post body — LinkedIn attaches the article link automatically
 - DO NOT include "Read the full article at [URL]" — the link card handles that
+- DO NOT use engagement bait ("Agree?", "Comment below", "Who else thinks...")
+- DO NOT tag people (@mentions) unless they are directly quoted
 - Include 3-5 relevant hashtags at the very end, each on its own line
+- Hashtags should be specific to AI governance/enterprise AI (e.g., #AIGovernance, not #AI)
 
 ## Reddit Post (r/MachineLearning or r/EnterpriseAI)
 - Title under 300 chars
