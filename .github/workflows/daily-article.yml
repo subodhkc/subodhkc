@@ -278,6 +278,8 @@ jobs:
 
       - name: Generate outreach plan
         if: success()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: |
           if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
