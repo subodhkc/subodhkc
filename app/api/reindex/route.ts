@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getAllPosts } from '@/lib/blog'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
-const ALL_SITE_URLS = [
+const STATIC_SITE_URLS = [
   'https://subodhkc.com',
   'https://subodhkc.com/about',
   'https://subodhkc.com/executive-bio',
@@ -37,6 +38,8 @@ const ALL_SITE_URLS = [
   'https://subodhkc.com/.well-known/ai-plugin.json',
   'https://subodhkc.com/.well-known/wikidata-entity.json',
   'https://subodhkc.com/subodhkcindexnowkey2026.txt',
+  'https://subodhkc.com/blog',
+  'https://subodhkc.com/feed.xml',
 ]
 
 export async function POST(request: NextRequest) {
@@ -57,7 +60,8 @@ export async function POST(request: NextRequest) {
     }
 
     if (urls.length === 0) {
-      urls = ALL_SITE_URLS
+      const blogUrls = getAllPosts().map((p) => `https://subodhkc.com/blog/${p.slug}`)
+      urls = [...STATIC_SITE_URLS, ...blogUrls]
     }
 
     const key = process.env.INDEXNOW_KEY || 'subodhkcindexnowkey2026'
@@ -82,7 +86,7 @@ export async function POST(request: NextRequest) {
         success: true,
         submitted: urls.length,
         urls,
-        message: urls.length === ALL_SITE_URLS.length ? 'All site URLs submitted' : 'Specified URLs submitted',
+        message: urls.length === (STATIC_SITE_URLS.length + getAllPosts().length) ? 'All site URLs submitted' : 'Specified URLs submitted',
       })
     }
 
@@ -109,7 +113,7 @@ export async function GET() {
       submit_all: 'POST /api/reindex (no body) — submits all 32 site URLs',
       submit_specific: 'POST /api/reindex with JSON body { "urls": ["https://subodhkc.com/page"] }',
     },
-    totalUrls: ALL_SITE_URLS.length,
+    totalUrls: STATIC_SITE_URLS.length + ' + dynamic blog URLs',
     note: 'IndexNow works with Bing, Yandex, and Seznam. Google does not support IndexNow — use Google Search Console to submit sitemap manually.',
   })
 }

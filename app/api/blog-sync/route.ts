@@ -41,16 +41,42 @@ export async function POST(request: NextRequest) {
       offset += limit
     }
 
+    // Auto-trigger IndexNow for all blog URLs
+    const currentPosts = getAllPosts()
+    const blogUrls = [
+      'https://subodhkc.com/blog',
+      'https://subodhkc.com/feed.xml',
+      ...currentPosts.map((p) => `https://subodhkc.com/blog/${p.slug}`),
+    ]
+
+    const indexNowKey = process.env.INDEXNOW_KEY || 'subodhkcindexnowkey2026'
+    try {
+      await fetch('https://api.indexnow.org/indexnow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          host: 'subodhkc.com',
+          key: indexNowKey,
+          keyLocation: `https://subodhkc.com/${indexNowKey}.txt`,
+          urlList: blogUrls,
+        }),
+      })
+      console.log(`IndexNow pinged ${blogUrls.length} blog URLs after sync`)
+    } catch (indexErr) {
+      console.error('IndexNow ping failed (non-blocking):', indexErr)
+    }
+
     return NextResponse.json({
       success: true,
-      message: `Found ${allSummaries.length} articles. Run sync-blog.mjs locally to save them.`,
+      message: `Found ${allSummaries.length} articles. Run sync-blog.mjs locally to save them. IndexNow pinged ${blogUrls.length} URLs.`,
       articles: allSummaries.map((a: any) => ({
         id: a.id,
         title: a.title,
         slug: a.slug,
         createdAt: a.created_at,
       })),
-      currentPosts: getAllPosts().length,
+      currentPosts: currentPosts.length,
+      indexNowPinged: blogUrls.length,
     })
   } catch (err) {
     return NextResponse.json(

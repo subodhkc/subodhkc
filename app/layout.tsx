@@ -65,6 +65,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://subodhkc.com'),
   alternates: {
     canonical: '/',
+    types: {
+      'application/rss+xml': 'https://subodhkc.com/feed.xml',
+    },
+  },
+  other: {
+    'webmention': 'https://subodhkc.com/api/webmention',
   },
   openGraph: {
     type: 'website',

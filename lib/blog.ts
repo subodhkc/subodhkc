@@ -13,6 +13,7 @@ export interface BlogPost {
   faqJsonLd: Record<string, unknown> | null
   languageCode: string
   createdAt: string
+  updatedAt?: string
   keywords: string[]
   seedKeyword: string | null
   excerpt: string | null
@@ -27,6 +28,7 @@ export interface BlogPostSummary {
   heroImageUrl: string | null
   excerpt: string | null
   createdAt: string
+  updatedAt?: string
   keywords: string[]
   seedKeyword: string | null
 }
@@ -61,6 +63,7 @@ export function getAllPosts(): BlogPostSummary[] {
         heroImageUrl: post.heroImageUrl,
         excerpt: post.excerpt,
         createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
         keywords: post.keywords || [],
         seedKeyword: post.seedKeyword || null,
       })

@@ -34,15 +34,16 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
         description: post.metaDescription,
         url: `https://subodhkc.com/blog/${post.slug}`,
         type: 'article',
-        images: post.heroImageUrl ? [{ url: post.heroImageUrl }] : undefined,
+        images: post.heroImageUrl ? [{ url: post.heroImageUrl }] : [{ url: 'https://subodhkc.com/portrait.jpeg' }],
         publishedTime: post.createdAt,
+        modifiedTime: post.updatedAt || post.createdAt,
         authors: ['Subodh KC'],
       },
       twitter: {
         card: 'summary_large_image',
         title: post.title,
         description: post.metaDescription,
-        images: post.heroImageUrl ? [post.heroImageUrl] : undefined,
+        images: post.heroImageUrl ? [post.heroImageUrl] : ['https://subodhkc.com/portrait.jpeg'],
       },
       robots: {
         index: true,
@@ -73,7 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     description: post.metaDescription,
     image: post.heroImageUrl ? [post.heroImageUrl] : undefined,
     datePublished: post.createdAt,
-    dateModified: post.createdAt,
+    dateModified: post.updatedAt || post.createdAt,
     author: {
       '@type': 'Person',
       name: 'Subodh KC',
