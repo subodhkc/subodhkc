@@ -82,12 +82,11 @@ async function generateImage(prompt) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'dall-e-3',
+      model: 'gpt-image-1',
       prompt: prompt,
       n: 1,
-      size: '1792x1024',
-      quality: 'standard',
-      response_format: 'url',
+      size: '1536x1024',
+      quality: 'medium',
     }),
   })
 
@@ -97,6 +96,13 @@ async function generateImage(prompt) {
   }
 
   const data = await response.json()
+
+  // gpt-image-1 returns base64-encoded image data
+  if (data.data[0].b64_json) {
+    return `data:image/png;base64,${data.data[0].b64_json}`
+  }
+
+  // DALL-E returns a URL
   return data.data[0].url
 }
 
@@ -104,14 +110,23 @@ async function generateImage(prompt) {
  * Download an image from a URL and save it locally.
  */
 async function downloadImage(url, outputPath) {
+  const dir = path.dirname(outputPath)
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
+
+  // Handle base64 data URLs (gpt-image-1 returns these)
+  if (url.startsWith('data:image/')) {
+    const base64Data = url.split(',')[1]
+    fs.writeFileSync(outputPath, Buffer.from(base64Data, 'base64'))
+    return outputPath
+  }
+
+  // Handle regular URLs (DALL-E)
   const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`Failed to download image (${response.status})`)
   }
 
   const buffer = Buffer.from(await response.arrayBuffer())
-  const dir = path.dirname(outputPath)
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
   fs.writeFileSync(outputPath, buffer)
   return outputPath
 }
