@@ -586,35 +586,6 @@ export function SiteFooter() {
         >
           Listed on
         </span>
-        {[
-          { label: "Product Hunt", url: "https://www.producthunt.com" },
-          { label: "AlternativeTo", url: "https://alternativeto.net" },
-          { label: "SourceForge", url: "https://sourceforge.net" },
-          { label: "dev.to", url: "https://dev.to" },
-          { label: "Stackviv", url: "https://stackviv.ai" },
-          { label: "The Next AI", url: "https://www.thenextai.com" },
-          { label: "AIToolSync", url: "https://aitoolsync.com" },
-          { label: "FreeAlternative", url: "https://freealternative.app" },
-        ].map(({ label, url }) => (
-          <a
-            key={label}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              padding: "4px 10px",
-              borderRadius: 999,
-              border: "1px solid var(--border)",
-              color: "var(--text-secondary)",
-              textDecoration: "none",
-              transition: "color 0.15s, border-color 0.15s",
-            }}
-          >
-            {label}
-          </a>
-        ))}
         <a
           href="https://startupbase.io/products/ai-advisor-subodh-kc?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-dark"
           target="_blank"
@@ -626,6 +597,21 @@ export function SiteFooter() {
             src="https://statics.startupbase.io/site/badges/featured-on-sb-dark.svg"
             alt="Featured on StartupBase"
             style={{ height: 32, width: "auto" }}
+          />
+        </a>
+        <a
+          href="https://postyourstartup.co/startup/subodh-kc?ref=badge"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: "inline-flex", alignItems: "center", height: 55 }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://postyourstartup.co/api/badge/subodh-kc?theme=dark"
+            alt="Featured on PostYourStartup"
+            width={212}
+            height={55}
+            style={{ height: 55, width: "auto" }}
           />
         </a>
       </div>
