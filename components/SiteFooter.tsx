@@ -615,6 +615,19 @@ export function SiteFooter() {
             {label}
           </a>
         ))}
+        <a
+          href="https://startupbase.io/products/ai-advisor-subodh-kc?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-dark"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: "inline-flex", alignItems: "center", height: 32 }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://statics.startupbase.io/site/badges/featured-on-sb-dark.svg"
+            alt="Featured on StartupBase"
+            style={{ height: 32, width: "auto" }}
+          />
+        </a>
       </div>
 
       {/* Bottom bar */}
