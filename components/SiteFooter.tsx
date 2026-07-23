@@ -559,63 +559,6 @@ export function SiteFooter() {
         }}
       />
 
-      {/* Listed On — directory badges (add as directories approve submissions) */}
-      <div
-        className="footer-listed-on"
-        style={{
-          maxWidth: 1240,
-          margin: "0 auto",
-          padding: "16px 28px",
-          borderTop: "1px solid var(--border)",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 12,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 10,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "var(--text-secondary)",
-            marginRight: 4,
-          }}
-        >
-          Listed on
-        </span>
-        <a
-          href="https://startupbase.io/products/ai-advisor-subodh-kc?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-dark"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ display: "inline-flex", alignItems: "center", height: 32 }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://statics.startupbase.io/site/badges/featured-on-sb-dark.svg"
-            alt="Featured on StartupBase"
-            style={{ height: 32, width: "auto" }}
-          />
-        </a>
-        <a
-          href="https://postyourstartup.co/startup/subodh-kc?ref=badge"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ display: "inline-flex", alignItems: "center", height: 55 }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://postyourstartup.co/api/badge/subodh-kc?theme=dark"
-            alt="Featured on PostYourStartup"
-            width={212}
-            height={55}
-            style={{ height: 55, width: "auto" }}
-          />
-        </a>
-      </div>
-
       {/* Bottom bar */}
       <div
         style={{
@@ -665,10 +608,6 @@ export function SiteFooter() {
           }
           .footer-chamber-badge {
             padding: 16px 20px !important;
-          }
-          .footer-listed-on {
-            padding: 12px 20px !important;
-            gap: 8px !important;
           }
         }
       `}</style>
