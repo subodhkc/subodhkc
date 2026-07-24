@@ -6,9 +6,13 @@ export const runtime = 'nodejs'
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization')
+  const cookieToken = request.headers.get('cookie')?.match(/analytics_auth=([^;]+)/)?.[1]
   const expectedToken = process.env.ANALYTICS_API_TOKEN
 
-  if (!expectedToken || authHeader !== `Bearer ${expectedToken}`) {
+  const headerMatch = authHeader === `Bearer ${expectedToken}`
+  const cookieMatch = !!expectedToken && cookieToken === expectedToken
+
+  if (!expectedToken || (!headerMatch && !cookieMatch)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
