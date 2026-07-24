@@ -313,8 +313,8 @@ TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" b
 
 COPYWRITING GUARDRAILS:
 - DO NOT use em-dashes (—) anywhere. Use regular hyphens (-) or restructure sentences.
-- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is"
-- DO NOT fabricate personal claims — no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
+- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to"
+- DO NOT fabricate personal claims - no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
 - DO NOT use em-dashes as punctuation. Use periods, commas, or colons instead.
 - Content must be factual and based on the source story. No hallucinated facts, numbers, or events.
 - Write about the topic, the news, the how-to. Not about personal experience or fabricated case studies.
@@ -463,8 +463,8 @@ TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" b
 
 COPYWRITING GUARDRAILS:
 - DO NOT use em-dashes (—) anywhere. Use regular hyphens (-) or restructure sentences.
-- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is"
-- DO NOT fabricate personal claims — no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
+- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to"
+- DO NOT fabricate personal claims - no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
 - Content must be factual. No hallucinated facts, numbers, or events.
 - Write about the topic, the how-to. Not about personal experience or fabricated case studies.
 

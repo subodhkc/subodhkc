@@ -101,7 +101,7 @@ Generate the following in a single markdown document:
 - DO NOT include any URL, link, or link placeholder in the post body — no [link here], no [link], no raw URL
 - DO NOT use phrases like "Full article linked below", "Link in comments", "Visit my blog at", "Follow me for more"
 - DO NOT use em-dashes (—) anywhere — use regular hyphens (-) or restructure the sentence
-- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is"
+- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to"
 - DO NOT fabricate personal claims — no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
 - DO NOT use engagement bait ("Agree?", "Comment below", "Who else thinks...")
 - DO NOT tag people (@mentions) unless they are directly quoted
@@ -145,7 +145,7 @@ Format each section with markdown headers. Do not add any preamble or conclusion
         { role: 'user', content: prompt },
       ],
       temperature: 0.7,
-      max_tokens: 2000,
+      max_tokens: 3000,
     }),
   })
 
@@ -190,7 +190,13 @@ Review each section and provide:
 2. **Accuracy**: Does the social content accurately reflect the article? (yes/no + notes)
 3. **Hallucinations**: Any claims not supported by the article? (list them or "none")
 4. **Tone Consistency**: Is the tone appropriate for each platform? (notes)
-5. **CTA Quality**: Are the calls-to-action clear and compelling? (notes)
+5. **LinkedIn Guardrails Check**: 
+   - Any em-dashes present? (should be none)
+   - Any AI writing tells? (e.g., "Here's what I've learned", "Let's dive in", "The bottom line is")
+   - Any link placeholders or link references? (should be none)
+   - Any CTA phrases like "visit my blog", "follow me", "check out"? (should be none)
+   - Any fabricated personal claims? (should be none)
+   - Is the content factual and based on the article? (yes/no)
 6. **Platform-Specific Issues**: Any formatting problems for specific platforms? (list or "none")
 7. **Suggested Fixes**: Specific improvements (bullet points, or "none needed")
 
@@ -205,7 +211,7 @@ Format as markdown. Be concise but specific.`
     body: JSON.stringify({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: 'You are a strict social media editor who reviews content for accuracy, tone, and platform-appropriateness. You flag hallucinations and weak CTAs.' },
+        { role: 'system', content: 'You are a strict social media editor who reviews content for accuracy, tone, and platform-appropriateness. You flag hallucinations, AI writing tells, em-dashes, link references, and fabricated claims. For LinkedIn posts, you verify no CTAs, no link placeholders, no em-dashes, and no AI writing patterns are present.' },
         { role: 'user', content: prompt },
       ],
       temperature: 0.3,

@@ -102,7 +102,7 @@ function cleanLinkedInPost(text, articleUrl) {
   cleaned = cleaned.replace(/Find more (at|on|about).*$/gim, '')
   cleaned = cleaned.replace(/More (on this|details) (at|on) (my )?(blog|website|subodhkc).*$/gim, '')
 
-  // Remove AI writing tell phrases
+  // Remove AI writing tell phrases (sentence-level and mid-sentence)
   const aiTells = [
     /Here'?s what I'?ve learned[^.]*\.?/gi,
     /After working across[^.]*\.?/gi,
@@ -120,10 +120,62 @@ function cleanLinkedInPost(text, articleUrl) {
     /A company I worked with[^.]*\.?/gi,
     /We (recently )?(signed|deployed|launched|shipped|rolled out)[^.]*\.?/gi,
     /I (recently )?(signed|deployed|launched|shipped|rolled out)[^.]*\.?/gi,
+    /Let'?s dive in[^.]*\.?/gi,
+    /Let'?s explore[^.]*\.?/gi,
+    /Let'?s break (this|it) down[^.]*\.?/gi,
+    /Here'?s a breakdown[^.]*\.?/gi,
+    /Here'?s why[^.]*\.?/gi,
+    /Here'?s how[^.]*\.?/gi,
+    /The bottom line is[^.]*\.?/gi,
+    /It comes down to[^.]*\.?/gi,
+    /That'?s where[^.]*\.?/gi,
+    /This is where[^.]*\.?/gi,
+    /This isn'?t just about[^.]*\.?/gi,
+    /Let'?s be clear[^.]*\.?/gi,
+    /One thing is clear[^.]*\.?/gi,
+    /A key takeaway is[^.]*\.?/gi,
+    /Let me be clear[^.]*\.?/gi,
+    /Picture this[^.]*\.?/gi,
+    /Imagine[^.]*\.?/gi,
+    /Fast forward[^.]*\.?/gi,
+    /Spoiler alert[^.]*\.?/gi,
+    /Plot twist[^.]*\.?/gi,
+    /Here'?s the deal[^.]*\.?/gi,
+    /But here'?s the catch[^.]*\.?/gi,
+    /And that'?s exactly[^.]*\.?/gi,
+    /Which brings us to[^.]*\.?/gi,
   ]
   for (const tell of aiTells) {
     cleaned = cleaned.replace(tell, '')
   }
+
+  // Remove additional CTA / engagement phrases
+  cleaned = cleaned.replace(/Subscribe to (my|our) newsletter.*$/gim, '')
+  cleaned = cleaned.replace(/DM me.*$/gim, '')
+  cleaned = cleaned.replace(/Reach out.*$/gim, '')
+  cleaned = cleaned.replace(/Let'?s connect.*$/gim, '')
+  cleaned = cleaned.replace(/Drop a comment.*$/gim, '')
+  cleaned = cleaned.replace(/Share your thoughts.*$/gim, '')
+  cleaned = cleaned.replace(/What do you think.*$/gim, '')
+  cleaned = cleaned.replace(/Thoughts\?*$/gim, '')
+
+  // Strip markdown headers (##, ###, #) — LinkedIn doesn't render them
+  cleaned = cleaned.replace(/^#{1,6}\s+/gm, '')
+
+  // Strip orphaned brackets from incomplete markdown link removal
+  cleaned = cleaned.replace(/\[\s*\]/g, '')
+  cleaned = cleaned.replace(/\(\s*\)/g, '')
+
+  // Strip orphaned colons at end of lines (leftover from AI tell removal)
+  cleaned = cleaned.replace(/:\s*$/gm, '')
+
+  // Strip orphaned dashes at start of lines (leftover from em-dash replacement)
+  cleaned = cleaned.replace(/^\s*[-]\s*$/gm, '')
+
+  // Normalize whitespace: collapse multiple spaces, trim trailing spaces per line
+  cleaned = cleaned.replace(/  +/g, ' ')
+  cleaned = cleaned.replace(/^[ \t]+/gm, '')
+  cleaned = cleaned.replace(/[ \t]+$/gm, '')
 
   // Replace em-dashes with regular hyphens
   cleaned = cleaned.replace(/—/g, '-')
@@ -145,9 +197,6 @@ function cleanLinkedInPost(text, articleUrl) {
 
   // Clean up multiple consecutive empty lines
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n')
-
-  // Remove orphaned dashes at start of lines (leftover from em-dash replacement)
-  cleaned = cleaned.replace(/^\s*-\s*$/gm, '')
 
   // Trim
   cleaned = cleaned.trim()
@@ -239,10 +288,34 @@ function validatePost(text) {
     /A company I worked with/i,
     /We (recently )?(signed|deployed|launched|shipped|rolled out)/i,
     /I (recently )?(signed|deployed|launched|shipped|rolled out)/i,
+    /Let'?s dive in/i,
+    /Let'?s explore/i,
+    /Let'?s break (this|it) down/i,
+    /Here'?s a breakdown/i,
+    /Here'?s why/i,
+    /Here'?s how/i,
+    /The bottom line is/i,
+    /It comes down to/i,
+    /That'?s where/i,
+    /This is where/i,
+    /This isn'?t just about/i,
+    /Let'?s be clear/i,
+    /One thing is clear/i,
+    /A key takeaway is/i,
+    /Let me be clear/i,
+    /Picture this/i,
+    /Imagine/i,
+    /Fast forward/i,
+    /Spoiler alert/i,
+    /Plot twist/i,
+    /Here'?s the deal/i,
+    /But here'?s the catch/i,
+    /And that'?s exactly/i,
+    /Which brings us to/i,
   ]
   for (const pattern of aiTellPatterns) {
     if (pattern.test(text)) {
-      console.warn(`Warning: AI writing tell detected — stripping: ${pattern.source}`)
+      console.warn(`Warning: AI writing tell detected - stripping: ${pattern.source}`)
       text = text.replace(new RegExp(pattern.source, 'gi'), '')
     }
   }
@@ -255,16 +328,41 @@ function validatePost(text) {
     /Read more (at|on|about)/i,
     /Find more (at|on|about)/i,
     /More (on this|details) (at|on) (my )?(blog|website|subodhkc)/i,
+    /Subscribe to (my|our) newsletter/i,
+    /DM me/i,
+    /Reach out/i,
+    /Let'?s connect/i,
+    /Drop a comment/i,
+    /Share your thoughts/i,
+    /What do you think/i,
   ]
   for (const pattern of ctaPatterns) {
     if (pattern.test(text)) {
-      console.warn(`Warning: Blog/website CTA phrase detected — stripping: ${pattern.source}`)
+      console.warn(`Warning: CTA phrase detected - stripping: ${pattern.source}`)
       text = text.replace(new RegExp(pattern.source, 'gim'), '')
     }
   }
 
+  // Guardrail: check for markdown headers (should have been stripped)
+  if (/^#{1,6}\s+/m.test(text)) {
+    console.warn('Warning: Markdown header found in post - stripping')
+    text = text.replace(/^#{1,6}\s+/gm, '')
+  }
+
+  // Guardrail: check for orphaned brackets (should have been stripped)
+  if (/\[\s*\]/.test(text)) {
+    console.warn('Warning: Orphaned brackets found in post - stripping')
+    text = text.replace(/\[\s*\]/g, '').replace(/\(\s*\)/g, '')
+  }
+
   // Clean up any leftover empty lines from strippings
   text = text.replace(/\n{3,}/g, '\n\n').trim()
+
+  // Guardrail: minimum content check (not just hashtags)
+  const contentWithoutTags = text.replace(/#\w+/g, '').replace(/\s+/g, '').trim()
+  if (contentWithoutTags.length < 100) {
+    console.warn(`Warning: Post content is very thin (${contentWithoutTags.length} chars without hashtags) - may not perform well`)
+  }
 
   if (text.length > 3000) {
     console.warn(`Warning: Post is ${text.length} chars (LinkedIn max is 3000 for text). Truncating...`)
@@ -281,16 +379,26 @@ function validatePost(text) {
 /**
  * Ensure hashtags are present and at the end of the post.
  * If no hashtags found, append relevant ones from post keywords.
+ * Multi-word keywords are camelCased (e.g., "AI governance" -> #AIGovernance).
  */
 function ensureHashtags(text, keywords) {
   const existing = text.match(/#\w+/g) || []
   if (existing.length >= 3) return text
 
   // Build hashtags from keywords if we need more
+  // camelCase multi-word keywords, strip non-alphanumeric
   const keywordTags = (keywords || [])
-    .filter((k) => !k.includes(' '))
+    .map((k) => {
+      // If multi-word, camelCase it
+      const words = k.trim().split(/\s+/)
+      if (words.length > 1) {
+        return '#' + words.map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('').replace(/[^\w]/g, '')
+      }
+      return '#' + k.replace(/[^\w]/g, '')
+    })
+    .filter((tag) => tag.length > 1) // filter out empty #
+    .filter((tag) => !existing.some((e) => e.toLowerCase() === tag.toLowerCase())) // no dupes
     .slice(0, 5 - existing.length)
-    .map((k) => `#${k.replace(/[^\w]/g, '')}`)
 
   if (keywordTags.length > 0) {
     // Remove existing hashtags, append all at end
@@ -376,15 +484,16 @@ async function uploadImage(accessToken, memberId, imageUrl) {
 
 /**
  * Post to LinkedIn using the UGC Posts API.
- * No URL or link card — text-only or image-only posts get highest reach.
+ * No URL or link card - text-only or image-only posts get highest reach.
  * If an image asset URN is provided, attaches the image (still no link card).
+ * Retries on rate limit (429) and server errors (500/502/503) with exponential backoff.
  */
 async function postToLinkedIn(accessToken, memberId, text, imageAssetUrn) {
   let media
   let shareMediaCategory
 
   if (imageAssetUrn) {
-    // Image post — highest engagement, no URL
+    // Image post - highest engagement, no URL
     shareMediaCategory = 'IMAGE'
     media = [
       {
@@ -393,7 +502,7 @@ async function postToLinkedIn(accessToken, memberId, text, imageAssetUrn) {
       },
     ]
   } else {
-    // Text-only post — no link card, no URL, maximum reach
+    // Text-only post - no link card, no URL, maximum reach
     shareMediaCategory = 'NONE'
     media = []
   }
@@ -415,23 +524,35 @@ async function postToLinkedIn(accessToken, memberId, text, imageAssetUrn) {
     },
   }
 
-  const response = await fetch(`${LINKEDIN_API}/v2/ugcPosts`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-      'X-Restli-Protocol-Version': '2.0.0',
-    },
-    body: JSON.stringify(body),
-  })
+  const maxRetries = 3
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const response = await fetch(`${LINKEDIN_API}/v2/ugcPosts`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+        'X-Restli-Protocol-Version': '2.0.0',
+      },
+      body: JSON.stringify(body),
+    })
 
-  if (!response.ok) {
-    const error = await response.text()
-    throw new Error(`LinkedIn API error (${response.status}): ${error}`)
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    }
+
+    const errorText = await response.text()
+
+    // Retry on rate limit or server errors
+    if ([429, 500, 502, 503].includes(response.status) && attempt < maxRetries) {
+      const delay = attempt * 5000 // 5s, 10s, 15s
+      console.warn(`LinkedIn API ${response.status} on attempt ${attempt}/${maxRetries} - retrying in ${delay / 1000}s...`)
+      await new Promise((r) => setTimeout(r, delay))
+      continue
+    }
+
+    throw new Error(`LinkedIn API error (${response.status}): ${errorText}`)
   }
-
-  const data = await response.json()
-  return data
 }
 
 /**
