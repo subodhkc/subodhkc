@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Eye, Clock, MousePointerClick, Mail, TrendingUp, LogOut } from 'lucide-react'
+import { OutreachTracker } from './outreach-tracker'
 
 interface AnalyticsData {
   summary: {
@@ -243,6 +244,8 @@ export function AnalyticsDashboard() {
                 )}
               </CardContent>
             </Card>
+
+            <OutreachTracker />
           </>
         )}
 

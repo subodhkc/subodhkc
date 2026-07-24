@@ -97,6 +97,50 @@ function recordSend(tracker, target) {
   saveTracker(tracker)
 }
 
+// Log outreach email to Supabase for dashboard tracking
+async function logOutreachToSupabase(post, email, emailType = 'initial') {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!supabaseUrl || !supabaseKey) {
+    console.log('  ℹ Supabase not configured — skipping dashboard logging')
+    return false
+  }
+
+  try {
+    const resp = await fetch(`${supabaseUrl}/rest/v1/outreach_emails`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        slug: post.slug,
+        article_title: post.title,
+        target: email.recipient.replace(/\s*\(FOLLOW-UP.*\)/, '').trim(),
+        recipient_email: null,
+        subject: email.subject,
+        body_preview: email.body.substring(0, 500),
+        email_type: emailType,
+        status: 'sent',
+        sent_date: new Date().toISOString(),
+      }),
+    })
+
+    if (!resp.ok) {
+      console.error(`  ✗ Supabase logging failed: ${resp.status} ${resp.statusText}`)
+      return false
+    }
+
+    console.log(`  ✓ Logged to Supabase: ${email.recipient}`)
+    return true
+  } catch (err) {
+    console.error(`  ✗ Supabase logging error: ${err.message}`)
+    return false
+  }
+}
+
 // ─── Topic Classification ───────────────────────────────────────────────────
 
 const TOPIC_CATEGORIES = {
@@ -919,6 +963,7 @@ async function main() {
   const slugArg = args.find((a) => a.startsWith('--slug='))?.split('=')[1]
   const allMode = args.includes('--all')
   const noEmail = args.includes('--no-email')
+  const logSupabase = args.includes('--log-supabase')
 
   let slugsToProcess = []
 
@@ -959,6 +1004,16 @@ async function main() {
       if (sent) {
         tracker[slug] = { emailed: true, date: new Date().toISOString() }
         saveTracker(tracker)
+      }
+    }
+
+    // Log initial outreach emails to Supabase for dashboard tracking
+    if (logSupabase) {
+      const categories = classifyPost(post.keywords)
+      const emails = generateOutreachEmails(post, categories)
+      const initialEmails = emails.filter(e => !e.recipient.includes('FOLLOW-UP'))
+      for (const email of initialEmails) {
+        await logOutreachToSupabase(post, email, 'initial')
       }
     }
   }
