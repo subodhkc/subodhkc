@@ -94,14 +94,19 @@ Generate the following in a single markdown document:
 
 ## LinkedIn Post
 - Professional, insight-driven tone (not promotional, not engagement-bait)
-- 1300-2000 characters
+- 900-1500 characters — brief and insightful, not a wall of text
 - Start with a strong hook that states a counterintuitive insight or key finding (not a question)
 - 3-5 key insights as bullet points, each with a specific takeaway
-- End with a soft CTA like "Visit my blog at SubodhKC for more on this" or "Follow me for more AI governance insights"
-- DO NOT include any URL or link in the post body — no link card, no raw URL
-- DO NOT use phrases like "Full article linked below" or "Link in comments" — there is no link
+- No CTA at the end — no "visit my blog", "follow me", "check out", "read more", or any link reference
+- DO NOT include any URL, link, or link placeholder in the post body — no [link here], no [link], no raw URL
+- DO NOT use phrases like "Full article linked below", "Link in comments", "Visit my blog at", "Follow me for more"
+- DO NOT use em-dashes (—) anywhere — use regular hyphens (-) or restructure the sentence
+- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is"
+- DO NOT fabricate personal claims — no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
 - DO NOT use engagement bait ("Agree?", "Comment below", "Who else thinks...")
 - DO NOT tag people (@mentions) unless they are directly quoted
+- Content must be factual and based on the article — no hallucinated facts, numbers, or events
+- Write about the topic, the news, the how-to — not about yourself or your experience
 - Include 3-5 relevant hashtags at the very end, each on its own line
 - Hashtags should be specific to AI governance/enterprise AI (e.g., #AIGovernance, not #AI)
 
@@ -136,7 +141,7 @@ Format each section with markdown headers. Do not add any preamble or conclusion
     body: JSON.stringify({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: 'You are an expert social media strategist who creates high-engagement content for B2B tech audiences. You understand AI governance, enterprise architecture, and compliance niches.' },
+        { role: 'system', content: 'You are an expert social media strategist who creates high-engagement content for B2B tech audiences. You understand AI governance, enterprise architecture, and compliance niches. You write in a natural, human voice. You never use em-dashes. You never use AI writing patterns like "Here\'s what I\'ve learned" or "After working across". You never fabricate personal experiences or claims. You stick to facts from the article.' },
         { role: 'user', content: prompt },
       ],
       temperature: 0.7,

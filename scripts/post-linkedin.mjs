@@ -90,6 +90,45 @@ function cleanLinkedInPost(text, articleUrl) {
   cleaned = cleaned.replace(/Article linked below.*$/gim, '')
   cleaned = cleaned.replace(/Link(ed)? below.*$/gim, '')
 
+  // Remove link placeholders like [link here], [link], [url], [insert link]
+  cleaned = cleaned.replace(/\[(link here|link|url|insert link|insert url)\]/gi, '')
+  cleaned = cleaned.replace(/\[link[^\]]*\]/gi, '')
+
+  // Remove blog/website CTA phrases
+  cleaned = cleaned.replace(/Visit my blog at.*$/gim, '')
+  cleaned = cleaned.replace(/Follow me for more.*$/gim, '')
+  cleaned = cleaned.replace(/Check out (my|the) (blog|article|post).*$/gim, '')
+  cleaned = cleaned.replace(/Read more (at|on|about).*$/gim, '')
+  cleaned = cleaned.replace(/Find more (at|on|about).*$/gim, '')
+  cleaned = cleaned.replace(/More (on this|details) (at|on) (my )?(blog|website|subodhkc).*$/gim, '')
+
+  // Remove AI writing tell phrases
+  const aiTells = [
+    /Here'?s what I'?ve learned[^.]*\.?/gi,
+    /After working across[^.]*\.?/gi,
+    /In my experience[^.]*\.?/gi,
+    /I'?ve seen firsthand[^.]*\.?/gi,
+    /Let me share[^.]*\.?/gi,
+    /Here'?s the thing[^.]*\.?/gi,
+    /It'?s worth noting that/gi,
+    /Needless to say,?/gi,
+    /At the end of the day,?/gi,
+    /The reality is[^.]*\.?/gi,
+    /What I'?ve come to realize[^.]*\.?/gi,
+    /From my (experience|work) (in|with|across)[^.]*\.?/gi,
+    /In a recent (engagement|project|client)[^.]*\.?/gi,
+    /A company I worked with[^.]*\.?/gi,
+    /We (recently )?(signed|deployed|launched|shipped|rolled out)[^.]*\.?/gi,
+    /I (recently )?(signed|deployed|launched|shipped|rolled out)[^.]*\.?/gi,
+  ]
+  for (const tell of aiTells) {
+    cleaned = cleaned.replace(tell, '')
+  }
+
+  // Replace em-dashes with regular hyphens
+  cleaned = cleaned.replace(/—/g, '-')
+  cleaned = cleaned.replace(/–/g, '-')
+
   // Remove raw URLs from the body — LinkedIn attaches the link separately
   // This is a best practice: raw URLs in the body hurt reach due to LinkedIn's algorithm
   cleaned = cleaned.replace(/https?:\/\/\S+/g, '')
@@ -106,6 +145,9 @@ function cleanLinkedInPost(text, articleUrl) {
 
   // Clean up multiple consecutive empty lines
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n')
+
+  // Remove orphaned dashes at start of lines (leftover from em-dash replacement)
+  cleaned = cleaned.replace(/^\s*-\s*$/gm, '')
 
   // Trim
   cleaned = cleaned.trim()
@@ -166,6 +208,63 @@ function validatePost(text) {
       console.warn(`Warning: Potentially prohibited phrase detected: ${pattern.source}`)
     }
   }
+
+  // Guardrail: check for em-dashes (should have been replaced)
+  if (/—|–/.test(text)) {
+    console.warn('Warning: Em-dash found in post — replacing with hyphen')
+    text = text.replace(/—/g, '-').replace(/–/g, '-')
+  }
+
+  // Guardrail: check for link placeholders (should have been stripped)
+  if (/\[(link here|link|url|insert link|insert url)\]/i.test(text) || /\[link[^\]]*\]/i.test(text)) {
+    console.warn('Warning: Link placeholder found in post — stripping')
+    text = text.replace(/\[(link here|link|url|insert link|insert url)\]/gi, '').replace(/\[link[^\]]*\]/gi, '')
+  }
+
+  // Guardrail: check for AI writing tells (should have been stripped)
+  const aiTellPatterns = [
+    /Here'?s what I'?ve learned/i,
+    /After working across/i,
+    /In my experience/i,
+    /I'?ve seen firsthand/i,
+    /Let me share/i,
+    /Here'?s the thing/i,
+    /It'?s worth noting/i,
+    /Needless to say/i,
+    /At the end of the day/i,
+    /The reality is/i,
+    /What I'?ve come to realize/i,
+    /From my (experience|work) (in|with|across)/i,
+    /In a recent (engagement|project|client)/i,
+    /A company I worked with/i,
+    /We (recently )?(signed|deployed|launched|shipped|rolled out)/i,
+    /I (recently )?(signed|deployed|launched|shipped|rolled out)/i,
+  ]
+  for (const pattern of aiTellPatterns) {
+    if (pattern.test(text)) {
+      console.warn(`Warning: AI writing tell detected — stripping: ${pattern.source}`)
+      text = text.replace(new RegExp(pattern.source, 'gi'), '')
+    }
+  }
+
+  // Guardrail: check for blog/website CTA phrases (should have been stripped)
+  const ctaPatterns = [
+    /Visit my blog at/i,
+    /Follow me for more/i,
+    /Check out (my|the) (blog|article|post)/i,
+    /Read more (at|on|about)/i,
+    /Find more (at|on|about)/i,
+    /More (on this|details) (at|on) (my )?(blog|website|subodhkc)/i,
+  ]
+  for (const pattern of ctaPatterns) {
+    if (pattern.test(text)) {
+      console.warn(`Warning: Blog/website CTA phrase detected — stripping: ${pattern.source}`)
+      text = text.replace(new RegExp(pattern.source, 'gim'), '')
+    }
+  }
+
+  // Clean up any leftover empty lines from strippings
+  text = text.replace(/\n{3,}/g, '\n\n').trim()
 
   if (text.length > 3000) {
     console.warn(`Warning: Post is ${text.length} chars (LinkedIn max is 3000 for text). Truncating...`)

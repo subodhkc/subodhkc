@@ -308,8 +308,16 @@ async function generateArticleFromFrontOfAI(story, posts) {
 
 CONTENT NICHE: AI governance, enterprise AI architecture, AI compliance, AI security, legal tech AI
 TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers
-AUTHOR: Subodh KC — Fortune 50 AI governance and architecture experience
+AUTHOR: Subodh KC
 TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X."
+
+COPYWRITING GUARDRAILS:
+- DO NOT use em-dashes (—) anywhere. Use regular hyphens (-) or restructure sentences.
+- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is"
+- DO NOT fabricate personal claims — no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
+- DO NOT use em-dashes as punctuation. Use periods, commas, or colons instead.
+- Content must be factual and based on the source story. No hallucinated facts, numbers, or events.
+- Write about the topic, the news, the how-to. Not about personal experience or fabricated case studies.
 
 SOURCE NEWS STORY (from FrontOfAI):
 Title: ${storyData.title}
@@ -395,7 +403,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
       messages: [
         {
           role: 'system',
-          content: 'You are an expert content writer specializing in AI governance, enterprise AI architecture, and AI compliance. You write practical, implementation-focused content for technical leaders. You analyze news stories and provide expert commentary and actionable guidance. You return only valid JSON.',
+          content: 'You are an expert content writer specializing in AI governance, enterprise AI architecture, and AI compliance. You write practical, implementation-focused content for technical leaders. You analyze news stories and provide expert commentary and actionable guidance. You never use em-dashes. You never use AI writing patterns like "Here\'s what I\'ve learned" or "After working across". You never fabricate personal experiences or claims. You stick to facts from the source material. You return only valid JSON.',
         },
         { role: 'user', content: prompt },
       ],
@@ -450,8 +458,15 @@ async function generateArticle(topic, pillar, posts) {
 
 CONTENT NICHE: AI governance, enterprise AI architecture, AI compliance, AI security, legal tech AI
 TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers
-AUTHOR: Subodh KC — Fortune 50 AI governance and architecture experience
+AUTHOR: Subodh KC
 TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X."
+
+COPYWRITING GUARDRAILS:
+- DO NOT use em-dashes (—) anywhere. Use regular hyphens (-) or restructure sentences.
+- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is"
+- DO NOT fabricate personal claims — no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
+- Content must be factual. No hallucinated facts, numbers, or events.
+- Write about the topic, the how-to. Not about personal experience or fabricated case studies.
 
 TOPIC: ${topic}
 CONTENT PILLAR: ${pillar}
@@ -526,7 +541,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
       messages: [
         {
           role: 'system',
-          content: 'You are an expert content writer specializing in AI governance, enterprise AI architecture, and AI compliance. You write practical, implementation-focused content for technical leaders. You return only valid JSON.',
+          content: 'You are an expert content writer specializing in AI governance, enterprise AI architecture, and AI compliance. You write practical, implementation-focused content for technical leaders. You never use em-dashes. You never use AI writing patterns like "Here\'s what I\'ve learned" or "After working across". You never fabricate personal experiences or claims. You stick to facts. You return only valid JSON.',
         },
         { role: 'user', content: prompt },
       ],
