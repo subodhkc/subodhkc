@@ -38,7 +38,7 @@ export function WordCycle({ words, intervalMs = 2800 }: Props) {
         gridTemplateRows: "1fr",
         verticalAlign: "baseline",
         position: "relative",
-        color: "var(--accent)",
+        color: "var(--op-accent)",
         fontFamily: "var(--font-serif)",
         fontStyle: "italic",
         fontWeight: 400,

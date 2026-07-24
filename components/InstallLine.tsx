@@ -23,7 +23,7 @@ export function InstallLine({ label, copyText }: Props) {
         fontFamily: "var(--font-mono)",
         fontSize: 12,
         background: "var(--code)",
-        border: "1px solid var(--border)",
+        border: "1px solid var(--op-border)",
         borderRadius: 6,
         padding: "8px 10px",
         display: "flex",
@@ -35,7 +35,7 @@ export function InstallLine({ label, copyText }: Props) {
       }}
     >
       <span style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-        <span style={{ color: "var(--accent)", flexShrink: 0 }}>$</span>
+        <span style={{ color: "var(--op-accent)", flexShrink: 0 }}>$</span>
         <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {copyText || label}
         </span>
@@ -55,7 +55,7 @@ export function InstallLine({ label, copyText }: Props) {
         }}
       >
         {copied ? (
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="var(--op-accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 8 L7 12 L13 4" />
           </svg>
         ) : (

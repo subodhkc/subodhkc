@@ -55,8 +55,8 @@ export default function HomePage() {
   return (
     <AccessProvider>
       <Hero />
-      <Registry />
       <MagazineBadge />
+      <Registry />
       <TestimonialsSection />
       <ComplianceGuidesSection />
       <WritingSection />

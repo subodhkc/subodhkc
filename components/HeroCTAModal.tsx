@@ -115,8 +115,8 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
           maxWidth: 520,
           maxHeight: "90vh",
           overflowY: "auto",
-          background: "var(--card)",
-          border: "1px solid var(--border)",
+          background: "var(--op-card)",
+          border: "1px solid var(--op-border)",
           borderRadius: 12,
           boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
         }}
@@ -132,7 +132,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
             background: "transparent",
             border: "none",
             cursor: "pointer",
-            color: "var(--muted)",
+            color: "var(--op-muted)",
             fontSize: 20,
             lineHeight: 1,
             padding: 4,
@@ -149,7 +149,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
                   width: 56,
                   height: 56,
                   borderRadius: "50%",
-                  background: "color-mix(in oklab, var(--accent) 15%, transparent)",
+                  background: "color-mix(in oklab, var(--op-accent) 15%, transparent)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -192,7 +192,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
                   fontSize: 10,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "var(--accent)",
+                  color: "var(--op-accent)",
                   marginBottom: 8,
                 }}
               >
@@ -263,7 +263,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
                           style={{
                             width: "100%",
                             padding: "10px 12px",
-                            border: "1px solid var(--border)",
+                            border: "1px solid var(--op-border)",
                             borderRadius: 8,
                             background: "var(--bg)",
                             color: "var(--fg)",
@@ -310,7 +310,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
                           style={{
                             width: "100%",
                             padding: "10px 12px",
-                            border: "1px solid var(--border)",
+                            border: "1px solid var(--op-border)",
                             borderRadius: 8,
                             background: "var(--bg)",
                             color: "var(--fg)",
@@ -350,7 +350,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
                         style={{
                           width: "100%",
                           padding: "10px 12px",
-                          border: "1px solid var(--border)",
+                          border: "1px solid var(--op-border)",
                           borderRadius: 8,
                           background: "var(--bg)",
                           color: "var(--fg)",

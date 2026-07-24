@@ -171,12 +171,13 @@ jobs:
 
           URLS='${{ steps.sitemap.outputs.urls }}'
           echo "$URLS" | python3 -c "
-          import json, sys, urllib.request, time
+          import json, sys, urllib.request, time, urllib.error
 
           token = '$ACCESS_TOKEN'
           urls = json.load(sys.stdin)
           success = 0
           fail = 0
+          permission_error = False
 
           for url in urls[:200]:
               try:
@@ -188,12 +189,29 @@ jobs:
                   )
                   resp = urllib.request.urlopen(req)
                   success += 1
+                  print(f'  OK: {url}')
+                  time.sleep(0.5)
+              except urllib.error.HTTPError as e:
+                  if e.code == 403:
+                      print(f'  FAIL: {url} — HTTP 403: Permission denied. Service account not verified as site owner in Search Console.')
+                      permission_error = True
+                      fail += 1
+                  else:
+                      print(f'  FAIL: {url} — HTTP {e.code}: {e.reason}')
+                      fail += 1
                   time.sleep(0.5)
               except Exception as e:
                   print(f'  FAIL: {url} — {e}')
                   fail += 1
+                  time.sleep(0.5)
 
           print(f'Google Indexing API: {success} submitted, {fail} failed')
+          if permission_error:
+              print('::error::Google Indexing API returned 403. Add the service account as Owner in Google Search Console > Settings > Users and permissions.')
+              sys.exit(1)
+          if fail > 0:
+              print(f'::error::{fail} URL(s) failed to submit to Google Indexing API')
+              sys.exit(1)
           "
 
       - name: Submit sitemap to Google Search Console API

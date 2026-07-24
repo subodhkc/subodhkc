@@ -59,7 +59,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
           fontSize: 11,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "var(--accent)",
+          color: "var(--op-accent)",
           marginBottom: 16,
         }}
       >
@@ -107,8 +107,8 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
               fontSize: 11,
               padding: "5px 12px",
               borderRadius: 999,
-              border: `1px solid ${activeKeyword === null ? "var(--accent)" : "var(--border)"}`,
-              background: activeKeyword === null ? "var(--accent)" : "var(--card)",
+              border: `1px solid ${activeKeyword === null ? "var(--op-accent)" : "var(--op-border)"}`,
+              background: activeKeyword === null ? "var(--op-accent)" : "var(--op-card)",
               color: activeKeyword === null ? "var(--bg)" : "var(--text-secondary)",
               cursor: "pointer",
               transition: "all 0.15s",
@@ -125,8 +125,8 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                 fontSize: 11,
                 padding: "5px 12px",
                 borderRadius: 999,
-                border: `1px solid ${activeKeyword === kw ? "var(--accent)" : "var(--border)"}`,
-                background: activeKeyword === kw ? "var(--accent)" : "var(--card)",
+                border: `1px solid ${activeKeyword === kw ? "var(--op-accent)" : "var(--op-border)"}`,
+                background: activeKeyword === kw ? "var(--op-accent)" : "var(--op-card)",
                 color: activeKeyword === kw ? "var(--bg)" : "var(--text-secondary)",
                 cursor: "pointer",
                 transition: "all 0.15s",
@@ -148,9 +148,9 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
           style={{
             padding: "48px 24px",
             textAlign: "center",
-            border: "1px solid var(--border)",
+            border: "1px solid var(--op-border)",
             borderRadius: 8,
-            background: "var(--card)",
+            background: "var(--op-card)",
           }}
         >
           <p
@@ -174,8 +174,8 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                 display: "flex",
                 gap: 32,
                 padding: "40px 0",
-                borderTop: "1px solid var(--border)",
-                borderBottom: "1px solid var(--border)",
+                borderTop: "1px solid var(--op-border)",
+                borderBottom: "1px solid var(--op-border)",
                 textDecoration: "none",
                 color: "var(--fg)",
                 alignItems: "flex-start",
@@ -190,7 +190,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                     fontSize: 10,
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                    color: "var(--accent)",
+                    color: "var(--op-accent)",
                     marginBottom: 12,
                   }}
                 >
@@ -219,7 +219,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                   {featured.keywords.length > 0 && (
                     <>
                       <span>·</span>
-                      <span style={{ color: "var(--accent)" }}>
+                      <span style={{ color: "var(--op-accent)" }}>
                         {featured.keywords.slice(0, 3).join(" · ")}
                       </span>
                     </>
@@ -256,7 +256,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                     borderRadius: 8,
                     overflow: "hidden",
                     flexShrink: 0,
-                    border: "1px solid var(--border)",
+                    border: "1px solid var(--op-border)",
                   }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -280,7 +280,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                   display: "flex",
                   gap: 24,
                   padding: "28px 0",
-                  borderBottom: "1px solid var(--border)",
+                  borderBottom: "1px solid var(--op-border)",
                   textDecoration: "none",
                   color: "var(--fg)",
                   transition: "opacity 0.15s",
@@ -309,7 +309,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                     <span>·</span>
                     <span>{calculateReadingTime(post.contentHtml)} min read</span>
                     {post.keywords.length > 0 && (
-                      <span style={{ color: "var(--accent)" }}>
+                      <span style={{ color: "var(--op-accent)" }}>
                         {post.keywords.slice(0, 3).join(" · ")}
                       </span>
                     )}
@@ -349,7 +349,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                       borderRadius: 6,
                       overflow: "hidden",
                       flexShrink: 0,
-                      border: "1px solid var(--border)",
+                      border: "1px solid var(--op-border)",
                     }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -374,8 +374,8 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                   fontSize: 13,
                   padding: "10px 24px",
                   borderRadius: 999,
-                  border: "1px solid var(--border)",
-                  background: "var(--card)",
+                  border: "1px solid var(--op-border)",
+                  background: "var(--op-card)",
                   color: "var(--fg)",
                   cursor: "pointer",
                   transition: "all 0.15s",

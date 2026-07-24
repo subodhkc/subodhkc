@@ -6,6 +6,7 @@ import { sanitizeHtml, calculateReadingTime } from '@/lib/blog-utils'
 import { ShareButtons } from '@/components/blog/ShareButtons'
 import { BlogAuthorCard } from '@/components/blog/BlogAuthorCard'
 import { BlogNewsletterCTA } from '@/components/blog/BlogNewsletterCTA'
+import { BlogDownloadCTA } from '@/components/blog/BlogDownloadCTA'
 import { TableOfContents } from '@/components/blog/TableOfContents'
 
 export const revalidate = 3600
@@ -190,7 +191,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {post.keywords.length > 0 && (
           <>
             <span>·</span>
-            <span style={{ color: 'var(--accent)' }}>
+            <span style={{ color: 'var(--op-accent)' }}>
               {post.keywords.slice(0, 3).join(' · ')}
             </span>
           </>
@@ -222,7 +223,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             borderRadius: 8,
             overflow: 'hidden',
             marginBottom: 40,
-            border: '1px solid var(--border)',
+            border: '1px solid var(--op-border)',
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -240,6 +241,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         className="blog-content"
         dangerouslySetInnerHTML={{ __html: displayHtml }}
       />
+
+      {/* Downloadable checklist CTA */}
+      {post.downloadableUrl && post.downloadableLabel && (
+        <BlogDownloadCTA downloadableUrl={post.downloadableUrl} downloadableLabel={post.downloadableLabel} />
+      )}
 
       {/* Newsletter CTA */}
       <div style={{ marginTop: 48, marginBottom: 48 }}>
@@ -279,8 +285,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   display: 'block',
                   padding: 20,
                   borderRadius: 8,
-                  border: '1px solid var(--border)',
-                  background: 'var(--card)',
+                  border: '1px solid var(--op-border)',
+                  background: 'var(--op-card)',
                   textDecoration: 'none',
                   color: 'var(--fg)',
                 }}
@@ -332,7 +338,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         style={{
           marginTop: 48,
           paddingTop: 32,
-          borderTop: '1px solid var(--border)',
+          borderTop: '1px solid var(--op-border)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -352,7 +358,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             gap: 6,
             padding: '8px 16px',
             borderRadius: 999,
-            border: '1px solid var(--border)',
+            border: '1px solid var(--op-border)',
           }}
         >
           ← all articles
@@ -399,15 +405,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           color: var(--fg);
         }
         .blog-content a {
-          color: var(--accent);
+          color: var(--op-accent);
           text-decoration: underline;
           text-underline-offset: 2px;
         }
         .blog-content blockquote {
           margin: 24px 0;
           padding: 16px 20px;
-          border-left: 3px solid var(--accent);
-          background: var(--card);
+          border-left: 3px solid var(--op-accent);
+          background: var(--op-card);
           border-radius: 0 6px 6px 0;
           color: var(--text-secondary);
           font-style: italic;
@@ -415,17 +421,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         .blog-content code {
           font-family: var(--font-mono);
           font-size: 14px;
-          background: var(--card);
+          background: var(--op-card);
           padding: 2px 6px;
           border-radius: 4px;
-          border: 1px solid var(--border);
+          border: 1px solid var(--op-border);
         }
         .blog-content pre {
           margin: 24px 0;
           padding: 20px;
-          background: var(--card);
+          background: var(--op-card);
           border-radius: 8px;
-          border: 1px solid var(--border);
+          border: 1px solid var(--op-border);
           overflow-x: auto;
         }
         .blog-content pre code {
@@ -446,16 +452,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         }
         .blog-content th, .blog-content td {
           padding: 10px 14px;
-          border: 1px solid var(--border);
+          border: 1px solid var(--op-border);
           text-align: left;
         }
         .blog-content th {
-          background: var(--card);
+          background: var(--op-card);
           font-weight: 500;
         }
         .blog-content hr {
           border: none;
-          border-top: 1px solid var(--border);
+          border-top: 1px solid var(--op-border);
           margin: 32px 0;
         }
         @media (max-width: 768px) {

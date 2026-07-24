@@ -33,7 +33,7 @@ export function WritingSection() {
           alignItems: "baseline",
           gap: 14,
           paddingBottom: 16,
-          borderBottom: "1px solid var(--border)",
+          borderBottom: "1px solid var(--op-border)",
           marginBottom: 24,
           flexWrap: "wrap",
         }}
@@ -44,7 +44,7 @@ export function WritingSection() {
             fontSize: 11,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            color: "var(--accent)",
+            color: "var(--op-accent)",
           }}
         >
           §02
@@ -61,10 +61,10 @@ export function WritingSection() {
           style={{
             marginLeft: "auto",
             display: "inline-flex",
-            border: "1px solid var(--border)",
+            border: "1px solid var(--op-border)",
             borderRadius: 999,
             padding: 3,
-            background: "var(--card)",
+            background: "var(--op-card)",
           }}
         >
           {(["papers", "frameworks"] as const).map((k) => (
@@ -112,8 +112,8 @@ export function WritingSection() {
             <li
               key={i}
               style={{
-                borderTop: i === 0 ? "1px solid var(--border)" : "none",
-                borderBottom: "1px solid var(--border)",
+                borderTop: i === 0 ? "1px solid var(--op-border)" : "none",
+                borderBottom: "1px solid var(--op-border)",
               }}
             >
               <a
@@ -140,7 +140,7 @@ export function WritingSection() {
                     top: "50%",
                     width: 2,
                     height: 0,
-                    background: "var(--accent)",
+                    background: "var(--op-accent)",
                     transform: "translateY(-50%)",
                     transition: "height .35s cubic-bezier(.2,.7,.2,1)",
                   }}
@@ -156,7 +156,7 @@ export function WritingSection() {
                   }}
                 >
                   <div>{p.year}</div>
-                  <div style={{ marginTop: 2, color: "var(--accent)" }}>{p.venue}</div>
+                  <div style={{ marginTop: 2, color: "var(--op-accent)" }}>{p.venue}</div>
                 </div>
                 <div>
                   {i === 0 && (
@@ -169,9 +169,9 @@ export function WritingSection() {
                           textTransform: "uppercase",
                           padding: "2px 7px",
                           borderRadius: 999,
-                          background: "color-mix(in oklab, var(--accent) 16%, transparent)",
-                          color: "var(--accent)",
-                          border: "1px solid color-mix(in oklab, var(--accent) 40%, transparent)",
+                          background: "color-mix(in oklab, var(--op-accent) 16%, transparent)",
+                          color: "var(--op-accent)",
+                          border: "1px solid color-mix(in oklab, var(--op-accent) 40%, transparent)",
                         }}
                       >
                         ◆ Latest
@@ -223,7 +223,7 @@ export function WritingSection() {
                           letterSpacing: "0.02em",
                           padding: "3px 9px",
                           borderRadius: 999,
-                          border: "1px solid var(--border)",
+                          border: "1px solid var(--op-border)",
                           color: "var(--text-secondary)",
                         }}
                       >
@@ -236,7 +236,7 @@ export function WritingSection() {
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: 12,
-                    color: "var(--accent)",
+                    color: "var(--op-accent)",
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 6,
@@ -266,9 +266,9 @@ export function WritingSection() {
               key={i}
               style={{
                 padding: "22px 22px 24px",
-                borderTop: "1px solid var(--border)",
-                borderBottom: "1px solid var(--border)",
-                borderLeft: i % 2 === 1 ? "1px solid var(--border)" : "none",
+                borderTop: "1px solid var(--op-border)",
+                borderBottom: "1px solid var(--op-border)",
+                borderLeft: i % 2 === 1 ? "1px solid var(--op-border)" : "none",
                 marginLeft: i % 2 === 1 ? -1 : 0,
                 marginTop: i > 1 ? -1 : 0,
               }}
@@ -299,8 +299,8 @@ export function WritingSection() {
                     style={{
                       padding: "2px 8px",
                       borderRadius: 999,
-                      background: "color-mix(in oklab, var(--accent) 14%, transparent)",
-                      color: "var(--accent)",
+                      background: "color-mix(in oklab, var(--op-accent) 14%, transparent)",
+                      color: "var(--op-accent)",
                       letterSpacing: "0.04em",
                       textTransform: "uppercase",
                       fontSize: 10,
@@ -328,7 +328,7 @@ export function WritingSection() {
                   fontSize: 10.5,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  color: "var(--muted)",
+                  color: "var(--op-muted)",
                   marginBottom: 8,
                 }}
               >
@@ -351,7 +351,7 @@ export function WritingSection() {
                         marginTop: 7,
                         width: 4,
                         height: 4,
-                        background: "var(--accent)",
+                        background: "var(--op-accent)",
                         flexShrink: 0,
                         transform: "rotate(45deg)",
                       }}

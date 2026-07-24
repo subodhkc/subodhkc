@@ -22,5 +22,7 @@
     "Cognitive Systems Management"
   ],
   "seedKeyword": "AI governance platform",
-  "excerpt": "A modular AI governance platform built for EU AI Act, NIST AI RMF, and ISO 42001 compliance. Four core modules: Compliance Engine, Red Audit Kit, Precision Drift Detection, and LegacyShift."
+  "excerpt": "A modular AI governance platform built for EU AI Act, NIST AI RMF, and ISO 42001 compliance. Four core modules: Compliance Engine, Red Audit Kit, Precision Drift Detection, and LegacyShift.",
+  "downloadableUrl": "/downloads/haiec-modular-ai-governance-framework-checklist.md",
+  "downloadableLabel": "Download the HAIEC: A Modular AI Checklist"
 }

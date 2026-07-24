@@ -30,6 +30,7 @@ const PROJECT_ROOT = path.resolve(__dirname, '..')
 const POSTS_DIR = path.join(PROJECT_ROOT, 'data', 'blog', 'posts')
 const OUTPUT_DIR = path.join(PROJECT_ROOT, 'data', 'outreach')
 const TRACKER_PATH = path.join(PROJECT_ROOT, 'data', 'outreach', 'sent-tracker.json')
+const DAILY_SEND_LIMIT = 5
 const SITE_URL = 'https://subodhkc.com'
 const ADMIN_EMAIL = 'subodhkc@subodhkc.com'
 
@@ -79,6 +80,23 @@ function saveTracker(tracker) {
   fs.writeFileSync(TRACKER_PATH, JSON.stringify(tracker, null, 2))
 }
 
+function getTodaysSendCount(tracker) {
+  const today = new Date().toISOString().split('T')[0]
+  const todayEntry = tracker[today]
+  if (!todayEntry) return 0
+  return todayEntry.sentCount || 0
+}
+
+function recordSend(tracker, target) {
+  const today = new Date().toISOString().split('T')[0]
+  if (!tracker[today]) {
+    tracker[today] = { sentCount: 0, targets: [] }
+  }
+  tracker[today].sentCount += 1
+  tracker[today].targets.push({ target, time: new Date().toISOString() })
+  saveTracker(tracker)
+}
+
 // ─── Topic Classification ───────────────────────────────────────────────────
 
 const TOPIC_CATEGORIES = {
@@ -106,6 +124,9 @@ const TOPIC_CATEGORIES = {
       { type: 'Resource Page', target: 'NIST AI Resource Center', url: 'https://www.nist.gov/artificial-intelligence', action: 'Reference in community discussions and link from relevant forums' },
       { type: 'Guest Post', target: 'Compliance Week', url: 'https://www.complianceweek.com', action: 'Pitch a guest article on practical AI compliance implementation' },
       { type: 'Guest Post', target: 'Hyperproof Blog', url: 'https://hyperproof.io/blog/', action: 'Offer article as guest post or resource exchange' },
+      { type: 'Guest Post', target: 'OneTrust Blog', url: 'https://www.onetrust.com/blog/', action: 'Pitch AI governance implementation article for their blog' },
+      { type: 'Guest Post', target: 'Drata Blog', url: 'https://drata.com/blog', action: 'Pitch AI compliance automation article' },
+      { type: 'Guest Post', target: 'Future of Privacy Forum', url: 'https://fpf.org', action: 'Pitch AI governance research contribution' },
     ],
   },
   'AI Security': {
@@ -129,6 +150,7 @@ const TOPIC_CATEGORIES = {
       { type: 'Resource Page', target: 'OWASP AI Security Project', url: 'https://owasp.org/www-project-ai-security/', action: 'Contribute to OWASP AI security resources' },
       { type: 'Resource Page', target: 'MITRE ATLAS', url: 'https://atlas.mitre.org/', action: 'Reference in community discussions' },
       { type: 'Guest Post', target: 'Krebs on Security', url: 'https://krebsonsecurity.com/', action: 'Pitch AI security angle for guest contribution' },
+      { type: 'Guest Post', target: 'AI Now Institute', url: 'https://ainowinstitute.org', action: 'Pitch AI security research contribution' },
     ],
   },
   'Voice AI & Conversational': {
@@ -175,6 +197,7 @@ const TOPIC_CATEGORIES = {
       { type: 'Developer Community', target: 'Hugging Face Discussions', url: 'https://discuss.huggingface.co/', action: 'Share in relevant discussion threads' },
       { type: 'Resource Page', target: 'LangChain Hub', url: 'https://github.com/langchain-ai/langchain', action: 'Reference in issues/discussions if relevant' },
       { type: 'Guest Post', target: 'Databricks Blog', url: 'https://www.databricks.com/blog', action: 'Pitch RAG architecture article for engineering blog' },
+      { type: 'Guest Post', target: 'Center for Democracy & Technology', url: 'https://cdt.org', action: 'Pitch AI policy and architecture analysis' },
     ],
   },
   'Healthcare & HIPAA': {
@@ -198,6 +221,7 @@ const TOPIC_CATEGORIES = {
       { type: 'Resource Page', target: 'HHS AI Resources', url: 'https://www.hhs.gov/ai', action: 'Reference in HHS AI community discussions' },
       { type: 'Guest Post', target: 'HealthIT Answers', url: 'https://hitanswers.com/', action: 'Pitch HIPAA + AI compliance article' },
       { type: 'Resource Page', target: 'AMIA (American Medical Informatics Assoc.)', url: 'https://amia.org/', action: 'Submit as resource for AI in healthcare working group' },
+      { type: 'Guest Post', target: 'Vanta Blog', url: 'https://www.vanta.com/blog', action: 'Pitch HIPAA AI compliance automation article' },
     ],
   },
   'Legal Tech & Document Automation': {
@@ -221,6 +245,8 @@ const TOPIC_CATEGORIES = {
       { type: 'Resource Page', target: 'ABA Legal Technology Resource Center', url: 'https://www.americanbar.org/groups/law_practice/resources/', action: 'Submit as resource for legal tech section' },
       { type: 'Guest Post', target: 'Law Sites Blog', url: 'https://www.lawsitesblog.com/', action: 'Pitch legal automation comparison article' },
       { type: 'Resource Page', target: 'Clio Blog', url: 'https://www.clio.com/blog/', action: 'Offer article as guest post or reference' },
+      { type: 'Guest Post', target: 'Above the Law', url: 'https://abovethelaw.com/', action: 'Pitch legal AI implementation article' },
+      { type: 'Guest Post', target: 'Casetext Blog', url: 'https://casetext.com/blog', action: 'Pitch legal AI automation article' },
     ],
   },
   'AI Risk & Incident Management': {
@@ -285,6 +311,48 @@ function extractArticleThemes(post) {
   return themes.length > 0 ? themes : ['General AI topic']
 }
 
+// Known disposable/honeypot email domains — never send to these
+const HONEYPOT_DOMAINS = [
+  'mailinator.com', 'guerrillamail.com', 'tempmail.com', 'throwaway.email',
+  'trashmail.com', 'yopmail.com', 'sharklasers.com', 'guerrillamailblock.com',
+  'dispostable.com', '10minutemail.com', 'temp-mail.org', 'fakeinbox.com',
+  'maildrop.cc', 'getnada.com', 'mohmal.com', 'emailondeck.com',
+]
+
+// Common role-based email prefixes that are often honeypots or go nowhere
+const ROLE_BASED_PREFIXES = [
+  'admin@', 'info@', 'contact@', 'support@', 'sales@',
+  'noreply@', 'no-reply@', 'donotreply@', 'postmaster@',
+]
+
+function isHoneypotEmail(email) {
+  if (!email) return false
+  const lower = email.toLowerCase().trim()
+  const domain = lower.split('@')[1] || ''
+  if (HONEYPOT_DOMAINS.some((d) => domain.endsWith(d))) return true
+  // Role-based emails are not necessarily honeypots but are low-value for outreach
+  // We flag them but don't block — the caller decides
+  return false
+}
+
+function isRoleBasedEmail(email) {
+  if (!email) return false
+  const lower = email.toLowerCase().trim()
+  return ROLE_BASED_PREFIXES.some((p) => lower.startsWith(p))
+}
+
+// CAN-SPAM required footer for all commercial outreach emails
+// Uses PO Box placeholder — replace with actual PO Box or virtual address when obtained
+const CAN_SPAM_FOOTER = `
+---
+Subodh KC
+AI Systems Architect & Governance Expert
+subodhkc.com | LinkedIn: linkedin.com/in/subodhkc
+406 Westcliff, Euless, TX 76040
+
+You received this email because I thought my work might be relevant to you.
+Reply with "unsubscribe" and I will not contact you again.`
+
 function generateOutreachEmails(post, categories) {
   const articleUrl = `${SITE_URL}/blog/${post.slug}`
   const title = post.title
@@ -295,64 +363,82 @@ function generateOutreachEmails(post, categories) {
 
   const emails = []
 
-  // Email 1: Newsletter editor pitch — customized per category
+  // Email 1: Newsletter editor pitch — value-first, specific, non-generic
   const newsletter = categoryConfig?.newsletters?.[0] || { name: 'The Rundown AI', pitch: 'AI insights for practitioners' }
+  const hookMap = {
+    'AI Governance & Compliance': 'Most AI compliance content reads like a legal textbook. This one is different because it comes from someone who has actually built and deployed these systems in Fortune 50 environments.',
+    'AI Security': 'AI security writing usually stops at "use encryption and access controls." This piece goes deeper into the specific attack surfaces that traditional security testing misses entirely.',
+    'Voice AI & Conversational': 'Most voice AI content is vendor marketing. This is an architecture teardown from someone who shipped a production voice agent and lived through the failure modes.',
+    'RAG & LLM Infrastructure': 'RAG tutorials are everywhere, but they skip the hard parts: multi-tenant isolation, row-level security, and what breaks at scale. This article addresses exactly those gaps.',
+    'Healthcare & HIPAA': 'HIPAA + AI content is usually either too legal or too technical. This bridges both worlds with a checklist that a compliance officer and an engineer can both use.',
+    'Legal Tech & Document Automation': 'Legal tech coverage tends to be surface-level product roundups. This article compares specific platforms with implementation-level detail that law firm IT directors actually need.',
+    'AI Risk & Incident Management': 'AI risk content often stays theoretical. This piece draws from real incidents and provides an evidence collection framework that audit teams can implement immediately.',
+  }
+  const hook = hookMap[primaryCategory] || 'This article provides implementation-level detail that most coverage in this space skips.'
+
   emails.push({
     recipient: `${newsletter.name} editor`,
-    subject: `Article pitch: ${title}`,
+    subject: `Quick idea for ${newsletter.name} — ${themes[0] || 'AI governance'} angle your readers haven't seen`,
     body: `Hi [Editor Name],
 
-I'm Subodh KC — former Fortune 50 AI Strategy CTL, now building AI governance tools at subodhkc.com.
+I'll be direct because I know you get dozens of these.
 
-I just published "${title}" and think it would resonate with ${newsletter.name} readers.
+${hook}
 
-What makes it different:
+I just published "${title}" — ${excerpt}
+
+The piece covers:
 - ${themes.join('\n- ')}
-- Written from implementation experience, not theory
-- ${excerpt}
+- Concrete implementation steps, not framework summaries
+- What I learned deploying this in production (including what broke)
 
-The article: ${articleUrl}
+Why I'm reaching out to ${newsletter.name} specifically: ${newsletter.pitch || 'Your readership matches the audience that needs this level of detail.'}
 
-${newsletter.pitch ? `Why it fits ${newsletter.name}: ${newsletter.pitch}` : ''}
+I can provide:
+- A 150-word version adapted for your format
+- An exclusive angle that's not in the original article
+- A guest contribution on a related topic your readers have asked about
 
-Happy to provide a 100-word summary, exclusive angle, or adapted version for your newsletter.
+Article for reference: ${articleUrl}
+
+If this isn't a fit, no worries — I read ${newsletter.name} regardless.
 
 Best,
 Subodh KC
-https://subodhkc.com
-https://linkedin.com/in/subodhkc`,
+https://subodhkc.com${CAN_SPAM_FOOTER}`,
   })
 
-  // Email 2: Resource exchange / guest post pitch
+  // Email 2: Resource exchange / guest post pitch — specific, proof of reading
   const backlinkTarget = categoryConfig?.backlinkTargets?.find((t) => t.type === 'Guest Post') || categoryConfig?.backlinkTargets?.[0]
   if (backlinkTarget) {
+    const targetName = backlinkTarget.target
+    const topicArea = primaryCategory.toLowerCase().replace(' & ', ' and ')
     emails.push({
-      recipient: `${backlinkTarget.target} editorial team`,
-      subject: `Resource suggestion / guest post: ${title}`,
+      recipient: `${targetName} editorial team`,
+      subject: `${themes[0] || 'AI governance'} resource for ${targetName} — or a guest post if you're open to it`,
       body: `Hi [Editor Name],
 
-I've been following ${backlinkTarget.target} and noticed your coverage of ${primaryCategory.toLowerCase().replace(' & ', ' and ')} topics.
-
-I've put together a comprehensive resource that might complement your existing content:
+I read your recent coverage on ${topicArea} and noticed a gap that I just wrote about.
 
 "${title}"
 ${articleUrl}
 
-What it covers:
+What's in it that your readers won't find elsewhere:
 - ${themes.join('\n- ')}
-- Practical, enterprise-grade guidance from someone who's implemented these systems
+- Implementation-level detail from someone who deployed these systems in Fortune 50 environments
+- Specific failure modes and how to avoid them
 
-Two ways I can help:
-1. Would you consider linking to it from your resources/guides page?
-2. I'm available for guest contributions — I can adapt the content into an exclusive piece for ${backlinkTarget.target} if you're accepting submissions.
+Two options, your call:
 
-${backlinkTarget.action}
+1. Link to it from your existing ${topicArea} resources page if your readers would benefit
+
+2. I write an exclusive version for ${targetName} — different angle, same depth. I can turn it around in 48 hours and I don't need payment, just attribution and a link back to subodhkc.com.
+
+If neither works, I'd appreciate knowing what you're currently looking for so I can pitch better next time.
 
 Best,
 Subodh KC
-AI Systems Architect & Governance Expert
-https://subodhkc.com
-https://linkedin.com/in/subodhkc`,
+https://subodhkc.com${CAN_SPAM_FOOTER}`,
     })
   }
 
@@ -360,33 +446,38 @@ https://linkedin.com/in/subodhkc`,
   if (categories.some((c) => c.includes('Voice') || c.includes('RAG') || c.includes('Security'))) {
     emails.push({
       recipient: 'AI engineering community leaders (for content amplification)',
-      subject: `Sharing implementation deep-dive: ${title}`,
+      subject: `Your community might find this useful — ${themes[0] || 'production AI'} deep-dive`,
       body: `Hi [Name],
 
-I'm Subodh KC, AI Systems Architect. I just published a technical deep-dive that your community might find useful:
+Not a generic pitch — I'll keep this short.
+
+I wrote a technical deep-dive on ${primaryCategory.toLowerCase()} that goes past the usual surface level:
 
 "${title}"
 ${articleUrl}
 
-Key themes:
+What's different about it:
 - ${themes.join('\n- ')}
-- Real production challenges and how to solve them
+- Real production failures and how they were solved
+- Architecture decisions with trade-offs explained
 
-I'd appreciate it if you could share it with your network or community if you find it valuable. Happy to reciprocate — I share useful content from my connections regularly.
+If your community would find this useful, I'd appreciate a share. If not, no stress.
 
-Also open to collaboration: podcast appearances, joint articles, or co-hosting a webinar on ${primaryCategory.toLowerCase()}.
+I'm also open to collaboration if you're looking for guests:
+- Podcast appearances on AI governance or architecture
+- Joint articles on production AI systems
+- Webinar co-hosting on ${primaryCategory.toLowerCase()}
 
 Best,
 Subodh KC
-https://subodhkc.com
-https://linkedin.com/in/subodhkc`,
+https://subodhkc.com${CAN_SPAM_FOOTER}`,
     })
   }
 
   return emails
 }
 
-function generateReport(post) {
+function generateReport(post, tracker) {
   const categories = classifyPost(post.keywords)
   const primaryCategory = categories[0]
   const categoryConfig = TOPIC_CATEGORIES[primaryCategory]
@@ -399,6 +490,12 @@ function generateReport(post) {
   const themes = extractArticleThemes(post)
   const articleUrl = `${SITE_URL}/blog/${post.slug}`
 
+  const todaysCount = getTodaysSendCount(tracker)
+  const remaining = Math.max(0, DAILY_SEND_LIMIT - todaysCount)
+  const guestPostTargets = backlinkTargets.filter((t) => t.type === 'Guest Post')
+  const todayTargets = guestPostTargets.slice(0, remaining)
+  const queuedTargets = guestPostTargets.slice(remaining)
+
   let md = `# Outreach Plan: ${post.title}\n\n`
   md += `**URL:** ${articleUrl}\n`
   md += `**Generated:** ${new Date().toISOString().split('T')[0]}\n`
@@ -406,11 +503,20 @@ function generateReport(post) {
   md += `**Topic Classification:** ${categories.join(' → ')}\n`
   md += `**Article Themes:** ${themes.join(', ')}\n\n`
 
+  // ─── Daily Send Limit Status ───
+  md += `## Daily Outreach Status\n\n`
+  md += `**Sent today:** ${todaysCount}/${DAILY_SEND_LIMIT}\n`
+  md += `**Remaining today:** ${remaining}\n`
+  if (remaining === 0) {
+    md += `> ⚠️ Daily limit reached. All targets below are queued for tomorrow.\n`
+  }
+  md += `\n`
+
   // ─── Executive Summary ───
   md += `## Executive Summary\n\n`
   md += `This article is classified as **${primaryCategory}** with themes around ${themes.join(', ').toLowerCase()}.\n`
   md += `Priority distribution channels: LinkedIn (auto), Dev.to (auto), ${subreddits.slice(0, 2).map((s) => `r/${s.name}`).join(', ')}, and ${newsletters.slice(0, 2).map((n) => n.name).join(', ')}.\n`
-  md += `${outreachEmails.length} outreach email templates generated. ${backlinkTargets.length} backlink targets identified.\n\n`
+  md += `${outreachEmails.length} outreach email templates generated. ${backlinkTargets.length} backlink targets identified. ${guestPostTargets.length} guest post targets available.\n\n`
 
   // ─── Reddit Posting ───
   md += `## Reddit Posting Strategy\n\n`
@@ -473,6 +579,28 @@ function generateReport(post) {
     md += `\n`
   }
 
+  // ─── Guest Post Pitches (5/day limit) ───
+  md += `## Guest Post Pitches (Daily Limit: ${DAILY_SEND_LIMIT}/day)\n\n`
+  md += `**Sent today:** ${todaysCount} | **Remaining:** ${remaining} | **Total targets:** ${guestPostTargets.length}\n\n`
+  if (todayTargets.length > 0) {
+    md += `### Ready to Send Today (${todayTargets.length})\n\n`
+    for (const t of todayTargets) {
+      md += `- **${t.target}** — ${t.url}\n  Action: ${t.action}\n`
+    }
+    md += `\n`
+  }
+  if (queuedTargets.length > 0) {
+    md += `### Queued for Tomorrow+ (${queuedTargets.length})\n\n`
+    md += `> These will be sent on subsequent days, respecting the ${DAILY_SEND_LIMIT}/day limit.\n\n`
+    for (const t of queuedTargets) {
+      md += `- **${t.target}** — ${t.url}\n  Action: ${t.action}\n`
+    }
+    md += `\n`
+  }
+  if (guestPostTargets.length === 0) {
+    md += `No guest post targets identified for this topic category.\n\n`
+  }
+
   // ─── Always-on targets ───
   md += `### Always-On Distribution Targets\n\n`
   md += `| Platform | URL | Action |\n`
@@ -483,9 +611,23 @@ function generateReport(post) {
   md += `| Product Hunt (if product-related) | https://www.producthunt.com/ | Submit as resource |\n`
   md += `\n`
 
+  // ─── Email Safety & Anti-Honeypot Guidance ───
+  md += `## Email Safety & Anti-Honeypot Checklist\n\n`
+  md += `> Before sending ANY outreach email, verify these items:\n\n`
+  md += `- [ ] **Verify recipient email is real**: Check the target's website for a personal email (not info@, admin@, contact@). Role-based emails often go to spam filters or honeypot inboxes.\n`
+  md += `- [ ] **Check domain MX records**: Run \`dig MX targetdomain.com\` — if no MX records exist, do not send.\n`
+  md += `- [ ] **Avoid disposable domains**: Never send to mailinator.com, guerrillamail.com, tempmail.com, or similar disposable email services.\n`
+  md += `- [ ] **Find a real name**: Use LinkedIn to find the editor or content manager's name. "Hi Sarah" gets 10x the response rate of "Hi [Editor Name]".\n`
+  md += `- [ ] **Reference their specific work**: Before sending, read 1-2 recent articles from the target site and reference them by title in your email. This proves you're not blasting.\n`
+  md += `- [ ] **Include CAN-SPAM footer**: All emails include a physical mailing address and unsubscribe option. Address is set to 406 Westcliff, Euless, TX 76040.\n`
+  md += `- [ ] **Check sent-tracker.json**: Verify you haven't already emailed this target. The tracker prevents duplicate sends.\n`
+  md += `- [ ] **Respect daily limit**: Max ${DAILY_SEND_LIMIT} guest post pitches per day to avoid being flagged as spam.\n`
+  md += `- [ ] **Use a verified sending domain**: Emails should come from subodhkc.com (configured via Resend) or a personal email with established reputation.\n\n`
+
   // ─── Outreach Email Templates ───
   md += `## Outreach Email Templates\n\n`
-  md += `> Review and customize before sending. Replace [Name], [Editor Name], etc. with real names.\n\n`
+  md += `> Review and customize before sending. Replace [Name], [Editor Name], etc. with real names found via LinkedIn.\n`
+  md += `> Each email includes a CAN-SPAM compliant footer with mailing address and unsubscribe option.\n\n`
   for (let i = 0; i < outreachEmails.length; i++) {
     const email = outreachEmails[i]
     md += `### Email ${i + 1}: To ${email.recipient}\n\n`
@@ -515,8 +657,9 @@ function generateReport(post) {
   }
   md += `- [ ] Submit to Daily.dev and Lobste.rs\n\n`
   md += `### P3 — Long-Tail, Do When Time Permits\n`
+  md += `- [ ] Send guest post pitches (max ${DAILY_SEND_LIMIT}/day — see Guest Post Pitches section above)\n`
   if (outreachEmails.length > 1) {
-    md += `- [ ] Send guest post pitch to ${backlinkTargets.find((t) => t.type === 'Guest Post')?.target || 'relevant blogs'}\n`
+    md += `- [ ] Follow up with ${backlinkTargets.find((t) => t.type === 'Guest Post')?.target || 'relevant blogs'}\n`
   }
   if (newsletters.length > 1) {
     md += `- [ ] Pitch to ${newsletters.slice(1).map((n) => n.name).join(', ')}\n`
@@ -636,7 +779,7 @@ async function main() {
       continue
     }
 
-    const report = generateReport(post)
+    const report = generateReport(post, tracker)
     const outputPath = path.join(OUTPUT_DIR, `${slug}.md`)
     fs.writeFileSync(outputPath, report)
     console.log(`  ✓ ${slug}: outreach plan saved to data/outreach/${slug}.md`)

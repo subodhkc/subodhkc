@@ -175,6 +175,10 @@ export function ArchitectureDecisionSheet() {
 
   const getTracking = (layerId: number) => trackingData[layerId] || {}
 
+  const hasActiveFilters = Object.values(activeFilters).some(arr => arr.length > 0)
+
+  const clearAllFilters = () => setActiveFilters({ group: [], crit: [], phase: [], status: [], appl: [], csmPillar: [] })
+
   const exportCSV = () => {
     const headers = ['ID', 'Group', 'CSM Pillar', 'Name', 'Purpose', 'Criticality', 'Phase', 'Applicability', 'Effort', 'Reversibility', 'RACI', 'Risks', 'Risk Severity', 'Mitigation', 'AI Pitfall', 'AI Quality Gate', 'Dependencies', 'Blocks', 'DoD', 'Arch Docs', 'PM Docs', 'Status', 'Sprint', 'Owner', 'ADR Ref', 'Tech Debt']
     const rows = filteredLayers.map(l => {
@@ -295,6 +299,19 @@ export function ArchitectureDecisionSheet() {
         .arch-sheet .arch-footer a{color:var(--accent);text-decoration:none}
         .arch-sheet-wrapper{position:relative;border-radius:18px;padding:4px;background:linear-gradient(135deg,rgba(74,179,228,.15),rgba(155,140,255,.1),transparent);margin:0 auto;max-width:1110px}
         .arch-sheet select:focus,.arch-sheet input:focus{outline:2px solid var(--accent);outline-offset:1px}
+        .arch-sheet .result-count{font-size:12px;opacity:.6;margin-bottom:8px}
+        .arch-sheet .row-hint{font-size:11px;opacity:.4;margin-bottom:6px;text-align:center}
+        .arch-sheet .clear-filters{padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:11px;cursor:pointer;opacity:.7;margin-top:4px}
+        .arch-sheet .clear-filters:hover{border-color:var(--accent);opacity:1}
+        .arch-sheet .mobile-cards{display:none}
+        .arch-sheet .mobile-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+        .arch-sheet .mobile-card:active{border-color:var(--accent)}
+        .arch-sheet .mobile-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+        .arch-sheet .mobile-card-name{font-size:14px;font-weight:600}
+        .arch-sheet .mobile-card-sub{font-size:11px;opacity:.6;margin-top:2px}
+        .arch-sheet .mobile-card-badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;align-items:center}
+        .arch-sheet .filter-collapse summary{display:none;list-style:none}
+        .arch-sheet .filter-collapse summary::-webkit-details-marker{display:none}
         @media print{
           .arch-sheet-wrapper{background:none;padding:0}
           .arch-sheet{background:#fff;color:#000;border-radius:0;padding:8px}
@@ -307,11 +324,22 @@ export function ArchitectureDecisionSheet() {
         @media(max-width:768px){
           .arch-sheet{padding:10px 12px 30px}
           .arch-sheet .arch-header h2{font-size:22px}
-          .arch-sheet .scenarios{grid-template-columns:1fr}
+          .arch-sheet .scenarios{grid-template-columns:auto;grid-auto-flow:column;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+          .arch-sheet .scenario-card{scroll-snap-align:start;min-width:200px}
           .arch-sheet .kv{grid-template-columns:1fr;gap:2px}
           .arch-sheet .kv .k{margin-top:6px}
-          .arch-sheet .table-container{max-height:50vh;font-size:12px}
-          .arch-sheet th,.arch-sheet td{padding:8px}
+          .arch-sheet .table-container{display:none}
+          .arch-sheet .mobile-cards{display:block}
+          .arch-sheet .popup-overlay{padding:0}
+          .arch-sheet .popup{max-width:100%;max-height:100vh;border-radius:0;border:none;width:100%;height:100vh}
+          .arch-sheet .popup-tabs{top:53px}
+          .arch-sheet .glossary-panel{width:100vw;max-width:100vw}
+          .arch-sheet .glossary-btn{bottom:80px}
+          .arch-sheet .filter-collapse summary{display:block;list-style:none;font-size:11px;text-transform:uppercase;letter-spacing:.5px;opacity:.6;cursor:pointer;padding:4px 0}
+          .arch-sheet .filters{padding-top:6px}
+          .arch-sheet .dashboard{gap:6px}
+          .arch-sheet .stat{min-width:60px;padding:6px 10px}
+          .arch-sheet .stat-num{font-size:18px}
         }
       `}</style>
 
@@ -384,24 +412,33 @@ export function ArchitectureDecisionSheet() {
             )}
           </div>
 
-          <div className="filters">
-            {filterDefs.map(fd => (
-              <div key={fd.key} className="filter-group">
-                <span className="filter-group-label">{fd.label}</span>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                  {fd.options.map(opt => (
-                    <button
-                      key={opt.val}
-                      className={`chip ${activeFilters[fd.key as keyof ActiveFilters].includes(opt.val) ? 'active' : ''}`}
-                      onClick={() => toggleFilter(fd.key as keyof ActiveFilters, opt.val)}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
+          <details className="filter-collapse" open>
+            <summary>Filters</summary>
+            <div className="filters">
+              {filterDefs.map(fd => (
+                <div key={fd.key} className="filter-group">
+                  <span className="filter-group-label">{fd.label}</span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                    {fd.options.map(opt => (
+                      <button
+                        key={opt.val}
+                        className={`chip ${activeFilters[fd.key as keyof ActiveFilters].includes(opt.val) ? 'active' : ''}`}
+                        onClick={() => toggleFilter(fd.key as keyof ActiveFilters, opt.val)}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+              {hasActiveFilters && (
+                <button className="clear-filters" onClick={clearAllFilters}>Clear all filters</button>
+              )}
+            </div>
+          </details>
+
+          <div className="result-count" aria-live="polite">Showing {filteredLayers.length} of {layers.length} layers</div>
+          <div className="row-hint">Click any row for full details</div>
 
           <div className="table-container">
             <table>
@@ -420,7 +457,7 @@ export function ArchitectureDecisionSheet() {
                         {showGroupHeader && (
                           <tr className="group-header"><td colSpan={7}>{g?.name}</td></tr>
                         )}
-                        <tr onClick={() => openPopup(layer)}>
+                        <tr onClick={() => openPopup(layer)} role="button" tabIndex={0} onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && openPopup(layer)}>
                           <td>{layer.id}</td>
                           <td>
                             <strong>{layer.name}</strong>{layer.g === 'E' && <span className="ai-risk-icon">AI</span>}
@@ -440,6 +477,44 @@ export function ArchitectureDecisionSheet() {
               </tbody>
             </table>
           </div>
+
+          <div className="mobile-cards">
+            {filteredLayers.length === 0 ? (
+              <p style={{ textAlign: 'center', padding: '20px', opacity: 0.6 }}>No layers match current filters</p>
+            ) : (
+              filteredLayers.map((layer, i) => {
+                const showGroupHeader = i === 0 || filteredLayers[i - 1].g !== layer.g
+                const g = groups.find(x => x.id === layer.g)
+                return (
+                  <Fragment key={layer.id}>
+                    {showGroupHeader && (
+                      <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.5px', color: 'var(--accent)', margin: '12px 0 6px' }}>{g?.name}</div>
+                    )}
+                    <div
+                      className="mobile-card"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openPopup(layer)}
+                      onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && openPopup(layer)}
+                    >
+                      <div className="mobile-card-top">
+                        <div>
+                          <div className="mobile-card-name">{layer.id}. {layer.name}{layer.g === 'E' && <span className="ai-risk-icon"> AI</span>}</div>
+                          <div className="mobile-card-sub">{layer.plain}</div>
+                        </div>
+                        <span className={`crit-badge crit-${layer.crit}`}>{layer.crit}</span>
+                      </div>
+                      <div className="mobile-card-badges">
+                        <span className="csm-badge">{layer.csmPillar}</span>
+                        <span className={`status-badge status-${(getTracking(layer.id).status || layer.status).replace(/\s/g, '')}`}>{getTracking(layer.id).status || layer.status}</span>
+                        <span style={{ fontSize: '10px', opacity: .6 }}>{layer.phase}</span>
+                      </div>
+                    </div>
+                  </Fragment>
+                )
+              })
+            )}
+          </div>
         </>
       )}
 
@@ -458,7 +533,7 @@ export function ArchitectureDecisionSheet() {
                     {showGroupHeader && (
                       <tr className="group-header"><td colSpan={7}>{g?.name}</td></tr>
                     )}
-                    <tr style={{ cursor: 'pointer' }} onClick={() => openPopup(l)}>
+                    <tr style={{ cursor: 'pointer' }} role="button" tabIndex={0} onClick={() => openPopup(l)} onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && openPopup(l)}>
                       <td></td>
                       <td><strong>{l.name}</strong></td>
                       {phases.map(p => (

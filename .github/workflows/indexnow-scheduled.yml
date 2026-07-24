@@ -162,6 +162,9 @@ jobs:
           print(f'Google Indexing API: {success} submitted, {fail} failed')
           if rate_limited:
               print('::warning::Google Indexing API rate limited (429). Daily quota exhausted. Remaining URLs will be retried next run.')
+          if fail > 0 and not rate_limited:
+              print(f'::error::{fail} URL(s) failed to submit to Google Indexing API')
+              sys.exit(1)
           "
 
       - name: Submit sitemap to Google Search Console

@@ -48,11 +48,11 @@ export function HeroInteractive() {
             fontSize: 11,
             letterSpacing: "0.06em",
             textTransform: "uppercase",
-            color: "var(--muted)",
+            color: "var(--op-muted)",
           }}
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
-            <span style={{ width: 18, height: 1, background: "var(--accent)", display: "inline-block" }} />
+            <span style={{ width: 18, height: 1, background: "var(--op-accent)", display: "inline-block" }} />
             §00 / AI systems architect · since 2009
           </span>
           <span>v3.2.0 — Jul 2026</span>
@@ -85,7 +85,7 @@ export function HeroInteractive() {
                 bottom: "-0.04em",
                 width: "100%",
                 height: "0.16em",
-                color: "var(--accent)",
+                color: "var(--op-accent)",
               }}
             >
               <path
@@ -147,7 +147,7 @@ export function HeroInteractive() {
               appearance: "none",
               background: "transparent",
               color: "var(--fg)",
-              border: "1px solid var(--border)",
+              border: "1px solid var(--op-border)",
               borderRadius: 999,
               padding: "12px 24px",
               fontSize: 12,
@@ -169,8 +169,8 @@ export function HeroInteractive() {
             marginTop: 36,
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            borderTop: "1px solid var(--border)",
-            borderBottom: "1px solid var(--border)",
+            borderTop: "1px solid var(--op-border)",
+            borderBottom: "1px solid var(--op-border)",
           }}
         >
           {KPIS.map((s, i) => (
@@ -178,7 +178,7 @@ export function HeroInteractive() {
               key={s.k}
               style={{
                 padding: "18px 22px 18px",
-                borderLeft: i === 0 ? "none" : "1px solid var(--border)",
+                borderLeft: i === 0 ? "none" : "1px solid var(--op-border)",
                 position: "relative",
               }}
             >
@@ -200,7 +200,7 @@ export function HeroInteractive() {
                       width: 5,
                       height: 5,
                       borderRadius: "50%",
-                      background: "var(--accent)",
+                      background: "var(--op-accent)",
                       animation: "hero-pulse 1.4s ease-in-out infinite",
                     }}
                   />
@@ -233,11 +233,11 @@ export function HeroInteractive() {
             fontSize: 10.5,
             letterSpacing: "0.06em",
             textTransform: "uppercase",
-            color: "var(--muted)",
+            color: "var(--op-muted)",
           }}
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
-            <span style={{ width: 18, height: 1, background: "var(--border)" }} />
+            <span style={{ width: 18, height: 1, background: "var(--op-border)" }} />
             fig.01 — deployed systems
           </span>
           <span>click a node ↓</span>

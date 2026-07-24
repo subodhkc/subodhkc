@@ -41,7 +41,7 @@ export function Aurora() {
         inset: 0,
         pointerEvents: "none",
         background:
-          "radial-gradient(420px 320px at var(--ax,50%) var(--ay,30%), color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%)",
+          "radial-gradient(420px 320px at var(--ax,50%) var(--ay,30%), color-mix(in oklab, var(--op-accent) 22%, transparent), transparent 70%)",
         opacity: 0.55,
         transition: "background 0.06s linear",
       }}

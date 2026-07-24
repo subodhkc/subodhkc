@@ -30,7 +30,7 @@ export function ComplianceGuidesSection() {
         <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8 }}>
           AI Compliance Law Guides
         </h2>
-        <p style={{ fontSize: '1.125rem', color: 'var(--muted)', maxWidth: 600, margin: '0 auto' }}>
+        <p style={{ fontSize: '1.125rem', color: 'var(--op-muted)', maxWidth: 600, margin: '0 auto' }}>
           Comprehensive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
         </p>
       </div>

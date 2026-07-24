@@ -90,7 +90,69 @@ function stripHtmlForCount(html) {
 }
 
 // Content pillars and topic queue — cycles through these
+// Strategy-aligned: Law-to-Code Translations, Tool Reviews, Proprietary Frameworks,
+// plus core governance/architecture/security and regulatory updates.
 const CONTENT_PILLARS = [
+  {
+    pillar: 'Law-to-Code Translations',
+    topics: [
+      'How to build a logging pipeline for EU AI Act Article 12 compliance',
+      'Implementing immutable audit trails for SOC 2 AI compliance',
+      'TRAIGA HB 149 technical implementation for SaaS applications',
+      'Building a conformity assessment evidence system for EU AI Act',
+      'Designing automated bias audit pipelines for NYC Local Law 144',
+      'Implementing AI risk classification automation for EU AI Act',
+      'Building post-market monitoring infrastructure for high-risk AI',
+      'GDPR Article 22 automated decision-making technical safeguards',
+      'HIPAA Security Rule AI compliance architecture',
+      'Texas AI Law disclosure automation for SaaS platforms',
+      'Building a DPIA pipeline for AI systems under GDPR',
+      'Implementing human-in-the-loop checkpoints for AI compliance',
+      'Automated AI model registry for regulatory inventory management',
+      'Building a data provenance tracking system for AI training data',
+      'Implementing AI incident reporting automation for EU AI Act',
+    ],
+  },
+  {
+    pillar: 'Tool & Architecture Reviews',
+    topics: [
+      'LlamaIndex vs LangChain for secure enterprise RAG architecture',
+      'TruLens vs Arize for precision drift detection in production AI',
+      'Best document AI platforms for legal automation in 2026',
+      'pgvector vs Pinecone vs Weaviate for enterprise RAG',
+      'LangSmith vs Langfuse for LLM observability comparison',
+      'Guardrails AI vs NeMo Guardrails for output validation',
+      'Enterprise AI gateway comparison Kong vs Portkey vs Helicone',
+      'OpenAI Evals vs DeepEval for LLM evaluation pipelines',
+      'Best AI compliance automation tools comparison 2026',
+      'Llama Guard vs Llama Prompt Guard for input filtering',
+      'Enterprise vector search comparison Azure AI Search vs Elasticsearch',
+      'AI monitoring tools comparison WhyLabs vs Fiddler vs Arize',
+      'Best MLOps platforms for compliance-heavy AI deployments',
+      'RAG evaluation tools comparison RAGAS vs TruLens vs DeepEval',
+      'AI governance platforms comparison Credo AI vs Holistic AI vs Saidot',
+    ],
+  },
+  {
+    pillar: 'Proprietary Framework Breakdowns',
+    topics: [
+      'HAIEC six-phase AI exposure assessment implementation manual',
+      'HAIEC compliance engine architecture how it works',
+      'SKC ResetFrame methodology a technical playbook',
+      'LegacyShift AI migration architecture decision framework',
+      'Building an AI governance committee charter template',
+      'AI vendor due diligence automated scoring framework',
+      'HAIEC risk scoring algorithm design and implementation',
+      'ResetFrame phase 1 discovery audit technical guide',
+      'LegacyShift codebase assessment for AI integration',
+      'HAIEC exposure matrix building and configuring',
+      'Building a compliance evidence collector with HAIEC',
+      'ResetFrame phase 2 architecture redesign patterns',
+      'LegacyShift data migration strategy for AI readiness',
+      'HAIEC continuous monitoring loop implementation',
+      'Open-source AI governance toolkit from subodhkc.com',
+    ],
+  },
   {
     pillar: 'AI Governance Frameworks',
     topics: [
@@ -134,7 +196,6 @@ const CONTENT_PILLARS = [
   {
     pillar: 'AI Security & Risk',
     topics: [
-      'AI vendor due diligence questionnaire template',
       'AI incident response playbook step by step',
       'AI risk register template with examples',
       'Prompt injection attacks and defenses',
@@ -149,36 +210,7 @@ const CONTENT_PILLARS = [
       'Data poisoning detection in training pipelines',
       'AI supply chain security risks and controls',
       'AI access control patterns ABAC for models',
-    ],
-  },
-  {
-    pillar: 'AI Voice Agents',
-    topics: [
-      'AI voice agent production architecture',
-      'Voice agent failure modes and prevention',
-      'HIPAA compliance for AI voice agents',
-      'Voice agent consent recording and TCPA',
-      'AI voice agent evaluation metrics',
-      'Voice agent latency optimization techniques',
-      'Multi-language voice agent architecture',
-      'Voice agent security prompt injection via audio',
-      'AI receptionist vs human receptionist cost analysis',
-      'Voice agent observability and monitoring',
-    ],
-  },
-  {
-    pillar: 'Legal Tech AI',
-    topics: [
-      'AI in legal document automation use cases',
-      'Evidence chain integrity with AI systems',
-      'Court admissibility of AI-generated content',
-      'AI bias in legal decision-making detection',
-      'AI in contract review and analysis',
-      'Legal AI ethics and professional responsibility',
-      'AI in e-discovery and document review',
-      'Automated legal research with RAG',
-      'AI in compliance monitoring for law firms',
-      'Generative AI in legal practice risks and guardrails',
+      'Secure AI deployment with zero-trust architecture',
     ],
   },
   {
@@ -277,6 +309,19 @@ function selectFrontOfAIStory(stories, posts) {
   return unused[0]
 }
 
+function isRegulatoryStory(story) {
+  const regulatoryKeywords = [
+    'bill', 'law', 'regulation', 'act', 'compliance', 'enforcement',
+    'penalty', 'legislation', 'senate', 'congress', 'parliament',
+    'directive', 'mandate', 'ruling', 'court', 'ftc', 'fda', 'sec',
+    'eu ai act', 'gdpr', 'hipaa', 'nist', 'iso 42001', 'soc 2',
+    'traiga', 'colorado ai act', 'nyc local law', 'california ai',
+    'texas ai', 'regulatory', 'governance', 'audit', 'certification',
+  ]
+  const text = `${story.title || ''} ${story.summary_short || ''} ${story.summary_extended || ''} ${story.why_this_matters || ''} ${(story.category_details || []).map((c) => c.name).join(' ')}`.toLowerCase()
+  return regulatoryKeywords.some((kw) => text.includes(kw))
+}
+
 async function generateArticleFromFrontOfAI(story, posts) {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {
@@ -303,6 +348,32 @@ async function generateArticleFromFrontOfAI(story, posts) {
     categories: (story.category_details || []).map((c) => c.name).join(', '),
     publishedAt: story.published_at || '',
   }
+
+  const regulatory = isRegulatoryStory(story)
+  if (regulatory) {
+    console.log('  >> Regulatory story detected — using Law-to-Code prompt')
+  }
+
+  const contentInstructions = regulatory
+    ? `LAW-TO-CODE TRANSLATION MODE:
+You are writing a Law-to-Code translation, NOT general analysis. Structure the article as:
+1. What the Law Says — plain English summary of the regulation/ruling
+2. What It Means for System Architecture — technical implications (data flows, logging, access controls, audit trails)
+3. Technical Implementation Steps — specific engineering steps to comply (pipelines, schemas, APIs, infrastructure)
+4. Code and Pipeline Patterns — concrete technical patterns (e.g., immutable logging, evidence collection, bias audit pipelines)
+5. Audit Evidence You Will Need — what regulators will ask for and how to collect it automatically
+6. What This Means for You — specific action items for CTOs/CISOs/compliance officers
+
+Focus on HOW to build compliance infrastructure, not WHAT the law is. Readers should come away knowing what to engineer.`
+    : `INSTRUCTIONS:
+1. Write 1500-2500 words of original analysis and commentary on this news story
+2. Do NOT just restate the news — provide expert analysis, implications, and actionable guidance
+3. Structure with clear H2 and H3 headings
+4. Include practical steps, frameworks, or templates that readers can apply
+5. Connect the news to broader AI governance, compliance, or architecture themes
+6. Reference the source story and provide attribution
+7. Include a "What This Means for You" section with specific action items
+8. End with a practical takeaway`
 
   const prompt = `You are an expert AI governance and enterprise architecture writer. Write a comprehensive, SEO-optimized blog post for subodhkc.com based on a real news story from FrontOfAI.
 
@@ -334,15 +405,8 @@ Source URL: ${storyData.sourceUrl}
 EXISTING POSTS (for internal linking — reference where relevant):
 ${existingPostsContext}
 
-INSTRUCTIONS:
-1. Write 1500-2500 words of original analysis and commentary on this news story
-2. Do NOT just restate the news — provide expert analysis, implications, and actionable guidance
-3. Structure with clear H2 and H3 headings
-4. Include practical steps, frameworks, or templates that readers can apply
-5. Connect the news to broader AI governance, compliance, or architecture themes
-6. Reference the source story and provide attribution
-7. Include a "What This Means for You" section with specific action items
-8. End with a practical takeaway
+${contentInstructions}
+
 9. Optimize for SEO: natural keyword usage
 10. Generate 6-10 relevant keywords/tags
 11. Write a compelling metaDescription (under 160 chars) that includes the primary keyword
@@ -353,8 +417,8 @@ INSTRUCTIONS:
 SEO TITLE RULES:
 - Title must be under 60 characters
 - Title must include the primary keyword naturally
-- Title should be analysis-oriented, not just restating the news
-- Title should indicate expertise (analysis, implications, what it means, etc.)
+- Title should be ${regulatory ? 'implementation-oriented (how to comply, technical steps, what to build)' : 'analysis-oriented, not just restating the news'}
+- Title should indicate expertise (${regulatory ? 'implementation guide, technical breakdown, what to build' : 'analysis, implications, what it means, etc.'})
 
 SEO META DESCRIPTION RULES:
 - Must be under 160 characters
@@ -364,7 +428,7 @@ SEO META DESCRIPTION RULES:
 
 OUTPUT FORMAT — return a JSON object with these exact fields:
 {
-  "title": "SEO-optimized title (under 60 chars) — should be analysis-oriented, not just restating the news",
+  "title": "SEO-optimized title (under 60 chars) — should be ${regulatory ? 'implementation-oriented, not just restating the news' : 'analysis-oriented, not just restating the news'}",
   "metaDescription": "Compelling meta description under 160 chars",
   "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <a> tags. No class attributes. No script tags. Start with an <h2> not an <h1>. Include internal links as <a href=\"/blog/slug\">text</a>. End with a FAQ section.",
   "keywords": ["keyword1", "keyword2", ...],
@@ -580,6 +644,70 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
   return article
 }
 
+async function generateChecklist(article, slug) {
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) return null
+
+  const prompt = `You are an expert AI compliance consultant. Based on the blog post below, generate a practical, downloadable checklist in Markdown format that a reader can use to implement the guidance from the article.
+
+TITLE: ${article.title}
+KEYWORDS: ${(article.keywords || []).join(', ')}
+EXCERPT: ${article.excerpt || ''}
+
+CONTENT (first 3000 chars):
+${(article.contentHtml || '').replace(/<[^>]+>/g, ' ').slice(0, 3000)}
+
+REQUIREMENTS:
+1. Generate a Markdown checklist (100-300 lines) that is actionable and specific
+2. Use Markdown checkboxes: - [ ] item
+3. Organize into logical sections with ## headers
+4. Include specific technical steps, not vague advice
+5. Include a "Preparation" section, an "Implementation" section, and a "Verification" section
+6. Add a "Evidence to Collect" section listing what audit artifacts to save
+7. Do NOT include em-dashes. Use regular hyphens.
+8. Do NOT include AI writing tells or fabricated personal claims.
+9. Start with a brief 2-3 line description of what this checklist covers
+10. End with a "## About" section: "Generated from: ${SITE_URL}/blog/${slug}"
+
+Return ONLY the Markdown content, no code fences, no preamble.`
+
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are an expert AI compliance consultant who creates practical, actionable checklists. You return only valid Markdown. You never use em-dashes.',
+          },
+          { role: 'user', content: prompt },
+        ],
+        temperature: 0.7,
+        max_tokens: 4000,
+      }),
+    })
+
+    if (!response.ok) {
+      console.warn(`Checklist generation failed (${response.status}) — skipping`)
+      return null
+    }
+
+    const data = await response.json()
+    const content = data.choices[0]?.message?.content
+    if (!content) return null
+
+    return content.replace(/^```markdown?\s*/i, '').replace(/\s*```$/i, '').trim()
+  } catch (err) {
+    console.warn(`Checklist generation error: ${err.message} — skipping`)
+    return null
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2)
   const topicArg = args.find((a) => a.startsWith('--topic='))?.split('=')[1]
@@ -677,6 +805,8 @@ async function main() {
     keywords: article.keywords || [],
     seedKeyword: article.seedKeyword || null,
     excerpt: article.excerpt || null,
+    downloadableUrl: null,
+    downloadableLabel: null,
   }
 
   console.log(`\nGenerated post:`)
@@ -702,6 +832,29 @@ async function main() {
   const outputPath = path.join(postsDir, `${post.slug}.json`)
   fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
   console.log(`\nSaved to: data/blog/posts/${post.slug}.json`)
+
+  // Generate downloadable checklist
+  if (!dryRun) {
+    console.log('\nGenerating downloadable checklist...')
+    const checklist = await generateChecklist(article, post.slug)
+    if (checklist) {
+      const downloadsDir = path.join(ROOT, 'public', 'downloads')
+      if (!fs.existsSync(downloadsDir)) {
+        fs.mkdirSync(downloadsDir, { recursive: true })
+      }
+      const checklistPath = path.join(downloadsDir, `${post.slug}-checklist.md`)
+      fs.writeFileSync(checklistPath, checklist, 'utf-8')
+      console.log(`  ✓ Checklist saved to public/downloads/${post.slug}-checklist.md`)
+
+      // Update post with downloadable fields
+      post.downloadableUrl = `/downloads/${post.slug}-checklist.md`
+      post.downloadableLabel = `Download the ${article.title.split(' ').slice(0, 4).join(' ')} Checklist`
+      fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
+      console.log(`  ✓ Post updated with downloadable URL`)
+    } else {
+      console.log('  ⚠ Checklist generation skipped — post saved without downloadable')
+    }
+  }
 
   // Generate hero image with DALL-E 3
   if (!dryRun && process.env.OPENAI_API_KEY) {

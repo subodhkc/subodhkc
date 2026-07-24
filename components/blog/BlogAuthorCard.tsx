@@ -9,8 +9,8 @@ export function BlogAuthorCard() {
         gap: 20,
         padding: 24,
         borderRadius: 8,
-        border: "1px solid var(--border)",
-        background: "var(--card)",
+        border: "1px solid var(--op-border)",
+        background: "var(--op-card)",
         alignItems: "flex-start",
       }}
     >
@@ -22,7 +22,7 @@ export function BlogAuthorCard() {
           borderRadius: 6,
           overflow: "hidden",
           flexShrink: 0,
-          border: "1px solid var(--border)",
+          border: "1px solid var(--op-border)",
         }}
       >
         <Image
@@ -40,7 +40,7 @@ export function BlogAuthorCard() {
             fontSize: 10,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            color: "var(--accent)",
+            color: "var(--op-accent)",
             marginBottom: 4,
           }}
         >
@@ -82,7 +82,7 @@ export function BlogAuthorCard() {
                 fontSize: 11,
                 padding: "4px 10px",
                 borderRadius: 999,
-                border: "1px solid var(--border)",
+                border: "1px solid var(--op-border)",
                 color: "var(--fg)",
                 textDecoration: "none",
               }}

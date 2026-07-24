@@ -79,8 +79,8 @@ export function RequestAccessModal({ product, onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
         style={{
           width: "min(540px, 100%)",
-          background: "var(--card)",
-          border: "1px solid var(--border)",
+          background: "var(--op-card)",
+          border: "1px solid var(--op-border)",
           borderRadius: 12,
           padding: 28,
           position: "relative",
@@ -117,7 +117,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
               background: "var(--chip)",
               display: "grid",
               placeItems: "center",
-              color: "var(--accent)",
+              color: "var(--op-accent)",
             }}
           >
             <Glyph kind={product.glyph} size={26} />
@@ -129,7 +129,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                 fontSize: 10.5,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                color: "var(--accent)",
+                color: "var(--op-accent)",
               }}
             >
               private beta · invite only
@@ -150,10 +150,10 @@ export function RequestAccessModal({ product, onClose }: Props) {
                 width: 44,
                 height: 44,
                 borderRadius: "50%",
-                background: "color-mix(in oklab, var(--accent) 14%, transparent)",
+                background: "color-mix(in oklab, var(--op-accent) 14%, transparent)",
                 display: "grid",
                 placeItems: "center",
-                color: "var(--accent)",
+                color: "var(--op-accent)",
                 marginBottom: 14,
               }}
             >
@@ -165,7 +165,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
             <p style={{ marginTop: 8, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.55, maxWidth: 440 }}>
               I review every request personally. You'll hear back within 2 business days with next steps or
               scheduling a short call. If it's urgent, you can also reach me at{" "}
-              <a href="mailto:subodhkc@subodhkc.com" style={{ color: "var(--accent)" }}>
+              <a href="mailto:subodhkc@subodhkc.com" style={{ color: "var(--op-accent)" }}>
                 subodhkc@subodhkc.com
               </a>
               .
@@ -175,7 +175,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                 onClick={onClose}
                 style={{
                   appearance: "none",
-                  border: "1px solid var(--border)",
+                  border: "1px solid var(--op-border)",
                   background: "transparent",
                   color: "var(--fg)",
                   borderRadius: 999,
@@ -221,7 +221,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                     style={{
                       appearance: "none",
                       background: "var(--bg)",
-                      border: "1px solid var(--border)",
+                      border: "1px solid var(--op-border)",
                       borderRadius: 6,
                       padding: "9px 11px",
                       fontFamily: "var(--font-mono)",
@@ -250,7 +250,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                     style={{
                       appearance: "none",
                       background: "var(--bg)",
-                      border: "1px solid var(--border)",
+                      border: "1px solid var(--op-border)",
                       borderRadius: 6,
                       padding: "9px 11px",
                       fontFamily: "var(--font-mono)",
@@ -268,7 +268,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                     fontSize: 10.5,
                     letterSpacing: "0.06em",
                     textTransform: "uppercase",
-                    color: "var(--muted)",
+                    color: "var(--op-muted)",
                   }}
                 >
                   what are you trying to do with {product.name.toLowerCase()}?
@@ -281,7 +281,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                   style={{
                     appearance: "none",
                     background: "var(--bg)",
-                    border: "1px solid var(--border)",
+                    border: "1px solid var(--op-border)",
                     borderRadius: 6,
                     padding: "10px 11px",
                     fontFamily: "var(--font-mono)",

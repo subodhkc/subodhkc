@@ -52,8 +52,8 @@ export function ShareButtons({ title, slug }: ShareButtonsProps) {
     width: 36,
     height: 36,
     borderRadius: 999,
-    border: "1px solid var(--border)",
-    background: "var(--card)",
+    border: "1px solid var(--op-border)",
+    background: "var(--op-card)",
     color: "var(--text-secondary)",
     cursor: "pointer",
     transition: "color 0.15s, border-color 0.15s",
@@ -98,7 +98,7 @@ export function ShareButtons({ title, slug }: ShareButtonsProps) {
         title={copied ? "Copied!" : "Copy link"}
       >
         {copied ? (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--op-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         ) : (

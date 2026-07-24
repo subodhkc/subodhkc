@@ -77,6 +77,7 @@
     background-size: 200% auto;
     animation: shimmer 3s linear infinite;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -418,16 +419,16 @@ section[id], [id] {
   /* Operator surface — mild dark silver metallic (brushed gunmetal) */
   --bg:         #2b2e33;
   --fg:         #ebe6d8;
-  --muted:      #9a9a96;
+  --op-muted:      #9a9a96;
   --text-secondary: #c4c4be;
-  --border:     #404349;
-  --card:       #34373d;
+  --op-border:     #404349;
+  --op-card:       #34373d;
   --card-hover: #3a3d44;
   --code:       #25282d;
   --chip:       #3e4147;
 
   /* Phosphor accent — bright CRT green */
-  --accent:     #16d088;
+  --op-accent:     #16d088;
 
   /* Font stacks (load via next/font or <link> in layout.tsx) */
   --font-sans:  "Geist", "Inter", system-ui, sans-serif;
@@ -437,21 +438,21 @@ section[id], [id] {
 
 /* Alternative themes — set data-theme on <html> or <body> to switch */
 [data-theme="paper"] {
-  --bg: #f6f4ef; --fg: #1c1a16; --muted: #6f6a5e;
-  --border: #e3ddd1; --card: #fbfaf6; --card-hover: #fffdf8;
+  --bg: #f6f4ef; --fg: #1c1a16; --op-muted: #6f6a5e;
+  --op-border: #e3ddd1; --op-card: #fbfaf6; --card-hover: #fffdf8;
   --code: #efebde; --chip: #ebe6d8;
-  --accent: #c75c2a;
+  --op-accent: #c75c2a;
 }
 [data-theme="stark"] {
-  --bg: #ffffff; --fg: #0a0a0a; --muted: #737373;
-  --border: #e5e5e5; --card: #ffffff; --card-hover: #fafafa;
+  --bg: #ffffff; --fg: #0a0a0a; --op-muted: #737373;
+  --op-border: #e5e5e5; --op-card: #ffffff; --card-hover: #fafafa;
   --code: #f4f4f4; --chip: #f0f0f0;
 }
 [data-theme="phosphor-light"] {
-  --bg: #0a1014; --fg: #d8efe0; --muted: #6e8a7a;
-  --border: #1b2a25; --card: #0f1719; --card-hover: #142022;
+  --bg: #0a1014; --fg: #d8efe0; --op-muted: #6e8a7a;
+  --op-border: #1b2a25; --op-card: #0f1719; --card-hover: #142022;
   --code: #070d10; --chip: #16221e;
-  --accent: #16d088;
+  --op-accent: #16d088;
 }
 
 /* Hero animation keyframes (used by WordCycle, ShipLog, Constellation, Aurora) */
@@ -485,12 +486,12 @@ section[id], [id] {
 
 /* Constellation node hover label */
 .constellation-svg g[data-node]:hover .node-label { opacity: 1 !important; transition: opacity .15s; }
-.constellation-svg g[data-node]:hover circle[stroke="var(--accent)"] { opacity: 0.7; }
-.constellation-svg g[data-node]:hover circle[stroke="var(--border)"] { stroke-width: 1.5; }
+.constellation-svg g[data-node]:hover circle[stroke="var(--op-accent)"] { opacity: 0.7; }
+.constellation-svg g[data-node]:hover circle[stroke="var(--op-border)"] { stroke-width: 1.5; }
 
 /* Publication row accent rule draw-in */
 .paper-row:hover .paper-rule { height: 100%; }
-.paper-row:hover { background: var(--card); }
+.paper-row:hover { background: var(--op-card); }
 
 /* ===== Reveal: directional scroll-in animations ===== */
 .reveal {
@@ -562,13 +563,13 @@ section[id], [id] {
 }
 .diagram-reveal svg g[data-node]:hover rect,
 .diagram-reveal svg g[data-node]:focus-visible rect {
-  filter: drop-shadow(0 0 6px var(--accent));
+  filter: drop-shadow(0 0 6px var(--op-accent));
   stroke-width: 2.5;
   transition: filter 0.2s ease, stroke-width 0.2s ease;
 }
 .diagram-reveal svg g[data-node]:hover circle,
 .diagram-reveal svg g[data-node]:focus-visible circle {
-  filter: drop-shadow(0 0 6px var(--accent));
+  filter: drop-shadow(0 0 6px var(--op-accent));
   stroke-width: 2.5;
   transition: filter 0.2s ease, stroke-width 0.2s ease;
 }
@@ -579,7 +580,7 @@ section[id], [id] {
 /* Focus ring for keyboard nav */
 .diagram-reveal svg g[data-node]:focus-visible rect,
 .diagram-reveal svg g[data-node]:focus-visible circle {
-  stroke: var(--accent);
+  stroke: var(--op-accent);
 }
 
 /* ===== Diagram tooltip card ===== */
@@ -591,8 +592,8 @@ section[id], [id] {
   to   { opacity: 1; transform: translateY(0); }
 }
 .diagram-tooltip-card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: var(--op-card);
+  border: 1px solid var(--op-border);
   border-radius: 8px;
   padding: 12px 14px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
@@ -606,7 +607,7 @@ section[id], [id] {
 }
 .diagram-tooltip-subtitle {
   font-size: 11px;
-  color: var(--muted);
+  color: var(--op-muted);
   margin-bottom: 8px;
 }
 .diagram-tooltip-details {
@@ -616,7 +617,7 @@ section[id], [id] {
 }
 .diagram-tooltip-details li {
   font-size: 10.5px;
-  color: var(--muted);
+  color: var(--op-muted);
   padding: 2px 0 2px 10px;
   position: relative;
   line-height: 1.4;
@@ -625,7 +626,7 @@ section[id], [id] {
   content: "▸";
   position: absolute;
   left: 0;
-  color: var(--accent);
+  color: var(--op-accent);
   font-size: 9px;
 }
 .diagram-tooltip-link {
@@ -633,7 +634,7 @@ section[id], [id] {
   margin-top: 8px;
   font-size: 11px;
   font-weight: 600;
-  color: var(--accent);
+  color: var(--op-accent);
   text-decoration: none;
 }
 .diagram-tooltip-link:hover {
@@ -649,11 +650,11 @@ section[id], [id] {
 }
 .diagram-tooltip-arrow-bottom {
   bottom: -6px;
-  border-top: 6px solid var(--border);
+  border-top: 6px solid var(--op-border);
 }
 .diagram-tooltip-arrow-top {
   top: -6px;
-  border-bottom: 6px solid var(--border);
+  border-bottom: 6px solid var(--op-border);
 }
 
 /* ===== Terminal section headers ===== */
@@ -661,7 +662,7 @@ section[id], [id] {
   content: attr(data-section-num) " / ";
   font-family: var(--font-mono);
   font-size: 0.55em;
-  color: var(--accent);
+  color: var(--op-accent);
   letter-spacing: 0.06em;
   margin-right: 0.4em;
   opacity: 0.8;

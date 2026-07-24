@@ -29,8 +29,8 @@ export function BlogNewsletterCTA() {
         style={{
           padding: "24px",
           borderRadius: 8,
-          border: "1px solid var(--accent)",
-          background: "var(--card)",
+          border: "1px solid var(--op-accent)",
+          background: "var(--op-card)",
           textAlign: "center",
         }}
       >
@@ -38,7 +38,7 @@ export function BlogNewsletterCTA() {
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: 13,
-            color: "var(--accent)",
+            color: "var(--op-accent)",
             margin: 0,
           }}
         >
@@ -53,8 +53,8 @@ export function BlogNewsletterCTA() {
       style={{
         padding: 24,
         borderRadius: 8,
-        border: "1px solid var(--border)",
-        background: "var(--card)",
+        border: "1px solid var(--op-border)",
+        background: "var(--op-card)",
       }}
     >
       <h3
@@ -94,7 +94,7 @@ export function BlogNewsletterCTA() {
           style={{
             flex: 1,
             appearance: "none",
-            border: "1px solid var(--border)",
+            border: "1px solid var(--op-border)",
             borderRadius: 6,
             background: "var(--bg)",
             fontFamily: "var(--font-mono)",

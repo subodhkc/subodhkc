@@ -37,7 +37,7 @@ export function ManifestRow({ product, index, glyphStyle }: Props) {
     alignItems: "center",
     gap: 16,
     padding: "14px 18px",
-    borderBottom: "1px solid var(--border)",
+    borderBottom: "1px solid var(--op-border)",
     color: "var(--fg)",
     transition: "background .12s",
   };
@@ -55,7 +55,7 @@ export function ManifestRow({ product, index, glyphStyle }: Props) {
           background: "var(--chip)",
           display: "grid",
           placeItems: "center",
-          color: "var(--accent)",
+          color: "var(--op-accent)",
         }}
       >
         <Glyph kind={product.glyph} size={22} style={glyphStyle} />
@@ -116,7 +116,7 @@ export function ManifestRow({ product, index, glyphStyle }: Props) {
       <button
         type="button"
         onClick={(e) => onClick(e as any)}
-        style={{ ...sharedStyle, appearance: "none", border: "none", background: "transparent", width: "100%", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--border)" }}
+        style={{ ...sharedStyle, appearance: "none", border: "none", background: "transparent", width: "100%", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--op-border)" }}
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
       >

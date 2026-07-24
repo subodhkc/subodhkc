@@ -65,5 +65,7 @@
     "enterprise architecture"
   ],
   "seedKeyword": "RAG row-level security",
-  "excerpt": "This guide provides practical steps for implementing RAG row-level security in multi-tenant AI applications, ensuring compliance and data protection."
+  "excerpt": "This guide provides practical steps for implementing RAG row-level security in multi-tenant AI applications, ensuring compliance and data protection.",
+  "downloadableUrl": "/downloads/implementing-rag-row-level-security-for-multi-tenant-ai-checklist.md",
+  "downloadableLabel": "Download the Implementing RAG Row-Level Security Checklist"
 }

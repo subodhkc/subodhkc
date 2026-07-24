@@ -37,9 +37,9 @@ export function ShipLog() {
     <div
       ref={containerRef}
       style={{
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-        background: "color-mix(in oklab, var(--card) 70%, transparent)",
+        borderTop: "1px solid var(--op-border)",
+        borderBottom: "1px solid var(--op-border)",
+        background: "color-mix(in oklab, var(--op-card) 70%, transparent)",
         overflow: "hidden",
         position: "relative",
       }}
@@ -83,7 +83,7 @@ export function ShipLog() {
           fontSize: 10.5,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "var(--accent)",
+          color: "var(--op-accent)",
           display: "flex",
           alignItems: "center",
           gap: 8,
@@ -94,7 +94,7 @@ export function ShipLog() {
             width: 6,
             height: 6,
             borderRadius: "50%",
-            background: "var(--accent)",
+            background: "var(--op-accent)",
             animation: "hero-pulse 1.6s ease-in-out infinite",
           }}
         />
@@ -130,7 +130,7 @@ export function ShipLog() {
               style={{
                 fontSize: 10,
                 padding: "1px 6px",
-                border: "1px solid var(--border)",
+                border: "1px solid var(--op-border)",
                 borderRadius: 999,
                 opacity: 0.8,
               }}

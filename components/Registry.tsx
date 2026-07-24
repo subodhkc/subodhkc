@@ -63,7 +63,7 @@ export function Registry({
           flexWrap: "wrap",
           gap: 16,
           paddingBottom: 16,
-          borderBottom: "1px solid var(--border)",
+          borderBottom: "1px solid var(--op-border)",
         }}
       >
         <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
@@ -73,7 +73,7 @@ export function Registry({
               fontSize: 11,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "var(--accent)",
+              color: "var(--op-accent)",
             }}
           >
             §01
@@ -91,14 +91,14 @@ export function Registry({
             display: "flex",
             alignItems: "center",
             gap: 8,
-            border: "1px solid var(--border)",
+            border: "1px solid var(--op-border)",
             borderRadius: 999,
             padding: "5px 12px",
-            background: "var(--card)",
+            background: "var(--op-card)",
             minWidth: 220,
           }}
         >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--muted)" strokeWidth="1.4">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--op-muted)" strokeWidth="1.4">
             <circle cx="5" cy="5" r="3.5" />
             <line x1="8" y1="8" x2="11" y2="11" strokeLinecap="round" />
           </svg>
@@ -129,7 +129,7 @@ export function Registry({
               appearance: "none",
               background: filter === k ? "var(--fg)" : "transparent",
               color: filter === k ? "var(--bg)" : "var(--fg)",
-              border: `1px solid ${filter === k ? "var(--fg)" : "var(--border)"}`,
+              border: `1px solid ${filter === k ? "var(--fg)" : "var(--op-border)"}`,
               borderRadius: 999,
               padding: "5px 11px",
               fontFamily: "var(--font-mono)",
@@ -173,10 +173,10 @@ export function Registry({
       ) : (
         <div
           style={{
-            border: "1px solid var(--border)",
+            border: "1px solid var(--op-border)",
             borderRadius: 10,
             overflow: "hidden",
-            background: "var(--card)",
+            background: "var(--op-card)",
             marginBottom: 60,
           }}
         >

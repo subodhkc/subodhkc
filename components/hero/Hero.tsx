@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      style={{ position: "relative", overflow: "hidden", borderBottom: "1px solid var(--border)" }}
+      style={{ position: "relative", overflow: "hidden", borderBottom: "1px solid var(--op-border)" }}
     >
       {/* SEO fallback: server-rendered text for crawlers */}
       <noscript>

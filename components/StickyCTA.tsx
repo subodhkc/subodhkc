@@ -51,7 +51,7 @@ export function StickyCTA() {
           textTransform: 'uppercase',
           textDecoration: 'none',
           boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-          border: '1px solid var(--border)',
+          border: '1px solid var(--op-border)',
         }}
       >
         Let&apos;s Talk →

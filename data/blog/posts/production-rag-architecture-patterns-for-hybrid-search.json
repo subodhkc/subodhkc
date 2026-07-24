@@ -66,5 +66,7 @@
     "AI implementation"
   ],
   "seedKeyword": "RAG architecture",
-  "excerpt": "Explore practical strategies for implementing RAG architecture patterns in hybrid search systems, ensuring AI governance, compliance, and security."
+  "excerpt": "Explore practical strategies for implementing RAG architecture patterns in hybrid search systems, ensuring AI governance, compliance, and security.",
+  "downloadableUrl": "/downloads/production-rag-architecture-patterns-for-hybrid-search-checklist.md",
+  "downloadableLabel": "Download the Production RAG Architecture Patterns Checklist"
 }

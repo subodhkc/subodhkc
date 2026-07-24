@@ -46,7 +46,7 @@ export function ScrollProgress() {
         top: 0,
         left: 0,
         height: 2,
-        background: 'var(--accent)',
+        background: 'var(--op-accent)',
         width: '0%',
         zIndex: 200,
         pointerEvents: 'none',

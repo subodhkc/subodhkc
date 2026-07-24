@@ -173,7 +173,7 @@ export function SiteFooter() {
   };
 
   return (
-    <footer id="contact" style={{ borderTop: "1px solid var(--border)", marginTop: 40, background: "var(--card)" }}>
+    <footer id="contact" style={{ borderTop: "1px solid var(--op-border)", marginTop: 40, background: "var(--op-card)" }}>
       {/* About + portrait */}
       <div
         id="about"
@@ -186,7 +186,7 @@ export function SiteFooter() {
           gridTemplateColumns: "minmax(220px, 320px) 1fr",
           gap: 56,
           alignItems: "flex-start",
-          borderBottom: "1px solid var(--border)",
+          borderBottom: "1px solid var(--op-border)",
         }}
       >
         <figure style={{ margin: 0, position: "relative" }}>
@@ -197,7 +197,7 @@ export function SiteFooter() {
               aspectRatio: "4 / 5",
               borderRadius: 6,
               overflow: "hidden",
-              border: "1px solid var(--border)",
+              border: "1px solid var(--op-border)",
               background: "var(--chip)",
             }}
           >
@@ -213,7 +213,7 @@ export function SiteFooter() {
                 height="14"
                 viewBox="0 0 14 14"
                 fill="none"
-                stroke="var(--accent)"
+                stroke="var(--op-accent)"
                 strokeWidth="1.4"
                 style={{
                   position: "absolute",
@@ -263,7 +263,7 @@ export function SiteFooter() {
               fontSize: 11,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "var(--accent)",
+              color: "var(--op-accent)",
               marginBottom: 16,
             }}
           >
@@ -310,7 +310,7 @@ export function SiteFooter() {
                   fontSize: 12,
                   padding: "6px 11px",
                   borderRadius: 999,
-                  border: "1px solid var(--border)",
+                  border: "1px solid var(--op-border)",
                   color: "var(--fg)",
                   display: "inline-flex",
                   alignItems: "center",
@@ -354,7 +354,7 @@ export function SiteFooter() {
             One email when something ships. No drips. No funnels.
           </p>
           {done ? (
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--accent)" }}>
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--op-accent)" }}>
               ✓ subscribed — see you in your inbox.
             </p>
           ) : (
@@ -364,7 +364,7 @@ export function SiteFooter() {
                 display: "flex",
                 alignItems: "center",
                 gap: 6,
-                border: "1px solid var(--border)",
+                border: "1px solid var(--op-border)",
                 borderRadius: 999,
                 padding: 4,
                 paddingLeft: 14,
@@ -472,7 +472,7 @@ export function SiteFooter() {
       </div>
 
       {/* Sitemap */}
-      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "28px 28px 28px", borderTop: "1px solid var(--border)" }}>
+      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "28px 28px 28px", borderTop: "1px solid var(--op-border)" }}>
         <h4
           style={{
             fontFamily: "var(--font-mono)",
@@ -517,7 +517,7 @@ export function SiteFooter() {
           maxWidth: 1240,
           margin: "0 auto",
           padding: "20px 28px",
-          borderTop: "1px solid var(--border)",
+          borderTop: "1px solid var(--op-border)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -535,9 +535,9 @@ export function SiteFooter() {
               alignItems: "center",
               gap: 8,
               padding: "8px 16px",
-              border: "1px solid var(--border)",
+              border: "1px solid var(--op-border)",
               borderRadius: 8,
-              background: "var(--card)",
+              background: "var(--op-card)",
               color: "var(--fg)",
               textDecoration: "none",
               fontSize: 13,
@@ -565,7 +565,7 @@ export function SiteFooter() {
           maxWidth: 1240,
           margin: "0 auto",
           padding: "16px 28px 28px",
-          borderTop: "1px solid var(--border)",
+          borderTop: "1px solid var(--op-border)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -573,7 +573,7 @@ export function SiteFooter() {
           gap: 10,
           fontFamily: "var(--font-mono)",
           fontSize: 11,
-          color: "var(--muted)",
+          color: "var(--op-muted)",
           letterSpacing: "0.02em",
         }}
       >

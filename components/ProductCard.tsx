@@ -96,8 +96,8 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
       ref={ref as any}
       id={`product-${product.id}`}
       style={{
-        background: "var(--card)",
-        border: "1px solid var(--border)",
+        background: "var(--op-card)",
+        border: "1px solid var(--op-border)",
         borderRadius: 10,
         padding: compact ? 14 : 18,
         display: "flex",
@@ -116,8 +116,8 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
         (e.currentTarget as HTMLElement).style.borderColor = "var(--fg)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.background = "var(--card)";
-        (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+        (e.currentTarget as HTMLElement).style.background = "var(--op-card)";
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--op-border)";
       }}
     >
       <span
@@ -127,7 +127,7 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
           right: 14,
           fontFamily: "var(--font-mono)",
           fontSize: 10,
-          color: "var(--muted)",
+          color: "var(--op-muted)",
           letterSpacing: "0.05em",
         }}
       >
@@ -143,7 +143,7 @@ export function ProductCard({ product, index, showInstall, glyphStyle, density }
             background: "var(--chip)",
             display: "grid",
             placeItems: "center",
-            color: "var(--accent)",
+            color: "var(--op-accent)",
             flexShrink: 0,
           }}
         >
@@ -248,12 +248,12 @@ const primaryLinkStyle: React.CSSProperties = {
   fontFamily: "var(--font-mono)",
   fontSize: 12,
   fontWeight: 500,
-  color: "var(--accent)",
+  color: "var(--op-accent)",
   display: "inline-flex",
   alignItems: "center",
   gap: 6,
   padding: "8px 10px",
-  border: "1px solid var(--border)",
+  border: "1px solid var(--op-border)",
   borderRadius: 6,
   background: "var(--code)",
   justifyContent: "space-between",

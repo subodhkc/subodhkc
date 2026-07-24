@@ -17,6 +17,8 @@ export interface BlogPost {
   keywords: string[]
   seedKeyword: string | null
   excerpt: string | null
+  downloadableUrl?: string | null
+  downloadableLabel?: string | null
 }
 
 export interface BlogPostSummary {
@@ -31,6 +33,8 @@ export interface BlogPostSummary {
   updatedAt?: string
   keywords: string[]
   seedKeyword: string | null
+  downloadableUrl?: string | null
+  downloadableLabel?: string | null
 }
 
 const POSTS_DIR = path.join(process.cwd(), 'data', 'blog', 'posts')
@@ -66,6 +70,8 @@ export function getAllPosts(): BlogPostSummary[] {
         updatedAt: post.updatedAt,
         keywords: post.keywords || [],
         seedKeyword: post.seedKeyword || null,
+        downloadableUrl: post.downloadableUrl || null,
+        downloadableLabel: post.downloadableLabel || null,
       })
     }
 

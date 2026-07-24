@@ -111,13 +111,13 @@ export function Constellation({ products }: Props) {
           const B = NODES[b];
           return (
             <g key={i}>
-              <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="var(--border)" strokeWidth="1" opacity="0.7" />
+              <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="var(--op-border)" strokeWidth="1" opacity="0.7" />
               <line
                 x1={A.x}
                 y1={A.y}
                 x2={B.x}
                 y2={B.y}
-                stroke="var(--accent)"
+                stroke="var(--op-accent)"
                 strokeWidth="1.2"
                 strokeDasharray="6 80"
                 style={{ animation: `flow 9s linear ${d}s infinite`, opacity: 0.55 }}
@@ -157,9 +157,9 @@ export function Constellation({ products }: Props) {
                   transformBox: "fill-box",
                 }}
               >
-                <circle r={N.r + 6} fill="none" stroke="var(--accent)" strokeWidth="0.6" opacity="0.25" />
-                <circle r={N.r} fill="var(--card)" stroke="var(--border)" strokeWidth="1" />
-                <g transform="translate(-14 -14)" style={{ color: "var(--accent)" }}>
+                <circle r={N.r + 6} fill="none" stroke="var(--op-accent)" strokeWidth="0.6" opacity="0.25" />
+                <circle r={N.r} fill="var(--op-card)" stroke="var(--op-border)" strokeWidth="1" />
+                <g transform="translate(-14 -14)" style={{ color: "var(--op-accent)" }}>
                   <Glyph kind={p.glyph} size={28} />
                 </g>
               </g>
@@ -170,8 +170,8 @@ export function Constellation({ products }: Props) {
                   width="92"
                   height="20"
                   rx="3"
-                  fill="var(--card)"
-                  stroke="var(--border)"
+                  fill="var(--op-card)"
+                  stroke="var(--op-border)"
                   strokeWidth="0.7"
                 />
                 <text

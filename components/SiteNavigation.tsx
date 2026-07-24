@@ -76,8 +76,8 @@ export function SiteNavigation() {
         top: "calc(100% + 8px)",
         left: 0,
         minWidth: 280,
-        background: "var(--card)",
-        border: "1px solid var(--border)",
+        background: "var(--op-card)",
+        border: "1px solid var(--op-border)",
         borderRadius: 10,
         padding: 6,
         boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
@@ -122,7 +122,7 @@ export function SiteNavigation() {
           background: "color-mix(in oklab, var(--bg) 86%, transparent)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          borderBottom: "1px solid var(--border)",
+          borderBottom: "1px solid var(--op-border)",
         }}
       >
         <div
@@ -144,7 +144,7 @@ export function SiteNavigation() {
                 height: 28,
                 borderRadius: "50%",
                 overflow: "hidden",
-                border: "1px solid var(--border)",
+                border: "1px solid var(--op-border)",
                 display: "inline-block",
                 flexShrink: 0,
                 background: "var(--chip)",
@@ -170,9 +170,9 @@ export function SiteNavigation() {
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: 11,
-                color: "var(--muted)",
+                color: "var(--op-muted)",
                 marginLeft: 4,
-                borderLeft: "1px solid var(--border)",
+                borderLeft: "1px solid var(--op-border)",
                 paddingLeft: 10,
               }}
               className="nav-registry-label"
@@ -193,7 +193,7 @@ export function SiteNavigation() {
               fontSize: 12,
             }}
           >
-            <Link href="/about" style={{ color: "var(--muted)", textDecoration: "none" }}>about</Link>
+            <Link href="/about" style={{ color: "var(--op-muted)", textDecoration: "none" }}>about</Link>
 
             <div style={{ position: "relative" }}>
               <button
@@ -209,7 +209,7 @@ export function SiteNavigation() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  color: open === "solutions" ? "var(--fg)" : "var(--muted)",
+                  color: open === "solutions" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
                 solutions
@@ -234,7 +234,7 @@ export function SiteNavigation() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  color: open === "products" ? "var(--fg)" : "var(--muted)",
+                  color: open === "products" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
                 products
@@ -259,7 +259,7 @@ export function SiteNavigation() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  color: open === "interactiveTools" ? "var(--fg)" : "var(--muted)",
+                  color: open === "interactiveTools" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
                 tools
@@ -284,7 +284,7 @@ export function SiteNavigation() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  color: open === "resources" ? "var(--fg)" : "var(--muted)",
+                  color: open === "resources" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
                 resources
@@ -295,7 +295,7 @@ export function SiteNavigation() {
               {open === "resources" && dropdown(resources)}
             </div>
 
-            <Link href="/contact" style={{ color: "var(--muted)", textDecoration: "none" }}>contact</Link>
+            <Link href="/contact" style={{ color: "var(--op-muted)", textDecoration: "none" }}>contact</Link>
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -327,8 +327,8 @@ export function SiteNavigation() {
               className="nav-hamburger"
               style={{
                 appearance: "none",
-                border: "1px solid var(--border)",
-                background: "var(--card)",
+                border: "1px solid var(--op-border)",
+                background: "var(--op-card)",
                 color: "var(--fg)",
                 borderRadius: 6,
                 padding: "6px 8px",
@@ -381,8 +381,8 @@ export function SiteNavigation() {
               marginLeft: "auto",
               width: "min(320px, 88vw)",
               height: "100%",
-              background: "var(--card)",
-              borderLeft: "1px solid var(--border)",
+              background: "var(--op-card)",
+              borderLeft: "1px solid var(--op-border)",
               overflowY: "auto",
               padding: "24px 20px",
               display: "flex",
@@ -396,7 +396,7 @@ export function SiteNavigation() {
               </Link>
               <button
                 onClick={() => setMobileOpen(false)}
-                style={{ appearance: "none", border: "none", background: "transparent", cursor: "pointer", color: "var(--muted)", padding: 4 }}
+                style={{ appearance: "none", border: "none", background: "transparent", cursor: "pointer", color: "var(--op-muted)", padding: 4 }}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
                   <path d="M3 3 L13 13 M13 3 L3 13" />
@@ -429,8 +429,8 @@ export function SiteNavigation() {
             </div>
 
             {/* Solutions section */}
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, marginBottom: 16 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 10, padding: "0 12px" }}>Solutions</div>
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 16 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>Solutions</div>
               {solutions.map((s) => (
                 <Link
                   key={s.href}
@@ -455,8 +455,8 @@ export function SiteNavigation() {
             </div>
 
             {/* Products section */}
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, marginBottom: 24 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 10, padding: "0 12px" }}>Products</div>
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>Products</div>
               {products.map((p) => (
                 <Link
                   key={p.href}
@@ -481,8 +481,8 @@ export function SiteNavigation() {
             </div>
 
             {/* Interactive Tools section */}
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, marginBottom: 24 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 10, padding: "0 12px" }}>Tools</div>
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>Tools</div>
               {interactiveTools.map((t) => (
                 <Link
                   key={t.href}
@@ -507,8 +507,8 @@ export function SiteNavigation() {
             </div>
 
             {/* Resources section */}
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, marginBottom: 24 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 10, padding: "0 12px" }}>Resources</div>
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>Resources</div>
               {resources.map((r) => (
                 <Link
                   key={r.href}

@@ -54,8 +54,8 @@ export function TableOfContents() {
       style={{
         padding: 20,
         borderRadius: 8,
-        border: "1px solid var(--border)",
-        background: "var(--card)",
+        border: "1px solid var(--op-border)",
+        background: "var(--op-card)",
         marginBottom: 32,
       }}
       aria-label="Table of contents"
@@ -92,7 +92,7 @@ export function TableOfContents() {
               }}
               style={{
                 fontSize: 13,
-                color: activeId === h.id ? "var(--accent)" : "var(--text-secondary)",
+                color: activeId === h.id ? "var(--op-accent)" : "var(--text-secondary)",
                 textDecoration: "none",
                 transition: "color 0.15s",
                 display: "block",
