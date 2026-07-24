@@ -311,6 +311,90 @@ function extractArticleThemes(post) {
   return themes.length > 0 ? themes : ['General AI topic']
 }
 
+// Extract specific, compelling claims from the article for use in email copy
+function extractSpecificClaims(post) {
+  const claims = []
+  const text = `${post.title} ${post.excerpt || post.metaDescription || ''}`
+  const lower = text.toLowerCase()
+
+  // Use metaDescription as first claim if available — it's already a specific summary
+  if (post.metaDescription && post.metaDescription.length > 40) {
+    claims.push(post.metaDescription.trim())
+  }
+
+  // Extract specific claims based on article content patterns
+  if (lower.includes('nist') && lower.includes('iso')) {
+    claims.push('Where NIST AI RMF and ISO 42001 overlap — and the gaps that cause audit failures')
+  }
+  if (lower.includes('rag') && (lower.includes('security') || lower.includes('row-level'))) {
+    claims.push('Row-level security patterns for multi-tenant RAG that most tutorials skip')
+  }
+  if (lower.includes('hipaa') && lower.includes('ai')) {
+    claims.push('A HIPAA compliance checklist that both engineers and compliance officers can use')
+  }
+  if (lower.includes('voice') && (lower.includes('fail') || lower.includes('production'))) {
+    claims.push('Specific failure modes of voice agents in production and how to prevent them')
+  }
+  if (lower.includes('incident') || lower.includes('containment')) {
+    claims.push('Evidence collection framework for AI incidents that audit teams can implement immediately')
+  }
+  if (lower.includes('legal') && (lower.includes('automation') || lower.includes('document'))) {
+    claims.push('Platform comparison with implementation-level detail that law firm IT directors need')
+  }
+  if (lower.includes('hybrid') && lower.includes('search')) {
+    claims.push('Hybrid search architecture trade-offs with benchmarks from production deployments')
+  }
+
+  // Fallback: use themes but make them more specific
+  if (claims.length === 0) {
+    const themes = extractArticleThemes(post)
+    for (const t of themes.slice(0, 3)) {
+      claims.push(`${t.toLowerCase()} with concrete implementation details from production systems`)
+    }
+  }
+
+  return claims.slice(0, 4)
+}
+
+// Generate article-specific hook using metaDescription instead of category-level template
+function generateArticleHook(post, primaryCategory) {
+  const desc = post.metaDescription || post.excerpt || ''
+  const lower = desc.toLowerCase()
+
+  // Article-specific hooks based on content signals
+  if (lower.includes('modular') && lower.includes('governance')) {
+    return 'Most AI governance frameworks are theoretical. This one is modular, deployed in production, and breaks down each component with specific compliance mappings.'
+  }
+  if (lower.includes('hipaa') && lower.includes('ai')) {
+    return 'HIPAA + AI content is usually either too legal or too technical. This bridges both worlds with a checklist that a compliance officer and an engineer can both use on day one.'
+  }
+  if (lower.includes('rag') && (lower.includes('security') || lower.includes('row-level') || lower.includes('multi-tenant'))) {
+    return 'RAG tutorials are everywhere, but they skip the hard parts: multi-tenant isolation, row-level security, and what breaks at scale. This article addresses exactly those gaps.'
+  }
+  if (lower.includes('voice') && (lower.includes('production') || lower.includes('fail'))) {
+    return 'Most voice AI content is vendor marketing. This is an architecture teardown from someone who shipped a production voice agent and lived through the failure modes.'
+  }
+  if (lower.includes('hybrid') && lower.includes('search')) {
+    return 'Hybrid search articles usually stop at "combine BM25 and vector search." This one covers the architecture decisions, trade-offs, and production benchmarks that actually matter.'
+  }
+  if (lower.includes('incident') || lower.includes('containment') || lower.includes('evidence')) {
+    return 'AI incident content often stays theoretical. This piece draws from real incidents and provides an evidence collection framework that audit teams can implement immediately.'
+  }
+  if (lower.includes('legal') && (lower.includes('automation') || lower.includes('document'))) {
+    return 'Legal tech coverage tends to be surface-level product roundups. This article compares specific platforms with implementation-level detail that law firm IT directors actually need.'
+  }
+  if (lower.includes('compliance') && (lower.includes('nist') || lower.includes('iso') || lower.includes('soc'))) {
+    return 'Most AI compliance content reads like a legal textbook. This one is different because it comes from someone who has actually built and deployed these systems in Fortune 50 environments.'
+  }
+
+  // Fallback: use the article's own description as the hook
+  if (desc.length > 20) {
+    return desc.trim()
+  }
+
+  return 'This article provides implementation-level detail that most coverage in this space skips.'
+}
+
 // Known disposable/honeypot email domains — never send to these
 const HONEYPOT_DOMAINS = [
   'mailinator.com', 'guerrillamail.com', 'tempmail.com', 'throwaway.email',
@@ -358,27 +442,27 @@ function generateOutreachEmails(post, categories) {
   const title = post.title
   const excerpt = post.excerpt || post.metaDescription
   const themes = extractArticleThemes(post)
+  const claims = extractSpecificClaims(post)
   const primaryCategory = categories[0]
   const categoryConfig = TOPIC_CATEGORIES[primaryCategory]
 
   const emails = []
 
+  // Article-specific hook (not category-level template)
+  const hook = generateArticleHook(post, primaryCategory)
+
   // Email 1: Newsletter editor pitch — value-first, specific, non-generic
   const newsletter = categoryConfig?.newsletters?.[0] || { name: 'The Rundown AI', pitch: 'AI insights for practitioners' }
-  const hookMap = {
-    'AI Governance & Compliance': 'Most AI compliance content reads like a legal textbook. This one is different because it comes from someone who has actually built and deployed these systems in Fortune 50 environments.',
-    'AI Security': 'AI security writing usually stops at "use encryption and access controls." This piece goes deeper into the specific attack surfaces that traditional security testing misses entirely.',
-    'Voice AI & Conversational': 'Most voice AI content is vendor marketing. This is an architecture teardown from someone who shipped a production voice agent and lived through the failure modes.',
-    'RAG & LLM Infrastructure': 'RAG tutorials are everywhere, but they skip the hard parts: multi-tenant isolation, row-level security, and what breaks at scale. This article addresses exactly those gaps.',
-    'Healthcare & HIPAA': 'HIPAA + AI content is usually either too legal or too technical. This bridges both worlds with a checklist that a compliance officer and an engineer can both use.',
-    'Legal Tech & Document Automation': 'Legal tech coverage tends to be surface-level product roundups. This article compares specific platforms with implementation-level detail that law firm IT directors actually need.',
-    'AI Risk & Incident Management': 'AI risk content often stays theoretical. This piece draws from real incidents and provides an evidence collection framework that audit teams can implement immediately.',
-  }
-  const hook = hookMap[primaryCategory] || 'This article provides implementation-level detail that most coverage in this space skips.'
+  const claimsList = claims.length > 0 ? claims : themes
+
+  // Short punchy subject angle — extract first phrase, max ~50 chars
+  const rawAngle = claims[0]?.split(' — ')[0] || themes[0] || 'AI governance'
+  const firstPhrase = rawAngle.split(/[.,;]/)[0].trim()
+  const subjectAngle = firstPhrase.length > 50 ? firstPhrase.split(' ').slice(0, 6).join(' ') : firstPhrase
 
   emails.push({
     recipient: `${newsletter.name} editor`,
-    subject: `Quick idea for ${newsletter.name} — ${themes[0] || 'AI governance'} angle your readers haven't seen`,
+    subject: `Quick idea for ${newsletter.name} — ${subjectAngle} angle your readers haven't seen`,
     body: `Hi [Editor Name],
 
 I'll be direct because I know you get dozens of these.
@@ -387,12 +471,14 @@ ${hook}
 
 I just published "${title}" — ${excerpt}
 
-The piece covers:
-- ${themes.join('\n- ')}
+What's specifically in it:
+${claimsList.map(c => `- ${c}`).join('\n')}
 - Concrete implementation steps, not framework summaries
 - What I learned deploying this in production (including what broke)
 
 Why I'm reaching out to ${newsletter.name} specifically: ${newsletter.pitch || 'Your readership matches the audience that needs this level of detail.'}
+
+Before I wrote this, I read your recent piece "[REFERENCE ONE OF THEIR RECENT ARTICLES OR NEWSLETTER ISSUES HERE — search their site, find a specific title]" and noticed you cover [topic] regularly. This article extends that conversation.
 
 I can provide:
 - A 150-word version adapted for your format
@@ -415,16 +501,16 @@ https://subodhkc.com${CAN_SPAM_FOOTER}`,
     const topicArea = primaryCategory.toLowerCase().replace(' & ', ' and ')
     emails.push({
       recipient: `${targetName} editorial team`,
-      subject: `${themes[0] || 'AI governance'} resource for ${targetName} — or a guest post if you're open to it`,
+      subject: `${subjectAngle} resource for ${targetName} — or a guest post if you're open to it`,
       body: `Hi [Editor Name],
 
-I read your recent coverage on ${topicArea} and noticed a gap that I just wrote about.
+I read your recent article "[REFERENCE A SPECIFIC ARTICLE FROM ${targetName.toUpperCase()} HERE — find one published in the last 30 days, use the exact title]" and noticed a gap that I just wrote about.
 
 "${title}"
 ${articleUrl}
 
 What's in it that your readers won't find elsewhere:
-- ${themes.join('\n- ')}
+${claimsList.map(c => `- ${c}`).join('\n')}
 - Implementation-level detail from someone who deployed these systems in Fortune 50 environments
 - Specific failure modes and how to avoid them
 
@@ -446,7 +532,7 @@ https://subodhkc.com${CAN_SPAM_FOOTER}`,
   if (categories.some((c) => c.includes('Voice') || c.includes('RAG') || c.includes('Security'))) {
     emails.push({
       recipient: 'AI engineering community leaders (for content amplification)',
-      subject: `Your community might find this useful — ${themes[0] || 'production AI'} deep-dive`,
+      subject: `Your community might find this useful — ${subjectAngle} deep-dive`,
       body: `Hi [Name],
 
 Not a generic pitch — I'll keep this short.
@@ -457,7 +543,7 @@ I wrote a technical deep-dive on ${primaryCategory.toLowerCase()} that goes past
 ${articleUrl}
 
 What's different about it:
-- ${themes.join('\n- ')}
+${claimsList.map(c => `- ${c}`).join('\n')}
 - Real production failures and how they were solved
 - Architecture decisions with trade-offs explained
 
@@ -471,6 +557,49 @@ I'm also open to collaboration if you're looking for guests:
 Best,
 Subodh KC
 https://subodhkc.com${CAN_SPAM_FOOTER}`,
+    })
+  }
+
+  // ─── Follow-up email templates (send 7 days after initial if no reply) ───
+  // Newsletter follow-up
+  emails.push({
+    recipient: `${newsletter.name} editor (FOLLOW-UP — send 7 days after Email 1 if no reply)`,
+    subject: `Re: Quick idea for ${newsletter.name}`,
+    body: `Hi [Editor Name],
+
+Bumping this up in case it got buried. I know inboxes get crowded.
+
+Quick recap: I published "${title}" and thought it'd be a fit for ${newsletter.name} because ${newsletter.pitch || 'it matches your audience'}.
+
+I'm happy to adapt it to your format — a 150-word version, an exclusive angle, or a guest contribution. Whatever works best for you.
+
+Article: ${articleUrl}
+
+If the timing isn't right, just let me know and I won't follow up again.
+
+Best,
+Subodh KC${CAN_SPAM_FOOTER}`,
+  })
+
+  // Guest post follow-up
+  if (backlinkTarget) {
+    emails.push({
+      recipient: `${backlinkTarget.target} editorial team (FOLLOW-UP — send 7 days after Email 2 if no reply)`,
+      subject: `Re: ${subjectAngle} resource for ${backlinkTarget.target}`,
+      body: `Hi [Editor Name],
+
+Following up on my note from last week about "${title}".
+
+I noticed ${backlinkTarget.target} has been covering ${primaryCategory.toLowerCase()} more lately, and I think an exclusive version for your audience would perform well.
+
+I can turn it around in 48 hours — different angle from the original, same depth. No payment needed, just attribution and a link back.
+
+Article for reference: ${articleUrl}
+
+Happy to send a quick outline first if that helps you decide.
+
+Best,
+Subodh KC${CAN_SPAM_FOOTER}`,
     })
   }
 
@@ -618,7 +747,7 @@ function generateReport(post, tracker) {
   md += `- [ ] **Check domain MX records**: Run \`dig MX targetdomain.com\` — if no MX records exist, do not send.\n`
   md += `- [ ] **Avoid disposable domains**: Never send to mailinator.com, guerrillamail.com, tempmail.com, or similar disposable email services.\n`
   md += `- [ ] **Find a real name**: Use LinkedIn to find the editor or content manager's name. "Hi Sarah" gets 10x the response rate of "Hi [Editor Name]".\n`
-  md += `- [ ] **Reference their specific work**: Before sending, read 1-2 recent articles from the target site and reference them by title in your email. This proves you're not blasting.\n`
+  md += `- [ ] **Reference their specific work**: Before sending, read 1-2 recent articles from the target site and reference them by title in your email. Replace all [REFERENCE...] placeholders with actual article titles. This proves you're not blasting.\n`
   md += `- [ ] **Include CAN-SPAM footer**: All emails include a physical mailing address and unsubscribe option. Address is set to 406 Westcliff, Euless, TX 76040.\n`
   md += `- [ ] **Check sent-tracker.json**: Verify you haven't already emailed this target. The tracker prevents duplicate sends.\n`
   md += `- [ ] **Respect daily limit**: Max ${DAILY_SEND_LIMIT} guest post pitches per day to avoid being flagged as spam.\n`
@@ -626,13 +755,54 @@ function generateReport(post, tracker) {
 
   // ─── Outreach Email Templates ───
   md += `## Outreach Email Templates\n\n`
-  md += `> Review and customize before sending. Replace [Name], [Editor Name], etc. with real names found via LinkedIn.\n`
+  md += `> Review and customize before sending. Replace [Name], [Editor Name], and [REFERENCE...] placeholders with real values found via LinkedIn and the target site.\n`
   md += `> Each email includes a CAN-SPAM compliant footer with mailing address and unsubscribe option.\n\n`
-  for (let i = 0; i < outreachEmails.length; i++) {
-    const email = outreachEmails[i]
+
+  const initialEmails = outreachEmails.filter(e => !e.recipient.includes('FOLLOW-UP'))
+  const followUpEmails = outreachEmails.filter(e => e.recipient.includes('FOLLOW-UP'))
+
+  md += `### Initial Outreach (${initialEmails.length} emails)\n\n`
+  for (let i = 0; i < initialEmails.length; i++) {
+    const email = initialEmails[i]
     md += `### Email ${i + 1}: To ${email.recipient}\n\n`
     md += `**Subject:** ${email.subject}\n\n`
     md += `\`\`\`\n${email.body}\n\`\`\`\n\n`
+  }
+
+  if (followUpEmails.length > 0) {
+    md += `### Follow-Up Templates (${followUpEmails.length} emails)\n\n`
+    md += `> Send these 7 days after the initial email IF you haven't received a reply.\n`
+    md += `> Do NOT send a follow-up if you already got a response (positive or negative).\n`
+    md += `> If no reply after the follow-up, consider the lead closed — don't send a third email.\n\n`
+    for (let i = 0; i < followUpEmails.length; i++) {
+      const email = followUpEmails[i]
+      md += `### Follow-Up ${i + 1}: To ${email.recipient}\n\n`
+      md += `**Subject:** ${email.subject}\n\n`
+      md += `\`\`\`\n${email.body}\n\`\`\`\n\n`
+    }
+  }
+
+  // ─── Pending Follow-Ups (from tracker) ───
+  const pendingFollowUps = []
+  for (const [dateKey, entry] of Object.entries(tracker)) {
+    if (dateKey === 'sentCount' || !entry.targets) continue
+    const sentDate = new Date(dateKey)
+    const daysSince = Math.floor((Date.now() - sentDate.getTime()) / (1000 * 60 * 60 * 24))
+    if (daysSince >= 7 && daysSince <= 21) {
+      for (const t of (entry.targets || [])) {
+        pendingFollowUps.push({ target: t.target, sentDate: dateKey, daysSince })
+      }
+    }
+  }
+  if (pendingFollowUps.length > 0) {
+    md += `### ⚠️ Pending Follow-Ups (sent >7 days ago, no follow-up tracked)\n\n`
+    md += `> These emails were sent over 7 days ago. If you haven't received a reply, send the follow-up template above.\n\n`
+    md += `| Target | Sent Date | Days Since | Action |\n`
+    md += `|--------|-----------|------------|--------|\n`
+    for (const f of pendingFollowUps) {
+      md += `| ${f.target} | ${f.sentDate} | ${f.daysSince} | Send follow-up if no reply received |\n`
+    }
+    md += `\n`
   }
 
   // ─── Distribution Checklist (Priority Ordered) ───
