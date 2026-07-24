@@ -357,12 +357,14 @@ jobs:
         if: success()
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
             echo "Generating outreach plan for: $SLUG"
-            node scripts/outreach-generator.mjs --slug="$SLUG" || echo "::warning::Outreach generation failed for $SLUG"
+            node scripts/outreach-generator.mjs --slug="$SLUG" --log-supabase || echo "::warning::Outreach generation failed for $SLUG"
           fi
 
       - name: Commit cross-post trackers and outreach plans
