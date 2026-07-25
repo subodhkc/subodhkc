@@ -76,6 +76,9 @@ START_HERE.md
 VERCEL_DEPLOYMENT.md
 **/Executive-Bio-*.md
 
+# Allow downloadable checklist files in public/downloads/
+!public/downloads/*.md
+
 # Backlink tooling (private configs, trackers, credentials)
 backlinks/*.yaml
 backlinks/*.yml
