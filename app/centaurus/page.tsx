@@ -85,14 +85,14 @@ export default function CentaurusPage() {
                       </Button>
                     </a>
                     <a 
-                      href="/Doc/Centaurus_AI_Advisory_Practice_Client_Ready_Final.pptx" 
+                      href="https://docs.google.com/presentation/d/1roy5Jh3VLVa6UoZ_zHD9wWxoHfdrILkM/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true" 
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1"
                     >
                       <Button size="lg" variant="outline" className="w-full gap-2">
                         <Eye className="h-5 w-5" />
-                        View Online
+                        View on Google Slides
                       </Button>
                     </a>
                   </div>
