@@ -1,30 +1,6 @@
 'use client';
 
-import { Metadata } from 'next';
 import Link from 'next/link';
-
-export const metadata: Metadata = {
-  title: 'Resume - Subodh KC | AI Advisor and Systems Architect',
-  description: 'Resume of Subodh KC. AI Systems Architect, Sr Program Manager at HP Inc, founder of HAIEC. 16+ years building production AI systems, compliance automation, and governance frameworks.',
-  keywords: [
-    'Subodh KC resume',
-    'AI systems architect resume',
-    'product manager resume',
-    'AI governance',
-    'compliance automation',
-    'HP Inc',
-    'HAIEC founder',
-    'AI compliance',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/resume',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  }
-};
 
 export default function ResumePage() {
   return (
