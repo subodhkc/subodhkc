@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { ExternalLink, BookOpen, TrendingUp, Users, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 
-export const metadata = {
+const writingMetadata = {
   title: 'AI Architecture & Governance Articles | Subodh KC',
   description: 'In-depth articles on AI governance, compliance, enterprise architecture, and production AI systems. Subscribe for weekly insights.',
   keywords: [

@@ -1,6 +1,5 @@
 'use client'
 
-import { Metadata } from 'next'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Section from '@/components/Section'
@@ -19,27 +18,6 @@ import {
   ChevronDown,
   TrendingUp,
 } from 'lucide-react'
-
-export const metadata: Metadata = {
-  title: 'Local AI Review | AI Readiness Assessment | Subodh KC',
-  description: 'Interactive assessment to evaluate your business readiness for local AI implementation. Identify gaps, risks, and opportunities for AI automation.',
-  keywords: [
-    'AI readiness assessment',
-    'local AI review',
-    'AI implementation',
-    'business AI assessment',
-    'AI automation',
-    'AI governance',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/local-ai-review',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  }
-}
 
 const BUSINESS_CHECKS = [
   'Customers sometimes reach voicemail during business hours.',

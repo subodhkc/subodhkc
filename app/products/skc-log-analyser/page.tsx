@@ -28,7 +28,7 @@ import {
   Layers
 } from 'lucide-react'
 
-export const metadata = {
+const loganalyserMetadata = {
   title: 'SKC Log Analyser | AI-Powered Log Analysis | Early Access | Subodh KC',
   description: 'Find the needle in a billion haystacks. AI-powered log analysis that turns terabytes of data into actionable insights. Pattern detection, real-time alerts.',
   keywords: [

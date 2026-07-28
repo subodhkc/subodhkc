@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-export const metadata = {
+const productsMetadata = {
   title: 'Privacy-First AI Tools | Open Source & Enterprise | Subodh KC',
   description: 'LLM verification, PDF redaction, document timeline, log analysis, and legal tools. Local-first, zero telemetry, open source available.',
   keywords: [

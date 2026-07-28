@@ -24,7 +24,7 @@ import {
   Server
 } from 'lucide-react'
 
-export const metadata = {
+const pdfredactorMetadata = {
   title: 'PDF Redactor | AI-Powered PII Removal | Free Download | Subodh KC',
   description: 'AI-powered sensitive data removal. Automatically detect and permanently redact SSNs, credit cards, names, and 50+ PII types from PDFs. Local processing.',
   keywords: [

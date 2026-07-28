@@ -5,7 +5,7 @@ import Link from 'next/link'
 import MagazineViewer from './MagazineViewer'
 import { MAGAZINE_CSS, MAGAZINE_HTML } from './magazine-data'
 
-export const metadata = {
+const magazineMetadata = {
   title: 'AI Magazine | Enterprise AI Strategy & Governance | Subodh KC',
   description: 'Interactive magazine on AI governance, compliance frameworks, and enterprise AI strategy. Read online or subscribe.',
   keywords: [

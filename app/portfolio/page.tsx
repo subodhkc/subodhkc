@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import BookViewer from './BookViewer';
 
-export const metadata = {
+const portfolioMetadata = {
   title: 'Portfolio | AI Systems & Products Built | Subodh KC',
   description: 'Interactive portfolio showcasing AI systems, compliance platforms, and tools built for enterprise scale.',
   keywords: [

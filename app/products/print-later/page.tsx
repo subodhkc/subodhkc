@@ -26,7 +26,7 @@ import {
   X
 } from 'lucide-react'
 
-export const metadata = {
+const printlaterMetadata = {
   title: 'Print Later | Save & Print Web Pages | Free Windows App | Subodh KC',
   description: 'Free, open-source Windows app to save web pages and print later. Build a print queue, browser extension, 100% local processing.',
   keywords: [

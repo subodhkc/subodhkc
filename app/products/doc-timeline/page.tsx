@@ -25,7 +25,7 @@ import {
   X
 } from 'lucide-react'
 
-export const metadata = {
+const doctimelineMetadata = {
   title: 'Doc Timeline Generator | AI Document Analysis | Enterprise | Subodh KC',
   description: 'Transform thousands of documents into clear, chronological timelines. AI-powered extraction for legal discovery, insurance claims, and compliance audits.',
   keywords: [

@@ -21,7 +21,7 @@ import {
   Printer
 } from 'lucide-react'
 
-export const metadata = {
+const courtcaseMetadata = {
   title: 'CourtCase | Legal Document Management | Coming Soon | Subodh KC',
   description: 'Organize your legal documents with ease. Manage case files, track deadlines, and prepare document packets — all locally on your computer.',
   keywords: [
