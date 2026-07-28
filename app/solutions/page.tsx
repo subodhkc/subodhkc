@@ -6,6 +6,55 @@ import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Shield, Phone, Sparkles, Scale, FileText, ExternalLink } from 'lucide-react'
 
+export const metadata = {
+  title: 'AI Solutions | Enterprise AI Systems & Compliance Platforms | Subodh KC',
+  description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform, and CourtCase evidence builder.',
+  keywords: [
+    'AI solutions',
+    'enterprise AI',
+    'AI compliance platform',
+    'AI governance software',
+    'voice AI platform',
+    'AI receptionist',
+    'AI compliance automation',
+    'production AI systems',
+    'AI architecture solutions',
+    'enterprise AI applications',
+    'AI systems architect',
+    'Subodh KC'
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/solutions',
+  },
+  openGraph: {
+    title: 'AI Solutions | Enterprise AI Systems & Compliance Platforms',
+    description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform.',
+    url: 'https://subodhkc.com/solutions',
+    type: 'website',
+    images: [
+      {
+        url: 'https://subodhkc.com/og/solutions.png',
+        width: 1200,
+        height: 630,
+        alt: 'AI Solutions'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Solutions | Enterprise AI Systems & Compliance Platforms',
+    description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform.',
+    images: ['https://subodhkc.com/og/solutions.png']
+  },
+  robots: {
+    index: true,
+    follow: true,
+    'max-snippet': -1,
+    'max-image-preview': 'large',
+    'max-video-preview': -1
+  }
+}
+
 export default function SolutionsPage() {
   const solutions = [
     {

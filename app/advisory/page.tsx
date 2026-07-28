@@ -21,6 +21,20 @@ export const metadata = {
   title: 'AI Advisory & Consulting | Subodh KC',
   description:
     'Strategic advisory services for AI architecture, governance, and technical program leadership. Executive coaching, implementation support, and fractional leadership for enterprise AI initiatives.',
+  keywords: [
+    'AI advisory',
+    'AI consulting',
+    'AI architecture consulting',
+    'AI governance consulting',
+    'AI compliance advisory',
+    'AI systems architect',
+    'AI strategy advisor',
+    'enterprise AI consulting',
+    'AI implementation support',
+    'fractional AI leadership',
+    'AI executive coaching',
+    'Subodh KC'
+  ],
   alternates: {
     canonical: 'https://subodhkc.com/advisory',
   },

@@ -11,6 +11,20 @@ export const metadata = {
   title: 'Speaking & Keynotes | AI Governance & Strategy | Subodh KC',
   description:
     'Book Subodh KC for keynotes, workshops, and technical talks on AI architecture, governance, enterprise program management, and strategic execution at scale.',
+  keywords: [
+    'AI keynote speaker',
+    'AI governance speaker',
+    'AI architecture speaker',
+    'enterprise AI speaker',
+    'AI compliance speaker',
+    'AI workshop',
+    'AI training',
+    'AI strategy speaker',
+    'AI systems architect',
+    'speaking engagements',
+    'technical speaker',
+    'Subodh KC'
+  ],
   alternates: {
     canonical: 'https://subodhkc.com/speaking',
   },

@@ -3,6 +3,53 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+export const metadata = {
+  title: 'Privacy-First AI Tools | Open Source & Enterprise | Subodh KC',
+  description: 'LLM verification, PDF redaction, document timeline, log analysis, and legal tools. Local-first, zero telemetry, open source available.',
+  keywords: [
+    'AI tools',
+    'LLM tools',
+    'privacy tools',
+    'open source',
+    'PDF redaction',
+    'document analysis',
+    'log analysis',
+    'legal tools',
+    'local processing',
+    'Subodh KC'
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/products',
+  },
+  openGraph: {
+    title: 'Privacy-First AI Tools | Subodh KC',
+    description: 'LLM verification, PDF redaction, document timeline, log analysis, and legal tools.',
+    url: 'https://subodhkc.com/products',
+    type: 'website',
+    images: [
+      {
+        url: 'https://subodhkc.com/og/products.png',
+        width: 1200,
+        height: 630,
+        alt: 'Privacy-First AI Tools'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy-First AI Tools | Subodh KC',
+    description: 'LLM verification, PDF redaction, document timeline, log analysis, and legal tools.',
+    images: ['https://subodhkc.com/og/products.png']
+  },
+  robots: {
+    index: true,
+    follow: true,
+    'max-snippet': -1,
+    'max-image-preview': 'large',
+    'max-video-preview': -1
+  }
+}
 import { 
   Printer, 
   Scale, 

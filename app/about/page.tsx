@@ -9,9 +9,9 @@ import Grid from '@/components/Grid'
 import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, Download, FileText, BookOpen, User, Newspaper } from 'lucide-react'
 
 export const metadata = {
-  title: 'About Subodh KC | AI Systems Architect and Founder',
+  title: 'About Subodh KC | AI Advisor and Systems Architect | Founder',
   description:
-    'Learn about Subodh KC — AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
+    'Learn about Subodh KC — AI Advisor and Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
   keywords: [
     'Subodh KC',
     'AI systems architect',
@@ -28,16 +28,16 @@ export const metadata = {
     canonical: 'https://subodhkc.com/about',
   },
   openGraph: {
-    title: 'About Subodh KC | AI Systems Architect and Founder',
+    title: 'About Subodh KC | AI Advisor and Systems Architect | Founder',
     description:
-      'Learn about Subodh KC — AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
+      'Learn about Subodh KC — AI Advisor and Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Subodh KC | AI Systems Architect and Founder',
-    description: 'AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
+    title: 'About Subodh KC | AI Advisor and Systems Architect | Founder',
+    description: 'AI Advisor and Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
   },
 }
 

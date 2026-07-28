@@ -21,38 +21,50 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'llmverify – LLM Checker & Output Verification npm Package',
-  description: 'llmverify is an open-source npm package for LLM output verification, prompt injection detection, PII redaction, and hallucination risk scoring. 100% local processing, zero telemetry. Install with npm i llmverify.',
+  title: 'llmverify | Open-Source LLM Output Verification | Subodh KC',
+  description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js. Prompt injection detection, PII redaction, hallucination scoring. Zero telemetry.',
   keywords: [
     'llmverify',
-    'LLM checker',
-    'LLM checker npm package',
-    'LLM guardrails',
-    'AI safety',
+    'LLM verification',
     'prompt injection detection',
     'PII redaction',
     'hallucination detection',
-    'LLM validation library',
-    'AI guardrails npm',
-    'npm package for AI safety',
+    'open source',
     'Node.js',
-    'npm package',
+    'LLM security',
+    'AI safety',
     'Subodh KC'
   ],
   alternates: {
     canonical: 'https://subodhkc.com/products/llmverify',
   },
   openGraph: {
-    title: 'llmverify – LLM Checker & Output Verification npm Package',
-    description: 'Open-source npm package for LLM output verification. Prompt injection detection, PII redaction, hallucination scoring. 100% local, zero telemetry.',
-    type: 'website',
+    title: 'llmverify | LLM Output Verification',
+    description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js.',
     url: 'https://subodhkc.com/products/llmverify',
+    type: 'website',
+    images: [
+      {
+        url: 'https://subodhkc.com/og/llmverify.png',
+        width: 1200,
+        height: 630,
+        alt: 'llmverify'
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'llmverify – LLM Checker npm Package',
-    description: 'Open-source LLM output verification. Prompt injection detection, PII redaction, hallucination scoring. 100% local.',
+    title: 'llmverify | LLM Output Verification',
+    description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js.',
+    images: ['https://subodhkc.com/og/llmverify.png']
   },
+  robots: {
+    index: true,
+    follow: true,
+    'max-snippet': -1,
+    'max-image-preview': 'large',
+    'max-video-preview': -1
+  }
 }
 
 export default function LLMVerifyPage() {

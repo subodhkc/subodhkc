@@ -9,7 +9,7 @@ import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { MagazineBadge } from "@/components/home/MagazineBadge";
 
 export const metadata = {
-  title: "Subodh KC | AI Systems Architect & Governance Expert",
+  title: "Subodh KC | AI Advisor and Systems Architect | Governance Expert",
   description:
     "Subodh KC architects, deploys and governs production AI systems — including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.",
   keywords: [

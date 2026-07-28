@@ -1,11 +1,21 @@
 'use client'
 
+import { Metadata } from 'next'
 import { useState } from 'react'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Mail, CheckCircle2, AlertCircle } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Unsubscribe | Subodh KC',
+  description: 'Manage your email subscription preferences. Unsubscribe from Subodh KC mailing list.',
+  robots: {
+    index: false,
+    follow: false,
+  }
+}
 
 export default function UnsubscribePage() {
   const [email, setEmail] = useState('')

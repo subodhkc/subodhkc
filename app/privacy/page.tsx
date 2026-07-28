@@ -5,6 +5,19 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 export const metadata = {
   title: 'Privacy Policy — Subodh KC',
   description: 'Privacy policy for subodhkc.com. How we collect, use, and protect your data.',
+  keywords: [
+    'privacy policy',
+    'data privacy',
+    'privacy protection',
+    'data security',
+    'GDPR compliance',
+    'privacy statement',
+    'user data protection',
+    'privacy practices'
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/privacy',
+  },
 }
 
 export default function PrivacyPage() {

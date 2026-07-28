@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { 
   Download, 
-  Github, 
+  Github,
   Shield, 
   Zap, 
   Printer, 
@@ -25,6 +25,53 @@ import {
   Briefcase,
   X
 } from 'lucide-react'
+
+export const metadata = {
+  title: 'Print Later | Save & Print Web Pages | Free Windows App | Subodh KC',
+  description: 'Free, open-source Windows app to save web pages and print later. Build a print queue, browser extension, 100% local processing.',
+  keywords: [
+    'print later',
+    'save web pages',
+    'print queue',
+    'Windows app',
+    'browser extension',
+    'free software',
+    'open source',
+    'productivity tool',
+    'web tools',
+    'Subodh KC'
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/products/print-later',
+  },
+  openGraph: {
+    title: 'Print Later | Save & Print Web Pages',
+    description: 'Free, open-source Windows app to save web pages and print later. Build a print queue, browser extension, 100% local processing.',
+    url: 'https://subodhkc.com/products/print-later',
+    type: 'website',
+    images: [
+      {
+        url: 'https://subodhkc.com/og/print-later.png',
+        width: 1200,
+        height: 630,
+        alt: 'Print Later'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Print Later | Save & Print Web Pages',
+    description: 'Free, open-source Windows app to save web pages and print later.',
+    images: ['https://subodhkc.com/og/print-later.png']
+  },
+  robots: {
+    index: true,
+    follow: true,
+    'max-snippet': -1,
+    'max-image-preview': 'large',
+    'max-video-preview': -1
+  }
+}
 
 export default function PrintLaterPage() {
   const [email, setEmail] = useState('')

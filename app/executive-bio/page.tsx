@@ -18,8 +18,22 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Executive Bio - Subodh KC | Director of AI Programs',
+  title: 'Executive Bio - Subodh KC | AI Advisor and Systems Architect',
   description: 'Builder of Systems That Don\'t Break. 16+ years from field operations to Fortune 50 AI strategy. 5 patent-pending frameworks. $50M+ portfolios. This is the story behind the systems.',
+  keywords: [
+    'Subodh KC',
+    'AI systems architect',
+    'AI director',
+    'AI strategy leader',
+    'Fortune 50 AI',
+    'AI governance expert',
+    'AI compliance',
+    'enterprise AI',
+    'AI systems design',
+    'AI leadership',
+    'AI advisor',
+    'AI consultant'
+  ],
   alternates: {
     canonical: 'https://subodhkc.com/executive-bio',
   },

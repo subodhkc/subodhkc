@@ -11,6 +11,20 @@ export const metadata = {
   title: 'AI Governance Research & Frameworks | Subodh KC',
   description:
     'Research and frameworks on AI governance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies. Published in Zenodo with peer-reviewed methodologies.',
+  keywords: [
+    'AI governance research',
+    'AI frameworks',
+    'drift detection',
+    'cognitive systems management',
+    'AI compliance frameworks',
+    'AI risk management',
+    'AI audit methodology',
+    'AI systems research',
+    'enterprise AI frameworks',
+    'AI governance best practices',
+    'AI systems architect',
+    'Subodh KC'
+  ],
   alternates: {
     canonical: 'https://subodhkc.com/research',
   },
