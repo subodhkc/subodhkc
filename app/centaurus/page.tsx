@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { FileText, Download, ArrowLeft, Eye } from 'lucide-react'
+import { FileText, Download, ArrowLeft, Eye, Play } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Centaurus AI Advisory Practice | Subodh KC',
@@ -71,6 +71,46 @@ export default function CentaurusPage() {
               </div>
 
               <div className="border-t pt-6">
+                <h3 className="font-semibold text-slate-900 mb-4">Video Overview</h3>
+                <div className="space-y-4">
+                  <a 
+                    href="https://youtube.com/shorts/kBJyxvGFobQ?feature=share" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full"
+                  >
+                    <Button size="lg" className="w-full gap-2 bg-red-600 hover:bg-red-700">
+                      <Play className="h-5 w-5" />
+                      Watch on YouTube
+                    </Button>
+                  </a>
+                  <p className="text-xs text-slate-500">
+                    Quick overview video on YouTube Shorts
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-t pt-6">
+                <h3 className="font-semibold text-slate-900 mb-4">Monetize AI</h3>
+                <div className="space-y-4">
+                  <a 
+                    href="https://docs.google.com/presentation/d/1VKLxITPtv-B5opdCGq0z7JIpdHGO1kcu/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full"
+                  >
+                    <Button size="lg" className="w-full gap-2 bg-emerald-600 hover:bg-emerald-700">
+                      <Eye className="h-5 w-5" />
+                      View Monetize AI on Google Slides
+                    </Button>
+                  </a>
+                  <p className="text-xs text-slate-500">
+                    Strategic approaches to AI monetization and revenue generation
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-t pt-6">
                 <h3 className="font-semibold text-slate-900 mb-4">Centaurus AI Advisory Practice</h3>
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row gap-3">
@@ -98,26 +138,6 @@ export default function CentaurusPage() {
                   </div>
                   <p className="text-xs text-slate-500">
                     File size: ~1.3 MB | Format: PowerPoint (.pptx) | Requires Microsoft Office, Google Slides, or compatible viewer
-                  </p>
-                </div>
-              </div>
-
-              <div className="border-t pt-6">
-                <h3 className="font-semibold text-slate-900 mb-4">Monetize AI</h3>
-                <div className="space-y-4">
-                  <a 
-                    href="https://docs.google.com/presentation/d/1VKLxITPtv-B5opdCGq0z7JIpdHGO1kcu/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full"
-                  >
-                    <Button size="lg" className="w-full gap-2 bg-emerald-600 hover:bg-emerald-700">
-                      <Eye className="h-5 w-5" />
-                      View Monetize AI on Google Slides
-                    </Button>
-                  </a>
-                  <p className="text-xs text-slate-500">
-                    Strategic approaches to AI monetization and revenue generation
                   </p>
                 </div>
               </div>
