@@ -12,6 +12,7 @@ import {
   Calendar,
   Gavel,
   CheckCircle2,
+  FileText,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -169,6 +170,45 @@ export default function GuidesIndexPage() {
               )
             })}
           </Grid>
+        </div>
+      </Section>
+
+      {/* ─── Whitepaper ─── */}
+      <Section
+        subtitle="Technical Whitepaper"
+        title="SEO Risk in AI-Assisted Frontend Development"
+        description="A technical position paper examining how client-only rendering in AI-assisted Next.js and React apps reduces crawlability, delays Google indexing, and obscures public web content from search engines."
+        id="whitepaper"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Link href="/blog/hidden-seo-risk-ai-assisted-frontend-development" className="block">
+            <Card className="hover:border-primary/40 transition-all cursor-pointer">
+              <CardHeader>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <FileText className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-xs font-medium text-blue-600 mb-2 block">
+                      July 2026 &middot; Technical Position Paper
+                    </span>
+                    <CardTitle className="text-lg mb-2">
+                      The Hidden SEO Risk in AI-Assisted Frontend Development
+                    </CardTitle>
+                    <CardDescription className="text-sm leading-relaxed">
+                      How client-only rendering can reduce crawlability, delay content discovery, and
+                      obscure public web content. Includes a practical audit checklist, server-first
+                      Next.js patterns, and a controlled study design for validating the hypothesis.
+                    </CardDescription>
+                    <span className="text-sm text-primary inline-flex items-center gap-1 mt-3">
+                      Read whitepaper <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+          </Link>
         </div>
       </Section>
 

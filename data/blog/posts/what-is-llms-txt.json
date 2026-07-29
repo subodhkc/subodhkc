@@ -264,7 +264,10 @@
     "AI agent optimization",
     "machine-readable documentation",
     "agentic browsing",
-    "llms.txt format"
+    "llms.txt format",
+    "SEO",
+    "crawlability",
+    "server-side rendering"
   ],
   "seedKeyword": "what is llms.txt",
   "excerpt": "A builder's case for llms.txt, llms-full.txt, and the emerging agentic web — with evidence, implementation templates, and a real retrieval case study.",
