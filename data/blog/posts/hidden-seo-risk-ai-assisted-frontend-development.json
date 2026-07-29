@@ -1,5 +1,5 @@
 {
-  "id": 627495,
+  "id": 627501,
   "title": "The Hidden SEO Risk in AI-Assisted Frontend Development",
   "slug": "hidden-seo-risk-ai-assisted-frontend-development",
   "metaDescription": "How client-only rendering in AI-assisted Next.js and React apps reduces crawlability, delays Google indexing, and obscures public web content from search engines. A technical whitepaper with audit checklist and server-first patterns.",

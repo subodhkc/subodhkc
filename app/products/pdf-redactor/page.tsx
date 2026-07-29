@@ -24,53 +24,6 @@ import {
   Server
 } from 'lucide-react'
 
-const pdfredactorMetadata = {
-  title: 'PDF Redactor | AI-Powered PII Removal | Free Download | Subodh KC',
-  description: 'AI-powered sensitive data removal. Automatically detect and permanently redact SSNs, credit cards, names, and 50+ PII types from PDFs. Local processing.',
-  keywords: [
-    'PDF redaction',
-    'PII removal',
-    'data redaction',
-    'sensitive data',
-    'PDF tools',
-    'privacy tools',
-    'AI redaction',
-    'document security',
-    'free software',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/products/pdf-redactor',
-  },
-  openGraph: {
-    title: 'PDF Redactor | AI-Powered PII Removal',
-    description: 'AI-powered sensitive data removal. Automatically detect and permanently redact SSNs, credit cards, names, and 50+ PII types from PDFs.',
-    url: 'https://subodhkc.com/products/pdf-redactor',
-    type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/pdf-redactor.png',
-        width: 1200,
-        height: 630,
-        alt: 'PDF Redactor'
-      }
-    ]
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'PDF Redactor | AI-Powered PII Removal',
-    description: 'AI-powered sensitive data removal. Automatically detect and permanently redact SSNs, credit cards, names, and 50+ PII types from PDFs.',
-    images: ['https://subodhkc.com/og/pdf-redactor.png']
-  },
-  robots: {
-    index: true,
-    follow: true,
-    'max-snippet': -1,
-    'max-image-preview': 'large',
-    'max-video-preview': -1
-  }
-}
-
 export default function PDFRedactorPage() {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)

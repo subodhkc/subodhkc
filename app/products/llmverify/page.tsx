@@ -43,20 +43,11 @@ export const metadata: Metadata = {
     description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js.',
     url: 'https://subodhkc.com/products/llmverify',
     type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/llmverify.png',
-        width: 1200,
-        height: 630,
-        alt: 'llmverify'
-      }
-    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'llmverify | LLM Output Verification',
     description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js.',
-    images: ['https://subodhkc.com/og/llmverify.png']
   },
   robots: {
     index: true,

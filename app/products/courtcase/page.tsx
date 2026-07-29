@@ -21,53 +21,6 @@ import {
   Printer
 } from 'lucide-react'
 
-const courtcaseMetadata = {
-  title: 'CourtCase | Legal Document Management | Coming Soon | Subodh KC',
-  description: 'Organize your legal documents with ease. Manage case files, track deadlines, and prepare document packets — all locally on your computer.',
-  keywords: [
-    'legal software',
-    'document management',
-    'case management',
-    'legal tools',
-    'deadline tracking',
-    'legal documents',
-    'case organization',
-    'law practice tools',
-    'productivity software',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/products/courtcase',
-  },
-  openGraph: {
-    title: 'CourtCase | Legal Document Management',
-    description: 'Organize your legal documents with ease. Manage case files, track deadlines, and prepare document packets — all locally on your computer.',
-    url: 'https://subodhkc.com/products/courtcase',
-    type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/courtcase.png',
-        width: 1200,
-        height: 630,
-        alt: 'CourtCase'
-      }
-    ]
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'CourtCase | Legal Document Management',
-    description: 'Organize your legal documents with ease. Manage case files, track deadlines, and prepare document packets — all locally on your computer.',
-    images: ['https://subodhkc.com/og/courtcase.png']
-  },
-  robots: {
-    index: true,
-    follow: true,
-    'max-snippet': -1,
-    'max-image-preview': 'large',
-    'max-video-preview': -1
-  }
-}
-
 export default function CourtCasePage() {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)

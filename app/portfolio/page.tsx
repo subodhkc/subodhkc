@@ -4,53 +4,6 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import BookViewer from './BookViewer';
 
-const portfolioMetadata = {
-  title: 'Portfolio | AI Systems & Products Built | Subodh KC',
-  description: 'Interactive portfolio showcasing AI systems, compliance platforms, and tools built for enterprise scale.',
-  keywords: [
-    'portfolio',
-    'AI systems',
-    'AI products',
-    'enterprise AI',
-    'compliance platform',
-    'voice AI',
-    'AI architecture',
-    'product design',
-    'case studies',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/portfolio',
-  },
-  openGraph: {
-    title: 'Portfolio | AI Systems & Products Built',
-    description: 'Interactive portfolio showcasing AI systems, compliance platforms, and tools built for enterprise scale.',
-    url: 'https://subodhkc.com/portfolio',
-    type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/portfolio.png',
-        width: 1200,
-        height: 630,
-        alt: 'Portfolio'
-      }
-    ]
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Portfolio | AI Systems & Products Built',
-    description: 'Interactive portfolio showcasing AI systems, compliance platforms, and tools built for enterprise scale.',
-    images: ['https://subodhkc.com/og/portfolio.png']
-  },
-  robots: {
-    index: true,
-    follow: true,
-    'max-snippet': -1,
-    'max-image-preview': 'large',
-    'max-video-preview': -1
-  }
-}
-
 const BOOK_CSS = `
 :root{
   --navy:#0a2035;--navy2:#102f49;--blue:#2563eb;--teal:#0f766e;--cyan:#0e8fb7;

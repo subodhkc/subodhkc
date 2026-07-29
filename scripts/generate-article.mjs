@@ -151,6 +151,16 @@ const CONTENT_PILLARS = [
       'LegacyShift data migration strategy for AI readiness',
       'HAIEC continuous monitoring loop implementation',
       'Open-source AI governance toolkit from subodhkc.com',
+      'How to deploy KestrelVoice AI receptionist for small business',
+      'KestrelVoice voice AI latency optimization how to guide',
+      'How to integrate KestrelVoice with existing CRM systems',
+      'HAIEC phase 3 risk evaluation technical implementation guide',
+      'How to build HAIEC evidence collection automation pipelines',
+      'KestrelVoice multi-language voice AI configuration how to',
+      'HAIEC AI system classification how to determine risk tiers',
+      'How to implement HAIEC human oversight checkpoints in production',
+      'KestrelVoice call routing and handoff architecture guide',
+      'HAIEC audit readiness checklist for AI systems how to prepare',
     ],
   },
   {
@@ -230,10 +240,20 @@ const CONTENT_PILLARS = [
   },
 ]
 
+function titleSimilarity(a, b) {
+  const wordsA = new Set(a.toLowerCase().split(/\s+/).filter((w) => w.length > 3))
+  const wordsB = new Set(b.toLowerCase().split(/\s+/).filter((w) => w.length > 3))
+  let common = 0
+  for (const w of wordsA) {
+    if (wordsB.has(w)) common++
+  }
+  const maxLen = Math.max(wordsA.size, wordsB.size)
+  return maxLen > 0 ? common / maxLen : 0
+}
+
 function pickNextTopic(posts) {
   const existingSlugs = getExistingSlugs(posts)
   const existingTitles = getExistingTitles(posts)
-  const existingKeywords = new Set(posts.flatMap((p) => p.keywords || []))
 
   // Flatten all topics with pillar info
   const allTopics = []
@@ -243,23 +263,50 @@ function pickNextTopic(posts) {
     }
   }
 
-  // Find first topic not already covered
+  // Find first topic not already covered - use strict slug + title similarity check
   for (const item of allTopics) {
     const potentialSlug = slugify(item.topic)
-    const titleMatch = existingTitles.some(
-      (t) => t.includes(item.topic.toLowerCase().slice(0, 30)) ||
-             t.includes(item.pillar.toLowerCase().slice(0, 20))
+    const topicLower = item.topic.toLowerCase()
+
+    // Check slug collision
+    if (existingSlugs.has(potentialSlug)) continue
+
+    // Check title similarity - only skip if >60% word overlap with an existing title
+    const isDuplicate = existingTitles.some(
+      (t) => titleSimilarity(t, topicLower) > 0.6
     )
 
-    if (!existingSlugs.has(potentialSlug) && !titleMatch) {
+    if (!isDuplicate) {
       return item
     }
   }
 
-  // If all topics covered, pick a variation
+  // If all predefined topics covered, generate a fresh HAIEC/Kestrel how-to topic
+  const fallbackTopics = [
+    { topic: 'How to implement HAIEC exposure assessment for your AI systems', pillar: 'Proprietary Framework Breakdowns' },
+    { topic: 'KestrelVoice AI receptionist architecture how to deploy', pillar: 'Proprietary Framework Breakdowns' },
+    { topic: 'How to build a HAIEC compliance evidence pipeline step by step', pillar: 'Proprietary Framework Breakdowns' },
+    { topic: 'KestrelVoice integration guide connecting voice AI to enterprise systems', pillar: 'Proprietary Framework Breakdowns' },
+    { topic: 'HAIEC risk scoring how to configure thresholds for your AI portfolio', pillar: 'Proprietary Framework Breakdowns' },
+    { topic: 'How to automate HAIEC continuous monitoring for production AI', pillar: 'Proprietary Framework Breakdowns' },
+    { topic: 'KestrelVoice voice AI security hardening how to guide', pillar: 'Proprietary Framework Breakdowns' },
+    { topic: 'How to build a HAIEC AI inventory registry from scratch', pillar: 'Proprietary Framework Breakdowns' },
+  ]
+
+  for (const item of fallbackTopics) {
+    const potentialSlug = slugify(item.topic)
+    if (!existingSlugs.has(potentialSlug)) {
+      const isDuplicate = existingTitles.some(
+        (t) => titleSimilarity(t, item.topic.toLowerCase()) > 0.6
+      )
+      if (!isDuplicate) return item
+    }
+  }
+
+  // Last resort - date-stamped unique topic
   return {
-    topic: 'AI governance trends and updates ' + new Date().toISOString().split('T')[0],
-    pillar: 'AI Governance Frameworks',
+    topic: 'How to prepare your AI systems for upcoming regulatory changes ' + new Date().toISOString().split('T')[0],
+    pillar: 'Regulatory Updates',
   }
 }
 
@@ -296,8 +343,10 @@ function selectFrontOfAIStory(stories, posts) {
   // Filter out stories we've already covered (by title similarity)
   const unused = stories.filter((s) => {
     const titleLower = (s.title || '').toLowerCase()
-    return !existingTitles.some((t) => t.includes(titleLower.slice(0, 40))) &&
-           !existingSlugs.has(slugify(s.title || ''))
+    const isDup = existingTitles.some(
+      (t) => titleSimilarity(t, titleLower) > 0.6
+    )
+    return !isDup && !existingSlugs.has(slugify(s.title || ''))
   })
 
   if (unused.length === 0) {
@@ -745,6 +794,18 @@ async function main() {
     console.log(`\nTopic: ${picked.topic}`)
     console.log(`Pillar: ${picked.pillar}`)
     article = await generateArticle(picked.topic, picked.pillar, posts)
+  }
+
+  // Post-generation dedup check - verify generated title isn't too similar to existing posts
+  const existingTitlesForCheck = getExistingTitles(posts)
+  const generatedTitleLower = (article.title || '').toLowerCase()
+  const similarityHit = existingTitlesForCheck.find(
+    (t) => titleSimilarity(t, generatedTitleLower) > 0.7
+  )
+  if (similarityHit) {
+    console.error(`\n  ⚠ DUPLICATE DETECTED: Generated title "${article.title}" is too similar to existing post "${similarityHit}"`)
+    console.error('  Aborting to prevent duplicate content. Try again with a different topic.')
+    process.exit(1)
   }
 
   // Validate generated article

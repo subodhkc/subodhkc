@@ -5,53 +5,6 @@ import Link from 'next/link'
 import MagazineViewer from './MagazineViewer'
 import { MAGAZINE_CSS, MAGAZINE_HTML } from './magazine-data'
 
-const magazineMetadata = {
-  title: 'AI Magazine | Enterprise AI Strategy & Governance | Subodh KC',
-  description: 'Interactive magazine on AI governance, compliance frameworks, and enterprise AI strategy. Read online or subscribe.',
-  keywords: [
-    'AI magazine',
-    'AI governance',
-    'AI compliance',
-    'enterprise AI',
-    'AI strategy',
-    'AI leadership',
-    'compliance framework',
-    'AI publication',
-    'AI insights',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/magazine',
-  },
-  openGraph: {
-    title: 'AI Magazine | Enterprise AI Strategy & Governance',
-    description: 'Interactive magazine on AI governance, compliance frameworks, and enterprise AI strategy.',
-    url: 'https://subodhkc.com/magazine',
-    type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/magazine.png',
-        width: 1200,
-        height: 630,
-        alt: 'AI Magazine'
-      }
-    ]
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AI Magazine | Enterprise AI Strategy & Governance',
-    description: 'Interactive magazine on AI governance, compliance frameworks, and enterprise AI strategy.',
-    images: ['https://subodhkc.com/og/magazine.png']
-  },
-  robots: {
-    index: true,
-    follow: true,
-    'max-snippet': -1,
-    'max-image-preview': 'large',
-    'max-video-preview': -1
-  }
-}
-
 export default function MagazinePage() {
   const [mode, setMode] = useState<'flip' | 'scroll'>('flip')
   const [email, setEmail] = useState('')

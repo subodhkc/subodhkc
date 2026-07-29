@@ -6,7 +6,7 @@
     "alternateNames": ["Subodh K.C.", "Subodh Khatri Chhetri", "Subodh Kumar KC"],
     "title": "AI Systems Architect & Governance Expert",
     "summary": "Former Fortune 50 AI Strategy CTL with 16+ years experience. Founder of KestrelVoice, co-founder of HAIEC. Specializes in AI architecture, deployment, and governance at enterprise scale.",
-    "email": "subodh.kc@haiec.com",
+    "email": "subodhkc@subodhkc.com",
     "website": "https://subodhkc.com",
     "location": "United States",
     "birthplace": "Kathmandu, Nepal",

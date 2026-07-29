@@ -31,20 +31,11 @@ export const metadata = {
     description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform.',
     url: 'https://subodhkc.com/solutions',
     type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/solutions.png',
-        width: 1200,
-        height: 630,
-        alt: 'AI Solutions'
-      }
-    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI Solutions | Enterprise AI Systems & Compliance Platforms',
     description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform.',
-    images: ['https://subodhkc.com/og/solutions.png']
   },
   robots: {
     index: true,

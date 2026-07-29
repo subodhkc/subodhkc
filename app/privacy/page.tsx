@@ -42,6 +42,9 @@ export default function PrivacyPage() {
               <p><strong className="text-foreground">Analytics Data:</strong> We collect privacy-conscious analytics including page views, referrers, session IDs, and event interactions. IP addresses are hashed and never stored in plain text.</p>
               <p><strong className="text-foreground">Contact Form:</strong> When you submit the contact form, we collect your name, email, company, area of interest, and message.</p>
               <p><strong className="text-foreground">Newsletter:</strong> When you subscribe, we store your email address with our email provider (Resend) to deliver newsletter content.</p>
+              <p><strong className="text-foreground">Product Downloads &amp; Waitlists:</strong> When you request a product download (e.g., Print Later, PDF Redactor) or join a waitlist (e.g., CourtCase, SKC Log Analyser), we collect your email address to deliver the download link or notify you when the product is available. For enterprise pricing requests (e.g., Doc Timeline Generator), we also collect your name, company, use case, and expected volume.</p>
+              <p><strong className="text-foreground">Webinar &amp; Course Registration:</strong> When you register for a webinar or course, we collect your name, email, and any questions you submit.</p>
+              <p><strong className="text-foreground">Calendly Scheduling:</strong> The contact page includes a Calendly embed for scheduling consultations. Calendly may set its own cookies when you interact with the scheduling widget. See <a href="https://calendly.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Calendly&apos;s privacy policy</a> for details.</p>
             </CardContent>
           </Card>
 
@@ -107,7 +110,45 @@ export default function PrivacyPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>6. Contact</CardTitle>
+              <CardTitle>6. Data Retention</CardTitle>
+              <CardDescription>
+                We retain your data only as long as necessary for the purposes described in this policy.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">Analytics Data:</strong> Retained for up to 90 days, after which it is automatically purged.</p>
+              <p><strong className="text-foreground">Email &amp; Newsletter Data:</strong> Retained until you unsubscribe or request deletion. Product download and waitlist emails are retained for the duration of the product&apos;s lifecycle or until you request removal.</p>
+              <p><strong className="text-foreground">Contact Form Submissions:</strong> Retained for up to 12 months to respond to inquiries and for record-keeping.</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>7. Children&apos;s Privacy</CardTitle>
+              <CardDescription>
+                Our website is not directed to children under 13.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              <p>We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child, please contact us and we will promptly delete it.</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>8. Changes to This Policy</CardTitle>
+              <CardDescription>
+                We may update this privacy policy from time to time.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              <p>We will update the &quot;Last updated&quot; date at the top of this page whenever we make changes. For significant changes, we will notify you via email or a prominent notice on the website.</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>9. Contact</CardTitle>
               <CardDescription>
                 Questions about this privacy policy? Contact us.
               </CardDescription>

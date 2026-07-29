@@ -28,53 +28,6 @@ import {
   Layers
 } from 'lucide-react'
 
-const loganalyserMetadata = {
-  title: 'SKC Log Analyser | AI-Powered Log Analysis | Early Access | Subodh KC',
-  description: 'Find the needle in a billion haystacks. AI-powered log analysis that turns terabytes of data into actionable insights. Pattern detection, real-time alerts.',
-  keywords: [
-    'log analysis',
-    'AI analysis',
-    'pattern detection',
-    'log parsing',
-    'data analysis',
-    'log monitoring',
-    'real-time alerts',
-    'enterprise tools',
-    'DevOps tools',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/products/skc-log-analyser',
-  },
-  openGraph: {
-    title: 'SKC Log Analyser | AI-Powered Log Analysis',
-    description: 'Find the needle in a billion haystacks. AI-powered log analysis that turns terabytes of data into actionable insights.',
-    url: 'https://subodhkc.com/products/skc-log-analyser',
-    type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/skc-log-analyser.png',
-        width: 1200,
-        height: 630,
-        alt: 'SKC Log Analyser'
-      }
-    ]
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'SKC Log Analyser | AI-Powered Log Analysis',
-    description: 'Find the needle in a billion haystacks. AI-powered log analysis that turns terabytes of data into actionable insights.',
-    images: ['https://subodhkc.com/og/skc-log-analyser.png']
-  },
-  robots: {
-    index: true,
-    follow: true,
-    'max-snippet': -1,
-    'max-image-preview': 'large',
-    'max-video-preview': -1
-  }
-}
-
 export default function SKCLogAnalyserPage() {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)

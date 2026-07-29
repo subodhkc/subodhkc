@@ -9,53 +9,6 @@ import { Button } from '@/components/ui/button'
 import { ExternalLink, BookOpen, TrendingUp, Users, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 
-const writingMetadata = {
-  title: 'AI Architecture & Governance Articles | Subodh KC',
-  description: 'In-depth articles on AI governance, compliance, enterprise architecture, and production AI systems. Subscribe for weekly insights.',
-  keywords: [
-    'AI articles',
-    'AI governance',
-    'AI architecture',
-    'AI compliance',
-    'enterprise AI',
-    'AI strategy',
-    'voice AI',
-    'RAG architecture',
-    'AI leadership',
-    'Subodh KC'
-  ],
-  alternates: {
-    canonical: 'https://subodhkc.com/writing',
-  },
-  openGraph: {
-    title: 'AI Architecture & Governance Articles | Subodh KC',
-    description: 'In-depth articles on AI governance, compliance, enterprise architecture, and production AI systems.',
-    url: 'https://subodhkc.com/writing',
-    type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/writing.png',
-        width: 1200,
-        height: 630,
-        alt: 'AI Articles & Writing'
-      }
-    ]
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AI Architecture & Governance Articles | Subodh KC',
-    description: 'In-depth articles on AI governance, compliance, enterprise architecture, and production AI systems.',
-    images: ['https://subodhkc.com/og/writing.png']
-  },
-  robots: {
-    index: true,
-    follow: true,
-    'max-snippet': -1,
-    'max-image-preview': 'large',
-    'max-video-preview': -1
-  }
-}
-
 export default function WritingPage() {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
