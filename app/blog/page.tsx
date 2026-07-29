@@ -28,20 +28,11 @@ export const metadata = {
     description: 'In-depth articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
     url: 'https://subodhkc.com/blog',
     type: 'website',
-    images: [
-      {
-        url: 'https://subodhkc.com/og/blog.png',
-        width: 1200,
-        height: 630,
-        alt: 'AI Blog'
-      }
-    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI Governance & Architecture Blog | Subodh KC',
     description: 'In-depth articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
-    images: ['https://subodhkc.com/og/blog.png']
   },
   robots: {
     index: true,
