@@ -32,12 +32,119 @@ export default function CentaurusPage() {
           </h1>
           <div className="h-px bg-slate-900 w-full mb-4" />
           <p className="text-slate-600 text-sm leading-relaxed">
-            AI governance, compliance automation, and enterprise AI strategy for leaders deploying AI at scale
+            Strategic AI governance, compliance automation, and enterprise AI strategy for organizations deploying AI in regulated environments.
           </p>
         </div>
 
+        {/* Presentation Overview */}
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-slate-900 mb-3">Presentation Overview</h2>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            A structured approach to enterprise AI governance covering framework selection, compliance automation,
+            risk posture management, and AI strategy alignment. Practical guidance for leaders who need
+            actionable governance, not theory.
+          </p>
+        </div>
+
+        {/* Key Topics + Document Details */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 mb-10 border border-slate-200">
+          <div className="bg-white p-6">
+            <h3 className="text-sm font-semibold text-slate-900 mb-3 uppercase tracking-wide">Key Topics</h3>
+            <ul className="text-sm text-slate-600 space-y-2">
+              <li>AI Governance Framework Selection</li>
+              <li>Compliance Automation Architecture</li>
+              <li>AI Risk Posture &amp; Mitigation</li>
+              <li>Enterprise AI Strategy Alignment</li>
+            </ul>
+          </div>
+          <div className="bg-white p-6">
+            <h3 className="text-sm font-semibold text-slate-900 mb-3 uppercase tracking-wide">Document Details</h3>
+            <ul className="text-sm text-slate-600 space-y-2">
+              <li>Format: PowerPoint (.pptx)</li>
+              <li>Status: Client Ready</li>
+              <li>Version: Final</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Section divider */}
+        <div className="h-px bg-slate-200 mb-8" />
+
+        {/* Resources */}
+        <div className="space-y-8">
+          {/* Video Overview */}
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">Video Overview</h2>
+            <p className="text-sm text-slate-600 mb-3">
+              60-second executive overview of the Centaurus practice and its approach to AI governance.
+            </p>
+            <a
+              href="https://youtube.com/shorts/kBJyxvGFobQ?feature=share"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="gap-2 bg-slate-900 text-white hover:bg-slate-700 border border-slate-900">
+                <Play className="h-4 w-4" />
+                Watch on YouTube
+              </Button>
+            </a>
+          </div>
+
+          {/* Monetize AI */}
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">Monetize AI</h2>
+            <p className="text-sm text-slate-600 mb-3">
+              Revenue models, pricing strategy, and go-to-market approaches for AI products and services.
+            </p>
+            <a
+              href="https://docs.google.com/presentation/d/1VKLxITPtv-B5opdCGq0z7JIpdHGO1kcu/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="gap-2 bg-slate-900 text-white hover:bg-slate-700 border border-slate-900">
+                <Eye className="h-4 w-4" />
+                View on Google Slides
+              </Button>
+            </a>
+          </div>
+
+          {/* Centaurus Deck */}
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">Centaurus AI Advisory Practice</h2>
+            <p className="text-sm text-slate-600 mb-3">
+              Full presentation. Download the PowerPoint or view in Google Slides.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="/Doc/Centaurus_AI_Advisory_Practice_Client_Ready_Final.pptx"
+                download="Centaurus_AI_Advisory_Practice_Client_Ready_Final.pptx"
+              >
+                <Button className="gap-2 bg-slate-900 text-white hover:bg-slate-700 border border-slate-900">
+                  <Download className="h-4 w-4" />
+                  Download PowerPoint
+                </Button>
+              </a>
+              <a
+                href="https://docs.google.com/presentation/d/1roy5Jh3VLVa6UoZ_zHD9wWxoHfdrILkM/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="gap-2 bg-slate-900 text-white hover:bg-slate-700 border border-slate-900">
+                  <Eye className="h-4 w-4" />
+                  View on Google Slides
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* HAIEC Technical Deck */}
+        <div className="mt-10">
+          <HaiecDeckSection />
+        </div>
+
         {/* HAIEC Brief: The Engine Behind the Practice */}
-        <div className="mb-10 border border-slate-200 p-8">
+        <div className="mt-10 border border-slate-200 p-8">
           <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
             The Engine
           </div>
@@ -108,111 +215,6 @@ export default function CentaurusPage() {
               EU AI Act · GDPR · HIPAA · NYC Local Law 144 · Colorado AI Act
             </p>
           </div>
-        </div>
-
-        {/* Presentation Overview */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-slate-900 mb-3">Presentation Overview</h2>
-          <p className="text-slate-600 text-sm leading-relaxed">
-            A structured approach to enterprise AI governance covering framework selection, compliance automation,
-            risk posture management, and AI strategy alignment. Built for leaders who need actionable governance,
-            not theory.
-          </p>
-        </div>
-
-        {/* Key Topics + Document Details */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 mb-10 border border-slate-200">
-          <div className="bg-white p-6">
-            <h3 className="text-sm font-semibold text-slate-900 mb-3 uppercase tracking-wide">Key Topics</h3>
-            <ul className="text-sm text-slate-600 space-y-2">
-              <li>AI Governance Framework Selection</li>
-              <li>Compliance Automation Architecture</li>
-              <li>AI Risk Posture &amp; Mitigation</li>
-              <li>Enterprise AI Strategy Alignment</li>
-            </ul>
-          </div>
-          <div className="bg-white p-6">
-            <h3 className="text-sm font-semibold text-slate-900 mb-3 uppercase tracking-wide">Document Details</h3>
-            <ul className="text-sm text-slate-600 space-y-2">
-              <li>Format: PowerPoint (.pptx)</li>
-              <li>Status: Client Ready</li>
-              <li>Version: Final</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Section divider */}
-        <div className="h-px bg-slate-200 mb-8" />
-
-        {/* Resources */}
-        <div className="space-y-8">
-          {/* Video Overview */}
-          <div>
-            <h2 className="text-lg font-semibold text-slate-900 mb-2">Video Overview</h2>
-            <p className="text-sm text-slate-600 mb-3">
-              60-second executive overview of the Centaurus practice
-            </p>
-            <a
-              href="https://youtube.com/shorts/kBJyxvGFobQ?feature=share"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="outline" className="gap-2 border-slate-400 text-slate-900 hover:bg-slate-100">
-                <Play className="h-4 w-4" />
-                Watch on YouTube
-              </Button>
-            </a>
-          </div>
-
-          {/* Monetize AI */}
-          <div>
-            <h2 className="text-lg font-semibold text-slate-900 mb-2">Monetize AI</h2>
-            <p className="text-sm text-slate-600 mb-3">
-              Revenue models, pricing strategy, and go-to-market approaches for AI products
-            </p>
-            <a
-              href="https://docs.google.com/presentation/d/1VKLxITPtv-B5opdCGq0z7JIpdHGO1kcu/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="outline" className="gap-2 border-slate-400 text-slate-900 hover:bg-slate-100">
-                <Eye className="h-4 w-4" />
-                View on Google Slides
-              </Button>
-            </a>
-          </div>
-
-          {/* Centaurus Deck */}
-          <div>
-            <h2 className="text-lg font-semibold text-slate-900 mb-2">Centaurus AI Advisory Practice</h2>
-            <p className="text-sm text-slate-600 mb-3">
-              Full presentation. Download or view in Google Slides.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="/Doc/Centaurus_AI_Advisory_Practice_Client_Ready_Final.pptx"
-                download="Centaurus_AI_Advisory_Practice_Client_Ready_Final.pptx"
-              >
-                <Button className="gap-2 bg-slate-900 text-white hover:bg-slate-700 border border-slate-900">
-                  <Download className="h-4 w-4" />
-                  Download PowerPoint
-                </Button>
-              </a>
-              <a
-                href="https://docs.google.com/presentation/d/1roy5Jh3VLVa6UoZ_zHD9wWxoHfdrILkM/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="outline" className="gap-2 border-slate-400 text-slate-900 hover:bg-slate-100">
-                  <Eye className="h-4 w-4" />
-                  View on Google Slides
-                </Button>
-              </a>
-            </div>
-          </div>
-
-          {/* HAIEC Technical Deck */}
-          <HaiecDeckSection />
         </div>
 
         {/* Confidentiality note */}

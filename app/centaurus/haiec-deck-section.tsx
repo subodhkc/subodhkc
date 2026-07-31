@@ -80,7 +80,7 @@ export function HaiecDeckSection() {
           rel="noopener noreferrer"
           onClick={handleView}
         >
-          <Button variant="outline" className="gap-2 border-slate-400 text-slate-900 hover:bg-slate-100">
+          <Button className="gap-2 bg-slate-900 text-white hover:bg-slate-700 border border-slate-900">
             <Eye className="h-4 w-4" />
             View in Browser
           </Button>
