@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { Shield, Download, FileText } from 'lucide-react'
+import { Shield, Download, FileText, Eye } from 'lucide-react'
 import { useCallback } from 'react'
 
 const DECK_PATH = '/centaurus/haiec-technical-architecture-defensibility-brief.pptx'
+const DECK_GSLIDES_URL = 'https://docs.google.com/presentation/d/1gZiggHG99JgkjSE6yADWVhIkIOYedb_q/edit?usp=sharing&ouid=111506782395919709798&rtpof=true&sd=true'
 
 function trackDeckClick(action: 'view' | 'download') {
   const sessionId = typeof window !== 'undefined'
@@ -92,18 +93,18 @@ export function HaiecDeckSection() {
                 Download Technical Deck
               </Button>
             </Link>
-            <Link
-              href={DECK_PATH}
+            <a
+              href={DECK_GSLIDES_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1"
               onClick={handleView}
             >
               <Button size="lg" variant="outline" className="w-full gap-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50">
-                <FileText className="h-5 w-5" />
+                <Eye className="h-5 w-5" />
                 View in Browser
               </Button>
-            </Link>
+            </a>
           </div>
 
           <p className="text-xs text-slate-500 mt-3">
