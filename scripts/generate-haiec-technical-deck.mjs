@@ -25,14 +25,21 @@ const projectRoot = join(__dirname, '..')
 const THEME = {
   bg: 'F8FAFC',          // light slate background
   bgAlt: 'F1F5F9',       // slightly darker light slate
+  bgDeep: 'E2E8F0',      // deeper slate for contrast layers
   card: 'FFFFFF',        // white card background
   cardBorder: 'CBD5E1',  // light gray border
+  cardShadow: 'E2E8F0',  // card shadow color
   emerald: '059669',     // primary accent — emerald 600
   emeraldDark: '047857', // darker emerald — emerald 700
   emeraldLight: 'D1FAE5',// light emerald background
+  emeraldBg: 'ECFDF5',   // very light emerald tint
   amber: 'D97706',       // warning — amber 600
+  amberLight: 'FEF3C7',  // light amber background
   red: 'DC2626',         // critical — red 600
-  white: '0F172A',       // dark text on light background
+  redLight: 'FEE2E2',    // light red background
+  blue: '2563EB',        // blue accent — blue 600
+  blueLight: 'DBEAFE',   // light blue background
+  white: '0F172A',       // dark text on light background (slate 900)
   gray: '475569',        // muted gray secondary — slate 600
   grayDark: '64748B',    // darker gray — slate 500
   grayLight: '94A3B8',   // light gray — slate 400
@@ -50,9 +57,19 @@ const SLIDE_H = 7.5
 
 function addSlideBackground(slide) {
   slide.background = { color: THEME.bg }
+  // Subtle top accent strip
+  slide.addShape('rect', {
+    x: 0, y: 0, w: SLIDE_W, h: 0.06,
+    fill: { color: THEME.emerald }, line: { type: 'none' }
+  })
 }
 
 function addFooter(slide, pageNum, totalPages) {
+  // Footer separator line
+  slide.addShape('line', {
+    x: 0.3, y: SLIDE_H - 0.4, w: SLIDE_W - 0.6, h: 0,
+    line: { color: THEME.cardBorder, width: 0.5 }
+  })
   slide.addText(
     `HAIEC  ·  Confidential Discussion Brief  ·  ${pageNum}/${totalPages}`,
     {
@@ -73,22 +90,32 @@ function addSlideTitle(slide, text, opts = {}) {
   const y = opts.y ?? 0.4
   slide.addText(text, {
     x: 0.6, y, w: SLIDE_W - 1.2, h: 0.55,
-    fontSize: 26, fontFace: THEME.heading, bold: true,
+    fontSize: 24, fontFace: THEME.heading, bold: true,
     color: THEME.white, align: 'left'
   })
-  // Thin emerald accent line
+  // Emerald accent bar — wider and bolder
   slide.addShape('rect', {
-    x: 0.6, y: y + 0.6, w: 1.5, h: 0.04,
+    x: 0.6, y: y + 0.58, w: 2.0, h: 0.05,
     fill: { color: THEME.emerald }, line: { type: 'none' }
   })
 }
 
 function addCard(slide, x, y, w, h, opts = {}) {
-  slide.addShape('rect', {
+  // Shadow layer — offset by 0.03"
+  if (opts.shadow !== false) {
+    slide.addShape('roundRect', {
+      x: x + 0.03, y: y + 0.03, w, h,
+      fill: { color: THEME.cardShadow },
+      line: { type: 'none' },
+      rectRadius: 0.06
+    })
+  }
+  // Card body
+  slide.addShape('roundRect', {
     x, y, w, h,
     fill: { color: opts.fill ?? THEME.card },
-    line: { color: opts.border ?? THEME.cardBorder, width: 0.5 },
-    rectRadius: 0.05
+    line: { color: opts.border ?? THEME.cardBorder, width: 0.75 },
+    rectRadius: 0.06
   })
 }
 
@@ -100,6 +127,13 @@ function addStatusTag(slide, x, y, label, status) {
     foundation: { bg: THEME.emeraldDark, text: 'FFFFFF' },
   }
   const c = colors[status] ?? colors.implemented
+  // Shadow
+  slide.addShape('roundRect', {
+    x: x + 0.02, y: y + 0.02, w: 1.8, h: 0.3,
+    fill: { color: THEME.cardShadow },
+    line: { type: 'none' },
+    rectRadius: 0.03
+  })
   slide.addShape('roundRect', {
     x, y, w: 1.8, h: 0.3,
     fill: { color: c.bg },
@@ -109,7 +143,7 @@ function addStatusTag(slide, x, y, label, status) {
   slide.addText(label, {
     x, y, w: 1.8, h: 0.3,
     fontSize: 8, fontFace: THEME.mono, color: c.text,
-    align: 'center', valign: 'middle'
+    align: 'center', valign: 'middle', bold: true
   })
 }
 
@@ -203,61 +237,72 @@ const TOTAL_SLIDES = 15
 // --- Slide 1: Cover ---
 function buildSlide1(pptx) {
   const slide = pptx.addSlide()
-  addSlideBackground(slide)
+  slide.background = { color: THEME.bg }
+
+  // Left accent panel — emerald gradient feel using solid color
+  slide.addShape('rect', {
+    x: 0, y: 0, w: 0.25, h: SLIDE_H,
+    fill: { color: THEME.emerald }, line: { type: 'none' }
+  })
+  // Top accent strip
+  slide.addShape('rect', {
+    x: 0.25, y: 0, w: SLIDE_W - 0.25, h: 0.06,
+    fill: { color: THEME.emeraldDark }, line: { type: 'none' }
+  })
 
   // Top monospace label
-  addMonoLabel(slide, 0.6, 0.5, 'HAIEC TECHNICAL BRIEF · v1.0', { w: 6 })
+  addMonoLabel(slide, 0.9, 0.5, 'HAIEC TECHNICAL BRIEF · v1.0', { w: 6 })
 
-  // Main title
+  // Main title — larger, bolder
   slide.addText('HAIEC', {
-    x: 0.6, y: 1.5, w: 12, h: 1.2,
-    fontSize: 54, fontFace: THEME.heading, bold: true,
+    x: 0.9, y: 1.4, w: 12, h: 1.3,
+    fontSize: 60, fontFace: THEME.heading, bold: true,
     color: THEME.white, align: 'left'
   })
 
-  // Emerald accent bar
+  // Emerald accent bar — wider
   slide.addShape('rect', {
-    x: 0.6, y: 2.8, w: 3, h: 0.06,
+    x: 0.9, y: 2.75, w: 4, h: 0.07,
     fill: { color: THEME.emerald }, line: { type: 'none' }
   })
 
   // Subtitle
   slide.addText('Evidence-Native Validation Infrastructure for AI Applications', {
-    x: 0.6, y: 3.0, w: 11, h: 0.5,
+    x: 0.9, y: 3.0, w: 11, h: 0.5,
     fontSize: 22, fontFace: THEME.heading,
     color: THEME.emerald, align: 'left'
   })
 
   // Supporting line
   slide.addText('How HAIEC connects code security, runtime testing, control mapping and audit evidence', {
-    x: 0.6, y: 3.6, w: 11, h: 0.4,
+    x: 0.9, y: 3.6, w: 11, h: 0.4,
     fontSize: 16, fontFace: THEME.sans,
     color: THEME.gray, align: 'left'
   })
 
-  // Visual flow
+  // Visual flow — enhanced with shadow cards
   const flowY = 5.0
   const flowItems = ['AI System', 'Security Validation', 'Control Mapping', 'Verifiable Evidence']
   const flowW = 2.5
   const flowGap = 0.4
-  let flowX = 0.6
+  let flowX = 0.9
 
   flowItems.forEach((item, i) => {
-    addCard(slide, flowX, flowY, flowW, 0.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
+    addCard(slide, flowX, flowY, flowW, 0.55, { fill: THEME.card, border: THEME.emerald })
     slide.addText(item, {
-      x: flowX, y: flowY, w: flowW, h: 0.5,
-      fontSize: 10, fontFace: THEME.mono, color: THEME.white,
+      x: flowX, y: flowY, w: flowW, h: 0.55,
+      fontSize: 10, fontFace: THEME.mono, color: THEME.emerald, bold: true,
       align: 'center', valign: 'middle'
     })
     if (i < flowItems.length - 1) {
-      addRightArrow(slide, flowX + flowW + 0.05, flowY + 0.25, flowGap - 0.1)
+      addRightArrow(slide, flowX + flowW + 0.05, flowY + 0.275, flowGap - 0.1)
     }
     flowX += flowW + flowGap
   })
 
   // Footer
   slide.addText('Confidential Discussion Brief', {
-    x: 0.6, y: 6.5, w: 6, h: 0.3,
+    x: 0.9, y: 6.5, w: 6, h: 0.3,
     fontSize: 10, fontFace: THEME.sans, color: THEME.grayDark
   })
 
@@ -294,17 +339,22 @@ function buildSlide2(pptx) {
     addBodyText(slide, d.x + 0.15, d.y + 0.35, 2.7, 0.9, d.desc, { fontSize: 9, color: THEME.gray })
   })
 
-  // HAIEC center
+  // HAIEC center — enhanced with shadow
   addCard(slide, 5.2, 3.8, 3.0, 1.8, { fill: THEME.emeraldDark, border: THEME.emerald })
   slide.addText('HAIEC', {
-    x: 5.2, y: 4.0, w: 3.0, h: 0.5,
-    fontSize: 20, fontFace: THEME.heading, bold: true,
+    x: 5.2, y: 3.9, w: 3.0, h: 0.5,
+    fontSize: 22, fontFace: THEME.heading, bold: true,
     color: 'FFFFFF', align: 'center'
   })
   slide.addText('Evidence-Native\nAI Security Platform', {
-    x: 5.2, y: 4.5, w: 3.0, h: 0.8,
+    x: 5.2, y: 4.4, w: 3.0, h: 0.8,
     fontSize: 10, fontFace: THEME.sans,
     color: 'FFFFFF', align: 'center', valign: 'middle'
+  })
+  // Inner accent line
+  slide.addShape('rect', {
+    x: 6.2, y: 4.35, w: 1.0, h: 0.03,
+    fill: { color: 'FFFFFF' }, line: { type: 'none' }
   })
 
   // Connecting lines from domains to center
@@ -370,10 +420,14 @@ function buildSlide3(pptx) {
     })
   })
 
-  // HAIEC bridge
+  // HAIEC bridge — enhanced with shadow and accent line
   addCard(slide, 0.6, 5.9, 12.1, 0.7, { fill: THEME.emeraldDark, border: THEME.emerald })
+  slide.addShape('rect', {
+    x: 0.6, y: 5.9, w: 0.08, h: 0.7,
+    fill: { color: 'FFFFFF' }, line: { type: 'none' }
+  })
   slide.addText('HAIEC bridges all three: engine-generated evidence flows from test → finding → control mapping → audit package in one platform.', {
-    x: 0.8, y: 5.9, w: 11.7, h: 0.7,
+    x: 0.9, y: 5.9, w: 11.5, h: 0.7,
     fontSize: 11, fontFace: THEME.sans, color: 'FFFFFF',
     align: 'center', valign: 'middle', bold: true
   })
@@ -398,21 +452,25 @@ function buildSlide4(pptx) {
   layers.forEach((layer, i) => {
     const y = 1.5 + i * 1.05
     addCard(slide, 0.6, y, 12.1, 0.85, { fill: THEME.bgAlt, border: layer.color })
-    // Layer name
-    slide.addShape('rect', {
-      x: 0.6, y, w: 0.08, h: 0.85,
-      fill: { color: layer.color }, line: { type: 'none' }
+    // Layer name with colored background pill
+    slide.addShape('roundRect', {
+      x: 0.75, y: y + 0.12, w: 2.8, h: 0.3,
+      fill: { color: layer.color }, line: { type: 'none' }, rectRadius: 0.03
     })
-    addMonoLabel(slide, 0.85, y + 0.1, layer.name, { w: 3 })
-    addBodyText(slide, 0.85, y + 0.35, 11.5, 0.4, layer.items, { fontSize: 11, color: THEME.white })
+    slide.addText(layer.name, {
+      x: 0.75, y: y + 0.12, w: 2.8, h: 0.3,
+      fontSize: 9, fontFace: THEME.mono, color: 'FFFFFF', bold: true,
+      align: 'center', valign: 'middle'
+    })
+    addBodyText(slide, 3.8, y + 0.15, 8.7, 0.55, layer.items, { fontSize: 11, color: THEME.white })
   })
 
-  // Architecture statement
-  addCard(slide, 0.6, 6.5, 12.1, 0.5, { fill: THEME.bgAlt, border: THEME.emerald })
+  // Architecture statement — enhanced
+  addCard(slide, 0.6, 6.5, 12.1, 0.5, { fill: THEME.emeraldBg, border: THEME.emerald })
   slide.addText('Modal Python runs the computation. TypeScript runs the product.', {
     x: 0.8, y: 6.5, w: 11.7, h: 0.5,
-    fontSize: 11, fontFace: THEME.mono, color: THEME.emerald,
-    align: 'center', valign: 'middle', italic: true
+    fontSize: 11, fontFace: THEME.mono, color: THEME.emeraldDark,
+    align: 'center', valign: 'middle', italic: true, bold: true
   })
 
   addFooter(slide, 4, TOTAL_SLIDES)
@@ -1032,12 +1090,17 @@ function buildSlide11(pptx) {
 
   outcomes.forEach((outcome, i) => {
     const y = 1.5 + i * 1.5
-    addCard(slide, 9.1, y, 3.6, 1.3, { fill: THEME.emeraldDark, border: THEME.emerald })
+    addCard(slide, 9.1, y, 3.6, 1.3, { fill: THEME.emeraldBg, border: THEME.emerald })
+    // Left accent strip
+    slide.addShape('rect', {
+      x: 9.1, y, w: 0.06, h: 1.3,
+      fill: { color: THEME.emerald }, line: { type: 'none' }
+    })
     slide.addText(outcome.title, {
       x: 9.3, y: y + 0.1, w: 3.2, h: 0.35,
-      fontSize: 12, fontFace: THEME.heading, bold: true, color: 'FFFFFF'
+      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.emeraldDark
     })
-    addBodyText(slide, 9.3, y + 0.5, 3.2, 0.7, outcome.desc, { fontSize: 9, color: 'FFFFFF' })
+    addBodyText(slide, 9.3, y + 0.5, 3.2, 0.7, outcome.desc, { fontSize: 9, color: THEME.gray })
   })
 
   // Main line
@@ -1046,7 +1109,7 @@ function buildSlide11(pptx) {
     { fontSize: 11, color: THEME.emerald, bold: true })
 
   // Discussion questions
-  addCard(slide, 0.6, 6.4, 12.1, 0.7, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 0.6, 6.4, 12.1, 0.7, { fill: THEME.emeraldBg, border: THEME.emerald })
   slide.addText('Discussion:  What is the strongest initial product wedge?  ·  Which compliance framework drives the most urgent demand?  ·  Where does HAIEC create the most switching cost?',
     { x: 0.8, y: 6.4, w: 11.7, h: 0.7,
       fontSize: 9, fontFace: THEME.sans, color: THEME.gray,
