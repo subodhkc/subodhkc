@@ -37,6 +37,60 @@ const faqItems: FaqItem[] = [
     ),
   },
   {
+    question: 'How is HAIEC positioned between general consulting and enterprise platforms?',
+    answer: (
+      <div className="space-y-4">
+        <p>
+          HAIEC and Centaurus occupy a focused position within a validated market, sitting between two
+          established alternatives:
+        </p>
+        <div className="border border-slate-200 p-4 text-center">
+          <p className="text-xs font-semibold text-slate-900 tracking-wide">
+            General IT Consulting &nbsp;-&gt;&nbsp; HAIEC + Centaurus &nbsp;-&gt;&nbsp; Enterprise AI Governance Platforms
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-4">
+          <div className="border-l-2 border-slate-300 pl-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-1">General IT Consulting</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Broad technology capability</li>
+              <li>Relationship-driven projects</li>
+              <li>Customized delivery</li>
+              <li>Limited productized AI assurance methodology</li>
+            </ul>
+          </div>
+          <div className="border-l-2 border-slate-900 pl-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-1">HAIEC + Centaurus</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Productized assessment entry point</li>
+              <li>AI-specific technical findings</li>
+              <li>Regulatory readiness packages</li>
+              <li>Evidence-backed remediation roadmap</li>
+              <li>Consulting-led implementation</li>
+              <li>Software and recurring advisory expansion</li>
+              <li>Designed for software companies and the mid-market</li>
+            </ul>
+          </div>
+          <div className="border-l-2 border-slate-300 pl-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-1">Enterprise AI Governance Platforms</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Enterprise AI portfolios</li>
+              <li>Global governance workflows</li>
+              <li>Large-scale system inventories</li>
+              <li>Mature internal governance teams</li>
+              <li>Complex enterprise integrations</li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Each model serves a distinct need. HAIEC and Centaurus complement established platforms by serving
+          organizations that need a practical, evidence-backed starting point rather than a full enterprise
+          transformation.
+        </p>
+      </div>
+    ),
+  },
+  {
     question: 'What market opportunity does this create for Centaurus?',
     answer: (
       <div className="space-y-3">
@@ -87,6 +141,75 @@ const faqItems: FaqItem[] = [
           <li>Conducting recurring validation</li>
         </ul>
         <p>The assessment opens the relationship. Consulting and implementation create the larger revenue opportunity.</p>
+      </div>
+    ),
+  },
+  {
+    question: 'How does a single assessment create multiple revenue paths?',
+    answer: (
+      <div className="space-y-4">
+        <p>
+          One assessment creates five sequential revenue stages. Each stage produces a defined deliverable
+          and naturally leads to the next:
+        </p>
+        <p className="font-semibold text-slate-900 text-center">
+          Assessment - Remediation - Implementation - Validation - Managed Governance
+        </p>
+        <div className="space-y-3">
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Assessment</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Repository review</li>
+              <li>Vendor assessment</li>
+              <li>Regulatory readiness</li>
+              <li>Procurement evidence</li>
+            </ul>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Remediation</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Prioritized consulting backlog</li>
+              <li>Architecture recommendations</li>
+              <li>Policy improvements</li>
+              <li>Control design</li>
+            </ul>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Implementation</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Secure AI architecture</li>
+              <li>RAG and agent hardening</li>
+              <li>Authentication and authorization</li>
+              <li>Data governance</li>
+              <li>Monitoring and logging</li>
+              <li>Workflow implementation</li>
+            </ul>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Validation</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Rescan</li>
+              <li>Evidence update</li>
+              <li>Control verification</li>
+              <li>Executive reporting</li>
+            </ul>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Managed Governance</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>Fractional AI advisory</li>
+              <li>Quarterly reviews</li>
+              <li>Continuous scanning</li>
+              <li>Vendor monitoring</li>
+              <li>Regulatory updates</li>
+              <li>Evidence maintenance</li>
+            </ul>
+          </div>
+        </div>
+        <p className="pt-2 border-t border-slate-200">
+          Assessment revenue is the entry point. Consulting, implementation, and retainers create the larger
+          customer value and the broader revenue opportunity.
+        </p>
       </div>
     ),
   },
@@ -143,6 +266,52 @@ const faqItems: FaqItem[] = [
     ),
   },
   {
+    question: 'What is the blended and expandable business model?',
+    answer: (
+      <div className="space-y-4">
+        <p>
+          A single customer can progress across several revenue stages as their needs mature. The model
+          combines five distinct revenue streams:
+        </p>
+        <div className="grid grid-cols-1 gap-3">
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-sm">Fixed-Fee Assessments</p>
+            <p className="text-xs text-slate-600 mt-1">
+              Productized entry engagements with defined scope, deliverables, and timeline.
+            </p>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-sm">Remediation Consulting</p>
+            <p className="text-xs text-slate-600 mt-1">
+              Scoped projects to resolve technical, operational, and governance findings from the assessment.
+            </p>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-sm">Implementation Projects</p>
+            <p className="text-xs text-slate-600 mt-1">
+              Architecture, engineering, and governance implementation to close identified gaps.
+            </p>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-sm">Recurring Advisory Retainers</p>
+            <p className="text-xs text-slate-600 mt-1">
+              Fractional AI governance, quarterly reviews, and ongoing advisory support.
+            </p>
+          </div>
+          <div className="border border-slate-200 p-4">
+            <p className="font-semibold text-slate-900 text-sm">HAIEC Platform and Monitoring</p>
+            <p className="text-xs text-slate-600 mt-1">
+              Continuous scanning, evidence maintenance, and platform-based governance over time.
+            </p>
+          </div>
+        </div>
+        <p className="text-xs text-slate-500">
+          Pricing is engagement-specific and based on scope, complexity, and customer requirements.
+        </p>
+      </div>
+    ),
+  },
+  {
     question: 'What makes HAIEC technically differentiated?',
     answer: (
       <div className="space-y-3">
@@ -162,6 +331,43 @@ const faqItems: FaqItem[] = [
         <p>
           The value comes from converting technical findings into an actionable business and consulting workflow.
         </p>
+      </div>
+    ),
+  },
+  {
+    question: 'What are the four pillars of the HAIEC technical advantage?',
+    answer: (
+      <div className="space-y-4">
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">Code-to-Control-to-Evidence</p>
+          <p className="text-xs text-slate-600 mb-2">
+            The core workflow that connects technical findings to governance and evidence:
+          </p>
+          <p className="text-xs font-semibold text-slate-900">
+            Source Code - Finding - Rule - Control - Remediation - Evidence
+          </p>
+        </div>
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">Reproducible Static Analysis</p>
+          <p className="text-xs text-slate-600">
+            Defined AI-specific static rules provide traceable results against a versioned application and
+            assessment methodology. The same code and rule version produce the same findings consistently.
+          </p>
+        </div>
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">Behavioral Runtime Testing</p>
+          <p className="text-xs text-slate-600">
+            Authorized adversarial testing adds empirical evidence regarding live system behavior, complementing
+            static analysis with observed responses under selected test conditions.
+          </p>
+        </div>
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">Tamper-Evident Evidence</p>
+          <p className="text-xs text-slate-600">
+            Cryptographic integrity checks, evidence versioning, supersession, and historical traceability
+            ensure that evidence artifacts can be verified and trusted over time.
+          </p>
+        </div>
       </div>
     ),
   },
@@ -369,6 +575,39 @@ const faqItems: FaqItem[] = [
     ),
   },
   {
+    question: 'Who are the ideal target customers for HAIEC and Centaurus?',
+    answer: (
+      <div className="space-y-4">
+        <div>
+          <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Primary Target Segments</p>
+          <ul className="list-disc list-inside space-y-1">
+            <li>AI startups</li>
+            <li>SaaS providers</li>
+            <li>Software development companies</li>
+            <li>HR technology companies</li>
+            <li>Staffing and recruiting platforms</li>
+            <li>Agentic AI vendors</li>
+            <li>RAG application providers</li>
+            <li>Business automation companies</li>
+            <li>AI-enabled professional-services platforms</li>
+            <li>Mid-sized companies adopting third-party AI</li>
+          </ul>
+        </div>
+        <div>
+          <p className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Secondary Future Segments</p>
+          <ul className="list-disc list-inside space-y-1">
+            <li>Healthcare</li>
+            <li>Financial services</li>
+          </ul>
+        </div>
+        <p className="pt-2 border-t border-slate-200">
+          The opening strategy focuses on software, technology, and AI-enabled companies where the need for
+          credible AI assurance is most immediate and the engagement model fits best.
+        </p>
+      </div>
+    ),
+  },
+  {
     question: 'Which regulatory services create immediate opportunities?',
     answer: (
       <div className="space-y-4">
@@ -482,6 +721,37 @@ const faqItems: FaqItem[] = [
             Designed for software vendors responding to enterprise customer reviews. The package can lead to
             security improvements, compliance mapping, evidence preparation, and customer-assurance support.
           </p>
+        </div>
+      </div>
+    ),
+  },
+  {
+    question: 'What are the productized entry offers with buyer, need, and expansion?',
+    answer: (
+      <div className="space-y-4">
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">AI Repository Assurance Review</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Buyer:</span> Founder, CTO, CISO, or engineering leader</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Entry need:</span> Technical assurance, enterprise customer review, or investor diligence</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Expansion:</span> Architecture and code remediation</p>
+        </div>
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">AI Vendor Trust Review</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Buyer:</span> Technology, procurement, security, or compliance team</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Entry need:</span> Third-party AI evaluation</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Expansion:</span> Vendor remediation, implementation support, and continuous monitoring</p>
+        </div>
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">Regulatory Readiness Package</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Buyer:</span> Legal, compliance, product, or executive team</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Entry need:</span> Texas, Colorado, or NYC AI requirements</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Expansion:</span> Documentation, control implementation, and recurring advisory</p>
+        </div>
+        <div className="border border-slate-200 p-4">
+          <p className="font-semibold text-slate-900 text-sm mb-2">Procurement Evidence Package</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Buyer:</span> Software vendor selling to enterprise customers</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Entry need:</span> Customer security and governance questionnaires</p>
+          <p className="text-xs text-slate-600"><span className="font-semibold">Expansion:</span> Technical improvements, evidence preparation, and customer assurance</p>
         </div>
       </div>
     ),
