@@ -109,9 +109,23 @@ jobs:
           if [ -n "$(git status --porcelain data/blog/posts/ data/social/ public/blog-images/)" ]; then
             git add data/blog/posts/ data/social/ public/blog-images/
             git commit -m "feat: daily AI article + social content + hero image"
-            git pull --rebase origin main || true
-            git push
-            echo "Article auto-merged to main"
+
+            # Push with retry logic (up to 3 attempts)
+            MAX_RETRIES=3
+            for attempt in $(seq 1 $MAX_RETRIES); do
+              git pull --rebase origin main
+              if git push; then
+                echo "Article auto-merged to main (attempt $attempt)"
+                break
+              else
+                echo "Push attempt $attempt failed, retrying..."
+                if [ $attempt -eq $MAX_RETRIES ]; then
+                  echo "::error::Failed to push after $MAX_RETRIES attempts"
+                  exit 1
+                fi
+                sleep 10
+              fi
+            done
           else
             echo "No changes - article generation may have failed"
             exit 1
@@ -132,6 +146,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Wait for Vercel deployment
+        run: |
+          echo "Waiting 90 seconds for Vercel deployment to complete..."
+          sleep 90
+
+          # Verify the article URL is live before proceeding
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            LATEST=$(ls -t data/blog/posts/*.json | head -1)
+            SLUG=$(basename "$LATEST" .json)
+            ARTICLE_URL="https://subodhkc.com/blog/${SLUG}"
+
+            echo "Checking availability of: $ARTICLE_URL"
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$ARTICLE_URL" || echo "000")
+            echo "HTTP response: $HTTP_CODE"
+
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "::warning::Article URL not yet available ($HTTP_CODE). Social posting will proceed but may link to a not-yet-deployed page."
+            else
+              echo "Article URL is live."
+            fi
+          fi
 
       - name: Download article artifact
         if: needs.generate-article.result == 'success' && needs.generate-article.outputs.ran == 'true'
@@ -164,8 +200,11 @@ jobs:
           if [ -f "data/social/posted.json" ]; then
             git add data/social/posted.json
             git commit -m "chore: update LinkedIn posted tracker" || echo "No changes to tracker"
-            git pull --rebase origin main || true
-            git push || echo "Push failed - tracker will be regenerated next run"
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push; then break; fi
+              if [ $attempt -eq 3 ]; then echo "Push failed - tracker will be regenerated next run"; else sleep 5; fi
+            done
           fi
 
       - name: Cross-post to Dev.to
@@ -302,5 +341,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/blog/devto-posted.json data/blog/medium-posted.json data/outreach/ 2>/dev/null || true
           git commit -m "chore: update cross-post trackers and outreach plans" || echo "No changes to commit"
-          git pull --rebase origin main || true
-          git push || echo "Push failed - will retry next run"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then break; fi
+            if [ $attempt -eq 3 ]; then echo "Push failed - will retry next run"; else sleep 5; fi
+          done

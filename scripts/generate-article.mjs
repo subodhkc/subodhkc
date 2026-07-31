@@ -485,30 +485,57 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
   console.log(`Target: ${articleType.minWords}-${articleType.maxWords} words`)
   console.log(`Score: ${item.score || 'N/A'} | Classification: ${item.classification || 'N/A'}`)
 
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You never use em-dashes. You never use AI writing patterns. You never fabricate personal experiences or claims. You stick to facts and technical knowledge. You return only valid JSON.`,
+  let response
+  const maxRetries = 3
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
         },
-        { role: 'user', content: prompt },
-      ],
-      temperature: 0.8,
-      max_tokens: 8000,
-    }),
-  })
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'system',
+              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You never use em-dashes. You never use AI writing patterns. You never fabricate personal experiences or claims. You stick to facts and technical knowledge. You return only valid JSON.`,
+            },
+            { role: 'user', content: prompt },
+          ],
+          temperature: 0.8,
+          max_tokens: 8000,
+        }),
+      })
 
-  if (!response.ok) {
-    const error = await response.text()
-    console.error(`OpenAI API error (${response.status}): ${error}`)
-    process.exit(1)
+      if (response.ok) break
+
+      if (response.status === 429 || response.status >= 500) {
+        const errorText = await response.text()
+        console.warn(`OpenAI API error ${response.status} (attempt ${attempt}/${maxRetries}): ${errorText.slice(0, 200)}`)
+        if (attempt < maxRetries) {
+          const delay = Math.pow(2, attempt) * 5000
+          console.log(`Retrying in ${delay / 1000} seconds...`)
+          await new Promise((resolve) => setTimeout(resolve, delay))
+          continue
+        }
+      }
+
+      const error = await response.text()
+      console.error(`OpenAI API error (${response.status}): ${error}`)
+      process.exit(1)
+    } catch (err) {
+      console.warn(`Network error (attempt ${attempt}/${maxRetries}): ${err.message}`)
+      if (attempt < maxRetries) {
+        const delay = Math.pow(2, attempt) * 5000
+        console.log(`Retrying in ${delay / 1000} seconds...`)
+        await new Promise((resolve) => setTimeout(resolve, delay))
+        continue
+      }
+      console.error(`Network error after ${maxRetries} attempts: ${err.message}`)
+      process.exit(1)
+    }
   }
 
   const data = await response.json()
