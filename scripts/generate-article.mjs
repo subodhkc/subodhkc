@@ -838,6 +838,12 @@ async function main() {
     return
   }
 
+  if (reviewOnly) {
+    console.log('\n--review-only: file not saved. Review the output above.')
+    console.log('To publish, re-run without --review-only flag.')
+    return
+  }
+
   // Save post
   const postsDir = path.join(ROOT, 'data', 'blog', 'posts')
   if (!fs.existsSync(postsDir)) {
