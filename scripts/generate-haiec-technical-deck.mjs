@@ -28,13 +28,13 @@ const THEME = {
   bgDeep: 'EBEBEB',      // medium gray for contrast
   card: 'FFFFFF',        // white card
   cardBorder: 'D0D0D0',  // subtle gray border
-  navy: '1A2B4A',        // primary — deep navy
+  navy: '1A2B4A',        // primary - deep navy
   navyDark: '0F1D33',    // darker navy for emphasis
   navyLight: '2E4470',   // lighter navy
-  white: '1A1A1A',       // primary text — near-black charcoal
-  gray: '4A4A4A',        // body text — dark gray
-  grayMid: '6B6B6B',     // secondary text — medium gray
-  grayLight: '999999',   // tertiary text — light gray
+  white: '1A1A1A',       // primary text - near-black charcoal
+  gray: '4A4A4A',        // body text - dark gray
+  grayMid: '6B6B6B',     // secondary text - medium gray
+  grayLight: '999999',   // tertiary text - light gray
   grayFaint: 'CCCCCC',   // borders, dividers
   sans: 'Arial',         // body font
   heading: 'Arial',      // heading font
@@ -151,7 +151,7 @@ const CAPABILITY_COUNTS = {
   semgrepRules: 91,
   coreTsrules: 15,
   rulepackRules: 82,
-  // Do not publish a combined total — these are different representations
+  // Do not publish a combined total - these are different representations
   // (detector definitions, display IDs, mapping records) that may overlap
   baseAttackTemplates: 234,
   voiceAttackTemplates: 12,
@@ -267,7 +267,7 @@ function buildSlide2(pptx) {
 
   // Positioning
   addBodyText(slide, 0.6, 2.2, 12, 0.5,
-    'HAIEC closes this gap by making evidence the central artifact — not a byproduct.',
+    'HAIEC closes this gap by making evidence the central artifact - not a byproduct.',
     { fontSize: 13, color: THEME.navy, bold: true })
 
   // Four domains with HAIEC in center
@@ -393,7 +393,7 @@ function buildSlide4(pptx) {
   layers.forEach((layer, i) => {
     const y = 1.5 + i * 1.05
     addCard(slide, 0.6, y, 12.1, 0.85, { fill: THEME.bgAlt, border: THEME.cardBorder })
-    // Layer name — flat text label
+    // Layer name - flat text label
     slide.addText(layer.name, {
       x: 0.8, y: y + 0.15, w: 2.8, h: 0.3,
       fontSize: 9, fontFace: THEME.sans, color: THEME.navy, bold: true,
@@ -419,7 +419,7 @@ function buildSlide5(pptx) {
   addSlideBackground(slide)
   addSlideTitle(slide, 'Discover. Scan. Attack-Test. Map. Prove. Monitor.')
 
-  // Six main stages — top row
+  // Six main stages - top row
   const mainSteps = [
     { num: '01', name: 'Discover', desc: 'Register AI system in inventory', detail: 'API key sync, system metadata' },
     { num: '02', name: 'Scan', desc: 'Static analysis on codebase', detail: '91 Semgrep + 15 TS + 82 rulepack' },
@@ -429,7 +429,7 @@ function buildSlide5(pptx) {
     { num: '06', name: 'Monitor', desc: 'Compliance Twin drift detection', detail: 'Delta engine, anomaly detection' },
   ]
 
-  // Supporting lifecycle — bottom row
+  // Supporting lifecycle - bottom row
   const lifecycleSteps = [
     { name: 'Score', desc: 'Decision Integrity Score (DIS) · 6 pipeline nodes, weighted' },
     { name: 'Review', desc: 'Human reviewer sign-off · signature hash, IP, user-agent' },
@@ -437,7 +437,7 @@ function buildSlide5(pptx) {
     { name: 'Revalidate', desc: 'Scheduled re-verification + drift · cron-based, drift alerts' },
   ]
 
-  // Main stages — 6 cards in a row
+  // Main stages - 6 cards in a row
   const mainW = 1.85
   const mainGap = 0.22
   let mainX = 0.6
@@ -464,7 +464,7 @@ function buildSlide5(pptx) {
   // Down arrow
   addDownArrow(slide, 6.5, 4.1, 0.3)
 
-  // Supporting lifecycle — 4 cards in a row
+  // Supporting lifecycle - 4 cards in a row
   const suppY = 4.6
   const suppW = 2.85
   const suppGap = 0.3
@@ -599,7 +599,7 @@ function buildSlide6(pptx) {
 
   // Maturity note
   addBodyText(slide, 0.6, 6.7, 12, 0.3,
-    'Maturity: Static engine — Implemented. Runtime engine — Active development with full execution path operational.',
+    'Maturity: Static engine - Implemented. Runtime engine - Active development with full execution path operational.',
     { fontSize: 9, color: THEME.gray })
 
   addFooter(slide, 6, TOTAL_SLIDES)
@@ -644,7 +644,7 @@ function buildSlide7(pptx) {
 
   // Key line
   addBodyText(slide, 0.6, 4.1, 12, 0.4,
-    'Every evidence record binds a finding to its source, its scope, its engine version, and its compliance mapping — at the point of generation.',
+    'Every evidence record binds a finding to its source, its scope, its engine version, and its compliance mapping - at the point of generation.',
     { fontSize: 12, color: THEME.navy, bold: true })
 
   // Supporting detail
@@ -688,9 +688,9 @@ function buildSlide7(pptx) {
     })
   })
 
-  // Maturity note — moved up to avoid overflow
+  // Maturity note - moved up to avoid overflow
   addBodyText(slide, 0.6, 6.5, 12, 0.3,
-    'Maturity: Evidence integrity — Implemented. HMAC-SHA256 with key rotation and replay protection. Upgrade path: Ed25519 public-key signatures for independent verification.',
+    'Maturity: Evidence integrity - Implemented. HMAC-SHA256 with key rotation and replay protection. Upgrade path: Ed25519 public-key signatures for independent verification.',
     { fontSize: 8, color: THEME.grayMid })
 
   addFooter(slide, 7, TOTAL_SLIDES)
@@ -765,7 +765,7 @@ function buildSlide8(pptx) {
     fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   addBodyText(slide, 0.8, 4.3, 11.7, 0.7,
-    'A single remediation can generate reusable technical evidence across multiple assurance reviews. The same source change, retest and evidence record can support related OWASP, NIST, SOC 2, ISO and EU AI Act control evaluations — without recollecting the technical evidence separately for each framework.',
+    'A single remediation can generate reusable technical evidence across multiple assurance reviews. The same source change, retest and evidence record can support related OWASP, NIST, SOC 2, ISO and EU AI Act control evaluations - without recollecting the technical evidence separately for each framework.',
     { fontSize: 10, color: THEME.white })
 
   // Tagline
@@ -775,7 +775,7 @@ function buildSlide8(pptx) {
 
   // Source footer
   addBodyText(slide, 0.6, 5.7, 12, 0.3,
-    'Source: lib/ai-security/compliance-mappings.ts — 82 unique rule IDs mapped to 13 compliance frameworks.',
+    'Source: lib/ai-security/compliance-mappings.ts - 82 unique rule IDs mapped to 13 compliance frameworks.',
     { fontSize: 8, color: THEME.grayMid })
 
   // Framework list
@@ -813,7 +813,7 @@ function buildSlide9(pptx) {
     x: 4.25, y: 1.7, w: 4.2, h: 0.3,
     fontSize: 9, fontFace: THEME.mono, color: THEME.white
   })
-  slide.addText('Decision Integrity Score (DIS) = weighted average × coverage penalty', {
+  slide.addText('Decision Integrity Score (DIS) = weighted average �- coverage penalty', {
     x: 4.25, y: 2.1, w: 4.2, h: 0.3,
     fontSize: 9, fontFace: THEME.sans, color: THEME.navy
   })
@@ -847,7 +847,7 @@ function buildSlide9(pptx) {
   const currentItems = [
     'Aggregation job normalizes all engine outputs to 6 nodes',
     'DIS formula v1.0 with locked methodology version',
-    'Coverage penalty: <50% → ×0.85, 50-74% → ×0.95, ≥75% → ×1.00',
+    'Coverage penalty: <50% → �-0.85, 50-74% → �-0.95, ≥75% → �-1.00',
     'Audit eligibility: FULL_RUN with every required architecture node VERIFIED',
     'PARTIAL_RUN results consistently excluded from audit eligibility',
     'Human review workflow with signature hash + IP + user-agent',
@@ -885,12 +885,12 @@ function buildSlide9(pptx) {
 
   // Product principle
   addBodyText(slide, 0.6, 6.2, 12, 0.3,
-    'Product principle: UI never computes scores — it only reads from aggregation output tables. Methodology version is locked at compute time.',
+    'Product principle: UI never computes scores - it only reads from aggregation output tables. Methodology version is locked at compute time.',
     { fontSize: 10, color: THEME.navy, bold: true })
 
   // Maturity notes
   addBodyText(slide, 0.6, 6.6, 12, 0.3,
-    'Maturity: Decision Pipeline — Implemented (scoring, aggregation, audit package, PARTIAL_RUN exclusion). Findings-level blocker enforcement in active development for eligibility gate activation.',
+    'Maturity: Decision Pipeline - Implemented (scoring, aggregation, audit package, PARTIAL_RUN exclusion). Findings-level blocker enforcement in active development for eligibility gate activation.',
     { fontSize: 9, color: THEME.gray })
 
   addFooter(slide, 9, TOTAL_SLIDES)
@@ -910,7 +910,7 @@ function buildSlide10(pptx) {
   })
   addStatusTag(slide, 0.8, 1.8, 'SUBSTANTIVE SUBSYSTEM', 'implemented')
   const twinItems = [
-    '17 files in lib/compliance-twin/ — entirely TypeScript',
+    '17 files in lib/compliance-twin/ - entirely TypeScript',
     '6 jurisdictions: NYC LL144, Colorado SB24-205, EU AI Act, US Federal, UK, International',
     'Delta engine: structured diff between compliance snapshots (Patent P1)',
     'Anomaly detector: Z-score + IQR statistical methods',
@@ -1017,7 +1017,7 @@ function buildSlide11(pptx) {
   // Strategic outcomes
   const outcomes = [
     { title: 'Switching Costs', desc: 'Switching costs increase as CI integrations, historical evidence, framework mappings and revalidation records accumulate.' },
-    { title: 'Coverage & Learning Effects', desc: 'More systems tested can improve attack coverage, remediation patterns and framework mappings — subject to privacy, tenancy and data-use constraints.' },
+    { title: 'Coverage & Learning Effects', desc: 'More systems tested can improve attack coverage, remediation patterns and framework mappings - subject to privacy, tenancy and data-use constraints.' },
     { title: 'Evidence-Graph Advantage', desc: 'The defensibility grows from versioned relationships among systems, tests, findings, remediations, controls and historical outcomes.' },
   ]
 
@@ -1038,7 +1038,7 @@ function buildSlide11(pptx) {
 
   // Main line
   addBodyText(slide, 0.6, 6.0, 12, 0.3,
-    'Each layer reinforces the next. The evidence relationship — not any single scanner — is the defensible asset.',
+    'Each layer reinforces the next. The evidence relationship - not any single scanner - is the defensible asset.',
     { fontSize: 11, color: THEME.navy, bold: true })
 
   // Discussion questions
@@ -1470,7 +1470,7 @@ function buildSlide12(pptx) {
     const y = 1.8 + row * 1.6
 
     addCard(slide, x, y, 5.9, 1.4, { fill: THEME.bgAlt, border: THEME.cardBorder })
-    // Number — flat text
+    // Number - flat text
     slide.addText(demo.num, {
       x: x + 0.15, y: y + 0.15, w: 0.4, h: 0.4,
       fontSize: 18, fontFace: THEME.heading, bold: true, color: THEME.navy,
