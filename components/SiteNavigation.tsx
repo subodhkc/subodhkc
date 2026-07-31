@@ -300,7 +300,9 @@ export function SiteNavigation() {
 
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Link
-              href="/contact"
+              href="https://calendly.com/subodhkc/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="nav-cta"
               style={{
                 display: "inline-flex",
@@ -533,7 +535,9 @@ export function SiteNavigation() {
             </div>
 
             <Link
-              href="/contact"
+              href="https://calendly.com/subodhkc/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
               style={{
                 display: "block",

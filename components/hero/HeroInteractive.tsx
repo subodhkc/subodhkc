@@ -121,8 +121,10 @@ export function HeroInteractive() {
 
         {/* CTA buttons */}
         <div style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap" }}>
-          <button
-            onClick={openDiscuss}
+          <a
+            href="https://calendly.com/subodhkc/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               appearance: "none",
               background: "var(--fg)",
@@ -137,10 +139,13 @@ export function HeroInteractive() {
               fontWeight: 500,
               cursor: "pointer",
               transition: "opacity .15s",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
             }}
           >
-            Discuss an AI System →
-          </button>
+            Book a Call →
+          </a>
           <button
             onClick={openHire}
             style={{

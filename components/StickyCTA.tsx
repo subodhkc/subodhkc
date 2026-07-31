@@ -16,7 +16,7 @@ export function StickyCTA() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  if (pathname === '/contact' || pathname?.startsWith('/resume') || pathname?.startsWith('/magazine') || pathname?.startsWith('/portfolio')) {
+  if (pathname?.startsWith('/resume') || pathname?.startsWith('/magazine') || pathname?.startsWith('/portfolio')) {
     return null
   }
 
@@ -34,7 +34,9 @@ export function StickyCTA() {
       }}
     >
       <Link
-        href="/contact"
+        href="https://calendly.com/subodhkc/30min"
+        target="_blank"
+        rel="noopener noreferrer"
         data-track-click="sticky-cta-talk"
         style={{
           display: 'inline-flex',

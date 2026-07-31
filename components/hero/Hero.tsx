@@ -23,7 +23,7 @@ export function Hero() {
             <li>16+ years full-stack experience</li>
           </ul>
           <p>
-            <a href="/contact">Discuss an AI System</a> | <a href="/contact">Hire Subodh KC</a>
+            <a href="https://calendly.com/subodhkc/30min">Discuss an AI System</a> | <a href="https://calendly.com/subodhkc/30min">Hire Subodh KC</a>
           </p>
         </div>
       </noscript>

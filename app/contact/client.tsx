@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import Grid from '@/components/Grid'
@@ -11,35 +11,38 @@ import VirtualBusinessCard from '@/components/VirtualBusinessCard'
 import { Mail, Linkedin, Calendar, MessageSquare, Download } from 'lucide-react'
 
 function CalendlyEmbed({ url }: { url: string }) {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const embedUrl = `${url}?embed_domain=${typeof window !== 'undefined' ? window.location.hostname : 'subodhkc.com'}&embed_type=Inline`
 
-  useEffect(() => {
-    const existing = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')
-    if (existing) {
-      existing.remove()
-    }
-    const script = document.createElement('script')
-    script.src = 'https://assets.calendly.com/assets/external/widget.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    if (containerRef.current) {
-      containerRef.current.innerHTML = ''
-      const widget = document.createElement('div')
-      widget.className = 'calendly-inline-widget'
-      widget.setAttribute('data-url', url)
-      widget.style.minWidth = '320px'
-      widget.style.height = '630px'
-      containerRef.current.appendChild(widget)
-    }
-
-    return () => {
-      const s = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')
-      if (s) s.remove()
-    }
-  }, [url])
-
-  return <div ref={containerRef} />
+  return (
+    <div
+      className="calendly-embed-container"
+      style={{
+        position: 'relative',
+        width: '100%',
+        minWidth: '320px',
+        height: '700px',
+        overflow: 'hidden',
+        borderRadius: '8px',
+        border: '1px solid hsl(var(--border, 220 13% 91%))',
+      }}
+    >
+      <iframe
+        src={embedUrl}
+        title="Schedule a meeting with Subodh KC"
+        frameBorder="0"
+        scrolling="yes"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          border: 'none',
+        }}
+        loading="lazy"
+      />
+    </div>
+  )
 }
 
 export default function ContactPageClient() {
@@ -390,11 +393,22 @@ export default function ContactPageClient() {
       </Section>
 
       <Section subtitle="Schedule" title="Book a 30-Minute Call">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <p className="text-center text-muted-foreground mb-6">
-            Prefer to skip the back-and-forth? Pick a time directly on my calendar.
+            Prefer to skip the back-and-forth? Pick a time that works for you directly on the calendar below.
           </p>
           <CalendlyEmbed url="https://calendly.com/subodhkc/30min?hide_landing_page_details=1&hide_gdpr_banner=1" />
+          <p className="text-center text-xs text-muted-foreground mt-4">
+            Prefer to book on Calendly directly?{' '}
+            <a
+              href="https://calendly.com/subodhkc/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline font-medium"
+            >
+              Open in new tab
+            </a>
+          </p>
         </div>
       </Section>
 
