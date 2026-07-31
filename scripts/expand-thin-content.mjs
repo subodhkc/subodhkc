@@ -341,6 +341,7 @@ async function main() {
   const dryRun = args.includes('--dry-run')
   const slugArg = args.find((a) => a.startsWith('--slug='))?.split('=')[1]
   const refreshOnly = args.includes('--refresh-keywords')
+  const skipRefresh = args.includes('--skip-refresh')
 
   console.log('Expand Thin Content')
   console.log('===================')
@@ -349,7 +350,14 @@ async function main() {
   const posts = getAllPosts()
   console.log(`Found ${posts.length} blog posts\n`)
 
-  let configs = refreshOnly ? KEYWORD_REFRESH : [...THIN_POSTS, ...KEYWORD_REFRESH]
+  let configs
+  if (refreshOnly) {
+    configs = KEYWORD_REFRESH
+  } else if (skipRefresh) {
+    configs = THIN_POSTS
+  } else {
+    configs = [...THIN_POSTS, ...KEYWORD_REFRESH]
+  }
 
   if (slugArg) {
     configs = configs.filter((c) => c.slug === slugArg)
@@ -381,6 +389,10 @@ async function main() {
   }
 
   console.log(`\nDone. ${successCount} expanded, ${failCount} failed.`)
+
+  if (failCount > 0 && successCount === 0) {
+    process.exit(1)
+  }
 }
 
 main().catch((err) => {
