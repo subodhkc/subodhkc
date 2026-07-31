@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { FileText, Download, ArrowLeft, Eye, Play } from 'lucide-react'
+import { HaiecDeckSection } from './haiec-deck-section'
 
 export const metadata: Metadata = {
   title: 'Centaurus AI Advisory Practice | Subodh KC',
@@ -142,9 +143,11 @@ export default function CentaurusPage() {
                 </div>
               </div>
 
+              <HaiecDeckSection />
+
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                 <p className="text-sm text-amber-900">
-                  <strong>Note:</strong> This presentation is confidential and intended for authorized recipients only. 
+                  <strong>Note:</strong> These presentations are confidential and intended for authorized recipients only. 
                   Please handle accordingly.
                 </p>
               </div>
