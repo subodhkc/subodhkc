@@ -841,6 +841,9 @@ async function main() {
   if (reviewOnly) {
     console.log('\n--review-only: file not saved. Review the output above.')
     console.log('To publish, re-run without --review-only flag.')
+    console.log('\nNext steps (review-only mode):')
+    console.log('  1. Review the generated article output above')
+    console.log('  2. Re-run without --review-only to publish')
     return
   }
 
@@ -891,17 +894,11 @@ async function main() {
     }
   }
 
-  if (reviewOnly) {
-    console.log(`\nNext steps (review-only mode):`)
-    console.log(`  1. Review the generated article`)
-    console.log(`  2. Manually approve and commit to publish`)
-  } else {
-    console.log(`\nArticle auto-published:`)
-    console.log(`  1. Article saved and ready for commit`)
-    console.log(`  2. GitHub Action will auto-generate social content`)
-    console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
-    console.log(`  4. LinkedIn + Dev.to cross-post will trigger on commit`)
-  }
+  console.log(`\nArticle auto-published:`)
+  console.log(`  1. Article saved and ready for commit`)
+  console.log(`  2. GitHub Action will auto-generate social content`)
+  console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
+  console.log(`  4. LinkedIn + Dev.to cross-post will trigger on commit`)
 }
 
 main().catch((err) => {
