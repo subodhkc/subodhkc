@@ -4,8 +4,8 @@ export const metadata: Metadata = {
   title: 'Resume — Subodh KC | AI Systems Architect & Governance Expert',
   description: 'Executive resume for Subodh KC — AI Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
   alternates: {
     canonical: 'https://subodhkc.com/resume',

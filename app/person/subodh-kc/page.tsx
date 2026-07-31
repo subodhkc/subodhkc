@@ -113,8 +113,8 @@ const profilePageSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   mainEntity: personSchema,
-  dateCreated: '2026-07-14T00:00:00Z',
-  dateModified: '2026-07-14T00:00:00Z',
+  dateCreated: '2026-07-14',
+  dateModified: '2026-07-14',
 }
 
 export default function PersonPage() {

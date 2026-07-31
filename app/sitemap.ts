@@ -324,6 +324,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.1,
     },
+    {
+      url: `${baseUrl}/resume`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/portfolio`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
   ]
 
   const blogPosts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({

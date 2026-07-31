@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     'AI governance frameworks',
   ],
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
   alternates: {
     canonical: 'https://subodhkc.com/portfolio',
