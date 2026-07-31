@@ -3,7 +3,7 @@
  * PowerPoint Generation Script
  *
  * Generates: public/centaurus/haiec-technical-architecture-defensibility-brief.pptx
- * Format: 16:9 widescreen, dark slate theme, emerald accents
+ * Format: 16:9 widescreen, light theme, emerald accents
  *
  * All technical claims validated against HAIEC TDA modules and source code.
  */
@@ -23,17 +23,19 @@ const projectRoot = join(__dirname, '..')
 // ============================================================
 
 const THEME = {
-  bg: '0F172A',          // dark slate
-  bgAlt: '1E293B',       // lighter slate
-  card: '1E293B',        // card background
-  cardBorder: '334155',  // card border
-  emerald: '10B981',     // primary accent
-  emeraldDark: '059669', // darker emerald
-  amber: 'F59E0B',       // partial/warning
-  red: 'EF4444',         // critical/blocker
-  white: 'F8FAFC',       // warm white text
-  gray: '94A3B8',        // muted gray secondary
-  grayDark: '64748B',    // darker gray
+  bg: 'F8FAFC',          // light slate background
+  bgAlt: 'F1F5F9',       // slightly darker light slate
+  card: 'FFFFFF',        // white card background
+  cardBorder: 'CBD5E1',  // light gray border
+  emerald: '059669',     // primary accent — emerald 600
+  emeraldDark: '047857', // darker emerald — emerald 700
+  emeraldLight: 'D1FAE5',// light emerald background
+  amber: 'D97706',       // warning — amber 600
+  red: 'DC2626',         // critical — red 600
+  white: '0F172A',       // dark text on light background
+  gray: '475569',        // muted gray secondary — slate 600
+  grayDark: '64748B',    // darker gray — slate 500
+  grayLight: '94A3B8',   // light gray — slate 400
   mono: 'Courier New',   // monospace labels
   sans: 'Calibri',       // body font
   heading: 'Calibri',    // heading font
@@ -94,7 +96,7 @@ function addStatusTag(slide, x, y, label, status) {
   const colors = {
     implemented: { bg: THEME.emerald, text: 'FFFFFF' },
     active: { bg: THEME.emerald, text: 'FFFFFF' },
-    roadmap: { bg: THEME.emeraldDark, text: 'FFFFFF' },
+    roadmap: { bg: THEME.amber, text: 'FFFFFF' },
     foundation: { bg: THEME.emeraldDark, text: 'FFFFFF' },
   }
   const c = colors[status] ?? colors.implemented
@@ -159,7 +161,8 @@ const CAPABILITY_COUNTS = {
   semgrepRules: 91,
   coreTsrules: 15,
   rulepackRules: 82,
-  totalStaticRules: 188,
+  // Do not publish a combined total — these are different representations
+  // (detector definitions, display IDs, mapping records) that may overlap
   baseAttackTemplates: 234,
   voiceAttackTemplates: 12,
   embeddedSaasTemplates: 7,
@@ -168,7 +171,7 @@ const CAPABILITY_COUNTS = {
   ragDeepTemplates: 6,
   totalAttackTemplates: 269,
   safetyProperties: 14,
-  complianceFrameworks: 13,  // SOC2, GDPR, HIPAA, ISO27001, ISO42001, OWASP, CWE, NIST_AI_RMF, EU_AI_ACT, TCPA, CCPA, BIPA, COLORADO_AI, NYC_LL144, FTC_ACT
+  complianceFrameworks: 13,
   orchestratorRoutes: 12,
   staticApiRoutes: 31,
   runtimeApiRoutes: 22,
@@ -191,7 +194,7 @@ function getGitCommit() {
 }
 
 const GIT_COMMIT = getGitCommit()
-const TOTAL_SLIDES = 14
+const TOTAL_SLIDES = 15
 
 // ============================================================
 // SLIDE BUILDERS
@@ -219,14 +222,14 @@ function buildSlide1(pptx) {
   })
 
   // Subtitle
-  slide.addText('Evidence-Native Security Infrastructure for Operational AI', {
+  slide.addText('Evidence-Native Validation Infrastructure for AI Applications', {
     x: 0.6, y: 3.0, w: 11, h: 0.5,
     fontSize: 22, fontFace: THEME.heading,
     color: THEME.emerald, align: 'left'
   })
 
   // Supporting line
-  slide.addText('Technical Architecture, Defensibility and Strategic Value', {
+  slide.addText('How HAIEC connects code security, runtime testing, control mapping and audit evidence', {
     x: 0.6, y: 3.6, w: 11, h: 0.4,
     fontSize: 16, fontFace: THEME.sans,
     color: THEME.gray, align: 'left'
@@ -327,12 +330,12 @@ function buildSlide3(pptx) {
   const cols = [
     {
       title: 'AI Security Tools',
-      items: ['Find vulnerabilities in code', 'Generate findings and alerts', 'Do not produce audit-grade evidence', 'Do not map findings to controls'],
-      gap: 'Output stops at the finding. No evidence chain.'
+      items: ['Find vulnerabilities in code', 'Generate findings and alerts', 'Security findings often require separate evidence assembly and control mapping', 'Evidence is typically assembled downstream'],
+      gap: 'Output stops at the finding. Evidence chain requires manual assembly.'
     },
     {
       title: 'Governance & GRC',
-      items: ['Collect questionnaire responses', 'Track policy attestation', 'Do not validate technical posture', 'Self-reported, not engine-generated'],
+      items: ['Collect questionnaire responses', 'Track policy attestation', 'Governance platforms frequently depend on questionnaires, integrations or imported evidence rather than generating the technical observation themselves', 'Self-reported, not engine-generated'],
       gap: 'Answers without verification. No technical proof.'
     },
     {
@@ -386,7 +389,7 @@ function buildSlide4(pptx) {
 
   const layers = [
     { name: 'INPUTS', items: 'Git repos · API keys · AI inventory · System registration', color: THEME.grayDark },
-    { name: 'EVALUATION', items: 'Static engine (188 rules) · Runtime engine (269 templates) · Wizard', color: THEME.emeraldDark },
+    { name: 'EVALUATION', items: 'Static engine (91 Semgrep + 15 TS + 82 rulepack) · Runtime engine (269 templates) · Wizard', color: THEME.emeraldDark },
     { name: 'COORDINATION', items: 'Audit Orchestrator · State machine · Hash-chained event log', color: THEME.emeraldDark },
     { name: 'DECISION & EVIDENCE', items: 'Decision Pipeline (6 nodes, DIS) · Evidence manifests · Framework mapping', color: THEME.emeraldDark },
     { name: 'DISTRIBUTION', items: 'Trust artifacts · Audit packages · Verification API · CI integration', color: THEME.emerald },
@@ -421,50 +424,73 @@ function buildSlide5(pptx) {
   addSlideBackground(slide)
   addSlideTitle(slide, 'Discover. Scan. Attack-Test. Map. Prove. Monitor.')
 
-  const steps = [
+  // Six main stages — top row
+  const mainSteps = [
     { num: '01', name: 'Discover', desc: 'Register AI system in inventory', detail: 'API key sync, system metadata' },
-    { num: '02', name: 'Scan', desc: 'Static analysis on codebase', detail: '188 rules, Semgrep + custom' },
+    { num: '02', name: 'Scan', desc: 'Static analysis on codebase', detail: '91 Semgrep + 15 TS + 82 rulepack' },
     { num: '03', name: 'Attack-Test', desc: 'Runtime adversarial testing', detail: '269 templates, 14 safety properties' },
-    { num: '04', name: 'Map', desc: 'Findings → control mappings', detail: 'SOC2, ISO 27001, OWASP, NIST AI RMF' },
+    { num: '04', name: 'Map', desc: 'Findings → control mappings', detail: 'SOC2, ISO 27001:2022, OWASP, NIST AI RMF 1.0' },
     { num: '05', name: 'Prove', desc: 'Evidence manifest + audit package', detail: 'Hash-chained, fingerprinted' },
     { num: '06', name: 'Monitor', desc: 'Compliance Twin drift detection', detail: 'Delta engine, anomaly detection' },
-    { num: '07', name: 'Score', desc: 'Decision Integrity Score (DIS)', detail: '6 pipeline nodes, weighted' },
-    { num: '08', name: 'Review', desc: 'Human reviewer sign-off', detail: 'Signature hash, IP, user-agent' },
-    { num: '09', name: 'Distribute', desc: 'Trust artifact + verification API', detail: 'HMAC-signed, revocation support' },
-    { num: '10', name: 'Re-verify', desc: 'Scheduled re-verification + drift', detail: 'Cron-based, drift alerts' },
   ]
 
-  // Two rows of 5
-  steps.forEach((step, i) => {
-    const col = i % 5
-    const row = Math.floor(i / 5)
-    const x = 0.6 + col * 2.5
-    const y = 1.5 + row * 2.3
+  // Supporting lifecycle — bottom row
+  const lifecycleSteps = [
+    { name: 'Score', desc: 'Decision Integrity Score (DIS) · 6 pipeline nodes, weighted' },
+    { name: 'Review', desc: 'Human reviewer sign-off · signature hash, IP, user-agent' },
+    { name: 'Distribute', desc: 'Trust artifact + verification API · HMAC-signed, revocation' },
+    { name: 'Revalidate', desc: 'Scheduled re-verification + drift · cron-based, drift alerts' },
+  ]
 
-    addCard(slide, x, y, 2.3, 2.0, { fill: THEME.bgAlt, border: THEME.cardBorder })
-    // Number
+  // Main stages — 6 cards in a row
+  const mainW = 1.85
+  const mainGap = 0.22
+  let mainX = 0.6
+
+  mainSteps.forEach((step, i) => {
+    addCard(slide, mainX, 1.5, mainW, 2.5, { fill: THEME.card, border: THEME.cardBorder })
     slide.addText(step.num, {
-      x: x + 0.1, y: y + 0.1, w: 0.8, h: 0.3,
+      x: mainX + 0.1, y: 1.6, w: 0.8, h: 0.3,
       fontSize: 14, fontFace: THEME.mono, color: THEME.emerald, bold: true
     })
-    // Name
     slide.addText(step.name, {
-      x: x + 0.1, y: y + 0.45, w: 2.1, h: 0.35,
+      x: mainX + 0.1, y: 1.95, w: mainW - 0.2, h: 0.35,
       fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.white
     })
-    // Desc
-    addBodyText(slide, x + 0.1, y + 0.85, 2.1, 0.5, step.desc, { fontSize: 9, color: THEME.gray })
-    // Detail
-    addMonoLabel(slide, x + 0.1, y + 1.4, step.detail, { w: 2.1 })
+    addBodyText(slide, mainX + 0.1, 2.35, mainW - 0.2, 0.6, step.desc, { fontSize: 9, color: THEME.gray })
+    addMonoLabel(slide, mainX + 0.1, 3.0, step.detail, { w: mainW - 0.2 })
 
-    // Arrow to next
-    if (col < 4) {
-      addRightArrow(slide, x + 2.3 + 0.05, y + 1.0, 0.15)
+    if (i < mainSteps.length - 1) {
+      addRightArrow(slide, mainX + mainW + 0.03, 2.75, mainGap - 0.06)
     }
+    mainX += mainW + mainGap
   })
 
-  // Down arrow from row 1 to row 2
-  addDownArrow(slide, 12.0, 3.5, 0.3)
+  // Down arrow
+  addDownArrow(slide, 6.5, 4.1, 0.3)
+
+  // Supporting lifecycle — 4 cards in a row
+  const suppY = 4.6
+  const suppW = 2.85
+  const suppGap = 0.3
+  let suppX = 0.6
+
+  // Label for supporting actions
+  addMonoLabel(slide, 0.6, 4.35, 'SUPPORTING LIFECYCLE ACTIONS', { w: 6 })
+
+  lifecycleSteps.forEach((step, i) => {
+    addCard(slide, suppX, suppY, suppW, 1.4, { fill: THEME.bgAlt, border: THEME.emerald })
+    slide.addText(step.name, {
+      x: suppX + 0.15, y: suppY + 0.1, w: suppW - 0.3, h: 0.35,
+      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    })
+    addBodyText(slide, suppX + 0.15, suppY + 0.5, suppW - 0.3, 0.8, step.desc, { fontSize: 9, color: THEME.gray })
+
+    if (i < lifecycleSteps.length - 1) {
+      addRightArrow(slide, suppX + suppW + 0.05, suppY + 0.7, suppGap - 0.1)
+    }
+    suppX += suppW + suppGap
+  })
 
   // Bottom line
   addBodyText(slide, 0.6, 6.5, 12, 0.4,
@@ -481,7 +507,7 @@ function buildSlide6(pptx) {
   addSlideTitle(slide, 'Traditional application testing stops before the full AI decision path.')
 
   // Decision path diagram
-  const pathNodes = ['INPUT', 'PROMPT', 'RETRIEVAL', 'MODEL', 'TOOLS', 'DECISION']
+  const pathNodes = ['INPUT', 'PROMPT', 'RETRIEVAL', 'TOOLS', 'MODEL', 'DECISION']
   const pathW = 1.7
   const pathGap = 0.25
   let pathX = 0.6
@@ -533,12 +559,14 @@ function buildSlide6(pptx) {
   })
   addStatusTag(slide, 0.8, 3.9, 'IMPLEMENTED', 'implemented')
   const staticItems = [
-    '188 rules: 91 Semgrep YAML + 15 core TS + 82 rulepack',
+    '91 Semgrep YAML detector definitions',
+    '15 core TypeScript deterministic rules',
+    '82 rule-to-framework mapping records',
+    'Additional profile-specific TypeScript checks',
     'Taint analysis, flow graphs, call graphs',
     'Multi-language: JS/TS, Python, Go sidecars',
     'SHA256 finding fingerprints for evidence',
     'CI integration with policy enforcement engine',
-    'SARIF export, compliance-mapped findings',
   ]
   staticItems.forEach((item, i) => {
     slide.addText(`•  ${item}`, {
@@ -665,10 +693,10 @@ function buildSlide7(pptx) {
     })
   })
 
-  // Maturity note
-  addBodyText(slide, 0.6, 6.7, 12, 0.3,
-    'Maturity: Evidence integrity — Implemented. HMAC-SHA256 with key rotation and replay protection. Upgrade path: Ed25519 asymmetric signatures for third-party-verifiable non-repudiation.',
-    { fontSize: 9, color: THEME.gray })
+  // Maturity note — moved up to avoid overflow
+  addBodyText(slide, 0.6, 6.5, 12, 0.3,
+    'Maturity: Evidence integrity — Implemented. HMAC-SHA256 with key rotation and replay protection. Upgrade path: Ed25519 public-key signatures for independent verification.',
+    { fontSize: 8, color: THEME.grayDark })
 
   addFooter(slide, 7, TOTAL_SLIDES)
 }
@@ -706,12 +734,12 @@ function buildSlide8(pptx) {
 
   // Framework mappings
   const frameworks = [
-    { name: 'OWASP LLM01', detail: 'Prompt Injection' },
+    { name: 'OWASP LLM01:2025', detail: 'Prompt Injection' },
     { name: 'SOC2 CC7.2', detail: 'System Monitoring' },
-    { name: 'ISO 27001 A.12.6.1', detail: 'Technical Vulnerability' },
-    { name: 'NIST AI RMF', detail: 'MEASURE-2.7, MANAGE-1.1' },
+    { name: 'ISO 27001:2022 A.8.8', detail: 'Technical Vulnerability Mgmt' },
+    { name: 'NIST AI RMF 1.0', detail: 'MEASURE-2.7, MANAGE-1.1' },
     { name: 'EU AI Act', detail: 'Art15-Robustness, Art12-Logging' },
-    { name: 'ISO 42001', detail: '8.2, 8.4, 9.1' },
+    { name: 'ISO 42001:2023', detail: '8.2, 8.4, 9.1' },
   ]
 
   frameworks.forEach((fw, i) => {
@@ -742,17 +770,22 @@ function buildSlide8(pptx) {
     fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.emerald
   })
   addBodyText(slide, 0.8, 4.3, 11.7, 0.7,
-    'A single remediation (e.g., adding input validation guard) can simultaneously satisfy OWASP LLM01, SOC2 CC7.2, ISO 27001 A.12.6.1, NIST AI RMF MEASURE-2.7, EU AI Act Art15, and ISO 42001 8.2 — with one evidence record. This is the multiplier effect: remediate once, prove across frameworks.',
+    'A single remediation can generate reusable technical evidence across multiple assurance reviews. The same source change, retest and evidence record can support related OWASP, NIST, SOC 2, ISO and EU AI Act control evaluations — without recollecting the technical evidence separately for each framework.',
     { fontSize: 10, color: THEME.white })
 
+  // Tagline
+  addBodyText(slide, 0.6, 5.3, 12, 0.3,
+    'Remediate once. Reuse the evidence across frameworks.',
+    { fontSize: 12, color: THEME.emerald, bold: true })
+
   // Source footer
-  addBodyText(slide, 0.6, 5.4, 12, 0.3,
+  addBodyText(slide, 0.6, 5.7, 12, 0.3,
     'Source: lib/ai-security/compliance-mappings.ts — 82 unique rule IDs mapped to 13 compliance frameworks.',
     { fontSize: 8, color: THEME.grayDark })
 
   // Framework list
-  addBodyText(slide, 0.6, 5.8, 12, 0.5,
-    'Mapped frameworks: SOC 2 · ISO 27001 · ISO 42001 · OWASP LLM Top 10 · GDPR · HIPAA · CWE · NIST AI RMF · EU AI Act · CCPA · NYC LL144 · Colorado AI Act · FTC Act',
+  addBodyText(slide, 0.6, 6.1, 12, 0.5,
+    'Mapped frameworks: SOC 2 · ISO 27001:2022 · ISO 42001:2023 · OWASP LLM Top 10:2025 · GDPR · HIPAA · CWE · NIST AI RMF 1.0 · EU AI Act · CCPA · NYC LL144 · Colorado AI Act · FTC Act',
     { fontSize: 9, color: THEME.gray })
 
   addFooter(slide, 8, TOTAL_SLIDES)
@@ -762,7 +795,7 @@ function buildSlide8(pptx) {
 function buildSlide9(pptx) {
   const slide = pptx.addSlide()
   addSlideBackground(slide)
-  addSlideTitle(slide, 'Scores summarize. Critical gates decide. Evidence explains.')
+  addSlideTitle(slide, 'Verified coverage determines current eligibility.\nCritical findings will become explicit release gates.')
 
   // Engine inputs
   addCard(slide, 0.6, 1.3, 3.0, 1.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
@@ -820,11 +853,11 @@ function buildSlide9(pptx) {
     'Aggregation job normalizes all engine outputs to 6 nodes',
     'DIS formula v1.0 with locked methodology version',
     'Coverage penalty: <50% → ×0.85, 50-74% → ×0.95, ≥75% → ×1.00',
-    'Audit eligibility: FULL_RUN + all required nodes VERIFIED + ≥75% coverage',
+    'Audit eligibility: FULL_RUN with every required architecture node VERIFIED',
+    'PARTIAL_RUN results consistently excluded from audit eligibility',
     'Human review workflow with signature hash + IP + user-agent',
     'Drift detection: ≥10pt overall drop or ≥15pt node drop or eligibility flip',
     'Enterprise V1 API with feature gate and rate limiting',
-    'Idempotent aggregation (unique constraint on orchestratorRunId)',
   ]
   currentItems.forEach((item, i) => {
     slide.addText(`•  ${item}`, {
@@ -843,10 +876,10 @@ function buildSlide9(pptx) {
   const hardeningItems = [
     'Findings-level blocker gates: scoring implemented, enforcement activation next',
     'Critical-finding gates: eligibility enforcement in active development',
+    'Minimum coverage thresholds as explicit eligibility conditions',
     'QStash async job: infrastructure ready, production token configuration next',
     'Scheduled re-verification: cron infrastructure ready, scheduling activation next',
     'Review workflow: sign-off chain implemented, production rollout next',
-    'PARTIAL_RUN results consistently excluded from audit eligibility',
   ]
   hardeningItems.forEach((item, i) => {
     slide.addText(`•  ${item}`, {
@@ -862,7 +895,7 @@ function buildSlide9(pptx) {
 
   // Maturity notes
   addBodyText(slide, 0.6, 6.6, 12, 0.3,
-    'Maturity: Decision Pipeline — Implemented (scoring, aggregation, audit package). Findings-level blocker enforcement in active development for eligibility gate activation.',
+    'Maturity: Decision Pipeline — Implemented (scoring, aggregation, audit package, PARTIAL_RUN exclusion). Findings-level blocker enforcement in active development for eligibility gate activation.',
     { fontSize: 9, color: THEME.gray })
 
   addFooter(slide, 9, TOTAL_SLIDES)
@@ -888,7 +921,7 @@ function buildSlide10(pptx) {
     'Anomaly detector: Z-score + IQR statistical methods',
     'Alert engine: deduplication + 4-level escalation',
     'Rulepack engine: 23 seed rules across 4 frameworks',
-    'Snapshot engine: immutable, SHA256-hashed state snapshots',
+    'Snapshot engine: SHA-256-addressed, tamper-evident state snapshots',
     'Provenance engine: compliance record anchoring (Patent P3)',
     'Regression engine: detects previously-passing rules that now fail',
     '17 API routes for full lifecycle management',
@@ -909,11 +942,11 @@ function buildSlide10(pptx) {
   addStatusTag(slide, 7.1, 1.8, 'ACTIVE DEVELOPMENT', 'implemented')
 
   const killLayers = [
-    { layer: 'L1', name: 'Throttle', status: 'implemented' },
-    { layer: 'L2', name: 'Rate limit + alert', status: 'implemented' },
-    { layer: 'L3', name: 'Selective block', status: 'implemented' },
-    { layer: 'L4', name: 'Escalation + notify', status: 'roadmap' },
-    { layer: 'L5', name: 'Full kill', status: 'roadmap' },
+    { layer: 'L1', name: 'Rate Limiting', status: 'implemented' },
+    { layer: 'L2', name: 'Circuit Breaker', status: 'implemented' },
+    { layer: 'L3', name: 'AI Execution Stop', status: 'implemented' },
+    { layer: 'L4', name: 'Network Block', status: 'roadmap' },
+    { layer: 'L5', name: 'Database Revoke', status: 'roadmap' },
   ]
 
   killLayers.forEach((kl, i) => {
@@ -955,7 +988,7 @@ function buildSlide10(pptx) {
     'Maturity Notes:',
     { fontSize: 10, color: THEME.white, bold: true })
   addBodyText(slide, 0.8, 5.6, 11.7, 1.0,
-    '•  Compliance Twin: Substantive implemented subsystem (17 files, 17 API routes, 8 DB models). Full lifecycle management across 6 jurisdictions.\n•  Kill Switch: Layers 1–3 available (throttle, rate limit, selective block). Layers 4–5 (escalation, full kill) on roadmap. SDK published as npm package.',
+    '•  Compliance Twin: Substantive implemented subsystem (17 files, 17 API routes, 8 DB models). Full lifecycle management across 6 jurisdictions.\n•  Kill Switch: Layers 1–3 available (rate limiting, circuit breaker, AI execution stop). Layers 4–5 (network block, database revoke) in development. SDK published as npm package.',
     { fontSize: 9, color: THEME.gray })
 
   addFooter(slide, 10, TOTAL_SLIDES)
@@ -968,11 +1001,11 @@ function buildSlide11(pptx) {
   addSlideTitle(slide, 'The defensibility compounds across the evidence lifecycle.')
 
   const layers = [
-    { name: '1. Rule Depth', desc: '188 static rules + 269 attack templates. Multi-language, multi-provider, multi-domain.' },
+    { name: '1. Rule Depth', desc: '91 Semgrep + 15 TS + 82 rulepack records. 269 attack templates. Multi-language, multi-provider, multi-domain.' },
     { name: '2. Evidence Architecture', desc: 'Finding → manifest → fingerprint → audit package → trust artifact. Hash-chained, version-pinned.' },
-    { name: '3. Framework Mapping', desc: '13 compliance frameworks mapped from 82 unique rule IDs. One remediation → multiple controls.' },
+    { name: '3. Framework Mapping', desc: '13 compliance frameworks mapped from 82 unique rule IDs. One remediation → reusable evidence across frameworks.' },
     { name: '4. Orchestrated Workflow', desc: 'State machine, contract validation, hash-chained event log. DB as source of truth.' },
-    { name: '5. Decision Pipeline', desc: '6-node DIS, NIST AI RMF breakdown, audit eligibility, human review sign-off.' },
+    { name: '5. Decision Pipeline', desc: '6-node DIS, NIST AI RMF 1.0 breakdown, audit eligibility, human review sign-off.' },
     { name: '6. Continuous Assurance', desc: 'Compliance Twin drift detection, scheduled re-verification, regression testing.' },
     { name: '7. Distribution', desc: 'Trust artifacts, verification API, CI integration, enterprise V1 API.' },
   ]
@@ -992,9 +1025,9 @@ function buildSlide11(pptx) {
 
   // Strategic outcomes
   const outcomes = [
-    { title: 'Switching Cost', desc: 'Each audit run accumulates evidence records, framework mappings, and compliance history. Rebuilding this in a new tool is prohibitive.' },
-    { title: 'Network Effects', desc: 'More systems scanned → more findings → more framework mappings → more remediation patterns → better coverage.' },
-    { title: 'Regulatory Moat', desc: '6 jurisdictions, 13 frameworks, patent-pending delta engine and provenance anchoring.' },
+    { title: 'Switching Costs', desc: 'Switching costs increase as CI integrations, historical evidence, framework mappings and revalidation records accumulate.' },
+    { title: 'Coverage & Learning Effects', desc: 'More systems tested can improve attack coverage, remediation patterns and framework mappings — subject to privacy, tenancy and data-use constraints.' },
+    { title: 'Evidence-Graph Advantage', desc: 'The defensibility grows from versioned relationships among systems, tests, findings, remediations, controls and historical outcomes.' },
   ]
 
   outcomes.forEach((outcome, i) => {
@@ -1049,7 +1082,7 @@ function buildAppendixA(pptx) {
       cap: 'Static AI Security',
       status: 'Implemented',
       statusType: 'implemented',
-      proof: '188 rules, Modal Python scanner, 31 API routes, 8 DB models',
+      proof: '91 Semgrep + 15 TS + 82 rulepack, Modal Python scanner, 31 API routes, 8 DB models',
       value: 'Deterministic, audit-grade findings with fingerprints',
       limit: 'Multi-language sidecar expansion (Go, Rust)'
     },
@@ -1083,7 +1116,7 @@ function buildAppendixA(pptx) {
       statusType: 'implemented',
       proof: 'HMAC-SHA256, key rotation, replay protection, /api/verify',
       value: 'Integrity verification for evidence transit and storage',
-      limit: 'Ed25519 asymmetric signatures for third-party non-repudiation'
+      limit: 'Ed25519 public-key signatures for independent verification'
     },
     {
       cap: 'Trust Artifacts',
@@ -1107,7 +1140,7 @@ function buildAppendixA(pptx) {
       statusType: 'implemented',
       proof: 'Published SDK v0.3.0, execution guard, 19 API routes',
       value: 'Emergency shutdown capability for AI systems',
-      limit: 'Layers 4–5 (escalation, full kill) on roadmap'
+      limit: 'Layers 4–5 (network block, database revoke) in development'
     },
   ]
 
@@ -1154,7 +1187,7 @@ function buildAppendixA(pptx) {
     })
   })
 
-  addFooter(slide, 12, TOTAL_SLIDES)
+  addFooter(slide, 13, TOTAL_SLIDES)
 }
 
 // --- Appendix B: Capability Taxonomy ---
@@ -1175,8 +1208,10 @@ function buildAppendixB(pptx) {
   const staticData = [
     `Semgrep YAML rules: ${CAPABILITY_COUNTS.semgrepRules}`,
     `Core TS deterministic rules: ${CAPABILITY_COUNTS.coreTsrules}`,
-    `Rulepack rules: ${CAPABILITY_COUNTS.rulepackRules}`,
-    `Total static rules: ${CAPABILITY_COUNTS.totalStaticRules}`,
+    `Rulepack mapping records: ${CAPABILITY_COUNTS.rulepackRules}`,
+    'Note: These are different representations',
+    '(detectors, display IDs, mappings)',
+    'Do not add to a combined total',
     '',
     'Rulepacks:',
     '  Agentic (AGW-R): 12',
@@ -1296,7 +1331,7 @@ function buildAppendixB(pptx) {
     fontSize: 9, fontFace: THEME.mono, color: THEME.gray
   })
 
-  addFooter(slide, 13, TOTAL_SLIDES)
+  addFooter(slide, 14, TOTAL_SLIDES)
 }
 
 // --- Appendix C: Evidence Trust Model ---
@@ -1370,7 +1405,7 @@ function buildAppendixC(pptx) {
     x: 0.9, y: 5.55, w: 5.2, h: 0.25,
     fontSize: 8, fontFace: THEME.heading, bold: true, color: THEME.emerald
   })
-  slide.addText('HMAC-SHA256 provides integrity and authentication for verification responses. Verification via HAIEC /api/verify endpoint with key rotation and replay protection. Upgrade path: Ed25519 asymmetric signatures for third-party-verifiable non-repudiation.', {
+  slide.addText('HMAC-SHA256 provides integrity and authentication for verification responses. Verification via HAIEC /api/verify endpoint with key rotation and replay protection. Upgrade path: Ed25519 public-key signatures for independent verification. Stronger non-repudiation would additionally require identity-bound key custody and trusted timestamping.', {
     x: 0.9, y: 5.8, w: 5.2, h: 0.5,
     fontSize: 7, fontFace: THEME.sans, color: THEME.gray
   })
@@ -1409,7 +1444,61 @@ function buildAppendixC(pptx) {
     fontSize: 7, fontFace: THEME.sans, color: THEME.gray
   })
 
-  addFooter(slide, 14, TOTAL_SLIDES)
+  addFooter(slide, 15, TOTAL_SLIDES)
+}
+
+// --- Slide 12: What Can Be Demonstrated Today ---
+function buildSlide12(pptx) {
+  const slide = pptx.addSlide()
+  addSlideBackground(slide)
+  addSlideTitle(slide, 'What can be demonstrated today.')
+
+  addBodyText(slide, 0.6, 1.2, 12, 0.4,
+    'The following capabilities are operational and can be shown live in a working session.',
+    { fontSize: 12, color: THEME.gray })
+
+  const demos = [
+    { num: '1', title: 'Repository Connected', desc: 'AI system registered in inventory with API key sync and system metadata. Git integration active.' },
+    { num: '2', title: 'AI-Specific Finding with File and Line', desc: 'Static scan produces findings with rule ID, code path, line number, and the missing guard. SHA256 fingerprint attached.' },
+    { num: '3', title: 'Runtime Attack and Captured Response', desc: 'Adversarial template executed against live endpoint. Response captured, safety property evaluated, result recorded.' },
+    { num: '4', title: 'Framework-Control Mapping', desc: 'Finding automatically mapped to OWASP LLM01:2025, SOC 2 CC7.2, ISO 27001:2022 A.8.8, NIST AI RMF 1.0, EU AI Act, ISO 42001:2023.' },
+    { num: '5', title: 'Audit Evidence Package', desc: 'Canonical evidence manifest with DIS score, per-node breakdown, framework mappings, and review sign-off chain. Exported as JSON.' },
+    { num: '6', title: 'Public Trust Artifact Verification', desc: 'GET /api/verify/[artifactId] returns HMAC-SHA256 signed response with artifact status, scope, and validity window.' },
+  ]
+
+  // Two columns of 3
+  demos.forEach((demo, i) => {
+    const col = i % 2
+    const row = Math.floor(i / 2)
+    const x = 0.6 + col * 6.2
+    const y = 1.8 + row * 1.6
+
+    addCard(slide, x, y, 5.9, 1.4, { fill: THEME.card, border: THEME.emerald })
+    // Number badge
+    slide.addShape('roundRect', {
+      x: x + 0.15, y: y + 0.15, w: 0.4, h: 0.4,
+      fill: { color: THEME.emerald }, line: { type: 'none' }, rectRadius: 0.05
+    })
+    slide.addText(demo.num, {
+      x: x + 0.15, y: y + 0.15, w: 0.4, h: 0.4,
+      fontSize: 14, fontFace: THEME.heading, bold: true, color: 'FFFFFF',
+      align: 'center', valign: 'middle'
+    })
+    // Title
+    slide.addText(demo.title, {
+      x: x + 0.7, y: y + 0.15, w: 5.0, h: 0.35,
+      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.white
+    })
+    // Description
+    addBodyText(slide, x + 0.7, y + 0.55, 5.0, 0.8, demo.desc, { fontSize: 9, color: THEME.gray })
+  })
+
+  // Bottom line
+  addBodyText(slide, 0.6, 6.7, 12, 0.3,
+    'These demonstrations are more persuasive than counts or API-route tables. Available for live walkthrough on request.',
+    { fontSize: 10, color: THEME.emerald, bold: true })
+
+  addFooter(slide, 12, TOTAL_SLIDES)
 }
 
 // ============================================================
@@ -1425,7 +1514,7 @@ async function main() {
   pptx.author = 'Subodh KC'
   pptx.company = 'HAIEC'
   pptx.subject = 'HAIEC Technical Architecture, Defensibility and Strategic Value'
-  pptx.title = 'HAIEC Technical Architecture & Defensibility Brief'
+  pptx.title = 'Evidence-Native Validation Infrastructure for AI Applications'
 
   // Build slides
   buildSlide1(pptx)      // Cover
@@ -1439,6 +1528,7 @@ async function main() {
   buildSlide9(pptx)      // Orchestration and Decision Pipeline
   buildSlide10(pptx)     // Continuous assurance and control
   buildSlide11(pptx)     // Defensibility and strategic value
+  buildSlide12(pptx)     // What can be demonstrated today
   buildAppendixA(pptx)   // Technical maturity matrix
   buildAppendixB(pptx)   // Capability taxonomy
   buildAppendixC(pptx)   // Evidence trust model
@@ -1455,7 +1545,7 @@ async function main() {
 
   console.log(`\n✓ HAIEC Technical Deck generated successfully`)
   console.log(`  Path: ${outputPath}`)
-  console.log(`  Slides: ${TOTAL_SLIDES} (11 primary + 3 appendix)`)
+  console.log(`  Slides: ${TOTAL_SLIDES} (12 primary + 3 appendix)`)
   console.log(`  Git commit: ${GIT_COMMIT}`)
   console.log(`  Date: ${new Date().toISOString().split('T')[0]}`)
 }
