@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Download, ArrowLeft, Eye, Play } from 'lucide-react'
 import { HaiecDeckSection } from './haiec-deck-section'
+import { FaqSection } from './faq-section'
 
 export const metadata: Metadata = {
   title: 'Centaurus AI Advisory Practice | Subodh KC',
@@ -216,6 +217,9 @@ export default function CentaurusPage() {
             </p>
           </div>
         </div>
+
+        {/* FAQ */}
+        <FaqSection />
 
         {/* Confidentiality note */}
         <div className="mt-10 pt-6 border-t border-slate-200">
