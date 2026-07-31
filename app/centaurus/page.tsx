@@ -32,7 +32,7 @@ export default function CentaurusPage() {
               <div className="flex-1">
                 <CardTitle className="text-2xl text-white">Centaurus AI Advisory Practice</CardTitle>
                 <CardDescription className="text-blue-100 mt-2">
-                  Strategic AI governance and compliance frameworks for enterprise transformation
+                  AI governance, compliance automation, and enterprise AI strategy — built for leaders deploying AI at scale
                 </CardDescription>
               </div>
             </div>
@@ -43,9 +43,9 @@ export default function CentaurusPage() {
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
                 <h3 className="font-semibold text-slate-900 mb-2">Presentation Overview</h3>
                 <p className="text-slate-700 text-sm leading-relaxed">
-                  This presentation outlines Centaurus AI Advisory Practice's comprehensive approach to AI governance, 
-                  compliance automation, and enterprise AI strategy. Designed for C-suite executives and technical leaders 
-                  navigating the complexities of responsible AI deployment.
+                  A structured approach to enterprise AI governance — covering framework selection, compliance automation,
+                  risk posture management, and AI strategy alignment. Built for C-suite executives and technical leaders
+                  who need actionable governance, not theory.
                 </p>
               </div>
 
@@ -53,10 +53,10 @@ export default function CentaurusPage() {
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                   <h4 className="font-semibold text-slate-900 mb-2">Key Topics</h4>
                   <ul className="text-sm text-slate-700 space-y-1">
-                    <li>• AI Governance Frameworks</li>
-                    <li>• Compliance Automation</li>
-                    <li>• Risk Management</li>
-                    <li>• Enterprise AI Strategy</li>
+                    <li>• AI Governance Framework Selection</li>
+                    <li>• Compliance Automation Architecture</li>
+                    <li>• AI Risk Posture &amp; Mitigation</li>
+                    <li>• Enterprise AI Strategy Alignment</li>
                   </ul>
                 </div>
 
@@ -64,7 +64,7 @@ export default function CentaurusPage() {
                   <h4 className="font-semibold text-slate-900 mb-2">Document Details</h4>
                   <ul className="text-sm text-slate-700 space-y-1">
                     <li>• Format: PowerPoint (.pptx)</li>
-                    <li>• Audience: Enterprise Leaders</li>
+                    <li>• Audience: C-Suite &amp; Technical Leaders</li>
                     <li>• Status: Client Ready</li>
                     <li>• Version: Final</li>
                   </ul>
@@ -86,7 +86,7 @@ export default function CentaurusPage() {
                     </Button>
                   </a>
                   <p className="text-xs text-slate-500">
-                    Quick overview video on YouTube Shorts
+                    60-second executive overview of the Centaurus practice
                   </p>
                 </div>
               </div>
@@ -106,13 +106,14 @@ export default function CentaurusPage() {
                     </Button>
                   </a>
                   <p className="text-xs text-slate-500">
-                    Strategic approaches to AI monetization and revenue generation
+                    Revenue models, pricing strategy, and go-to-market approaches for AI products
                   </p>
                 </div>
               </div>
 
               <div className="border-t pt-6">
-                <h3 className="font-semibold text-slate-900 mb-4">Centaurus AI Advisory Practice</h3>
+                <h3 className="font-semibold text-slate-900 mb-1">Centaurus AI Advisory Practice</h3>
+                <p className="text-xs text-slate-500 mb-4">Full presentation — download or view in Google Slides</p>
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row gap-3">
                     <a 
@@ -138,7 +139,7 @@ export default function CentaurusPage() {
                     </a>
                   </div>
                   <p className="text-xs text-slate-500">
-                    File size: ~1.3 MB | Format: PowerPoint (.pptx) | Requires Microsoft Office, Google Slides, or compatible viewer
+                    Format: PowerPoint (.pptx) | View in Google Slides or download for offline use
                   </p>
                 </div>
               </div>
@@ -157,7 +158,7 @@ export default function CentaurusPage() {
 
         <div className="mt-8 text-center">
           <p className="text-slate-600 text-sm">
-            Questions about this presentation? <Link href="/contact" className="text-blue-600 hover:text-blue-700 font-semibold">Get in touch</Link>
+            Questions about the Centaurus practice or HAIEC technical deck? <Link href="/contact" className="text-blue-600 hover:text-blue-700 font-semibold">Get in touch</Link>
           </p>
         </div>
       </div>
