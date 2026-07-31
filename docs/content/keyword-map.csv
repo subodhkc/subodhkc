@@ -1,0 +1,44 @@
+Keyword,URL,Title,Pillar,Search Intent,Funnel Stage,Notes
+AI compliance Hugging Face,/blog/ai-compliance-guide-addressing-hugging-face-risks,AI Compliance Guide: Addressing Hugging Face Risks,AI Governance,Informational,TOFU,Thin content - needs expansion
+AI voice agent architecture,/blog/ai-voice-agent-architecture-kestrelvoice,How AI Voice Agents Work: KestrelVoice Architecture Deep Dive,AI Operations,Informational,TOFU,Cannibalization risk with /ai-voice-agent-architecture
+AI voice agent architecture,/ai-voice-agent-architecture,AI Voice Agent Architecture,AI Operations,Informational,MOFU,Authority page - keep as canonical
+AI receptionist,/kestrel-voice-ai-receptionist-platform,Kestrel Voice AI Receptionist Platform,AI Operations,Commercial,BOFU,Product page
+EU AI Act logging pipeline,/blog/build-a-logging-pipeline-for-eu-ai-act-compliance,Build a Logging Pipeline for EU AI Act Compliance,AI Governance,Informational,TOFU,Needs code examples and primary source citations
+HAIEC governance framework,/blog/haiec-modular-ai-governance-framework,HAIEC: A Modular AI Governance Framework Explained,AI Governance,Informational,TOFU,Needs expansion with phase breakdown
+HAIEC,/haiec,HAIEC,AI Governance,Informational,MOFU,Authority page
+HAIEC,/solutions/haiec,HAIEC Solution,AI Governance,Commercial,BOFU,Solution page
+SEO risk AI-assisted development,/blog/hidden-seo-risk-ai-assisted-frontend-development,The Hidden SEO Risk in AI-Assisted Frontend Development,Builder Research,Informational,TOFU,Strong differentiated asset
+HIPAA compliant AI,/blog/hipaa-compliant-ai,HIPAA Compliant AI for New York Healthcare: 2026 Guide,AI Governance,Informational,TOFU,Keyword-stuffed - reduce to 8-10 keywords
+immutable audit trails SOC 2,/blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance,Implementing Immutable Audit Trails for SOC 2 AI Compliance,AI Governance,Informational,TOFU,Thin - needs code and architecture
+RAG row-level security,/blog/implementing-rag-row-level-security-for-multi-tenant-ai,Implementing RAG Row-Level Security for Multi-Tenant AI,Production AI Architecture,Informational,TOFU,Needs code examples
+secure enterprise RAG architecture,/secure-enterprise-rag-architecture,Secure Enterprise RAG Architecture,Production AI Architecture,Informational,MOFU,Authority page - canonical for RAG security
+RAG architecture hybrid search,/blog/production-rag-architecture-patterns-for-hybrid-search,Production RAG Architecture Patterns for Hybrid Search,Production AI Architecture,Informational,TOFU,Cannibalization risk with /secure-enterprise-rag-architecture
+legal document automation AI,/blog/legal-document-automation,Legal Document Automation for New York Law Firms in 2026,Builder Research,Informational,TOFU,Keyword-stuffed - reduce keywords
+OpenAI containment breach,/blog/securing-ai-systems-after-openai-containment-breach,Securing AI Systems After OpenAI Containment Breach,AI Governance,Informational,TOFU,Thin current-event content - expand or noindex
+AI compliance NIST ISO SOC 2,/blog/seven-layers-ai-compliance-nist-iso-soc2,7 Layers of AI Compliance: NIST AI RMF ISO 42001 & SOC 2,AI Governance,Informational,TOFU,Needs cross-framework mapping table
+what is llms.txt,/blog/what-is-llms-txt,What Is llms.txt? Why Every AI-Ready Website Should Publish It,Builder Research,Informational,TOFU,Strong differentiated asset
+build internal AI applications,/build-internal-ai-applications-streamlit-rag-mcp,Build Internal AI Applications with Streamlit RAG & MCP,Builder Research,Informational,MOFU,Authority page
+Texas AI law applicability,/does-texas-ai-law-apply-to-my-business,Does Texas AI Law Apply to My Business?,AI Governance,Informational,MOFU,Differentiated authority asset
+Texas AI law guide,/guides/texas-ai-law,Texas AI Law Guide,AI Governance,Informational,MOFU,Guide page
+EU AI Act guide,/guides/eu-ai-act,EU AI Act Guide,AI Governance,Informational,MOFU,Guide page
+NYC Local Law 144 guide,/guides/nyc-local-law-144,NYC Local Law 144 Guide,AI Governance,Informational,MOFU,Guide page
+AI security tools,/ai-security-tools,AI Security Tools,AI Governance,Informational,MOFU,Authority page
+AI risk register,/ai-risk-register,AI Risk Register,AI Governance,Informational,MOFU,Authority page
+AI vendor due diligence,/ai-vendor-due-diligence-checklist,AI Vendor Due Diligence Checklist,AI Governance,Informational,MOFU,Authority page
+AI incident evidence checklist,/ai-incident-evidence-checklist,AI Incident Evidence Checklist,AI Governance,Informational,MOFU,Authority page
+architecture decision master sheet,/architecture-decision-master-sheet,Architecture Decision Master Sheet,Production AI Architecture,Informational,MOFU,Differentiated authority asset
+how to secure and govern AI,/how-to-secure-and-govern-ai,How to Secure and Govern AI,AI Governance,Informational,MOFU,Authority page
+AI voice agents fail production,/why-ai-voice-agents-fail-in-production,Why AI Voice Agents Fail in Production,AI Operations,Informational,MOFU,Differentiated authority asset
+AI consulting services,/services,Services,Production AI Architecture,Commercial,BOFU,Service page
+AI advisory services,/advisory,Advisory,AI Program Execution,Commercial,BOFU,Service page
+KestrelVoice AI receptionist,/solutions/kestrelvoice,KestrelVoice Solution,AI Operations,Commercial,BOFU,Solution page
+FrontOfAI,/solutions/frontofai,FrontOfAI Solution,Builder Research,Commercial,BOFU,Solution page
+CourtCase,/solutions/courtcase,CourtCase Solution,Builder Research,Commercial,BOFU,Solution page
+AI briefing service,/solutions/ai-briefing,AI Briefing Solution,Builder Research,Commercial,BOFU,Solution page
+HAIEC exposure assessment,/solutions/haiec/exposure-assessment,HAIEC Exposure Assessment,AI Governance,Commercial,BOFU,Solution page
+LLMVerify,/products/llmverify,LLMVerify,AI Governance,Commercial,BOFU,Product page
+local AI review,/local-ai-review,Local AI Review,AI Governance,Commercial,BOFU,Service page
+Centaurus AI advisory,/centaurus,Centaurus AI Advisory Practice,AI Program Execution,Commercial,BOFU,Service page
+AI research,/research,Research,Builder Research,Informational,TOFU,Research page
+Subodh KC speaking,/speaking,Speaking,N/A,Commercial,BOFU,Speaking page
+AI governance course,/course,Course,AI Governance,Commercial,BOFU,Course page

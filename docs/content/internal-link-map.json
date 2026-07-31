@@ -1,0 +1,193 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-07-31",
+  "rules": {
+    "upward": "Each article links to its parent pillar canonical page",
+    "lateral": "Each article links to 2 closely related authority articles",
+    "commercial": "Each article links to 1 relevant service, product, tool or research page",
+    "backfill": "Update at least 2 older pages to link back to new articles",
+    "anchors": "Use descriptive anchor text, never 'click here' or 'learn more'"
+  },
+  "pillars": {
+    "production-ai-architecture": {
+      "canonical": "/architecture-decision-master-sheet",
+      "commercial": ["/services"],
+      "articles": {
+        "/secure-enterprise-rag-architecture": {
+          "linksTo": ["/architecture-decision-master-sheet", "/blog/implementing-rag-row-level-security-for-multi-tenant-ai", "/services"],
+          "shouldReceiveFrom": ["/blog/production-rag-architecture-patterns-for-hybrid-search", "/blog/implementing-rag-row-level-security-for-multi-tenant-ai"]
+        },
+        "/blog/implementing-rag-row-level-security-for-multi-tenant-ai": {
+          "linksTo": ["/secure-enterprise-rag-architecture", "/architecture-decision-master-sheet", "/solutions/haiec"],
+          "shouldReceiveFrom": ["/secure-enterprise-rag-architecture", "/blog/production-rag-architecture-patterns-for-hybrid-search"]
+        },
+        "/blog/production-rag-architecture-patterns-for-hybrid-search": {
+          "linksTo": ["/secure-enterprise-rag-architecture", "/architecture-decision-master-sheet", "/services"],
+          "shouldReceiveFrom": ["/secure-enterprise-rag-architecture"]
+        },
+        "/build-internal-ai-applications-streamlit-rag-mcp": {
+          "linksTo": ["/architecture-decision-master-sheet", "/research", "/products/llmverify"],
+          "shouldReceiveFrom": []
+        }
+      }
+    },
+    "ai-operations-and-deployment": {
+      "canonical": "/why-ai-voice-agents-fail-in-production",
+      "commercial": ["/solutions/kestrelvoice"],
+      "articles": {
+        "/why-ai-voice-agents-fail-in-production": {
+          "linksTo": ["/ai-voice-agent-architecture", "/solutions/kestrelvoice", "/services"],
+          "shouldReceiveFrom": ["/blog/ai-voice-agent-architecture-kestrelvoice", "/kestrel-voice-ai-receptionist-platform"]
+        },
+        "/ai-voice-agent-architecture": {
+          "linksTo": ["/why-ai-voice-agents-fail-in-production", "/solutions/kestrelvoice"],
+          "shouldReceiveFrom": ["/blog/ai-voice-agent-architecture-kestrelvoice"]
+        },
+        "/kestrel-voice-ai-receptionist-platform": {
+          "linksTo": ["/why-ai-voice-agents-fail-in-production", "/ai-voice-agent-architecture"],
+          "shouldReceiveFrom": ["/blog/ai-voice-agent-architecture-kestrelvoice"]
+        },
+        "/blog/ai-voice-agent-architecture-kestrelvoice": {
+          "linksTo": ["/why-ai-voice-agents-fail-in-production", "/ai-voice-agent-architecture", "/solutions/kestrelvoice"],
+          "shouldReceiveFrom": ["/ai-voice-agent-architecture"]
+        }
+      }
+    },
+    "ai-governance-and-evidence": {
+      "canonical": "/how-to-secure-and-govern-ai",
+      "commercial": ["/solutions/haiec", "/local-ai-review"],
+      "articles": {
+        "/how-to-secure-and-govern-ai": {
+          "linksTo": ["/haiec", "/solutions/haiec", "/services"],
+          "shouldReceiveFrom": ["/blog/haiec-modular-ai-governance-framework", "/blog/seven-layers-ai-compliance-nist-iso-soc2"]
+        },
+        "/haiec": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/solutions/haiec"],
+          "shouldReceiveFrom": ["/blog/haiec-modular-ai-governance-framework"]
+        },
+        "/blog/haiec-modular-ai-governance-framework": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/haiec", "/solutions/haiec"],
+          "shouldReceiveFrom": ["/blog/seven-layers-ai-compliance-nist-iso-soc2"]
+        },
+        "/blog/seven-layers-ai-compliance-nist-iso-soc2": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/guides/eu-ai-act", "/guides/texas-ai-law", "/guides/nyc-local-law-144"],
+          "shouldReceiveFrom": ["/blog/haiec-modular-ai-governance-framework"]
+        },
+        "/blog/build-a-logging-pipeline-for-eu-ai-act-compliance": {
+          "linksTo": ["/guides/eu-ai-act", "/how-to-secure-and-govern-ai", "/blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance"],
+          "shouldReceiveFrom": ["/blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance"]
+        },
+        "/blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/blog/build-a-logging-pipeline-for-eu-ai-act-compliance", "/solutions/haiec"],
+          "shouldReceiveFrom": ["/blog/build-a-logging-pipeline-for-eu-ai-act-compliance"]
+        },
+        "/blog/ai-compliance-guide-addressing-hugging-face-risks": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/ai-security-tools", "/solutions/haiec"],
+          "shouldReceiveFrom": []
+        },
+        "/blog/securing-ai-systems-after-openai-containment-breach": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/ai-security-tools", "/ai-incident-evidence-checklist"],
+          "shouldReceiveFrom": []
+        },
+        "/blog/hipaa-compliant-ai": {
+          "linksTo": ["/guides/eu-ai-act", "/how-to-secure-and-govern-ai", "/blog/seven-layers-ai-compliance-nist-iso-soc2"],
+          "shouldReceiveFrom": []
+        },
+        "/does-texas-ai-law-apply-to-my-business": {
+          "linksTo": ["/guides/texas-ai-law", "/how-to-secure-and-govern-ai", "/local-ai-review"],
+          "shouldReceiveFrom": ["/guides/texas-ai-law"]
+        },
+        "/ai-security-tools": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/solutions/haiec"],
+          "shouldReceiveFrom": []
+        },
+        "/ai-risk-register": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/solutions/haiec"],
+          "shouldReceiveFrom": []
+        },
+        "/ai-vendor-due-diligence-checklist": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/solutions/haiec"],
+          "shouldReceiveFrom": []
+        },
+        "/ai-incident-evidence-checklist": {
+          "linksTo": ["/how-to-secure-and-govern-ai", "/solutions/haiec"],
+          "shouldReceiveFrom": []
+        }
+      }
+    },
+    "ai-program-execution": {
+      "canonical": "/advisory",
+      "commercial": ["/advisory", "/centaurus"],
+      "articles": {
+        "/advisory": {
+          "linksTo": ["/centaurus", "/services"],
+          "shouldReceiveFrom": ["/centaurus"]
+        },
+        "/centaurus": {
+          "linksTo": ["/advisory", "/services"],
+          "shouldReceiveFrom": ["/advisory"]
+        }
+      }
+    },
+    "builder-research-and-field-lessons": {
+      "canonical": "/research",
+      "commercial": ["/research", "/speaking"],
+      "articles": {
+        "/blog/hidden-seo-risk-ai-assisted-frontend-development": {
+          "linksTo": ["/blog/what-is-llms-txt", "/architecture-decision-master-sheet", "/research"],
+          "shouldReceiveFrom": ["/blog/what-is-llms-txt"]
+        },
+        "/blog/what-is-llms-txt": {
+          "linksTo": ["/blog/hidden-seo-risk-ai-assisted-frontend-development", "/research", "/speaking"],
+          "shouldReceiveFrom": ["/blog/hidden-seo-risk-ai-assisted-frontend-development"]
+        },
+        "/blog/legal-document-automation": {
+          "linksTo": ["/research", "/products/courtcase", "/solutions/courtcase"],
+          "shouldReceiveFrom": []
+        }
+      }
+    }
+  },
+  "missingBackfills": [
+    {
+      "target": "/blog/hidden-seo-risk-ai-assisted-frontend-development",
+      "source": "/blog/what-is-llms-txt",
+      "anchor": "hidden SEO risk in AI-assisted frontend development"
+    },
+    {
+      "target": "/blog/what-is-llms-txt",
+      "source": "/blog/hidden-seo-risk-ai-assisted-frontend-development",
+      "anchor": "llms.txt format specification"
+    },
+    {
+      "target": "/blog/haiec-modular-ai-governance-framework",
+      "source": "/how-to-secure-and-govern-ai",
+      "anchor": "HAIEC modular governance framework"
+    },
+    {
+      "target": "/blog/seven-layers-ai-compliance-nist-iso-soc2",
+      "source": "/blog/haiec-modular-ai-governance-framework",
+      "anchor": "cross-framework compliance mapping"
+    },
+    {
+      "target": "/blog/ai-voice-agent-architecture-kestrelvoice",
+      "source": "/why-ai-voice-agents-fail-in-production",
+      "anchor": "KestrelVoice architecture deep dive"
+    },
+    {
+      "target": "/blog/ai-voice-agent-architecture-kestrelvoice",
+      "source": "/ai-voice-agent-architecture",
+      "anchor": "KestrelVoice architecture"
+    },
+    {
+      "target": "/blog/implementing-rag-row-level-security-for-multi-tenant-ai",
+      "source": "/secure-enterprise-rag-architecture",
+      "anchor": "RAG row-level security implementation"
+    },
+    {
+      "target": "/blog/build-a-logging-pipeline-for-eu-ai-act-compliance",
+      "source": "/guides/eu-ai-act",
+      "anchor": "logging pipeline for EU AI Act compliance"
+    }
+  ]
+}

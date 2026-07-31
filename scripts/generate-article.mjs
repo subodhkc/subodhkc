@@ -3,17 +3,15 @@
 /**
  * Daily AI Article Generator
  *
- * Uses OpenAI to generate a SEO-optimized blog post in the subodhkc.com niche:
- * AI governance, enterprise AI architecture, AI compliance, AI security.
+ * Uses OpenAI to generate SEO-optimized blog posts that build authority for
+ * Subodh KC as an AI systems architect and operator.
  *
  * Usage:
- *   node scripts/generate-article.mjs                    # Auto-pick next topic
+ *   node scripts/generate-article.mjs                    # Auto-pick next topic from calendar
  *   node scripts/generate-article.mjs --topic="EU AI Act risk classification"
- *   node scripts/generate-article.mjs --frontofai         # Generate from FrontOfAI top stories
  *   node scripts/generate-article.mjs --dry-run           # Generate but don't save
  *
  * Requires: OPENAI_API_KEY environment variable
- * Optional:  FRONTOFAI_API_KEY for FrontOfAI data source
  * Outputs:  data/blog/posts/<slug>.json
  */
 
@@ -89,156 +87,89 @@ function stripHtmlForCount(html) {
     .trim()
 }
 
-// Content pillars and topic queue — cycles through these
-// Strategy-aligned: Law-to-Code Translations, Tool Reviews, Proprietary Frameworks,
-// plus core governance/architecture/security and regulatory updates.
-const CONTENT_PILLARS = [
-  {
-    pillar: 'Law-to-Code Translations',
-    topics: [
-      'How to build a logging pipeline for EU AI Act Article 12 compliance',
-      'Implementing immutable audit trails for SOC 2 AI compliance',
-      'TRAIGA HB 149 technical implementation for SaaS applications',
-      'Building a conformity assessment evidence system for EU AI Act',
-      'Designing automated bias audit pipelines for NYC Local Law 144',
-      'Implementing AI risk classification automation for EU AI Act',
-      'Building post-market monitoring infrastructure for high-risk AI',
-      'GDPR Article 22 automated decision-making technical safeguards',
-      'HIPAA Security Rule AI compliance architecture',
-      'Texas AI Law disclosure automation for SaaS platforms',
-      'Building a DPIA pipeline for AI systems under GDPR',
-      'Implementing human-in-the-loop checkpoints for AI compliance',
-      'Automated AI model registry for regulatory inventory management',
-      'Building a data provenance tracking system for AI training data',
-      'Implementing AI incident reporting automation for EU AI Act',
-    ],
+// ---------------------------------------------------------------------------
+// Editorial pillars (aligned with docs/content/pillar-cluster-map.md)
+// ---------------------------------------------------------------------------
+
+const PILLARS = {
+  'production-ai-architecture': {
+    name: 'Production AI Architecture',
+    canonical: '/architecture-decision-master-sheet',
+    commercial: '/services',
   },
-  {
-    pillar: 'Tool & Architecture Reviews',
-    topics: [
-      'LlamaIndex vs LangChain for secure enterprise RAG architecture',
-      'TruLens vs Arize for precision drift detection in production AI',
-      'Best document AI platforms for legal automation in 2026',
-      'pgvector vs Pinecone vs Weaviate for enterprise RAG',
-      'LangSmith vs Langfuse for LLM observability comparison',
-      'Guardrails AI vs NeMo Guardrails for output validation',
-      'Enterprise AI gateway comparison Kong vs Portkey vs Helicone',
-      'OpenAI Evals vs DeepEval for LLM evaluation pipelines',
-      'Best AI compliance automation tools comparison 2026',
-      'Llama Guard vs Llama Prompt Guard for input filtering',
-      'Enterprise vector search comparison Azure AI Search vs Elasticsearch',
-      'AI monitoring tools comparison WhyLabs vs Fiddler vs Arize',
-      'Best MLOps platforms for compliance-heavy AI deployments',
-      'RAG evaluation tools comparison RAGAS vs TruLens vs DeepEval',
-      'AI governance platforms comparison Credo AI vs Holistic AI vs Saidot',
-    ],
+  'ai-operations-and-deployment': {
+    name: 'AI Operations and Deployment',
+    canonical: '/why-ai-voice-agents-fail-in-production',
+    commercial: '/solutions/kestrelvoice',
   },
-  {
-    pillar: 'Proprietary Framework Breakdowns',
-    topics: [
-      'HAIEC six-phase AI exposure assessment implementation manual',
-      'HAIEC compliance engine architecture how it works',
-      'SKC ResetFrame methodology a technical playbook',
-      'LegacyShift AI migration architecture decision framework',
-      'Building an AI governance committee charter template',
-      'AI vendor due diligence automated scoring framework',
-      'HAIEC risk scoring algorithm design and implementation',
-      'ResetFrame phase 1 discovery audit technical guide',
-      'LegacyShift codebase assessment for AI integration',
-      'HAIEC exposure matrix building and configuring',
-      'Building a compliance evidence collector with HAIEC',
-      'ResetFrame phase 2 architecture redesign patterns',
-      'LegacyShift data migration strategy for AI readiness',
-      'HAIEC continuous monitoring loop implementation',
-      'Open-source AI governance toolkit from subodhkc.com',
-      'How to deploy KestrelVoice AI receptionist for small business',
-      'KestrelVoice voice AI latency optimization how to guide',
-      'How to integrate KestrelVoice with existing CRM systems',
-      'HAIEC phase 3 risk evaluation technical implementation guide',
-      'How to build HAIEC evidence collection automation pipelines',
-      'KestrelVoice multi-language voice AI configuration how to',
-      'HAIEC AI system classification how to determine risk tiers',
-      'How to implement HAIEC human oversight checkpoints in production',
-      'KestrelVoice call routing and handoff architecture guide',
-      'HAIEC audit readiness checklist for AI systems how to prepare',
-    ],
+  'ai-governance-and-evidence': {
+    name: 'AI Governance and Evidence',
+    canonical: '/how-to-secure-and-govern-ai',
+    commercial: '/solutions/haiec',
   },
-  {
-    pillar: 'AI Governance Frameworks',
-    topics: [
-      'EU AI Act risk classification how to categorize your AI system',
-      'EU AI Act high-risk obligations what you need to do',
-      'EU AI Act conformity assessment step by step',
-      'EU AI Act post-market monitoring requirements',
-      'NIST AI RMF govern function implementation guide',
-      'NIST AI RMF map function practical steps',
-      'NIST AI RMF measure function metrics that matter',
-      'NIST AI RMF manage function incident response',
-      'ISO 42001 certification roadmap from zero to audit',
-      'ISO 42001 AI management system controls checklist',
-      'How NIST AI RMF maps to EU AI Act requirements',
-      'How ISO 42001 maps to SOC 2 controls',
-      'Cross-framework AI governance mapping',
-      'AI governance committee structure and charter',
-      'AI policy template for enterprise organizations',
-    ],
+  'ai-program-execution': {
+    name: 'AI Program Execution',
+    canonical: '/advisory',
+    commercial: '/advisory',
   },
-  {
-    pillar: 'Enterprise AI Architecture',
-    topics: [
-      'Production RAG architecture patterns hybrid search',
-      'RAG row-level security for enterprise multi-tenant',
-      'Agentic retrieval architecture with governance boundaries',
-      'Multi-agent orchestration patterns for enterprise',
-      'AI architecture decision records ADR template',
-      'Observability for AI systems the missing layer',
-      'AI architecture fitness functions',
-      'Model selection criteria for enterprise AI',
-      'AI data pipeline architecture for compliance',
-      'Enterprise AI deployment patterns blue-green canary',
-      'AI gateway pattern for governance and rate limiting',
-      'Vector database selection criteria for enterprise RAG',
-      'Embedding model evaluation framework',
-      'AI inference optimization for production',
-      'Building an AI platform team structure and responsibilities',
-    ],
+  'builder-research-and-field-lessons': {
+    name: 'Builder Research and Field Lessons',
+    canonical: '/research',
+    commercial: '/research',
   },
-  {
-    pillar: 'AI Security & Risk',
-    topics: [
-      'AI incident response playbook step by step',
-      'AI risk register template with examples',
-      'Prompt injection attacks and defenses',
-      'RAG poisoning prevention strategies',
-      'Model extraction attacks and protection',
-      'AI security controls checklist OWASP LLM top 10',
-      'MITRE ATLAS adversarial testing for AI systems',
-      'AI bill of materials AIBOM what to track',
-      'Governance as code with OPA Rego for AI',
-      'AI model card template for enterprise',
-      'AI red team methodology and tools',
-      'Data poisoning detection in training pipelines',
-      'AI supply chain security risks and controls',
-      'AI access control patterns ABAC for models',
-      'Secure AI deployment with zero-trust architecture',
-    ],
-  },
-  {
-    pillar: 'Regulatory Updates',
-    topics: [
-      'Texas AI Law compliance guide for businesses',
-      'NYC Local Law 144 bias audit requirements',
-      'Colorado AI Act what it means for employers',
-      'California AI transparency Act SB 942',
-      'State by state AI legislation tracker 2026',
-      'HIPAA Security Rule updates for AI',
-      'GDPR AI processing impact assessment',
-      'EU AI Act enforcement timeline and penalties',
-      'FDA AI medical device regulation updates',
-      'SEC AI disclosure requirements for public companies',
-    ],
-  },
+}
+
+// ---------------------------------------------------------------------------
+// Content calendar - Batch 1 (30 articles across 10 days)
+// Each day: 1 authority (1500-2500), 1 implementation (900-1500), 1 operator brief (600-1000)
+// ---------------------------------------------------------------------------
+
+const CONTENT_CALENDAR_BATCH_1 = [
+  // Day 1 - AI pilot recovery
+  { title: 'Why AI Pilots Die After the Demo and What Production Readiness Actually Requires', pillar: 'ai-operations-and-deployment', type: 'authority', day: 1, cta: '/advisory', internalLinks: ['/why-ai-voice-agents-fail-in-production', '/advisory'] },
+  { title: '12 Production Readiness Checks Before an AI Pilot Goes Live', pillar: 'ai-operations-and-deployment', type: 'implementation', day: 1, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  { title: 'How to Recover a Stalled AI Pilot in 30 Days', pillar: 'ai-operations-and-deployment', type: 'operator-brief', day: 1, cta: '/advisory', internalLinks: ['/advisory', '/centaurus'] },
+  // Day 2 - Agentic architecture
+  { title: 'Production Agentic AI Architecture: Control Plane, Tools, Memory, Identity and Policy', pillar: 'production-ai-architecture', type: 'authority', day: 2, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  { title: 'AI Agent Tool Permissions: Least Privilege Without Killing Utility', pillar: 'production-ai-architecture', type: 'implementation', day: 2, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/how-to-secure-and-govern-ai'] },
+  { title: 'Human-in-the-Loop Is Not a Control Until These Five Decisions Are Defined', pillar: 'ai-governance-and-evidence', type: 'operator-brief', day: 2, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  // Day 3 - RAG reliability
+  { title: 'RAG Failure Taxonomy: Retrieval, Authorization, Context and Generation', pillar: 'production-ai-architecture', type: 'authority', day: 3, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/architecture-decision-master-sheet'] },
+  { title: 'How to Evaluate RAG Retrieval Before Blaming the LLM', pillar: 'production-ai-architecture', type: 'implementation', day: 3, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/blog/implementing-rag-row-level-security-for-multi-tenant-ai'] },
+  { title: 'When Not to Use RAG: Seven Better Architecture Patterns', pillar: 'production-ai-architecture', type: 'operator-brief', day: 3, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/build-internal-ai-applications-streamlit-rag-mcp'] },
+  // Day 4 - Voice AI
+  { title: 'AI Voice-Agent Production Readiness: Telephony, Latency, Transfers, Booking and Recovery', pillar: 'ai-operations-and-deployment', type: 'authority', day: 4, cta: '/solutions/kestrelvoice', internalLinks: ['/why-ai-voice-agents-fail-in-production', '/ai-voice-agent-architecture'] },
+  { title: 'AI Receptionist Cost Model: Telephony, Models, Concurrency and Escalation', pillar: 'ai-operations-and-deployment', type: 'implementation', day: 4, cta: '/solutions/kestrelvoice', internalLinks: ['/kestrel-voice-ai-receptionist-platform', '/solutions/kestrelvoice'] },
+  { title: 'Why Voice Agents Break During Transfers and Silent Call States', pillar: 'ai-operations-and-deployment', type: 'operator-brief', day: 4, cta: '/solutions/kestrelvoice', internalLinks: ['/why-ai-voice-agents-fail-in-production', '/ai-voice-agent-architecture'] },
+  // Day 5 - Evidence architecture
+  { title: 'AI Audit Evidence Architecture: What to Capture Before Deployment', pillar: 'ai-governance-and-evidence', type: 'authority', day: 5, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  { title: 'Static Testing vs Runtime Testing vs Deterministic Rules', pillar: 'ai-governance-and-evidence', type: 'implementation', day: 5, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/products/llmverify'] },
+  { title: 'Why an AI Governance Dashboard Is Not Audit Evidence', pillar: 'ai-governance-and-evidence', type: 'operator-brief', day: 5, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  // Day 6 - Operational compliance
+  { title: 'AI System Inventory Template: Fields Legal, Security and Engineering Need', pillar: 'ai-governance-and-evidence', type: 'authority', day: 6, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  { title: 'AI Vendor Intake Questionnaire: 40 Evidence Questions Before Approval', pillar: 'ai-governance-and-evidence', type: 'implementation', day: 6, cta: '/solutions/haiec', internalLinks: ['/ai-vendor-due-diligence-checklist', '/solutions/haiec'] },
+  { title: 'AI Incident Cure Workflow: Detect, Contain, Document and Remediate', pillar: 'ai-governance-and-evidence', type: 'operator-brief', day: 6, cta: '/solutions/haiec', internalLinks: ['/ai-incident-evidence-checklist', '/how-to-secure-and-govern-ai'] },
+  // Day 7 - AI-built websites
+  { title: 'How AI Coding Assistants Accidentally Break SEO', pillar: 'builder-research-and-field-lessons', type: 'authority', day: 7, cta: '/research', internalLinks: ['/blog/hidden-seo-risk-ai-assisted-frontend-development', '/research'] },
+  { title: 'How to Test What Google Actually Sees on a JavaScript Website', pillar: 'builder-research-and-field-lessons', type: 'implementation', day: 7, cta: '/research', internalLinks: ['/blog/hidden-seo-risk-ai-assisted-frontend-development', '/blog/what-is-llms-txt'] },
+  { title: 'AI-Built Website Launch Checklist: Rendering, Schema, Links, Sitemap and llms.txt', pillar: 'builder-research-and-field-lessons', type: 'operator-brief', day: 7, cta: '/research', internalLinks: ['/blog/what-is-llms-txt', '/blog/hidden-seo-risk-ai-assisted-frontend-development'] },
+  // Day 8 - AI program leadership
+  { title: 'AI Program Operating Model: Roles, Gates, Evidence and Escalations', pillar: 'ai-program-execution', type: 'authority', day: 8, cta: '/advisory', internalLinks: ['/advisory', '/centaurus'] },
+  { title: 'How to Prioritize 50+ AI Initiatives Without Creating a Governance Bottleneck', pillar: 'ai-program-execution', type: 'implementation', day: 8, cta: '/advisory', internalLinks: ['/advisory', '/architecture-decision-master-sheet'] },
+  { title: 'The AI Architecture Decision Log Every TPM Should Maintain', pillar: 'ai-program-execution', type: 'operator-brief', day: 8, cta: '/architecture-decision-master-sheet', internalLinks: ['/architecture-decision-master-sheet', '/advisory'] },
+  // Day 9 - Economics and vendors
+  { title: 'Build vs Buy AI Agents: A Decision Model for Mid-Market and Enterprise Teams', pillar: 'ai-program-execution', type: 'authority', day: 9, cta: '/advisory', internalLinks: ['/advisory', '/services'] },
+  { title: 'How to Calculate AI Automation ROI Without Fake Productivity Claims', pillar: 'ai-program-execution', type: 'implementation', day: 9, cta: '/advisory', internalLinks: ['/advisory', '/services'] },
+  { title: 'AI Vendor Lock-In: Model, Data, Orchestration, Telephony and Compliance', pillar: 'ai-program-execution', type: 'operator-brief', day: 9, cta: '/advisory', internalLinks: ['/ai-vendor-due-diligence-checklist', '/advisory'] },
+  // Day 10 - Differentiated thesis
+  { title: 'Why Deterministic Controls Still Matter in Probabilistic AI Systems', pillar: 'ai-governance-and-evidence', type: 'authority', day: 10, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/products/llmverify'] },
+  { title: 'The AI System Quietly Became Different: Detecting Behavioral Drift', pillar: 'ai-governance-and-evidence', type: 'implementation', day: 10, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/products/llmverify'] },
+  { title: 'What I Would Audit Before Buying Any AI Application', pillar: 'ai-governance-and-evidence', type: 'operator-brief', day: 10, cta: '/local-ai-review', internalLinks: ['/ai-vendor-due-diligence-checklist', '/solutions/haiec'] },
 ]
+
+// ---------------------------------------------------------------------------
+// Topic-selection engine with scoring algorithm
+// ---------------------------------------------------------------------------
 
 function titleSimilarity(a, b) {
   const wordsA = new Set(a.toLowerCase().split(/\s+/).filter((w) => w.length > 3))
@@ -251,373 +182,282 @@ function titleSimilarity(a, b) {
   return maxLen > 0 ? common / maxLen : 0
 }
 
+function scoreTopic(item, posts) {
+  const existingTitles = getExistingTitles(posts)
+  const existingSlugs = getExistingSlugs(posts)
+  const topicLower = item.title.toLowerCase()
+  const potentialSlug = slugify(item.title)
+
+  let score = 0
+
+  // Commercial alignment: 0-20
+  const pillar = PILLARS[item.pillar]
+  if (pillar) score += 15
+  if (item.cta && item.cta !== '/research') score += 5
+
+  // Relevance to Subodh KC's actual experience: 0-20
+  const experienceKeywords = [
+    'architecture', 'governance', 'evidence', 'rag', 'voice ai', 'agent',
+    'pilot', 'production', 'compliance', 'audit', 'testing', 'drift',
+    'inventory', 'vendor', 'incident', 'seo', 'llms.txt', 'operating model',
+    'decision log', 'deterministic', 'telephony',
+  ]
+  const topicText = topicLower
+  const experienceMatches = experienceKeywords.filter((kw) => topicText.includes(kw)).length
+  score += Math.min(experienceMatches * 4, 20)
+
+  // Long-tail search opportunity: 0-15
+  const wordCount = item.title.split(/\s+/).length
+  if (wordCount >= 8) score += 15
+  else if (wordCount >= 6) score += 12
+  else if (wordCount >= 4) score += 8
+  else score += 4
+
+  // Original evidence available: 0-15
+  const evidenceKeywords = [
+    'architecture', 'checklist', 'template', 'framework', 'taxonomy',
+    'matrix', 'model', 'workflow', 'log', 'inventory', 'evidence',
+  ]
+  const evidenceMatches = evidenceKeywords.filter((kw) => topicText.includes(kw)).length
+  score += Math.min(evidenceMatches * 5, 15)
+
+  // Ability to create a useful artifact: 0-10
+  const artifactKeywords = ['checklist', 'template', 'matrix', 'model', 'taxonomy', 'framework', 'workflow']
+  const artifactMatches = artifactKeywords.filter((kw) => topicText.includes(kw)).length
+  score += Math.min(artifactMatches * 5, 10)
+
+  // Internal-linking value: 0-10
+  if (item.internalLinks && item.internalLinks.length >= 2) score += 10
+  else if (item.internalLinks && item.internalLinks.length >= 1) score += 5
+
+  // Timeliness: 0-5
+  score += 3
+
+  // Backlink or citation potential: 0-5
+  const citationKeywords = ['taxonomy', 'framework', 'model', 'checklist', 'architecture']
+  const citationMatches = citationKeywords.filter((kw) => topicText.includes(kw)).length
+  score += Math.min(citationMatches * 2, 5)
+
+  // --- Penalties ---
+  const isDuplicate = existingTitles.some((t) => titleSimilarity(t, topicLower) > 0.6)
+  if (isDuplicate) score -= 10
+
+  if (existingSlugs.has(potentialSlug)) score -= 10
+
+  const genericKeywords = ['what is', 'introduction to', 'beginners guide', 'overview of']
+  if (genericKeywords.some((kw) => topicText.includes(kw))) score -= 10
+
+  return Math.max(0, Math.min(100, score))
+}
+
+function classifyTopic(item, posts) {
+  const existingTitles = getExistingTitles(posts)
+  const topicLower = item.title.toLowerCase()
+  const potentialSlug = slugify(item.title)
+
+  if (existingTitles.some((t) => titleSimilarity(t, topicLower) > 0.7)) {
+    return 'cannibalization-risk'
+  }
+  if (getExistingSlugs(posts).has(potentialSlug)) {
+    return 'existing-article-update'
+  }
+  return 'new-intent'
+}
+
 function pickNextTopic(posts) {
   const existingSlugs = getExistingSlugs(posts)
   const existingTitles = getExistingTitles(posts)
 
-  // Flatten all topics with pillar info
-  const allTopics = []
-  for (const pillar of CONTENT_PILLARS) {
-    for (const topic of pillar.topics) {
-      allTopics.push({ topic, pillar: pillar.pillar })
-    }
-  }
-
-  // Find first topic not already covered - use strict slug + title similarity check
-  for (const item of allTopics) {
-    const potentialSlug = slugify(item.topic)
-    const topicLower = item.topic.toLowerCase()
-
-    // Check slug collision
-    if (existingSlugs.has(potentialSlug)) continue
-
-    // Check title similarity - only skip if >60% word overlap with an existing title
-    const isDuplicate = existingTitles.some(
-      (t) => titleSimilarity(t, topicLower) > 0.6
-    )
-
-    if (!isDuplicate) {
-      return item
-    }
-  }
-
-  // If all predefined topics covered, generate a fresh HAIEC/Kestrel how-to topic
-  const fallbackTopics = [
-    { topic: 'How to implement HAIEC exposure assessment for your AI systems', pillar: 'Proprietary Framework Breakdowns' },
-    { topic: 'KestrelVoice AI receptionist architecture how to deploy', pillar: 'Proprietary Framework Breakdowns' },
-    { topic: 'How to build a HAIEC compliance evidence pipeline step by step', pillar: 'Proprietary Framework Breakdowns' },
-    { topic: 'KestrelVoice integration guide connecting voice AI to enterprise systems', pillar: 'Proprietary Framework Breakdowns' },
-    { topic: 'HAIEC risk scoring how to configure thresholds for your AI portfolio', pillar: 'Proprietary Framework Breakdowns' },
-    { topic: 'How to automate HAIEC continuous monitoring for production AI', pillar: 'Proprietary Framework Breakdowns' },
-    { topic: 'KestrelVoice voice AI security hardening how to guide', pillar: 'Proprietary Framework Breakdowns' },
-    { topic: 'How to build a HAIEC AI inventory registry from scratch', pillar: 'Proprietary Framework Breakdowns' },
-  ]
-
-  for (const item of fallbackTopics) {
-    const potentialSlug = slugify(item.topic)
-    if (!existingSlugs.has(potentialSlug)) {
-      const isDuplicate = existingTitles.some(
-        (t) => titleSimilarity(t, item.topic.toLowerCase()) > 0.6
-      )
-      if (!isDuplicate) return item
-    }
-  }
-
-  // Last resort - date-stamped unique topic
-  return {
-    topic: 'How to prepare your AI systems for upcoming regulatory changes ' + new Date().toISOString().split('T')[0],
-    pillar: 'Regulatory Updates',
-  }
-}
-
-const FRONTOFAI_URL = 'https://frontofai.com'
-
-async function fetchFrontOfAIStories() {
-  const apiKey = process.env.FRONTOFAI_API_KEY
-  if (!apiKey) {
-    console.error('ERROR: FRONTOFAI_API_KEY not set')
-    process.exit(1)
-  }
-
-  console.log('Fetching top stories from FrontOfAI...')
-
-  const url = `${FRONTOFAI_URL}/api/briefing/v1/haiec?limit=20&sort=impact&days=7&min_impact=6`
-  const response = await fetch(url, {
-    headers: { 'x-haiec-key': apiKey },
+  const scored = CONTENT_CALENDAR_BATCH_1.map((item) => {
+    const score = scoreTopic(item, posts)
+    const classification = classifyTopic(item, posts)
+    return { ...item, score, classification }
   })
 
-  if (!response.ok) {
-    const error = await response.text()
-    console.error(`FrontOfAI API error (${response.status}): ${error}`)
-    process.exit(1)
-  }
-
-  const result = await response.json()
-  return result.data || []
-}
-
-function selectFrontOfAIStory(stories, posts) {
-  const existingTitles = getExistingTitles(posts)
-  const existingSlugs = getExistingSlugs(posts)
-
-  // Filter out stories we've already covered (by title similarity)
-  const unused = stories.filter((s) => {
-    const titleLower = (s.title || '').toLowerCase()
-    const isDup = existingTitles.some(
-      (t) => titleSimilarity(t, titleLower) > 0.6
-    )
-    return !isDup && !existingSlugs.has(slugify(s.title || ''))
+  const viable = scored.filter((item) => {
+    if (item.score < 65) return false
+    if (item.classification === 'cannibalization-risk') return false
+    const potentialSlug = slugify(item.title)
+    if (existingSlugs.has(potentialSlug)) return false
+    const topicLower = item.title.toLowerCase()
+    if (existingTitles.some((t) => titleSimilarity(t, topicLower) > 0.6)) return false
+    return true
   })
 
-  if (unused.length === 0) {
-    // All covered — pick highest impact that's at least 3 days old
-    return stories[0]
+  if (viable.length === 0) {
+    console.log('All calendar topics exhausted or rejected. Using fallback.')
+    return {
+      title: 'AI Architecture Decision Framework: Evaluating Production AI Systems',
+      pillar: 'production-ai-architecture',
+      type: 'authority',
+      cta: '/services',
+      internalLinks: ['/architecture-decision-master-sheet', '/services'],
+      score: 70,
+      classification: 'new-intent',
+    }
   }
 
-  // Pick highest impact unused story
-  return unused[0]
+  viable.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score
+    return a.day - b.day
+  })
+
+  return viable[0]
 }
 
-function isRegulatoryStory(story) {
-  const regulatoryKeywords = [
-    'bill', 'law', 'regulation', 'act', 'compliance', 'enforcement',
-    'penalty', 'legislation', 'senate', 'congress', 'parliament',
-    'directive', 'mandate', 'ruling', 'court', 'ftc', 'fda', 'sec',
-    'eu ai act', 'gdpr', 'hipaa', 'nist', 'iso 42001', 'soc 2',
-    'traiga', 'colorado ai act', 'nyc local law', 'california ai',
-    'texas ai', 'regulatory', 'governance', 'audit', 'certification',
-  ]
-  const text = `${story.title || ''} ${story.summary_short || ''} ${story.summary_extended || ''} ${story.why_this_matters || ''} ${(story.category_details || []).map((c) => c.name).join(' ')}`.toLowerCase()
-  return regulatoryKeywords.some((kw) => text.includes(kw))
+// ---------------------------------------------------------------------------
+// Article type configuration
+// ---------------------------------------------------------------------------
+
+const ARTICLE_TYPES = {
+  'authority': {
+    minWords: 1500,
+    maxWords: 2500,
+    label: 'Authority Article',
+    artifactCount: 2,
+  },
+  'implementation': {
+    minWords: 900,
+    maxWords: 1500,
+    label: 'Implementation Guide',
+    artifactCount: 1,
+  },
+  'operator-brief': {
+    minWords: 600,
+    maxWords: 1000,
+    label: 'Operator Brief',
+    artifactCount: 0,
+  },
 }
 
-async function generateArticleFromFrontOfAI(story, posts) {
+// ---------------------------------------------------------------------------
+// Copywriting guardrails (shared across all prompts)
+// ---------------------------------------------------------------------------
+
+const COPYWRITING_GUARDRAILS = `COPYWRITING GUARDRAILS (NON-NEGOTIABLE):
+- DO NOT use em-dashes or en-dashes anywhere. Use regular hyphens (-), periods, commas, or colons instead.
+- DO NOT use any of these AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to", "Delve into", "Navigate the complexities", "In the realm of", "A testament to", "Paving the way", "Revolutionize", "Game-changer", "Paradigm shift", "Cutting-edge", "Harness the power", "Unlock the potential", "Empower", "Seamless", "Robust" (as filler adjective), "Leverage" (as verb for "use"), "Streamline", "Foster", "Facilitate", "Underscore", "Underpin", "Bolster", "Dive deep" or "Deep dive" (as verb)
+- DO NOT fabricate personal claims: no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
+- DO NOT invent statistics, numbers, or events
+- Write about the topic, the how-to, the analysis. Not about fabricated personal experience.
+- Content must be factual and based on real technical and regulatory knowledge.`
+
+const FORBIDDEN_CLAIMS = `FORBIDDEN CLAIMS (do not use without verified evidence):
+- "Peer-reviewed"
+- "Industry standard"
+- "Legally defensible"
+- "Guaranteed compliance"
+- "Audit proof"
+- "Eliminates AI risk"
+- "100% accurate"
+- "Proven at Fortune 50 scale"
+- "Adopted across the industry"`
+
+const ARTICLE_STRUCTURE = `ARTICLE STRUCTURE (use where appropriate):
+1. Direct answer or operating conclusion
+2. The actual problem
+3. Why common approaches fail
+4. Architecture or operating model
+5. Implementation steps
+6. Failure modes and tradeoffs
+7. Evidence or documentation required
+8. Decision checklist
+9. Final recommendation
+10. One contextual CTA
+
+DO NOT open with generic language such as:
+- "Artificial intelligence is rapidly transforming..."
+- "In today's fast-paced digital landscape..."
+- "As AI continues to evolve..."
+- "Ensuring compliance is essential..."
+Begin with a concrete decision, failure, conflict, incident pattern, or operational observation.`
+
+// ---------------------------------------------------------------------------
+// Article generation
+// ---------------------------------------------------------------------------
+
+async function generateArticle(item, posts) {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {
     console.error('ERROR: OPENAI_API_KEY not set')
     process.exit(1)
   }
 
+  const pillar = PILLARS[item.pillar]
+  const articleType = ARTICLE_TYPES[item.type] || ARTICLE_TYPES['authority']
+
   const existingPostsContext = posts
-    .slice(0, 10)
+    .slice(0, 15)
     .map((p) => `- ${p.title} (slug: ${p.slug}, keywords: ${(p.keywords || []).join(', ')})`)
     .join('\n')
 
-  const storyData = {
-    title: story.title || '',
-    summary: story.summary_short || '',
-    extendedSummary: story.summary_extended || '',
-    whyItMatters: story.why_this_matters || '',
-    actionItem: story.action_item || '',
-    actionOwner: story.action_owner || '',
-    actionTimeline: story.action_timeline || '',
-    impactScore: story.it_impact_score || 0,
-    source: story.source_name || '',
-    sourceUrl: story.source_url || '',
-    categories: (story.category_details || []).map((c) => c.name).join(', '),
-    publishedAt: story.published_at || '',
-  }
+  const internalLinkTargets = (item.internalLinks || [])
+    .map((link) => `<a href="${link}">descriptive anchor text</a>`)
+    .join(', ')
 
-  const regulatory = isRegulatoryStory(story)
-  if (regulatory) {
-    console.log('  >> Regulatory story detected — using Law-to-Code prompt')
-  }
+  const prompt = `You are an expert AI systems architect and operator who writes practical, authoritative content for subodhkc.com. You design, deploy, and govern production AI systems.
 
-  const contentInstructions = regulatory
-    ? `LAW-TO-CODE TRANSLATION MODE:
-You are writing a Law-to-Code translation, NOT general analysis. Structure the article as:
-1. What the Law Says — plain English summary of the regulation/ruling
-2. What It Means for System Architecture — technical implications (data flows, logging, access controls, audit trails)
-3. Technical Implementation Steps — specific engineering steps to comply (pipelines, schemas, APIs, infrastructure)
-4. Code and Pipeline Patterns — concrete technical patterns (e.g., immutable logging, evidence collection, bias audit pipelines)
-5. Audit Evidence You Will Need — what regulators will ask for and how to collect it automatically
-6. What This Means for You — specific action items for CTOs/CISOs/compliance officers
+POSITIONING: Subodh KC is an AI systems architect and operator who designs, deploys and governs production AI systems.
 
-Focus on HOW to build compliance infrastructure, not WHAT the law is. Readers should come away knowing what to engineer.`
-    : `INSTRUCTIONS:
-1. Write 1500-2500 words of original analysis and commentary on this news story
-2. Do NOT just restate the news — provide expert analysis, implications, and actionable guidance
-3. Structure with clear H2 and H3 headings
-4. Include practical steps, frameworks, or templates that readers can apply
-5. Connect the news to broader AI governance, compliance, or architecture themes
-6. Reference the source story and provide attribution
-7. Include a "What This Means for You" section with specific action items
-8. End with a practical takeaway`
+CONTENT NICHE: Production AI architecture, agentic AI and orchestration, RAG and enterprise knowledge systems, voice-AI operations, AI governance and evidence architecture, static testing, runtime testing and deterministic controls, AI program leadership and pilot recovery, AI-assisted software development and technical SEO.
 
-  const prompt = `You are an expert AI governance and enterprise architecture writer. Write a comprehensive, SEO-optimized blog post for subodhkc.com based on a real news story from FrontOfAI.
+TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers, AI engineers, TPMs
 
-CONTENT NICHE: AI governance, enterprise AI architecture, AI compliance, AI security, legal tech AI
-TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers
 AUTHOR: Subodh KC
-TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X."
+TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X." Written by someone who builds production systems.
 
-COPYWRITING GUARDRAILS:
-- DO NOT use em-dashes (—) anywhere. Use regular hyphens (-) or restructure sentences.
-- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to"
-- DO NOT fabricate personal claims - no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
-- DO NOT use em-dashes as punctuation. Use periods, commas, or colons instead.
-- Content must be factual and based on the source story. No hallucinated facts, numbers, or events.
-- Write about the topic, the news, the how-to. Not about personal experience or fabricated case studies.
+ARTICLE TYPE: ${articleType.label}
+TARGET WORD COUNT: ${articleType.minWords}-${articleType.maxWords} words
 
-SOURCE NEWS STORY (from FrontOfAI):
-Title: ${storyData.title}
-Source: ${storyData.source}
-Impact Score: ${storyData.impactScore}/10
-Categories: ${storyData.categories}
-Published: ${storyData.publishedAt}
-Summary: ${storyData.summary}
-Extended Summary: ${storyData.extendedSummary}
-Why It Matters: ${storyData.whyItMatters}
-Recommended Action: ${storyData.actionItem} (${storyData.actionOwner} - ${storyData.actionTimeline})
-Source URL: ${storyData.sourceUrl}
+${ARTICLE_STRUCTURE}
 
-EXISTING POSTS (for internal linking — reference where relevant):
+ORIGINALITY REQUIREMENTS:
+- This ${articleType.label.toLowerCase()} must contain at least ${articleType.artifactCount} of the following: original architecture diagram (described as a text-based diagram), decision matrix, failure taxonomy, control mapping, data schema, event schema, code example, evaluation framework, cost model, checklist, evidence template, original operating lesson, original framework, or product-derived implementation evidence.
+${articleType.artifactCount === 0 ? '- Express a defensible point of view rather than summarize other sources.' : ''}
+
+${COPYWRITING_GUARDRAILS}
+
+${FORBIDDEN_CLAIMS}
+
+RESEARCH AND CLAIM CONTROLS:
+- Use primary sources wherever possible: statutory or regulatory text, official government guidance, standards organizations, official technical documentation, original research papers
+- Do not cite low-quality SEO summaries as authority for legal or technical claims
+- Separate known facts from interpretation
+- Do not infer a breach, violation, or legal requirement from an ambiguous report
+
+TOPIC: ${item.title}
+CONTENT PILLAR: ${pillar.name}
+PILLAR CANONICAL PAGE: ${pillar.canonical}
+COMMERCIAL DESTINATION: ${pillar.commercial}
+
+INTERNAL LINKING (include these links in the article body with descriptive anchor text):
+- Link to pillar canonical: ${pillar.canonical}
+- Link to related articles: ${internalLinkTargets}
+- Use descriptive anchors, never "click here" or "learn more"
+
+EXISTING POSTS (for additional internal linking context):
 ${existingPostsContext}
 
-${contentInstructions}
+CTA: Include one contextual CTA at the end of the article pointing to: ${item.cta}
+${item.cta === '/local-ai-review' ? 'Use exactly: https://subodhkc.com/local-ai-review (no tracking parameters)' : ''}
 
-9. Optimize for SEO: natural keyword usage
-10. Generate 6-10 relevant keywords/tags
-11. Write a compelling metaDescription (under 160 chars) that includes the primary keyword
-12. Write a 1-2 sentence excerpt
-13. Include 2-3 internal links to existing posts where relevant (use format: <a href="/blog/slug">anchor text</a>)
-14. Include a FAQ section at the end with 3-5 questions and answers (wrapped in <h3> for questions, <p> for answers)
+SEO REQUIREMENTS:
+1. Title must be under 60 characters and include the primary keyword naturally
+2. Title should be compelling and specific (not generic)
+3. Meta description must be under 160 characters, include the primary keyword, and accurately describe the content
+4. Generate 6-10 relevant keywords/tags (no keyword stuffing)
+5. Write a 1-2 sentence excerpt
+6. Structure with clear H2 and H3 headings (start with H2, not H1)
+7. Include a concise answer near the beginning
+8. Include a FAQ section at the end with 3-5 questions and answers (only if questions are genuinely answered)
+9. Use HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <a>, <table>, <tr>, <th>, <td>
+10. No class attributes. No script tags. No em-dashes.
 
-SEO TITLE RULES:
-- Title must be under 60 characters
-- Title must include the primary keyword naturally
-- Title should be ${regulatory ? 'implementation-oriented (how to comply, technical steps, what to build)' : 'analysis-oriented, not just restating the news'}
-- Title should indicate expertise (${regulatory ? 'implementation guide, technical breakdown, what to build' : 'analysis, implications, what it means, etc.'})
-
-SEO META DESCRIPTION RULES:
-- Must be under 160 characters
-- Must include the primary keyword
-- Must be compelling enough to drive clicks
-- Must accurately describe the content
-
-OUTPUT FORMAT — return a JSON object with these exact fields:
-{
-  "title": "SEO-optimized title (under 60 chars) — should be ${regulatory ? 'implementation-oriented, not just restating the news' : 'analysis-oriented, not just restating the news'}",
-  "metaDescription": "Compelling meta description under 160 chars",
-  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <a> tags. No class attributes. No script tags. Start with an <h2> not an <h1>. Include internal links as <a href=\"/blog/slug\">text</a>. End with a FAQ section.",
-  "keywords": ["keyword1", "keyword2", ...],
-  "seedKeyword": "primary target keyword",
-  "excerpt": "1-2 sentence article excerpt",
-  "faqJsonLd": {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Question text here",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Answer text here"
-        }
-      }
-    ]
-  }
-}
-
-Do NOT include id, slug, createdAt, or any other fields — only the fields listed above.
-Return ONLY the JSON object, no markdown code fences, no preamble.`
-
-  console.log(`Generating article from FrontOfAI story: ${storyData.title}`)
-  console.log(`Source: ${storyData.source} | Impact: ${storyData.impactScore}/10`)
-
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are an expert content writer specializing in AI governance, enterprise AI architecture, and AI compliance. You write practical, implementation-focused content for technical leaders. You analyze news stories and provide expert commentary and actionable guidance. You never use em-dashes. You never use AI writing patterns like "Here\'s what I\'ve learned" or "After working across". You never fabricate personal experiences or claims. You stick to facts from the source material. You return only valid JSON.',
-        },
-        { role: 'user', content: prompt },
-      ],
-      temperature: 0.8,
-      max_tokens: 8000,
-    }),
-  })
-
-  if (!response.ok) {
-    const error = await response.text()
-    console.error(`OpenAI API error (${response.status}): ${error}`)
-    process.exit(1)
-  }
-
-  const data = await response.json()
-  const content = data.choices[0]?.message?.content
-
-  if (!content) {
-    console.error('OpenAI returned empty response (possibly truncated by max_tokens)')
-    console.error('Finish reason:', data.choices[0]?.finish_reason)
-    process.exit(1)
-  }
-
-  const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()
-
-  let article
-  try {
-    article = JSON.parse(jsonStr)
-  } catch (e) {
-    console.error('Failed to parse OpenAI response as JSON')
-    console.error('Response:', content.slice(0, 500))
-    process.exit(1)
-  }
-
-  return article
-}
-
-async function generateArticle(topic, pillar, posts) {
-  const apiKey = process.env.OPENAI_API_KEY
-  if (!apiKey) {
-    console.error('ERROR: OPENAI_API_KEY not set')
-    process.exit(1)
-  }
-
-  // Build context about existing posts for internal linking
-  const existingPostsContext = posts
-    .slice(0, 10)
-    .map((p) => `- ${p.title} (slug: ${p.slug}, keywords: ${(p.keywords || []).join(', ')})`)
-    .join('\n')
-
-  const prompt = `You are an expert AI governance and enterprise architecture writer. Write a comprehensive, SEO-optimized blog post for subodhkc.com.
-
-CONTENT NICHE: AI governance, enterprise AI architecture, AI compliance, AI security, legal tech AI
-TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers
-AUTHOR: Subodh KC
-TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X."
-
-COPYWRITING GUARDRAILS:
-- DO NOT use em-dashes (—) anywhere. Use regular hyphens (-) or restructure sentences.
-- DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to"
-- DO NOT fabricate personal claims - no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
-- Content must be factual. No hallucinated facts, numbers, or events.
-- Write about the topic, the how-to. Not about personal experience or fabricated case studies.
-
-TOPIC: ${topic}
-CONTENT PILLAR: ${pillar}
-
-EXISTING POSTS (for internal linking — reference where relevant):
-${existingPostsContext}
-
-REQUIREMENTS:
-1. Write 1500-2500 words of original, high-quality content
-2. Structure with clear H2 and H3 headings
-3. Include practical steps, frameworks, or templates
-4. Use specific examples and numbers, not vague generalities
-5. Include a brief intro that hooks the reader (not a question)
-6. End with a practical takeaway or action item
-7. Optimize for SEO: natural keyword usage, no keyword stuffing
-8. Generate 6-10 relevant keywords/tags
-9. Write a compelling metaDescription (under 160 chars) that includes the primary keyword
-10. Write a 1-2 sentence excerpt
-11. Include 2-3 internal links to existing posts where relevant (use format: <a href="/blog/slug">anchor text</a>)
-12. Include a FAQ section at the end with 3-5 questions and answers (wrapped in <h3> for questions, <p> for answers)
-
-SEO TITLE RULES:
-- Title must be under 60 characters
-- Title must include the primary keyword naturally
-- Title should be compelling and specific (not generic)
-- Title should indicate the content type (guide, analysis, checklist, etc.)
-
-SEO META DESCRIPTION RULES:
-- Must be under 160 characters
-- Must include the primary keyword
-- Must be compelling enough to drive clicks
-- Must accurately describe the content
-
-OUTPUT FORMAT — return a JSON object with these exact fields:
+OUTPUT FORMAT - return a JSON object with these exact fields:
 {
   "title": "SEO-optimized title (under 60 chars)",
   "metaDescription": "Compelling meta description under 160 chars",
-  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <a> tags. No class attributes. No script tags. Start with an <h2> not an <h1>. Include internal links as <a href=\"/blog/slug\">text</a>. End with a FAQ section.",
+  "contentHtml": "Full HTML content with <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <a>, <table> tags. No class attributes. No script tags. Start with an <h2> not an <h1>. Include internal links as <a href=\"/path\">descriptive text</a>. End with a FAQ section.",
   "keywords": ["keyword1", "keyword2", ...],
   "seedKeyword": "primary target keyword",
   "excerpt": "1-2 sentence article excerpt",
@@ -637,11 +477,13 @@ OUTPUT FORMAT — return a JSON object with these exact fields:
   }
 }
 
-Do NOT include id, slug, createdAt, or any other fields — only the fields listed above.
+Do NOT include id, slug, createdAt, or any other fields - only the fields listed above.
 Return ONLY the JSON object, no markdown code fences, no preamble.`
 
-  console.log(`Generating article: ${topic}`)
-  console.log(`Pillar: ${pillar}`)
+  console.log(`Generating ${articleType.label}: ${item.title}`)
+  console.log(`Pillar: ${pillar.name}`)
+  console.log(`Target: ${articleType.minWords}-${articleType.maxWords} words`)
+  console.log(`Score: ${item.score || 'N/A'} | Classification: ${item.classification || 'N/A'}`)
 
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -654,7 +496,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
       messages: [
         {
           role: 'system',
-          content: 'You are an expert content writer specializing in AI governance, enterprise AI architecture, and AI compliance. You write practical, implementation-focused content for technical leaders. You never use em-dashes. You never use AI writing patterns like "Here\'s what I\'ve learned" or "After working across". You never fabricate personal experiences or claims. You stick to facts. You return only valid JSON.',
+          content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You never use em-dashes. You never use AI writing patterns. You never fabricate personal experiences or claims. You stick to facts and technical knowledge. You return only valid JSON.`,
         },
         { role: 'user', content: prompt },
       ],
@@ -678,7 +520,6 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
     process.exit(1)
   }
 
-  // Strip markdown code fences if present
   const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()
 
   let article
@@ -692,12 +533,98 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
 
   return article
 }
+
+// ---------------------------------------------------------------------------
+// Post-generation validation
+// ---------------------------------------------------------------------------
+
+function validateArticle(article, item) {
+  const warnings = []
+  const errors = []
+
+  if (!article.title || article.title.length === 0) {
+    errors.push('No title generated')
+  } else if (article.title.length > 60) {
+    warnings.push(`Title is ${article.title.length} chars (recommended: under 60)`)
+  }
+
+  if (!article.metaDescription) {
+    warnings.push('No meta description generated')
+  } else if (article.metaDescription.length > 160) {
+    warnings.push(`Meta description is ${article.metaDescription.length} chars (recommended: under 160)`)
+  }
+
+  const wordCount = stripHtmlForCount(article.contentHtml || '').split(/\s+/).filter(Boolean).length
+  const articleType = ARTICLE_TYPES[item.type] || ARTICLE_TYPES['authority']
+  if (wordCount < articleType.minWords) {
+    warnings.push(`Content is ${wordCount} words (target: ${articleType.minWords}-${articleType.maxWords}). Content may be too thin.`)
+  }
+
+  if (!article.keywords || article.keywords.length < 3) {
+    warnings.push(`Only ${article.keywords?.length || 0} keywords (recommended: 6-10)`)
+  } else if (article.keywords.length > 12) {
+    warnings.push(`${article.keywords.length} keywords (recommended: 6-10, risk of keyword stuffing)`)
+  }
+
+  if (!article.excerpt) {
+    warnings.push('No excerpt generated')
+  }
+
+  if (article.contentHtml && (article.contentHtml.includes('\u2014') || article.contentHtml.includes('\u2013'))) {
+    errors.push('Content contains em-dashes or en-dashes. These must be removed.')
+  }
+
+  const aiTells = [
+    "Here's what I've learned", "After working across", "In my experience",
+    "I've seen firsthand", "Let me share", "Here's the thing",
+    "It's worth noting", "Needless to say", "At the end of the day",
+    "The reality is", "Let's dive in", "Let's explore",
+    "Let's break this down", "Here's a breakdown", "Here's why",
+    "Here's how", "The bottom line is", "It comes down to",
+    "That's where", "This is where", "This isn't just about",
+    "Let's be clear", "One thing is clear", "A key takeaway is",
+    "Picture this", "Imagine", "Fast forward", "Spoiler alert",
+    "Plot twist", "Here's the deal", "But here's the catch",
+    "Which brings us to", "Delve into", "Navigate the complexities",
+    "In the realm of", "A testament to", "Paving the way",
+    "Revolutionize", "Game-changer", "Paradigm shift",
+    "Cutting-edge", "Harness the power", "Unlock the potential",
+    "Empower", "Seamless", "Streamline", "Foster", "Facilitate",
+    "Underscore", "Underpin", "Bolster",
+  ]
+  const contentLower = (article.contentHtml || '').toLowerCase()
+  const foundTells = aiTells.filter((tell) => contentLower.includes(tell.toLowerCase()))
+  if (foundTells.length > 0) {
+    warnings.push(`AI writing tells detected: ${foundTells.join(', ')}`)
+  }
+
+  const internalLinkCount = (article.contentHtml || '').match(/href="\/[^"]+"/g)
+  if (!internalLinkCount || internalLinkCount.length < 2) {
+    warnings.push(`Only ${internalLinkCount?.length || 0} internal links (recommended: at least 3)`)
+  }
+
+  const forbiddenClaims = [
+    'peer-reviewed', 'industry standard', 'legally defensible',
+    'guaranteed compliance', 'audit proof', 'eliminates ai risk',
+    '100% accurate', 'proven at fortune 50 scale', 'adopted across the industry',
+  ]
+  const foundForbidden = forbiddenClaims.filter((claim) => contentLower.includes(claim))
+  if (foundForbidden.length > 0) {
+    errors.push(`Forbidden claims detected: ${foundForbidden.join(', ')}`)
+  }
+
+  return { warnings, errors, wordCount }
+}
+
+// ---------------------------------------------------------------------------
+// Checklist generation
+// ---------------------------------------------------------------------------
 
 async function generateChecklist(article, slug) {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) return null
 
-  const prompt = `You are an expert AI compliance consultant. Based on the blog post below, generate a practical, downloadable checklist in Markdown format that a reader can use to implement the guidance from the article.
+  const prompt = `You are an expert AI systems architect. Based on the article below, generate a practical, downloadable checklist in Markdown format that a reader can use to implement the guidance.
 
 TITLE: ${article.title}
 KEYWORDS: ${(article.keywords || []).join(', ')}
@@ -712,9 +639,9 @@ REQUIREMENTS:
 3. Organize into logical sections with ## headers
 4. Include specific technical steps, not vague advice
 5. Include a "Preparation" section, an "Implementation" section, and a "Verification" section
-6. Add a "Evidence to Collect" section listing what audit artifacts to save
-7. Do NOT include em-dashes. Use regular hyphens.
-8. Do NOT include AI writing tells or fabricated personal claims.
+6. Add an "Evidence to Collect" section listing what audit artifacts to save
+7. DO NOT use em-dashes or en-dashes. Use regular hyphens.
+8. DO NOT use AI writing tells or fabricated personal claims.
 9. Start with a brief 2-3 line description of what this checklist covers
 10. End with a "## About" section: "Generated from: ${SITE_URL}/blog/${slug}"
 
@@ -732,7 +659,7 @@ Return ONLY the Markdown content, no code fences, no preamble.`
         messages: [
           {
             role: 'system',
-            content: 'You are an expert AI compliance consultant who creates practical, actionable checklists. You return only valid Markdown. You never use em-dashes.',
+            content: 'You are an expert AI systems architect who creates practical, actionable checklists. You return only valid Markdown. You never use em-dashes or AI writing patterns.',
           },
           { role: 'user', content: prompt },
         ],
@@ -742,7 +669,7 @@ Return ONLY the Markdown content, no code fences, no preamble.`
     })
 
     if (!response.ok) {
-      console.warn(`Checklist generation failed (${response.status}) — skipping`)
+      console.warn(`Checklist generation failed (${response.status}) - skipping`)
       return null
     }
 
@@ -752,88 +679,77 @@ Return ONLY the Markdown content, no code fences, no preamble.`
 
     return content.replace(/^```markdown?\s*/i, '').replace(/\s*```$/i, '').trim()
   } catch (err) {
-    console.warn(`Checklist generation error: ${err.message} — skipping`)
+    console.warn(`Checklist generation error: ${err.message} - skipping`)
     return null
   }
 }
 
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
+
 async function main() {
   const args = process.argv.slice(2)
   const topicArg = args.find((a) => a.startsWith('--topic='))?.split('=')[1]
-  const useFrontOfAI = args.includes('--frontofai')
   const dryRun = args.includes('--dry-run')
 
   const posts = getAllPosts()
   console.log(`Found ${posts.length} existing posts`)
 
-  let article, frontOfAIStory
+  let item, article
 
-  if (useFrontOfAI) {
-    // Fetch top stories from FrontOfAI
-    const stories = await fetchFrontOfAIStories()
-    console.log(`Fetched ${stories.length} stories from FrontOfAI`)
-
-    if (stories.length === 0) {
-      console.error('No stories returned from FrontOfAI — falling back to topic queue')
-      const picked = pickNextTopic(posts)
-      article = await generateArticle(picked.topic, picked.pillar, posts)
-    } else {
-      // Select best unused story
-      frontOfAIStory = selectFrontOfAIStory(stories, posts)
-      console.log(`\nSelected story: ${frontOfAIStory.title}`)
-      console.log(`Impact: ${frontOfAIStory.it_impact_score}/10 | Source: ${frontOfAIStory.source_name}`)
-
-      article = await generateArticleFromFrontOfAI(frontOfAIStory, posts)
+  if (topicArg) {
+    console.log(`\nCustom topic: ${topicArg}`)
+    item = {
+      title: topicArg,
+      pillar: 'production-ai-architecture',
+      type: 'authority',
+      cta: '/services',
+      internalLinks: ['/architecture-decision-master-sheet', '/services'],
+      score: 70,
+      classification: 'new-intent',
     }
-  } else if (topicArg) {
-    console.log(`\nTopic: ${topicArg}`)
-    console.log(`Pillar: Custom`)
-    article = await generateArticle(topicArg, 'Custom', posts)
+    article = await generateArticle(item, posts)
   } else {
-    const picked = pickNextTopic(posts)
-    console.log(`\nTopic: ${picked.topic}`)
-    console.log(`Pillar: ${picked.pillar}`)
-    article = await generateArticle(picked.topic, picked.pillar, posts)
+    item = pickNextTopic(posts)
+    console.log(`\nSelected: ${item.title}`)
+    console.log(`Classification: ${item.classification}`)
+    article = await generateArticle(item, posts)
   }
 
-  // Post-generation dedup check - verify generated title isn't too similar to existing posts
+  // Post-generation dedup check
   const existingTitlesForCheck = getExistingTitles(posts)
   const generatedTitleLower = (article.title || '').toLowerCase()
   const similarityHit = existingTitlesForCheck.find(
     (t) => titleSimilarity(t, generatedTitleLower) > 0.7
   )
   if (similarityHit) {
-    console.error(`\n  ⚠ DUPLICATE DETECTED: Generated title "${article.title}" is too similar to existing post "${similarityHit}"`)
+    console.error(`\n  DUPLICATE DETECTED: Generated title "${article.title}" is too similar to existing post "${similarityHit}"`)
     console.error('  Aborting to prevent duplicate content. Try again with a different topic.')
     process.exit(1)
   }
 
   // Validate generated article
-  const warnings = []
-  if (article.title && article.title.length > 60) {
-    warnings.push(`Title is ${article.title.length} chars (recommended: under 60)`)
-  }
-  if (article.metaDescription && article.metaDescription.length > 160) {
-    warnings.push(`Meta description is ${article.metaDescription.length} chars (recommended: under 160)`)
-  }
-  const wordCount = stripHtmlForCount(article.contentHtml || '').split(/\s+/).filter(Boolean).length
-  if (wordCount < 1000) {
-    warnings.push(`Content is only ${wordCount} words (recommended: 1500+). Content may be too thin for SEO.`)
-  }
-  if (!article.keywords || article.keywords.length < 3) {
-    warnings.push(`Only ${article.keywords?.length || 0} keywords (recommended: 6-10)`)
-  }
-  if (!article.excerpt) {
-    warnings.push('No excerpt generated')
+  const { warnings, errors, wordCount } = validateArticle(article, item)
+
+  if (errors.length > 0) {
+    console.log('\n  ERRORS (must fix before publishing):')
+    for (const e of errors) {
+      console.log(`    - ${e}`)
+    }
+    if (!dryRun) {
+      console.error('  Aborting due to validation errors.')
+      process.exit(1)
+    }
   }
 
   if (warnings.length > 0) {
-    console.log('\n  ⚠ SEO Warnings:')
+    console.log('\n  Warnings:')
     for (const w of warnings) {
       console.log(`    - ${w}`)
     }
   } else {
-    console.log('\n  ✓ All SEO checks passed')
+    console.log('\n  All quality checks passed')
   }
 
   console.log(`  Word count: ~${wordCount}`)
@@ -842,7 +758,6 @@ async function main() {
   const id = getNextId(posts)
   const slug = slugify(article.title)
 
-  // Ensure slug is unique
   const existingSlugs = getExistingSlugs(posts)
   let uniqueSlug = slug
   let counter = 2
@@ -905,15 +820,14 @@ async function main() {
       }
       const checklistPath = path.join(downloadsDir, `${post.slug}-checklist.md`)
       fs.writeFileSync(checklistPath, checklist, 'utf-8')
-      console.log(`  ✓ Checklist saved to public/downloads/${post.slug}-checklist.md`)
+      console.log(`  Checklist saved to public/downloads/${post.slug}-checklist.md`)
 
-      // Update post with downloadable fields
       post.downloadableUrl = `/downloads/${post.slug}-checklist.md`
       post.downloadableLabel = `Download the ${article.title.split(' ').slice(0, 4).join(' ')} Checklist`
       fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
-      console.log(`  ✓ Post updated with downloadable URL`)
+      console.log(`  Post updated with downloadable URL`)
     } else {
-      console.log('  ⚠ Checklist generation skipped — post saved without downloadable')
+      console.log('  Checklist generation skipped - post saved without downloadable')
     }
   }
 
@@ -928,7 +842,7 @@ async function main() {
       })
     } catch (err) {
       console.warn(`Hero image generation failed: ${err.message}`)
-      console.warn('Post saved successfully — image can be generated later with: node scripts/generate-hero-image.mjs --slug=' + post.slug)
+      console.warn('Post saved successfully. Image can be generated later with: node scripts/generate-hero-image.mjs --slug=' + post.slug)
     }
   }
 
@@ -936,6 +850,7 @@ async function main() {
   console.log(`  1. Review the generated article`)
   console.log(`  2. The GitHub Action will auto-generate social content`)
   console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
+  console.log(`  4. Article must receive editorial approval before publishing`)
 }
 
 main().catch((err) => {
