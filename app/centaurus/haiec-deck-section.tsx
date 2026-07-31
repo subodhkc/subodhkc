@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { Shield, Download, FileText, Eye } from 'lucide-react'
+import { Download, Eye } from 'lucide-react'
 import { useCallback } from 'react'
 
 const DECK_PATH = '/centaurus/haiec-technical-architecture-defensibility-brief.pptx'
@@ -41,82 +40,58 @@ export function HaiecDeckSection() {
 
   return (
     <div className="border-t border-slate-200 pt-8">
-      <div className="flex items-center gap-2 mb-4">
-        <Shield className="h-4 w-4 text-emerald-600" />
-        <h3 className="font-semibold text-slate-900">HAIEC Technical Architecture Brief</h3>
+      <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+        Technical Diligence Deck
       </div>
-      <p className="text-xs text-slate-500 mb-4">
-        Evidence-native AI security validation platform — technical diligence deck
+      <h2 className="text-lg font-semibold text-slate-900 mb-2">
+        HAIEC Technical Architecture &amp; Defensibility Brief
+      </h2>
+      <p className="text-sm text-slate-600 mb-4">
+        15-slide technical brief covering platform architecture, evidence lifecycle,
+        framework mapping, decision pipeline, and strategic defensibility.
       </p>
 
-      <Card className="border-emerald-300 bg-gradient-to-br from-emerald-50/80 to-white overflow-hidden shadow-md">
-        <CardHeader className="pb-3">
-          <div className="flex items-start gap-3">
-            <div className="w-11 h-11 rounded-xl bg-emerald-600/10 flex items-center justify-center flex-shrink-0 ring-1 ring-emerald-600/20">
-              <Shield className="h-5 w-5 text-emerald-700" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-emerald-700 mb-1">
-                Technical Diligence Deck
-              </div>
-              <CardTitle className="text-base text-slate-900 font-semibold">
-                HAIEC Technical Architecture &amp; Defensibility Brief
-              </CardTitle>
-              <CardDescription className="text-slate-600 text-sm mt-1">
-                15-slide technical brief covering platform architecture, evidence lifecycle,
-                framework mapping, decision pipeline, and strategic defensibility.
-              </CardDescription>
-            </div>
-          </div>
-        </CardHeader>
+      {/* Meta info — flat text, no pills */}
+      <div className="flex flex-wrap items-center gap-3 mb-4 text-xs text-slate-500">
+        <span>15 slides (12 + 3 appendix)</span>
+        <span className="text-slate-300">|</span>
+        <span>PowerPoint (.pptx)</span>
+        <span className="text-slate-300">|</span>
+        <span>v1.0</span>
+        <span className="text-slate-300">|</span>
+        <span>Confidential</span>
+      </div>
 
-        <CardContent className="pt-0">
-          <div className="flex flex-wrap items-center gap-2 mb-4 text-[11px] text-slate-500">
-            <span className="inline-flex items-center gap-1">
-              <FileText className="h-3 w-3" />
-              15 slides (12 + 3 appendix)
-            </span>
-            <span className="text-slate-300">|</span>
-            <span>Format: PowerPoint (.pptx)</span>
-            <span className="text-slate-300">|</span>
-            <span>Version: v1.0</span>
-            <span className="text-slate-300">|</span>
-            <span>Confidential</span>
-          </div>
+      {/* Buttons — monochrome */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Link
+          href={DECK_PATH}
+          download="haiec-technical-architecture-defensibility-brief.pptx"
+          onClick={handleDownload}
+        >
+          <Button className="gap-2 bg-slate-900 hover:bg-slate-800">
+            <Download className="h-4 w-4" />
+            Download Technical Deck
+          </Button>
+        </Link>
+        <a
+          href={DECK_GSLIDES_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleView}
+        >
+          <Button variant="outline" className="gap-2 border-slate-300 text-slate-700 hover:bg-slate-50">
+            <Eye className="h-4 w-4" />
+            View in Browser
+          </Button>
+        </a>
+      </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              href={DECK_PATH}
-              download="haiec-technical-architecture-defensibility-brief.pptx"
-              className="flex-1"
-              onClick={handleDownload}
-            >
-              <Button size="lg" className="w-full gap-2 bg-emerald-600 hover:bg-emerald-700 shadow-md">
-                <Download className="h-5 w-5" />
-                Download Technical Deck
-              </Button>
-            </Link>
-            <a
-              href={DECK_GSLIDES_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1"
-              onClick={handleView}
-            >
-              <Button size="lg" variant="outline" className="w-full gap-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 shadow-sm">
-                <Eye className="h-5 w-5" />
-                View in Browser
-              </Button>
-            </a>
-          </div>
-
-          <p className="text-xs text-slate-500 mt-3">
-            Covers: Static analysis (91 Semgrep + 15 TS + 82 rulepack) · Runtime testing (269 templates) ·
-            Evidence architecture · 13 compliance frameworks · Decision Pipeline (DIS) ·
-            Compliance Twin · Kill Switch
-          </p>
-        </CardContent>
-      </Card>
+      <p className="text-xs text-slate-500 mt-4">
+        Covers: Static analysis (91 Semgrep + 15 TS + 82 rulepack) · Runtime testing (269 templates) ·
+        Evidence architecture · 13 compliance frameworks · Decision Pipeline (DIS) ·
+        Compliance Twin · Kill Switch
+      </p>
     </div>
   )
 }

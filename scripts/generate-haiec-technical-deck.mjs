@@ -23,29 +23,22 @@ const projectRoot = join(__dirname, '..')
 // ============================================================
 
 const THEME = {
-  bg: 'F8FAFC',          // light slate background
-  bgAlt: 'F1F5F9',       // slightly darker light slate
-  bgDeep: 'E2E8F0',      // deeper slate for contrast layers
-  card: 'FFFFFF',        // white card background
-  cardBorder: 'CBD5E1',  // light gray border
-  cardShadow: 'E2E8F0',  // card shadow color
-  emerald: '059669',     // primary accent — emerald 600
-  emeraldDark: '047857', // darker emerald — emerald 700
-  emeraldLight: 'D1FAE5',// light emerald background
-  emeraldBg: 'ECFDF5',   // very light emerald tint
-  amber: 'D97706',       // warning — amber 600
-  amberLight: 'FEF3C7',  // light amber background
-  red: 'DC2626',         // critical — red 600
-  redLight: 'FEE2E2',    // light red background
-  blue: '2563EB',        // blue accent — blue 600
-  blueLight: 'DBEAFE',   // light blue background
-  white: '0F172A',       // dark text on light background (slate 900)
-  gray: '475569',        // muted gray secondary — slate 600
-  grayDark: '64748B',    // darker gray — slate 500
-  grayLight: '94A3B8',   // light gray — slate 400
-  mono: 'Courier New',   // monospace labels
-  sans: 'Calibri',       // body font
-  heading: 'Calibri',    // heading font
+  bg: 'FFFFFF',          // pure white background
+  bgAlt: 'F5F5F5',       // light gray panel
+  bgDeep: 'EBEBEB',      // medium gray for contrast
+  card: 'FFFFFF',        // white card
+  cardBorder: 'D0D0D0',  // subtle gray border
+  navy: '1A2B4A',        // primary — deep navy
+  navyDark: '0F1D33',    // darker navy for emphasis
+  navyLight: '2E4470',   // lighter navy
+  white: '1A1A1A',       // primary text — near-black charcoal
+  gray: '4A4A4A',        // body text — dark gray
+  grayMid: '6B6B6B',     // secondary text — medium gray
+  grayLight: '999999',   // tertiary text — light gray
+  grayFaint: 'CCCCCC',   // borders, dividers
+  sans: 'Arial',         // body font
+  heading: 'Arial',      // heading font
+  mono: 'Arial',         // label font
 }
 
 const SLIDE_W = 13.333  // 16:9 widescreen
@@ -57,101 +50,64 @@ const SLIDE_H = 7.5
 
 function addSlideBackground(slide) {
   slide.background = { color: THEME.bg }
-  // Subtle top accent strip
-  slide.addShape('rect', {
-    x: 0, y: 0, w: SLIDE_W, h: 0.06,
-    fill: { color: THEME.emerald }, line: { type: 'none' }
-  })
 }
 
 function addFooter(slide, pageNum, totalPages) {
-  // Footer separator line
   slide.addShape('line', {
-    x: 0.3, y: SLIDE_H - 0.4, w: SLIDE_W - 0.6, h: 0,
-    line: { color: THEME.cardBorder, width: 0.5 }
+    x: 0.5, y: SLIDE_H - 0.42, w: SLIDE_W - 1.0, h: 0,
+    line: { color: THEME.grayFaint, width: 0.5 }
   })
   slide.addText(
     `HAIEC  ·  Confidential Discussion Brief  ·  ${pageNum}/${totalPages}`,
     {
-      x: 0.3, y: SLIDE_H - 0.35, w: 8, h: 0.25,
-      fontSize: 8, color: THEME.grayDark, fontFace: THEME.sans
+      x: 0.5, y: SLIDE_H - 0.35, w: 8, h: 0.25,
+      fontSize: 8, color: THEME.grayMid, fontFace: THEME.sans
     }
   )
   slide.addText(
     `v1.0  ·  ${new Date().toISOString().split('T')[0]}`,
     {
-      x: SLIDE_W - 3, y: SLIDE_H - 0.35, w: 2.7, h: 0.25,
-      fontSize: 8, color: THEME.grayDark, fontFace: THEME.mono, align: 'right'
+      x: SLIDE_W - 3.5, y: SLIDE_H - 0.35, w: 3.0, h: 0.25,
+      fontSize: 8, color: THEME.grayMid, fontFace: THEME.sans, align: 'right'
     }
   )
 }
 
 function addSlideTitle(slide, text, opts = {}) {
-  const y = opts.y ?? 0.4
+  const y = opts.y ?? 0.5
   slide.addText(text, {
-    x: 0.6, y, w: SLIDE_W - 1.2, h: 0.55,
-    fontSize: 24, fontFace: THEME.heading, bold: true,
-    color: THEME.white, align: 'left'
+    x: 0.5, y, w: SLIDE_W - 1.0, h: 0.6,
+    fontSize: 22, fontFace: THEME.heading, bold: true,
+    color: THEME.navy, align: 'left'
   })
-  // Emerald accent bar — wider and bolder
-  slide.addShape('rect', {
-    x: 0.6, y: y + 0.58, w: 2.0, h: 0.05,
-    fill: { color: THEME.emerald }, line: { type: 'none' }
+  slide.addShape('line', {
+    x: 0.5, y: y + 0.65, w: SLIDE_W - 1.0, h: 0,
+    line: { color: THEME.navy, width: 1 }
   })
 }
 
 function addCard(slide, x, y, w, h, opts = {}) {
-  // Shadow layer — offset by 0.03"
-  if (opts.shadow !== false) {
-    slide.addShape('roundRect', {
-      x: x + 0.03, y: y + 0.03, w, h,
-      fill: { color: THEME.cardShadow },
-      line: { type: 'none' },
-      rectRadius: 0.06
-    })
-  }
-  // Card body
-  slide.addShape('roundRect', {
+  slide.addShape('rect', {
     x, y, w, h,
     fill: { color: opts.fill ?? THEME.card },
-    line: { color: opts.border ?? THEME.cardBorder, width: 0.75 },
-    rectRadius: 0.06
+    line: { color: opts.border ?? THEME.cardBorder, width: 0.5 },
   })
 }
 
 function addStatusTag(slide, x, y, label, status) {
-  const colors = {
-    implemented: { bg: THEME.emerald, text: 'FFFFFF' },
-    active: { bg: THEME.emerald, text: 'FFFFFF' },
-    roadmap: { bg: THEME.amber, text: 'FFFFFF' },
-    foundation: { bg: THEME.emeraldDark, text: 'FFFFFF' },
-  }
-  const c = colors[status] ?? colors.implemented
-  // Shadow
-  slide.addShape('roundRect', {
-    x: x + 0.02, y: y + 0.02, w: 1.8, h: 0.3,
-    fill: { color: THEME.cardShadow },
-    line: { type: 'none' },
-    rectRadius: 0.03
-  })
-  slide.addShape('roundRect', {
-    x, y, w: 1.8, h: 0.3,
-    fill: { color: c.bg },
-    line: { type: 'none' },
-    rectRadius: 0.03
-  })
+  const statusColor = status === 'roadmap' ? THEME.grayMid : THEME.navy
   slide.addText(label, {
-    x, y, w: 1.8, h: 0.3,
-    fontSize: 8, fontFace: THEME.mono, color: c.text,
-    align: 'center', valign: 'middle', bold: true
+    x, y, w: 1.8, h: 0.25,
+    fontSize: 8, fontFace: THEME.sans, color: statusColor,
+    align: 'left', valign: 'middle', bold: true
   })
 }
 
 function addMonoLabel(slide, x, y, text, opts = {}) {
   slide.addText(text, {
     x, y, w: opts.w ?? 3, h: 0.2,
-    fontSize: 8, fontFace: THEME.mono, color: THEME.gray,
-    align: opts.align ?? 'left'
+    fontSize: 8, fontFace: THEME.sans, color: THEME.grayMid,
+    align: opts.align ?? 'left', bold: true
   })
 }
 
@@ -159,9 +115,9 @@ function addBodyText(slide, x, y, w, h, text, opts = {}) {
   slide.addText(text, {
     x, y, w, h,
     fontSize: opts.fontSize ?? 11, fontFace: THEME.sans,
-    color: opts.color ?? THEME.white,
+    color: opts.color ?? THEME.gray,
     align: 'left', valign: 'top',
-    lineSpacingMultiple: 1.2,
+    lineSpacingMultiple: 1.15,
     bold: opts.bold ?? false
   })
 }
@@ -169,21 +125,21 @@ function addBodyText(slide, x, y, w, h, text, opts = {}) {
 function addArrowConnector(slide, x1, y1, x2, y2) {
   slide.addShape('line', {
     x: x1, y: y1, w: x2 - x1, h: y2 - y1,
-    line: { color: THEME.emerald, width: 1, endArrowType: 'triangle' }
+    line: { color: THEME.grayLight, width: 1, endArrowType: 'triangle' }
   })
 }
 
 function addRightArrow(slide, x, y, w) {
   slide.addShape('line', {
     x, y, w, h: 0,
-    line: { color: THEME.emerald, width: 1.5, endArrowType: 'triangle' }
+    line: { color: THEME.grayLight, width: 1, endArrowType: 'triangle' }
   })
 }
 
 function addDownArrow(slide, x, y, h) {
   slide.addShape('line', {
     x, y, w: 0, h,
-    line: { color: THEME.emerald, width: 1.5, endArrowType: 'triangle' }
+    line: { color: THEME.grayLight, width: 1, endArrowType: 'triangle' }
   })
 }
 
@@ -239,71 +195,60 @@ function buildSlide1(pptx) {
   const slide = pptx.addSlide()
   slide.background = { color: THEME.bg }
 
-  // Left accent panel — emerald gradient feel using solid color
-  slide.addShape('rect', {
-    x: 0, y: 0, w: 0.25, h: SLIDE_H,
-    fill: { color: THEME.emerald }, line: { type: 'none' }
-  })
-  // Top accent strip
-  slide.addShape('rect', {
-    x: 0.25, y: 0, w: SLIDE_W - 0.25, h: 0.06,
-    fill: { color: THEME.emeraldDark }, line: { type: 'none' }
+  // Top label
+  addMonoLabel(slide, 0.5, 0.5, 'HAIEC TECHNICAL BRIEF  |  v1.0  |  CONFIDENTIAL', { w: 8 })
+
+  // Thin divider
+  slide.addShape('line', {
+    x: 0.5, y: 0.8, w: SLIDE_W - 1.0, h: 0,
+    line: { color: THEME.navy, width: 1 }
   })
 
-  // Top monospace label
-  addMonoLabel(slide, 0.9, 0.5, 'HAIEC TECHNICAL BRIEF · v1.0', { w: 6 })
-
-  // Main title — larger, bolder
+  // Main title
   slide.addText('HAIEC', {
-    x: 0.9, y: 1.4, w: 12, h: 1.3,
-    fontSize: 60, fontFace: THEME.heading, bold: true,
-    color: THEME.white, align: 'left'
-  })
-
-  // Emerald accent bar — wider
-  slide.addShape('rect', {
-    x: 0.9, y: 2.75, w: 4, h: 0.07,
-    fill: { color: THEME.emerald }, line: { type: 'none' }
+    x: 0.5, y: 1.5, w: 12, h: 1.0,
+    fontSize: 48, fontFace: THEME.heading, bold: true,
+    color: THEME.navy, align: 'left'
   })
 
   // Subtitle
   slide.addText('Evidence-Native Validation Infrastructure for AI Applications', {
-    x: 0.9, y: 3.0, w: 11, h: 0.5,
-    fontSize: 22, fontFace: THEME.heading,
-    color: THEME.emerald, align: 'left'
+    x: 0.5, y: 2.6, w: 11, h: 0.5,
+    fontSize: 20, fontFace: THEME.heading,
+    color: THEME.gray, align: 'left'
   })
 
   // Supporting line
   slide.addText('How HAIEC connects code security, runtime testing, control mapping and audit evidence', {
-    x: 0.9, y: 3.6, w: 11, h: 0.4,
-    fontSize: 16, fontFace: THEME.sans,
-    color: THEME.gray, align: 'left'
+    x: 0.5, y: 3.2, w: 11, h: 0.4,
+    fontSize: 14, fontFace: THEME.sans,
+    color: THEME.grayMid, align: 'left'
   })
 
-  // Visual flow — enhanced with shadow cards
-  const flowY = 5.0
+  // Visual flow
+  const flowY = 4.8
   const flowItems = ['AI System', 'Security Validation', 'Control Mapping', 'Verifiable Evidence']
   const flowW = 2.5
   const flowGap = 0.4
-  let flowX = 0.9
+  let flowX = 0.5
 
   flowItems.forEach((item, i) => {
-    addCard(slide, flowX, flowY, flowW, 0.55, { fill: THEME.card, border: THEME.emerald })
+    addCard(slide, flowX, flowY, flowW, 0.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
     slide.addText(item, {
-      x: flowX, y: flowY, w: flowW, h: 0.55,
-      fontSize: 10, fontFace: THEME.mono, color: THEME.emerald, bold: true,
+      x: flowX, y: flowY, w: flowW, h: 0.5,
+      fontSize: 10, fontFace: THEME.sans, color: THEME.gray,
       align: 'center', valign: 'middle'
     })
     if (i < flowItems.length - 1) {
-      addRightArrow(slide, flowX + flowW + 0.05, flowY + 0.275, flowGap - 0.1)
+      addRightArrow(slide, flowX + flowW + 0.05, flowY + 0.25, flowGap - 0.1)
     }
     flowX += flowW + flowGap
   })
 
   // Footer
   slide.addText('Confidential Discussion Brief', {
-    x: 0.9, y: 6.5, w: 6, h: 0.3,
-    fontSize: 10, fontFace: THEME.sans, color: THEME.grayDark
+    x: 0.5, y: 6.5, w: 6, h: 0.3,
+    fontSize: 10, fontFace: THEME.sans, color: THEME.grayMid
   })
 
   addFooter(slide, 1, TOTAL_SLIDES)
@@ -323,7 +268,7 @@ function buildSlide2(pptx) {
   // Positioning
   addBodyText(slide, 0.6, 2.2, 12, 0.5,
     'HAIEC closes this gap by making evidence the central artifact — not a byproduct.',
-    { fontSize: 13, color: THEME.emerald, bold: true })
+    { fontSize: 13, color: THEME.navy, bold: true })
 
   // Four domains with HAIEC in center
   const domains = [
@@ -339,22 +284,22 @@ function buildSlide2(pptx) {
     addBodyText(slide, d.x + 0.15, d.y + 0.35, 2.7, 0.9, d.desc, { fontSize: 9, color: THEME.gray })
   })
 
-  // HAIEC center — enhanced with shadow
-  addCard(slide, 5.2, 3.8, 3.0, 1.8, { fill: THEME.emeraldDark, border: THEME.emerald })
+  // HAIEC center
+  addCard(slide, 5.2, 3.8, 3.0, 1.8, { fill: THEME.bgAlt, border: THEME.navy })
   slide.addText('HAIEC', {
     x: 5.2, y: 3.9, w: 3.0, h: 0.5,
     fontSize: 22, fontFace: THEME.heading, bold: true,
-    color: 'FFFFFF', align: 'center'
+    color: THEME.navy, align: 'center'
   })
   slide.addText('Evidence-Native\nAI Security Platform', {
     x: 5.2, y: 4.4, w: 3.0, h: 0.8,
     fontSize: 10, fontFace: THEME.sans,
-    color: 'FFFFFF', align: 'center', valign: 'middle'
+    color: THEME.gray, align: 'center', valign: 'middle'
   })
-  // Inner accent line
-  slide.addShape('rect', {
-    x: 6.2, y: 4.35, w: 1.0, h: 0.03,
-    fill: { color: 'FFFFFF' }, line: { type: 'none' }
+  // Thin divider line
+  slide.addShape('line', {
+    x: 6.2, y: 4.35, w: 1.0, h: 0,
+    line: { color: THEME.navy, width: 0.5 }
   })
 
   // Connecting lines from domains to center
@@ -366,7 +311,7 @@ function buildSlide2(pptx) {
   // Bottom line
   addBodyText(slide, 0.6, 6.5, 12, 0.4,
     'The strategic asset is not one scanner or one report. It is the evidence relationship connecting system, test, finding, control, remediation and verification.',
-    { fontSize: 11, color: THEME.emerald, bold: true })
+    { fontSize: 11, color: THEME.navy, bold: true })
 
   addFooter(slide, 2, TOTAL_SLIDES)
 }
@@ -412,23 +357,19 @@ function buildSlide3(pptx) {
     // Gap
     slide.addShape('rect', {
       x: x + 0.2, y: 4.6, w: 3.4, h: 0.04,
-      fill: { color: THEME.red }, line: { type: 'none' }
+      fill: { color: THEME.navy }, line: { type: 'none' }
     })
     slide.addText(col.gap, {
       x: x + 0.2, y: 4.7, w: 3.4, h: 0.6,
-      fontSize: 9, fontFace: THEME.sans, color: THEME.red, italic: true
+      fontSize: 9, fontFace: THEME.sans, color: THEME.navy, italic: true
     })
   })
 
-  // HAIEC bridge — enhanced with shadow and accent line
-  addCard(slide, 0.6, 5.9, 12.1, 0.7, { fill: THEME.emeraldDark, border: THEME.emerald })
-  slide.addShape('rect', {
-    x: 0.6, y: 5.9, w: 0.08, h: 0.7,
-    fill: { color: 'FFFFFF' }, line: { type: 'none' }
-  })
+  // HAIEC bridge
+  addCard(slide, 0.6, 5.9, 12.1, 0.7, { fill: THEME.bgAlt, border: THEME.navy })
   slide.addText('HAIEC bridges all three: engine-generated evidence flows from test → finding → control mapping → audit package in one platform.', {
-    x: 0.9, y: 5.9, w: 11.5, h: 0.7,
-    fontSize: 11, fontFace: THEME.sans, color: 'FFFFFF',
+    x: 0.8, y: 5.9, w: 11.7, h: 0.7,
+    fontSize: 11, fontFace: THEME.sans, color: THEME.navy,
     align: 'center', valign: 'middle', bold: true
   })
 
@@ -442,35 +383,31 @@ function buildSlide4(pptx) {
   addSlideTitle(slide, 'One platform from code to audit evidence.')
 
   const layers = [
-    { name: 'INPUTS', items: 'Git repos · API keys · AI inventory · System registration', color: THEME.grayDark },
-    { name: 'EVALUATION', items: 'Static engine (91 Semgrep + 15 TS + 82 rulepack) · Runtime engine (269 templates) · Wizard', color: THEME.emeraldDark },
-    { name: 'COORDINATION', items: 'Audit Orchestrator · State machine · Hash-chained event log', color: THEME.emeraldDark },
-    { name: 'DECISION & EVIDENCE', items: 'Decision Pipeline (6 nodes, DIS) · Evidence manifests · Framework mapping', color: THEME.emeraldDark },
-    { name: 'DISTRIBUTION', items: 'Trust artifacts · Audit packages · Verification API · CI integration', color: THEME.emerald },
+    { name: 'INPUTS', items: 'Git repos · API keys · AI inventory · System registration' },
+    { name: 'EVALUATION', items: 'Static engine (91 Semgrep + 15 TS + 82 rulepack) · Runtime engine (269 templates) · Wizard' },
+    { name: 'COORDINATION', items: 'Audit Orchestrator · State machine · Hash-chained event log' },
+    { name: 'DECISION & EVIDENCE', items: 'Decision Pipeline (6 nodes, DIS) · Evidence manifests · Framework mapping' },
+    { name: 'DISTRIBUTION', items: 'Trust artifacts · Audit packages · Verification API · CI integration' },
   ]
 
   layers.forEach((layer, i) => {
     const y = 1.5 + i * 1.05
-    addCard(slide, 0.6, y, 12.1, 0.85, { fill: THEME.bgAlt, border: layer.color })
-    // Layer name with colored background pill
-    slide.addShape('roundRect', {
-      x: 0.75, y: y + 0.12, w: 2.8, h: 0.3,
-      fill: { color: layer.color }, line: { type: 'none' }, rectRadius: 0.03
-    })
+    addCard(slide, 0.6, y, 12.1, 0.85, { fill: THEME.bgAlt, border: THEME.cardBorder })
+    // Layer name — flat text label
     slide.addText(layer.name, {
-      x: 0.75, y: y + 0.12, w: 2.8, h: 0.3,
-      fontSize: 9, fontFace: THEME.mono, color: 'FFFFFF', bold: true,
-      align: 'center', valign: 'middle'
+      x: 0.8, y: y + 0.15, w: 2.8, h: 0.3,
+      fontSize: 9, fontFace: THEME.sans, color: THEME.navy, bold: true,
+      align: 'left', valign: 'middle'
     })
-    addBodyText(slide, 3.8, y + 0.15, 8.7, 0.55, layer.items, { fontSize: 11, color: THEME.white })
+    addBodyText(slide, 3.8, y + 0.15, 8.7, 0.55, layer.items, { fontSize: 11, color: THEME.gray })
   })
 
-  // Architecture statement — enhanced
-  addCard(slide, 0.6, 6.5, 12.1, 0.5, { fill: THEME.emeraldBg, border: THEME.emerald })
+  // Architecture statement
+  addCard(slide, 0.6, 6.5, 12.1, 0.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Modal Python runs the computation. TypeScript runs the product.', {
     x: 0.8, y: 6.5, w: 11.7, h: 0.5,
-    fontSize: 11, fontFace: THEME.mono, color: THEME.emeraldDark,
-    align: 'center', valign: 'middle', italic: true, bold: true
+    fontSize: 11, fontFace: THEME.sans, color: THEME.navy,
+    align: 'center', valign: 'middle', italic: true
   })
 
   addFooter(slide, 4, TOTAL_SLIDES)
@@ -509,7 +446,7 @@ function buildSlide5(pptx) {
     addCard(slide, mainX, 1.5, mainW, 2.5, { fill: THEME.card, border: THEME.cardBorder })
     slide.addText(step.num, {
       x: mainX + 0.1, y: 1.6, w: 0.8, h: 0.3,
-      fontSize: 14, fontFace: THEME.mono, color: THEME.emerald, bold: true
+      fontSize: 14, fontFace: THEME.mono, color: THEME.navy, bold: true
     })
     slide.addText(step.name, {
       x: mainX + 0.1, y: 1.95, w: mainW - 0.2, h: 0.35,
@@ -537,10 +474,10 @@ function buildSlide5(pptx) {
   addMonoLabel(slide, 0.6, 4.35, 'SUPPORTING LIFECYCLE ACTIONS', { w: 6 })
 
   lifecycleSteps.forEach((step, i) => {
-    addCard(slide, suppX, suppY, suppW, 1.4, { fill: THEME.bgAlt, border: THEME.emerald })
+    addCard(slide, suppX, suppY, suppW, 1.4, { fill: THEME.bgAlt, border: THEME.navy })
     slide.addText(step.name, {
       x: suppX + 0.15, y: suppY + 0.1, w: suppW - 0.3, h: 0.35,
-      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.emerald
+      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.navy
     })
     addBodyText(slide, suppX + 0.15, suppY + 0.5, suppW - 0.3, 0.8, step.desc, { fontSize: 9, color: THEME.gray })
 
@@ -553,7 +490,7 @@ function buildSlide5(pptx) {
   // Bottom line
   addBodyText(slide, 0.6, 6.5, 12, 0.4,
     'Each step produces verifiable evidence anchored to the system, the engine version, and the point in time it was generated.',
-    { fontSize: 11, color: THEME.emerald, bold: true })
+    { fontSize: 11, color: THEME.navy, bold: true })
 
   addFooter(slide, 5, TOTAL_SLIDES)
 }
@@ -571,7 +508,7 @@ function buildSlide6(pptx) {
   let pathX = 0.6
 
   pathNodes.forEach((node, i) => {
-    addCard(slide, pathX, 1.4, pathW, 0.5, { fill: THEME.bgAlt, border: THEME.emerald })
+    addCard(slide, pathX, 1.4, pathW, 0.5, { fill: THEME.bgAlt, border: THEME.navy })
     slide.addText(node, {
       x: pathX, y: 1.4, w: pathW, h: 0.5,
       fontSize: 10, fontFace: THEME.mono, color: THEME.white,
@@ -586,21 +523,21 @@ function buildSlide6(pptx) {
   // Traditional testing coverage bracket
   slide.addShape('rect', {
     x: 0.6, y: 2.0, w: pathW + pathGap + pathW + 0.05, h: 0.04,
-    fill: { color: THEME.amber }, line: { type: 'none' }
+    fill: { color: THEME.grayMid }, line: { type: 'none' }
   })
   slide.addText('Traditional testing coverage', {
     x: 0.6, y: 2.05, w: 4, h: 0.25,
-    fontSize: 8, fontFace: THEME.mono, color: THEME.amber
+    fontSize: 8, fontFace: THEME.mono, color: THEME.grayMid
   })
 
   // HAIEC coverage bracket
   slide.addShape('rect', {
     x: 0.6, y: 2.3, w: 12.1, h: 0.04,
-    fill: { color: THEME.emerald }, line: { type: 'none' }
+    fill: { color: THEME.navy }, line: { type: 'none' }
   })
   slide.addText('HAIEC full decision path coverage', {
     x: 0.6, y: 2.35, w: 5, h: 0.25,
-    fontSize: 8, fontFace: THEME.mono, color: THEME.emerald
+    fontSize: 8, fontFace: THEME.mono, color: THEME.navy
   })
 
   // Risks
@@ -613,7 +550,7 @@ function buildSlide6(pptx) {
   addCard(slide, 0.6, 3.4, 5.8, 2.8, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Static Analysis', {
     x: 0.8, y: 3.5, w: 5.4, h: 0.35,
-    fontSize: 13, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 13, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   addStatusTag(slide, 0.8, 3.9, 'IMPLEMENTED', 'implemented')
   const staticItems = [
@@ -637,7 +574,7 @@ function buildSlide6(pptx) {
   addCard(slide, 6.9, 3.4, 5.8, 2.8, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Runtime Testing', {
     x: 7.1, y: 3.5, w: 5.4, h: 0.35,
-    fontSize: 13, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 13, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   addStatusTag(slide, 7.1, 3.9, 'ACTIVE DEVELOPMENT', 'implemented')
   const runtimeItems = [
@@ -658,7 +595,7 @@ function buildSlide6(pptx) {
   // Precision line
   addBodyText(slide, 0.6, 6.3, 12, 0.3,
     'Every finding carries a rule ID, a code path, a line number, and the missing guard. Deterministic rule-based analysis. Every finding is traceable.',
-    { fontSize: 10, color: THEME.emerald, bold: true })
+    { fontSize: 10, color: THEME.navy, bold: true })
 
   // Maturity note
   addBodyText(slide, 0.6, 6.7, 12, 0.3,
@@ -686,17 +623,17 @@ function buildSlide7(pptx) {
   let fx = 0.6
   flowItems.forEach((item, i) => {
     addCard(slide, fx, 1.5, item.w, 2.2, {
-      fill: i === 0 ? THEME.emeraldDark : THEME.bgAlt,
-      border: i === 0 ? THEME.emerald : THEME.cardBorder
+      fill: THEME.bgAlt,
+      border: i === 0 ? THEME.navy : THEME.cardBorder
     })
     slide.addText(item.label, {
       x: fx + 0.1, y: 1.6, w: item.w - 0.2, h: 0.7,
       fontSize: 11, fontFace: THEME.heading, bold: true,
-      color: THEME.white, align: 'center', valign: 'middle'
+      color: THEME.navy, align: 'center', valign: 'middle'
     })
     slide.addText(item.sub, {
       x: fx + 0.1, y: 2.4, w: item.w - 0.2, h: 1.2,
-      fontSize: 8, fontFace: THEME.mono, color: THEME.gray,
+      fontSize: 8, fontFace: THEME.sans, color: THEME.grayMid,
       align: 'center', valign: 'top'
     })
     if (i < flowItems.length - 1) {
@@ -708,7 +645,7 @@ function buildSlide7(pptx) {
   // Key line
   addBodyText(slide, 0.6, 4.1, 12, 0.4,
     'Every evidence record binds a finding to its source, its scope, its engine version, and its compliance mapping — at the point of generation.',
-    { fontSize: 12, color: THEME.emerald, bold: true })
+    { fontSize: 12, color: THEME.navy, bold: true })
 
   // Supporting detail
   addCard(slide, 0.6, 4.7, 5.8, 1.8, { fill: THEME.bgAlt, border: THEME.cardBorder })
@@ -754,7 +691,7 @@ function buildSlide7(pptx) {
   // Maturity note — moved up to avoid overflow
   addBodyText(slide, 0.6, 6.5, 12, 0.3,
     'Maturity: Evidence integrity — Implemented. HMAC-SHA256 with key rotation and replay protection. Upgrade path: Ed25519 public-key signatures for independent verification.',
-    { fontSize: 8, color: THEME.grayDark })
+    { fontSize: 8, color: THEME.grayMid })
 
   addFooter(slide, 7, TOTAL_SLIDES)
 }
@@ -766,7 +703,7 @@ function buildSlide8(pptx) {
   addSlideTitle(slide, 'One remediation can support multiple assurance requirements.')
 
   // Example finding
-  addCard(slide, 0.6, 1.3, 3.5, 1.8, { fill: THEME.bgAlt, border: THEME.amber })
+  addCard(slide, 0.6, 1.3, 3.5, 1.8, { fill: THEME.bgAlt, border: THEME.grayMid })
   addMonoLabel(slide, 0.75, 1.4, 'EXAMPLE FINDING', { w: 3.2 })
   slide.addText('R1: Prompt Injection', {
     x: 0.75, y: 1.65, w: 3.2, h: 0.35,
@@ -777,7 +714,7 @@ function buildSlide8(pptx) {
     { fontSize: 9, color: THEME.gray })
 
   // Evidence
-  addCard(slide, 4.4, 1.3, 2.5, 1.8, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 4.4, 1.3, 2.5, 1.8, { fill: THEME.bgAlt, border: THEME.navy })
   addMonoLabel(slide, 4.55, 1.4, 'EVIDENCE', { w: 2.2 })
   const evidenceItems = ['Rule ID: R1', 'Code path + line', 'Fingerprint: SHA256', 'Engine v2025.1.0', 'Timestamp: ISO8601']
   evidenceItems.forEach((item, i) => {
@@ -805,7 +742,7 @@ function buildSlide8(pptx) {
     const row = Math.floor(i / 2)
     const x = 7.5 + col * 2.7
     const y = 1.3 + row * 0.65
-    addCard(slide, x, y, 2.5, 0.55, { fill: THEME.bgAlt, border: THEME.emerald })
+    addCard(slide, x, y, 2.5, 0.55, { fill: THEME.bgAlt, border: THEME.navy })
     slide.addText(fw.name, {
       x: x + 0.1, y: y + 0.05, w: 2.3, h: 0.25,
       fontSize: 9, fontFace: THEME.heading, bold: true, color: THEME.white
@@ -819,13 +756,13 @@ function buildSlide8(pptx) {
   // Flow text
   addBodyText(slide, 0.6, 3.4, 12, 0.3,
     'Flow: Finding → Evidence → Framework Mapping → Control Coverage → Audit Package',
-    { fontSize: 10, color: THEME.emerald, bold: true })
+    { fontSize: 10, color: THEME.navy, bold: true })
 
   // Strategic line
-  addCard(slide, 0.6, 3.9, 12.1, 1.2, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 0.6, 3.9, 12.1, 1.2, { fill: THEME.bgAlt, border: THEME.navy })
   slide.addText('Strategic Value', {
     x: 0.8, y: 4.0, w: 11.7, h: 0.3,
-    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   addBodyText(slide, 0.8, 4.3, 11.7, 0.7,
     'A single remediation can generate reusable technical evidence across multiple assurance reviews. The same source change, retest and evidence record can support related OWASP, NIST, SOC 2, ISO and EU AI Act control evaluations — without recollecting the technical evidence separately for each framework.',
@@ -834,12 +771,12 @@ function buildSlide8(pptx) {
   // Tagline
   addBodyText(slide, 0.6, 5.3, 12, 0.3,
     'Remediate once. Reuse the evidence across frameworks.',
-    { fontSize: 12, color: THEME.emerald, bold: true })
+    { fontSize: 12, color: THEME.navy, bold: true })
 
   // Source footer
   addBodyText(slide, 0.6, 5.7, 12, 0.3,
     'Source: lib/ai-security/compliance-mappings.ts — 82 unique rule IDs mapped to 13 compliance frameworks.',
-    { fontSize: 8, color: THEME.grayDark })
+    { fontSize: 8, color: THEME.grayMid })
 
   // Framework list
   addBodyText(slide, 0.6, 6.1, 12, 0.5,
@@ -870,7 +807,7 @@ function buildSlide9(pptx) {
   addRightArrow(slide, 3.7, 2.0, 0.3)
 
   // Pipeline
-  addCard(slide, 4.1, 1.3, 4.5, 1.5, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 4.1, 1.3, 4.5, 1.5, { fill: THEME.bgAlt, border: THEME.navy })
   addMonoLabel(slide, 4.25, 1.4, 'DECISION PIPELINE', { w: 4.2 })
   slide.addText('6 Nodes: INPUT → PROMPT → RETRIEVAL → TOOLS → MODEL → DECISION', {
     x: 4.25, y: 1.7, w: 4.2, h: 0.3,
@@ -878,7 +815,7 @@ function buildSlide9(pptx) {
   })
   slide.addText('Decision Integrity Score (DIS) = weighted average × coverage penalty', {
     x: 4.25, y: 2.1, w: 4.2, h: 0.3,
-    fontSize: 9, fontFace: THEME.sans, color: THEME.emerald
+    fontSize: 9, fontFace: THEME.sans, color: THEME.navy
   })
   slide.addText('NIST AI RMF: GOVERN · MAP · MEASURE · MANAGE', {
     x: 4.25, y: 2.4, w: 4.2, h: 0.3,
@@ -889,7 +826,7 @@ function buildSlide9(pptx) {
   addRightArrow(slide, 8.7, 2.0, 0.3)
 
   // Output
-  addCard(slide, 9.1, 1.3, 3.6, 1.5, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 9.1, 1.3, 3.6, 1.5, { fill: THEME.bgAlt, border: THEME.navy })
   addMonoLabel(slide, 9.25, 1.4, 'OUTPUT', { w: 3.3 })
   const outputs = ['DIS score (0–100)', 'Per-node breakdown', 'Audit package (JSON)', 'Review sign-off chain', 'Drift detection']
   outputs.forEach((item, i) => {
@@ -904,7 +841,7 @@ function buildSlide9(pptx) {
   addCard(slide, 0.6, 3.1, 5.8, 2.8, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Current Implementation', {
     x: 0.8, y: 3.2, w: 5.4, h: 0.35,
-    fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   addStatusTag(slide, 0.8, 3.6, 'IMPLEMENTED', 'implemented')
   const currentItems = [
@@ -925,10 +862,10 @@ function buildSlide9(pptx) {
   })
 
   // Roadmap & next capabilities
-  addCard(slide, 6.9, 3.1, 5.8, 2.8, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 6.9, 3.1, 5.8, 2.8, { fill: THEME.bgAlt, border: THEME.navy })
   slide.addText('Roadmap & Next Capabilities', {
     x: 7.1, y: 3.2, w: 5.4, h: 0.35,
-    fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   addStatusTag(slide, 7.1, 3.6, 'ACTIVE DEVELOPMENT', 'implemented')
   const hardeningItems = [
@@ -949,7 +886,7 @@ function buildSlide9(pptx) {
   // Product principle
   addBodyText(slide, 0.6, 6.2, 12, 0.3,
     'Product principle: UI never computes scores — it only reads from aggregation output tables. Methodology version is locked at compute time.',
-    { fontSize: 10, color: THEME.emerald, bold: true })
+    { fontSize: 10, color: THEME.navy, bold: true })
 
   // Maturity notes
   addBodyText(slide, 0.6, 6.6, 12, 0.3,
@@ -966,10 +903,10 @@ function buildSlide10(pptx) {
   addSlideTitle(slide, 'Validation should change when the system changes.')
 
   // Compliance Twin
-  addCard(slide, 0.6, 1.3, 5.8, 3.0, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 0.6, 1.3, 5.8, 3.0, { fill: THEME.bgAlt, border: THEME.navy })
   slide.addText('Compliance Twin', {
     x: 0.8, y: 1.4, w: 5.4, h: 0.35,
-    fontSize: 13, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 13, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   addStatusTag(slide, 0.8, 1.8, 'SUBSTANTIVE SUBSYSTEM', 'implemented')
   const twinItems = [
@@ -1009,23 +946,19 @@ function buildSlide10(pptx) {
 
   killLayers.forEach((kl, i) => {
     const y = 2.2 + i * 0.35
-    const statusColor = kl.status === 'implemented' ? THEME.emerald : THEME.amber
     slide.addText(kl.layer, {
       x: 7.1, y, w: 0.4, h: 0.3,
-      fontSize: 10, fontFace: THEME.mono, color: THEME.emerald, bold: true
+      fontSize: 10, fontFace: THEME.sans, color: THEME.navy, bold: true
     })
     slide.addText(kl.name, {
       x: 7.6, y, w: 3.5, h: 0.3,
-      fontSize: 9, fontFace: THEME.sans, color: THEME.white
-    })
-    slide.addShape('roundRect', {
-      x: 11.2, y: y + 0.02, w: 1.3, h: 0.26,
-      fill: { color: statusColor }, line: { type: 'none' }, rectRadius: 0.03
+      fontSize: 9, fontFace: THEME.sans, color: THEME.gray
     })
     slide.addText(kl.status === 'implemented' ? 'AVAILABLE' : 'ROADMAP', {
-      x: 11.2, y: y + 0.02, w: 1.3, h: 0.26,
-      fontSize: 7, fontFace: THEME.mono, color: 'FFFFFF',
-      align: 'center', valign: 'middle'
+      x: 11.2, y, w: 1.3, h: 0.3,
+      fontSize: 8, fontFace: THEME.sans,
+      color: kl.status === 'implemented' ? THEME.navy : THEME.grayMid,
+      bold: true, align: 'right', valign: 'middle'
     })
   })
 
@@ -1038,10 +971,10 @@ function buildSlide10(pptx) {
   // Key line
   addBodyText(slide, 0.6, 4.6, 12, 0.4,
     'Compliance Twin maintains a live digital twin of regulatory state. Kill Switch provides emergency shutdown. Together: continuous assurance with enforcement capability.',
-    { fontSize: 11, color: THEME.emerald, bold: true })
+    { fontSize: 11, color: THEME.navy, bold: true })
 
   // Maturity notes
-  addCard(slide, 0.6, 5.2, 12.1, 1.5, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 0.6, 5.2, 12.1, 1.5, { fill: THEME.bgAlt, border: THEME.navy })
   addBodyText(slide, 0.8, 5.3, 11.7, 0.3,
     'Maturity Notes:',
     { fontSize: 10, color: THEME.white, bold: true })
@@ -1073,7 +1006,7 @@ function buildSlide11(pptx) {
     addCard(slide, 0.6, y, 8.0, 0.52, { fill: THEME.bgAlt, border: THEME.cardBorder })
     slide.addText(layer.name, {
       x: 0.8, y: y + 0.05, w: 2.5, h: 0.4,
-      fontSize: 10, fontFace: THEME.heading, bold: true, color: THEME.emerald
+      fontSize: 10, fontFace: THEME.heading, bold: true, color: THEME.navy
     })
     addBodyText(slide, 3.3, y + 0.05, 5.2, 0.4, layer.desc, { fontSize: 9, color: THEME.white })
   })
@@ -1090,15 +1023,15 @@ function buildSlide11(pptx) {
 
   outcomes.forEach((outcome, i) => {
     const y = 1.5 + i * 1.5
-    addCard(slide, 9.1, y, 3.6, 1.3, { fill: THEME.emeraldBg, border: THEME.emerald })
+    addCard(slide, 9.1, y, 3.6, 1.3, { fill: THEME.bgAlt, border: THEME.navy })
     // Left accent strip
     slide.addShape('rect', {
       x: 9.1, y, w: 0.06, h: 1.3,
-      fill: { color: THEME.emerald }, line: { type: 'none' }
+      fill: { color: THEME.navy }, line: { type: 'none' }
     })
     slide.addText(outcome.title, {
       x: 9.3, y: y + 0.1, w: 3.2, h: 0.35,
-      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.emeraldDark
+      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.navyDark
     })
     addBodyText(slide, 9.3, y + 0.5, 3.2, 0.7, outcome.desc, { fontSize: 9, color: THEME.gray })
   })
@@ -1106,10 +1039,10 @@ function buildSlide11(pptx) {
   // Main line
   addBodyText(slide, 0.6, 6.0, 12, 0.3,
     'Each layer reinforces the next. The evidence relationship — not any single scanner — is the defensible asset.',
-    { fontSize: 11, color: THEME.emerald, bold: true })
+    { fontSize: 11, color: THEME.navy, bold: true })
 
   // Discussion questions
-  addCard(slide, 0.6, 6.4, 12.1, 0.7, { fill: THEME.emeraldBg, border: THEME.emerald })
+  addCard(slide, 0.6, 6.4, 12.1, 0.7, { fill: THEME.bgAlt, border: THEME.navy })
   slide.addText('Discussion:  What is the strongest initial product wedge?  ·  Which compliance framework drives the most urgent demand?  ·  Where does HAIEC create the most switching cost?',
     { x: 0.8, y: 6.4, w: 11.7, h: 0.7,
       fontSize: 9, fontFace: THEME.sans, color: THEME.gray,
@@ -1130,11 +1063,11 @@ function buildAppendixA(pptx) {
   let colX = 0.4
 
   // Header row
-  addCard(slide, 0.4, 1.2, 12.5, 0.4, { fill: THEME.bgAlt, border: THEME.emerald })
+  addCard(slide, 0.4, 1.2, 12.5, 0.4, { fill: THEME.bgAlt, border: THEME.navy })
   headers.forEach((h, i) => {
     slide.addText(h, {
       x: colX + 0.1, y: 1.22, w: colWidths[i] - 0.1, h: 0.35,
-      fontSize: 9, fontFace: THEME.heading, bold: true, color: THEME.emerald,
+      fontSize: 9, fontFace: THEME.heading, bold: true, color: THEME.navy,
       valign: 'middle'
     })
     colX += colWidths[i]
@@ -1221,8 +1154,8 @@ function buildAppendixA(pptx) {
     rx += colWidths[0]
 
     // Status
-    const statusColor = row.statusType === 'implemented' ? THEME.emerald :
-                        row.statusType === 'partial' ? THEME.amber : THEME.emeraldDark
+    const statusColor = row.statusType === 'implemented' ? THEME.navy :
+                        row.statusType === 'partial' ? THEME.grayMid : THEME.navyDark
     slide.addText(row.status, {
       x: rx + 0.1, y: y + 0.02, w: colWidths[1] - 0.1, h: 0.55,
       fontSize: 7, fontFace: THEME.mono, color: statusColor, valign: 'middle'
@@ -1246,7 +1179,7 @@ function buildAppendixA(pptx) {
     // Next Evolution
     slide.addText(row.limit, {
       x: rx + 0.1, y: y + 0.02, w: colWidths[4] - 0.1, h: 0.55,
-      fontSize: 7, fontFace: THEME.sans, color: THEME.emerald, valign: 'middle'
+      fontSize: 7, fontFace: THEME.sans, color: THEME.navy, valign: 'middle'
     })
   })
 
@@ -1266,7 +1199,7 @@ function buildAppendixB(pptx) {
   addCard(slide, 0.6, 1.4, 3.8, 2.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Static Detection', {
     x: 0.8, y: 1.5, w: 3.4, h: 0.3,
-    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   const staticData = [
     `Semgrep YAML rules: ${CAPABILITY_COUNTS.semgrepRules}`,
@@ -1287,7 +1220,7 @@ function buildAppendixB(pptx) {
     slide.addText(item, {
       x: 0.8, y: 1.85 + i * 0.19, w: 3.4, h: 0.18,
       fontSize: 8, fontFace: item.includes(':') ? THEME.mono : THEME.sans,
-      color: item.includes(':') && !item.startsWith('  ') ? THEME.emerald : THEME.white
+      color: item.includes(':') && !item.startsWith('  ') ? THEME.navy : THEME.white
     })
   })
 
@@ -1295,7 +1228,7 @@ function buildAppendixB(pptx) {
   addCard(slide, 4.6, 1.4, 3.8, 2.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Runtime Attack Templates', {
     x: 4.8, y: 1.5, w: 3.4, h: 0.3,
-    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   const runtimeData = [
     `Base templates: ${CAPABILITY_COUNTS.baseAttackTemplates}`,
@@ -1314,7 +1247,7 @@ function buildAppendixB(pptx) {
     slide.addText(item, {
       x: 4.8, y: 1.85 + i * 0.19, w: 3.4, h: 0.18,
       fontSize: 8, fontFace: item.includes(':') ? THEME.mono : THEME.sans,
-      color: item.includes('Total') ? THEME.emerald : THEME.white
+      color: item.includes('Total') ? THEME.navy : THEME.white
     })
   })
 
@@ -1322,7 +1255,7 @@ function buildAppendixB(pptx) {
   addCard(slide, 8.6, 1.4, 4.1, 2.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Safety Properties & Frameworks', {
     x: 8.8, y: 1.5, w: 3.7, h: 0.3,
-    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   const safetyData = [
     `Safety properties: ${CAPABILITY_COUNTS.safetyProperties}`,
@@ -1350,7 +1283,7 @@ function buildAppendixB(pptx) {
   addCard(slide, 0.6, 4.1, 12.1, 2.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('API Surface', {
     x: 0.8, y: 4.2, w: 11.7, h: 0.3,
-    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 11, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
 
   const apiData = [
@@ -1376,7 +1309,7 @@ function buildAppendixB(pptx) {
     })
     slide.addText(`${api.routes} routes`, {
       x: x + 1.8, y, w: 1.0, h: 0.25,
-      fontSize: 8, fontFace: THEME.mono, color: THEME.emerald
+      fontSize: 8, fontFace: THEME.mono, color: THEME.navy
     })
     slide.addText(api.path, {
       x, y: y + 0.25, w: 2.8, h: 0.2,
@@ -1387,7 +1320,7 @@ function buildAppendixB(pptx) {
   // Total
   slide.addText(`Total API routes: ${totalRoutes}`, {
     x: 0.8, y: 6.0, w: 5, h: 0.3,
-    fontSize: 10, fontFace: THEME.mono, color: THEME.emerald, bold: true
+    fontSize: 10, fontFace: THEME.mono, color: THEME.navy, bold: true
   })
   slide.addText(`Jurisdictions: ${CAPABILITY_COUNTS.jurisdictions}  ·  Pipeline nodes: ${CAPABILITY_COUNTS.pipelineNodes}  ·  Seed rules: ${CAPABILITY_COUNTS.rulepackSeedRules}`, {
     x: 5.5, y: 6.0, w: 7, h: 0.3,
@@ -1407,7 +1340,7 @@ function buildAppendixC(pptx) {
   addCard(slide, 0.6, 1.2, 12.1, 2.5, { fill: THEME.bgAlt, border: THEME.cardBorder })
   slide.addText('Evidence Integrity Chain', {
     x: 0.8, y: 1.3, w: 11.7, h: 0.3,
-    fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
 
   const chainItems = [
@@ -1428,7 +1361,7 @@ function buildAppendixC(pptx) {
     const y = 1.7 + row * 0.5
     slide.addShape('rect', {
       x: x, y: y, w: 0.08, h: 0.4,
-      fill: { color: item.implemented ? THEME.emerald : THEME.amber }, line: { type: 'none' }
+      fill: { color: item.implemented ? THEME.navy : THEME.grayMid }, line: { type: 'none' }
     })
     slide.addText(item.label, {
       x: x + 0.15, y, w: 5.5, h: 0.2,
@@ -1454,7 +1387,7 @@ function buildAppendixC(pptx) {
   evidenceTypes.forEach((et, i) => {
     slide.addText(et.type, {
       x: 0.8, y: 4.4 + i * 0.35, w: 2.5, h: 0.3,
-      fontSize: 8, fontFace: THEME.mono, color: THEME.emerald
+      fontSize: 8, fontFace: THEME.mono, color: THEME.navy
     })
     slide.addText(et.desc, {
       x: 3.3, y: 4.4 + i * 0.35, w: 2.9, h: 0.3,
@@ -1463,10 +1396,10 @@ function buildAppendixC(pptx) {
   })
 
   // Verification architecture
-  addCard(slide, 0.8, 5.5, 5.4, 0.8, { fill: THEME.bg, border: THEME.emerald })
+  addCard(slide, 0.8, 5.5, 5.4, 0.8, { fill: THEME.bg, border: THEME.navy })
   slide.addText('Verification Architecture', {
     x: 0.9, y: 5.55, w: 5.2, h: 0.25,
-    fontSize: 8, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 8, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   slide.addText('HMAC-SHA256 provides integrity and authentication for verification responses. Verification via HAIEC /api/verify endpoint with key rotation and replay protection. Upgrade path: Ed25519 public-key signatures for independent verification. Stronger non-repudiation would additionally require identity-bound key custody and trusted timestamping.', {
     x: 0.9, y: 5.8, w: 5.2, h: 0.5,
@@ -1488,7 +1421,7 @@ function buildAppendixC(pptx) {
   artifactTypes.forEach((at, i) => {
     slide.addText(at.type, {
       x: 7.1, y: 4.4 + i * 0.35, w: 3.0, h: 0.3,
-      fontSize: 7, fontFace: THEME.mono, color: THEME.emerald
+      fontSize: 7, fontFace: THEME.mono, color: THEME.navy
     })
     slide.addText(at.desc, {
       x: 10.1, y: 4.4 + i * 0.35, w: 2.4, h: 0.3,
@@ -1497,10 +1430,10 @@ function buildAppendixC(pptx) {
   })
 
   // Scope statement
-  addCard(slide, 7.1, 5.5, 5.4, 0.8, { fill: THEME.bg, border: THEME.emerald })
+  addCard(slide, 7.1, 5.5, 5.4, 0.8, { fill: THEME.bg, border: THEME.navy })
   slide.addText('Scope Verification', {
     x: 7.2, y: 5.55, w: 5.2, h: 0.25,
-    fontSize: 8, fontFace: THEME.heading, bold: true, color: THEME.emerald
+    fontSize: 8, fontFace: THEME.heading, bold: true, color: THEME.navy
   })
   slide.addText('Each artifact carries scopeVerified and scopeNotVerified arrays. Status labels (e.g., SECURED) reflect rule pass/fail posture within verified scope, providing precise, scoped assurance.', {
     x: 7.2, y: 5.8, w: 5.2, h: 0.5,
@@ -1536,21 +1469,17 @@ function buildSlide12(pptx) {
     const x = 0.6 + col * 6.2
     const y = 1.8 + row * 1.6
 
-    addCard(slide, x, y, 5.9, 1.4, { fill: THEME.card, border: THEME.emerald })
-    // Number badge
-    slide.addShape('roundRect', {
-      x: x + 0.15, y: y + 0.15, w: 0.4, h: 0.4,
-      fill: { color: THEME.emerald }, line: { type: 'none' }, rectRadius: 0.05
-    })
+    addCard(slide, x, y, 5.9, 1.4, { fill: THEME.bgAlt, border: THEME.cardBorder })
+    // Number — flat text
     slide.addText(demo.num, {
       x: x + 0.15, y: y + 0.15, w: 0.4, h: 0.4,
-      fontSize: 14, fontFace: THEME.heading, bold: true, color: 'FFFFFF',
-      align: 'center', valign: 'middle'
+      fontSize: 18, fontFace: THEME.heading, bold: true, color: THEME.navy,
+      align: 'left', valign: 'middle'
     })
     // Title
     slide.addText(demo.title, {
       x: x + 0.7, y: y + 0.15, w: 5.0, h: 0.35,
-      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.white
+      fontSize: 12, fontFace: THEME.heading, bold: true, color: THEME.navy
     })
     // Description
     addBodyText(slide, x + 0.7, y + 0.55, 5.0, 0.8, demo.desc, { fontSize: 9, color: THEME.gray })
@@ -1559,7 +1488,7 @@ function buildSlide12(pptx) {
   // Bottom line
   addBodyText(slide, 0.6, 6.7, 12, 0.3,
     'These demonstrations are more persuasive than counts or API-route tables. Available for live walkthrough on request.',
-    { fontSize: 10, color: THEME.emerald, bold: true })
+    { fontSize: 10, color: THEME.navy, bold: true })
 
   addFooter(slide, 12, TOTAL_SLIDES)
 }
