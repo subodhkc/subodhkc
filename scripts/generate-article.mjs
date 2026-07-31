@@ -692,6 +692,7 @@ async function main() {
   const args = process.argv.slice(2)
   const topicArg = args.find((a) => a.startsWith('--topic='))?.split('=')[1]
   const dryRun = args.includes('--dry-run')
+  const reviewOnly = args.includes('--review-only')
 
   const posts = getAllPosts()
   console.log(`Found ${posts.length} existing posts`)
@@ -732,25 +733,36 @@ async function main() {
   // Validate generated article
   const { warnings, errors, wordCount } = validateArticle(article, item)
 
+  // Auto-publish mode: upgrade critical warnings to errors
+  const criticalWarnings = warnings.filter((w) =>
+    w.includes('AI writing tells detected') ||
+    w.includes('internal links') ||
+    w.includes('words (target:')
+  )
+  if (!reviewOnly && !dryRun) {
+    for (const cw of criticalWarnings) {
+      errors.push(cw)
+    }
+  }
+
   if (errors.length > 0) {
     console.log('\n  ERRORS (must fix before publishing):')
     for (const e of errors) {
       console.log(`    - ${e}`)
     }
-    if (!dryRun) {
-      console.error('  Aborting due to validation errors.')
-      process.exit(1)
+    console.error('  Aborting due to validation errors.')
+    process.exit(1)
+  }
+
+  const remainingWarnings = warnings.filter((w) => !criticalWarnings.includes(w))
+  if (remainingWarnings.length > 0) {
+    console.log('\n  Warnings (non-blocking):')
+    for (const w of remainingWarnings) {
+      console.log(`    - ${w}`)
     }
   }
 
-  if (warnings.length > 0) {
-    console.log('\n  Warnings:')
-    for (const w of warnings) {
-      console.log(`    - ${w}`)
-    }
-  } else {
-    console.log('\n  All quality checks passed')
-  }
+  console.log('\n  All quality gate checks passed')
 
   console.log(`  Word count: ~${wordCount}`)
 
@@ -846,11 +858,17 @@ async function main() {
     }
   }
 
-  console.log(`\nNext steps:`)
-  console.log(`  1. Review the generated article`)
-  console.log(`  2. The GitHub Action will auto-generate social content`)
-  console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
-  console.log(`  4. Article must receive editorial approval before publishing`)
+  if (reviewOnly) {
+    console.log(`\nNext steps (review-only mode):`)
+    console.log(`  1. Review the generated article`)
+    console.log(`  2. Manually approve and commit to publish`)
+  } else {
+    console.log(`\nArticle auto-published:`)
+    console.log(`  1. Article saved and ready for commit`)
+    console.log(`  2. GitHub Action will auto-generate social content`)
+    console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
+    console.log(`  4. LinkedIn + Dev.to cross-post will trigger on commit`)
+  }
 }
 
 main().catch((err) => {
