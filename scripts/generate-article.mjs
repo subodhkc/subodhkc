@@ -387,8 +387,14 @@ async function generateArticle(item, posts) {
   const articleType = ARTICLE_TYPES[item.type] || ARTICLE_TYPES['authority']
 
   const existingPostsContext = posts
-    .slice(0, 15)
-    .map((p) => `- ${p.title} (slug: ${p.slug}, keywords: ${(p.keywords || []).join(', ')})`)
+    .slice(0, 30)
+    .filter((p) => {
+      const pKeywords = (p.keywords || []).join(' ').toLowerCase()
+      const pillarKeywords = pillar.name.toLowerCase().split(/[\s-]+/)
+      return pillarKeywords.some((kw) => pKeywords.includes(kw) || (p.title || '').toLowerCase().includes(kw))
+    })
+    .slice(0, 5)
+    .map((p) => `- ${p.title} (slug: ${p.slug})`)
     .join('\n')
 
   const internalLinkTargets = (item.internalLinks || [])
@@ -500,12 +506,12 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
           messages: [
             {
               role: 'system',
-              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You never use em-dashes. You never use AI writing patterns. You never fabricate personal experiences or claims. You stick to facts and technical knowledge. You return only valid JSON.`,
+              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You return only valid JSON.`,
             },
             { role: 'user', content: prompt },
           ],
           temperature: 0.8,
-          max_tokens: 8000,
+          max_tokens: item.type === 'operator-brief' ? 4000 : item.type === 'implementation' ? 6000 : 8000,
         }),
       })
 
@@ -857,8 +863,8 @@ async function main() {
   fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
   console.log(`\nSaved to: data/blog/posts/${post.slug}.json`)
 
-  // Generate downloadable checklist
-  if (!dryRun) {
+  // Generate downloadable checklist (skip for operator-briefs - too short for useful checklist)
+  if (!dryRun && item.type !== 'operator-brief') {
     console.log('\nGenerating downloadable checklist...')
     const checklist = await generateChecklist(article, post.slug)
     if (checklist) {

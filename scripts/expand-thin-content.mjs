@@ -247,7 +247,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
           messages: [
             {
               role: 'system',
-              content: 'You are an expert AI systems architect who expands and improves existing technical content. You never use em-dashes or AI writing patterns. You return only valid JSON.',
+              content: 'You are an expert AI systems architect who expands and improves existing technical content. You return only valid JSON.',
             },
             { role: 'user', content: prompt },
           ],

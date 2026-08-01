@@ -70,7 +70,7 @@ async function generateSocialContent(post) {
     process.exit(1)
   }
 
-  const plainText = stripHtml(post.contentHtml).slice(0, 4000)
+  const plainText = stripHtml(post.contentHtml).slice(0, 2000)
   const url = `${SITE_URL}/blog/${post.slug}`
   const keywords = post.keywords?.join(', ') || ''
 
@@ -141,7 +141,7 @@ Format each section with markdown headers. Do not add any preamble or conclusion
     body: JSON.stringify({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: 'You are an expert social media strategist who creates high-engagement content for B2B tech audiences. You understand AI governance, enterprise architecture, and compliance niches. You write in a natural, human voice. You never use em-dashes. You never use AI writing patterns like "Here\'s what I\'ve learned" or "After working across". You never fabricate personal experiences or claims. You stick to facts from the article.' },
+        { role: 'system', content: 'You are an expert social media strategist who creates high-engagement content for B2B tech audiences. You understand AI governance, enterprise architecture, and compliance niches. You write in a natural, human voice. You stick to facts from the article.' },
         { role: 'user', content: prompt },
       ],
       temperature: 0.7,

@@ -74,7 +74,7 @@ jobs:
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
             echo "Generating social content for: $SLUG"
-            node scripts/generate-social.mjs --slug="$SLUG" --force
+            node scripts/generate-social.mjs --slug="$SLUG" --force --no-review
           fi
 
       - name: Upload article artifact
