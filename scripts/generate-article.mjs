@@ -558,7 +558,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
             { role: 'user', content: prompt },
           ],
           temperature: 0.8,
-          max_tokens: item.type === 'operator-brief' ? 4000 : item.type === 'implementation' ? 6000 : 8000,
+          max_tokens: item.type === 'operator-brief' ? 8000 : item.type === 'implementation' ? 12000 : 16000,
         }),
       })
 
@@ -593,11 +593,16 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
 
   const data = await response.json()
   const content = data.choices[0]?.message?.content
+  const finishReason = data.choices[0]?.finish_reason
 
   if (!content) {
-    console.error('OpenAI returned empty response (possibly truncated by max_tokens)')
-    console.error('Finish reason:', data.choices[0]?.finish_reason)
+    console.error('OpenAI returned empty response')
+    console.error('Finish reason:', finishReason)
     process.exit(1)
+  }
+
+  if (finishReason === 'length') {
+    console.warn('OpenAI response was truncated (finish_reason: length). Attempting JSON repair...')
   }
 
   const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()
@@ -606,9 +611,35 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
   try {
     article = JSON.parse(jsonStr)
   } catch (e) {
-    console.error('Failed to parse OpenAI response as JSON')
-    console.error('Response:', content.slice(0, 500))
-    process.exit(1)
+    // Attempt to repair truncated JSON by closing open strings and objects
+    console.warn('Initial JSON parse failed. Attempting repair of truncated response...')
+    let repaired = jsonStr
+
+    // If truncated mid-string, close the string and object braces
+    const lastQuote = repaired.lastIndexOf('"')
+    const lastBrace = repaired.lastIndexOf('}')
+    if (lastQuote > lastBrace) {
+      // Truncated inside a string value - close it
+      repaired = repaired.slice(0, lastQuote + 1) + '}]}}'
+    }
+
+    // Count open vs close braces to balance them
+    const openBraces = (repaired.match(/{/g) || []).length
+    const closeBraces = (repaired.match(/}/g) || []).length
+    const openBrackets = (repaired.match(/\[/g) || []).length
+    const closeBrackets = (repaired.match(/\]/g) || []).length
+    repaired += '}'.repeat(Math.max(0, openBraces - closeBraces))
+    repaired += ']'.repeat(Math.max(0, openBrackets - closeBrackets))
+
+    try {
+      article = JSON.parse(repaired)
+      console.warn('JSON repair succeeded - article may have truncated content')
+    } catch (e2) {
+      console.error('Failed to parse OpenAI response as JSON')
+      console.error('Finish reason:', finishReason)
+      console.error('Response:', content.slice(0, 500))
+      process.exit(1)
+    }
   }
 
   return article
