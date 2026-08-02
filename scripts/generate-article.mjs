@@ -637,7 +637,7 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
             { role: 'user', content: prompt },
           ],
           temperature: 0.7,
-          max_tokens: item.type === 'operator-brief' ? 10000 : item.type === 'implementation' ? 14000 : 18000,
+          max_tokens: item.type === 'operator-brief' ? 8000 : item.type === 'implementation' ? 12000 : 16000,
           response_format: { type: 'json_object' },
         }),
       })
