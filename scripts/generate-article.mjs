@@ -423,7 +423,7 @@ Begin with a concrete decision, failure, conflict, incident pattern, or operatio
 // Article generation
 // ---------------------------------------------------------------------------
 
-async function generateArticle(item, posts) {
+async function generateArticle(item, posts, retryHint) {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {
     console.error('ERROR: OPENAI_API_KEY not set')
@@ -460,7 +460,7 @@ AUTHOR: Subodh KC
 TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X." Written by someone who builds production systems.
 
 ARTICLE TYPE: ${articleType.label}
-TARGET WORD COUNT: ${articleType.minWords}-${articleType.maxWords} words
+TARGET WORD COUNT: ${articleType.minWords}-${articleType.maxWords} words. This is a HARD REQUIREMENT, not a suggestion. Articles under ${articleType.minWords} words will be rejected. Write comprehensive, detailed content for each section. Each H2 section should be 150-300 words. Do not summarize or abbreviate - fully develop each section with specific examples, steps, and technical detail.
 
 ${ARTICLE_STRUCTURE}
 
@@ -531,7 +531,7 @@ OUTPUT FORMAT - return a JSON object with these exact fields:
 }
 
 Do NOT include id, slug, createdAt, or any other fields - only the fields listed above.
-Return ONLY the JSON object, no markdown code fences, no preamble.`
+Return ONLY the JSON object, no markdown code fences, no preamble.${retryHint ? `\n\nPREVIOUS ATTEMPT FAILED VALIDATION. You MUST fix these issues:\n${retryHint}` : ''}`
 
   console.log(`Generating ${articleType.label}: ${item.title}`)
   console.log(`Pillar: ${pillar.name}`)
@@ -821,51 +821,89 @@ async function main() {
       score: 70,
       classification: 'new-intent',
     }
-    article = await generateArticle(item, posts)
   } else {
     item = pickNextTopic(posts)
     console.log(`\nSelected: ${item.title}`)
     console.log(`Classification: ${item.classification}`)
-    article = await generateArticle(item, posts)
   }
 
-  // Post-generation dedup check
-  const existingTitlesForCheck = getExistingTitles(posts)
-  const generatedTitleLower = (article.title || '').toLowerCase()
-  const similarityHit = existingTitlesForCheck.find(
-    (t) => titleSimilarity(t, generatedTitleLower) > 0.7
-  )
-  if (similarityHit) {
-    console.error(`\n  DUPLICATE DETECTED: Generated title "${article.title}" is too similar to existing post "${similarityHit}"`)
-    console.error('  Aborting to prevent duplicate content. Try again with a different topic.')
+  // Generation + validation retry loop
+  const maxGenAttempts = 3
+  let validationErrors = []
+  let validationWarnings = []
+  let wordCount = 0
+
+  for (let genAttempt = 1; genAttempt <= maxGenAttempts; genAttempt++) {
+    const retryHint = genAttempt > 1 ? validationErrors.join('\n') : null
+    if (retryHint) {
+      console.log(`\n  Retry attempt ${genAttempt}/${maxGenAttempts} - fixing validation issues...`)
+    }
+
+    article = await generateArticle(item, posts, retryHint)
+
+    // Post-generation dedup check
+    const existingTitlesForCheck = getExistingTitles(posts)
+    const generatedTitleLower = (article.title || '').toLowerCase()
+    const similarityHit = existingTitlesForCheck.find(
+      (t) => titleSimilarity(t, generatedTitleLower) > 0.7
+    )
+    if (similarityHit) {
+      console.error(`\n  DUPLICATE DETECTED: Generated title "${article.title}" is too similar to existing post "${similarityHit}"`)
+      console.error('  Aborting to prevent duplicate content. Try again with a different topic.')
+      process.exit(1)
+    }
+
+    // Validate generated article
+    const result = validateArticle(article, item)
+    validationWarnings = result.warnings
+    validationErrors = result.errors
+    wordCount = result.wordCount
+
+    // Auto-publish mode: upgrade critical warnings to errors
+    const criticalWarnings = validationWarnings.filter((w) =>
+      w.includes('AI writing tells detected') ||
+      w.includes('internal links') ||
+      w.includes('words (target:')
+    )
+    if (!reviewOnly && !dryRun) {
+      for (const cw of criticalWarnings) {
+        validationErrors.push(cw)
+      }
+    }
+
+    if (validationErrors.length === 0) {
+      break
+    }
+
+    if (genAttempt < maxGenAttempts) {
+      console.log(`\n  Attempt ${genAttempt} validation errors (will retry):`)
+      for (const e of validationErrors) {
+        console.log(`    - ${e}`)
+      }
+      // Reset errors for next attempt - only carry forward the fixable ones
+      validationErrors = validationErrors.filter((e) =>
+        e.includes('words (target:') ||
+        e.includes('internal links') ||
+        e.includes('AI writing tells')
+      )
+    }
+  }
+
+  if (validationErrors.length > 0) {
+    console.log('\n  ERRORS (must fix before publishing):')
+    for (const e of validationErrors) {
+      console.log(`    - ${e}`)
+    }
+    console.error('  Aborting due to validation errors after all retry attempts.')
     process.exit(1)
   }
 
-  // Validate generated article
-  const { warnings, errors, wordCount } = validateArticle(article, item)
-
-  // Auto-publish mode: upgrade critical warnings to errors
-  const criticalWarnings = warnings.filter((w) =>
+  const criticalWarnings = validationWarnings.filter((w) =>
     w.includes('AI writing tells detected') ||
     w.includes('internal links') ||
     w.includes('words (target:')
   )
-  if (!reviewOnly && !dryRun) {
-    for (const cw of criticalWarnings) {
-      errors.push(cw)
-    }
-  }
-
-  if (errors.length > 0) {
-    console.log('\n  ERRORS (must fix before publishing):')
-    for (const e of errors) {
-      console.log(`    - ${e}`)
-    }
-    console.error('  Aborting due to validation errors.')
-    process.exit(1)
-  }
-
-  const remainingWarnings = warnings.filter((w) => !criticalWarnings.includes(w))
+  const remainingWarnings = validationWarnings.filter((w) => !criticalWarnings.includes(w))
   if (remainingWarnings.length > 0) {
     console.log('\n  Warnings (non-blocking):')
     for (const w of remainingWarnings) {
