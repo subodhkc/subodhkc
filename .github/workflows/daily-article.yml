@@ -69,15 +69,21 @@ jobs:
             echo "review_only=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate social content
+      - name: Generate social content for all articles
         if: success() && steps.check.outputs.ran == 'true' && steps.check.outputs.review_only != 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          if [ -f data/blog/daily-manifest.json ]; then
+            SLUGS=$(node -e "const m=require('./data/blog/daily-manifest.json'); (m.articles||[]).forEach(a=>console.log(a.slug))")
+            for SLUG in $SLUGS; do
+              echo "Generating social content for: $SLUG"
+              node scripts/generate-social.mjs --slug="$SLUG" --force --no-review || echo "::warning::Social generation failed for $SLUG"
+            done
+          elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
-            echo "Generating social content for: $SLUG"
+            echo "No manifest found, generating social content for latest: $SLUG"
             node scripts/generate-social.mjs --slug="$SLUG" --force --no-review
           fi
 
@@ -88,8 +94,10 @@ jobs:
           name: article
           path: |
             data/blog/posts/
+            data/blog/daily-manifest.json
             data/social/
             public/blog-images/
+            public/downloads/
           retention-days: 1
 
   commit-and-push:
@@ -186,16 +194,24 @@ jobs:
             fi
           fi
 
-      - name: Post latest article to LinkedIn
+      - name: Post authority article to LinkedIn
         run: |
           if [ -z "$LINKEDIN_ACCESS_TOKEN" ] || [ -z "$LINKEDIN_MEMBER_ID" ]; then
             echo "::warning::LINKEDIN_ACCESS_TOKEN or LINKEDIN_MEMBER_ID not set - skipping LinkedIn post"
             exit 0
           fi
 
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          # Find the authority article from manifest, fall back to latest
+          SLUG=""
+          if [ -f data/blog/daily-manifest.json ]; then
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)")
+          fi
+          if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
+          fi
+
+          if [ -n "$SLUG" ]; then
             echo "Posting to LinkedIn: $SLUG"
             node scripts/post-linkedin.mjs --slug="$SLUG" || echo "::warning::LinkedIn post failed for $SLUG"
           else
@@ -217,7 +233,7 @@ jobs:
             done
           fi
 
-      - name: Cross-post to Dev.to
+      - name: Cross-post authority article to Dev.to
         if: success()
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
@@ -227,9 +243,17 @@ jobs:
             exit 0
           fi
 
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          # Find the authority article from manifest, fall back to latest
+          SLUG=""
+          if [ -f data/blog/daily-manifest.json ]; then
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)")
+          fi
+          if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
+          fi
+
+          if [ -n "$SLUG" ]; then
             echo "Cross-posting to Dev.to: $SLUG"
             node scripts/cross-post-devto.mjs --slug="$SLUG" || echo "::warning::Dev.to cross-post failed for $SLUG"
           else
@@ -241,29 +265,42 @@ jobs:
         env:
           GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
         run: |
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          # Collect all article URLs from manifest, fall back to latest
+          URL_LIST=""
+          if [ -f data/blog/daily-manifest.json ]; then
+            URL_LIST=$(node -e "const m=require('./data/blog/daily-manifest.json'); console.log((m.articles||[]).map(a=>'https://subodhkc.com/blog/'+a.slug).join(' '))")
+          elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
-            ARTICLE_URL="https://subodhkc.com/blog/${SLUG}"
+            URL_LIST="https://subodhkc.com/blog/${SLUG}"
+          fi
 
-            echo "Notifying search engines about new article: $ARTICLE_URL"
+          if [ -z "$URL_LIST" ]; then
+            echo "::warning::No blog posts found - skipping indexing notification"
+            exit 0
+          fi
 
-            # 1. Ping IndexNow (Bing, Yandex, Seznam)
-            INDEXNOW_RESP=$(curl -s -o /dev/null -w "%{http_code}" \
-              -X POST "https://api.indexnow.org/indexnow" \
-              -H "Content-Type: application/json" \
-              -d "{\"host\": \"subodhkc.com\", \"key\": \"subodhkcindexnowkey2026\", \"keyLocation\": \"https://subodhkc.com/subodhkcindexnowkey2026.txt\", \"urlList\": [\"$ARTICLE_URL\"]}")
-            echo "IndexNow response: $INDEXNOW_RESP"
+          echo "Notifying search engines about articles: $URL_LIST"
 
-            # 2. Submit to Google Indexing API (if credentials available)
-            if [ -z "$GCP_SERVICE_ACCOUNT_JSON" ]; then
-              echo "::notice::GCP_SERVICE_ACCOUNT_JSON not set - skipping Google Indexing API"
-              exit 0
-            fi
+          # Build JSON array of URLs for IndexNow
+          URL_JSON=$(node -e "const urls='$URL_LIST'.split(' '); console.log(JSON.stringify(urls))")
 
-            pip install cryptography -q
+          # 1. Ping IndexNow (Bing, Yandex, Seznam) - all URLs at once
+          INDEXNOW_RESP=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\": \"subodhkc.com\", \"key\": \"subodhkcindexnowkey2026\", \"keyLocation\": \"https://subodhkc.com/subodhkcindexnowkey2026.txt\", \"urlList\": $URL_JSON}")
+          echo "IndexNow response: $INDEXNOW_RESP"
 
-            ACCESS_TOKEN=$(python3 -c "
+          # 2. Submit to Google Indexing API (if credentials available)
+          if [ -z "$GCP_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::notice::GCP_SERVICE_ACCOUNT_JSON not set - skipping Google Indexing API"
+            exit 0
+          fi
+
+          pip install cryptography -q
+
+          ACCESS_TOKEN=$(python3 -c "
           import json, urllib.request, urllib.parse, base64, time
           from cryptography.hazmat.primitives import hashes, serialization
           from cryptography.hazmat.primitives.asymmetric import padding
@@ -288,29 +325,28 @@ jobs:
           req = urllib.request.Request('https://oauth2.googleapis.com/token', data=data)
           resp = urllib.request.urlopen(req)
           print(json.loads(resp.read())['access_token'])
-            ")
+          ")
 
-            if [ -n "$ACCESS_TOKEN" ]; then
+          if [ -n "$ACCESS_TOKEN" ]; then
+            for ARTICLE_URL in $URL_LIST; do
               GGL_RESP=$(curl -s -w "\n%{http_code}" \
                 -X POST "https://indexing.googleapis.com/v3/urlNotifications:publish" \
                 -H "Content-Type: application/json" \
                 -H "Authorization: Bearer $ACCESS_TOKEN" \
                 -d "{\"url\": \"$ARTICLE_URL\", \"type\": \"URL_UPDATED\"}")
               GGL_CODE=$(echo "$GGL_RESP" | tail -1)
-              echo "Google Indexing API response: $GGL_CODE"
+              echo "Google Indexing API response for $ARTICLE_URL: $GGL_CODE"
               if [ "$GGL_CODE" != "200" ]; then
                 echo "::error::Google Indexing API failed with HTTP $GGL_CODE for $ARTICLE_URL"
                 if [ "$GGL_CODE" = "403" ]; then
                   echo "::error::403 Permission denied. Add service account as Owner in Google Search Console > Settings > Users and permissions."
                 fi
-                exit 0
               fi
-            else
-              echo "::error::Could not get Google access token"
-              exit 0
-            fi
+            done
+            exit 0
           else
-            echo "::warning::No blog posts found - skipping indexing notification"
+            echo "::error::Could not get Google access token"
+            exit 0
           fi
 
       - name: Send Medium import reminder
@@ -323,11 +359,20 @@ jobs:
             exit 0
           fi
 
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          # Send reminder for all articles from manifest, fall back to latest
+          if [ -f data/blog/daily-manifest.json ]; then
+            SLUGS=$(node -e "const m=require('./data/blog/daily-manifest.json'); (m.articles||[]).forEach(a=>console.log(a.slug))")
+            for SLUG in $SLUGS; do
+              echo "Sending Medium import reminder for: $SLUG"
+              node scripts/cross-post-medium.mjs --slug="$SLUG" || echo "::warning::Medium reminder failed for $SLUG"
+            done
+          elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
             echo "Sending Medium import reminder for: $SLUG"
             node scripts/cross-post-medium.mjs --slug="$SLUG" || echo "::warning::Medium reminder failed for $SLUG"
+          else
+            echo "::warning::No blog posts found - skipping Medium reminder"
           fi
 
       - name: Generate outreach plan
@@ -337,11 +382,21 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          # Generate outreach for authority article from manifest, fall back to latest
+          SLUG=""
+          if [ -f data/blog/daily-manifest.json ]; then
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)")
+          fi
+          if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
+          fi
+
+          if [ -n "$SLUG" ]; then
             echo "Generating outreach plan for: $SLUG"
             node scripts/outreach-generator.mjs --slug="$SLUG" --log-supabase || echo "::warning::Outreach generation failed for $SLUG"
+          else
+            echo "::warning::No blog posts found - skipping outreach plan"
           fi
 
       - name: Commit cross-post trackers and outreach plans
@@ -363,7 +418,19 @@ jobs:
           echo "## Daily Article Generation Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          if [ -f data/blog/daily-manifest.json ]; then
+            echo "| # | Type | Title | URL | Words | Social | Image |" >> $GITHUB_STEP_SUMMARY
+            echo "|---|------|-------|-----|-------|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('data/blog/daily-manifest.json','utf-8'));(m.articles||[]).forEach((a,i)=>{const u='https://subodhkc.com/blog/'+a.slug;const s=fs.existsSync('data/social/'+a.slug+'.md')?'Yes':'No';const img=fs.existsSync('public/blog-images/'+a.slug+'.png')?'Yes':'No';console.log('| '+(i+1)+' | '+a.type+' | '+a.title.substring(0,40)+'... | ['+a.slug+']('+u+') | '+a.wordCount+' | '+s+' | '+img+' |');});" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Item | Status |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+            echo "| LinkedIn | $([ -f data/social/posted.json ] && echo 'Posted' || echo 'Skipped/Failed') |" >> $GITHUB_STEP_SUMMARY
+            echo "| Dev.to | $([ -f data/blog/devto-posted.json ] && echo 'Cross-posted' || echo 'Skipped') |" >> $GITHUB_STEP_SUMMARY
+            echo "| Google Indexing | Notified |" >> $GITHUB_STEP_SUMMARY
+            echo "| IndexNow | Notified |" >> $GITHUB_STEP_SUMMARY
+            echo "| Outreach plan | $([ -d data/outreach ] && echo 'Generated' || echo 'Skipped') |" >> $GITHUB_STEP_SUMMARY
+          elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
             ARTICLE_URL="https://subodhkc.com/blog/${SLUG}"

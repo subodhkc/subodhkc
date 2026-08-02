@@ -311,7 +311,7 @@ function classifyTopic(item, posts) {
   return 'new-intent'
 }
 
-function pickNextTopic(posts) {
+function pickNextTopics(posts) {
   const existingSlugs = getExistingSlugs(posts)
   const existingTitles = getExistingTitles(posts)
 
@@ -344,12 +344,24 @@ function pickNextTopic(posts) {
     console.warn(`WARNING: Only ${viable.length} calendar topics remaining. Prepare CONTENT_CALENDAR_BATCH_3 soon.`)
   }
 
-  viable.sort((a, b) => {
-    if (b.score !== a.score) return b.score - a.score
-    return a.day - b.day
-  })
+  // Group viable topics by day, find the lowest day with viable topics
+  const byDay = {}
+  for (const item of viable) {
+    const day = item.day || 1
+    if (!byDay[day]) byDay[day] = []
+    byDay[day].push(item)
+  }
 
-  return viable[0]
+  const days = Object.keys(byDay).map(Number).sort((a, b) => a - b)
+  const lowestDay = days[0]
+  const dayTopics = byDay[lowestDay]
+
+  // Sort within the day: authority first, then implementation, then operator-brief
+  const typeOrder = { authority: 0, implementation: 1, 'operator-brief': 2 }
+  dayTopics.sort((a, b) => (typeOrder[a.type] ?? 3) - (typeOrder[b.type] ?? 3))
+
+  console.log(`Selected day ${lowestDay} with ${dayTopics.length} topic(s)`)
+  return dayTopics
 }
 
 // ---------------------------------------------------------------------------
@@ -399,6 +411,25 @@ const FORBIDDEN_CLAIMS = `FORBIDDEN CLAIMS (do not use without verified evidence
 - "100% accurate"
 - "Proven at Fortune 50 scale"
 - "Adopted across the industry"`
+
+const CITATION_SOURCES = [
+  // Official / government
+  'nist.gov', 'owasp.org', 'europa.eu', 'eur-lex.europa.eu', 'iso.org',
+  'ftc.gov', 'eeoc.gov', 'gdpr.eu', 'whitehouse.gov', 'congress.gov',
+  'europarl.europa.eu', 'coe.int', 'oecd.org', 'un.org',
+  // Industry / analyst
+  'a16z.com', 'gartner.com', 'mckinsey.com', 'deloitte.com', 'pwc.com',
+  'accenture.com', 'kpmg.com', 'bcg.com', 'forrester.com', 'idc.com',
+  // Academic / research
+  'arxiv.org', 'ieee.org', 'acm.org', 'harvard.edu', 'mit.edu',
+  'stanford.edu', 'berkeley.edu', 'cmu.edu',
+  // Tech / vendor documentation
+  'github.com', 'microsoft.com', 'google.com', 'openai.com', 'anthropic.com',
+  'huggingface.co', 'nvidia.com', 'cloud.google.com', 'aws.amazon.com',
+  'learn.microsoft.com', 'developer.mozilla.org',
+  // Product sites (Subodh KC products)
+  'haiec.com', 'kestrelvoice.com',
+]
 
 const ARTICLE_STRUCTURE = `ARTICLE STRUCTURE (use where appropriate):
 1. Direct answer or operating conclusion
@@ -487,6 +518,19 @@ INTERNAL LINKING (include these links in the article body with descriptive ancho
 - Link to pillar canonical: ${pillar.canonical}
 - Link to related articles: ${internalLinkTargets}
 - Use descriptive anchors, never "click here" or "learn more"
+- Include at least 3 internal links total
+
+EXTERNAL CITATIONS (mandatory):
+- Include at least 2 external links to authoritative sources from this list: ${CITATION_SOURCES.join(', ')}
+- Format: <a href="https://domain.com/path">Source Name</a>
+- Use primary sources (statutory text, official guidance, standards docs, vendor docs, research papers)
+- Do NOT cite low-quality SEO summaries as authority for legal or technical claims
+
+H2 STRUCTURE (mandatory):
+- Authority articles: at least 4 H2 sections with substantive content under each
+- Implementation guides: at least 3 H2 sections
+- Operator briefs: at least 2 H2 sections
+- Each H2 section should be 150-300 words
 
 EXISTING POSTS (for additional internal linking context):
 ${existingPostsContext}
@@ -701,7 +745,8 @@ function validateArticle(article, item) {
     "Revolutionize", "Game-changer", "Paradigm shift",
     "Cutting-edge", "Harness the power", "Unlock the potential",
     "Empower", "Seamless", "Streamline", "Foster", "Facilitate",
-    "Underscore", "Underpin", "Bolster",
+    "Underscore", "Underpin", "Bolster", "Leverage",
+    "Dive deep", "Deep dive",
   ]
   const contentLower = (article.contentHtml || '').toLowerCase()
   const foundTells = aiTells.filter((tell) => contentLower.includes(tell.toLowerCase()))
@@ -710,8 +755,25 @@ function validateArticle(article, item) {
   }
 
   const internalLinkCount = (article.contentHtml || '').match(/href="\/[^"]+"/g)
-  if (!internalLinkCount || internalLinkCount.length < 2) {
-    warnings.push(`Only ${internalLinkCount?.length || 0} internal links (recommended: at least 3)`)
+  if (!internalLinkCount || internalLinkCount.length < 3) {
+    warnings.push(`Only ${internalLinkCount?.length || 0} internal links (required: at least 3)`)
+  }
+
+  // External citation check
+  const externalLinks = (article.contentHtml || '').match(/href="https?:\/\/(?!subodhkc\.com)[^"]+"/g) || []
+  const citationDomains = CITATION_SOURCES.map(s => s.replace('.', '\\.'))
+  const citationRegex = new RegExp(`https?:\/\/([^"\/]*?(?:${citationDomains.join('|')}))`, 'i')
+  const citationLinks = externalLinks.filter(l => citationRegex.test(l))
+  if (citationLinks.length < 2) {
+    warnings.push(`Only ${citationLinks.length} external citations from approved sources (required: at least 2). Found ${externalLinks.length} total external links.`)
+  }
+
+  // H2 section count check
+  const h2Count = ((article.contentHtml || '').match(/<h2[\s>]/gi) || []).length
+  const minH2 = { authority: 4, implementation: 3, 'operator-brief': 2 }
+  const requiredH2 = minH2[item.type] || 4
+  if (h2Count < requiredH2) {
+    warnings.push(`Only ${h2Count} H2 sections (required: at least ${requiredH2} for ${item.type || 'authority'})`)
   }
 
   const forbiddenClaims = [
@@ -805,14 +867,14 @@ async function main() {
   const dryRun = args.includes('--dry-run')
   const reviewOnly = args.includes('--review-only')
 
-  const posts = getAllPosts()
+  let posts = getAllPosts()
   console.log(`Found ${posts.length} existing posts`)
 
-  let item, article
-
+  // Determine topics to generate
+  let topics
   if (topicArg) {
     console.log(`\nCustom topic: ${topicArg}`)
-    item = {
+    topics = [{
       title: topicArg,
       pillar: 'production-ai-architecture',
       type: 'authority',
@@ -820,207 +882,261 @@ async function main() {
       internalLinks: ['/architecture-decision-master-sheet', '/services'],
       score: 70,
       classification: 'new-intent',
-    }
+    }]
   } else {
-    item = pickNextTopic(posts)
-    console.log(`\nSelected: ${item.title}`)
-    console.log(`Classification: ${item.classification}`)
+    topics = pickNextTopics(posts)
+    console.log(`\nSelected ${topics.length} topic(s) for generation:`)
+    for (const t of topics) {
+      console.log(`  - [${t.type}] ${t.title} (score: ${t.score})`)
+    }
   }
 
-  // Generation + validation retry loop
-  const maxGenAttempts = 3
-  let validationErrors = []
-  let validationWarnings = []
-  let wordCount = 0
+  const generatedSlugs = []
+  const manifestEntries = []
+  let hadErrors = false
 
-  for (let genAttempt = 1; genAttempt <= maxGenAttempts; genAttempt++) {
-    const retryHint = genAttempt > 1 ? validationErrors.join('\n') : null
-    if (retryHint) {
-      console.log(`\n  Retry attempt ${genAttempt}/${maxGenAttempts} - fixing validation issues...`)
-    }
+  for (let topicIdx = 0; topicIdx < topics.length; topicIdx++) {
+    const item = topics[topicIdx]
+    console.log(`\n${'='.repeat(70)}`)
+    console.log(`Article ${topicIdx + 1}/${topics.length}: ${item.title}`)
+    console.log(`Type: ${item.type} | Pillar: ${item.pillar}`)
+    console.log(`${'='.repeat(70)}`)
 
-    article = await generateArticle(item, posts, retryHint)
+    let article
+    const maxGenAttempts = 3
+    let validationErrors = []
+    let validationWarnings = []
+    let wordCount = 0
 
-    // Post-generation dedup check
-    const existingTitlesForCheck = getExistingTitles(posts)
-    const generatedTitleLower = (article.title || '').toLowerCase()
-    const similarityHit = existingTitlesForCheck.find(
-      (t) => titleSimilarity(t, generatedTitleLower) > 0.7
-    )
-    if (similarityHit) {
-      console.error(`\n  DUPLICATE DETECTED: Generated title "${article.title}" is too similar to existing post "${similarityHit}"`)
-      console.error('  Aborting to prevent duplicate content. Try again with a different topic.')
-      process.exit(1)
-    }
+    for (let genAttempt = 1; genAttempt <= maxGenAttempts; genAttempt++) {
+      const retryHint = genAttempt > 1 ? validationErrors.join('\n') : null
+      if (retryHint) {
+        console.log(`\n  Retry attempt ${genAttempt}/${maxGenAttempts} - fixing validation issues...`)
+      }
 
-    // Validate generated article
-    const result = validateArticle(article, item)
-    validationWarnings = result.warnings
-    validationErrors = result.errors
-    wordCount = result.wordCount
+      article = await generateArticle(item, posts, retryHint)
 
-    // Auto-publish mode: upgrade critical warnings to errors
-    const criticalWarnings = validationWarnings.filter((w) =>
-      w.includes('AI writing tells detected') ||
-      w.includes('internal links') ||
-      w.includes('words (target:')
-    )
-    if (!reviewOnly && !dryRun) {
-      for (const cw of criticalWarnings) {
-        validationErrors.push(cw)
+      // Post-generation dedup check
+      const existingTitlesForCheck = getExistingTitles(posts)
+      const generatedTitleLower = (article.title || '').toLowerCase()
+      const similarityHit = existingTitlesForCheck.find(
+        (t) => titleSimilarity(t, generatedTitleLower) > 0.7
+      )
+      if (similarityHit) {
+        console.error(`\n  DUPLICATE DETECTED: Generated title "${article.title}" is too similar to existing post "${similarityHit}"`)
+        console.error('  Skipping this topic to prevent duplicate content.')
+        hadErrors = true
+        break
+      }
+
+      // Validate generated article
+      const result = validateArticle(article, item)
+      validationWarnings = result.warnings
+      validationErrors = result.errors
+      wordCount = result.wordCount
+
+      // Auto-publish mode: upgrade critical warnings to errors
+      const criticalWarnings = validationWarnings.filter((w) =>
+        w.includes('AI writing tells detected') ||
+        w.includes('internal links') ||
+        w.includes('words (target:') ||
+        w.includes('external citations') ||
+        w.includes('H2 sections')
+      )
+      if (!reviewOnly && !dryRun) {
+        for (const cw of criticalWarnings) {
+          validationErrors.push(cw)
+        }
+      }
+
+      if (validationErrors.length === 0) {
+        break
+      }
+
+      if (genAttempt < maxGenAttempts) {
+        console.log(`\n  Attempt ${genAttempt} validation errors (will retry):`)
+        for (const e of validationErrors) {
+          console.log(`    - ${e}`)
+        }
+        // Reset errors for next attempt - only carry forward the fixable ones
+        validationErrors = validationErrors.filter((e) =>
+          e.includes('words (target:') ||
+          e.includes('internal links') ||
+          e.includes('AI writing tells') ||
+          e.includes('external citations') ||
+          e.includes('H2 sections')
+        )
       }
     }
 
-    if (validationErrors.length === 0) {
-      break
-    }
-
-    if (genAttempt < maxGenAttempts) {
-      console.log(`\n  Attempt ${genAttempt} validation errors (will retry):`)
+    if (validationErrors.length > 0) {
+      console.log('\n  ERRORS (must fix before publishing):')
       for (const e of validationErrors) {
         console.log(`    - ${e}`)
       }
-      // Reset errors for next attempt - only carry forward the fixable ones
-      validationErrors = validationErrors.filter((e) =>
-        e.includes('words (target:') ||
-        e.includes('internal links') ||
-        e.includes('AI writing tells')
-      )
+      console.error(`  Skipping article "${item.title}" due to validation errors after all retry attempts.`)
+      hadErrors = true
+      continue
     }
-  }
 
-  if (validationErrors.length > 0) {
-    console.log('\n  ERRORS (must fix before publishing):')
-    for (const e of validationErrors) {
-      console.log(`    - ${e}`)
-    }
-    console.error('  Aborting due to validation errors after all retry attempts.')
-    process.exit(1)
-  }
-
-  const criticalWarnings = validationWarnings.filter((w) =>
-    w.includes('AI writing tells detected') ||
-    w.includes('internal links') ||
-    w.includes('words (target:')
-  )
-  const remainingWarnings = validationWarnings.filter((w) => !criticalWarnings.includes(w))
-  if (remainingWarnings.length > 0) {
-    console.log('\n  Warnings (non-blocking):')
-    for (const w of remainingWarnings) {
-      console.log(`    - ${w}`)
-    }
-  }
-
-  console.log('\n  All quality gate checks passed')
-
-  console.log(`  Word count: ~${wordCount}`)
-
-  // Build full post object
-  const id = getNextId(posts)
-  const slug = slugify(article.title)
-
-  const existingSlugs = getExistingSlugs(posts)
-  let uniqueSlug = slug
-  let counter = 2
-  while (existingSlugs.has(uniqueSlug)) {
-    uniqueSlug = `${slug}-${counter}`
-    counter++
-  }
-
-  const post = {
-    id,
-    title: article.title,
-    slug: uniqueSlug,
-    metaDescription: article.metaDescription,
-    contentHtml: article.contentHtml,
-    contentMarkdown: '',
-    heroImageUrl: null,
-    jsonLd: null,
-    faqJsonLd: article.faqJsonLd || null,
-    languageCode: 'en',
-    createdAt: new Date().toISOString(),
-    keywords: article.keywords || [],
-    seedKeyword: article.seedKeyword || null,
-    excerpt: article.excerpt || null,
-    downloadableUrl: null,
-    downloadableLabel: null,
-  }
-
-  console.log(`\nGenerated post:`)
-  console.log(`  ID: ${post.id}`)
-  console.log(`  Title: ${post.title}`)
-  console.log(`  Slug: ${post.slug}`)
-  console.log(`  Keywords: ${post.keywords.join(', ')}`)
-  console.log(`  Content length: ${post.contentHtml.length} chars`)
-
-  if (dryRun) {
-    console.log('\n--dry-run: not saving file')
-    console.log('\nContent preview (first 500 chars):')
-    console.log(post.contentHtml.slice(0, 500))
-    return
-  }
-
-  if (reviewOnly) {
-    console.log('\n--review-only: file not saved. Review the output above.')
-    console.log('To publish, re-run without --review-only flag.')
-    console.log('\nNext steps (review-only mode):')
-    console.log('  1. Review the generated article output above')
-    console.log('  2. Re-run without --review-only to publish')
-    return
-  }
-
-  // Save post
-  const postsDir = path.join(ROOT, 'data', 'blog', 'posts')
-  if (!fs.existsSync(postsDir)) {
-    fs.mkdirSync(postsDir, { recursive: true })
-  }
-
-  const outputPath = path.join(postsDir, `${post.slug}.json`)
-  fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
-  console.log(`\nSaved to: data/blog/posts/${post.slug}.json`)
-
-  // Generate downloadable checklist (skip for operator-briefs - too short for useful checklist)
-  if (!dryRun && item.type !== 'operator-brief') {
-    console.log('\nGenerating downloadable checklist...')
-    const checklist = await generateChecklist(article, post.slug)
-    if (checklist) {
-      const downloadsDir = path.join(ROOT, 'public', 'downloads')
-      if (!fs.existsSync(downloadsDir)) {
-        fs.mkdirSync(downloadsDir, { recursive: true })
+    const criticalWarnings = validationWarnings.filter((w) =>
+      w.includes('AI writing tells detected') ||
+      w.includes('internal links') ||
+      w.includes('words (target:') ||
+      w.includes('external citations') ||
+      w.includes('H2 sections')
+    )
+    const remainingWarnings = validationWarnings.filter((w) => !criticalWarnings.includes(w))
+    if (remainingWarnings.length > 0) {
+      console.log('\n  Warnings (non-blocking):')
+      for (const w of remainingWarnings) {
+        console.log(`    - ${w}`)
       }
-      const checklistPath = path.join(downloadsDir, `${post.slug}-checklist.md`)
-      fs.writeFileSync(checklistPath, checklist, 'utf-8')
-      console.log(`  Checklist saved to public/downloads/${post.slug}-checklist.md`)
-
-      post.downloadableUrl = `/downloads/${post.slug}-checklist.md`
-      post.downloadableLabel = `Download the ${article.title.split(' ').slice(0, 4).join(' ')} Checklist`
-      fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
-      console.log(`  Post updated with downloadable URL`)
-    } else {
-      console.log('  Checklist generation skipped - post saved without downloadable')
     }
+
+    console.log('\n  All quality gate checks passed')
+    console.log(`  Word count: ~${wordCount}`)
+
+    // Build full post object
+    const id = getNextId(posts)
+    const slug = slugify(article.title)
+
+    const existingSlugs = getExistingSlugs(posts)
+    let uniqueSlug = slug
+    let counter = 2
+    while (existingSlugs.has(uniqueSlug)) {
+      uniqueSlug = `${slug}-${counter}`
+      counter++
+    }
+
+    const post = {
+      id,
+      title: article.title,
+      slug: uniqueSlug,
+      metaDescription: article.metaDescription,
+      contentHtml: article.contentHtml,
+      contentMarkdown: '',
+      heroImageUrl: null,
+      jsonLd: null,
+      faqJsonLd: article.faqJsonLd || null,
+      languageCode: 'en',
+      createdAt: new Date().toISOString(),
+      keywords: article.keywords || [],
+      seedKeyword: article.seedKeyword || null,
+      excerpt: article.excerpt || null,
+      downloadableUrl: null,
+      downloadableLabel: null,
+      type: item.type || 'authority',
+      pillar: item.pillar || null,
+    }
+
+    console.log(`\nGenerated post:`)
+    console.log(`  ID: ${post.id}`)
+    console.log(`  Title: ${post.title}`)
+    console.log(`  Slug: ${post.slug}`)
+    console.log(`  Type: ${post.type}`)
+    console.log(`  Keywords: ${post.keywords.join(', ')}`)
+    console.log(`  Content length: ${post.contentHtml.length} chars`)
+
+    if (dryRun) {
+      console.log('\n--dry-run: not saving file')
+      console.log('\nContent preview (first 500 chars):')
+      console.log(post.contentHtml.slice(0, 500))
+      generatedSlugs.push(post.slug)
+      manifestEntries.push({ slug: post.slug, type: post.type, title: post.title, wordCount })
+      continue
+    }
+
+    if (reviewOnly) {
+      console.log('\n--review-only: file not saved. Review the output above.')
+      generatedSlugs.push(post.slug)
+      manifestEntries.push({ slug: post.slug, type: post.type, title: post.title, wordCount })
+      continue
+    }
+
+    // Save post
+    const postsDir = path.join(ROOT, 'data', 'blog', 'posts')
+    if (!fs.existsSync(postsDir)) {
+      fs.mkdirSync(postsDir, { recursive: true })
+    }
+
+    const outputPath = path.join(postsDir, `${post.slug}.json`)
+    fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
+    console.log(`\nSaved to: data/blog/posts/${post.slug}.json`)
+
+    // Add to posts array so next article can see it for dedup
+    posts.push(post)
+
+    // Generate downloadable checklist (skip for operator-briefs - too short for useful checklist)
+    if (item.type !== 'operator-brief') {
+      console.log('\nGenerating downloadable checklist...')
+      const checklist = await generateChecklist(article, post.slug)
+      if (checklist) {
+        const downloadsDir = path.join(ROOT, 'public', 'downloads')
+        if (!fs.existsSync(downloadsDir)) {
+          fs.mkdirSync(downloadsDir, { recursive: true })
+        }
+        const checklistPath = path.join(downloadsDir, `${post.slug}-checklist.md`)
+        fs.writeFileSync(checklistPath, checklist, 'utf-8')
+        console.log(`  Checklist saved to public/downloads/${post.slug}-checklist.md`)
+
+        post.downloadableUrl = `/downloads/${post.slug}-checklist.md`
+        post.downloadableLabel = `Download the ${article.title.split(' ').slice(0, 4).join(' ')} Checklist`
+        fs.writeFileSync(outputPath, JSON.stringify(post, null, 2), 'utf-8')
+        console.log(`  Post updated with downloadable URL`)
+      } else {
+        console.log('  Checklist generation skipped - post saved without downloadable')
+      }
+    }
+
+    // Generate hero image with DALL-E 3
+    if (process.env.OPENAI_API_KEY) {
+      console.log('\nGenerating hero image with DALL-E 3...')
+      try {
+        const { execSync } = await import('child_process')
+        execSync(`node scripts/generate-hero-image.mjs --slug=${post.slug}`, {
+          cwd: ROOT,
+          stdio: 'inherit',
+        })
+      } catch (err) {
+        console.warn(`Hero image generation failed: ${err.message}`)
+        console.warn('Post saved successfully. Image can be generated later with: node scripts/generate-hero-image.mjs --slug=' + post.slug)
+      }
+    }
+
+    generatedSlugs.push(post.slug)
+    manifestEntries.push({ slug: post.slug, type: post.type, title: post.title, wordCount })
   }
 
-  // Generate hero image with DALL-E 3
-  if (!dryRun && process.env.OPENAI_API_KEY) {
-    console.log('\nGenerating hero image with DALL-E 3...')
-    try {
-      const { execSync } = await import('child_process')
-      execSync(`node scripts/generate-hero-image.mjs --slug=${post.slug}`, {
-        cwd: ROOT,
-        stdio: 'inherit',
-      })
-    } catch (err) {
-      console.warn(`Hero image generation failed: ${err.message}`)
-      console.warn('Post saved successfully. Image can be generated later with: node scripts/generate-hero-image.mjs --slug=' + post.slug)
+  // Write daily manifest for workflow consumption
+  if (!dryRun && !reviewOnly && manifestEntries.length > 0) {
+    const manifest = {
+      date: new Date().toISOString().split('T')[0],
+      generatedAt: new Date().toISOString(),
+      articles: manifestEntries,
     }
+    const manifestDir = path.join(ROOT, 'data', 'blog')
+    const manifestPath = path.join(manifestDir, 'daily-manifest.json')
+    fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), 'utf-8')
+    console.log(`\nDaily manifest written to: data/blog/daily-manifest.json`)
+    console.log(`  Articles: ${manifestEntries.map(a => a.slug).join(', ')}`)
   }
 
+  console.log(`\n${'='.repeat(70)}`)
+  console.log(`Generation complete: ${generatedSlugs.length}/${topics.length} articles generated`)
+  if (hadErrors) {
+    console.log('Some articles had errors and were skipped.')
+  }
+  console.log(`  Slugs: ${generatedSlugs.join(', ')}`)
   console.log(`\nArticle auto-published:`)
-  console.log(`  1. Article saved and ready for commit`)
+  console.log(`  1. Article(s) saved and ready for commit`)
   console.log(`  2. GitHub Action will auto-generate social content`)
   console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
   console.log(`  4. LinkedIn + Dev.to cross-post will trigger on commit`)
+
+  if (hadErrors && !dryRun && !reviewOnly) {
+    process.exit(1)
+  }
 }
 
 main().catch((err) => {
