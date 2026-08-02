@@ -86,14 +86,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check for content changes
+        id: content-check
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- data/blog/posts/ app/ components/ public/ 2>/dev/null | head -1)
+          if [ -n "$CHANGED" ]; then
+            echo "should_ping=true" >> $GITHUB_OUTPUT
+            echo "Content files changed - proceeding with search engine pings"
+          else
+            echo "should_ping=false" >> $GITHUB_OUTPUT
+            echo "No content files changed - skipping search engine pings"
+          fi
 
       - name: Install Python dependencies for Google API
+        if: steps.content-check.outputs.should_ping == 'true'
         run: pip install cryptography
 
       - name: Wait for Vercel deployment
+        if: steps.content-check.outputs.should_ping == 'true'
         run: sleep 60
 
       - name: Fetch sitemap and extract all URLs
+        if: steps.content-check.outputs.should_ping == 'true'
         id: sitemap
         run: |
           SITEMAP=$(curl -s "https://subodhkc.com/sitemap.xml")
@@ -111,6 +128,7 @@ jobs:
           echo "urls=$URLS" >> $GITHUB_OUTPUT
 
       - name: Ping IndexNow with all sitemap URLs
+        if: steps.content-check.outputs.should_ping == 'true'
         run: |
           URLS='${{ steps.sitemap.outputs.urls }}'
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
@@ -125,7 +143,7 @@ jobs:
           fi
 
       - name: Submit URLs to Google Indexing API
-        if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
+        if: steps.content-check.outputs.should_ping == 'true' && env.GCP_SERVICE_ACCOUNT_JSON != ''
         run: |
           echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
 
@@ -215,7 +233,7 @@ jobs:
           "
 
       - name: Submit sitemap to Google Search Console API
-        if: ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' }}
+        if: steps.content-check.outputs.should_ping == 'true' && env.GCP_SERVICE_ACCOUNT_JSON != ''
         run: |
           echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
 
@@ -263,6 +281,7 @@ jobs:
           echo "GSC sitemap submission response: $RESPONSE"
 
       - name: Verify live site is up
+        if: steps.content-check.outputs.should_ping == 'true'
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://subodhkc.com")
           echo "Live site status: $STATUS"
@@ -273,6 +292,7 @@ jobs:
           fi
 
       - name: Verify IndexNow key is accessible
+        if: steps.content-check.outputs.should_ping == 'true'
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://subodhkc.com/subodhkcindexnowkey2026.txt")
           echo "IndexNow key file status: $STATUS"

@@ -285,16 +285,10 @@ function pickNextTopic(posts) {
   })
 
   if (viable.length === 0) {
-    console.log('All calendar topics exhausted or rejected. Using fallback.')
-    return {
-      title: 'AI Architecture Decision Framework: Evaluating Production AI Systems',
-      pillar: 'production-ai-architecture',
-      type: 'authority',
-      cta: '/services',
-      internalLinks: ['/architecture-decision-master-sheet', '/services'],
-      score: 70,
-      classification: 'new-intent',
-    }
+    console.error('ERROR: All 30 calendar topics are exhausted or rejected.')
+    console.error('Action required: Add CONTENT_CALENDAR_BATCH_2 to this script or supply --topic flag.')
+    console.error('Existing posts: ' + posts.length)
+    process.exit(1)
   }
 
   viable.sort((a, b) => {

@@ -35,5 +35,13 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore: published next Dev.to draft"
-            git push
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push; then
+                echo "Pushed (attempt $attempt)"
+                break
+              fi
+              if [ $attempt -eq 3 ]; then echo "::error::Push failed after 3 attempts"; exit 1; fi
+              sleep 5
+            done
           fi

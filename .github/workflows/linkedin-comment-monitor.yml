@@ -21,13 +21,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Download posted tracker
-        uses: actions/download-artifact@v4
-        with:
-          name: frontofai-article
-          path: data/
-        continue-on-error: true
-
       - name: Check for new LinkedIn comments
         run: |
           if [ -z "$LINKEDIN_ACCESS_TOKEN" ]; then

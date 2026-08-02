@@ -16,6 +16,10 @@ on:
         type: boolean
         default: false
 
+concurrency:
+  group: daily-article
+  cancel-in-progress: false
+
 jobs:
   generate-article:
     runs-on: ubuntu-latest
@@ -352,3 +356,28 @@ jobs:
             if git push; then break; fi
             if [ $attempt -eq 3 ]; then echo "Push failed - will retry next run"; else sleep 5; fi
           done
+
+      - name: Generate summary report
+        if: always()
+        run: |
+          echo "## Daily Article Generation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+            LATEST=$(ls -t data/blog/posts/*.json | head -1)
+            SLUG=$(basename "$LATEST" .json)
+            ARTICLE_URL="https://subodhkc.com/blog/${SLUG}"
+
+            echo "| Item | Status |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Article | [$SLUG]($ARTICLE_URL) |" >> $GITHUB_STEP_SUMMARY
+            echo "| Social content | $([ -f data/social/${SLUG}.md ] && echo 'Generated' || echo 'Missing') |" >> $GITHUB_STEP_SUMMARY
+            echo "| Hero image | $([ -f public/blog-images/${SLUG}.png ] && echo 'Generated' || echo 'Missing') |" >> $GITHUB_STEP_SUMMARY
+            echo "| LinkedIn | $([ -f data/social/posted.json ] && echo 'Posted' || echo 'Skipped/Failed') |" >> $GITHUB_STEP_SUMMARY
+            echo "| Dev.to | $([ -f data/blog/devto-posted.json ] && echo 'Cross-posted' || echo 'Skipped') |" >> $GITHUB_STEP_SUMMARY
+            echo "| Google Indexing | Notified |" >> $GITHUB_STEP_SUMMARY
+            echo "| IndexNow | Notified |" >> $GITHUB_STEP_SUMMARY
+            echo "| Outreach plan | $([ -d data/outreach ] && echo 'Generated' || echo 'Skipped') |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No article was generated. Check logs for errors." >> $GITHUB_STEP_SUMMARY
+          fi
