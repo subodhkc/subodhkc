@@ -132,27 +132,53 @@ Format each section with markdown headers. Do not add any preamble or conclusion
 
   console.log(`Generating social content for: ${post.title}`)
 
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: 'You are an expert social media strategist who creates high-engagement content for B2B tech audiences. You understand AI governance, enterprise architecture, and compliance niches. You write in a natural, human voice. You stick to facts from the article.' },
-        { role: 'user', content: prompt },
-      ],
-      temperature: 0.7,
-      max_tokens: 3000,
-    }),
-  })
+  let response
+  const maxRetries = 3
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are an expert social media strategist who creates high-engagement content for B2B tech audiences. You understand AI governance, enterprise architecture, and compliance niches. You write in a natural, human voice. You stick to facts from the article.' },
+            { role: 'user', content: prompt },
+          ],
+          temperature: 0.7,
+          max_tokens: 4000,
+        }),
+      })
 
-  if (!response.ok) {
-    const error = await response.text()
-    console.error(`OpenAI API error (${response.status}): ${error}`)
-    return null
+      if (response.ok) break
+
+      if (response.status === 429 || response.status >= 500) {
+        const errorText = await response.text()
+        console.warn(`OpenAI API error ${response.status} (attempt ${attempt}/${maxRetries}): ${errorText.slice(0, 200)}`)
+        if (attempt < maxRetries) {
+          const delay = Math.pow(2, attempt) * 5000
+          console.log(`Retrying in ${delay / 1000} seconds...`)
+          await new Promise((resolve) => setTimeout(resolve, delay))
+          continue
+        }
+      }
+
+      const error = await response.text()
+      console.error(`OpenAI API error (${response.status}): ${error}`)
+      return null
+    } catch (err) {
+      console.warn(`Network error (attempt ${attempt}/${maxRetries}): ${err.message}`)
+      if (attempt < maxRetries) {
+        const delay = Math.pow(2, attempt) * 5000
+        await new Promise((resolve) => setTimeout(resolve, delay))
+        continue
+      }
+      console.error(`Network error after ${maxRetries} attempts: ${err.message}`)
+      return null
+    }
   }
 
   const data = await response.json()

@@ -303,11 +303,11 @@ jobs:
                 if [ "$GGL_CODE" = "403" ]; then
                   echo "::error::403 Permission denied. Add service account as Owner in Google Search Console > Settings > Users and permissions."
                 fi
-                exit 1
+                exit 0
               fi
             else
               echo "::error::Could not get Google access token"
-              exit 1
+              exit 0
             fi
           else
             echo "::warning::No blog posts found - skipping indexing notification"

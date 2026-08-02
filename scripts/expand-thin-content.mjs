@@ -252,7 +252,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
             { role: 'user', content: prompt },
           ],
           temperature: 0.7,
-          max_tokens: 8000,
+          max_tokens: 16000,
         }),
       })
 
@@ -285,10 +285,16 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
 
   const data = await response.json()
   const content = data.choices[0]?.message?.content
+  const finishReason = data.choices[0]?.finish_reason
 
   if (!content) {
     console.error('  OpenAI returned empty response')
+    console.error('  Finish reason:', finishReason)
     return false
+  }
+
+  if (finishReason === 'length') {
+    console.warn('  OpenAI response was truncated (finish_reason: length). Attempting JSON repair...')
   }
 
   const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()
@@ -297,9 +303,29 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
   try {
     expanded = JSON.parse(jsonStr)
   } catch (e) {
-    console.error('  Failed to parse OpenAI response as JSON')
-    console.error('  Response:', content.slice(0, 200))
-    return false
+    console.warn('  Initial JSON parse failed. Attempting repair of truncated response...')
+    let repaired = jsonStr
+    const lastQuote = repaired.lastIndexOf('"')
+    const lastBrace = repaired.lastIndexOf('}')
+    if (lastQuote > lastBrace) {
+      repaired = repaired.slice(0, lastQuote + 1) + '}]}}'
+    }
+    const openBraces = (repaired.match(/{/g) || []).length
+    const closeBraces = (repaired.match(/}/g) || []).length
+    const openBrackets = (repaired.match(/\[/g) || []).length
+    const closeBrackets = (repaired.match(/\]/g) || []).length
+    repaired += '}'.repeat(Math.max(0, openBraces - closeBraces))
+    repaired += ']'.repeat(Math.max(0, openBrackets - closeBrackets))
+
+    try {
+      expanded = JSON.parse(repaired)
+      console.warn('  JSON repair succeeded - content may have truncated sections')
+    } catch (e2) {
+      console.error('  Failed to parse OpenAI response as JSON')
+      console.error('  Finish reason:', finishReason)
+      console.error('  Response:', content.slice(0, 200))
+      return false
+    }
   }
 
   // Validate expanded content
