@@ -760,8 +760,7 @@ function validateArticle(article, item) {
 
   const wordCount = stripHtmlForCount(article.contentHtml || '').split(/\s+/).filter(Boolean).length
   const articleType = ARTICLE_TYPES[item.type] || ARTICLE_TYPES['authority']
-  const wordCountTolerance = Math.round(articleType.minWords * 0.95)
-  if (wordCount < wordCountTolerance) {
+  if (wordCount < articleType.minWords) {
     warnings.push(`Content is ${wordCount} words (target: ${articleType.minWords}-${articleType.maxWords}). Content may be too thin.`)
   }
 
@@ -1051,13 +1050,34 @@ async function main() {
     }
 
     if (validationErrors.length > 0) {
-      console.log('\n  ERRORS (must fix before publishing):')
-      for (const e of validationErrors) {
-        console.log(`    - ${e}`)
+      // After all retries, check if the only remaining errors are word count
+      // If word count is at least 90% of minimum, accept it rather than discarding
+      const currentType = ARTICLE_TYPES[item.type] || ARTICLE_TYPES['authority']
+      const wordCount90 = Math.round(currentType.minWords * 0.90)
+      const nonWordCountErrors = validationErrors.filter(e => !e.includes('words (target:'))
+      const wordCountErrors = validationErrors.filter(e => e.includes('words (target:'))
+
+      if (nonWordCountErrors.length > 0) {
+        console.log('\n  ERRORS (must fix before publishing):')
+        for (const e of validationErrors) {
+          console.log(`    - ${e}`)
+        }
+        console.error(`  Skipping article "${item.title}" due to validation errors after all retry attempts.`)
+        hadErrors = true
+        continue
+      } else if (wordCountErrors.length > 0 && wordCount >= wordCount90) {
+        // Word count is close enough (90%+), accept with warning
+        console.log(`\n  Word count ${wordCount} is below target ${currentType.minWords} but above 90% threshold (${wordCount90}). Accepting.`)
+        validationErrors = []
+      } else {
+        console.log('\n  ERRORS (must fix before publishing):')
+        for (const e of validationErrors) {
+          console.log(`    - ${e}`)
+        }
+        console.error(`  Skipping article "${item.title}" due to validation errors after all retry attempts.`)
+        hadErrors = true
+        continue
       }
-      console.error(`  Skipping article "${item.title}" due to validation errors after all retry attempts.`)
-      hadErrors = true
-      continue
     }
 
     const criticalWarnings = validationWarnings.filter((w) =>
