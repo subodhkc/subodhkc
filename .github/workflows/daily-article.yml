@@ -81,8 +81,8 @@ jobs:
               node scripts/generate-social.mjs --slug="$SLUG" --force --no-review || echo "::warning::Social generation failed for $SLUG"
             done
           elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
             echo "No manifest found, generating social content for latest: $SLUG"
             node scripts/generate-social.mjs --slug="$SLUG" --force --no-review
           fi
@@ -136,12 +136,24 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: article
-          path: .
+          path: ./artifact-data
 
       - name: Commit and push article to main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Pull latest first to avoid untracked file conflicts
+          git pull --rebase origin main
+
+          # Copy artifact files into working tree
+          if [ -d ./artifact-data ]; then
+            cp -r ./artifact-data/data/blog/posts/* data/blog/posts/ 2>/dev/null || true
+            cp ./artifact-data/data/blog/daily-manifest.json data/blog/daily-manifest.json 2>/dev/null || true
+            cp -r ./artifact-data/data/social/* data/social/ 2>/dev/null || true
+            cp -r ./artifact-data/public/blog-images/* public/blog-images/ 2>/dev/null || true
+            cp -r ./artifact-data/public/downloads/* public/downloads/ 2>/dev/null || true
+          fi
 
           if [ -n "$(git status --porcelain data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/)" ]; then
             git add data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/
@@ -189,21 +201,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: article
-          path: .
+          path: ./artifact-data
+
+      - name: Copy artifact data into working tree
+        if: needs.generate-article.result == 'success' && needs.generate-article.outputs.ran == 'true'
+        run: |
+          if [ -d ./artifact-data ]; then
+            cp -r ./artifact-data/data/blog/posts/* data/blog/posts/ 2>/dev/null || true
+            cp ./artifact-data/data/blog/daily-manifest.json data/blog/daily-manifest.json 2>/dev/null || true
+            cp -r ./artifact-data/data/social/* data/social/ 2>/dev/null || true
+            cp -r ./artifact-data/public/blog-images/* public/blog-images/ 2>/dev/null || true
+            cp -r ./artifact-data/public/downloads/* public/downloads/ 2>/dev/null || true
+          fi
 
       - name: Wait for Vercel deployment
         run: |
           echo "Waiting 90 seconds for Vercel deployment to complete..."
           sleep 90
 
-          # Check authority article from manifest, fall back to latest
+          # Check authority article from manifest, fall back to first article, then latest by createdAt
           SLUG=""
           if [ -f data/blog/daily-manifest.json ]; then
-            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)" 2>/dev/null)
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority') || (m.articles||[])[0]; if(a) console.log(a.slug)" 2>/dev/null)
           fi
           if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
           fi
 
           if [ -n "$SLUG" ]; then
@@ -226,14 +249,14 @@ jobs:
             exit 0
           fi
 
-          # Find the authority article from manifest, fall back to latest
+          # Find the authority article from manifest, fall back to first article in manifest, then latest by createdAt
           SLUG=""
           if [ -f data/blog/daily-manifest.json ]; then
-            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)")
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority') || (m.articles||[])[0]; if(a) console.log(a.slug)")
           fi
           if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
           fi
 
           if [ -n "$SLUG" ]; then
@@ -268,14 +291,14 @@ jobs:
             exit 0
           fi
 
-          # Find the authority article from manifest, fall back to latest
+          # Find the authority article from manifest, fall back to first article in manifest, then latest by createdAt
           SLUG=""
           if [ -f data/blog/daily-manifest.json ]; then
-            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)")
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority') || (m.articles||[])[0]; if(a) console.log(a.slug)")
           fi
           if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
           fi
 
           if [ -n "$SLUG" ]; then
