@@ -69,7 +69,7 @@ Return ONLY the Markdown content, no code fences, no preamble.`
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [
           {
             role: 'system',

@@ -549,15 +549,15 @@ Return ONLY the JSON object, no markdown code fences, no preamble.${retryHint ? 
           'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: 'gpt-4o-mini',
+          model: 'gpt-4o',
           messages: [
             {
               role: 'system',
-              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You return only valid JSON.`,
+              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You return only valid JSON. CRITICAL REQUIREMENT: The contentHtml field MUST contain at least ${articleType.minWords} words of substantive, detailed content. Write comprehensive paragraphs under each H2 heading. Do NOT summarize or abbreviate. Each section must be fully developed with specific examples, steps, and technical detail. Articles under ${articleType.minWords} words will be rejected.`,
             },
             { role: 'user', content: prompt },
           ],
-          temperature: 0.8,
+          temperature: 0.7,
           max_tokens: item.type === 'operator-brief' ? 8000 : item.type === 'implementation' ? 12000 : 16000,
         }),
       })
@@ -766,7 +766,7 @@ Return ONLY the Markdown content, no code fences, no preamble.`
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [
           {
             role: 'system',

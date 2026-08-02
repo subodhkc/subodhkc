@@ -143,7 +143,7 @@ Format each section with markdown headers. Do not add any preamble or conclusion
           'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: 'gpt-4o-mini',
+          model: 'gpt-4o',
           messages: [
             { role: 'system', content: 'You are an expert social media strategist who creates high-engagement content for B2B tech audiences. You understand AI governance, enterprise architecture, and compliance niches. You write in a natural, human voice. You stick to facts from the article.' },
             { role: 'user', content: prompt },
@@ -235,7 +235,7 @@ Format as markdown. Be concise but specific.`
       'Authorization': `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o',
       messages: [
         { role: 'system', content: 'You are a strict social media editor who reviews content for accuracy, tone, and platform-appropriateness. You flag hallucinations, AI writing tells, em-dashes, link references, and fabricated claims. For LinkedIn posts, you verify no CTAs, no link placeholders, no em-dashes, and no AI writing patterns are present.' },
         { role: 'user', content: prompt },
