@@ -361,6 +361,33 @@ export default function ServicesPage() {
         </div>
       </Section>
 
+      <Section subtitle="Specialized Service" title="SaaS Tenant Isolation Audit" sectionNum="§05">
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-primary" />
+                Prove Customer A Cannot Access Customer B&rsquo;s Data
+              </CardTitle>
+              <CardDescription className="text-base">
+                A specialized tenant isolation audit for B2B SaaS, AI-built applications, and teams converting
+                single-user apps into organization-based multi-tenancy. Tests the tenant boundary across
+                authentication, roles, API routes, database queries and storage. Covers Next.js, Supabase RLS,
+                Prisma, PostgreSQL and AI-generated applications from Lovable, Bolt, Replit, Cursor and Windsurf.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <div className="mt-4">
+            <Link
+              href="/services/saas-tenant-isolation-audit"
+              className="text-sm text-primary hover:underline inline-flex items-center gap-1"
+            >
+              Learn about tenant isolation audits <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+        </div>
+      </Section>
+
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm text-muted-foreground mb-6">
