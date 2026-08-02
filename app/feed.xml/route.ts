@@ -1,6 +1,6 @@
 import { getAllPosts } from '@/lib/blog'
 
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
 const SITE_URL = 'https://subodhkc.com'
@@ -42,7 +42,7 @@ ${categories}
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Subodh KC — AI Governance &amp; Architecture Blog</title>
+    <title>Subodh Kc Blogger — AI Governance &amp; Architecture Blog</title>
     <link>${SITE_URL}/blog</link>
     <description>Practical articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems. No fluff — frameworks, patterns, and steps you can apply.</description>
     <language>en</language>

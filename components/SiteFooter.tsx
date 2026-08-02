@@ -446,6 +446,11 @@ export function SiteFooter() {
                 medium.com/@subodhkc <Arrow kind="ext" />
               </a>
             </li>
+            <li>
+              <a href="/feed.xml" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--text-secondary)", textDecoration: "none" }}>
+                RSS feed <Arrow kind="ext" />
+              </a>
+            </li>
           </ul>
         </div>
 

@@ -29,6 +29,14 @@ const nextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      { source: '/rss.xml', destination: '/feed.xml', permanent: true },
+      { source: '/rss', destination: '/feed.xml', permanent: true },
+      { source: '/feed', destination: '/feed.xml', permanent: true },
+      { source: '/atom.xml', destination: '/feed.xml', permanent: true },
+    ]
+  },
 }
 
 module.exports = nextConfig

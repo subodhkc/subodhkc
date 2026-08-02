@@ -38,8 +38,8 @@ const footerLinks = {
       icon: BookOpen,
     },
     {
-      name: 'HAIEC Blog',
-      href: 'https://haiec.com/blog',
+      name: 'RSS Feed',
+      href: '/feed.xml',
       icon: Rss,
     },
   ],
