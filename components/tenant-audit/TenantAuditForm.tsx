@@ -102,6 +102,8 @@ export function TenantAuditForm() {
   if (submitted) {
     return (
       <div
+        aria-live="polite"
+        role="status"
         style={{
           padding: '40px',
           textAlign: 'center',
@@ -159,7 +161,7 @@ export function TenantAuditForm() {
         aria-hidden="true"
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
           <label htmlFor="ta-name" style={labelStyle}>Name *</label>
           <input
@@ -186,7 +188,7 @@ export function TenantAuditForm() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
           <label htmlFor="ta-company" style={labelStyle}>Company or product *</label>
           <input
@@ -211,7 +213,7 @@ export function TenantAuditForm() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
           <label htmlFor="ta-stack" style={labelStyle}>Current stack *</label>
           <input
@@ -241,7 +243,7 @@ export function TenantAuditForm() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
           <label htmlFor="ta-routes" style={labelStyle}>Approximate API-route count</label>
           <input
@@ -270,7 +272,7 @@ export function TenantAuditForm() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
           <label htmlFor="ta-staging" style={labelStyle}>Staging environment available? *</label>
           <select
@@ -329,6 +331,8 @@ export function TenantAuditForm() {
 
       {error && (
         <div
+          aria-live="assertive"
+          role="alert"
           style={{
             padding: '12px 16px',
             borderRadius: 8,

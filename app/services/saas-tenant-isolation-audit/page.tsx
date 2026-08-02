@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import { Button } from '@/components/ui/button'
-import { TenantAuditFAQ } from '@/components/tenant-audit/FAQAccordion'
+import { FAQAccordion } from '@/components/tenant-audit/FAQAccordion'
 import { TenantAuditForm } from '@/components/tenant-audit/TenantAuditForm'
 import {
   ArrowRight, Shield, AlertTriangle, Users, Building2,
@@ -23,12 +23,21 @@ export const metadata = {
       'Tenant isolation audits and multi-tenant deployment for Next.js, Supabase, Prisma, PostgreSQL and AI-built SaaS applications.',
     url: 'https://subodhkc.com/services/saas-tenant-isolation-audit',
     type: 'website',
+    images: [
+      {
+        url: '/services/saas-tenant-isolation-audit/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Can Customer A Access Customer B\u2019s Data? Tenant Isolation Audit',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'SaaS Tenant Isolation Audit',
     description:
       'Find and fix cross-tenant access paths before customers, auditors or attackers do.',
+    images: ['/services/saas-tenant-isolation-audit/opengraph-image'],
   },
   robots: {
     index: true,
@@ -302,25 +311,34 @@ const engagementBoundaries = [
   'Critical findings are communicated promptly rather than held until the final report',
 ]
 
+const faqItems = [
+  { question: 'What is a SaaS tenant isolation audit?', answer: 'A tenant isolation audit determines whether one customer, organization or workspace can access another tenant\u2019s records, files, administrative functions or billing context. It reviews authentication, organization membership, API authorization, database queries, role changes and storage access as one connected boundary.' },
+  { question: 'Is authentication enough to protect a multi-tenant SaaS?', answer: 'No. Authentication establishes who the user is. Tenant authorization must also establish which organizations and resources that identity may access. A valid signed-in user can still exploit a route that trusts a supplied organization ID or retrieves a record without verifying ownership.' },
+  { question: 'Do you audit Supabase Row-Level Security policies?', answer: 'Yes. A Supabase review can cover RLS policies for reads, inserts, updates and deletes; membership functions; service-role paths; storage policies; security-definer functions and the relationship between server-side routes and database enforcement.' },
+  { question: 'Do you review Next.js and Prisma applications?', answer: 'Yes. The review traces authorization through Next.js middleware and route handlers into Prisma queries, PostgreSQL relationships, background operations and storage access. Special attention is given to resource queries that use an ID without a verified organization constraint.' },
+  { question: 'Can you review an application built with Lovable, Bolt, Replit or AI coding tools?', answer: 'Yes. AI-built applications are a strong fit because individually generated routes may use inconsistent authorization patterns. The review evaluates the resulting implementation rather than judging which tool produced it.' },
+  { question: 'Will you test my production database?', answer: 'The preferred approach is an isolated staging environment with synthetic tenants and data. Production testing requires explicit scope, backups, access controls and agreement on permitted actions. Destructive tests are excluded unless separately authorized.' },
+  { question: 'What access do you need?', answer: 'A read-only repository review can begin with source access and architecture context. Behavioral verification normally requires a dedicated branch or commit, an isolated database, synthetic user accounts, staging deployment access and relevant logs. Credentials should be scoped to the minimum required permissions.' },
+  { question: 'What does the final report include?', answer: 'The report includes the tested scope, architecture observations, confirmed findings, rejected false positives, execution paths, severity, affected code, existing mitigations, recommended fixes and regression tests. Behavioral engagements also include sanitized request and response evidence.' },
+  { question: 'Can you fix the vulnerabilities you find?', answer: 'Yes. Remediation can be scoped after the audit or included in the Hardening and Verified Deployment engagement. Fixes may include canonical authorization middleware, role restrictions, tenant-scoped queries, RLS policies, private storage delivery and automated isolation tests.' },
+  { question: 'Can you convert a single-user application into a multi-tenant SaaS?', answer: 'Yes. The deployment service can add organizations, memberships, invitations, roles, organization switching, tenant-owned resources, storage isolation and regression testing. Scope depends on the existing data model and application workflows.' },
+  { question: 'Is this a penetration test or compliance certification?', answer: 'No. This is a specialized application-security and architecture review focused on tenant isolation. It does not replace a comprehensive penetration test, independent compliance examination or legal review.' },
+  { question: 'How long does an audit take?', answer: 'A focused review can often be completed within several business days after access and scope are ready. A behavioral audit or remediation engagement may require one to several weeks depending on route count, data models, storage systems and environment readiness.' },
+  { question: 'Can agencies use this as a white-label service?', answer: 'Yes. Agencies can request a white-label engagement, repeatable pre-delivery review or agency license when the TenantProof tooling becomes available. Client communication, report branding and remediation responsibilities are defined during scoping.' },
+  { question: 'What happens if no serious vulnerability is found?', answer: 'The report documents what was tested, which controls held, remaining limitations and the regression tests needed to preserve that result. The value is evidence about the tenant boundary, not a predetermined vulnerability count.' },
+]
+
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    { question: 'What is a SaaS tenant isolation audit?', answer: 'A tenant isolation audit determines whether one customer, organization or workspace can access another tenant\u2019s records, files, administrative functions or billing context. It reviews authentication, organization membership, API authorization, database queries, role changes and storage access as one connected boundary.' },
-    { question: 'Is authentication enough to protect a multi-tenant SaaS?', answer: 'No. Authentication establishes who the user is. Tenant authorization must also establish which organizations and resources that identity may access. A valid signed-in user can still exploit a route that trusts a supplied organization ID or retrieves a record without verifying ownership.' },
-    { question: 'Do you audit Supabase Row-Level Security policies?', answer: 'Yes. A Supabase review can cover RLS policies for reads, inserts, updates and deletes; membership functions; service-role paths; storage policies; security-definer functions and the relationship between server-side routes and database enforcement.' },
-    { question: 'Do you review Next.js and Prisma applications?', answer: 'Yes. The review traces authorization through Next.js middleware and route handlers into Prisma queries, PostgreSQL relationships, background operations and storage access. Special attention is given to resource queries that use an ID without a verified organization constraint.' },
-    { question: 'Can you review an application built with Lovable, Bolt, Replit or AI coding tools?', answer: 'Yes. AI-built applications are a strong fit because individually generated routes may use inconsistent authorization patterns. The review evaluates the resulting implementation rather than judging which tool produced it.' },
-    { question: 'Will you test my production database?', answer: 'The preferred approach is an isolated staging environment with synthetic tenants and data. Production testing requires explicit scope, backups, access controls and agreement on permitted actions. Destructive tests are excluded unless separately authorized.' },
-    { question: 'What access do you need?', answer: 'A read-only repository review can begin with source access and architecture context. Behavioral verification normally requires a dedicated branch or commit, an isolated database, synthetic user accounts, staging deployment access and relevant logs. Credentials should be scoped to the minimum required permissions.' },
-    { question: 'What does the final report include?', answer: 'The report includes the tested scope, architecture observations, confirmed findings, rejected false positives, execution paths, severity, affected code, existing mitigations, recommended fixes and regression tests. Behavioral engagements also include sanitized request and response evidence.' },
-    { question: 'Can you fix the vulnerabilities you find?', answer: 'Yes. Remediation can be scoped after the audit or included in the Hardening and Verified Deployment engagement. Fixes may include canonical authorization middleware, role restrictions, tenant-scoped queries, RLS policies, private storage delivery and automated isolation tests.' },
-    { question: 'Can you convert a single-user application into a multi-tenant SaaS?', answer: 'Yes. The deployment service can add organizations, memberships, invitations, roles, organization switching, tenant-owned resources, storage isolation and regression testing. Scope depends on the existing data model and application workflows.' },
-    { question: 'Is this a penetration test or compliance certification?', answer: 'No. This is a specialized application-security and architecture review focused on tenant isolation. It does not replace a comprehensive penetration test, independent compliance examination or legal review.' },
-    { question: 'How long does an audit take?', answer: 'A focused review can often be completed within several business days after access and scope are ready. A behavioral audit or remediation engagement may require one to several weeks depending on route count, data models, storage systems and environment readiness.' },
-    { question: 'Can agencies use this as a white-label service?', answer: 'Yes. Agencies can request a white-label engagement, repeatable pre-delivery review or agency license when the TenantProof tooling becomes available. Client communication, report branding and remediation responsibilities are defined during scoping.' },
-    { question: 'What happens if no serious vulnerability is found?', answer: 'The report documents what was tested, which controls held, remaining limitations and the regression tests needed to preserve that result. The value is evidence about the tenant boundary, not a predetermined vulnerability count.' },
-  ],
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
 }
 
 const serviceJsonLd = {
@@ -330,8 +348,10 @@ const serviceJsonLd = {
   serviceType: 'Software security assessment and multi-tenant SaaS development',
   description:
     'Tenant isolation audits, remediation and secure multi-tenant deployment for Next.js, Supabase, Prisma, PostgreSQL and AI-built SaaS applications.',
+  category: 'Application Security',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   areaServed: [{ '@type': 'Country', name: 'United States' }, { '@type': 'Place', name: 'Remote' }],
+  audience: { '@type': 'BusinessAudience', name: 'B2B SaaS founders, development agencies, and regulated-data application teams' },
   url: 'https://subodhkc.com/services/saas-tenant-isolation-audit',
   offers: [
     { '@type': 'Offer', name: 'Tenant Boundary Review', price: '950', priceCurrency: 'USD', description: 'A focused, read-only review for a small application or one critical workflow.' },
@@ -367,6 +387,18 @@ const personJsonLd = {
   name: 'Subodh KC',
   jobTitle: 'AI Systems Architect & Governance Expert',
   url: 'https://subodhkc.com',
+  knowsAbout: [
+    'Multi-tenant SaaS architecture',
+    'Tenant isolation security',
+    'Supabase Row-Level Security',
+    'Next.js authorization',
+    'Prisma and PostgreSQL',
+    'Application security review',
+  ],
+  sameAs: [
+    'https://github.com/subodhkc',
+    'https://www.linkedin.com/in/subodhkc',
+  ],
 }
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -391,8 +423,8 @@ export default function TenantIsolationAuditPage() {
       {/* 1. HERO */}
       <Hero
         subtitle="TENANT ISOLATION AUDIT"
-        title="Prove Customer A Cannot Access Customer B\u2019s Data"
-        description="Your SaaS can look finished while still trusting the wrong organization ID, exposing an API route or returning another tenant\u2019s file. I test the tenant boundary across authentication, roles, database queries, APIs and storage, then show you exactly what passed, what failed and what must be fixed."
+        title="Prove Customer A Cannot Access Customer B's Data"
+        description="Your SaaS can look finished while still trusting the wrong organization ID, exposing an API route or returning another tenant's file. I test the tenant boundary across authentication, roles, database queries, APIs and storage, then show you exactly what passed, what failed and what must be fixed."
       >
         <a href="#request" data-track-click="tenant_audit_primary_cta">
           <Button size="lg" className="group">
@@ -429,7 +461,7 @@ export default function TenantIsolationAuditPage() {
         subtitle="Risk Recognition"
         title="Multi-tenancy usually fails in the gaps between systems"
         description="Authentication only proves who the user is. It does not prove which organization they may access. Cross-tenant exposure often appears when the application trusts a request parameter, checks a resource ID without its organization, accepts an inactive membership or protects the database but not file storage."
-        sectionNum="\u00a701"
+        sectionNum="§01"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {riskCards.map((risk, i) => {
@@ -474,7 +506,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Who This Is For"
         title="Built for teams crossing the line from prototype to real customer data"
-        sectionNum="\u00a702"
+        sectionNum="§02"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 gap-6">
@@ -510,7 +542,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="What Gets Tested"
         title="The tenant boundary is tested as a system"
-        sectionNum="\u00a703"
+        sectionNum="§03"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testCategories.map((cat, i) => (
@@ -543,7 +575,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Technology Coverage"
         title="Focused on modern SaaS stacks"
-        sectionNum="\u00a704"
+        sectionNum="§04"
         className="bg-secondary/20"
       >
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
@@ -573,7 +605,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Audit Process"
         title="A narrow process designed to produce actionable evidence"
-        sectionNum="\u00a705"
+        sectionNum="§05"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {processSteps.map((step, i) => (
@@ -612,7 +644,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Deliverables"
         title="What you receive"
-        sectionNum="\u00a706"
+        sectionNum="§06"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -642,7 +674,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Audit Versus Deployment"
         title="Choose verification, remediation or a complete tenant foundation"
-        sectionNum="\u00a707"
+        sectionNum="§07"
       >
         <div style={{ overflowX: 'auto' }}>
           <table
@@ -681,7 +713,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Pricing"
         title="Clear starting points"
-        sectionNum="\u00a708"
+        sectionNum="§08"
         className="bg-secondary/20"
       >
         <p style={{ fontSize: '0.88rem', color: 'var(--op-muted)', marginBottom: 24, fontStyle: 'italic' }}>
@@ -749,7 +781,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Why Subodh"
         title="Built from implementation experience, not a generic checklist"
-        sectionNum="\u00a709"
+        sectionNum="§09"
       >
         <div style={{ maxWidth: 760 }}>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 16 }}>
@@ -776,7 +808,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Engagement Boundaries"
         title="Safe testing boundaries"
-        sectionNum="\u00a710"
+        sectionNum="§10"
         className="bg-secondary/20"
       >
         <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 20, maxWidth: 760 }}>
@@ -806,10 +838,10 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="FAQ"
         title="Tenant isolation audit FAQ"
-        sectionNum="\u00a711"
+        sectionNum="§11"
       >
         <div style={{ maxWidth: 800 }}>
-          <TenantAuditFAQ />
+          <FAQAccordion items={faqItems} />
         </div>
       </Section>
 
@@ -818,7 +850,7 @@ export default function TenantIsolationAuditPage() {
         subtitle="Request an Audit"
         title="Before onboarding the next customer, test the boundary between them"
         description="Send the stack, approximate API-route count, authentication system and whether a staging environment exists. I will confirm whether the application fits a focused review, behavioral audit or full multi-tenant deployment."
-        sectionNum="\u00a712"
+        sectionNum="§12"
         className="bg-secondary/20"
         id="request"
       >
@@ -844,7 +876,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Related Resources"
         title="Related technical guidance"
-        sectionNum="\u00a713"
+        sectionNum="§13"
       >
         <div className="grid md:grid-cols-2 gap-4">
           <Link
@@ -882,7 +914,7 @@ export default function TenantIsolationAuditPage() {
               fontSize: '0.9rem',
             }}
           >
-            FrontOfAI \u2014 Enterprise AI Solutions
+            FrontOfAI — Enterprise AI Solutions
             <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
           </Link>
           <Link
@@ -901,7 +933,7 @@ export default function TenantIsolationAuditPage() {
               fontSize: '0.9rem',
             }}
           >
-            LLMVerify \u2014 LLM Output Validation
+            LLMVerify — LLM Output Validation
             <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
           </Link>
           <Link
@@ -925,7 +957,7 @@ export default function TenantIsolationAuditPage() {
           </Link>
         </div>
         <p style={{ marginTop: 20, fontSize: '0.85rem', color: 'var(--op-muted)' }}>
-          Last reviewed: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          Last reviewed: August 2026
         </p>
       </Section>
     </>
