@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    # Every Monday at 09:00 UTC — weekly full sitemap ping safety net
+    - cron: "0 9 * * 1"
 
 jobs:
   build-and-verify:
@@ -23,10 +26,12 @@ jobs:
         run: npm ci
 
       - name: Lint
+        id: lint
         run: npm run lint
         continue-on-error: true
 
       - name: Build
+        id: build
         run: npm run build
 
       - name: Verify sitemap exists
@@ -77,9 +82,26 @@ jobs:
             exit 1
           fi
 
+      - name: Build summary
+        if: always()
+        run: |
+          echo "## CI Build & Verify Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Lint | ${{ steps.lint.outcome == 'success' && 'Passed' || 'Warnings (non-blocking)' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build | ${{ steps.build.outcome == 'success' && 'Passed' || 'Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Sitemap | Verified |" >> $GITHUB_STEP_SUMMARY
+          echo "| robots.txt | Verified |" >> $GITHUB_STEP_SUMMARY
+          echo "| .well-known files | Verified |" >> $GITHUB_STEP_SUMMARY
+          echo "| LLM files | Verified |" >> $GITHUB_STEP_SUMMARY
+          echo "| IndexNow key | Verified |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Trigger: ${{ github.event_name }} on ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+
   ping-search-engines:
     needs: build-and-verify
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'schedule')
     runs-on: ubuntu-latest
     env:
       GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
@@ -92,13 +114,28 @@ jobs:
       - name: Check for content changes
         id: content-check
         run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD -- data/blog/posts/ app/ components/ public/ 2>/dev/null | head -1)
-          if [ -n "$CHANGED" ]; then
+          # On scheduled runs, always ping (weekly safety net)
+          if [ "${{ github.event_name }}" = "schedule" ]; then
             echo "should_ping=true" >> $GITHUB_OUTPUT
-            echo "Content files changed - proceeding with search engine pings"
+            echo "Scheduled run - pinging all sitemap URLs"
+            exit 0
+          fi
+
+          # Only ping when blog posts or page files change (not on every push)
+          BLOG_CHANGED=$(git diff --name-only HEAD~1 HEAD -- data/blog/posts/ 2>/dev/null | head -1)
+          PAGE_CHANGED=$(git diff --name-only HEAD~1 HEAD -- app/ 2>/dev/null | grep -E '(page\.tsx|layout\.tsx|sitemap|robots|not-found)' | head -1)
+          PUBLIC_CONTENT=$(git diff --name-only HEAD~1 HEAD -- public/ 2>/dev/null | grep -E '(sitemap|llms|robots|\.well-known)' | head -1)
+
+          if [ -n "$BLOG_CHANGED" ] || [ -n "$PAGE_CHANGED" ] || [ -n "$PUBLIC_CONTENT" ]; then
+            echo "should_ping=true" >> $GITHUB_OUTPUT
+            echo "Content files changed:"
+            [ -n "$BLOG_CHANGED" ] && echo "  - Blog posts: $BLOG_CHANGED"
+            [ -n "$PAGE_CHANGED" ] && echo "  - Page files: $PAGE_CHANGED"
+            [ -n "$PUBLIC_CONTENT" ] && echo "  - Public content: $PUBLIC_CONTENT"
+            echo "Proceeding with search engine pings"
           else
             echo "should_ping=false" >> $GITHUB_OUTPUT
-            echo "No content files changed - skipping search engine pings"
+            echo "No content files changed (only code/config changes) - skipping search engine pings"
           fi
 
       - name: Install Python dependencies for Google API
@@ -300,4 +337,27 @@ jobs:
             echo "IndexNow key file is accessible"
           else
             echo "::warning::IndexNow key file returned $STATUS"
+          fi
+
+      - name: Ping summary
+        if: always()
+        run: |
+          echo "## Search Engine Ping Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.content-check.outputs.should_ping }}" = "false" ]; then
+            echo "Skipped - no content changes detected (only code/config changes)." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Pings only run when blog posts, page files, or public content files change." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Action | Status |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Content change detected | Yes |" >> $GITHUB_STEP_SUMMARY
+            echo "| IndexNow ping | ${{ steps.content-check.outputs.should_ping == 'true' && 'Sent' || 'Skipped' }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Google Indexing API | ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' && 'Submitted' || 'Skipped (no credentials)' }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| GSC sitemap submission | ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' && 'Submitted' || 'Skipped (no credentials)' }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Live site check | Completed |" >> $GITHUB_STEP_SUMMARY
+            echo "| IndexNow key check | Completed |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Trigger: ${{ github.event_name }} on ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           fi

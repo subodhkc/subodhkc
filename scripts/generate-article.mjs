@@ -1134,7 +1134,7 @@ async function main() {
   console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
   console.log(`  4. LinkedIn + Dev.to cross-post will trigger on commit`)
 
-  if (hadErrors && !dryRun && !reviewOnly) {
+  if (hadErrors && generatedSlugs.length === 0 && !dryRun && !reviewOnly) {
     process.exit(1)
   }
 }

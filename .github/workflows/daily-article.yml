@@ -124,9 +124,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          if [ -n "$(git status --porcelain data/blog/posts/ data/social/ public/blog-images/)" ]; then
-            git add data/blog/posts/ data/social/ public/blog-images/
-            git commit -m "feat: daily AI article + social content + hero image"
+          if [ -n "$(git status --porcelain data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/)" ]; then
+            git add data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/
+            git commit -m "feat: daily AI articles + social content + hero images"
 
             # Push with retry logic (up to 3 attempts)
             MAX_RETRIES=3
@@ -177,12 +177,18 @@ jobs:
           echo "Waiting 90 seconds for Vercel deployment to complete..."
           sleep 90
 
-          # Verify the article URL is live before proceeding
-          if [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
+          # Check authority article from manifest, fall back to latest
+          SLUG=""
+          if [ -f data/blog/daily-manifest.json ]; then
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)" 2>/dev/null)
+          fi
+          if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
             LATEST=$(ls -t data/blog/posts/*.json | head -1)
             SLUG=$(basename "$LATEST" .json)
-            ARTICLE_URL="https://subodhkc.com/blog/${SLUG}"
+          fi
 
+          if [ -n "$SLUG" ]; then
+            ARTICLE_URL="https://subodhkc.com/blog/${SLUG}"
             echo "Checking availability of: $ARTICLE_URL"
             HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$ARTICLE_URL" || echo "000")
             echo "HTTP response: $HTTP_CODE"
