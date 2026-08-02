@@ -1,6 +1,7 @@
 // app/page.tsx — AI systems architect homepage
 import { AccessProvider } from "@/components/AccessProvider";
 import { Hero } from "@/components/hero/Hero";
+import { FrontOfAIBanner } from "@/components/home/FrontOfAIBanner";
 import { Registry } from "@/components/Registry";
 import { WritingSection } from "@/components/writing/WritingSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
@@ -55,6 +56,7 @@ export default function HomePage() {
   return (
     <AccessProvider>
       <Hero />
+      <FrontOfAIBanner />
       <MagazineBadge />
       <Registry />
       <TestimonialsSection />
