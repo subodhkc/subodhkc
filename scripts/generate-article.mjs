@@ -493,6 +493,30 @@ TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" b
 ARTICLE TYPE: ${articleType.label}
 TARGET WORD COUNT: ${articleType.minWords}-${articleType.maxWords} words. This is a HARD REQUIREMENT, not a suggestion. Articles under ${articleType.minWords} words will be rejected. Write comprehensive, detailed content for each section. Each H2 section should be 150-300 words. Do not summarize or abbreviate - fully develop each section with specific examples, steps, and technical detail.
 
+SECTION BLUEPRINT (follow this to hit the word count):
+${item.type === 'authority' ? `
+- <h2>Direct Answer / Operating Conclusion</h2> (~200 words) - State the core finding upfront with technical specificity
+- <h2>The Actual Problem</h2> (~250 words) - Describe the failure pattern in detail with concrete scenarios
+- <h2>Why Common Approaches Fail</h2> (~250 words) - Analyze 3-4 specific failure modes with explanations
+- <h2>Architecture or Operating Model</h2> (~300 words) - Present the solution architecture with components and interactions
+- <h2>Implementation Steps</h2> (~300 words) - Numbered steps with specific actions, tools, and thresholds
+- <h2>Failure Modes and Tradeoffs</h2> (~250 words) - What can go wrong, how to detect it, how to mitigate
+- <h2>Evidence and Documentation</h2> (~200 words) - What artifacts to produce, what metrics to track
+- <h2>FAQ</h2> (~200 words) - 3-5 questions with substantive answers
+Total target: ~1950 words minimum` : item.type === 'implementation' ? `
+- <h2>Direct Answer</h2> (~150 words) - State the implementation approach upfront
+- <h2>Prerequisites and Context</h2> (~200 words) - What you need before starting
+- <h2>Step-by-Step Implementation</h2> (~350 words) - Detailed numbered steps with code examples or config snippets
+- <h2>Verification and Testing</h2> (~200 words) - How to verify the implementation works
+- <h2>Common Pitfalls and Fixes</h2> (~200 words) - Specific errors and their solutions
+- <h2>FAQ</h2> (~150 words) - 3-5 questions with answers
+Total target: ~1250 words minimum` : `
+- <h2>Direct Answer</h2> (~150 words) - State the recovery action upfront
+- <h2>Diagnosis and Assessment</h2> (~250 words) - How to assess the stalled pilot, specific signals to look for
+- <h2>Recovery Steps</h2> (~250 words) - Numbered actions with specific timeframes
+- <h2>FAQ</h2> (~150 words) - 2-3 questions with answers
+Total target: ~800 words minimum`}
+
 ${ARTICLE_STRUCTURE}
 
 ORIGINALITY REQUIREMENTS:
@@ -597,12 +621,24 @@ Return ONLY the JSON object, no markdown code fences, no preamble.${retryHint ? 
           messages: [
             {
               role: 'system',
-              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You return only valid JSON. CRITICAL REQUIREMENT: The contentHtml field MUST contain at least ${articleType.minWords} words of substantive, detailed content. Write comprehensive paragraphs under each H2 heading. Do NOT summarize or abbreviate. Each section must be fully developed with specific examples, steps, and technical detail. Articles under ${articleType.minWords} words will be rejected.`,
+              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You return only valid JSON.
+
+CRITICAL LENGTH REQUIREMENT: The contentHtml field MUST contain at least ${articleType.minWords} words. This is non-negotiable. Articles under ${articleType.minWords} words will be REJECTED and regenerated.
+
+To hit the word count, you MUST write detailed, substantive paragraphs under every H2 heading. Write ${Math.ceil(articleType.minWords / (item.type === 'authority' ? 6 : item.type === 'implementation' ? 4 : 3))} words per H2 section minimum. Do NOT summarize. Do NOT use bullet points where paragraphs are needed. Fully develop each section with:
+- Specific technical examples (code snippets, config samples, architecture descriptions)
+- Step-by-step procedures with numbered steps
+- Decision matrices or comparison tables
+- Real-world failure scenarios and how to handle them
+- Concrete metrics, thresholds, and benchmarks
+
+DO NOT be concise. Be thorough and exhaustive. Every section must read like a deep technical guide, not a summary.`,
             },
             { role: 'user', content: prompt },
           ],
           temperature: 0.7,
-          max_tokens: item.type === 'operator-brief' ? 8000 : item.type === 'implementation' ? 12000 : 16000,
+          max_tokens: item.type === 'operator-brief' ? 10000 : item.type === 'implementation' ? 14000 : 18000,
+          response_format: { type: 'json_object' },
         }),
       })
 
@@ -858,6 +894,36 @@ Return ONLY the Markdown content, no code fences, no preamble.`
 }
 
 // ---------------------------------------------------------------------------
+// Retry hint builder - creates actionable feedback for the model
+// ---------------------------------------------------------------------------
+
+function buildRetryHint(errors, wordCount, articleType, item) {
+  const hints = []
+  const minH2 = { authority: 4, implementation: 3, 'operator-brief': 2 }
+  const requiredH2 = minH2[item.type] || 4
+
+  for (const err of errors) {
+    if (err.includes('words (target:')) {
+      const deficit = articleType.minWords - wordCount
+      hints.push(`LENGTH FAILURE: Your previous attempt was only ${wordCount} words. The minimum is ${articleType.minWords}. You need ${deficit} MORE words. To fix this: expand EVERY H2 section to at least ${Math.ceil(articleType.minWords / requiredH2)} words. Add specific code examples, step-by-step procedures, decision matrices, and concrete scenarios. Do NOT summarize - write full paragraphs with technical detail.`)
+    } else if (err.includes('AI writing tells')) {
+      const tells = err.replace('AI writing tells detected: ', '')
+      hints.push(`AI TELLS FAILURE: Remove these phrases entirely: ${tells}. Replace with direct, technical language. Instead of "Leverage" use "use". Instead of "Seamless" use "integrated" or describe the specific integration. Instead of "Facilitate" use "enable" or describe the specific mechanism.`)
+    } else if (err.includes('internal links')) {
+      hints.push(`INTERNAL LINKS FAILURE: You need at least 3 internal links. Add links to: ${item.internalLinks?.join(', ') || '/services'}. Also link to related articles. Format: <a href="/path">descriptive anchor text</a>. Do NOT use "click here" or "learn more".`)
+    } else if (err.includes('external citations')) {
+      hints.push(`EXTERNAL CITATIONS FAILURE: You need at least 2 external links to authoritative sources from this list: ${CITATION_SOURCES.slice(0, 15).join(', ')}. Add links like: <a href="https://nist.gov/...">NIST guidance</a> or <a href="https://owasp.org/...">OWASP standard</a>. These must be real, relevant sources for the topic.`)
+    } else if (err.includes('H2 sections')) {
+      hints.push(`H2 STRUCTURE FAILURE: You need at least ${requiredH2} H2 sections. Follow the SECTION BLUEPRINT in the prompt. Each H2 must have substantial content (150-300 words). Use <h2> tags, not <h3> or <strong>.`)
+    } else {
+      hints.push(err)
+    }
+  }
+
+  return hints.join('\n\n')
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -909,7 +975,7 @@ async function main() {
     let wordCount = 0
 
     for (let genAttempt = 1; genAttempt <= maxGenAttempts; genAttempt++) {
-      const retryHint = genAttempt > 1 ? validationErrors.join('\n') : null
+      const retryHint = genAttempt > 1 ? buildRetryHint(validationErrors, wordCount, articleType, item) : null
       if (retryHint) {
         console.log(`\n  Retry attempt ${genAttempt}/${maxGenAttempts} - fixing validation issues...`)
       }
