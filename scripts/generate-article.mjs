@@ -168,6 +168,53 @@ const CONTENT_CALENDAR_BATCH_1 = [
 ]
 
 // ---------------------------------------------------------------------------
+// Content calendar - Batch 2 (30 articles across days 11-20)
+// ---------------------------------------------------------------------------
+
+const CONTENT_CALENDAR_BATCH_2 = [
+  // Day 11 - Multi-agent orchestration
+  { title: 'Multi-Agent Orchestration Patterns: Router, Sequential, Parallel and Supervisor Models', pillar: 'production-ai-architecture', type: 'authority', day: 11, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  { title: 'How to Implement Agent Handoff Without Losing Context or Audit Trail', pillar: 'production-ai-architecture', type: 'implementation', day: 11, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/how-to-secure-and-govern-ai'] },
+  { title: 'When One Agent Is Enough: Avoiding Over-Orchestration in Production AI', pillar: 'production-ai-architecture', type: 'operator-brief', day: 11, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  // Day 12 - AI cost engineering
+  { title: 'AI Cost Engineering: Token Budgets, Model Routing and Cache Strategies for Production', pillar: 'ai-operations-and-deployment', type: 'authority', day: 12, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  { title: 'How to Build a Model Router That Cuts LLM Costs Without Regressing Quality', pillar: 'ai-operations-and-deployment', type: 'implementation', day: 12, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  { title: 'The Three Cache Layers Every Production RAG System Needs', pillar: 'ai-operations-and-deployment', type: 'operator-brief', day: 12, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/architecture-decision-master-sheet'] },
+  // Day 13 - Compliance automation
+  { title: 'AI Compliance Automation: Mapping Controls to NIST AI RMF, ISO 42001 and SOC 2 Evidence', pillar: 'ai-governance-and-evidence', type: 'authority', day: 13, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  { title: 'How to Automate AI Risk Register Updates From Runtime Telemetry', pillar: 'ai-governance-and-evidence', type: 'implementation', day: 13, cta: '/solutions/haiec', internalLinks: ['/ai-risk-register', '/how-to-secure-and-govern-ai'] },
+  { title: 'Why Spreadsheet Compliance Fails at 50+ AI Use Cases', pillar: 'ai-governance-and-evidence', type: 'operator-brief', day: 13, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  // Day 14 - Voice AI production hardening
+  { title: 'Voice AI in Production: Handling Accents, Interruptions, Barge-In and Noisy Channels', pillar: 'ai-operations-and-deployment', type: 'authority', day: 14, cta: '/solutions/kestrelvoice', internalLinks: ['/why-ai-voice-agents-fail-in-production', '/ai-voice-agent-architecture'] },
+  { title: 'How to Implement Voice Agent Fallback: IVR, SMS and Human Escalation Patterns', pillar: 'ai-operations-and-deployment', type: 'implementation', day: 14, cta: '/solutions/kestrelvoice', internalLinks: ['/why-ai-voice-agents-fail-in-production', '/solutions/kestrelvoice'] },
+  { title: 'Voice Agent Latency Budgets: What 200ms vs 800ms Actually Means for Caller Experience', pillar: 'ai-operations-and-deployment', type: 'operator-brief', day: 14, cta: '/solutions/kestrelvoice', internalLinks: ['/ai-voice-agent-architecture', '/solutions/kestrelvoice'] },
+  // Day 15 - RAG evaluation and observability
+  { title: 'RAG Evaluation Framework: Retrieval Quality, Groundedness and Answer Relevance Metrics', pillar: 'production-ai-architecture', type: 'authority', day: 15, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/architecture-decision-master-sheet'] },
+  { title: 'How to Build a RAG Observability Dashboard Without a Data Engineering Team', pillar: 'production-ai-architecture', type: 'implementation', day: 15, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/services'] },
+  { title: 'The Five RAG Failure Modes You Will Only Catch in Production', pillar: 'production-ai-architecture', type: 'operator-brief', day: 15, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/architecture-decision-master-sheet'] },
+  // Day 16 - AI security and adversarial
+  { title: 'AI Security Threat Model: Prompt Injection, Data Exfiltration and Model Extraction Attacks', pillar: 'ai-governance-and-evidence', type: 'authority', day: 16, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  { title: 'How to Implement Prompt Injection Defenses Without Breaking Agent Utility', pillar: 'ai-governance-and-evidence', type: 'implementation', day: 16, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/products/llmverify'] },
+  { title: 'The Three AI Security Tests Every Deployment Gate Should Require', pillar: 'ai-governance-and-evidence', type: 'operator-brief', day: 16, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/products/llmverify'] },
+  // Day 17 - AI program scaling
+  { title: 'Scaling an AI Program From 5 to 50 Use Cases: Governance, Infrastructure and Talent', pillar: 'ai-program-execution', type: 'authority', day: 17, cta: '/advisory', internalLinks: ['/advisory', '/architecture-decision-master-sheet'] },
+  { title: 'How to Build an AI Center of Excellence Without Creating a Bureaucracy', pillar: 'ai-program-execution', type: 'implementation', day: 17, cta: '/advisory', internalLinks: ['/advisory', '/services'] },
+  { title: 'The AI Program Review Template Every Steering Committee Should Use', pillar: 'ai-program-execution', type: 'operator-brief', day: 17, cta: '/advisory', internalLinks: ['/advisory', '/architecture-decision-master-sheet'] },
+  // Day 18 - Builder lessons and field research
+  { title: 'What I Learned Building 13 Production AI Systems: Architecture Anti-Patterns and Fixes', pillar: 'builder-research-and-field-lessons', type: 'authority', day: 18, cta: '/research', internalLinks: ['/architecture-decision-master-sheet', '/research'] },
+  { title: 'How to Debug an AI System That Works in Staging But Fails in Production', pillar: 'builder-research-and-field-lessons', type: 'implementation', day: 18, cta: '/research', internalLinks: ['/research', '/architecture-decision-master-sheet'] },
+  { title: 'The Production AI Checklist I Wish I Had on Day One', pillar: 'builder-research-and-field-lessons', type: 'operator-brief', day: 18, cta: '/research', internalLinks: ['/architecture-decision-master-sheet', '/research'] },
+  // Day 19 - Model lifecycle and MLOps
+  { title: 'AI Model Lifecycle Management: Versioning, Deployment, Rollback and Deprecation Policy', pillar: 'ai-operations-and-deployment', type: 'authority', day: 19, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  { title: 'How to Implement Model A/B Testing for LLM Applications Without User Impact', pillar: 'ai-operations-and-deployment', type: 'implementation', day: 19, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  { title: 'Why Your Model Retraining Schedule Is Probably Wrong', pillar: 'ai-operations-and-deployment', type: 'operator-brief', day: 19, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  // Day 20 - AI governance maturity
+  { title: 'AI Governance Maturity Model: From Ad Hoc to Automated Evidence Collection', pillar: 'ai-governance-and-evidence', type: 'authority', day: 20, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  { title: 'How to Map Your AI Controls to Multiple Frameworks Without Duplicating Work', pillar: 'ai-governance-and-evidence', type: 'implementation', day: 20, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  { title: 'The AI Governance Gap Analysis Template for Board-Level Reporting', pillar: 'ai-governance-and-evidence', type: 'operator-brief', day: 20, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+]
+
+// ---------------------------------------------------------------------------
 // Topic-selection engine with scoring algorithm
 // ---------------------------------------------------------------------------
 
@@ -268,14 +315,16 @@ function pickNextTopic(posts) {
   const existingSlugs = getExistingSlugs(posts)
   const existingTitles = getExistingTitles(posts)
 
-  const scored = CONTENT_CALENDAR_BATCH_1.map((item) => {
+  const ALL_TOPICS = [...CONTENT_CALENDAR_BATCH_1, ...CONTENT_CALENDAR_BATCH_2]
+
+  const scored = ALL_TOPICS.map((item) => {
     const score = scoreTopic(item, posts)
     const classification = classifyTopic(item, posts)
     return { ...item, score, classification }
   })
 
   const viable = scored.filter((item) => {
-    if (item.score < 65) return false
+    if (item.score < 50) return false
     if (item.classification === 'cannibalization-risk') return false
     const potentialSlug = slugify(item.title)
     if (existingSlugs.has(potentialSlug)) return false
@@ -285,10 +334,14 @@ function pickNextTopic(posts) {
   })
 
   if (viable.length === 0) {
-    console.error('ERROR: All 30 calendar topics are exhausted or rejected.')
-    console.error('Action required: Add CONTENT_CALENDAR_BATCH_2 to this script or supply --topic flag.')
+    console.error('ERROR: All 60 calendar topics are exhausted or rejected.')
+    console.error('Action required: Add CONTENT_CALENDAR_BATCH_3 to this script or supply --topic flag.')
     console.error('Existing posts: ' + posts.length)
     process.exit(1)
+  }
+
+  if (viable.length <= 10) {
+    console.warn(`WARNING: Only ${viable.length} calendar topics remaining. Prepare CONTENT_CALENDAR_BATCH_3 soon.`)
   }
 
   viable.sort((a, b) => {
