@@ -38,7 +38,7 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
         ...(post.heroImageUrl ? { images: [{ url: post.heroImageUrl }] } : {}),
         publishedTime: post.createdAt,
         modifiedTime: post.updatedAt || post.createdAt,
-        authors: ['Subodh KC'],
+        authors: ['Subodh Kc Blogger'],
       },
       twitter: {
         card: 'summary_large_image',
@@ -87,12 +87,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     dateModified: post.updatedAt || post.createdAt,
     author: {
       '@type': 'Person',
-      name: 'Subodh KC',
+      name: 'Subodh Kc Blogger',
       url: 'https://subodhkc.com',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Subodh KC',
+      name: 'Subodh Kc Blogger',
       url: 'https://subodhkc.com',
       logo: {
         '@type': 'ImageObject',

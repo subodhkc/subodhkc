@@ -100,6 +100,25 @@ jobs:
             public/downloads/
           retention-days: 1
 
+      - name: Generation summary
+        if: always() && steps.check.outputs.ran == 'true'
+        run: |
+          echo "## Article Generation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f data/blog/daily-manifest.json ]; then
+            echo "| Article | Type | Word Count | Status |" >> $GITHUB_STEP_SUMMARY
+            echo "|---------|------|------------|--------|" >> $GITHUB_STEP_SUMMARY
+            node -e "const m=require('./data/blog/daily-manifest.json'); (m.articles||[]).forEach(a=>console.log('| '+a.title+' | '+a.type+' | '+a.wordCount+' | Published |'))" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Articles generated: $(node -e "console.log(require('./data/blog/daily-manifest.json').articles.length)")" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No articles were successfully generated." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check the logs above for validation errors." >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Trigger: ${{ github.event_name }} on ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+
   commit-and-push:
     runs-on: ubuntu-latest
     permissions:

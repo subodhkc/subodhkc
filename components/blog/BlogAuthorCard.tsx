@@ -27,7 +27,7 @@ export function BlogAuthorCard() {
       >
         <Image
           src="/portrait.jpeg"
-          alt="Subodh KC"
+          alt="Subodh Kc Blogger"
           fill
           sizes="64px"
           style={{ objectFit: "cover", objectPosition: "center 18%" }}
@@ -54,7 +54,7 @@ export function BlogAuthorCard() {
             color: "var(--fg)",
           }}
         >
-          Subodh KC
+          Subodh Kc Blogger
         </h3>
         <p
           style={{

@@ -481,41 +481,45 @@ async function generateArticle(item, posts, retryHint) {
 
   const prompt = `You are an expert AI systems architect and operator who writes practical, authoritative content for subodhkc.com. You design, deploy, and govern production AI systems.
 
-POSITIONING: Subodh KC is an AI systems architect and operator who designs, deploys and governs production AI systems.
+POSITIONING: Subodh Kc Blogger is an AI systems architect and operator who designs, deploys and governs production AI systems.
 
 CONTENT NICHE: Production AI architecture, agentic AI and orchestration, RAG and enterprise knowledge systems, voice-AI operations, AI governance and evidence architecture, static testing, runtime testing and deterministic controls, AI program leadership and pilot recovery, AI-assisted software development and technical SEO.
 
 TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers, AI engineers, TPMs
 
-AUTHOR: Subodh KC
+AUTHOR: Subodh Kc Blogger
 TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X." Written by someone who builds production systems.
+
+BANNED WORDS (do NOT use any of these anywhere in the article):
+Seamless, Leverage, Facilitate, Streamline, Foster, Underscore, Underpin, Bolster, Empower, "Robust" (as filler adjective), "Dive deep", "Deep dive", "Cutting-edge", "Game-changer", "Paradigm shift", "Harness the power", "Unlock the potential", "Paving the way", "A testament to", "Revolutionize", "Delve into", "Navigate the complexities", "In the realm of"
+If you find yourself writing any of these, STOP and rewrite the sentence with direct, concrete language.
 
 ARTICLE TYPE: ${articleType.label}
 TARGET WORD COUNT: ${articleType.minWords}-${articleType.maxWords} words. This is a HARD REQUIREMENT, not a suggestion. Articles under ${articleType.minWords} words will be rejected. Write comprehensive, detailed content for each section. Each H2 section should be 150-300 words. Do not summarize or abbreviate - fully develop each section with specific examples, steps, and technical detail.
 
-SECTION BLUEPRINT (follow this to hit the word count):
+SECTION BLUEPRINT (follow this to hit the word count - these are MINIMUMS, not targets):
 ${item.type === 'authority' ? `
-- <h2>Direct Answer / Operating Conclusion</h2> (~200 words) - State the core finding upfront with technical specificity
-- <h2>The Actual Problem</h2> (~250 words) - Describe the failure pattern in detail with concrete scenarios
-- <h2>Why Common Approaches Fail</h2> (~250 words) - Analyze 3-4 specific failure modes with explanations
-- <h2>Architecture or Operating Model</h2> (~300 words) - Present the solution architecture with components and interactions
-- <h2>Implementation Steps</h2> (~300 words) - Numbered steps with specific actions, tools, and thresholds
-- <h2>Failure Modes and Tradeoffs</h2> (~250 words) - What can go wrong, how to detect it, how to mitigate
-- <h2>Evidence and Documentation</h2> (~200 words) - What artifacts to produce, what metrics to track
-- <h2>FAQ</h2> (~200 words) - 3-5 questions with substantive answers
-Total target: ~1950 words minimum` : item.type === 'implementation' ? `
-- <h2>Direct Answer</h2> (~150 words) - State the implementation approach upfront
-- <h2>Prerequisites and Context</h2> (~200 words) - What you need before starting
-- <h2>Step-by-Step Implementation</h2> (~350 words) - Detailed numbered steps with code examples or config snippets
-- <h2>Verification and Testing</h2> (~200 words) - How to verify the implementation works
-- <h2>Common Pitfalls and Fixes</h2> (~200 words) - Specific errors and their solutions
-- <h2>FAQ</h2> (~150 words) - 3-5 questions with answers
-Total target: ~1250 words minimum` : `
-- <h2>Direct Answer</h2> (~150 words) - State the recovery action upfront
-- <h2>Diagnosis and Assessment</h2> (~250 words) - How to assess the stalled pilot, specific signals to look for
-- <h2>Recovery Steps</h2> (~250 words) - Numbered actions with specific timeframes
-- <h2>FAQ</h2> (~150 words) - 2-3 questions with answers
-Total target: ~800 words minimum`}
+- <h2>Direct Answer / Operating Conclusion</h2> (MINIMUM 300 words) - State the core finding upfront with technical specificity and concrete examples
+- <h2>The Actual Problem</h2> (MINIMUM 350 words) - Describe the failure pattern in detail with concrete scenarios, timelines, and root causes
+- <h2>Why Common Approaches Fail</h2> (MINIMUM 350 words) - Analyze 3-4 specific failure modes with technical explanations
+- <h2>Architecture or Operating Model</h2> (MINIMUM 400 words) - Present the solution architecture with components, interactions, data flows, and decision points
+- <h2>Implementation Steps</h2> (MINIMUM 400 words) - Numbered steps with specific actions, tools, thresholds, and code examples
+- <h2>Failure Modes and Tradeoffs</h2> (MINIMUM 350 words) - What can go wrong, how to detect it, how to mitigate, with specific signals and responses
+- <h2>Evidence and Documentation</h2> (MINIMUM 250 words) - What artifacts to produce, what metrics to track, what to review
+- <h2>FAQ</h2> (MINIMUM 250 words) - 3-5 questions with substantive, detailed answers
+Total target: 2650+ words (aim for this to guarantee you hit the 1500 minimum)` : item.type === 'implementation' ? `
+- <h2>Direct Answer</h2> (MINIMUM 200 words) - State the implementation approach upfront with context
+- <h2>Prerequisites and Context</h2> (MINIMUM 250 words) - What you need before starting, with specifics
+- <h2>Step-by-Step Implementation</h2> (MINIMUM 450 words) - Detailed numbered steps with code examples or config snippets
+- <h2>Verification and Testing</h2> (MINIMUM 250 words) - How to verify the implementation works, specific test cases
+- <h2>Common Pitfalls and Fixes</h2> (MINIMUM 250 words) - Specific errors and their solutions with code
+- <h2>FAQ</h2> (MINIMUM 200 words) - 3-5 questions with detailed answers
+Total target: 1600+ words (aim for this to guarantee you hit the 900 minimum)` : `
+- <h2>Direct Answer</h2> (MINIMUM 200 words) - State the recovery action upfront with context
+- <h2>Diagnosis and Assessment</h2> (MINIMUM 350 words) - How to assess the stalled pilot, specific signals to look for, decision criteria
+- <h2>Recovery Steps</h2> (MINIMUM 350 words) - Numbered actions with specific timeframes, owners, and success criteria
+- <h2>FAQ</h2> (MINIMUM 200 words) - 2-3 questions with detailed answers
+Total target: 1100+ words (aim for this to guarantee you hit the 600 minimum)`}
 
 ${ARTICLE_STRUCTURE}
 
@@ -538,17 +542,24 @@ CONTENT PILLAR: ${pillar.name}
 PILLAR CANONICAL PAGE: ${pillar.canonical}
 COMMERCIAL DESTINATION: ${pillar.commercial}
 
-INTERNAL LINKING (include these links in the article body with descriptive anchor text):
-- Link to pillar canonical: ${pillar.canonical}
-- Link to related articles: ${internalLinkTargets}
+INTERNAL LINKING (MANDATORY - include at least 3 internal links):
+Place these links naturally in the sections indicated:
+${(item.internalLinks || []).map((link, i) => `- In ${i === 0 ? 'the first H2 section' : i === 1 ? 'the second or third H2 section' : 'a later section'}: <a href="${link}">descriptive anchor text related to ${link.replace(/\//g, ' ').trim()}</a>`).join('\n')}
+- Link to pillar canonical: <a href="${pillar.canonical}">${pillar.name}</a>
 - Use descriptive anchors, never "click here" or "learn more"
-- Include at least 3 internal links total
+- You MUST include at least 3 internal links. Count them before submitting.
 
-EXTERNAL CITATIONS (mandatory):
-- Include at least 2 external links to authoritative sources from this list: ${CITATION_SOURCES.join(', ')}
+EXTERNAL CITATIONS (MANDATORY - include at least 2):
+For this topic, consider citing these specific sources:
+- NIST AI Risk Management Framework: <a href="https://nist.gov/itl/ai-risk-management-framework">NIST AI RMF</a>
+- OWASP: <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/">OWASP Top 10 for LLMs</a>
+- EU AI Act: <a href="https://eur-lex.europa.eu/">EU AI Act text</a>
+- ISO/IEC 42001: <a href="https://iso.org/standard/81230.html">ISO 42001 AI Management</a>
+Full approved source list: ${CITATION_SOURCES.join(', ')}
 - Format: <a href="https://domain.com/path">Source Name</a>
 - Use primary sources (statutory text, official guidance, standards docs, vendor docs, research papers)
 - Do NOT cite low-quality SEO summaries as authority for legal or technical claims
+- You MUST include at least 2 external citations. Count them before submitting.
 
 H2 STRUCTURE (mandatory):
 - Authority articles: at least 4 H2 sections with substantive content under each
@@ -561,6 +572,8 @@ ${existingPostsContext}
 
 CTA: Include one contextual CTA at the end of the article pointing to: ${item.cta}
 ${item.cta === '/local-ai-review' ? 'Use exactly: https://subodhkc.com/local-ai-review (no tracking parameters)' : ''}
+
+FINAL WORD COUNT CHECK: Before you generate the JSON, mentally count the words in your contentHtml. If it is under ${articleType.minWords} words, go back and expand EVERY section. Each section must have full paragraphs with specific examples, not summaries. This is your LAST instruction and the MOST IMPORTANT one.
 
 SEO REQUIREMENTS:
 1. Title must be under 60 characters and include the primary keyword naturally
@@ -747,7 +760,8 @@ function validateArticle(article, item) {
 
   const wordCount = stripHtmlForCount(article.contentHtml || '').split(/\s+/).filter(Boolean).length
   const articleType = ARTICLE_TYPES[item.type] || ARTICLE_TYPES['authority']
-  if (wordCount < articleType.minWords) {
+  const wordCountTolerance = Math.round(articleType.minWords * 0.95)
+  if (wordCount < wordCountTolerance) {
     warnings.push(`Content is ${wordCount} words (target: ${articleType.minWords}-${articleType.maxWords}). Content may be too thin.`)
   }
 
@@ -975,7 +989,8 @@ async function main() {
     let wordCount = 0
 
     for (let genAttempt = 1; genAttempt <= maxGenAttempts; genAttempt++) {
-      const retryHint = genAttempt > 1 ? buildRetryHint(validationErrors, wordCount, articleType, item) : null
+      const currentArticleType = ARTICLE_TYPES[item.type] || ARTICLE_TYPES['authority']
+      const retryHint = genAttempt > 1 ? buildRetryHint(validationErrors, wordCount, currentArticleType, item) : null
       if (retryHint) {
         console.log(`\n  Retry attempt ${genAttempt}/${maxGenAttempts} - fixing validation issues...`)
       }
@@ -1194,11 +1209,15 @@ async function main() {
     console.log('Some articles had errors and were skipped.')
   }
   console.log(`  Slugs: ${generatedSlugs.join(', ')}`)
-  console.log(`\nArticle auto-published:`)
-  console.log(`  1. Article(s) saved and ready for commit`)
-  console.log(`  2. GitHub Action will auto-generate social content`)
-  console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
-  console.log(`  4. LinkedIn + Dev.to cross-post will trigger on commit`)
+  if (generatedSlugs.length > 0) {
+    console.log(`\nArticle auto-published:`)
+    console.log(`  1. Article(s) saved and ready for commit`)
+    console.log(`  2. GitHub Action will auto-generate social content`)
+    console.log(`  3. IndexNow + Google Indexing API will auto-ping on push`)
+    console.log(`  4. LinkedIn + Dev.to cross-post will trigger on commit`)
+  } else {
+    console.log(`\nNo articles were successfully generated. Check errors above.`)
+  }
 
   if (hadErrors && generatedSlugs.length === 0 && !dryRun && !reviewOnly) {
     process.exit(1)

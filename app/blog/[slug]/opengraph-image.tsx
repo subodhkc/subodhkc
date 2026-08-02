@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 import { getPostBySlug, getAllSlugs } from '@/lib/blog'
 
 export const runtime = 'nodejs'
-export const alt = 'Blog post by Subodh KC'
+export const alt = 'Blog post by Subodh Kc Blogger'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -30,7 +30,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             fontFamily: 'sans-serif',
           }}
         >
-          <div style={{ fontSize: 48, fontWeight: 700 }}>Subodh KC</div>
+          <div style={{ fontSize: 48, fontWeight: 700 }}>Subodh Kc Blogger</div>
           <div style={{ fontSize: 24, color: '#888', marginTop: 16 }}>Article Not Found</div>
         </div>
       ),
@@ -94,7 +94,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
               SK
             </div>
             <div style={{ fontSize: 22, fontWeight: 600, color: '#e0e0e0' }}>
-              Subodh KC
+              Subodh Kc Blogger
             </div>
           </div>
           <div style={{ fontSize: 18, color: '#666' }}>{dateStr}</div>
