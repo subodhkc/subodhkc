@@ -457,8 +457,7 @@ Begin with a concrete decision, failure, conflict, incident pattern, or operatio
 async function generateArticle(item, posts, retryHint) {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {
-    console.error('ERROR: OPENAI_API_KEY not set')
-    process.exit(1)
+    throw new Error('OPENAI_API_KEY not set')
   }
 
   const pillar = PILLARS[item.pillar]
@@ -669,8 +668,7 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
       }
 
       const error = await response.text()
-      console.error(`OpenAI API error (${response.status}): ${error}`)
-      process.exit(1)
+      throw new Error(`OpenAI API error (${response.status}): ${error.slice(0, 200)}`)
     } catch (err) {
       console.warn(`Network error (attempt ${attempt}/${maxRetries}): ${err.message}`)
       if (attempt < maxRetries) {
@@ -679,8 +677,7 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
         await new Promise((resolve) => setTimeout(resolve, delay))
         continue
       }
-      console.error(`Network error after ${maxRetries} attempts: ${err.message}`)
-      process.exit(1)
+      throw new Error(`Network error after ${maxRetries} attempts: ${err.message}`)
     }
   }
 
@@ -689,9 +686,7 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
   const finishReason = data.choices[0]?.finish_reason
 
   if (!content) {
-    console.error('OpenAI returned empty response')
-    console.error('Finish reason:', finishReason)
-    process.exit(1)
+    throw new Error(`OpenAI returned empty response. Finish reason: ${finishReason}`)
   }
 
   if (finishReason === 'length') {
@@ -731,7 +726,7 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
       console.error('Failed to parse OpenAI response as JSON')
       console.error('Finish reason:', finishReason)
       console.error('Response:', content.slice(0, 500))
-      process.exit(1)
+      throw new Error('Failed to parse OpenAI response as JSON')
     }
   }
 
@@ -994,7 +989,18 @@ async function main() {
         console.log(`\n  Retry attempt ${genAttempt}/${maxGenAttempts} - fixing validation issues...`)
       }
 
-      article = await generateArticle(item, posts, retryHint)
+      try {
+        article = await generateArticle(item, posts, retryHint)
+      } catch (genErr) {
+        console.error(`\n  Generation error on attempt ${genAttempt}: ${genErr.message}`)
+        if (genAttempt < maxGenAttempts) {
+          console.log('  Retrying...')
+          continue
+        }
+        console.error(`  Skipping article "${item.title}" after ${maxGenAttempts} generation failures.`)
+        hadErrors = true
+        break
+      }
 
       // Post-generation dedup check
       const existingTitlesForCheck = getExistingTitles(posts)

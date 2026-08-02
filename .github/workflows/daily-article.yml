@@ -318,8 +318,8 @@ jobs:
           if [ -f data/blog/daily-manifest.json ]; then
             URL_LIST=$(node -e "const m=require('./data/blog/daily-manifest.json'); console.log((m.articles||[]).map(a=>'https://subodhkc.com/blog/'+a.slug).join(' '))")
           elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
             URL_LIST="https://subodhkc.com/blog/${SLUG}"
           fi
 
@@ -415,8 +415,8 @@ jobs:
               node scripts/cross-post-medium.mjs --slug="$SLUG" || echo "::warning::Medium reminder failed for $SLUG"
             done
           elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
             echo "Sending Medium import reminder for: $SLUG"
             node scripts/cross-post-medium.mjs --slug="$SLUG" || echo "::warning::Medium reminder failed for $SLUG"
           else
@@ -430,14 +430,14 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          # Generate outreach for authority article from manifest, fall back to latest
+          # Generate outreach for authority article from manifest, fall back to first article, then latest by createdAt
           SLUG=""
           if [ -f data/blog/daily-manifest.json ]; then
-            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority'); if(a) console.log(a.slug)")
+            SLUG=$(node -e "const m=require('./data/blog/daily-manifest.json'); const a=(m.articles||[]).find(x=>x.type==='authority') || (m.articles||[])[0]; if(a) console.log(a.slug)")
           fi
           if [ -z "$SLUG" ] && [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
           fi
 
           if [ -n "$SLUG" ]; then
@@ -479,8 +479,8 @@ jobs:
             echo "| IndexNow | Notified |" >> $GITHUB_STEP_SUMMARY
             echo "| Outreach plan | $([ -d data/outreach ] && echo 'Generated' || echo 'Skipped') |" >> $GITHUB_STEP_SUMMARY
           elif [ -n "$(ls data/blog/posts/*.json 2>/dev/null)" ]; then
-            LATEST=$(ls -t data/blog/posts/*.json | head -1)
-            SLUG=$(basename "$LATEST" .json)
+            LATEST=$(node -e "const fs=require('fs');const files=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json')).map(f=>{const p=JSON.parse(fs.readFileSync('data/blog/posts/'+f,'utf-8'));return{f,createdAt:p.createdAt||''}}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));if(files[0])console.log(files[0].f.replace('.json',''))")
+            SLUG="$LATEST"
             ARTICLE_URL="https://subodhkc.com/blog/${SLUG}"
 
             echo "| Item | Status |" >> $GITHUB_STEP_SUMMARY
