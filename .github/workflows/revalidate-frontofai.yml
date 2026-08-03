@@ -1,0 +1,42 @@
+name: Revalidate FrontOfAI News
+
+on:
+  schedule:
+    # Every day at 14:00 UTC (09:00 CST) — aligned with FrontOfAI's daily update window
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: revalidate-frontofai
+  cancel-in-progress: false
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger on-demand ISR revalidation
+        env:
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://subodhkc.com' }}
+        run: |
+          if [ -z "$REVALIDATE_SECRET" ]; then
+            echo "::error::REVALIDATE_SECRET secret not set"
+            exit 1
+          fi
+
+          echo "Revalidating FrontOfAI news banner at $SITE_URL/api/revalidate"
+          RESPONSE=$(curl -s -o /tmp/body -w "%{http_code}" \
+            -X POST "$SITE_URL/api/revalidate" \
+            -H "Authorization: Bearer $REVALIDATE_SECRET" \
+            -H "Content-Type: application/json")
+
+          echo "HTTP status: $RESPONSE"
+          echo "Response body:"
+          cat /tmp/body
+
+          if [ "$RESPONSE" != "200" ]; then
+            echo "::error::Revalidation failed with status $RESPONSE"
+            exit 1
+          fi
+
+          echo "✓ FrontOfAI news banner revalidated"

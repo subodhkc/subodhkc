@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllPosts } from '@/lib/blog'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -43,6 +44,9 @@ const STATIC_SITE_URLS = [
 ]
 
 export async function POST(request: NextRequest) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   try {
     let urls: string[] = []
 

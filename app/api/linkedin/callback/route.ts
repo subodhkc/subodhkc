@@ -2,6 +2,16 @@ import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
+/** HTML-escape user-supplied values before interpolating into HTML. */
+function esc(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 /**
  * LinkedIn OAuth callback endpoint.
  * After the user authorizes the app on LinkedIn, they're redirected here
@@ -28,15 +38,17 @@ export async function GET(request: Request) {
     )
   }
 
+  const safeCode = esc(code)
+
   const html = `<!DOCTYPE html>
 <html>
 <head><title>LinkedIn Authorization</title></head>
 <body style="font-family: system-ui, sans-serif; max-width: 600px; margin: 80px auto; padding: 20px;">
 <h1>LinkedIn Authorization Successful</h1>
 <p>Copy the code below and run the token exchange script:</p>
-<pre style="background: #f4f4f4; padding: 16px; border-radius: 8px; word-break: break-all; font-size: 14px;">${code}</pre>
+<pre style="background: #f4f4f4; padding: 16px; border-radius: 8px; word-break: break-all; font-size: 14px;">${safeCode}</pre>
 <p>Run this in your terminal:</p>
-<pre style="background: #1a1a1a; color: #0f0; padding: 16px; border-radius: 8px; font-size: 14px;">node scripts/linkedin-token-exchange.mjs --code=${code}</pre>
+<pre style="background: #1a1a1a; color: #0f0; padding: 16px; border-radius: 8px; font-size: 14px;">node scripts/linkedin-token-exchange.mjs --code=${safeCode}</pre>
 <p style="color: #666; font-size: 13px;">You can close this tab after copying the code.</p>
 </body>
 </html>`

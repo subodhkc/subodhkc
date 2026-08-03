@@ -74,9 +74,3 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{\"host\": \"subodhkc.com\", \"key\": \"subodhkcindexnowkey2026\", \"keyLocation\": \"https://subodhkc.com/subodhkcindexnowkey2026.txt\", \"urlList\": $URLS}")
           echo "IndexNow response: $RESPONSE"
-
-      - name: Submit sitemap to Google
-        if: github.event.inputs.environment == 'production'
-        run: |
-          curl -s -o /dev/null -w "Google sitemap ping: %{http_code}\n" \
-            "https://www.google.com/ping?sitemap=https://subodhkc.com/sitemap.xml"

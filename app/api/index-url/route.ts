@@ -1,16 +1,22 @@
 import { JWT } from 'google-auth-library'
 import { NextResponse } from 'next/server'
+import { rateLimit } from '@/lib/rate-limit'
+import type { NextRequest } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   try {
     const authToken = process.env.INDEXING_API_TOKEN
-    if (authToken) {
-      const provided = request.headers.get('Authorization')?.replace('Bearer ', '')
-      if (provided !== authToken) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-      }
+    const provided = request.headers.get('Authorization')?.replace('Bearer ', '')
+
+    // Fail-closed: if the token isn't configured OR doesn't match, reject.
+    // (Previously failed open when the env var was missing.)
+    if (!authToken || provided !== authToken) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { url, type } = await request.json()

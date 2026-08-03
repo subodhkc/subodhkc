@@ -13,6 +13,10 @@ on:
         type: boolean
         default: false
 
+concurrency:
+  group: expand-thin-content
+  cancel-in-progress: false
+
 jobs:
   expand-thin-content:
     runs-on: ubuntu-latest
