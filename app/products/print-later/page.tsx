@@ -36,8 +36,8 @@ export default function PrintLaterPage() {
   const features = [
     {
       icon: Zap,
-      title: 'Ctrl + P',
-      description: 'See something worth printing? Press Ctrl+P and review later. Done. The page is saved to your queue, ready when you are to organize it and print it.'
+      title: 'Ctrl+P to Save',
+      description: 'See something worth printing? Press Ctrl+P and save it to your queue. The page is captured and ready when you are to organize it and print it.'
     },
     {
       icon: FileText,
@@ -116,15 +116,14 @@ export default function PrintLaterPage() {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Print Later Powers Your CTRL+P
+            Save Web Pages Now,
             <br />
-            <span className="gradient-text">Print Smarter. Copy Smarter.</span>
+            <span className="gradient-text">Print Them Later</span>
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Each page you capture is stored locally on your device — never uploaded, never shared.
-            Save anything you’re reading with Ctrl+P. When you’re ready, open Print Later, pick the exact pages you want, reorder them, and print a clean packet.
-            Capture now, organize later. Fully private. Fully local, zero cloud nonsense.
+            Free Windows app. Queue pages with Ctrl+P, pick the exact pages you want, and batch print when you&apos;re ready.
+            100% local — no cloud, no tracking, no account required.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
@@ -646,10 +645,10 @@ export default function PrintLaterPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
-            name: 'PrintLater',
-            description: 'Save web pages now and print them later. Browser extension for deferred printing with queue management.',
+            name: 'Print Later',
+            description: 'Free Windows app to save web pages now and print them later. Queue pages with Ctrl+P, pick exact pages, batch print. 100% local, no cloud, no tracking.',
             applicationCategory: 'ProductivityApplication',
-            operatingSystem: 'Cross-platform',
+            operatingSystem: 'Windows 10/11',
             offers: {
               '@type': 'Offer',
               price: '0',
@@ -661,6 +660,21 @@ export default function PrintLaterPage() {
               url: 'https://subodhkc.com',
             },
             url: 'https://subodhkc.com/products/print-later',
+            downloadUrl: 'https://github.com/subodhkc/Print-Later/releases',
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+              { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://subodhkc.com/products' },
+              { '@type': 'ListItem', position: 3, name: 'Print Later', item: 'https://subodhkc.com/products/print-later' },
+            ],
           }),
         }}
       />

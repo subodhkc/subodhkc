@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Print Later – Free Windows App to Save & Print Web Pages Later',
-  description: 'Print Later is a free Windows app that lets you save web pages now and print them later. Queue pages with Ctrl+P, select exact pages, batch print. 100% local, no cloud, no tracking. Download free.',
+  description: 'Free Windows app to save web pages and print them later. Queue with Ctrl+P, pick exact pages, batch print. No cloud, no tracking. Download free.',
   keywords: [
     'Print Later',
     'save web pages for printing',
