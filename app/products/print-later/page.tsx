@@ -703,23 +703,23 @@ export default function PrintLaterPage() {
         </div>
       </section>
 
-      {/* Coming Soon - CourtCase */}
+      {/* Related Tool - CourtCase */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <Card className="p-8 bg-gradient-to-br from-amber-500/5 to-orange-500/5 border-amber-500/20">
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-500 px-3 py-1 rounded-full text-sm font-medium mb-4">
-                  Coming Soon
+                  Public Beta
                 </div>
                 <h3 className="text-2xl font-bold mb-2">CourtCase</h3>
                 <p className="text-muted-foreground mb-4">
-                  Organize your legal documents with ease. CourtCase helps you manage case files, 
+                  Organize your legal documents with ease. CourtCase helps you manage case files,
                   track deadlines, and prepare document packets — all locally on your computer.
                 </p>
                 <Link href="/products/courtcase">
                   <Button variant="outline" className="gap-2">
-                    Get Priority Access
+                    Learn More
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>

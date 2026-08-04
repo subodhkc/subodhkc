@@ -19,7 +19,6 @@ import {
   Zap,
   Settings,
   Mail,
-  Clock,
   Server,
 } from 'lucide-react'
 
@@ -46,7 +45,7 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/products/ai-article-generator',
   },
   openGraph: {
-    title: 'AI Article Generator | Open-Source Content Automation Engine',
+    title: 'AI Article Generator | Open-Source Content Engine',
     description:
       'Automated AI content engine that fetches news, categorizes with OpenAI GPT-4o, and publishes MDX articles to your site. Open source, fully configurable.',
     url: 'https://subodhkc.com/products/ai-article-generator',
@@ -54,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Article Generator | Open-Source Content Automation Engine',
+    title: 'AI Article Generator | Open-Source Content Engine',
     description:
       'Automated AI content engine that fetches news, categorizes with OpenAI GPT-4o, and publishes MDX articles to your site.',
   },
@@ -531,7 +530,7 @@ export default function AIArticleGeneratorPage() {
               <CardContent className="pt-6">
                 <h3 className="font-semibold mb-2">vs. Manual Writing / Freelance Writers</h3>
                 <p className="text-sm text-muted-foreground">
-                  <strong>Print Later wins:</strong> Runs 24/7, $0.01-0.05 per article vs $200-500
+                  <strong>This engine wins:</strong> Runs 24/7, $0.01-0.05 per article vs $200-500
                   per freelance article. Consistent format and frontmatter. Never misses a deadline.
                   <br />
                   <strong>Manual wins:</strong> Human writers produce original analysis, interviews,

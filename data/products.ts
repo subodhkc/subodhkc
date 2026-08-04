@@ -114,6 +114,22 @@ export const PRODUCTS: Product[] = [
     secondary: { label: "GitHub", href: "https://github.com/subodhkc/llmverify", type: "github" },
   },
   {
+    id: "ai-article-generator",
+    name: "AI Article Generator",
+    tagline:
+      "Automated AI content engine. Fetches news, categorizes with GPT-4o, publishes MDX articles to your repo via GitHub Actions.",
+    kind: "oss",
+    status: "stable",
+    glyph: "octagon",
+    meta: "OSS · MIT",
+    primary: {
+      label: "View on GitHub",
+      href: "https://github.com/subodhkc/AI-Article-Generator-",
+      type: "github",
+    },
+    secondary: { label: "Product page", href: "/products/ai-article-generator", type: "launch" },
+  },
+  {
     id: "doc-timeline",
     name: "Doc Timeline",
     tagline:
