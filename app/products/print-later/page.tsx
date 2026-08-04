@@ -5,14 +5,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
-  Download, 
+import {
+  Download,
   Github,
-  Shield, 
-  Zap, 
-  Printer, 
-  FileText, 
-  Layers, 
+  Shield,
+  Zap,
+  Printer,
+  FileText,
+  Layers,
   Monitor,
   CheckCircle2,
   Lock,
@@ -23,7 +23,11 @@ import {
   ArrowRight,
   Mail,
   Briefcase,
-  X
+  X,
+  Calculator,
+  Home,
+  GraduationCap,
+  Users,
 } from 'lucide-react'
 
 export default function PrintLaterPage() {
@@ -382,6 +386,58 @@ export default function PrintLaterPage() {
               <CardContent>
                 <p className="text-muted-foreground text-sm">
                   Stop wasting paper on full-page prints when you only need one section. Stop losing track of what you wanted to print. Print Later fixes both.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4">
+                  <Calculator className="h-6 w-6 text-cyan-500" />
+                </div>
+                <CardTitle className="text-lg">Accountants</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Save receipts, invoices, and tax documents throughout the day. Batch print expense reports and financial documentation in one organized packet.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-rose-500/10 flex items-center justify-center mb-4">
+                  <Home className="h-6 w-6 text-rose-500" />
+                </div>
+                <CardTitle className="text-lg">Real Estate</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Queue listing pages, contracts, and comparables from multiple sources. Print a clean packet for client meetings and property showings.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-4">
+                  <GraduationCap className="h-6 w-6 text-indigo-500" />
+                </div>
+                <CardTitle className="text-lg">Teachers</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Save worksheets, articles, and reference materials from different sites. Combine into one print job for your class handout packet.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-teal-500" />
+                </div>
+                <CardTitle className="text-lg">HR Teams</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Save policy pages, training materials, and compliance documents. Print onboarding packets with only the pages each employee needs.
                 </p>
               </CardContent>
             </Card>

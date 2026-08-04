@@ -22,6 +22,7 @@ const STATIC_SITE_URLS = [
   'https://subodhkc.com/products/llmverify',
   'https://subodhkc.com/products/ai-article-generator',
   'https://subodhkc.com/products/print-later',
+  'https://subodhkc.com/products/print-later/how-it-works',
   'https://subodhkc.com/products/pdf-redactor',
   'https://subodhkc.com/products/doc-timeline',
   'https://subodhkc.com/products/skc-log-analyser',
