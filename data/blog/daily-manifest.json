@@ -1,11 +1,11 @@
 {
-  "date": "2026-08-03",
-  "generatedAt": "2026-08-03T15:00:48.224Z",
+  "date": "2026-08-04",
+  "generatedAt": "2026-08-04T14:49:03.708Z",
   "articles": [
     {
-      "slug": "12-ai-pilot-readiness-checks-for-production",
+      "slug": "12-checks-for-ai-pilot-readiness",
       "type": "implementation",
-      "title": "12 AI Pilot Readiness Checks for Production",
+      "title": "12 Checks for AI Pilot Readiness",
       "wordCount": 0
     }
   ]
