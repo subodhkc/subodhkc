@@ -494,7 +494,7 @@ export default function SKCLogAnalyserPage() {
             name: 'SKC Log Analyser',
             description: 'Standalone CLI-first log analysis tool. Upload logs and get instant insights. Built by engineers, for engineers.',
             applicationCategory: 'DeveloperApplication',
-            operatingSystem: 'Cross-platform',
+            operatingSystem: 'Python 3.9+ (Streamlit, locally hosted)',
             offers: {
               '@type': 'Offer',
               price: '0',

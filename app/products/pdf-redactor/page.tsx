@@ -727,7 +727,7 @@ export default function PDFRedactorPage() {
             name: 'PDF Redactor',
             description: 'Offline AI-powered PDF redaction tool. Remove sensitive information from legal documents without uploading to any server.',
             applicationCategory: 'SecurityApplication',
-            operatingSystem: 'Cross-platform',
+            operatingSystem: 'Windows 10/11',
             offers: {
               '@type': 'Offer',
               price: '0',
