@@ -13,7 +13,8 @@ import {
   ArrowRight,
   Shield,
   Zap,
-  Lock
+  Lock,
+  FileText
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -27,6 +28,16 @@ const products = [
     badgeColor: 'bg-blue-500/10 text-blue-500',
     features: ['Prompt injection detection', 'PII redaction', 'Hallucination scoring', 'Zero telemetry'],
     cta: 'View Package'
+  },
+  {
+    name: 'AI Article Generator',
+    href: '/products/ai-article-generator',
+    description: 'Automated AI content engine that fetches news from authoritative sources, categorizes with OpenAI GPT-4o, and publishes MDX articles to your site. Open source, GitHub Actions ready.',
+    icon: FileText,
+    badge: 'Open Source',
+    badgeColor: 'bg-blue-500/10 text-blue-500',
+    features: ['RSS to MDX', 'GPT-4o powered', 'GitHub Actions', 'Config-driven'],
+    cta: 'View on GitHub'
   },
   {
     name: 'Print Later',
