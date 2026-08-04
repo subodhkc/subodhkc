@@ -39,12 +39,12 @@ export default function SKCLogAnalyserPage() {
     {
       icon: Search,
       title: 'Intelligent Pattern Detection',
-      description: 'Our AI doesn\'t just search — it understands. Automatically identifies anomalies, error cascades, and performance degradation patterns across millions of log lines.'
+      description: 'AI doesn\'t just search — it understands. Automatically identifies anomalies, error cascades, and performance degradation patterns across your log files.'
     },
     {
       icon: AlertTriangle,
-      title: 'Real-Time Alerting',
-      description: 'Get notified before problems become outages. SKC Log Analyser learns your system\'s normal behavior and alerts you when something\'s off.'
+      title: 'Anomaly Detection',
+      description: 'SKC Log Analyser identifies unusual patterns in your logs — error spikes, latency degradation, and unexpected behavior — without manual threshold tuning.'
     },
     {
       icon: TrendingUp,
@@ -54,7 +54,7 @@ export default function SKCLogAnalyserPage() {
     {
       icon: Terminal,
       title: 'Universal Log Support',
-      description: 'Apache, Nginx, Docker, Kubernetes, AWS CloudWatch, custom formats — if it generates logs, we can analyze it. No reformatting required.'
+      description: 'Apache, Nginx, Docker, Kubernetes, JSON, CSV, Syslog, custom formats — if it\'s a text-based log file, upload it and get analysis. No reformatting required.'
     },
     {
       icon: BarChart3,
@@ -63,8 +63,8 @@ export default function SKCLogAnalyserPage() {
     },
     {
       icon: Lock,
-      title: 'On-Premise & Air-Gapped',
-      description: 'Your logs contain sensitive data. Run SKC Log Analyser entirely on your infrastructure. No cloud dependency. No data leaves your network.'
+      title: '100% Local & Private',
+      description: 'Your logs contain sensitive data. SKC Log Analyser runs as a local Streamlit app on your machine. No cloud dependency. No data leaves your network. No telemetry.'
     }
   ]
 
@@ -78,10 +78,10 @@ export default function SKCLogAnalyserPage() {
   ]
 
   const metrics = [
-    { value: '10B+', label: 'Log lines processed daily' },
-    { value: '<100ms', label: 'Query response time' },
-    { value: '99.9%', label: 'Anomaly detection accuracy' },
-    { value: '60%', label: 'Faster incident resolution' }
+    { value: 'GB-scale', label: 'Log files processed locally' },
+    { value: 'Seconds', label: 'From upload to insights' },
+    { value: 'AI-powered', label: 'Pattern detection' },
+    { value: '0', label: 'Data sent to the cloud' }
   ]
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -123,7 +123,7 @@ export default function SKCLogAnalyserPage() {
             <div>
               <div className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-500 px-4 py-2 rounded-full text-sm font-medium mb-6">
                 <Activity className="h-4 w-4" />
-                <span>Enterprise Log Intelligence</span>
+                <span>AI Log Analysis · Streamlit · Self-Hosted</span>
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -132,9 +132,9 @@ export default function SKCLogAnalyserPage() {
               </h1>
               
               <p className="text-xl text-muted-foreground mb-8">
-                Your logs tell a story. SKC Log Analyser reads it for you. AI-powered analysis that turns 
-                terabytes of log data into actionable insights — finding anomalies, tracing errors, and 
-                predicting failures before they happen.
+                Upload your log files and get instant AI-powered insights. SKC Log Analyser runs as a
+                local Streamlit web app on your machine — no cloud, no data leaving your network.
+                Detect anomalies, trace root causes, and stop drowning in log lines.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -169,36 +169,51 @@ export default function SKCLogAnalyserPage() {
               <div className="flex items-center gap-6 mt-8 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                  <span>On-Premise Available</span>
+                  <span>Runs locally on your machine</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                  <span>Air-Gap Compatible</span>
+                  <span>No cloud, no data leaves your network</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                  <span>Python 3.9+ · Streamlit</span>
                 </div>
               </div>
             </div>
 
-            {/* Terminal Animation */}
+            {/* Streamlit UI Mockup */}
             <div className="relative">
-              <Card className="p-4 bg-gray-950 border-gray-800 font-mono text-sm overflow-hidden">
-                <div className="flex items-center gap-2 mb-4 pb-4 border-b border-gray-800">
+              <Card className="p-0 bg-gray-950 border-gray-800 overflow-hidden">
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-800 bg-gray-900">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
-                  <span className="text-gray-500 ml-2">skc-log-analyser</span>
+                  <span className="text-gray-500 ml-2 text-xs font-mono">localhost:8501 — SKC Log Analyser</span>
                 </div>
-                <div className="space-y-2 text-gray-300">
-                  <p><span className="text-emerald-400">$</span> skc analyze --source /var/log/app/</p>
-                  <p className="text-gray-500">Scanning 2,847,392 log entries...</p>
-                  <p className="text-gray-500">Detecting patterns...</p>
-                  <p className="text-gray-500">Correlating events...</p>
-                  <p className="text-emerald-400 mt-4">✓ Analysis complete</p>
-                  <div className="mt-4 p-3 bg-gray-900 rounded border border-gray-800">
-                    <p className="text-amber-400">⚠ 3 anomalies detected</p>
-                    <p className="text-red-400">✗ 1 critical error pattern</p>
-                    <p className="text-emerald-400">✓ Root cause identified: DB connection pool exhaustion</p>
-                    <p className="text-gray-400 mt-2">→ First occurrence: 2024-01-15 03:42:17</p>
-                    <p className="text-gray-400">→ Affected services: api-gateway, user-service</p>
+                <div className="p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="text-emerald-400 text-sm font-semibold">SKC Log Analyser</div>
+                    <div className="text-gray-500 text-xs font-mono">Streamlit</div>
+                  </div>
+                  <div className="p-3 bg-gray-900 rounded border border-gray-800">
+                    <p className="text-gray-400 text-xs mb-2">Upload log file</p>
+                    <div className="border-2 border-dashed border-gray-700 rounded p-4 text-center">
+                      <p className="text-gray-500 text-xs">Drag & drop or browse</p>
+                      <p className="text-emerald-400 text-xs mt-1">app.log · 2.8 GB</p>
+                    </div>
+                  </div>
+                  <div className="p-3 bg-gray-900 rounded border border-gray-800">
+                    <p className="text-amber-400 text-xs">3 anomalies detected</p>
+                    <p className="text-red-400 text-xs">1 critical error pattern</p>
+                    <p className="text-emerald-400 text-xs">Root cause: DB connection pool exhaustion</p>
+                    <p className="text-gray-400 text-xs mt-2">First occurrence: 03:42:17</p>
+                    <p className="text-gray-400 text-xs">Affected: api-gateway, user-service</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="flex-1 h-8 bg-emerald-500/20 rounded text-center text-emerald-400 text-xs leading-8">Anomalies</div>
+                    <div className="flex-1 h-8 bg-amber-500/20 rounded text-center text-amber-400 text-xs leading-8">Trends</div>
+                    <div className="flex-1 h-8 bg-blue-500/20 rounded text-center text-blue-400 text-xs leading-8">Export</div>
                   </div>
                 </div>
               </Card>
@@ -229,8 +244,8 @@ export default function SKCLogAnalyserPage() {
               Intelligence That Scales With Your Logs
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From startup to enterprise, SKC Log Analyser grows with you. Process millions of events 
-              per second without breaking a sweat.
+              From a single application log to multi-gigabyte server logs, SKC Log Analyser handles
+              it all. Upload your file and get insights in seconds.
             </p>
           </div>
 
@@ -281,8 +296,7 @@ export default function SKCLogAnalyserPage() {
 
           <div className="mt-12 text-center">
             <p className="text-muted-foreground mb-4">
-              Plus: Apache, Nginx, Docker, Kubernetes, AWS CloudWatch, Azure Monitor, GCP Logging, 
-              Syslog, JSON, CSV, and custom formats
+              Plus: Apache, Nginx, Docker, Kubernetes, JSON, CSV, Syslog, and custom text-based formats
             </p>
           </div>
         </div>
@@ -297,8 +311,9 @@ export default function SKCLogAnalyserPage() {
                 From Chaos to Clarity in Seconds
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                When production goes down at 3 AM, you don&apos;t have time to grep through gigabytes of logs. 
-                SKC Log Analyser gives you answers, not more questions.
+                When production goes down at 3 AM, you don&apos;t have time to scroll through gigabytes
+                of log lines. Upload your log file to SKC Log Analyser and get answers, not more
+                questions.
               </p>
 
               <div className="space-y-6">
@@ -309,7 +324,8 @@ export default function SKCLogAnalyserPage() {
                   <div>
                     <h3 className="font-semibold mb-1">Incident Response</h3>
                     <p className="text-muted-foreground">
-                      Reduce MTTR by 60%. Instantly correlate events across services and identify root cause.
+                      Instantly correlate events across services and identify root cause. Cut your
+                      time-to-resolution from hours to minutes.
                     </p>
                   </div>
                 </div>
@@ -345,25 +361,26 @@ export default function SKCLogAnalyserPage() {
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Built by Engineers, for Engineers</h3>
                 <p className="text-muted-foreground mb-6">
-                  SKC log Analyser is a standalone tool that anyone can use , just upload log and get result . 
+                  SKC Log Analyser is a self-hosted Streamlit app. Upload your log file, get instant
+                  AI-powered analysis in your browser. No cloud dependency, no data leaves your machine.
                   We built the tool we wished we had.
                 </p>
                 <div className="text-left space-y-3">
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                    <span>CLI-first design</span>
+                    <span>Browser-based UI powered by Streamlit</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                    <span>API for automation</span>
+                    <span>Upload and analyze — no CLI, no config</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                    <span>Integrates with PagerDuty, Slack, Teams</span>
+                    <span>Runs locally on Python 3.9+</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                    <span>Kubernetes-native deployment</span>
+                    <span>100% private — your logs never leave your network</span>
                   </div>
                 </div>
               </div>
@@ -410,16 +427,89 @@ export default function SKCLogAnalyserPage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <Lock className="h-4 w-4" />
-              <span>On-premise deployment</span>
+              <span>Runs on your machine</span>
             </div>
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
-              <span>Air-gap compatible</span>
+              <span>No cloud, no data leaves your network</span>
             </div>
             <div className="flex items-center gap-2">
               <Zap className="h-4 w-4" />
-              <span>Free tier available</span>
+              <span>Python 3.9+ · Streamlit</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">What is SKC Log Analyser?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  SKC Log Analyser is a self-hosted Streamlit web app for AI-powered log analysis.
+                  Upload your log files and get instant insights — anomaly detection, root cause
+                  analysis, and visual analytics — all in your browser.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Does it work offline?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. SKC Log Analyser runs entirely on your local machine as a Streamlit app.
+                  No internet connection is required after installation. Your log files never leave
+                  your computer.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">What log formats are supported?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Apache, Nginx, Docker, Kubernetes, AWS CloudWatch, JSON, CSV, Syslog, and custom
+                  formats. If it&apos;s a text-based log file, SKC Log Analyser can process it.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">What do I need to run it?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Python 3.9 or higher. Install the dependencies, run the Streamlit app, and open
+                  localhost:8501 in your browser. No cloud account, no API keys, no external
+                  services required.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is my log data sent to the cloud?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  No. SKC Log Analyser processes everything locally on your machine. Your log files
+                  are never uploaded to any server. This makes it safe for sensitive logs containing
+                  PII, credentials, or internal system details.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">How is this different from ELK or Splunk?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  ELK and Splunk are enterprise platforms that require infrastructure, configuration,
+                  and ongoing maintenance. SKC Log Analyser is a single-app solution: install it,
+                  upload a log file, and get insights immediately. It&apos;s designed for engineers
+                  who need quick answers without standing up a full observability stack.
+                </p>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </section>
@@ -492,7 +582,7 @@ export default function SKCLogAnalyserPage() {
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
             name: 'SKC Log Analyser',
-            description: 'Standalone CLI-first log analysis tool. Upload logs and get instant insights. Built by engineers, for engineers.',
+            description: 'Self-hosted Streamlit web app for AI-powered log analysis. Upload log files and get instant anomaly detection, root cause analysis, and visual analytics. Runs locally — no cloud, no data leaves your machine.',
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'Python 3.9+ (Streamlit, locally hosted)',
             offers: {
@@ -506,6 +596,61 @@ export default function SKCLogAnalyserPage() {
               url: 'https://subodhkc.com',
             },
             url: 'https://subodhkc.com/products/skc-log-analyser',
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+              { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://subodhkc.com/products' },
+              { '@type': 'ListItem', position: 3, name: 'SKC Log Analyser', item: 'https://subodhkc.com/products/skc-log-analyser' },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'What is SKC Log Analyser?',
+                acceptedAnswer: { '@type': 'Answer', text: 'SKC Log Analyser is a self-hosted Streamlit web app for AI-powered log analysis. Upload your log files and get instant insights — anomaly detection, root cause analysis, and visual analytics — all in your browser.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Does it work offline?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. SKC Log Analyser runs entirely on your local machine as a Streamlit app. No internet connection is required after installation. Your log files never leave your computer.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'What log formats are supported?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Apache, Nginx, Docker, Kubernetes, AWS CloudWatch, JSON, CSV, Syslog, and custom formats. If it\'s a text-based log file, SKC Log Analyser can process it.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'What do I need to run it?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Python 3.9 or higher. Install the dependencies, run the Streamlit app, and open localhost:8501 in your browser. No cloud account, no API keys, no external services required.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is my log data sent to the cloud?',
+                acceptedAnswer: { '@type': 'Answer', text: 'No. SKC Log Analyser processes everything locally on your machine. Your log files are never uploaded to any server. This makes it safe for sensitive logs containing PII, credentials, or internal system details.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How is this different from ELK or Splunk?',
+                acceptedAnswer: { '@type': 'Answer', text: 'ELK and Splunk are enterprise platforms that require infrastructure, configuration, and ongoing maintenance. SKC Log Analyser is a single-app solution: install it, upload a log file, and get insights immediately. It\'s designed for engineers who need quick answers without standing up a full observability stack.' },
+              },
+            ],
           }),
         }}
       />

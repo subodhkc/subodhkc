@@ -166,11 +166,11 @@ export const PRODUCTS: Product[] = [
     id: "log-analyser",
     name: "SKC Log Analyser",
     tagline:
-      "Find the needle in a billion haystacks. AI pattern detection across terabytes of logs.",
+      "Self-hosted Streamlit app for AI-powered log analysis. Upload logs, get instant anomaly detection and root cause analysis. 100% local.",
     kind: "enterprise",
     status: "beta",
     glyph: "bars",
-    meta: "Enterprise · Early access",
+    meta: "Streamlit · Python 3.9+ · Beta",
     primary: { label: "Early access", href: "/products/skc-log-analyser", type: "waitlist" },
   },
   {
