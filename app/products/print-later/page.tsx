@@ -389,6 +389,64 @@ export default function PrintLaterPage() {
         </div>
       </section>
 
+      {/* Comparison Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              How Print Later Compares
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              The honest differences. Pick the right tool for your workflow.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <Card>
+              <CardContent className="pt-6">
+                <h3 className="font-semibold mb-2">Print Later vs. Save as PDF</h3>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Print Later wins:</strong> Queue multiple pages, pick exact pages from
+                  each, combine into one print job. Save as PDF creates one file per page — no
+                  queue, no page selection, no batch printing.
+                  <br />
+                  <strong>Save as PDF wins:</strong> Built into every browser, no install needed.
+                  If you just need to save one page as a PDF file, use Save as PDF. If you need to
+                  organize and batch print multiple pages, use Print Later.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <h3 className="font-semibold mb-2">Print Later vs. Pocket / Read Later Apps</h3>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Print Later wins:</strong> Designed for printing. Page selection, packet
+                  builder, batch printing to a physical printer. 100% local — no cloud, no account.
+                  <br />
+                  <strong>Pocket wins:</strong> Cross-device sync, mobile apps, offline reading on
+                  phone/tablet. If your goal is reading later on multiple devices, use Pocket. If
+                  your goal is printing organized packets from web pages, use Print Later.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <h3 className="font-semibold mb-2">Print Later vs. Vovsoft Print Multiple Web Pages</h3>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Print Later wins:</strong> Free and open source. Browser extension for
+                  one-click save. Page selection within documents. Packet builder for combining
+                  pages. No trial limitations.
+                  <br />
+                  <strong>Vovsoft wins:</strong> Can print from a list of URLs without opening each
+                  page. If you need to batch print URLs you haven&apos;t visited yet, Vovsoft may
+                  fit better. Print Later is designed for the &quot;save while browsing, print
+                  later&quot; workflow.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-20 px-4 bg-secondary/20">
         <div className="max-w-3xl mx-auto">
@@ -446,6 +504,30 @@ export default function PrintLaterPage() {
                 </p>
               </CardHeader>
             </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">How is this different from Save as PDF?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Save as PDF creates one file per page. Print Later lets you queue multiple pages from different sites, pick exact pages from each document, combine them into one print job, and batch print to a physical printer. Think of it as a print queue manager, not just a PDF saver.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Can I print only specific pages from a long document?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. Open any saved document in Print Later and select exactly which pages you want. If you only need pages 3-5 from a 50-page PDF, select just those pages. Stop wasting paper on cover pages, tables of contents, and sections you don&apos;t need.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is this a good Pocket alternative for printing?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  If your goal is reading articles later on your phone, Pocket is better — it syncs across devices. If your goal is organizing web pages and printing them as clean packets on paper, Print Later is better. It&apos;s purpose-built for the print workflow with page selection, packet building, and batch printing.
+                </p>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </section>
@@ -488,6 +570,21 @@ export default function PrintLaterPage() {
                 '@type': 'Question',
                 name: 'Why does Windows SmartScreen show a warning?',
                 acceptedAnswer: { '@type': 'Answer', text: 'Print Later is open source and not code-signed with an expensive Microsoft certificate. Click "More info" → "Run anyway" to install. The app is safe — you can verify the source code on GitHub.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How is this different from Save as PDF?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Save as PDF creates one file per page. Print Later lets you queue multiple pages from different sites, pick exact pages from each document, combine them into one print job, and batch print to a physical printer. Think of it as a print queue manager, not just a PDF saver.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I print only specific pages from a long document?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Open any saved document in Print Later and select exactly which pages you want. If you only need pages 3-5 from a 50-page PDF, select just those pages. Stop wasting paper on cover pages, tables of contents, and sections you don\'t need.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is this a good Pocket alternative for printing?',
+                acceptedAnswer: { '@type': 'Answer', text: 'If your goal is reading articles later on your phone, Pocket is better — it syncs across devices. If your goal is organizing web pages and printing them as clean packets on paper, Print Later is better. It\'s purpose-built for the print workflow with page selection, packet building, and batch printing.' },
               },
             ],
           }),
@@ -635,6 +732,18 @@ export default function PrintLaterPage() {
                 No spam, ever. Unsubscribe anytime.
               </p>
             </form>
+
+            <div className="mt-4 pt-4 border-t border-border text-center">
+              <button
+                onClick={() => {
+                  setDownloadUnlocked(true)
+                  setShowModal(false)
+                }}
+                className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-2"
+              >
+                No thanks, just give me the download
+              </button>
+            </div>
           </Card>
         </div>
       )}
