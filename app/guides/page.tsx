@@ -9,10 +9,11 @@ import {
   Scale,
   ArrowRight,
   Globe,
-  Calendar,
-  Gavel,
   CheckCircle2,
   FileText,
+  Search,
+  Lock,
+  ClipboardList,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -79,7 +80,7 @@ const breadcrumbSchema = {
   ],
 }
 
-const guides = [
+const lawGuides = [
   {
     icon: Scale,
     href: '/guides/texas-ai-law',
@@ -109,6 +110,71 @@ const guides = [
   },
 ]
 
+const technicalGuides = [
+  {
+    icon: Lock,
+    href: '/how-to-secure-and-govern-ai',
+    title: 'How to Secure and Govern AI',
+    description:
+      'Seven-layer compliance stack covering NIST AI RMF, ISO 42001, SOC 2, security testing, and continuous evidence. Includes CSM6 operating framework and HAIEC integration patterns.',
+    tag: 'Security & Governance',
+  },
+  {
+    icon: Search,
+    href: '/solutions/haiec/exposure-assessment',
+    title: 'HAIEC AI Exposure Assessment',
+    description:
+      'Deterministic security analysis covering prompt injection testing, RAG poisoning detection, tool abuse analysis, and evidence-grade compliance outputs. The assessment engine behind HAIEC.',
+    tag: 'HAIEC Platform',
+    canonical: 'https://subodhkc.com/solutions/haiec/exposure-assessment',
+  },
+  {
+    icon: FileText,
+    href: '/blog/hidden-seo-risk-ai-assisted-frontend-development',
+    title: 'The Hidden SEO Risk in AI-Assisted Frontend Development',
+    description:
+      'Technical position paper on how client-only rendering in AI-assisted Next.js and React apps reduces crawlability, delays Google indexing, and obscures public web content from search engines.',
+    tag: 'Technical Whitepaper',
+  },
+  {
+    icon: ClipboardList,
+    href: '/ai-security-tools',
+    title: 'AI Security Tools & Checklists',
+    description:
+      'Interactive tools — blast radius calculator, agent read/write/action matrix, prompt-injection scenario library. Plus downloadable risk register, vendor due-diligence checklist, and incident evidence checklist.',
+    tag: 'Interactive Tools',
+  },
+]
+
+const authorityCards = [
+  {
+    icon: Scale,
+    title: 'HAIEC TRAIGA Engine',
+    description:
+      'Subodh KC co-founded HAIEC and built the TRAIGA compliance engine — a 9-section deterministic assessment wizard covering Chapters 551-554 of the Texas Business and Commerce Code.',
+    link: '/solutions/haiec',
+    linkText: 'Explore HAIEC',
+  },
+  {
+    icon: Shield,
+    title: 'ISAF Framework',
+    description:
+      'The Instruction Stack Audit Framework, published in Zenodo, maps to EU AI Act Article 9 requirements across nine abstraction layers — providing practical implementation guidance.',
+    link: 'https://zenodo.org/records/18080355',
+    linkText: 'View paper',
+    external: true,
+  },
+  {
+    icon: CheckCircle2,
+    title: 'Deterministic Bias Detection',
+    description:
+      'Zenodo-published research on deterministic bias detection for NYC LL144 addresses the reproducibility requirements that auditors need for defensible audit evidence.',
+    link: 'https://zenodo.org/records/18056133',
+    linkText: 'View paper',
+    external: true,
+  },
+]
+
 export default function GuidesIndexPage() {
   return (
     <>
@@ -135,80 +201,97 @@ export default function GuidesIndexPage() {
         description="Three AI laws are reshaping how companies build and deploy AI. Here's what each one requires — and which ones apply to you."
       />
 
-      {/* ─── Guide Cards ─── */}
+      {/* ─── Compliance Law Guides (Sticky Notes) ─── */}
       <Section
-        subtitle="Start Here"
-        title="Choose Your Compliance Guide"
+        subtitle="Regulatory Compliance"
+        title="AI Law Compliance Guides"
+        description="Three AI regulations with different scopes, penalties, and timelines. Pick the one that applies to your organization — or compare them all below."
         id="guides"
       >
-        <div className="max-w-5xl mx-auto">
-          <Grid cols={3} gap="md">
-            {guides.map((guide, i) => {
-              const Icon = guide.icon
-              return (
-                <Link key={i} href={guide.href} className="block">
-                  <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <Icon className="h-6 w-6 text-primary" />
-                        </div>
-                      </div>
-                      <span className={`text-xs font-medium ${guide.badgeColor} mb-2 block`}>
-                        {guide.badge}
-                      </span>
-                      <CardTitle className="text-lg mb-2">{guide.title}</CardTitle>
-                      <CardDescription className="text-sm leading-relaxed">
-                        {guide.description}
-                      </CardDescription>
-                      <span className="text-sm text-primary inline-flex items-center gap-1 mt-3">
-                        Read guide <ArrowRight className="h-3 w-3" />
-                      </span>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              )
-            })}
-          </Grid>
+        <div className="blog-notes-board" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          {lawGuides.map((guide, i) => {
+            const rotations = [-1.5, 1.2, -0.8]
+            const colors = ['blog-note-tinted', 'blog-note-warm', 'blog-note-cool']
+            const titleStyles = ['blog-note-title-serif', 'blog-note-title-mono', 'blog-note-title-sans']
+            const pinTypes = ['', 'blog-note-taped', '']
+            const Icon = guide.icon
+
+            return (
+              <Link
+                key={i}
+                href={guide.href}
+                className={`blog-sticky-note ${colors[i]} ${pinTypes[i]}`}
+                style={{ transform: `rotate(${rotations[i]}deg)` }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                  <Icon className="h-5 w-5" style={{ color: 'var(--op-accent)' }} />
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 10,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    color: guide.badgeColor,
+                  }}>
+                    {guide.badge}
+                  </span>
+                </div>
+                <h3 className={titleStyles[i]} style={{ fontSize: 'clamp(18px, 2.5vw, 24px)' }}>
+                  {guide.title}
+                </h3>
+                <p className="blog-note-excerpt">{guide.description}</p>
+                <span className="blog-note-tag">read guide →</span>
+              </Link>
+            )
+          })}
         </div>
       </Section>
 
-      {/* ─── Whitepaper ─── */}
+      {/* ─── Technical Guides & Tools (Sticky Notes) ─── */}
       <Section
-        subtitle="Technical Whitepaper"
-        title="SEO Risk in AI-Assisted Frontend Development"
-        description="A technical position paper examining how client-only rendering in AI-assisted Next.js and React apps reduces crawlability, delays Google indexing, and obscures public web content from search engines."
-        id="whitepaper"
+        subtitle="Practical Implementation"
+        title="Technical Guides & Security Tools"
+        description="Beyond legal compliance — the engineering guides, assessment tools, and frameworks you need to actually implement AI governance in production."
+        id="technical-guides"
         className="bg-secondary/20"
       >
-        <div className="max-w-3xl mx-auto">
-          <Link href="/blog/hidden-seo-risk-ai-assisted-frontend-development" className="block">
-            <Card className="hover:border-primary/40 transition-all cursor-pointer">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <FileText className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <span className="text-xs font-medium text-blue-600 mb-2 block">
-                      July 2026 &middot; Technical Position Paper
-                    </span>
-                    <CardTitle className="text-lg mb-2">
-                      The Hidden SEO Risk in AI-Assisted Frontend Development
-                    </CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      How client-only rendering can reduce crawlability, delay content discovery, and
-                      obscure public web content. Includes a practical audit checklist, server-first
-                      Next.js patterns, and a controlled study design for validating the hypothesis.
-                    </CardDescription>
-                    <span className="text-sm text-primary inline-flex items-center gap-1 mt-3">
-                      Read whitepaper <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </div>
+        <div className="blog-notes-board" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          {technicalGuides.map((guide, i) => {
+            const rotations = [-1.2, 0.8, -2.0, 1.5]
+            const colors = ['blog-note-stark', 'blog-note-paper', 'blog-note-default', 'blog-note-tinted']
+            const titleStyles = ['blog-note-title-sans', 'blog-note-title-serif', 'blog-note-title-mono', 'blog-note-title-italic']
+            const pinTypes = ['blog-note-taped', '', 'blog-note-taped', '']
+            const Icon = guide.icon
+
+            return (
+              <Link
+                key={i}
+                href={guide.href}
+                className={`blog-sticky-note ${colors[i]} ${pinTypes[i]}`}
+                style={{ transform: `rotate(${rotations[i]}deg)` }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                  <Icon className="h-5 w-5" style={{ color: 'var(--op-accent)' }} />
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 9,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    color: 'var(--op-accent)',
+                    background: 'rgba(22,208,136,0.1)',
+                    padding: '2px 8px',
+                    borderRadius: 3,
+                  }}>
+                    {guide.tag}
+                  </span>
                 </div>
-              </CardHeader>
-            </Card>
-          </Link>
+                <h3 className={titleStyles[i]} style={{ fontSize: 'clamp(16px, 2vw, 20px)' }}>
+                  {guide.title}
+                </h3>
+                <p className="blog-note-excerpt">{guide.description}</p>
+                <span className="blog-note-tag">open guide →</span>
+              </Link>
+            )
+          })}
         </div>
       </Section>
 
@@ -218,7 +301,6 @@ export default function GuidesIndexPage() {
         title="Cross-Law Comparison"
         description="Quick reference comparing the three major AI compliance regulations. Use this to determine which laws apply to your organization."
         id="comparison"
-        className="bg-secondary/20"
       >
         <div className="max-w-5xl mx-auto">
           <div className="overflow-x-auto">
@@ -310,6 +392,7 @@ export default function GuidesIndexPage() {
         title="Which AI Laws Apply to You?"
         description="A quick decision framework to determine which regulations may apply to your organization."
         id="which-laws-apply"
+        className="bg-secondary/20"
       >
         <div className="max-w-3xl space-y-4">
           <div className="space-y-3">
@@ -363,53 +446,35 @@ export default function GuidesIndexPage() {
         title="Built on Real Compliance Engineering"
         description="These guides are informed by the HAIEC compliance platform and Zenodo-published research — not just legal analysis."
         id="authority"
-        className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
           <Grid cols={3} gap="md">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Scale className="h-5 w-5 text-primary" />
-                  </div>
-                  <CardTitle className="text-base">HAIEC TRAIGA Engine</CardTitle>
-                </div>
-                <CardDescription className="text-sm leading-relaxed">
-                  Subodh KC co-founded HAIEC and built the TRAIGA compliance engine — a 9-section
-                  deterministic assessment wizard covering Chapters 551-554 of the Texas Business and
-                  Commerce Code.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Shield className="h-5 w-5 text-primary" />
-                  </div>
-                  <CardTitle className="text-base">ISAF Framework</CardTitle>
-                </div>
-                <CardDescription className="text-sm leading-relaxed">
-                  The Instruction Stack Audit Framework, published in Zenodo, maps to EU AI Act Article 9
-                  requirements across nine abstraction layers — providing practical implementation guidance.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 text-primary" />
-                  </div>
-                  <CardTitle className="text-base">Deterministic Bias Detection</CardTitle>
-                </div>
-                <CardDescription className="text-sm leading-relaxed">
-                  Zenodo-published research on deterministic bias detection for NYC LL144 addresses the
-                  reproducibility requirements that auditors need for defensible audit evidence.
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            {authorityCards.map((card, i) => {
+              const Icon = card.icon
+              return (
+                <Card key={i} className="hover:border-primary/40 transition-all">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <Icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <CardTitle className="text-base">{card.title}</CardTitle>
+                    </div>
+                    <CardDescription className="text-sm leading-relaxed">
+                      {card.description}
+                    </CardDescription>
+                    <Link
+                      href={card.link}
+                      target={card.external ? '_blank' : undefined}
+                      rel={card.external ? 'noopener noreferrer' : undefined}
+                      className="text-sm text-primary hover:underline inline-flex items-center gap-1 mt-3"
+                    >
+                      {card.linkText} <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  </CardHeader>
+                </Card>
+              )
+            })}
           </Grid>
           <div className="mt-6 text-center">
             <Link href="/research" className="text-sm text-primary hover:underline inline-flex items-center gap-1">

@@ -218,7 +218,7 @@ export default function ResearchPage() {
       year: '2024',
       summary:
         'Comprehensive methodology bridging AI strategy, implementation, and governance for enterprise scale.',
-      link: '/haiec',
+      link: '/how-to-secure-and-govern-ai#csm6',
     },
   ]
 
