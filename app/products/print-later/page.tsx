@@ -40,42 +40,42 @@ export default function PrintLaterPage() {
   const features = [
     {
       icon: Zap,
-      title: 'Ctrl+P to Save',
-      description: 'See something worth printing? Press Ctrl+P and save it to your queue. The page is captured and ready when you are to organize it and print it.'
+      title: 'One-Click Save',
+      description: 'See something worth printing? Save it with one click. The page is captured and waiting for you. No need to print right now - print when you are ready.'
     },
     {
       icon: FileText,
-      title: 'Editable Print Queue',
-      description: 'Everything in one place. Sort by date, search by title, print when your schedule allows.'
+      title: 'Your Print To-Do List',
+      description: 'Everything you saved sits in one list. Sort by date, search by name, reorder pages. Think of it as a to-do list for your printer.'
     },
     {
       icon: Layers,
-      title: 'Pick Your Pages',
-      description: 'Only need pages 3-5 from a 50-page PDF? Select exactly what you want. Stop printing cover pages.'
+      title: 'Pick Only the Pages You Need',
+      description: 'Only need pages 3 through 5 from a 50-page document? Select just those pages. Stop wasting paper on cover pages and table of contents you do not need.'
     },
     {
       icon: Printer,
-      title: 'Packet Builder',
-      description: 'Combine pages from multiple documents into one print job. Perfect for meetings and research.'
+      title: 'Combine Pages Into One Print Job',
+      description: 'Take pages from different websites and combine them into a single print job. Perfect for meeting handouts, research packets, and study materials.'
     },
     {
       icon: Monitor,
-      title: 'System Tray App',
-      description: 'Runs quietly in your system tray. Right-click to access your queue instantly.'
+      title: 'Always Running, Never In the Way',
+      description: 'Print Later sits quietly in the corner of your screen. Click it anytime to see your saved pages. It does not slow down your computer.'
     },
     {
       icon: Lock,
-      title: '100% Local Storage',
-      description: 'Your documents never leave your computer. No cloud, no uploads, no tracking.'
+      title: 'Your Files Stay on Your Computer',
+      description: 'Nothing leaves your computer. No cloud uploads, no tracking, no account needed. Your saved pages are yours alone.'
     }
   ]
 
   const securityFeatures = [
-    { icon: Server, text: 'No cloud uploads — Your documents stay on YOUR PC' },
-    { icon: Eye, text: 'No telemetry — Zero tracking or analytics' },
-    { icon: UserX, text: 'No account required — Works completely offline' },
-    { icon: Code, text: 'Open source — Full source code available for audit' },
-    { icon: Lock, text: 'No admin rights — Installs in user space only' }
+    { icon: Server, text: 'No cloud uploads - Your documents stay on your computer' },
+    { icon: Eye, text: 'No tracking - Zero data collection, zero analytics' },
+    { icon: UserX, text: 'No account needed - Works completely offline' },
+    { icon: Code, text: 'Open source - Anyone can read the code and verify it is safe' },
+    { icon: Lock, text: 'No admin rights - Installs without special permissions' }
   ]
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -114,21 +114,38 @@ export default function PrintLaterPage() {
       <section className="pt-32 pb-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-green-500/10 text-green-500 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <span>Version 1.0.0</span>
+            <span>100% Free</span>
             <span className="w-1 h-1 rounded-full bg-green-500" />
-            <span>Free & Open Source</span>
+            <span>Open Source</span>
+            <span className="w-1 h-1 rounded-full bg-green-500" />
+            <span>No Account Needed</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Save Web Pages Now,
+            Save Web Pages Now.
             <br />
-            <span className="gradient-text">Print Them Later</span>
+            <span className="gradient-text">Print Them When Ready.</span>
           </h1>
           
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Free Windows app. Queue pages with Ctrl+P, pick the exact pages you want, and batch print when you&apos;re ready.
-            100% local — no cloud, no tracking, no account required.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            Stop printing entire websites you do not need. Save pages with one click, pick only the pages you actually want, and print them all at once when it works for you.
           </p>
+
+          {/* Value strip: FREE / SECURED / SPEED */}
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/10 text-green-500">
+              <CheckCircle2 className="h-5 w-5" />
+              <span className="font-medium">Free Forever</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 text-blue-500">
+              <Shield className="h-5 w-5" />
+              <span className="font-medium">100% Private</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 text-amber-500">
+              <Zap className="h-5 w-5" />
+              <span className="font-medium">Saves Time & Paper</span>
+            </div>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             {downloadUnlocked ? (
@@ -180,14 +197,14 @@ export default function PrintLaterPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Windows 10/11 • 93 MB • No account required
+            Windows 10/11 • 93 MB • Takes 30 seconds to install
           </p>
 
           {/* Screenshot */}
           <div className="mt-12 rounded-2xl overflow-hidden border border-border shadow-2xl">
             <Image
               src="/products/print-later/screenshot.png"
-              alt="Print Later App Screenshot"
+              alt="Print Later app showing saved web pages ready to print"
               width={1200}
               height={675}
               className="w-full"
@@ -197,15 +214,60 @@ export default function PrintLaterPage() {
         </div>
       </section>
 
+      {/* 3-Step Install Guide - right after hero for non-technical users */}
+      <section className="py-16 px-4 bg-primary/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              How to Get Started in 30 Seconds
+            </h2>
+            <p className="text-muted-foreground">No technical skills needed. Three simple steps.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl font-bold text-primary">1</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Download and Install</h3>
+              <p className="text-muted-foreground text-sm">
+                Click "Get Free Download" above. Open the file and follow the simple setup wizard. Done in under a minute.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl font-bold text-primary">2</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Save Pages You Want</h3>
+              <p className="text-muted-foreground text-sm">
+                Browse any website. Press Ctrl+P and choose "Print Later" as your printer. The page is saved to your list automatically.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl font-bold text-primary">3</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Print When Ready</h3>
+              <p className="text-muted-foreground text-sm">
+                Open Print Later. Pick the pages you need from each saved page. Combine them into one print job and send to your printer.
+              </p>
+            </div>
+          </div>
+          <p className="text-center text-sm text-muted-foreground mt-8">
+            <strong>Note:</strong> Windows may show a "Windows protected your PC" message because the app is free and not code-signed. 
+            Click "More info" then "Run anyway" to continue. The app is safe and open source - you can verify the code on GitHub.
+          </p>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 px-4 bg-secondary/20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Built for How You Actually Work
+              A Smarter Way to Print From the Web
             </h2>
             <p className="text-lg text-muted-foreground">
-              No more printing entire websites. No more wasted paper. No more &quot;where did I save that?&quot;
+              Print Later is not just a print queue. It is a productivity tool that helps you save time, waste less paper, and stay organized.
             </p>
           </div>
 
@@ -237,14 +299,14 @@ export default function PrintLaterPage() {
             <div>
               <div className="inline-flex items-center gap-2 bg-green-500/10 text-green-500 px-3 py-1 rounded-full text-sm font-medium mb-4">
                 <Shield className="h-4 w-4" />
-                Privacy First
+                Your Privacy Comes First
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                We Don&apos;t Want Your Data
+                Your Documents Never Leave Your Computer
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Seriously. We built Print Later because we were tired of apps that spy on you. 
-                Your documents are YOUR business. You host it, you own it — 100% safe.
+                We built Print Later because we were tired of apps that spy on you. 
+                Your documents are your business. Nothing gets uploaded, nothing gets tracked, and no one needs your email to use the app.
               </p>
 
               <div className="space-y-4">
@@ -267,14 +329,14 @@ export default function PrintLaterPage() {
                 <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-6">
                   <Lock className="h-10 w-10 text-green-500" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Your Data Promise</h3>
+                <h3 className="text-2xl font-bold mb-4">Our Promise to You</h3>
                 <p className="text-muted-foreground mb-6">
-                  Print Later is designed with a simple philosophy: your documents belong to you. 
-                  We have zero access to your files, zero telemetry, and zero interest in your data.
+                  Print Later is built on a simple idea: your documents belong to you. 
+                  We have no access to your files, no tracking, and no interest in your data. Ever.
                 </p>
                 <div className="flex items-center justify-center gap-2 text-sm text-green-500">
                   <CheckCircle2 className="h-4 w-4" />
-                  <span>Verified Open Source</span>
+                  <span>Open Source - Anyone Can Verify This</span>
                 </div>
               </div>
             </Card>
@@ -290,7 +352,7 @@ export default function PrintLaterPage() {
               How It Works
             </h2>
             <p className="text-lg text-muted-foreground">
-              Three steps from browsing to printed packet. No complicated setup.
+              Three simple steps from browsing to printed pages. No complicated setup, no technical knowledge needed.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -298,30 +360,113 @@ export default function PrintLaterPage() {
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl font-bold text-primary">1</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Save with Ctrl+P</h3>
+              <h3 className="text-xl font-semibold mb-3">Save Pages While You Browse</h3>
               <p className="text-muted-foreground">
-                Browse any web page. Press Ctrl+P and select Print Later as your printer. The page is saved to your local queue instantly.
+                Find something worth printing? Press Ctrl+P on any website and choose "Print Later" as your printer. The page is saved to your list instantly. Keep browsing and save as many pages as you want.
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl font-bold text-primary">2</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Organize Your Queue</h3>
+              <h3 className="text-xl font-semibold mb-3">Organize and Pick Your Pages</h3>
               <p className="text-muted-foreground">
-                Open the Print Later app. Sort by date, search by title, reorder pages. Select exactly which pages you need from each document.
+                Open Print Later anytime. See all your saved pages in one list. Search, sort, and pick exactly which pages you want from each document. Skip the cover pages and junk you do not need.
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Print Your Packet</h3>
+              <h3 className="text-xl font-semibold mb-3">Print Everything at Once</h3>
               <p className="text-muted-foreground">
-                Combine pages from multiple documents into one print job. Hit print and get a clean, organized packet — no wasted paper.
+                Combine pages from different websites into one print job. Click print and get a clean, organized stack of paper. No more printing one page at a time. No more wasted paper.
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Objection Handling: Why not just Save as PDF? */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Why Not Just Use "Save as PDF"?
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Save as PDF is fine for one page. Print Later is built for the real world where you need multiple pages from multiple sites.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-muted-foreground" />
+                </div>
+                <CardTitle className="text-xl">Save as PDF</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>One file per page. No way to combine them later.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>No way to pick specific pages from a long document.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>Files scattered across your Downloads folder.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>No search, no sorting, no organization.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>You still have to open each file and print it one by one.</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50 border-green-500/30">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4">
+                  <Printer className="h-6 w-6 text-green-500" />
+                </div>
+                <CardTitle className="text-xl">Print Later</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Save pages from different sites into one organized list.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Pick only the pages you need from each document.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Search and sort all your saved pages in one place.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Combine pages into one print job and print once.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Saves paper, saves time, keeps you organized.</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+          <p className="text-center text-muted-foreground mt-8">
+            Think of it this way: Save as PDF is a stapler. Print Later is a filing cabinet with a printer attached.
+          </p>
         </div>
       </section>
 
@@ -333,7 +478,7 @@ export default function PrintLaterPage() {
               Who Uses Print Later
             </h2>
             <p className="text-lg text-muted-foreground">
-              Built for anyone who prints from the web — and wants to do it smarter.
+              Built for anyone who prints from the web and wants to do it smarter.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -342,11 +487,11 @@ export default function PrintLaterPage() {
                 <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
                   <FileText className="h-6 w-6 text-blue-500" />
                 </div>
-                <CardTitle className="text-lg">Students & Researchers</CardTitle>
+                <CardTitle className="text-lg">Students</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Save research papers, articles, and reference pages throughout the day. Print only the pages you need for your bibliography or study session.
+                  Save articles and reference pages while you research. Print only the pages you need for class instead of printing everything you find.
                 </p>
               </CardContent>
             </Card>
@@ -355,11 +500,11 @@ export default function PrintLaterPage() {
                 <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
                   <Briefcase className="h-6 w-6 text-purple-500" />
                 </div>
-                <CardTitle className="text-lg">Office Professionals</CardTitle>
+                <CardTitle className="text-lg">Office Workers</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Queue up reports, invoices, and meeting materials from multiple sources. Batch print everything at once instead of printing one page at a time.
+                  Save reports, invoices, and meeting materials from different websites. Print them all at once instead of one at a time.
                 </p>
               </CardContent>
             </Card>
@@ -368,11 +513,11 @@ export default function PrintLaterPage() {
                 <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-4">
                   <Shield className="h-6 w-6 text-amber-500" />
                 </div>
-                <CardTitle className="text-lg">Legal Teams</CardTitle>
+                <CardTitle className="text-lg">Legal Professionals</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Save case documents, evidence pages, and reference materials throughout the day. Assemble organized print packets for court filings and client meetings.
+                  Save case documents and reference materials throughout the day. Put together organized print packets for court and client meetings.
                 </p>
               </CardContent>
             </Card>
@@ -398,7 +543,7 @@ export default function PrintLaterPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Save receipts, invoices, and tax documents throughout the day. Batch print expense reports and financial documentation in one organized packet.
+                  Save receipts, invoices, and tax documents as you find them. Print everything for your expense report in one organized batch.
                 </p>
               </CardContent>
             </Card>
@@ -407,11 +552,11 @@ export default function PrintLaterPage() {
                 <div className="w-12 h-12 rounded-xl bg-rose-500/10 flex items-center justify-center mb-4">
                   <Home className="h-6 w-6 text-rose-500" />
                 </div>
-                <CardTitle className="text-lg">Real Estate</CardTitle>
+                <CardTitle className="text-lg">Real Estate Agents</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Queue listing pages, contracts, and comparables from multiple sources. Print a clean packet for client meetings and property showings.
+                  Save listing pages, contracts, and property details from different sites. Print a clean packet for client meetings and showings.
                 </p>
               </CardContent>
             </Card>
@@ -462,7 +607,7 @@ export default function PrintLaterPage() {
                 <h3 className="font-semibold mb-2">Print Later vs. Save as PDF</h3>
                 <p className="text-sm text-muted-foreground">
                   <strong>Print Later wins:</strong> Queue multiple pages, pick exact pages from
-                  each, combine into one print job. Save as PDF creates one file per page — no
+                  each, combine into one print job. Save as PDF creates one file per page - no
                   queue, no page selection, no batch printing.
                   <br />
                   <strong>Save as PDF wins:</strong> Built into every browser, no install needed.
@@ -476,7 +621,7 @@ export default function PrintLaterPage() {
                 <h3 className="font-semibold mb-2">Print Later vs. Pocket / Read Later Apps</h3>
                 <p className="text-sm text-muted-foreground">
                   <strong>Print Later wins:</strong> Designed for printing. Page selection, packet
-                  builder, batch printing to a physical printer. 100% local — no cloud, no account.
+                  builder, batch printing to a physical printer. 100% local - no cloud, no account.
                   <br />
                   <strong>Pocket wins:</strong> Cross-device sync, mobile apps, offline reading on
                   phone/tablet. If your goal is reading later on multiple devices, use Pocket. If
@@ -554,9 +699,9 @@ export default function PrintLaterPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Why does Windows SmartScreen show a warning?</CardTitle>
+                <CardTitle className="text-lg">Why does Windows show a warning when I install?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  Print Later is open source and not code-signed with an expensive Microsoft certificate. Click &quot;More info&quot; → &quot;Run anyway&quot; to install. The app is safe — you can verify the source code on GitHub.
+                  Print Later is free and open source, so it is not code-signed with an expensive Microsoft certificate. Click "More info" then "Run anyway" to install. The app is safe - you can read the source code on GitHub to verify.
                 </p>
               </CardHeader>
             </Card>
@@ -564,7 +709,7 @@ export default function PrintLaterPage() {
               <CardHeader>
                 <CardTitle className="text-lg">How is this different from Save as PDF?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  Save as PDF creates one file per page. Print Later lets you queue multiple pages from different sites, pick exact pages from each document, combine them into one print job, and batch print to a physical printer. Think of it as a print queue manager, not just a PDF saver.
+                  Save as PDF creates one file per page with no way to combine them later. Print Later lets you save multiple pages from different sites, pick exact pages from each document, combine them into one print job, and batch print to a physical printer. Think of it as a productivity tool for printing, not just a PDF saver.
                 </p>
               </CardHeader>
             </Card>
@@ -572,7 +717,7 @@ export default function PrintLaterPage() {
               <CardHeader>
                 <CardTitle className="text-lg">Can I print only specific pages from a long document?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  Yes. Open any saved document in Print Later and select exactly which pages you want. If you only need pages 3-5 from a 50-page PDF, select just those pages. Stop wasting paper on cover pages, tables of contents, and sections you don&apos;t need.
+                  Yes. Open any saved document in Print Later and select exactly which pages you want. If you only need pages 3-5 from a 50-page PDF, select just those pages. Stop wasting paper on cover pages, tables of contents, and sections you do not need.
                 </p>
               </CardHeader>
             </Card>
@@ -580,7 +725,15 @@ export default function PrintLaterPage() {
               <CardHeader>
                 <CardTitle className="text-lg">Is this a good Pocket alternative for printing?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  If your goal is reading articles later on your phone, Pocket is better — it syncs across devices. If your goal is organizing web pages and printing them as clean packets on paper, Print Later is better. It&apos;s purpose-built for the print workflow with page selection, packet building, and batch printing.
+                  If your goal is reading articles later on your phone, Pocket is better - it syncs across devices. If your goal is organizing web pages and printing them as clean packets on paper, Print Later is better. It is purpose-built for the print workflow with page selection, packet building, and batch printing.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is Print Later just a print queue or a productivity tool?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Print Later is a productivity tool, not just a print queue. It helps you save time by collecting pages while you browse, waste less paper by picking only the pages you need, and stay organized by keeping everything in one searchable list. Think of it as a to-do list for your printer.
                 </p>
               </CardHeader>
             </Card>
@@ -625,22 +778,27 @@ export default function PrintLaterPage() {
               {
                 '@type': 'Question',
                 name: 'Why does Windows SmartScreen show a warning?',
-                acceptedAnswer: { '@type': 'Answer', text: 'Print Later is open source and not code-signed with an expensive Microsoft certificate. Click "More info" → "Run anyway" to install. The app is safe — you can verify the source code on GitHub.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'Print Later is open source and not code-signed with an expensive Microsoft certificate. Click "More info" then "Run anyway" to install. The app is safe - you can verify the source code on GitHub.' },
               },
               {
                 '@type': 'Question',
                 name: 'How is this different from Save as PDF?',
-                acceptedAnswer: { '@type': 'Answer', text: 'Save as PDF creates one file per page. Print Later lets you queue multiple pages from different sites, pick exact pages from each document, combine them into one print job, and batch print to a physical printer. Think of it as a print queue manager, not just a PDF saver.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'Save as PDF creates one file per page with no way to combine them later. Print Later lets you save multiple pages from different sites, pick exact pages from each document, combine them into one print job, and batch print to a physical printer. Think of it as a productivity tool for printing, not just a PDF saver.' },
               },
               {
                 '@type': 'Question',
                 name: 'Can I print only specific pages from a long document?',
-                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Open any saved document in Print Later and select exactly which pages you want. If you only need pages 3-5 from a 50-page PDF, select just those pages. Stop wasting paper on cover pages, tables of contents, and sections you don\'t need.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Open any saved document in Print Later and select exactly which pages you want. If you only need pages 3-5 from a 50-page PDF, select just those pages. Stop wasting paper on cover pages, tables of contents, and sections you do not need.' },
               },
               {
                 '@type': 'Question',
                 name: 'Is this a good Pocket alternative for printing?',
-                acceptedAnswer: { '@type': 'Answer', text: 'If your goal is reading articles later on your phone, Pocket is better — it syncs across devices. If your goal is organizing web pages and printing them as clean packets on paper, Print Later is better. It\'s purpose-built for the print workflow with page selection, packet building, and batch printing.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'If your goal is reading articles later on your phone, Pocket is better - it syncs across devices. If your goal is organizing web pages and printing them as clean packets on paper, Print Later is better. It is purpose-built for the print workflow with page selection, packet building, and batch printing.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is Print Later just a print queue or a productivity tool?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Print Later is a productivity tool, not just a print queue. It helps you save time by collecting pages while you browse, waste less paper by picking only the pages you need, and stay organized by keeping everything in one searchable list. Think of it as a to-do list for your printer.' },
               },
             ],
           }),
@@ -651,11 +809,11 @@ export default function PrintLaterPage() {
       <section className="py-20 px-4 bg-gradient-to-br from-primary/10 to-accent/10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Stop Wasting Paper?
+            Start Printing Smarter Today
           </h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Download Print Later for free. No signup required for the app itself — 
-            just enter your email once to get the download link.
+            Download Print Later for free. Save time, waste less paper, and stay organized. 
+            No signup needed for the app - just enter your email once to get the download link.
           </p>
 
           {downloadUnlocked ? (
@@ -697,8 +855,8 @@ export default function PrintLaterPage() {
           </div>
 
           <p className="mt-6 text-xs text-muted-foreground">
-            <strong>Note:</strong> Windows SmartScreen may show a warning because the app is not code-signed. 
-            Click &quot;More info&quot; → &quot;Run anyway&quot; to install.
+            <strong>Note:</strong> Windows may show a "Windows protected your PC" warning because the app is free and not code-signed. 
+            Click "More info" then "Run anyway" to install. The app is safe and open source.
           </p>
         </div>
       </section>
@@ -715,7 +873,7 @@ export default function PrintLaterPage() {
                 <h3 className="text-2xl font-bold mb-2">CourtCase</h3>
                 <p className="text-muted-foreground mb-4">
                   Organize your legal documents with ease. CourtCase helps you manage case files,
-                  track deadlines, and prepare document packets — all locally on your computer.
+                  track deadlines, and prepare document packets - all locally on your computer.
                 </p>
                 <Link href="/products/courtcase">
                   <Button variant="outline" className="gap-2">

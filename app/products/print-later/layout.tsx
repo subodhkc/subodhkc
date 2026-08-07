@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Print Later – Free Windows App to Save & Print Web Pages Later',
-  description: 'Free Windows app to save web pages and print them later. Queue with Ctrl+P, pick exact pages, batch print. No cloud, no tracking. Download free.',
+  title: 'Print Later - Free App to Save Web Pages & Print Them Later',
+  description: 'Stop wasting paper. Save web pages with one click, pick only the pages you need, and batch print when ready. 100% free, private, and works offline.',
   keywords: [
     'Print Later',
     'save web pages for printing',
@@ -28,10 +28,14 @@ export const metadata: Metadata = {
     'print packet builder',
     'free print queue software',
     'Ctrl P save for later',
+    'free print manager Windows',
+    'save webpage to print later',
+    'print specific pages from website',
+    'organize web pages for printing',
   ],
   openGraph: {
-    title: 'Print Later - Save Web Pages, Print When Ready',
-    description: 'Free Windows app to save web pages and print them later. No cloud, 100% local, open source.',
+    title: 'Print Later - Save Web Pages Now, Print Them When Ready',
+    description: 'Free Windows app. Save pages with one click, pick only the pages you need, and batch print when ready. No cloud, no tracking, no account.',
     type: 'website',
     url: 'https://subodhkc.com/products/print-later',
     images: [
@@ -39,14 +43,14 @@ export const metadata: Metadata = {
         url: 'https://subodhkc.com/products/print-later/screenshot.png',
         width: 1467,
         height: 900,
-        alt: 'Print Later App Screenshot',
+        alt: 'Print Later App - Save web pages and print them later',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Print Later - Save Web Pages, Print When Ready',
-    description: 'Free Windows app to save web pages and print them later. No cloud, 100% local, open source.',
+    title: 'Print Later - Save Web Pages Now, Print Them When Ready',
+    description: 'Free Windows app. Save pages with one click, pick only the pages you need, and batch print when ready. No cloud, no tracking, no account.',
     images: ['https://subodhkc.com/products/print-later/screenshot.png'],
   },
   alternates: {
