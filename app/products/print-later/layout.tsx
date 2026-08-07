@@ -37,6 +37,10 @@ export const metadata: Metadata = {
     'combine PDF and web pages print',
     'print to PDF from web pages',
     'open source print productivity tool',
+    'auto import PDF print queue',
+    'Ctrl P save PDF print later',
+    'watch folder PDF auto import',
+    'print web pages any browser',
   ],
   openGraph: {
     title: 'Print Later - Save Web Pages Now, Print Them When Ready',

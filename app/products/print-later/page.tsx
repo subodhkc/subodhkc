@@ -620,7 +620,7 @@ export default function PrintLaterPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Choose your default printer. Set color or black and white, single or double-sided, and number of copies. Print to paper or save as PDF. Configure once and forget it.
+                  Choose your default printer. Set color or black and white, single or double-sided, and number of copies. Print to paper or save as PDF. Set your PDF save folder and enable auto-import so any PDF you save with Ctrl+P appears in your queue automatically. Configure once and forget it.
                 </p>
               </CardContent>
             </Card>
