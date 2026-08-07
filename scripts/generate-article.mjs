@@ -403,11 +403,20 @@ const ARTICLE_TYPES = {
 
 const COPYWRITING_GUARDRAILS = `COPYWRITING GUARDRAILS (NON-NEGOTIABLE):
 - DO NOT use em-dashes or en-dashes anywhere. Use regular hyphens (-), periods, commas, or colons instead.
-- DO NOT use any of these AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to", "Delve into", "Navigate the complexities", "In the realm of", "A testament to", "Paving the way", "Revolutionize", "Game-changer", "Paradigm shift", "Cutting-edge", "Harness the power", "Unlock the potential", "Empower", "Seamless", "Robust" (as filler adjective), "Leverage" (as verb for "use"), "Streamline", "Foster", "Facilitate", "Underscore", "Underpin", "Bolster", "Dive deep" or "Deep dive" (as verb)
+- DO NOT use any emojis anywhere in the article body.
+- DO NOT use any of these AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to", "Delve into", "Navigate the complexities", "In the realm of", "A testament to", "Paving the way", "Revolutionize", "Game-changer", "Paradigm shift", "Cutting-edge", "Harness the power", "Unlock the potential", "Empower", "Seamless", "Robust" (as filler adjective), "Leverage" (as verb for "use"), "Streamline", "Foster", "Facilitate", "Underscore", "Underpin", "Bolster", "Dive deep" or "Deep dive" (as verb), "In the ever-evolving landscape of", "In the world of", "It's important to note that", "It's crucial to understand", "When it comes to", "At its core", "The key lies in", "A comprehensive guide", "Everything you need to know", "The ultimate guide"
+- DO NOT use AI-style structures: no "hook-question-answer" pattern, no TL;DR sections, no conclusion that merely summarizes the article, no question marks as section headers, no formulaic "three-pillar" or "five-step" structures unless the content genuinely has that structure.
+- DO NOT start paragraphs with "Additionally", "Moreover", or "Furthermore". Use direct transitions.
+- Vary sentence length significantly. Mix short punchy sentences with longer complex ones.
+- Use active voice predominantly. Passive voice only when the actor is genuinely unknown.
+- Include at least one "line in the sand" opinion that reasonable practitioners would debate.
 - DO NOT fabricate personal claims: no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
 - DO NOT invent statistics, numbers, or events
 - Write about the topic, the how-to, the analysis. Not about fabricated personal experience.
-- Content must be factual and based on real technical and regulatory knowledge.`
+- Content must be factual and based on real technical and regulatory knowledge.
+- Every external URL must be real and must point to the claimed source. Do not fabricate URLs.
+- Every regulatory reference must be real: verify bill numbers, regulation numbers, and dates.
+- End with a forward-looking statement or specific recommendation, not a recap of the article.`
 
 const FORBIDDEN_CLAIMS = `FORBIDDEN CLAIMS (do not use without verified evidence):
 - "Peer-reviewed"
@@ -637,11 +646,35 @@ Return ONLY the JSON object, no markdown code fences, no preamble.${retryHint ? 
           'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: 'gpt-4o',
+          model: 'gpt-4o-2024-11-20',
           messages: [
             {
               role: 'system',
-              content: `You are an expert AI systems architect who writes practical, authoritative content about production AI architecture, governance, and operations. You write for technical leaders who need implementation guidance, not theory. You return only valid JSON.
+              content: `You are the SubodhKC.com editorial engine, writing as "Yeti AI Writer" for the Subodh KC blog. You write practical, authoritative content about production AI architecture, governance, and operations for technical leaders who need implementation guidance, not theory.
+
+EDITORIAL PERSONA:
+- Voice: Authoritative, uncompromising, deeply technical, and sharp. No fluffy corporate platitudes or generic tech trends. Speak in metrics, architecture decision records, risk thresholds, and deployment reality.
+- Audience: Production Realists. Enterprise architects, Senior PMs, Tech Leads, and Compliance Officers who actually deploy code and protect their companies from regulatory ruin.
+- You are NOT writing for the generic middle ground. Every article draws a hard line between "them" (AI hype-men, slide-deck consultants) and "us" (production realists who ship and govern).
+
+HUMANIZATION RULES (MANDATORY):
+- No em-dashes or en-dashes. Use regular hyphens, periods, commas, or colons.
+- No emojis anywhere in the article body.
+- No AI cliches: "Here's what I've learned", "Let's dive in", "At the end of the day", "The reality is", "Navigate the complexities", "In the realm of", "Revolutionize", "Game-changer", "Paradigm shift", "Cutting-edge", "Harness the power", "Seamless", "Leverage", "Streamline", "Foster", "Facilitate", "Underscore", "Deep dive", "In the ever-evolving landscape of", "Everything you need to know", "The ultimate guide"
+- No AI structures: no hook-question-answer pattern, no TL;DR, no summarizing conclusion, no question-mark section headers, no formulaic N-step structures
+- No starting paragraphs with "Additionally", "Moreover", "Furthermore"
+- Vary sentence length significantly. Mix short punchy sentences with longer complex ones.
+- Use active voice predominantly.
+- Include at least one debatable "line in the sand" opinion.
+- End with a forward-looking statement or specific recommendation, not a recap.
+
+HALLUCINATION PREVENTION (MANDATORY):
+- Every external URL must be real and point to the claimed source. Do not fabricate URLs.
+- Every regulatory reference must be real: verify bill numbers, regulation numbers, and dates.
+- Do not fabricate statistics, personal claims, or events.
+- Do not invent client names, deployment metrics, or team sizes.
+
+You return only valid JSON.
 
 CRITICAL LENGTH REQUIREMENT: The contentHtml field MUST contain at least ${articleType.minWords} words. This is non-negotiable. Articles under ${articleType.minWords} words will be REJECTED and regenerated.
 
@@ -657,7 +690,7 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
             { role: 'user', content: prompt },
           ],
           temperature: 0.7,
-          max_tokens: item.type === 'operator-brief' ? 8000 : item.type === 'implementation' ? 12000 : 16000,
+          max_tokens: item.type === 'operator-brief' ? 8000 : item.type === 'implementation' ? 12000 : 16384,
           response_format: { type: 'json_object' },
         }),
       })
@@ -698,7 +731,56 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
   }
 
   if (finishReason === 'length') {
-    console.warn('OpenAI response was truncated (finish_reason: length). Attempting JSON repair...')
+    console.warn('OpenAI response was truncated (finish_reason: length). Attempting continuation...')
+    // Try to continue the response by sending the partial content back
+    try {
+      const continuationResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-2024-11-20',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are continuing a JSON response that was truncated. Output ONLY the remaining JSON to complete the object. Do not repeat any content. Start exactly where the previous response ended.',
+            },
+            { role: 'user', content: `Continue this JSON response from where it was cut off. The last characters were:\n\n${content.slice(-500)}\n\nOutput the remaining JSON to complete the object. Close all open strings, arrays, and objects properly.` },
+          ],
+          temperature: 0.5,
+          max_tokens: 8000,
+          response_format: { type: 'json_object' },
+        }),
+      })
+
+      if (continuationResponse.ok) {
+        const contData = await continuationResponse.json()
+        const contContent = contData.choices[0]?.message?.content
+        if (contContent) {
+          // Try to merge: find where the continuation overlaps and stitch
+          // Simple approach: if continuation starts with a complete JSON, extract its fields and merge
+          try {
+            const contJson = JSON.parse(contContent.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim())
+            // If continuation is a complete JSON object, merge its contentHtml
+            if (contJson.contentHtml && article?.contentHtml) {
+              article.contentHtml = article.contentHtml + contJson.contentHtml
+              console.log('Continuation merged successfully. Extended contentHtml.')
+            } else if (contJson.contentHtml) {
+              // Original parse failed, use continuation directly
+              article = contJson
+              console.log('Using continuation response as primary article.')
+            }
+          } catch {
+            // Continuation isn't valid JSON on its own, try raw concatenation
+            console.warn('Continuation was not valid JSON. Using repaired original.')
+          }
+        }
+      }
+    } catch (contErr) {
+      console.warn(`Continuation failed: ${contErr.message}. Using repaired original.`)
+    }
   }
 
   const jsonStr = content.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '').trim()
@@ -739,6 +821,48 @@ DO NOT be concise. Be thorough and exhaustive. Every section must read like a de
   }
 
   return article
+}
+
+// ---------------------------------------------------------------------------
+// URL validation - checks that external citation URLs actually resolve
+// ---------------------------------------------------------------------------
+
+async function validateUrls(contentHtml) {
+  const urlMatches = contentHtml.match(/href="(https?:\/\/(?!subodhkc\.com)[^"]+)"/g) || []
+  const urls = urlMatches.map(m => m.match(/href="([^"]+)"/)[1])
+  const results = { valid: [], invalid: [], errors: [] }
+
+  // Check up to 10 URLs to avoid timeout
+  const urlsToCheck = urls.slice(0, 10)
+  for (const url of urlsToCheck) {
+    try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 8000)
+      const response = await fetch(url, {
+        method: 'HEAD',
+        redirect: 'follow',
+        signal: controller.signal,
+      })
+      clearTimeout(timeout)
+      if (response.ok || (response.status >= 300 && response.status < 400)) {
+        results.valid.push(url)
+      } else if (response.status === 404) {
+        results.invalid.push(url)
+        results.errors.push(`URL returns 404: ${url}`)
+      } else if (response.status === 403 || response.status === 401) {
+        // 403/401 may be behind auth but still real - don't fail
+        results.valid.push(url)
+      } else {
+        results.invalid.push(url)
+        results.errors.push(`URL returns ${response.status}: ${url}`)
+      }
+    } catch (err) {
+      // Network errors might be temporary or due to bot protection - don't fail hard
+      results.valid.push(url)
+    }
+  }
+
+  return results
 }
 
 // ---------------------------------------------------------------------------
@@ -799,6 +923,13 @@ function validateArticle(article, item) {
     "Empower", "Seamless", "Streamline", "Foster", "Facilitate",
     "Underscore", "Underpin", "Bolster", "Leverage",
     "Dive deep", "Deep dive",
+    "In the ever-evolving landscape", "In the world of",
+    "It's important to note that", "It's crucial to understand",
+    "When it comes to", "At its core", "The key lies in",
+    "A comprehensive guide", "Everything you need to know",
+    "The ultimate guide", "A step-by-step guide",
+    "TL;DR", "tl;dr",
+    "Additionally,", "Moreover,", "Furthermore,",
   ]
   const contentLower = (article.contentHtml || '').toLowerCase()
   const foundTells = aiTells.filter((tell) => contentLower.includes(tell.toLowerCase()))
@@ -818,6 +949,20 @@ function validateArticle(article, item) {
   const citationLinks = externalLinks.filter(l => citationRegex.test(l))
   if (citationLinks.length < 2) {
     warnings.push(`Only ${citationLinks.length} external citations from approved sources (required: at least 2). Found ${externalLinks.length} total external links.`)
+  }
+
+  // Check for AI-style structural patterns
+  const contentHtml = article.contentHtml || ''
+  if (/<h[23][^>]*>\s*[^<]*\?\s*<\/h[23]>/i.test(contentHtml)) {
+    warnings.push('Question-mark section headers detected. Use declarative headers instead.')
+  }
+  if (/TL;DR|tl;dr/i.test(contentHtml)) {
+    errors.push('TL;DR section detected. Professional publications do not use TL;DR.')
+  }
+  // Check for emoji in content
+  const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{27BF}\u{1F000}-\u{1F02F}\u{1F0A0}-\u{1F0FF}\u{1F100}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2700}-\u{27BF}]/u
+  if (emojiRegex.test(contentHtml)) {
+    errors.push('Emoji detected in article content. Remove all emojis.')
   }
 
   // H2 section count check
@@ -880,11 +1025,11 @@ Return ONLY the Markdown content, no code fences, no preamble.`
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o',
+        model: 'gpt-4o-2024-11-20',
         messages: [
           {
             role: 'system',
-            content: 'You are an expert AI systems architect who creates practical, actionable checklists. You return only valid Markdown. You never use em-dashes or AI writing patterns.',
+            content: 'You are an expert AI systems architect who creates practical, actionable checklists. You return only valid Markdown. You never use em-dashes, en-dashes, emojis, or AI writing patterns.',
           },
           { role: 'user', content: prompt },
         ],
@@ -931,6 +1076,14 @@ function buildRetryHint(errors, wordCount, articleType, item) {
       hints.push(`EXTERNAL CITATIONS FAILURE: You need at least 2 external links to authoritative sources from this list: ${CITATION_SOURCES.slice(0, 15).join(', ')}. Add links like: <a href="https://nist.gov/...">NIST guidance</a> or <a href="https://owasp.org/...">OWASP standard</a>. These must be real, relevant sources for the topic.`)
     } else if (err.includes('H2 sections')) {
       hints.push(`H2 STRUCTURE FAILURE: You need at least ${requiredH2} H2 sections. Follow the SECTION BLUEPRINT in the prompt. Each H2 must have substantial content (150-300 words). Use <h2> tags, not <h3> or <strong>.`)
+    } else if (err.includes('HALLUCINATION CHECK')) {
+      hints.push(`HALLUCINATION FAILURE: ${err}. The URL you cited does not resolve or returns a 404. You MUST only use real, verified URLs. If you are not certain a URL exists, do not include it. Use only URLs from the approved citation sources list.`)
+    } else if (err.includes('Emoji detected')) {
+      hints.push(`EMOJI FAILURE: Remove all emojis from the article content. Professional publications do not use emojis.`)
+    } else if (err.includes('TL;DR')) {
+      hints.push(`TL;DR FAILURE: Remove the TL;DR section. Professional publications do not use TL;DR. End with a forward-looking statement or specific recommendation instead.`)
+    } else if (err.includes('Question-mark section headers')) {
+      hints.push(`QUESTION HEADER FAILURE: Replace all question-mark section headers with declarative statements. Instead of "Why Does RAG Fail?" use "RAG Failure Modes" or "Where RAG Breaks".`)
     } else {
       hints.push(err)
     }
@@ -1029,13 +1182,27 @@ async function main() {
       validationErrors = result.errors
       wordCount = result.wordCount
 
+      // URL validation - check that external citations resolve
+      if (!reviewOnly && !dryRun) {
+        console.log('\n  Validating external URLs...')
+        const urlResults = await validateUrls(article.contentHtml || '')
+        if (urlResults.valid.length > 0) {
+          console.log(`  URL check: ${urlResults.valid.length} valid, ${urlResults.invalid.length} invalid`)
+        }
+        for (const urlErr of urlResults.errors) {
+          errors.push(`HALLUCINATION CHECK: ${urlErr}`)
+          validationErrors.push(`HALLUCINATION CHECK: ${urlErr}`)
+        }
+      }
+
       // Auto-publish mode: upgrade critical warnings to errors
       const criticalWarnings = validationWarnings.filter((w) =>
         w.includes('AI writing tells detected') ||
         w.includes('internal links') ||
         w.includes('words (target:') ||
         w.includes('external citations') ||
-        w.includes('H2 sections')
+        w.includes('H2 sections') ||
+        w.includes('Question-mark section headers')
       )
       if (!reviewOnly && !dryRun) {
         for (const cw of criticalWarnings) {
@@ -1058,7 +1225,11 @@ async function main() {
           e.includes('internal links') ||
           e.includes('AI writing tells') ||
           e.includes('external citations') ||
-          e.includes('H2 sections')
+          e.includes('H2 sections') ||
+          e.includes('HALLUCINATION CHECK') ||
+          e.includes('Emoji detected') ||
+          e.includes('TL;DR') ||
+          e.includes('Question-mark')
         )
       }
     }
@@ -1099,7 +1270,8 @@ async function main() {
       w.includes('internal links') ||
       w.includes('words (target:') ||
       w.includes('external citations') ||
-      w.includes('H2 sections')
+      w.includes('H2 sections') ||
+      w.includes('Question-mark section headers')
     )
     const remainingWarnings = validationWarnings.filter((w) => !criticalWarnings.includes(w))
     if (remainingWarnings.length > 0) {
