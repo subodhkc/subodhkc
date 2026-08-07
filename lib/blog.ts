@@ -43,7 +43,8 @@ const POSTS_DIR = path.join(process.cwd(), 'data', 'blog', 'posts')
 function readPostFile(slug: string): BlogPost | null {
   const filePath = path.join(POSTS_DIR, `${slug}.json`)
   try {
-    const raw = fs.readFileSync(filePath, 'utf-8')
+    let raw = fs.readFileSync(filePath, 'utf-8')
+    if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1)
     return JSON.parse(raw) as BlogPost
   } catch {
     return null
@@ -57,7 +58,8 @@ export function getAllPosts(): BlogPostSummary[] {
 
     for (const file of files) {
       if (!file.endsWith('.json')) continue
-      const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
+      let raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
+      if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1)
       const post: BlogPost = JSON.parse(raw)
       posts.push({
         id: post.id,

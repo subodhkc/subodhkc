@@ -116,7 +116,11 @@ function getAllPosts() {
   if (!fs.existsSync(postsDir)) return []
   return fs.readdirSync(postsDir)
     .filter((f) => f.endsWith('.json'))
-    .map((f) => JSON.parse(fs.readFileSync(path.join(postsDir, f), 'utf-8')))
+    .map((f) => {
+      let raw = fs.readFileSync(path.join(postsDir, f), 'utf-8')
+      if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1)
+      return JSON.parse(raw)
+    })
 }
 
 function stripHtmlForCount(html) {
