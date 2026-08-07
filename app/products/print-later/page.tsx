@@ -41,7 +41,7 @@ export default function PrintLaterPage() {
     {
       icon: Zap,
       title: 'Two Ways to Save Pages',
-      description: 'Method 1: Click the Print Later icon in your browser toolbar and hit Save. The page is captured instantly. Method 2: Press Ctrl+P in any browser, select "Microsoft Print to PDF", save the file, then import it into Print Later. Both methods get you to the same organized queue.'
+      description: 'Method 1: Click the Print Later icon in your browser toolbar and hit Save. The page is captured instantly. Method 2: Press Ctrl+P in any browser, select "Microsoft Print to PDF", and save the file to your designated folder. Print Later watches that folder and auto-imports the PDF into your queue. No manual import needed.'
     },
     {
       icon: FileText,
@@ -249,7 +249,7 @@ export default function PrintLaterPage() {
               </div>
               <h3 className="text-lg font-semibold mb-2">Save Pages You Want</h3>
               <p className="text-muted-foreground text-sm">
-                Two ways to save: Click the Print Later icon in your browser toolbar and hit "Save to Print Queue" for instant capture. Or press Ctrl+P, select "Microsoft Print to PDF", save the file, and import it into the app. You can also import any existing PDF from your computer.
+                Two ways to save: Click the Print Later icon in your browser toolbar and hit "Save to Print Queue" for instant capture. Or press Ctrl+P in any browser, select "Microsoft Print to PDF", and save to your designated folder. Print Later auto-imports it into your queue. You can also import any existing PDF from your computer.
               </p>
             </div>
             <div className="text-center">
@@ -372,7 +372,7 @@ export default function PrintLaterPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Save Pages While You Browse</h3>
               <p className="text-muted-foreground">
-                Two ways to save. Fast way: Click the Print Later icon in your browser toolbar and hit "Save to Print Queue" - the page is captured instantly. Classic way: Press Ctrl+P, choose "Microsoft Print to PDF", save the file, then import it into Print Later. You can also import any existing PDF from your computer. Keep browsing and save as many pages as you want.
+                Two ways to save. Fast way: Click the Print Later icon in your browser toolbar and hit "Save to Print Queue" - the page is captured instantly. Classic way: Press Ctrl+P in any browser, choose "Microsoft Print to PDF", and save the file to your designated folder. Print Later watches that folder and auto-imports the PDF into your queue automatically. You can also import any existing PDF from your computer. Keep browsing and save as many pages as you want.
               </p>
             </div>
             <div className="text-center">
@@ -838,7 +838,7 @@ export default function PrintLaterPage() {
               <CardHeader>
                 <CardTitle className="text-lg">Can I save pages from any browser?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  Yes. The Print Later browser extension works with Chrome and Edge for one-click saving. For Firefox or any other browser, press Ctrl+P, select "Microsoft Print to PDF", save the file, then import it into Print Later. All pages go into the same queue regardless of which browser you used. You can also import any existing PDF from your computer.
+                  Yes. The Print Later browser extension works with Chrome and Edge for one-click saving. For Firefox or any other browser, press Ctrl+P, select "Microsoft Print to PDF", and save the file to your designated folder. Print Later watches that folder and auto-imports the PDF into your queue automatically. All pages go into the same queue regardless of which browser you used. You can also import any existing PDF from your computer.
                 </p>
               </CardHeader>
             </Card>
@@ -948,7 +948,7 @@ export default function PrintLaterPage() {
               {
                 '@type': 'Question',
                 name: 'Can I save pages from any browser?',
-                acceptedAnswer: { '@type': 'Answer', text: 'Yes. The Print Later browser extension works with Chrome and Edge for one-click saving. For Firefox or any other browser, press Ctrl+P, select "Microsoft Print to PDF", save the file, then import it into Print Later. All pages go into the same queue regardless of which browser you used. You can also import any existing PDF from your computer.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. The Print Later browser extension works with Chrome and Edge for one-click saving. For Firefox or any other browser, press Ctrl+P, select "Microsoft Print to PDF", and save the file to your designated folder. Print Later watches that folder and auto-imports the PDF into your queue automatically. All pages go into the same queue regardless of which browser you used. You can also import any existing PDF from your computer.' },
               },
               {
                 '@type': 'Question',
