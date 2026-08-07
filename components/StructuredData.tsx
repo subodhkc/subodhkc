@@ -26,6 +26,13 @@ export default function StructuredData() {
       'MCP & API Integrations',
       'Voice AI Operations',
       'AI Governance',
+      'AI Policy',
+      'AI Regulatory Advisory',
+      'AI Risk Assessment',
+      'AI Compliance Consulting',
+      'AI Audit',
+      'CISO-Adjacent Security',
+      'AI Security Architecture',
       'Technical Program Management',
       'Enterprise AI Strategy',
       'Cognitive Systems Management',
@@ -33,9 +40,47 @@ export default function StructuredData() {
       'Compliance Architecture',
       'AI Risk Management',
       'AI Ethics',
+      'AI Governance Policy',
       'Enterprise AI Implementation',
       'AI Governance Frameworks',
+      'AI Vendor Risk Management',
+      'AI Incident Response',
+      'AI Drift Detection',
+      'AI Bias Detection',
+      'AI Evidence Architecture',
       'Fortune 50 AI Leadership',
+    ],
+    hasCredential: [
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Patent-Pending Framework',
+        name: 'Adversarial Project Twin',
+        url: 'https://subodhkc.com/about',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Patent-Pending Framework',
+        name: 'AI Compliance Twin',
+        url: 'https://subodhkc.com/about',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Patent-Pending Framework',
+        name: 'Modular Audit Engine',
+        url: 'https://subodhkc.com/about',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Patent-Pending Framework',
+        name: 'Precision Drift Detector',
+        url: 'https://subodhkc.com/about',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Patent-Pending Framework',
+        name: 'Compliance Fingerprint Layer',
+        url: 'https://subodhkc.com/about',
+      },
     ],
     hasOccupation: {
       '@type': 'Occupation',
@@ -174,6 +219,58 @@ export default function StructuredData() {
     ],
   }
 
+  const professionalServiceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Subodh KC — AI Governance & Architecture Advisory',
+    description:
+      'AI governance consulting, compliance architecture, and enterprise AI strategy advisory. Specializing in EU AI Act, NIST AI RMF, ISO 42001, and NYC LL 144 compliance implementation. Former Fortune 50 AI Strategy CTL with 16+ years of production AI systems experience.',
+    url: 'https://subodhkc.com/services',
+    provider: {
+      '@type': 'Person',
+      name: 'Subodh KC',
+      url: 'https://subodhkc.com',
+      jobTitle: 'AI Systems Architect & Governance Expert',
+      sameAs: [
+        'https://www.linkedin.com/in/subodhkc',
+        'https://www.wikidata.org/wiki/Q140546484',
+      ],
+    },
+    serviceType: [
+      'AI Governance Consulting',
+      'AI Compliance Advisory',
+      'AI Architecture Consulting',
+      'AI Risk Assessment',
+      'AI Regulatory Compliance',
+      'Enterprise AI Strategy',
+    ],
+    areaServed: [
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'AdministrativeArea', name: 'Texas' },
+      { '@type': 'City', name: 'Dallas-Fort Worth' },
+    ],
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: 'Enterprise Organizations, Fortune 500, Series B+ Startups, Government Contractors',
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      description: 'Custom pricing based on scope and engagement model. Contact for consultation.',
+      availability: 'https://schema.org/InStock',
+    },
+    knowsAbout: [
+      'EU AI Act Compliance',
+      'NIST AI RMF',
+      'ISO 42001',
+      'NYC Local Law 144',
+      'AI Governance Frameworks',
+      'AI Risk Management',
+      'AI Audit and Evidence Architecture',
+      'Cognitive Systems Management',
+    ],
+  }
+
   const serviceSchemas = [
     {
       '@context': 'https://schema.org',
@@ -185,12 +282,6 @@ export default function StructuredData() {
       provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
       areaServed: { '@type': 'Country', name: 'United States' },
       url: 'https://subodhkc.com/services',
-      offers: {
-        '@type': 'Offer',
-        price: '300',
-        priceCurrency: 'USD',
-        description: 'Consulting from $300/hour (project minimums apply)',
-      },
     },
     {
       '@context': 'https://schema.org',
@@ -202,12 +293,6 @@ export default function StructuredData() {
       provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
       areaServed: { '@type': 'Country', name: 'United States' },
       url: 'https://subodhkc.com/services',
-      offers: {
-        '@type': 'Offer',
-        price: '300',
-        priceCurrency: 'USD',
-        description: 'Consulting from $300/hour (project minimums apply)',
-      },
     },
     {
       '@context': 'https://schema.org',
@@ -219,12 +304,6 @@ export default function StructuredData() {
       provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
       areaServed: { '@type': 'Country', name: 'United States' },
       url: 'https://subodhkc.com/services',
-      offers: {
-        '@type': 'Offer',
-        price: '300',
-        priceCurrency: 'USD',
-        description: 'Consulting from $300/hour (project minimums apply)',
-      },
     },
   ]
 
@@ -439,6 +518,74 @@ export default function StructuredData() {
     },
   ]
 
+  const definedTermSchemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'Cognitive Systems Management (CSM)',
+      description:
+        'A comprehensive methodology for AI implementation that bridges strategy, technical execution, and governance. The foundational framework underlying HAIEC platform and enterprise AI deployment.',
+      url: 'https://subodhkc.com/research',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Subodh KC AI Governance Frameworks',
+        url: 'https://subodhkc.com/research',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'Instruction Stack Audit Framework (ISAF)',
+      description:
+        'A technical methodology for tracing AI accountability across nine abstraction layers. Published in Zenodo as peer-reviewed research.',
+      url: 'https://zenodo.org/records/18080355',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Subodh KC AI Governance Frameworks',
+        url: 'https://subodhkc.com/research',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'Red Audit',
+      description:
+        'Adversarial testing methodology for AI systems that combines static analysis, runtime testing, and evidence generation for regulatory compliance.',
+      url: 'https://subodhkc.com/research',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Subodh KC AI Governance Frameworks',
+        url: 'https://subodhkc.com/research',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'Precision Drift Detection',
+      description:
+        'Advanced methodology for detecting subtle degradation patterns in production AI systems. Goes beyond basic statistical drift to identify concept drift and silent failures.',
+      url: 'https://subodhkc.com/research',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Subodh KC AI Governance Frameworks',
+        url: 'https://subodhkc.com/research',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'HAIEC Modular AI Governance Framework',
+      description:
+        'A modular framework for enterprise AI governance that separates compliance law guides, technical security tools, and authority research into independently verifiable components.',
+      url: 'https://subodhkc.com/guides',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Subodh KC AI Governance Frameworks',
+        url: 'https://subodhkc.com/research',
+      },
+    },
+  ]
+
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
@@ -497,6 +644,19 @@ export default function StructuredData() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(publisherSchema) }}
       />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
+      />
+      {definedTermSchemas.map((schema, i) => (
+        <script
+          key={`definedterm-${i}`}
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       {serviceSchemas.map((schema, i) => (
         <script
           key={`service-${i}`}
