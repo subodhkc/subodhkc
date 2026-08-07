@@ -121,7 +121,7 @@ const PILLARS = {
 
 // ---------------------------------------------------------------------------
 // Content calendar - Batch 1 (30 articles across 10 days)
-// Strategy: 1 authority article per day (1500-2500 words, depth-first)
+// Strategy: 1 authority article per day (1500-2500 words, depth-first, SEO-cluster-aligned)
 // Implementation and operator-brief entries are retained as fallback topics
 // ---------------------------------------------------------------------------
 
@@ -216,8 +216,53 @@ const CONTENT_CALENDAR_BATCH_2 = [
 ]
 
 // ---------------------------------------------------------------------------
-// Topic-selection engine with scoring algorithm
+// Content calendar - Batch 3 (20 articles across days 21-40)
+// SEO-cluster-aligned: Defensive AI Architecture theme
+// 1 authority article per day, depth-first, targeting high-intent search patterns
 // ---------------------------------------------------------------------------
+
+const CONTENT_CALENDAR_BATCH_3 = [
+  // Day 21 - Cluster 1: TRAIGA safe harbor
+  { title: 'TRAIGA Safe Harbor Audit Trails: Mapping NIST AI RMF to Texas Compliance Evidence', pillar: 'ai-governance-and-evidence', type: 'authority', day: 21, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec', '/blog/seven-layers-ai-compliance-nist-iso-soc2'] },
+  // Day 22 - Cluster 2: RAG poisoning
+  { title: 'How to Prevent RAG Poisoning in Multi-Tenant Enterprise Deployments', pillar: 'production-ai-architecture', type: 'authority', day: 22, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/architecture-decision-master-sheet', '/blog/implementing-rag-row-level-security-for-multi-tenant-ai'] },
+  // Day 23 - Cluster 1: NYC LL 144
+  { title: 'NYC Local Law 144 Bias Audit: Technical Evidence Requirements and Common Failure Modes', pillar: 'ai-governance-and-evidence', type: 'authority', day: 23, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  // Day 24 - Cluster 3: Sovereign AI
+  { title: 'Sovereign AI Inference Stack: On-Premises Architecture for Data Residency Compliance', pillar: 'ai-operations-and-deployment', type: 'authority', day: 24, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  // Day 25 - Cluster 2: Runtime adversarial gaps
+  { title: 'Runtime Adversarial Gaps in LLM Architecture: Detection, Containment and Recovery', pillar: 'production-ai-architecture', type: 'authority', day: 25, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/how-to-secure-and-govern-ai', '/products/llmverify'] },
+  // Day 26 - Cluster 1: EU AI Act conformity
+  { title: 'EU AI Act Conformity Assessment: Building the Technical Evidence File for High-Risk Systems', pillar: 'ai-governance-and-evidence', type: 'authority', day: 26, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec', '/blog/seven-layers-ai-compliance-nist-iso-soc2'] },
+  // Day 27 - Cluster 2: Agent tool permissions
+  { title: 'AI Agent Tool Permissions: A Least-Privilege Security Model for Production Deployments', pillar: 'production-ai-architecture', type: 'authority', day: 27, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/how-to-secure-and-govern-ai'] },
+  // Day 28 - Cluster 3: Open-weight deployment
+  { title: 'Local Open-Weight Model Deployment: Enterprise Governance and ISO 42001 Compliance Checklist', pillar: 'ai-operations-and-deployment', type: 'authority', day: 28, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  // Day 29 - Cluster 1: ISO 42001 implementation
+  { title: 'ISO 42001 AI Management System Implementation: From Gap Analysis to Certification Audit', pillar: 'ai-governance-and-evidence', type: 'authority', day: 29, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  // Day 30 - Cluster 2: Prompt injection defenses
+  { title: 'Prompt Injection Defenses That Do Not Break Agent Utility: A Production Architecture', pillar: 'production-ai-architecture', type: 'authority', day: 30, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/products/llmverify', '/architecture-decision-master-sheet'] },
+  // Day 31 - Cluster 3: Data residency
+  { title: 'AI Data Residency Architecture Patterns for Multi-Jurisdiction Enterprise Deployments', pillar: 'ai-operations-and-deployment', type: 'authority', day: 31, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  // Day 32 - Cluster 1: TRAIGA intent test
+  { title: 'The TRAIGA Intent Test: Why Automated AI Audits Will Fail Without Runtime Evidence', pillar: 'ai-governance-and-evidence', type: 'authority', day: 32, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  // Day 33 - Cluster 2: Model extraction attacks
+  { title: 'Model Extraction Attacks on Enterprise LLM APIs: Threat Model and Mitigation Architecture', pillar: 'production-ai-architecture', type: 'authority', day: 33, cta: '/services', internalLinks: ['/how-to-secure-and-govern-ai', '/architecture-decision-master-sheet'] },
+  // Day 34 - Cluster 3: Self-hosted LLM
+  { title: 'Self-Hosted LLM Production Deployment: Cost, Latency and Governance Tradeoffs vs Cloud APIs', pillar: 'ai-operations-and-deployment', type: 'authority', day: 34, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  // Day 35 - Cluster 1: SOC 2 AI evidence
+  { title: 'SOC 2 AI Compliance: Mapping Runtime Controls to SOC 2 Trust Services Criteria', pillar: 'ai-governance-and-evidence', type: 'authority', day: 35, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec', '/blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance'] },
+  // Day 36 - Cluster 2: Multi-tenant isolation
+  { title: 'Multi-Tenant AI Isolation: Architecture Patterns That Prevent Cross-Tenant Data Leakage', pillar: 'production-ai-architecture', type: 'authority', day: 36, cta: '/services', internalLinks: ['/secure-enterprise-rag-architecture', '/architecture-decision-master-sheet', '/blog/implementing-rag-row-level-security-for-multi-tenant-ai'] },
+  // Day 37 - Cluster 3: Hybrid inference
+  { title: 'Hybrid AI Inference Architecture: Routing Sensitive Workloads Between Cloud and On-Premises', pillar: 'ai-operations-and-deployment', type: 'authority', day: 37, cta: '/services', internalLinks: ['/architecture-decision-master-sheet', '/services'] },
+  // Day 38 - Cluster 1: AI incident evidence
+  { title: 'AI Incident Evidence Chain: What Regulators Expect After a Production AI Failure', pillar: 'ai-governance-and-evidence', type: 'authority', day: 38, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/solutions/haiec'] },
+  // Day 39 - Cluster 2: Behavioral drift
+  { title: 'Detecting AI Behavioral Drift in Production: Monitoring Architecture and Alert Thresholds', pillar: 'production-ai-architecture', type: 'authority', day: 39, cta: '/solutions/haiec', internalLinks: ['/how-to-secure-and-govern-ai', '/products/llmverify', '/architecture-decision-master-sheet'] },
+  // Day 40 - Cluster 3: Compliance boundary
+  { title: 'The Compliance Boundary: When Moving AI Workloads On-Premises Actually Increases Risk', pillar: 'ai-operations-and-deployment', type: 'authority', day: 40, cta: '/advisory', internalLinks: ['/architecture-decision-master-sheet', '/advisory'] },
+]
 
 function titleSimilarity(a, b) {
   const wordsA = new Set(a.toLowerCase().split(/\s+/).filter((w) => w.length > 3))
@@ -316,7 +361,7 @@ function pickNextTopics(posts) {
   const existingSlugs = getExistingSlugs(posts)
   const existingTitles = getExistingTitles(posts)
 
-  const ALL_TOPICS = [...CONTENT_CALENDAR_BATCH_1, ...CONTENT_CALENDAR_BATCH_2]
+  const ALL_TOPICS = [...CONTENT_CALENDAR_BATCH_1, ...CONTENT_CALENDAR_BATCH_2, ...CONTENT_CALENDAR_BATCH_3]
 
   const scored = ALL_TOPICS.map((item) => {
     const score = scoreTopic(item, posts)
@@ -335,8 +380,8 @@ function pickNextTopics(posts) {
   })
 
   if (viable.length === 0) {
-    console.error('ERROR: All 60 calendar topics are exhausted or rejected.')
-    console.error('Action required: Add CONTENT_CALENDAR_BATCH_3 to this script or supply --topic flag.')
+    console.error('ERROR: All 80 calendar topics are exhausted or rejected.')
+    console.error('Action required: Add CONTENT_CALENDAR_BATCH_4 to this script or supply --topic flag.')
     console.error('Existing posts: ' + posts.length)
     process.exit(1)
   }
@@ -378,8 +423,8 @@ function pickNextTopics(posts) {
 
 const ARTICLE_TYPES = {
   'authority': {
-    minWords: 2000,
-    maxWords: 3500,
+    minWords: 1500,
+    maxWords: 2500,
     label: 'Authority Article',
     artifactCount: 2,
   },
@@ -656,6 +701,14 @@ EDITORIAL PERSONA:
 - Voice: Authoritative, uncompromising, deeply technical, and sharp. No fluffy corporate platitudes or generic tech trends. Speak in metrics, architecture decision records, risk thresholds, and deployment reality.
 - Audience: Production Realists. Enterprise architects, Senior PMs, Tech Leads, and Compliance Officers who actually deploy code and protect their companies from regulatory ruin.
 - You are NOT writing for the generic middle ground. Every article draws a hard line between "them" (AI hype-men, slide-deck consultants) and "us" (production realists who ship and govern).
+
+SEO THEME: DEFENSIVE AI ARCHITECTURE
+- Core theme: Defensive AI Architecture and Production Governance
+- Target high-value, low-competition search patterns (semantic problem vectors)
+- AI search engines cite definitive, specialized technical frameworks, not generic overviews
+- Article structure: Authority Hook (first 200 words) then Citable Blueprint (body) then Advisory CTA (footer)
+- Make every paragraph self-contained and quotable. AI search engines extract paragraphs, not full articles.
+- Include structured comparison tables and numbered lists where relevant. AI search engines extract these.
 
 HUMANIZATION RULES (MANDATORY):
 - No em-dashes or en-dashes. Use regular hyphens, periods, commas, or colons.

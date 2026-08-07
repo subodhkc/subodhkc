@@ -9,10 +9,13 @@
 
 ## Editorial Rules
 - See `.devin/skills/subodhkc-editorial-manifesto/SKILL.md` for the full editorial persona and rules
+- See `.devin/skills/subodhkc-seo-theme/SKILL.md` for the SEO content strategy and topic clusters
 - CI-generated articles use author "Yeti AI Writer"
 - Hand-written articles by Subodh KC use author "Subodh KC"
 - All articles must pass hallucination validation (URL checks) before publishing
 - All articles must pass AI tell-tale detection (no em-dashes, emojis, AI phrases)
+- SEO theme: "Defensive AI Architecture" with 3 topic clusters
+- Article length: 1500-2500 words (information density over length)
 
 ## CI Article Generation
 - Script: `scripts/generate-article.mjs`

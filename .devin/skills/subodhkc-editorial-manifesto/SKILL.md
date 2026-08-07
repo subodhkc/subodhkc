@@ -231,3 +231,22 @@ The following claims are strictly forbidden because they cannot be substantiated
 - **Yeti AI Writer:** CI-generated articles reviewed and curated by Subodh KC. Uses `/yeti-ai-writer.svg` avatar. Bio describes it as the AI-powered research and content engine for subodhkc.com.
 - All CI-generated articles must be attributed to "Yeti AI Writer" in the `author` field.
 - All hand-written articles by Subodh KC must be attributed to "Subodh KC" in the `author` field.
+
+---
+
+## 13. SEO Theme Integration
+
+The editorial manifesto works alongside the SEO content strategy defined in `.devin/skills/subodhkc-seo-theme/SKILL.md`.
+
+**Core SEO Theme:** Defensive AI Architecture and Production Governance
+
+**Three topic clusters:**
+1. Hard Regulatory Edge Cases (TRAIGA, NYC LL144, EU AI Act) -> maps to `ai-governance-and-evidence` pillar
+2. Real Enterprise Vulnerabilities (RAG poisoning, adversarial gaps) -> maps to `production-ai-architecture` pillar
+3. Sovereign AI and On-Premises Infrastructure -> maps to `ai-operations-and-deployment` pillar
+
+**Article structure:** Authority Hook (first 200 words) then Citable Blueprint (body) then Advisory CTA (footer)
+
+**Word count:** 1500-2500 words for authority articles. Information density over length.
+
+See the SEO theme skill for the full cluster framework, keyword strategy, and AI search optimization guidelines.
