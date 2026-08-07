@@ -38,7 +38,7 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
         ...(post.heroImageUrl ? { images: [{ url: post.heroImageUrl }] } : {}),
         publishedTime: post.createdAt,
         modifiedTime: post.updatedAt || post.createdAt,
-        authors: ['Subodh Kc Blogger'],
+        authors: [post.author || 'Subodh Kc Blogger'],
       },
       twitter: {
         card: 'summary_large_image',
@@ -77,6 +77,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
   }
 
+  const authorName = post.author || 'Subodh Kc Blogger'
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -87,12 +89,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     dateModified: post.updatedAt || post.createdAt,
     author: {
       '@type': 'Person',
-      name: 'Subodh Kc Blogger',
+      name: authorName,
       url: 'https://subodhkc.com',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Subodh Kc Blogger',
+      name: authorName,
       url: 'https://subodhkc.com',
       logo: {
         '@type': 'ImageObject',
@@ -253,7 +255,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </div>
 
       {/* Author card */}
-      <BlogAuthorCard />
+      <BlogAuthorCard author={post.author} />
 
       {/* Related posts */}
       {relatedPosts.length > 0 && (
@@ -438,6 +440,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           background: none;
           border: none;
           padding: 0;
+        }
+        .blog-content pre[data-diagram] {
+          text-align: center;
         }
         .blog-content img {
           max-width: 100%;

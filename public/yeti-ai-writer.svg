@@ -1,0 +1,32 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1a1a2e"/>
+      <stop offset="1" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="128" y1="40" x2="128" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="12" fill="url(#bg)"/>
+  <!-- Yeti silhouette: rounded head with subtle snow-creature aesthetic -->
+  <circle cx="128" cy="100" r="52" fill="url(#accent)" opacity="0.95"/>
+  <!-- Body/shoulders -->
+  <path d="M48 256 C48 196, 88 168, 128 168 C168 168, 208 196, 208 256 Z" fill="url(#accent)" opacity="0.9"/>
+  <!-- Snowflake icon on chest -->
+  <g transform="translate(128, 215)" opacity="0.4">
+    <path d="M0 -12 L0 12 M-10 -6 L10 6 M-10 6 L10 -6" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M-4 -10 L0 -7 L4 -10 M-4 10 L0 7 L4 10 M-10 -2 L-7 2 M10 -2 L7 2" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </g>
+  <!-- Eyes -->
+  <circle cx="110" cy="95" r="7" fill="#fff" opacity="0.95"/>
+  <circle cx="146" cy="95" r="7" fill="#fff" opacity="0.95"/>
+  <circle cx="111" cy="96" r="3.5" fill="#1a1a2e"/>
+  <circle cx="147" cy="96" r="3.5" fill="#1a1a2e"/>
+  <!-- Smile -->
+  <path d="M112 118 Q128 130, 144 118" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <!-- Horns -->
+  <path d="M88 62 Q82 48, 78 38 Q86 44, 92 56 Z" fill="#fff" opacity="0.7"/>
+  <path d="M168 62 Q174 48, 178 38 Q170 44, 164 56 Z" fill="#fff" opacity="0.7"/>
+</svg>

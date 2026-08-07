@@ -17,6 +17,7 @@ export interface BlogPost {
   keywords: string[]
   seedKeyword: string | null
   excerpt: string | null
+  author?: string | null
   downloadableUrl?: string | null
   downloadableLabel?: string | null
 }

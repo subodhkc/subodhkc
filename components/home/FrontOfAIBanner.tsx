@@ -165,7 +165,7 @@ export async function FrontOfAIBanner() {
           }}
         >
           <span className="foa-live-dot" aria-hidden="true" />
-          FrontOfAI News
+          AI News
         </a>
 
         {/* Ticker */}

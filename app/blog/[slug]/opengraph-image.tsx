@@ -39,6 +39,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
   }
 
   const title = post.title.length > 80 ? post.title.slice(0, 77) + '...' : post.title
+  const authorName = post.author || 'Subodh Kc Blogger'
   const keywords = post.keywords.slice(0, 4)
   const dateStr = new Date(post.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -94,7 +95,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
               SK
             </div>
             <div style={{ fontSize: 22, fontWeight: 600, color: '#e0e0e0' }}>
-              Subodh Kc Blogger
+              {authorName}
             </div>
           </div>
           <div style={{ fontSize: 18, color: '#666' }}>{dateStr}</div>

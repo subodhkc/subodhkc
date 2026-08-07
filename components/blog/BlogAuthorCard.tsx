@@ -1,7 +1,48 @@
 import Link from "next/link"
 import Image from "next/image"
 
-export function BlogAuthorCard() {
+const AUTHOR_PROFILES: Record<string, {
+  bio: string
+  links: [string, string][]
+  image: string
+  imagePosition: string
+}> = {
+  'Subodh KC': {
+    bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC — Holistic AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
+    links: [
+      ['About', '/about'],
+      ['Services', '/services'],
+      ['HAIEC', '/haiec'],
+    ],
+    image: '/portrait.jpeg',
+    imagePosition: 'center 18%',
+  },
+  'Yeti AI Writer': {
+    bio: 'AI-powered research and content engine for subodhkc.com. Generates daily authority articles on AI governance, production architecture, and compliance — reviewed and curated by Subodh KC before publication.',
+    links: [
+      ['About', '/about'],
+      ['Blog', '/blog'],
+    ],
+    image: '/yeti-ai-writer.svg',
+    imagePosition: 'center center',
+  },
+}
+
+const DEFAULT_PROFILE = {
+  bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC — Holistic AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
+  links: [
+    ['About', '/about'],
+    ['Services', '/services'],
+    ['HAIEC', '/haiec'],
+  ] as [string, string][],
+  image: '/portrait.jpeg',
+  imagePosition: 'center 18%',
+}
+
+export function BlogAuthorCard({ author }: { author?: string | null }) {
+  const authorName = author || 'Subodh Kc Blogger'
+  const profile = AUTHOR_PROFILES[authorName] || DEFAULT_PROFILE
+
   return (
     <div
       style={{
@@ -26,11 +67,11 @@ export function BlogAuthorCard() {
         }}
       >
         <Image
-          src="/portrait.jpeg"
-          alt="Subodh Kc Blogger"
+          src={profile.image}
+          alt={authorName}
           fill
           sizes="64px"
-          style={{ objectFit: "cover", objectPosition: "center 18%" }}
+          style={{ objectFit: "cover", objectPosition: profile.imagePosition }}
         />
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
@@ -54,7 +95,7 @@ export function BlogAuthorCard() {
             color: "var(--fg)",
           }}
         >
-          Subodh Kc Blogger
+          {authorName}
         </h3>
         <p
           style={{
@@ -64,16 +105,10 @@ export function BlogAuthorCard() {
             margin: "0 0 12px",
           }}
         >
-          AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL.
-          Founder of HAIEC — Holistic AI Ethics & Compliance. 16+ years building
-          production AI systems from startups to global enterprise.
+          {profile.bio}
         </p>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {[
-            ["About", "/about"],
-            ["Services", "/services"],
-            ["HAIEC", "/haiec"],
-          ].map(([label, href]) => (
+          {profile.links.map(([label, href]) => (
             <Link
               key={label}
               href={href}

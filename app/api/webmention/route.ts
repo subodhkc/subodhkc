@@ -88,10 +88,50 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const response = await fetch(source, {
+    // Follow redirects manually so each hop is validated against the SSRF guard.
+    // fetch's default redirect: 'follow' would bypass isBlockedHostname for
+    // redirect destinations (e.g. HTTPS source → HTTP 169.254.169.254 metadata).
+    const MAX_REDIRECTS = 5
+    let currentUrl = source
+    let response = await fetch(currentUrl, {
       headers: { 'Accept': 'text/html, application/json' },
+      redirect: 'manual',
       signal: AbortSignal.timeout(10000),
     })
+
+    for (let i = 0; i < MAX_REDIRECTS; i++) {
+      if (response.status >= 300 && response.status < 400) {
+        const location = response.headers.get('location')
+        if (!location) break
+
+        const redirectUrl = new URL(location, currentUrl)
+
+        // Enforce HTTPS on every redirect destination
+        if (redirectUrl.protocol !== 'https:') {
+          return NextResponse.json(
+            { error: 'redirect target must be HTTPS' },
+            { status: 400 }
+          )
+        }
+
+        // Re-check SSRF guard on the redirect hostname
+        if (isBlockedHostname(redirectUrl.hostname)) {
+          return NextResponse.json(
+            { error: 'redirect target hostname is not allowed' },
+            { status: 400 }
+          )
+        }
+
+        currentUrl = redirectUrl.href
+        response = await fetch(currentUrl, {
+          headers: { 'Accept': 'text/html, application/json' },
+          redirect: 'manual',
+          signal: AbortSignal.timeout(10000),
+        })
+      } else {
+        break
+      }
+    }
 
     if (!response.ok) {
       return NextResponse.json(

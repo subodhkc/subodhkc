@@ -157,7 +157,7 @@ jobs:
 
           if [ -n "$(git status --porcelain data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/)" ]; then
             git add data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/
-            git commit -m "feat: daily AI articles + social content + hero images"
+            git commit -m "feat: daily AI authority article + social content + hero image"
 
             # Push with retry logic (up to 3 attempts)
             MAX_RETRIES=3

@@ -170,6 +170,7 @@ export function HeroInteractive() {
 
         {/* KPI bar */}
         <div
+          className="hero-kpi-grid"
           style={{
             marginTop: 36,
             display: "grid",
@@ -260,6 +261,23 @@ export function HeroInteractive() {
         onClose={() => setModalOpen(false)}
         formType={modalType}
       />
+
+      <style>{`
+        @media (max-width: 640px) {
+          .hero-kpi-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .hero-kpi-grid > div:nth-child(odd) {
+            border-left: none !important;
+          }
+          .hero-kpi-grid > div:nth-child(3) {
+            border-top: 1px solid var(--op-border);
+          }
+          .hero-kpi-grid > div:nth-child(4) {
+            border-top: 1px solid var(--op-border);
+          }
+        }
+      `}</style>
     </>
   );
 }

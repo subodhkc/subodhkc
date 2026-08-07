@@ -121,7 +121,8 @@ const PILLARS = {
 
 // ---------------------------------------------------------------------------
 // Content calendar - Batch 1 (30 articles across 10 days)
-// Each day: 1 authority (1500-2500), 1 implementation (900-1500), 1 operator brief (600-1000)
+// Strategy: 1 authority article per day (1500-2500 words, depth-first)
+// Implementation and operator-brief entries are retained as fallback topics
 // ---------------------------------------------------------------------------
 
 const CONTENT_CALENDAR_BATCH_1 = [
@@ -360,6 +361,13 @@ function pickNextTopics(posts) {
   const typeOrder = { authority: 0, implementation: 1, 'operator-brief': 2 }
   dayTopics.sort((a, b) => (typeOrder[a.type] ?? 3) - (typeOrder[b.type] ?? 3))
 
+  // Only generate the authority article each day — focus on depth over volume
+  const authorityOnly = dayTopics.filter((t) => t.type === 'authority')
+  if (authorityOnly.length > 0) {
+    console.log(`Selected day ${lowestDay}: 1 authority article (depth-first mode)`)
+    return [authorityOnly[0]]
+  }
+
   console.log(`Selected day ${lowestDay} with ${dayTopics.length} topic(s)`)
   return dayTopics
 }
@@ -370,8 +378,8 @@ function pickNextTopics(posts) {
 
 const ARTICLE_TYPES = {
   'authority': {
-    minWords: 1500,
-    maxWords: 2500,
+    minWords: 2000,
+    maxWords: 3500,
     label: 'Authority Article',
     artifactCount: 2,
   },
@@ -1131,6 +1139,7 @@ async function main() {
       keywords: article.keywords || [],
       seedKeyword: article.seedKeyword || null,
       excerpt: article.excerpt || null,
+      author: 'Yeti AI Writer',
       downloadableUrl: null,
       downloadableLabel: null,
       type: item.type || 'authority',

@@ -233,6 +233,7 @@ export function WritingSection() {
                   </div>
                 </div>
                 <span
+                  className="paper-arrow"
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: 12,
@@ -257,7 +258,7 @@ export function WritingSection() {
             margin: 0,
             padding: 0,
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(380px, 100%), 1fr))",
             gap: 0,
           }}
         >
@@ -364,6 +365,18 @@ export function WritingSection() {
           ))}
         </ul>
       )}
+      <style>{`
+        @media (max-width: 640px) {
+          .paper-row {
+            grid-template-columns: 1fr !important;
+            gap: 8px !important;
+          }
+          .paper-row .paper-arrow {
+            display: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
+

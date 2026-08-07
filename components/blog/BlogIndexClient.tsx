@@ -170,6 +170,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
           {featured && !activeKeyword && visibleCount === POSTS_PER_PAGE && (
             <Link
               href={`/blog/${featured.slug}`}
+              className="blog-featured-card"
               style={{
                 display: "flex",
                 gap: 32,
@@ -181,7 +182,6 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
                 alignItems: "flex-start",
                 transition: "opacity 0.15s",
               }}
-              className="blog-card-hover"
             >
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div
@@ -250,6 +250,7 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
               </div>
               {featured.heroImageUrl && (
                 <div
+                  className="blog-featured-img"
                   style={{
                     width: 200,
                     height: 140,
@@ -405,6 +406,17 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
       <style>{`
         .blog-card-hover:hover {
           opacity: 0.7;
+        }
+        @media (max-width: 640px) {
+          .blog-featured-card {
+            flex-direction: column !important;
+            gap: 20px !important;
+            padding: 28px 0 !important;
+          }
+          .blog-featured-card .blog-featured-img {
+            width: 100% !important;
+            height: 180px !important;
+          }
         }
       `}</style>
     </div>
