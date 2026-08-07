@@ -63,6 +63,15 @@ const articleSchemas = [
   },
 ]
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Research', item: 'https://subodhkc.com/research' },
+  ],
+}
+
 export default function ResearchPage() {
   const frameworks = [
     {
@@ -231,6 +240,10 @@ export default function ResearchPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Hero
         subtitle="Research & Frameworks"
         title={

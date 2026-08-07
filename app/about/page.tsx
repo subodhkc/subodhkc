@@ -41,6 +41,15 @@ export const metadata = {
   },
 }
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://subodhkc.com/about' },
+  ],
+}
+
 export default function AboutPage() {
   const values = [
     {
@@ -158,6 +167,11 @@ export default function AboutPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Hero
         subtitle="About"
         title={
@@ -325,47 +339,13 @@ export default function AboutPage() {
       </Section>
 
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-sm text-muted-foreground mb-6 text-center">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-sm text-muted-foreground mb-4">
             Comprehensive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/guides/texas-ai-law" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">Texas AI Law (TRAIGA)</CardTitle>
-                  <CardDescription className="text-sm">
-                    HB 149. Effective Jan 2026. Built on the HAIEC TRAIGA compliance engine.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/guides/eu-ai-act" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">EU AI Act</CardTitle>
-                  <CardDescription className="text-sm">
-                    Risk-tiered regulation. Mapped to the ISAF framework published in Zenodo.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/guides/nyc-local-law-144" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">NYC Local Law 144</CardTitle>
-                  <CardDescription className="text-sm">
-                    AEDT bias audits. Informed by deterministic bias detection research.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-          <div className="mt-4 text-center">
-            <Link href="/guides" className="text-sm text-primary hover:underline">
-              View all compliance guides →
-            </Link>
-          </div>
+          <Link href="/guides" className="text-sm text-primary hover:underline">
+            View all compliance guides →
+          </Link>
         </div>
       </Section>
 
@@ -481,71 +461,6 @@ export default function AboutPage() {
           <p className="text-lg text-muted-foreground leading-relaxed text-center">
             This isn't just my work. It's my discipline.
           </p>
-        </div>
-      </Section>
-
-      <Section subtitle="Opportunities" title="Open to New Challenges" className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Briefcase className="h-5 w-5 text-primary" />
-                  Executive Roles
-                </CardTitle>
-                <div className="space-y-3 text-base text-muted-foreground">
-                  <p>Currently exploring VP/Director positions in:</p>
-                  <ul className="space-y-2 ml-4">
-                    <li>• AI Compliance & Governance Leadership</li>
-                    <li>• Enterprise Technical Program Management</li>
-                    <li>• AI Strategy & Implementation</li>
-                    <li>• Digital Transformation Leadership</li>
-                  </ul>
-                  <p className="pt-2"><strong>Target:</strong> Fortune 500, Series B+ Startups, AI-First Companies</p>
-                </div>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-primary" />
-                  Consulting & Advisory
-                </CardTitle>
-                <CardDescription className="space-y-3 text-base">
-                  <p>Available for:</p>
-                  <ul className="space-y-2 ml-4">
-                    <li>• AI Proof-of-Concept (POC) Projects</li>
-                    <li>• Compliance Framework Implementation</li>
-                    <li>• Executive Advisory & Coaching</li>
-                    <li>• Fractional Leadership Roles</li>
-                  </ul>
-                  <p className="pt-2"><strong>Engagement:</strong> Project-based, Retainer, or Fractional Executive</p>
-                  <p className="pt-2"><strong>HEB Chamber:</strong> Registered AI Advisor serving DFW local businesses</p>
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-
-          <div className="bg-card border border-border rounded-lg p-6">
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Location</p>
-                <p className="font-semibold text-foreground">Remote, Hybrid, or Relocation</p>
-                <p className="text-xs text-muted-foreground mt-1">Open to Dallas/Austin area</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Compensation (Full-Time)</p>
-                <p className="font-semibold text-foreground">$250K - $400K+</p>
-                <p className="text-xs text-muted-foreground mt-1">Base + equity/bonus</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Consulting Rate</p>
-                <p className="font-semibold text-foreground">$300 - $500/hour</p>
-                <p className="text-xs text-muted-foreground mt-1">Project minimums apply</p>
-              </div>
-            </div>
-          </div>
         </div>
       </Section>
 

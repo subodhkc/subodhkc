@@ -8,6 +8,35 @@ import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Shield, CheckCircle2, ExternalLink, FileText, AlertTriangle, Lock, Zap } from 'lucide-react'
 
+export const metadata = {
+  title: 'HAIEC — AI Compliance & Governance Platform | Subodh KC',
+  description:
+    'HAIEC is an evidence-first AI governance platform. EU AI Act compliance, NIST AI RMF, ISO 42001, NYC LL144 bias audits, runtime adversarial testing, and audit-grade evidence generation.',
+  alternates: {
+    canonical: 'https://subodhkc.com/solutions/haiec',
+  },
+  openGraph: {
+    title: 'HAIEC — AI Compliance & Governance Platform',
+    description:
+      'Evidence-first frameworks for behavioral AI governance. CSM6 framework, AI readiness assessments, and audit-grade evidence for enterprise compliance.',
+    url: 'https://subodhkc.com/solutions/haiec',
+    type: 'website',
+  },
+  keywords: [
+    'HAIEC',
+    'AI compliance platform',
+    'AI governance',
+    'EU AI Act compliance',
+    'NIST AI RMF',
+    'ISO 42001',
+    'NYC LL144 bias audit',
+    'AI evidence generation',
+    'AI security testing',
+    'CSM6 framework',
+    'Subodh KC',
+  ],
+}
+
 export default function HAIECPage() {
   const features = [
     {

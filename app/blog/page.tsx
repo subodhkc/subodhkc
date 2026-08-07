@@ -71,5 +71,14 @@ export default function BlogIndexPage() {
     })),
   }
 
-  return <BlogIndexClient posts={posts} blogJsonLd={blogJsonLd} />
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://subodhkc.com/blog' },
+    ],
+  }
+
+  return <BlogIndexClient posts={posts} blogJsonLd={blogJsonLd} breadcrumbJsonLd={breadcrumbJsonLd} />
 }

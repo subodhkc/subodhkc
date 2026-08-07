@@ -1,6 +1,6 @@
-'use client'
-
 import Link from 'next/link'
+import Hero from '@/components/Hero'
+import Section from '@/components/Section'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -17,6 +17,44 @@ import {
   FileText
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+
+export const metadata = {
+  title: 'Privacy-First AI Tools & Products | Subodh KC',
+  description:
+    'Open-source and free AI tools: LLM output monitoring, PDF redaction, print queue manager, document timeline generator, log analyzer, and legal case management. 100% local processing.',
+  alternates: {
+    canonical: 'https://subodhkc.com/products',
+  },
+  openGraph: {
+    title: 'Privacy-First AI Tools & Products | Subodh KC',
+    description:
+      'Open-source and free AI tools with 100% local processing. No cloud uploads. No tracking.',
+    url: 'https://subodhkc.com/products',
+    type: 'website',
+  },
+  keywords: [
+    'AI tools',
+    'privacy-first tools',
+    'open source AI',
+    'LLM monitoring',
+    'PDF redaction',
+    'print queue',
+    'document timeline',
+    'log analyzer',
+    'legal case management',
+    'local processing',
+    'Subodh KC products',
+  ],
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://subodhkc.com/products' },
+  ],
+}
 
 const products = [
   {
@@ -93,26 +131,30 @@ const products = [
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Zap className="h-4 w-4" />
-            <span>Privacy-First Tools</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Tools That Respect
-            <span className="gradient-text block">Your Data</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Every product we build follows the same principle: your data stays on your computer. 
-            No cloud uploads. No tracking. No compromises.
-          </p>
-        </div>
+    <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
-        {/* Trust Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-16 text-sm text-muted-foreground">
+      <Hero
+        subtitle="Privacy-First Tools"
+        title={
+          <>
+            Tools That Respect
+            <br />
+            <span className="gradient-text">Your Data</span>
+          </>
+        }
+        description="Every product we build follows the same principle: your data stays on your computer. No cloud uploads. No tracking. No compromises."
+      />
+
+      <Section
+        subtitle="Principles"
+        title="Built Different"
+      >
+        <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <Lock className="h-4 w-4 text-green-500" />
             <span>100% Local Processing</span>
@@ -126,8 +168,14 @@ export default function ProductsPage() {
             <span>Open Source Available</span>
           </div>
         </div>
+      </Section>
 
-        {/* Products Grid */}
+      <Section
+        subtitle="Products"
+        title="All Tools"
+        id="products-grid"
+      >
+        <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => {
             const Icon = product.icon
@@ -170,23 +218,27 @@ export default function ProductsPage() {
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-20 text-center">
-          <Card className="p-8 bg-gradient-to-br from-primary/5 to-accent/5 inline-block">
-            <h2 className="text-2xl font-bold mb-4">Have a Product Idea?</h2>
-            <p className="text-muted-foreground mb-6 max-w-md">
-              We&apos;re always looking for new tools to build. If you have an idea for a privacy-first 
-              productivity tool, we&apos;d love to hear it.
-            </p>
-            <Link href="/contact">
-              <Button variant="outline" className="gap-2">
-                Get in Touch
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-          </Card>
         </div>
-      </div>
-    </div>
+      </Section>
+
+      <Section
+        subtitle="Ideas"
+        title="Have a Product Idea?"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-md mx-auto text-center">
+          <p className="text-muted-foreground mb-6">
+            We&apos;re always looking for new tools to build. If you have an idea for a privacy-first 
+            productivity tool, we&apos;d love to hear it.
+          </p>
+          <Link href="/contact">
+            <Button variant="outline" className="gap-2">
+              Get in Touch
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </Section>
+    </>
   )
 }

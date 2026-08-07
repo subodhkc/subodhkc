@@ -8,6 +8,7 @@ import type { BlogPostSummary } from "@/lib/blog"
 interface BlogIndexClientProps {
   posts: BlogPostSummary[]
   blogJsonLd: Record<string, unknown>
+  breadcrumbJsonLd?: Record<string, unknown>
 }
 
 const POSTS_PER_PAGE = 16
@@ -60,7 +61,7 @@ function formatDate(dateStr: string): string {
   })
 }
 
-export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
+export function BlogIndexClient({ posts, blogJsonLd, breadcrumbJsonLd }: BlogIndexClientProps) {
   const [activeKeyword, setActiveKeyword] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE)
 
@@ -152,6 +153,12 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
       />
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+      )}
 
       <div
         style={{

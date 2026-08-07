@@ -45,6 +45,15 @@ export const metadata = {
   },
 }
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://subodhkc.com/services' },
+  ],
+}
+
 export default function ServicesPage() {
   const pillars = [
     {
@@ -183,6 +192,11 @@ export default function ServicesPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Hero
         title={
           <>
@@ -270,91 +284,47 @@ export default function ServicesPage() {
         </Grid>
       </Section>
 
-      <Section subtitle="Investment" title="Pricing">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-2 border-primary">
-              <CardHeader>
-                <CardTitle className="text-2xl mb-2">Consulting & Advisory</CardTitle>
-                <div className="text-4xl font-bold text-primary mb-4">$300 - $500<span className="text-lg text-muted-foreground">/hour</span></div>
-                <CardDescription className="text-base space-y-2">
-                  <p>• Project minimums apply</p>
-                  <p>• Volume discounts available</p>
-                  <p>• Retainer options for ongoing work</p>
-                  <p className="pt-2 text-foreground"><strong>Typical Projects:</strong> $25K - $150K</p>
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="border-2 border-primary">
-              <CardHeader>
-                <CardTitle className="text-2xl mb-2">Fractional Executive</CardTitle>
-                <div className="text-4xl font-bold text-primary mb-4">Custom<span className="text-lg text-muted-foreground"> pricing</span></div>
-                <CardDescription className="text-base space-y-2">
-                  <p>• Based on time commitment (20-40%)</p>
-                  <p>• Equity options available</p>
-                  <p>• Minimum 6-month engagement</p>
-                  <p className="pt-2 text-foreground"><strong>Typical Range:</strong> $10K - $25K/month</p>
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-
-          <Card className="mt-8 bg-primary/5">
-            <CardHeader>
-              <CardTitle className="text-center">Full-Time Opportunities</CardTitle>
-              <CardDescription className="text-base text-center">
-                Also open to Director/VP roles at Fortune 500, Series B+ startups, and AI-first companies.
-                <br />
-                <strong className="text-foreground">Target compensation:</strong> $250K - $400K+ (base + equity/bonus)
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </Section>
-
       <Section subtitle="Why Work With Me" title="What Makes This Different" className="bg-secondary/20">
         <div className="max-w-4xl mx-auto space-y-6">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle>I See Failure Modes Before They Emerge</CardTitle>
+              <CardTitle>Architecture, Not Slides</CardTitle>
               <CardDescription className="text-base">
-                Years of drift detection, RCA, and governance work have trained me to anticipate what most teams
-                discover only after outages or audit failures. I protect organizations from invisible risks before
-                they become front-page news.
+                I deliver working systems, not strategy decks. Every engagement produces deployable artifacts:
+                governance frameworks, evidence pipelines, monitoring dashboards, and operational playbooks your
+                teams can use on day one.
               </CardDescription>
             </CardHeader>
           </Card>
 
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle>I Design Frameworks That Survive Contact With Real Organizations</CardTitle>
+              <CardTitle>Compliance Without Velocity Loss</CardTitle>
               <CardDescription className="text-base">
-                Compliance is useless if engineers won't follow it. Engineering is dangerous if compliance can't see it.
-                My systems bridge both worlds—creating governance structures that scale across dozens of teams without
-                breaking velocity.
+                Governance structures that scale across dozens of teams without breaking delivery cadence.
+                CI/CD quality gates, automated evidence generation, and drift detection built into your
+                existing pipelines.
               </CardDescription>
             </CardHeader>
           </Card>
 
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle>I've Operated at Every Altitude</CardTitle>
+              <CardTitle>Full-Stack Translation</CardTitle>
               <CardDescription className="text-base">
-                From field technician → system engineer → program manager → founder → enterprise AI strategist.
-                I understand every layer of the stack, technical and human. This means I can translate between
-                engineering, legal, risk, and executive stakeholders.
+                I operate at every layer: infrastructure, model, application, governance, legal, and executive.
+                This means I can align engineering teams, compliance officers, and C-suite stakeholders around
+                a single source of truth.
               </CardDescription>
             </CardHeader>
           </Card>
 
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle>No Buzzwords. Just Systems That Work.</CardTitle>
+              <CardTitle>Proven at Fortune 50 Scale</CardTitle>
               <CardDescription className="text-base">
-                If I say a program will take 6 months, it takes 6 months. If I say we can reduce audit preparation time,
-                we do. My reputation is built on delivery, not promises. Everything I build is proven at
-                Fortune 50 scale.
+                Everything I build is tested in production at enterprise scale. 53-application portfolios,
+                $50M+ AI budgets, 5 patent-pending frameworks. If it works at Fortune 50, it works everywhere.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -389,47 +359,13 @@ export default function ServicesPage() {
       </Section>
 
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-sm text-muted-foreground mb-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-sm text-muted-foreground mb-4">
             Deep-dive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/guides/texas-ai-law" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">Texas AI Law (TRAIGA)</CardTitle>
-                  <CardDescription className="text-sm">
-                    HB 149. Effective Jan 2026. Penalties $10K-$200K. 60-day cure period.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/guides/eu-ai-act" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">EU AI Act</CardTitle>
-                  <CardDescription className="text-sm">
-                    Risk-tiered regulation. Full enforcement Aug 2026. Penalties up to €35M.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/guides/nyc-local-law-144" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">NYC Local Law 144</CardTitle>
-                  <CardDescription className="text-sm">
-                    AEDT bias audits. Active enforcement. $500-$1,500/day penalties.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-          <div className="mt-4 text-center">
-            <Link href="/guides" className="text-sm text-primary hover:underline">
-              View all compliance guides →
-            </Link>
-          </div>
+          <Link href="/guides" className="text-sm text-primary hover:underline">
+            View all compliance guides →
+          </Link>
         </div>
       </Section>
 
