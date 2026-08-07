@@ -38,60 +38,56 @@ loadEnvLocal()
 
 const postsDir = path.join(ROOT, 'data', 'blog', 'posts')
 
-// Thin content configuration from thin-content-remediation.md
+// Thin content configuration - updated after duplicate purge
+// Removed: securing-ai-systems-after-openai-containment-breach (deleted, 301 redirected)
+// Removed: ai-compliance-guide-addressing-hugging-face-risks (deleted, 301 redirected)
 const THIN_POSTS = [
-  {
-    slug: 'securing-ai-systems-after-openai-containment-breach',
-    targetWords: 1200,
-    instructions: 'Add containment architecture patterns, model isolation techniques, output validation controls. Cite the original OpenAI security incident source. Add a containment checklist artifact. Focus on technical controls for AI system security after a containment breach.',
-    type: 'expand',
-  },
-  {
-    slug: 'ai-compliance-guide-addressing-hugging-face-risks',
-    targetWords: 1200,
-    instructions: 'Add specific technical controls for Hugging Face model vetting. Include a model intake checklist artifact. Cite primary sources for AI model governance. Add model evaluation pipeline architecture.',
-    type: 'expand',
-  },
   {
     slug: 'ai-voice-agent-architecture-kestrelvoice',
     targetWords: 1500,
-    instructions: 'Add architecture diagram (text-based), latency breakdown, failure recovery patterns, degradation modes. Focus on KestrelVoice-specific implementation details (telephony layer, adaptive orchestration). Differentiate from the general /ai-voice-agent-architecture page by focusing on product-specific implementation.',
+    instructions: 'Add architecture diagram (text-based), latency breakdown, failure recovery patterns, degradation modes. Focus on KestrelVoice-specific implementation details (telephony layer, adaptive orchestration). Differentiate from the general /ai-voice-agent-architecture page by focusing on product-specific implementation. Add external citations to Twilio docs and WebRTC specifications.',
     type: 'expand',
   },
   {
     slug: 'haiec-modular-ai-governance-framework',
     targetWords: 1500,
-    instructions: 'Add HAIEC phase breakdown, evidence schema, control mapping table. Expand each phase with specific inputs, outputs, and evidence artifacts. Add a HAIEC implementation checklist.',
+    instructions: 'Add HAIEC phase breakdown, evidence schema, control mapping table. Expand each phase with specific inputs, outputs, and evidence artifacts. Add a HAIEC implementation checklist. Add external citations to NIST AI RMF and ISO 42001.',
     type: 'expand',
   },
   {
     slug: 'implementing-immutable-audit-trails-for-soc-2-ai-compliance',
     targetWords: 1200,
-    instructions: 'Add append-only log architecture, cryptographic chaining code example (Node.js or Python), cite AIC SOC 2 Trust Services Criteria. Add a log schema artifact. Add internal link to /blog/build-a-logging-pipeline-for-eu-ai-act-compliance.',
+    instructions: 'Add append-only log architecture, cryptographic chaining code example (Node.js or Python), cite AIC SOC 2 Trust Services Criteria. Add a log schema artifact. Add internal link to /blog/build-a-logging-pipeline-for-eu-ai-act-compliance. Add external citation to AIC SOC 2 Trust Services Criteria documentation.',
     type: 'expand',
   },
   {
     slug: 'implementing-rag-row-level-security-for-multi-tenant-ai',
     targetWords: 1200,
-    instructions: 'Add RLS policy code examples (Postgres/Supabase), tenant isolation architecture diagram (text-based), tenant onboarding checklist. Add internal link to /secure-enterprise-rag-architecture.',
+    instructions: 'Add RLS policy code examples (Postgres/Supabase), tenant isolation architecture diagram (text-based), tenant onboarding checklist. Add internal link to /secure-enterprise-rag-architecture. Add external citations to PostgreSQL RLS documentation and Supabase docs.',
     type: 'expand',
   },
   {
     slug: 'seven-layers-ai-compliance-nist-iso-soc2',
     targetWords: 1500,
-    instructions: 'Add cross-framework control mapping table. Cite NIST AI RMF 1.0, ISO/IEC 42001:2023, AIC SOC 2 TSC. Add internal links to /guides/eu-ai-act, /guides/texas-ai-law, /guides/nyc-local-law-144. Add a compliance crosswalk artifact.',
+    instructions: 'Add cross-framework control mapping table. Cite NIST AI RMF 1.0, ISO/IEC 42001:2023, AIC SOC 2 TSC. Add internal links to /guides/eu-ai-act, /guides/texas-ai-law, /guides/nyc-local-law-144. Add a compliance crosswalk artifact. Add external citations to NIST, ISO, and AIC primary sources.',
     type: 'expand',
   },
   {
     slug: 'production-rag-architecture-patterns-for-hybrid-search',
     targetWords: 1200,
-    instructions: 'Focus exclusively on hybrid search implementation (BM25 + vector search comparison). Add retrieval evaluation framework. Add code example for hybrid search scoring. Differentiate from /secure-enterprise-rag-architecture which covers overall RAG security. Add internal link to /secure-enterprise-rag-architecture.',
+    instructions: 'Focus exclusively on hybrid search implementation (BM25 + vector search comparison). Add retrieval evaluation framework. Add code example for hybrid search scoring. Differentiate from /secure-enterprise-rag-architecture which covers overall RAG security. Add internal link to /secure-enterprise-rag-architecture. Add external citations to BM25 paper and vector search documentation.',
     type: 'expand',
   },
   {
     slug: 'build-a-logging-pipeline-for-eu-ai-act-compliance',
     targetWords: 1200,
-    instructions: 'Add code examples for logging pipeline (Node.js or Python), log schema artifact, cite EU AI Act Article 12 text directly. Add internal links to /guides/eu-ai-act and /blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance.',
+    instructions: 'Add code examples for logging pipeline (Node.js or Python), log schema artifact, cite EU AI Act Article 12 text directly. Add internal links to /guides/eu-ai-act and /blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance. Add external citation to the official EU AI Act text on EUR-Lex.',
+    type: 'expand',
+  },
+  {
+    slug: 'recover-a-stalled-ai-pilot-in-30-days',
+    targetWords: 1200,
+    instructions: 'Add a detailed 30-day recovery timeline with specific weekly milestones. Include diagnostic framework for identifying stall causes (data quality, model drift, user adoption, integration failures). Add internal links to /blog/12-production-readiness-checks-for-ai-pilots and /advisory. Add external citations to NIST AI RMF and OWASP.',
     type: 'expand',
   },
 ]
@@ -243,7 +239,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
           'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: 'gpt-4o',
+          model: 'gpt-4o-2024-11-20',
           messages: [
             {
               role: 'system',
@@ -252,7 +248,7 @@ Return ONLY the JSON object, no markdown code fences, no preamble.`
             { role: 'user', content: prompt },
           ],
           temperature: 0.7,
-          max_tokens: 16000,
+          max_tokens: 16384,
         }),
       })
 

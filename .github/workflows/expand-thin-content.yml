@@ -1,6 +1,10 @@
-name: Expand Thin Content (One-Time)
+name: Expand Thin Content
 
 on:
+  # Weekly: Sundays at 14:00 UTC (09:00 CST)
+  # Runs the thin content expansion pipeline to keep articles above quality thresholds
+  schedule:
+    - cron: "0 14 * * 0"
   workflow_dispatch:
     inputs:
       slug:
