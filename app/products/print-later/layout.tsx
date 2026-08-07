@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     'save webpage to print later',
     'print specific pages from website',
     'organize web pages for printing',
+    'import PDF print queue',
+    'better than screenshots for printing',
+    'combine PDF and web pages print',
+    'print to PDF from web pages',
+    'open source print productivity tool',
   ],
   openGraph: {
     title: 'Print Later - Save Web Pages Now, Print Them When Ready',

@@ -40,13 +40,13 @@ export default function PrintLaterPage() {
   const features = [
     {
       icon: Zap,
-      title: 'One-Click Save',
-      description: 'See something worth printing? Save it with one click. The page is captured and waiting for you. No need to print right now - print when you are ready.'
+      title: 'One-Click Save From Your Browser',
+      description: 'See something worth printing? Click the Print Later icon in your browser toolbar and hit Save. The page is captured instantly and waiting for you. No need to print right now - print when you are ready.'
     },
     {
       icon: FileText,
       title: 'Your Print To-Do List',
-      description: 'Everything you saved sits in one list. Sort by date, search by name, reorder pages. Think of it as a to-do list for your printer.'
+      description: 'Everything you saved sits in one list. Search by name, sort by date, filter by status (pending, printed, failed). Add tags to organize documents by project, class, or client. Think of it as a to-do list for your printer.'
     },
     {
       icon: Layers,
@@ -56,7 +56,12 @@ export default function PrintLaterPage() {
     {
       icon: Printer,
       title: 'Combine Pages Into One Print Job',
-      description: 'Take pages from different websites and combine them into a single print job. Perfect for meeting handouts, research packets, and study materials.'
+      description: 'Take pages from different websites and existing PDFs on your computer. Combine them into a single print job. Perfect for meeting handouts, research packets, and study materials.'
+    },
+    {
+      icon: FileText,
+      title: 'Import Existing PDFs Too',
+      description: 'Print Later is not just for web pages. Import PDF files from your computer and treat them the same way - pick pages, combine with web pages, and batch print everything together.'
     },
     {
       icon: Monitor,
@@ -67,6 +72,11 @@ export default function PrintLaterPage() {
       icon: Lock,
       title: 'Your Files Stay on Your Computer',
       description: 'Nothing leaves your computer. No cloud uploads, no tracking, no account needed. Your saved pages are yours alone.'
+    },
+    {
+      icon: Printer,
+      title: 'Print to Paper or Save as PDF',
+      description: 'Send your saved pages to any printer on your computer. Or save them as a PDF file instead. Choose color or black and white, single or double-sided, and how many copies you need.'
     }
   ]
 
@@ -128,7 +138,7 @@ export default function PrintLaterPage() {
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Stop printing entire websites you do not need. Save pages with one click, pick only the pages you actually want, and print them all at once when it works for you.
+            Stop printing entire websites you do not need. Save web pages and PDFs with one click, pick only the pages you actually want, and print them all at once when it works for you.
           </p>
 
           {/* Value strip: FREE / SECURED / SPEED */}
@@ -239,7 +249,7 @@ export default function PrintLaterPage() {
               </div>
               <h3 className="text-lg font-semibold mb-2">Save Pages You Want</h3>
               <p className="text-muted-foreground text-sm">
-                Browse any website. Press Ctrl+P and choose "Print Later" as your printer. The page is saved to your list automatically.
+                Browse any website. Click the Print Later icon in your browser toolbar and hit "Save to Print Queue." The page is saved to your list instantly. You can also import PDF files from your computer.
               </p>
             </div>
             <div className="text-center">
@@ -362,7 +372,7 @@ export default function PrintLaterPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Save Pages While You Browse</h3>
               <p className="text-muted-foreground">
-                Find something worth printing? Press Ctrl+P on any website and choose "Print Later" as your printer. The page is saved to your list instantly. Keep browsing and save as many pages as you want.
+                Find something worth printing? Click the Print Later icon in your browser toolbar and hit "Save to Print Queue." The page is saved to your list instantly. Keep browsing and save as many pages as you want. You can also import existing PDF files from your computer.
               </p>
             </div>
             <div className="text-center">
@@ -371,7 +381,7 @@ export default function PrintLaterPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Organize and Pick Your Pages</h3>
               <p className="text-muted-foreground">
-                Open Print Later anytime. See all your saved pages in one list. Search, sort, and pick exactly which pages you want from each document. Skip the cover pages and junk you do not need.
+                Open Print Later anytime. See all your saved pages in one list. Search by name, sort by date, filter by status (pending, printed, failed), and add tags to organize by project or client. Pick exactly which pages you want from each document. Skip the cover pages and junk you do not need.
               </p>
             </div>
             <div className="text-center">
@@ -380,7 +390,7 @@ export default function PrintLaterPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Print Everything at Once</h3>
               <p className="text-muted-foreground">
-                Combine pages from different websites into one print job. Click print and get a clean, organized stack of paper. No more printing one page at a time. No more wasted paper.
+                Combine pages from different websites and PDFs into one print job. Choose color or black and white, single or double-sided, and how many copies. Click print and get a clean, organized stack of paper. Or save it all as one PDF file instead.
               </p>
             </div>
           </div>
@@ -466,6 +476,157 @@ export default function PrintLaterPage() {
           </div>
           <p className="text-center text-muted-foreground mt-8">
             Think of it this way: Save as PDF is a stapler. Print Later is a filing cabinet with a printer attached.
+          </p>
+        </div>
+      </section>
+
+      {/* Better Than Screenshots Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Better Than Taking Screenshots
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Screenshots capture images. Print Later captures real text that prints cleanly.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4">
+                  <Monitor className="h-6 w-6 text-muted-foreground" />
+                </div>
+                <CardTitle className="text-xl">Screenshots</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>Image only - text is not selectable or searchable.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>Low quality when printed - looks blurry on paper.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>One image per screenshot. No way to combine them.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>Long pages get cut off or need multiple screenshots.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span>Files scattered in your screenshot folder with random names.</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50 border-green-500/30">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-green-500" />
+                </div>
+                <CardTitle className="text-xl">Print Later</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Captures real text - prints sharp and clear on paper.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Full page captured, no matter how long.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Searchable list - find any saved page by name.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Combine multiple pages into one clean print job.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Pick only the pages you need. No wasted paper.</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Interface Tour Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              A Clean Interface to Manage Everything
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Open Print Later anytime to see all your saved pages, organize them, and print when ready.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+                  <Monitor className="h-6 w-6 text-blue-500" />
+                </div>
+                <CardTitle className="text-lg">Dashboard</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  See an overview of your print queue at a glance. Quick actions to print, preview, or delete. Know exactly what is pending and what is already printed.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-purple-500" />
+                </div>
+                <CardTitle className="text-lg">Print Queue</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  All your saved pages in one list. Search by name, sort by date, filter by status. Add tags to organize by project, class, or client. Click any item to preview, print, or delete.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-4">
+                  <Layers className="h-6 w-6 text-amber-500" />
+                </div>
+                <CardTitle className="text-lg">Packet Builder</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Combine pages from different documents into one print job. Pick which pages to include from each. Name your packet and print it all at once. Perfect for meetings and research.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background/50">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4">
+                  <Printer className="h-6 w-6 text-green-500" />
+                </div>
+                <CardTitle className="text-lg">Print Settings</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">
+                  Choose your default printer. Set color or black and white, single or double-sided, and number of copies. Print to paper or save as PDF. Configure once and forget it.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <p className="text-center text-muted-foreground mt-8 text-sm">
+            Print Later runs in your system tray (bottom-right corner of Windows). Right-click the icon for quick access to your queue, or double-click to open the full interface.
           </p>
         </div>
       </section>
@@ -675,9 +836,9 @@ export default function PrintLaterPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Can I print from multiple browsers?</CardTitle>
+                <CardTitle className="text-lg">Can I save pages from multiple browsers?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  Yes. Print Later works as a system printer, so any browser that supports Ctrl+P (Chrome, Edge, Firefox) can save pages to your queue. All pages go into the same queue regardless of which browser you used.
+                  Yes. The Print Later browser extension works with Chrome and Edge. All pages go into the same queue regardless of which browser you used. You can also import PDF files from your computer directly into the queue.
                 </p>
               </CardHeader>
             </Card>
@@ -737,6 +898,30 @@ export default function PrintLaterPage() {
                 </p>
               </CardHeader>
             </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Can I import existing PDF files from my computer?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. Print Later is not just for web pages. You can import PDF files from your computer and treat them the same way as saved web pages. Pick specific pages, combine them with web pages, and batch print everything together in one job.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">How is this better than taking screenshots?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Screenshots capture images, which means the text is not selectable or searchable, and they look blurry when printed. Print Later captures the actual page content as real text, so it prints sharp and clear. You also get a searchable list, page selection, and the ability to combine multiple pages into one print job.
+                </p>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Can I save pages as PDF instead of printing to paper?</CardTitle>
+                <p className="text-muted-foreground text-sm">
+                  Yes. When you are ready to print, choose "Microsoft Print to PDF" as your printer. Print Later will save your pages or packets as a PDF file instead of sending them to a physical printer. You get the organization benefits of Print Later with the portability of PDF.
+                </p>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </section>
@@ -762,8 +947,8 @@ export default function PrintLaterPage() {
               },
               {
                 '@type': 'Question',
-                name: 'Can I print from multiple browsers?',
-                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Print Later works as a system printer, so any browser that supports Ctrl+P (Chrome, Edge, Firefox) can save pages to your queue. All pages go into the same queue regardless of which browser you used.' },
+                name: 'Can I save pages from multiple browsers?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. The Print Later browser extension works with Chrome and Edge. All pages go into the same queue regardless of which browser you used. You can also import PDF files from your computer directly into the queue.' },
               },
               {
                 '@type': 'Question',
@@ -799,6 +984,21 @@ export default function PrintLaterPage() {
                 '@type': 'Question',
                 name: 'Is Print Later just a print queue or a productivity tool?',
                 acceptedAnswer: { '@type': 'Answer', text: 'Print Later is a productivity tool, not just a print queue. It helps you save time by collecting pages while you browse, waste less paper by picking only the pages you need, and stay organized by keeping everything in one searchable list. Think of it as a to-do list for your printer.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I import existing PDF files from my computer?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. Print Later is not just for web pages. You can import PDF files from your computer and treat them the same way as saved web pages. Pick specific pages, combine them with web pages, and batch print everything together in one job.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How is this better than taking screenshots?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Screenshots capture images, which means the text is not selectable or searchable, and they look blurry when printed. Print Later captures the actual page content as real text, so it prints sharp and clear. You also get a searchable list, page selection, and the ability to combine multiple pages into one print job.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I save pages as PDF instead of printing to paper?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes. When you are ready to print, choose "Microsoft Print to PDF" as your printer. Print Later will save your pages or packets as a PDF file instead of sending them to a physical printer. You get the organization benefits of Print Later with the portability of PDF.' },
               },
             ],
           }),
@@ -857,6 +1057,62 @@ export default function PrintLaterPage() {
           <p className="mt-6 text-xs text-muted-foreground">
             <strong>Note:</strong> Windows may show a "Windows protected your PC" warning because the app is free and not code-signed. 
             Click "More info" then "Run anyway" to install. The app is safe and open source.
+          </p>
+        </div>
+      </section>
+
+      {/* Open Source Community Section */}
+      <section className="py-20 px-4 bg-secondary/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Code className="h-4 w-4" />
+            <span>Open Source on GitHub</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Built in the Open. Improved by Everyone.
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Print Later is 100% open source. The full code is on GitHub for anyone to read, verify, and improve. 
+            If you have a GitHub account, fork the repo and make it better. Found a bug or have an idea? Open an issue and let us know.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="https://github.com/subodhkc/Print-Later"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex"
+            >
+              <Button size="lg" variant="outline" className="text-lg px-8 gap-2">
+                <Github className="h-5 w-5" />
+                View the Code
+              </Button>
+            </a>
+            <a 
+              href="https://github.com/subodhkc/Print-Later/fork"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex"
+            >
+              <Button size="lg" variant="outline" className="text-lg px-8 gap-2">
+                <Code className="h-5 w-5" />
+                Fork on GitHub
+              </Button>
+            </a>
+            <a 
+              href="https://github.com/subodhkc/Print-Later/issues/new"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex"
+            >
+              <Button size="lg" variant="outline" className="text-lg px-8 gap-2">
+                <Mail className="h-5 w-5" />
+                Share Feedback
+              </Button>
+            </a>
+          </div>
+          <p className="text-sm text-muted-foreground mt-6">
+            Every star, fork, and issue helps Print Later reach more people who waste less paper. 
+            If you find it useful, give it a star on GitHub.
           </p>
         </div>
       </section>
@@ -969,7 +1225,7 @@ export default function PrintLaterPage() {
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
             name: 'Print Later',
-            description: 'Free Windows app to save web pages now and print them later. Queue pages with Ctrl+P, pick exact pages, batch print. 100% local, no cloud, no tracking.',
+            description: 'Free Windows app to save web pages and PDFs, pick exact pages, combine them into one print job, and batch print when ready. 100% local, no cloud, no tracking. Open source.',
             applicationCategory: 'ProductivityApplication',
             operatingSystem: 'Windows 10/11',
             offers: {
