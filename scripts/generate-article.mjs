@@ -451,16 +451,18 @@ const COPYWRITING_GUARDRAILS = `COPYWRITING GUARDRAILS (NON-NEGOTIABLE):
 - DO NOT use any emojis anywhere in the article body.
 - DO NOT use any of these AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to", "Delve into", "Navigate the complexities", "In the realm of", "A testament to", "Paving the way", "Revolutionize", "Game-changer", "Paradigm shift", "Cutting-edge", "Harness the power", "Unlock the potential", "Empower", "Seamless", "Robust" (as filler adjective), "Leverage" (as verb for "use"), "Streamline", "Foster", "Facilitate", "Underscore", "Underpin", "Bolster", "Dive deep" or "Deep dive" (as verb), "In the ever-evolving landscape of", "In the world of", "It's important to note that", "It's crucial to understand", "When it comes to", "At its core", "The key lies in", "A comprehensive guide", "Everything you need to know", "The ultimate guide"
 - DO NOT use AI-style structures: no "hook-question-answer" pattern, no TL;DR sections, no conclusion that merely summarizes the article, no question marks as section headers, no formulaic "three-pillar" or "five-step" structures unless the content genuinely has that structure.
-- DO NOT start paragraphs with "Additionally", "Moreover", or "Furthermore". Use direct transitions.
+- "Additionally", "Moreover", and "Furthermore" are acceptable English transition words in moderation. No more than 2 paragraphs may start with the same transition word. Vary paragraph openings.
 - Vary sentence length significantly. Mix short punchy sentences with longer complex ones.
 - Use active voice predominantly. Passive voice only when the actor is genuinely unknown.
-- Include at least one "line in the sand" opinion that reasonable practitioners would debate.
+- Include at least one genuine "line in the sand" opinion that you actually hold and can defend with evidence. Not manufactured controversy.
+- Voice: The expert who has nothing to prove, not the expert who is proving it. Confidence without combativeness.
 - DO NOT fabricate personal claims: no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
 - DO NOT invent statistics, numbers, or events
 - Write about the topic, the how-to, the analysis. Not about fabricated personal experience.
 - Content must be factual and based on real technical and regulatory knowledge.
 - Every external URL must be real and must point to the claimed source. Do not fabricate URLs.
 - Every regulatory reference must be real: verify bill numbers, regulation numbers, and dates.
+- When uncertain about a specific fact, date, or requirement, use temporal or conditional language. Do not state uncertain information as definitive.
 - End with a forward-looking statement or specific recommendation, not a recap of the article.`
 
 const FORBIDDEN_CLAIMS = `FORBIDDEN CLAIMS (do not use without verified evidence):
@@ -726,6 +728,7 @@ HALLUCINATION PREVENTION (MANDATORY):
 - Every regulatory reference must be real: verify bill numbers, regulation numbers, and dates.
 - Do not fabricate statistics, personal claims, or events.
 - Do not invent client names, deployment metrics, or team sizes.
+- When you are not certain of a specific fact, date, or requirement, use temporal or conditional language. Do not state uncertain information as definitive. Use "As of [date], [regulation] requires..." instead of "[Regulation] requires..." when requirements may change.
 
 You return only valid JSON.
 
@@ -982,7 +985,6 @@ function validateArticle(article, item) {
     "A comprehensive guide", "Everything you need to know",
     "The ultimate guide", "A step-by-step guide",
     "TL;DR", "tl;dr",
-    "Additionally,", "Moreover,", "Furthermore,",
   ]
   const contentLower = (article.contentHtml || '').toLowerCase()
   const foundTells = aiTells.filter((tell) => contentLower.includes(tell.toLowerCase()))
@@ -1034,6 +1036,64 @@ function validateArticle(article, item) {
   const foundForbidden = forbiddenClaims.filter((claim) => contentLower.includes(claim))
   if (foundForbidden.length > 0) {
     errors.push(`Forbidden claims detected: ${foundForbidden.join(', ')}`)
+  }
+
+  // --- Citation density check ---
+  // Target: at least 1 external citation per 500 words
+  const citationCount = citationLinks.length
+  const requiredCitations = Math.max(2, Math.ceil(wordCount / 500))
+  if (citationCount < requiredCitations) {
+    warnings.push(`Citation density: ${citationCount} citations for ${wordCount} words (target: ${requiredCitations} citations, 1 per 500 words)`)
+  }
+
+  // --- Title specificity score ---
+  // Title must contain at least one specific noun (law name, tech name, framework, metric)
+  if (article.title) {
+    const specificNouns = [
+      'traiga', 'eu ai act', 'nyc', 'll 144', 'll144', 'iso 42001', 'iso/iec 42001',
+      'nist', 'ai rmf', 'soc 2', 'soc2', 'gdpr', 'ccpa', 'hipaa',
+      'rag', 'llm', 'llms', 'vector database', 'embedding', 'retrieval',
+      'prompt injection', 'data exfiltration', 'model extraction',
+      'multi-tenant', 'row-level security', 'rls',
+      'agent', 'agentic', 'orchestration', 'middleware',
+      'voice agent', 'telephony', 'ivr', 'barge-in',
+      'audit trail', 'evidence', 'compliance', 'governance',
+      'drift', 'adversarial', 'poisoning', 'isolation',
+      'sovereign', 'on-premises', 'on-prem', 'open-weight', 'inference',
+      'token', 'latency', 'throughput', 'concurrency',
+      'haiec', 'kestrelvoice', 'devin', 'openai', 'anthropic',
+      'python', 'typescript', 'nextjs', 'react',
+      'api', 'rest', 'graphql', 'grpc',
+      'kubernetes', 'docker', 'aws', 'azure', 'gcp',
+    ]
+    const titleLower = article.title.toLowerCase()
+    const hasSpecificNoun = specificNouns.some((noun) => titleLower.includes(noun))
+    if (!hasSpecificNoun) {
+      warnings.push(`Title specificity: "${article.title}" lacks a specific noun (law name, technology, framework, or metric). Add specificity for AI search citation.`)
+    }
+  }
+
+  // --- Paragraph independence check ---
+  // Flag paragraphs that start with "This" or "These" (depend on previous paragraph)
+  const paragraphMatches = (article.contentHtml || '').match(/<p[^>]*>\s*(This|These)\s/gi) || []
+  const totalParagraphs = ((article.contentHtml || '').match(/<p[\s>]/gi) || []).length
+  if (totalParagraphs > 0) {
+    const dependentRatio = paragraphMatches.length / totalParagraphs
+    if (dependentRatio > 0.20) {
+      warnings.push(`Paragraph independence: ${paragraphMatches.length} of ${totalParagraphs} paragraphs start with "This" or "These" (${Math.round(dependentRatio * 100)}%). Restructure for AI search citation.`)
+    }
+  }
+
+  // --- Transition word frequency check ---
+  // No more than 2 paragraphs may start with the same transition word
+  const transitionStarts = {}
+  const transitionWords = ['Additionally,', 'Moreover,', 'Furthermore,', 'However,', 'Therefore,', 'Consequently,', 'Nevertheless,', 'Nonetheless,']
+  for (const word of transitionWords) {
+    const regex = new RegExp(`<p[^>]*>\\s*${word.replace(',', ',?')}\\s`, 'gi')
+    const matches = (article.contentHtml || '').match(regex) || []
+    if (matches.length > 2) {
+      warnings.push(`Transition word frequency: "${word}" starts ${matches.length} paragraphs (max 2 allowed). Vary paragraph openings.`)
+    }
   }
 
   return { warnings, errors, wordCount }
@@ -1137,6 +1197,14 @@ function buildRetryHint(errors, wordCount, articleType, item) {
       hints.push(`TL;DR FAILURE: Remove the TL;DR section. Professional publications do not use TL;DR. End with a forward-looking statement or specific recommendation instead.`)
     } else if (err.includes('Question-mark section headers')) {
       hints.push(`QUESTION HEADER FAILURE: Replace all question-mark section headers with declarative statements. Instead of "Why Does RAG Fail?" use "RAG Failure Modes" or "Where RAG Breaks".`)
+    } else if (err.includes('Citation density')) {
+      hints.push(`CITATION DENSITY FAILURE: You need more external citations. Target is 1 citation per 500 words. Add more links to authoritative sources from the approved list: ${CITATION_SOURCES.slice(0, 10).join(', ')}. Each citation must be a real, relevant source.`)
+    } else if (err.includes('Title specificity')) {
+      hints.push(`TITLE SPECIFICITY FAILURE: The title lacks a specific noun. Add a law name (TRAIGA, EU AI Act, NYC LL 144), technology name (RAG, LLM, vector database), framework name (NIST AI RMF, ISO 42001), or concrete metric. Make the title citable by AI search engines.`)
+    } else if (err.includes('Paragraph independence')) {
+      hints.push(`PARAGRAPH INDEPENDENCE FAILURE: Too many paragraphs start with "This" or "These", which depend on the previous paragraph. Restructure paragraphs to be self-contained. Each paragraph should make sense if cited in isolation by an AI search engine.`)
+    } else if (err.includes('Transition word frequency')) {
+      hints.push(`TRANSITION FREQUENCY FAILURE: Too many paragraphs start with the same transition word (Additionally, Moreover, Furthermore, etc.). Vary paragraph openings. Start with the new point directly, use the subject as the opener, or use varied transitions.`)
     } else {
       hints.push(err)
     }
@@ -1255,7 +1323,15 @@ async function main() {
         w.includes('words (target:') ||
         w.includes('external citations') ||
         w.includes('H2 sections') ||
-        w.includes('Question-mark section headers')
+        w.includes('Question-mark section headers') ||
+      w.includes('Citation density') ||
+      w.includes('Title specificity') ||
+      w.includes('Paragraph independence') ||
+      w.includes('Transition word frequency') ||
+        w.includes('Citation density') ||
+        w.includes('Title specificity') ||
+        w.includes('Paragraph independence') ||
+        w.includes('Transition word frequency')
       )
       if (!reviewOnly && !dryRun) {
         for (const cw of criticalWarnings) {
@@ -1282,7 +1358,11 @@ async function main() {
           e.includes('HALLUCINATION CHECK') ||
           e.includes('Emoji detected') ||
           e.includes('TL;DR') ||
-          e.includes('Question-mark')
+          e.includes('Question-mark') ||
+          e.includes('Citation density') ||
+          e.includes('Title specificity') ||
+          e.includes('Paragraph independence') ||
+          e.includes('Transition word frequency')
         )
       }
     }
@@ -1324,7 +1404,11 @@ async function main() {
       w.includes('words (target:') ||
       w.includes('external citations') ||
       w.includes('H2 sections') ||
-      w.includes('Question-mark section headers')
+      w.includes('Question-mark section headers') ||
+      w.includes('Citation density') ||
+      w.includes('Title specificity') ||
+      w.includes('Paragraph independence') ||
+      w.includes('Transition word frequency')
     )
     const remainingWarnings = validationWarnings.filter((w) => !criticalWarnings.includes(w))
     if (remainingWarnings.length > 0) {

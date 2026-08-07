@@ -77,7 +77,36 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
   }
 
-  const authorName = post.author || 'Subodh Kc Blogger'
+  const authorName = post.author || 'Subodh KC'
+
+  // E-E-A-T: Author schema with sameAs links for verification
+  const isSubodhKC = authorName === 'Subodh KC'
+  const authorSchema = isSubodhKC
+    ? {
+        '@type': 'Person',
+        name: 'Subodh KC',
+        url: 'https://subodhkc.com/about',
+        image: 'https://subodhkc.com/portrait.jpeg',
+        jobTitle: 'AI Systems Architect & Governance Expert',
+        worksFor: { '@type': 'Organization', name: 'SubodhKC.com', url: 'https://subodhkc.com' },
+        sameAs: [
+          'https://www.linkedin.com/in/subodhkc',
+          'https://github.com/subodhkc',
+          'https://twitter.com/subodhkc',
+          'https://medium.com/@subodhkc',
+          'https://www.wikidata.org/wiki/Q140546484',
+        ],
+        knowsAbout: [
+          'AI governance', 'AI compliance', 'AI architecture', 'RAG systems',
+          'AI risk management', 'TRAIGA', 'EU AI Act', 'NIST AI RMF', 'ISO 42001',
+        ],
+      }
+    : {
+        '@type': 'Person',
+        name: authorName,
+        url: 'https://subodhkc.com/about',
+        description: 'AI-powered research and content engine for subodhkc.com, curated by Subodh KC.',
+      }
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -87,18 +116,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     image: post.heroImageUrl ? [post.heroImageUrl] : [`https://subodhkc.com/blog/${post.slug}/opengraph-image`],
     datePublished: post.createdAt,
     dateModified: post.updatedAt || post.createdAt,
-    author: {
-      '@type': 'Person',
-      name: authorName,
-      url: 'https://subodhkc.com',
-    },
+    author: authorSchema,
     publisher: {
       '@type': 'Organization',
-      name: authorName,
+      name: 'SubodhKC.com',
       url: 'https://subodhkc.com',
       logo: {
         '@type': 'ImageObject',
         url: 'https://subodhkc.com/portrait.jpeg',
+      },
+      founder: {
+        '@type': 'Person',
+        name: 'Subodh KC',
+        url: 'https://subodhkc.com/about',
       },
     },
     mainEntityOfPage: {

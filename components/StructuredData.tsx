@@ -131,6 +131,49 @@ export default function StructuredData() {
     },
   }
 
+  // Publishing organization schema for SubodhKC.com (E-E-A-T: Authoritativeness + Trustworthiness)
+  const publisherSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'SubodhKC.com',
+    description:
+      'Defensive AI Architecture and Production Governance content platform by Subodh KC. Practical, authoritative content about production AI architecture, governance, and operations for technical leaders.',
+    url: 'https://subodhkc.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://subodhkc.com/portrait.jpeg',
+    },
+    founder: {
+      '@type': 'Person',
+      name: 'Subodh KC',
+      url: 'https://subodhkc.com/about',
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Subodh KC',
+      url: 'https://subodhkc.com/about',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'subodhkc@subodhkc.com',
+      contactType: 'Editorial',
+      url: 'https://subodhkc.com/contact',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Dallas',
+      addressRegion: 'Texas',
+      addressCountry: 'US',
+    },
+    sameAs: [
+      'https://www.linkedin.com/in/subodhkc',
+      'https://github.com/subodhkc',
+      'https://twitter.com/subodhkc',
+      'https://medium.com/@subodhkc',
+      'https://www.wikidata.org/wiki/Q140546484',
+    ],
+  }
+
   const serviceSchemas = [
     {
       '@context': 'https://schema.org',
@@ -448,6 +491,11 @@ export default function StructuredData() {
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(publisherSchema) }}
       />
       {serviceSchemas.map((schema, i) => (
         <script

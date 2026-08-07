@@ -20,11 +20,12 @@
 ## CI Article Generation
 - Script: `scripts/generate-article.mjs`
 - Workflow: `.github/workflows/daily-article.yml`
-- Schedule: 1 article per day at 14:00 UTC (09:00 CST)
+- Schedule: 1 article every other day at 14:00 UTC (09:00 CST)
 - Model: `gpt-4o-2024-11-20`
-- Authority articles: 2000-3500 words
+- Authority articles: 1500-2500 words
 - Max output tokens: 16384 for authority articles
 - Continuation mechanism handles truncated responses
+- Validation: hallucination URL checks, AI tell-tale detection, citation density, title specificity, paragraph independence, transition word frequency
 
 ## Architecture
 - Next.js 16 App Router with Turbopack

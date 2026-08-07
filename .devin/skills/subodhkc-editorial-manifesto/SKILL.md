@@ -14,8 +14,8 @@ This document is the master content persona and editorial manifesto for subodhkc
 **Subodh KC** is a former Fortune 50 AI Strategy CTL, Sr. Program Manager at HP, and the technical architect behind governance platforms like HAIEC and Kestrel Voice.
 
 - **The Persona:** An elite, battle-tested Systems Architect who operates at the intersection of enterprise AI and deep regulatory compliance.
-- **The Voice:** Authoritative, uncompromising, deeply technical, and sharp. No fluffy corporate platitudes or generic tech trends. Content speaks in metrics, architecture decision records (ADRs), risk thresholds, and deployment reality.
-- **The Vibe:** Obsessive, high-standard perfectionism meets self-aware, authoritative confidence. The definitive expert in the room.
+- **The Voice:** The expert who has nothing to prove, not the expert who is proving it. Confidence without combativeness. Authoritative, deeply technical, and sharp. No fluffy corporate platitudes or generic tech trends. Content speaks in metrics, architecture decision records (ADRs), risk thresholds, and deployment reality.
+- **The Vibe:** Obsessive, high-standard perfectionism meets self-aware, authoritative confidence. The definitive expert in the room whose expertise is demonstrated through the work, not through self-promotion.
 
 ---
 
@@ -44,12 +44,12 @@ Never write a standard, entry-level tutorial that merely explains how to use a t
 - **The Standard:** Elevate every guide into an elite operational framework. Document the grind, the strict architectural constraints, and the rigorous systems required to operate at a Fortune 50 level.
 - **The Goal:** Make the reader realize that success is not an accident of innate talent, but the result of a repeatable, disciplined system.
 
-### Pillar C: Intentional Flaws (The Engagement Engine)
+### Pillar C: Genuine Lines in the Sand
 
-To supercharge organic reach and spark technical debate in comment sections, deliberately insert non-critical, highly debatable "lines in the sand."
+Take clear, defensible positions on architecture and process decisions. These should be genuine opinions you actually hold, not manufactured controversy.
 
-- **The Tactic:** Take an intentionally strict, uncompromising stance on a minor process metric or architecture preference.
-- **The Goal:** Invite other opinionated tech leads, agile coaches, or developers to jump into the comments to argue their edge cases, driving algorithmic visibility while leaving your core authority untouched.
+- **The Standard:** Express a real, opinionated stance on a process metric or architecture preference that reasonable practitioners would debate.
+- **The Goal:** Demonstrate independent thinking and invite professional disagreement. The opinion must be genuinely held and defensible with evidence, not inserted purely for engagement.
 
 ---
 
@@ -102,7 +102,7 @@ All content must be humanized before publishing. The following AI patterns are s
 - **The "conclusion that summarizes everything":** End with a forward-looking statement or a specific recommendation, not a recap.
 - **The "question as a section header":** Use declarative headers, not questions.
 - **The "three-pillar" or "five-step" formulaic structure:** Vary the structure. Not every article needs exactly N sections.
-- **Starting paragraphs with "Additionally" / "Moreover" / "Furthermore":** Use direct transitions or start with the new point itself.
+- **Starting paragraphs with "Additionally" / "Moreover" / "Furthermore":** These are standard English transition words and are acceptable in moderation. However, no more than 2 paragraphs in an article may start with the same transition word. If the AI pattern of starting every paragraph with a transition word is detected, restructure to use direct transitions or start with the new point itself.
 
 ### Required Humanization Patterns
 - Vary sentence length significantly. Mix short punchy sentences with longer complex ones.
@@ -143,6 +143,12 @@ Every article must pass a hallucination check before it is published. This is no
    - Specific revenue figures or deal sizes
    - Specific team sizes or org structures
    - Specific deployment metrics that cannot be substantiated
+
+5. **Uncertainty handling:** When the AI is not certain of a specific fact, date, or requirement, it must use temporal or conditional language. Do not state uncertain information as definitive.
+   - Instead of "TRAIGA requires X," use "As of [date], TRAIGA requires X" when the requirement may change.
+   - Instead of "The EU AI Act mandates Y," use "Under the EU AI Act, high-risk systems are expected to Y" when interpretation is ongoing.
+   - When a regulation is still being implemented, state that explicitly: "This requirement takes effect in [date] and guidance is still evolving."
+   - Never present an interpretation of a regulation as the regulation itself.
 
 ### Validation Process
 
@@ -250,3 +256,86 @@ The editorial manifesto works alongside the SEO content strategy defined in `.de
 **Word count:** 1500-2500 words for authority articles. Information density over length.
 
 See the SEO theme skill for the full cluster framework, keyword strategy, and AI search optimization guidelines.
+
+---
+
+## 14. Content Quality Metrics (Enforced in CI)
+
+The following metrics are validated by the CI article generation pipeline. Articles that fail these checks are rejected and regenerated.
+
+### Citation Density
+- Target: at least 1 external citation per 500 words
+- A 2000-word article must have at least 4 external citations from approved sources
+- AI search engines favor content that cites primary sources frequently
+- Checked by counting external citation links and dividing by word count
+
+### Title Specificity Score
+- Titles must contain at least one specific noun: a law name (TRAIGA, EU AI Act, NYC LL 144), a technology name (RAG, LLM, vector database), a framework name (NIST AI RMF, ISO 42001), or a concrete metric
+- Generic titles like "How to Prepare for AI Compliance" are rejected
+- Specific titles like "TRAIGA Safe Harbor Audit Trails: NIST AI RMF Mapping" pass
+- Checked by scanning the title for known specific nouns and flagging generic-only titles
+
+### Paragraph Independence
+- Paragraphs should be self-contained for AI search citation
+- Flag paragraphs that start with "This" or "These" (which depend on the previous paragraph for context)
+- If more than 20% of paragraphs start with dependent references, the article is flagged for revision
+- Each paragraph should make sense if cited in isolation by an AI search engine
+
+### Transition Word Frequency
+- "Additionally," "Moreover," and "Furthermore" are acceptable English transition words
+- No more than 2 paragraphs in an article may start with the same transition word
+- If the AI pattern of starting every paragraph with a transition word is detected, the article is flagged
+
+---
+
+## 15. Freshness Rule for Regulatory Articles
+
+AI regulations change rapidly. Articles that reference specific regulations must be maintained.
+
+- Every article about TRAIGA, EU AI Act, NYC LL 144, ISO 42001, NIST AI RMF, or any other regulation must include a "Last verified: [date]" note at the top of the article body
+- The CI pipeline flags articles older than 90 days that reference regulations
+- Flagged articles should be reviewed and re-validated: check that regulatory references are still current, URLs still resolve, and requirements have not changed
+- If a regulation has changed, the article must be updated or marked as "Last verified: [date] - some details may be outdated"
+- The freshness check runs as a separate CI workflow that scans existing blog posts for regulatory keywords and creation dates
+
+---
+
+## 16. E-E-A-T Compliance
+
+SubodhKC.com is designed to pass Google's E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) verification standards.
+
+### Experience
+- Author bio on every blog post (BlogAuthorCard component)
+- About page with detailed career timeline (16+ years, Fortune 50, HP, HAIEC, Kestrel Voice)
+- Resume page with print-ready CV
+- Speaking page with past engagements
+- Research page with Zenodo publications
+- Executive bio page
+
+### Expertise
+- Person schema (JSON-LD) with full credentials, education, patents, sameAs links
+- Wikidata entry (Q140546484)
+- 5 patent-pending methodologies documented
+- Six Sigma Green Belt certification
+- B.S. and M.Sc. from Louisiana Tech University
+- knowsAbout array with 19 expertise areas in structured data
+
+### Authoritativeness
+- Organization schema for HAIEC
+- Service schemas for 3 service offerings
+- SoftwareApplication schemas for 6 products
+- External profile links: LinkedIn, GitHub, Twitter, Medium, Wikidata
+- HEB Chamber of Commerce member badge
+- rel="me" links in layout
+- Dedicated person profile page (/person/subodh-kc)
+
+### Trustworthiness
+- HTTPS enforced
+- Comprehensive privacy policy (GDPR/CCPA compliant)
+- Contact page with form, email, phone, Calendly
+- Sitemap.xml with 40+ URLs
+- Robots.txt with AI crawler rules
+- Canonical URLs on every page
+- Newsletter signup with unsubscribe mechanism
+- Footer with company info, copyright, location
+- No comment system (intentional: prevents unmoderated content from diluting authority)

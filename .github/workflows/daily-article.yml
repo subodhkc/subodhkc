@@ -1,9 +1,10 @@
-name: Daily AI Article Generation
+name: AI Article Generation
 
 on:
   schedule:
-    # Every day at 14:00 UTC (09:00 CST) - optimal LinkedIn posting time
-    - cron: "0 14 * * *"
+    # Every other day at 14:00 UTC (09:00 CST) - optimal LinkedIn posting time
+    # Runs on odd days (1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31)
+    - cron: "0 14 1-31/2 * *"
   workflow_dispatch:
     inputs:
       topic:
@@ -157,7 +158,7 @@ jobs:
 
           if [ -n "$(git status --porcelain data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/)" ]; then
             git add data/blog/posts/ data/blog/daily-manifest.json data/social/ public/blog-images/ public/downloads/
-            git commit -m "feat: daily AI authority article + social content + hero image"
+            git commit -m "feat: AI authority article + social content + hero image"
 
             # Push with retry logic (up to 3 attempts)
             MAX_RETRIES=3
