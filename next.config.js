@@ -35,6 +35,14 @@ const nextConfig = {
       { source: '/rss', destination: '/feed.xml', permanent: true },
       { source: '/feed', destination: '/feed.xml', permanent: true },
       { source: '/atom.xml', destination: '/feed.xml', permanent: true },
+      // 301 redirects for consolidated duplicate articles (keyword cannibalization fix)
+      { source: '/blog/12-ai-pilot-readiness-checks', destination: '/blog/12-production-readiness-checks-for-ai-pilots', statusCode: 301 },
+      { source: '/blog/12-ai-pilot-readiness-checks-for-production', destination: '/blog/12-production-readiness-checks-for-ai-pilots', statusCode: 301 },
+      { source: '/blog/12-checks-for-ai-pilot-readiness', destination: '/blog/12-production-readiness-checks-for-ai-pilots', statusCode: 301 },
+      { source: '/blog/12-ai-pilot-readiness-checks-for-deployment', destination: '/blog/12-production-readiness-checks-for-ai-pilots', statusCode: 301 },
+      // 301 redirects for purged thin content (consolidated into stronger pages)
+      { source: '/blog/securing-ai-systems-after-openai-containment-breach', destination: '/how-to-secure-and-govern-ai', statusCode: 301 },
+      { source: '/blog/ai-compliance-guide-addressing-hugging-face-risks', destination: '/blog/seven-layers-ai-compliance-nist-iso-soc2', statusCode: 301 },
     ]
   },
 }
