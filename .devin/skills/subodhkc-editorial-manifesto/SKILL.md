@@ -135,7 +135,7 @@ Every article must pass a hallucination check before it is published. This is no
 3. **Technical claims:** Every technical claim must be verifiable:
    - Model names and capabilities must match vendor documentation
    - API endpoints and parameters must match actual documentation
-   - Performance metrics must cite a source or be clearly labeled as estimates
+   - Performance metrics must cite a source or be clearly labeled as estimates. Never invent specific GB amounts, percentage improvements, or timing claims. If a number cannot be traced to vendor documentation or a cited benchmark, do not use it.
    - Architecture patterns must match established industry practice
 
 4. **Personal/experience claims:** The article must not fabricate:
@@ -183,7 +183,13 @@ The CI pipeline must:
 
 ## 9. Article Structure Guidelines
 
-### Authority Articles (2000-3500 words)
+### Article Types and Structure Selection
+
+- **Authority articles** (general): Follow the 9-part structure below. Word count: 1500-2500 words.
+- **Technical troubleshooting articles**: Follow the 10-part incident report structure in Section 17 instead. Troubleshooting articles override the general authority structure because engineer search intent differs from strategic reader intent.
+- **Newsletter posts and social posts**: Follow Section 4 (Universal Writing Rules) only. No structural template required.
+
+### Authority Articles (1500-2500 words)
 1. Direct answer or operating conclusion (not a teaser)
 2. The actual problem
 3. Why common approaches fail
@@ -216,8 +222,6 @@ The following claims are strictly forbidden because they cannot be substantiated
 - "100% accurate" (no AI system is 100% accurate)
 - "proven at Fortune 50 scale" (unless citing specific evidence)
 - "adopted across the industry" (unless citing specific adoption data)
-- "guaranteed indexing" or "instant indexing" (no content strategy can guarantee search indexing speed)
-- specific performance metrics without a cited source (e.g., "improves speed by 10%", "saves 2 GB of memory") unless the number comes from vendor documentation or a cited benchmark
 
 ---
 
@@ -230,9 +234,7 @@ The following claims are strictly forbidden because they cannot be substantiated
 - Include a meta description that reads naturally, not keyword-stuffed
 - Use descriptive alt text for any images
 - Include a "Continue Reading" section with 3-5 related blog post links
-- For technical troubleshooting articles: include the exact error message string in the first 100 words so search engines can pattern-match user queries
-- For technical troubleshooting articles: use `pre[data-diagram]` for all flowcharts and architecture diagrams (the blog CSS renders these as centered visual artifacts)
-- For technical troubleshooting articles: include a parameter breakdown table with columns for parameter name, default value, what it controls, and when to change it
+- Technical troubleshooting articles have additional SEO rules defined in Section 17
 
 ---
 
@@ -368,9 +370,15 @@ Technical troubleshooting articles (e.g., "Fix vLLM CUDA OOM", "Debug RAG Retrie
 
 - The fix must be accessible within the first screenful (approximately 300 words). Engineers searching for error messages do not read introductions.
 - Every parameter mentioned must include: current default value, what it actually controls (not what Stack Overflow says it controls), and version dependency notes.
-- Fabricated metrics are strictly forbidden. If a performance impact is mentioned (e.g., "CUDA graphs improve speed by X%"), it must cite a source or be labeled as an estimate. Never invent specific GB amounts, percentage improvements, or timing claims.
+- Fabricated metrics are strictly forbidden (see Section 6, Hallucination Validation). Never invent specific GB amounts, percentage improvements, or timing claims.
 - The CTA must be advisory, not pressure-based. Use "If you are deploying X and need an independent systems advisor to audit Y, schedule a strategic evaluation" rather than "Don't burn budget on Z. Book today."
 - Code examples must be production-grade: environment-variable-driven, explicitly configured, and validated before the service receives traffic. No try/except fallback chains.
+
+### SEO Rules Specific to Troubleshooting Articles
+
+- Include the exact error message string in the first 100 words so search engines can pattern-match user queries
+- Use `pre[data-diagram]` for all flowcharts and architecture diagrams (the blog CSS renders these as centered visual artifacts)
+- Include a parameter breakdown table with columns for parameter name, default value, what it controls, and when to change it
 
 ---
 
