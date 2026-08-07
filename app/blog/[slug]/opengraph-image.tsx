@@ -25,13 +25,13 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             justifyContent: 'center',
             width: '100%',
             height: '100%',
-            backgroundColor: '#0a0a0a',
-            color: '#fff',
+            backgroundColor: '#2b2e33',
+            color: '#ebe6d8',
             fontFamily: 'sans-serif',
           }}
         >
           <div style={{ fontSize: 48, fontWeight: 700 }}>Subodh Kc Blogger</div>
-          <div style={{ fontSize: 24, color: '#888', marginTop: 16 }}>Article Not Found</div>
+          <div style={{ fontSize: 24, color: '#9a9a96', marginTop: 16 }}>Article Not Found</div>
         </div>
       ),
       { ...size }
@@ -55,13 +55,24 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
           flexDirection: 'column',
           width: '100%',
           height: '100%',
-          backgroundColor: '#0a0a0a',
-          backgroundImage: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)',
+          backgroundColor: '#2b2e33',
           padding: '60px 70px',
           fontFamily: 'sans-serif',
           position: 'relative',
         }}
       >
+        {/* Accent stripe */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: 6,
+            height: '100%',
+            backgroundColor: '#16d088',
+          }}
+        />
+
         {/* Top bar */}
         <div
           style={{
@@ -83,22 +94,22 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
                 width: 44,
                 height: 44,
                 borderRadius: 8,
-                backgroundColor: '#3b82f6',
+                backgroundColor: '#16d088',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: 22,
                 fontWeight: 700,
-                color: '#fff',
+                color: '#2b2e33',
               }}
             >
               SK
             </div>
-            <div style={{ fontSize: 22, fontWeight: 600, color: '#e0e0e0' }}>
+            <div style={{ fontSize: 22, fontWeight: 600, color: '#ebe6d8' }}>
               {authorName}
             </div>
           </div>
-          <div style={{ fontSize: 18, color: '#666' }}>{dateStr}</div>
+          <div style={{ fontSize: 18, color: '#9a9a96' }}>{dateStr}</div>
         </div>
 
         {/* Title */}
@@ -108,7 +119,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             fontSize: 52,
             fontWeight: 700,
             lineHeight: 1.2,
-            color: '#fff',
+            color: '#ebe6d8',
             maxWidth: 1000,
             flex: 1,
             alignItems: 'center',
@@ -132,11 +143,11 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
               style={{
                 display: 'flex',
                 fontSize: 16,
-                color: '#93c5fd',
-                backgroundColor: 'rgba(59, 130, 246, 0.15)',
+                color: '#16d088',
+                backgroundColor: 'rgba(22, 208, 136, 0.12)',
                 padding: '6px 16px',
                 borderRadius: 999,
-                border: '1px solid rgba(59, 130, 246, 0.3)',
+                border: '1px solid rgba(22, 208, 136, 0.3)',
               }}
             >
               {kw}
@@ -152,13 +163,13 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             justifyContent: 'space-between',
             marginTop: 40,
             paddingTop: 30,
-            borderTop: '1px solid rgba(255,255,255,0.1)',
+            borderTop: '1px solid #404349',
           }}
         >
-          <div style={{ fontSize: 18, color: '#666' }}>
+          <div style={{ fontSize: 18, color: '#9a9a96' }}>
             subodhkc.com/blog
           </div>
-          <div style={{ fontSize: 18, color: '#666' }}>
+          <div style={{ fontSize: 18, color: '#9a9a96' }}>
             AI Advisor and Systems Architect
           </div>
         </div>

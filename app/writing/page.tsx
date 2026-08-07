@@ -193,42 +193,44 @@ export default function WritingPage() {
         title="Published Insights"
         description="Writing that bridges the gap between AI theory and production reality. Based on years of building compliant systems at Fortune 50 scale."
       >
-        <div className="space-y-6">
-          {articles.map((article, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <div className="flex items-start justify-between gap-4 mb-2">
-                  <div className="flex-1">
-                    <CardTitle className="text-2xl mb-2">{article.title}</CardTitle>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {article.topics.map((topic, idx) => (
-                        <div
-                          key={idx}
-                          className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1"
-                        >
-                          <span className="text-xs font-medium text-primary">{topic}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+        <div className="blog-notes-board">
+          {articles.map((article, index) => {
+            const rotations = [-1.5, 1.2, -0.8, 2.0, -2.2, 0.6, -1.0, 1.8, -0.4, 2.5, -1.7, 0.9]
+            const colors = ["blog-note-tinted", "blog-note-warm", "blog-note-cool", "blog-note-stark", "blog-note-paper", "blog-note-default"]
+            const titleStyles = ["blog-note-title-serif", "blog-note-title-mono", "blog-note-title-sans", "blog-note-title-italic"]
+            const titleSizes = ["clamp(20px, 2.5vw, 26px)", "16px", "18px", "20px", "15px", "17px"]
+            const pinTypes = ["", "blog-note-taped", "", "", "blog-note-taped", ""]
+            const rotation = rotations[index % rotations.length]
+            const color = colors[index % colors.length]
+            const titleClass = titleStyles[index % titleStyles.length]
+            const titleSize = titleSizes[index % titleSizes.length]
+            const pinClass = pinTypes[index % pinTypes.length]
+            const isExternal = article.url.startsWith('http')
+
+            return (
+              <Link
+                key={index}
+                href={article.url}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                className={`blog-sticky-note ${color} ${pinClass}`}
+                style={{ transform: `rotate(${rotation}deg)` }}
+              >
+                <h3 className={titleClass} style={{ fontSize: titleSize }}>
+                  {article.title}
+                </h3>
+                <p className="blog-note-excerpt">{article.description}</p>
+                <div className="blog-note-meta">
+                  <span className="blog-note-accent">{article.publication}</span>
+                  <span>·</span>
+                  <span>{article.date}</span>
                 </div>
-                <CardDescription>{article.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm text-muted-foreground">
-                    {article.publication} • {article.date}
-                  </div>
-                  <a href={article.url} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="sm" className="group">
-                      Read article
-                      <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Button>
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                {article.topics.length > 0 && (
+                  <span className="blog-note-tag">{article.topics[0]}</span>
+                )}
+              </Link>
+            )
+          })}
         </div>
       </Section>
 

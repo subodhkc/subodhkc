@@ -10,13 +10,60 @@ interface BlogIndexClientProps {
   blogJsonLd: Record<string, unknown>
 }
 
-const POSTS_PER_PAGE = 10
+const POSTS_PER_PAGE = 16
+
+type NoteColor = "default" | "warm" | "cool" | "tinted" | "paper" | "stark"
+type NoteTitleStyle = "serif" | "mono" | "sans" | "italic"
+type NotePin = "pin" | "tape"
+type NoteMeta = "full" | "date" | "keyword" | "readtime" | "none"
+
+interface NoteVariant {
+  color: NoteColor
+  titleStyle: NoteTitleStyle
+  titleSize: string
+  pin: NotePin
+  rotation: number
+  showExcerpt: boolean
+  excerptStyle: "sans" | "serif"
+  meta: NoteMeta
+  showTag: boolean
+}
+
+const NOTE_VARIANTS: NoteVariant[] = [
+  { color: "tinted", titleStyle: "serif", titleSize: "clamp(22px, 3vw, 30px)", pin: "pin", rotation: -1.5, showExcerpt: true, excerptStyle: "serif", meta: "full", showTag: true },
+  { color: "warm", titleStyle: "mono", titleSize: "16px", pin: "tape", rotation: 1.2, showExcerpt: true, excerptStyle: "sans", meta: "date", showTag: false },
+  { color: "cool", titleStyle: "sans", titleSize: "18px", pin: "pin", rotation: -0.8, showExcerpt: false, excerptStyle: "sans", meta: "keyword", showTag: true },
+  { color: "stark", titleStyle: "italic", titleSize: "20px", pin: "pin", rotation: 2.0, showExcerpt: true, excerptStyle: "serif", meta: "readtime", showTag: false },
+  { color: "paper", titleStyle: "serif", titleSize: "15px", pin: "tape", rotation: -2.2, showExcerpt: false, excerptStyle: "sans", meta: "date", showTag: true },
+  { color: "default", titleStyle: "mono", titleSize: "17px", pin: "pin", rotation: 0.8, showExcerpt: true, excerptStyle: "sans", meta: "full", showTag: false },
+  { color: "warm", titleStyle: "italic", titleSize: "clamp(20px, 2.5vw, 26px)", pin: "pin", rotation: -1.2, showExcerpt: true, excerptStyle: "serif", meta: "none", showTag: true },
+  { color: "cool", titleStyle: "sans", titleSize: "15px", pin: "tape", rotation: 1.8, showExcerpt: false, excerptStyle: "sans", meta: "keyword", showTag: false },
+  { color: "tinted", titleStyle: "mono", titleSize: "14px", pin: "pin", rotation: -0.5, showExcerpt: true, excerptStyle: "sans", meta: "date", showTag: true },
+  { color: "stark", titleStyle: "serif", titleSize: "19px", pin: "pin", rotation: 1.5, showExcerpt: true, excerptStyle: "serif", meta: "readtime", showTag: false },
+  { color: "paper", titleStyle: "sans", titleSize: "16px", pin: "tape", rotation: -1.8, showExcerpt: false, excerptStyle: "sans", meta: "full", showTag: true },
+  { color: "default", titleStyle: "italic", titleSize: "18px", pin: "pin", rotation: 0.5, showExcerpt: true, excerptStyle: "serif", meta: "date", showTag: false },
+  { color: "warm", titleStyle: "mono", titleSize: "15px", pin: "pin", rotation: -2.5, showExcerpt: true, excerptStyle: "sans", meta: "keyword", showTag: true },
+  { color: "cool", titleStyle: "serif", titleSize: "clamp(18px, 2.5vw, 24px)", pin: "tape", rotation: 1.0, showExcerpt: true, excerptStyle: "serif", meta: "none", showTag: false },
+  { color: "stark", titleStyle: "sans", titleSize: "14px", pin: "pin", rotation: -1.0, showExcerpt: false, excerptStyle: "sans", meta: "date", showTag: true },
+  { color: "tinted", titleStyle: "italic", titleSize: "17px", pin: "pin", rotation: 2.2, showExcerpt: true, excerptStyle: "sans", meta: "full", showTag: false },
+]
+
+function getVariant(index: number): NoteVariant {
+  return NOTE_VARIANTS[index % NOTE_VARIANTS.length]
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })
+}
 
 export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
   const [activeKeyword, setActiveKeyword] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE)
 
-  // Extract all unique keywords with counts
   const allKeywords = useMemo(() => {
     const counts = new Map<string, number>()
     posts.forEach((p) => {
@@ -37,22 +84,75 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
   const visiblePosts = filteredPosts.slice(0, visibleCount)
   const hasMore = visibleCount < filteredPosts.length
 
-  const featured = visiblePosts[0]
-  const rest = visiblePosts.slice(1)
-
   const resetAndFilter = (kw: string | null) => {
     setActiveKeyword(kw)
     setVisibleCount(POSTS_PER_PAGE)
   }
 
+  function renderNote(post: BlogPostSummary, index: number) {
+    const v = getVariant(index)
+    const colorClass = `blog-note-${v.color}`
+    const pinClass = v.pin === "tape" ? "blog-note-taped" : ""
+    const titleClass = `blog-note-title-${v.titleStyle}`
+    const excerptClass = v.excerptStyle === "serif" ? "blog-note-excerpt-serif" : "blog-note-excerpt"
+    const readTime = calculateReadingTime(post.contentHtml)
+    const date = formatDate(post.createdAt)
+
+    let metaContent: React.ReactNode = null
+    if (v.meta === "full") {
+      metaContent = (
+        <>
+          <time>{date}</time>
+          <span>·</span>
+          <span>{readTime} min</span>
+          {post.keywords.length > 0 && (
+            <>
+              <span>·</span>
+              <span className="blog-note-accent">{post.keywords[0]}</span>
+            </>
+          )}
+        </>
+      )
+    } else if (v.meta === "date") {
+      metaContent = <time>{date}</time>
+    } else if (v.meta === "keyword") {
+      metaContent = post.keywords.length > 0 ? (
+        <span className="blog-note-accent">{post.keywords.slice(0, 2).join(" · ")}</span>
+      ) : <time>{date}</time>
+    } else if (v.meta === "readtime") {
+      metaContent = <span>{readTime} min read</span>
+    }
+
+    return (
+      <Link
+        key={post.slug}
+        href={`/blog/${post.slug}`}
+        className={`blog-sticky-note ${colorClass} ${pinClass}`}
+        style={{ transform: `rotate(${v.rotation}deg)` }}
+      >
+        <h2 className={titleClass} style={{ fontSize: v.titleSize }}>
+          {post.title}
+        </h2>
+        {v.showExcerpt && (post.excerpt || post.metaDescription) && (
+          <p className={excerptClass}>{post.excerpt || post.metaDescription}</p>
+        )}
+        {metaContent && (
+          <div className="blog-note-meta">{metaContent}</div>
+        )}
+        {v.showTag && post.keywords.length > 0 && (
+          <span className="blog-note-tag">{post.keywords[0]}</span>
+        )}
+      </Link>
+    )
+  }
+
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "80px 28px 120px" }}>
+    <div style={{ maxWidth: 1240, margin: "0 auto", padding: "80px 28px 120px" }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
       />
 
-      {/* Header */}
       <div
         style={{
           fontFamily: "var(--font-mono)",
@@ -90,7 +190,6 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
         and production AI systems. No fluff — frameworks, patterns, and steps you can apply.
       </p>
 
-      {/* Keyword filter pills */}
       {allKeywords.length > 0 && (
         <div
           style={{
@@ -142,7 +241,6 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
         </div>
       )}
 
-      {/* Posts */}
       {visiblePosts.length === 0 ? (
         <div
           style={{
@@ -166,206 +264,10 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
         </div>
       ) : (
         <>
-          {/* Featured post (only when no filter and on first page) */}
-          {featured && !activeKeyword && visibleCount === POSTS_PER_PAGE && (
-            <Link
-              href={`/blog/${featured.slug}`}
-              className="blog-featured-card"
-              style={{
-                display: "flex",
-                gap: 32,
-                padding: "40px 0",
-                borderTop: "1px solid var(--op-border)",
-                borderBottom: "1px solid var(--op-border)",
-                textDecoration: "none",
-                color: "var(--fg)",
-                alignItems: "flex-start",
-                transition: "opacity 0.15s",
-              }}
-            >
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: "var(--op-accent)",
-                    marginBottom: 12,
-                  }}
-                >
-                  ★ Featured
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 11,
-                    color: "var(--text-secondary)",
-                    marginBottom: 10,
-                    display: "flex",
-                    gap: 12,
-                    alignItems: "center",
-                  }}
-                >
-                  <time>
-                    {new Date(featured.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </time>
-                  <span>·</span>
-                  <span>{calculateReadingTime(featured.contentHtml)} min read</span>
-                  {featured.keywords.length > 0 && (
-                    <>
-                      <span>·</span>
-                      <span style={{ color: "var(--op-accent)" }}>
-                        {featured.keywords.slice(0, 3).join(" · ")}
-                      </span>
-                    </>
-                  )}
-                </div>
-                <h2
-                  style={{
-                    fontSize: "clamp(22px, 3vw, 32px)",
-                    fontWeight: 500,
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1.2,
-                    margin: "0 0 12px",
-                  }}
-                >
-                  {featured.title}
-                </h2>
-                <p
-                  style={{
-                    fontSize: 15,
-                    color: "var(--text-secondary)",
-                    lineHeight: 1.5,
-                    margin: 0,
-                    maxWidth: 520,
-                  }}
-                >
-                  {featured.excerpt || featured.metaDescription}
-                </p>
-              </div>
-              {featured.heroImageUrl && (
-                <div
-                  className="blog-featured-img"
-                  style={{
-                    width: 200,
-                    height: 140,
-                    borderRadius: 8,
-                    overflow: "hidden",
-                    flexShrink: 0,
-                    border: "1px solid var(--op-border)",
-                  }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={featured.heroImageUrl}
-                    alt={featured.title}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                </div>
-              )}
-            </Link>
-          )}
-
-          {/* Regular posts */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-            {(activeKeyword || visibleCount !== POSTS_PER_PAGE ? visiblePosts : rest).map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                style={{
-                  display: "flex",
-                  gap: 24,
-                  padding: "28px 0",
-                  borderBottom: "1px solid var(--op-border)",
-                  textDecoration: "none",
-                  color: "var(--fg)",
-                  transition: "opacity 0.15s",
-                }}
-                className="blog-card-hover"
-              >
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      color: "var(--text-secondary)",
-                      marginBottom: 8,
-                      display: "flex",
-                      gap: 12,
-                      alignItems: "center",
-                    }}
-                  >
-                    <time>
-                      {new Date(post.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </time>
-                    <span>·</span>
-                    <span>{calculateReadingTime(post.contentHtml)} min read</span>
-                    {post.keywords.length > 0 && (
-                      <span style={{ color: "var(--op-accent)" }}>
-                        {post.keywords.slice(0, 3).join(" · ")}
-                      </span>
-                    )}
-                  </div>
-                  <h2
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 500,
-                      letterSpacing: "-0.01em",
-                      lineHeight: 1.3,
-                      margin: "0 0 8px",
-                    }}
-                  >
-                    {post.title}
-                  </h2>
-                  <p
-                    style={{
-                      fontSize: 14,
-                      color: "var(--text-secondary)",
-                      lineHeight: 1.5,
-                      margin: 0,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
-                    {post.excerpt || post.metaDescription}
-                  </p>
-                </div>
-                {post.heroImageUrl && (
-                  <div
-                    style={{
-                      width: 120,
-                      height: 80,
-                      borderRadius: 6,
-                      overflow: "hidden",
-                      flexShrink: 0,
-                      border: "1px solid var(--op-border)",
-                    }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={post.heroImageUrl}
-                      alt={post.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  </div>
-                )}
-              </Link>
-            ))}
+          <div className="blog-notes-board">
+            {visiblePosts.map((post, i) => renderNote(post, i))}
           </div>
 
-          {/* Load more */}
           {hasMore && (
             <div style={{ textAlign: "center", marginTop: 40 }}>
               <button
@@ -387,7 +289,6 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
             </div>
           )}
 
-          {/* Results count */}
           <div
             style={{
               textAlign: "center",
@@ -402,23 +303,6 @@ export function BlogIndexClient({ posts, blogJsonLd }: BlogIndexClientProps) {
           </div>
         </>
       )}
-
-      <style>{`
-        .blog-card-hover:hover {
-          opacity: 0.7;
-        }
-        @media (max-width: 640px) {
-          .blog-featured-card {
-            flex-direction: column !important;
-            gap: 20px !important;
-            padding: 28px 0 !important;
-          }
-          .blog-featured-card .blog-featured-img {
-            width: 100% !important;
-            height: 180px !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }

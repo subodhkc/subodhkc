@@ -317,52 +317,52 @@ export default function ResearchPage() {
       </Section>
 
       <Section subtitle="Publications" title="Published Work">
-        <div className="space-y-4">
-          {publications.map((pub, index) => (
-            <Card key={index} className="transition-all duration-300 hover:shadow-lg hover:border-primary/50">
-              <CardHeader>
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <CardTitle className="text-xl mb-2">{pub.title}</CardTitle>
-                    <CardDescription>{pub.summary}</CardDescription>
-                    {pub.keywords && (
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {pub.keywords.map((keyword, idx) => (
-                          <span
-                            key={idx}
-                            className="text-xs px-2 py-1 rounded-md bg-accent/10 text-accent border border-accent/20"
-                          >
-                            {keyword}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+        <div className="blog-notes-board">
+          {publications.map((pub, index) => {
+            const rotations = [-1.8, 1.2, -0.6, 2.1, -2.3, 0.9, -1.1, 1.7, -0.4]
+            const colors = ["blog-note-tinted", "blog-note-warm", "blog-note-cool", "blog-note-stark", "blog-note-paper", "blog-note-default"]
+            const titleStyles = ["blog-note-title-serif", "blog-note-title-mono", "blog-note-title-sans", "blog-note-title-italic"]
+            const titleSizes = ["clamp(20px, 2.5vw, 26px)", "16px", "18px", "20px", "15px", "17px"]
+            const pinTypes = ["", "blog-note-taped", "", "", "blog-note-taped", ""]
+            const rotation = rotations[index % rotations.length]
+            const color = colors[index % colors.length]
+            const titleClass = titleStyles[index % titleStyles.length]
+            const titleSize = titleSizes[index % titleSizes.length]
+            const pinClass = pinTypes[index % pinTypes.length]
+
+            return (
+              <Link
+                key={index}
+                href={pub.link || '#'}
+                target={pub.link ? '_blank' : undefined}
+                rel={pub.link ? 'noopener noreferrer' : undefined}
+                className={`blog-sticky-note ${color} ${pinClass}`}
+                style={{ transform: `rotate(${rotation}deg)` }}
+              >
+                <h3 className={titleClass} style={{ fontSize: titleSize }}>
+                  {pub.title}
+                </h3>
+                <p className="blog-note-excerpt">{pub.summary}</p>
+                {pub.keywords && (
+                  <div className="blog-note-meta">
+                    {pub.keywords.slice(0, 3).map((kw, i) => (
+                      <span key={i} className={i === 0 ? "blog-note-accent" : ""}>{kw}</span>
+                    ))}
                   </div>
-                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                    <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1">
-                      <span className="text-xs font-medium text-primary">{pub.type}</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">{pub.year}</span>
-                  </div>
+                )}
+                <div className="blog-note-meta">
+                  <span className="blog-note-accent">{pub.type}</span>
+                  <span>·</span>
+                  <span>{pub.venue}</span>
+                  <span>·</span>
+                  <span>{pub.year}</span>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm text-muted-foreground">
-                    Published in: {pub.venue}
-                  </p>
-                  {pub.link && (
-                    <Link href={pub.link} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm" variant="outline" className="group">
-                        View Paper
-                        <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </Link>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                {pub.link && (
+                  <span className="blog-note-tag">view paper →</span>
+                )}
+              </Link>
+            )
+          })}
         </div>
       </Section>
 
