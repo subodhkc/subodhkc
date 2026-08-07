@@ -228,6 +228,9 @@ export default function WritingPage() {
                 {article.topics.length > 0 && (
                   <span className="blog-note-tag">{article.topics[0]}</span>
                 )}
+                <span className="blog-note-tag">
+                  {isExternal ? 'read article →' : 'read more →'}
+                </span>
               </Link>
             )
           })}

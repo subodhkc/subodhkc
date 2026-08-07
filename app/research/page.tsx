@@ -200,6 +200,7 @@ export default function ResearchPage() {
       year: '2025',
       summary:
         'Practical framework for transitioning from AI experimentation to production-grade, compliant systems.',
+      link: 'https://medium.com/ai-governance-playbook/from-ai-pilots-to-regulatory-readiness-the-governance-framework-enterprise-leaders-are-adopting-83b5203b6c4b',
     },
     {
       title: 'Why Enterprise AI Integration Strategies Fail',
@@ -208,6 +209,7 @@ export default function ResearchPage() {
       year: '2025',
       summary:
         'Systematic analysis of common architectural and organizational failures in enterprise AI adoption.',
+      link: 'https://medium.com/design-bootcamp/why-enterprise-ai-integration-strategies-fail-and-what-actually-works-11fe2d748eab',
     },
     {
       title: 'Cognitive Systems Management: A Unified Approach',
@@ -216,6 +218,7 @@ export default function ResearchPage() {
       year: '2024',
       summary:
         'Comprehensive methodology bridging AI strategy, implementation, and governance for enterprise scale.',
+      link: '/haiec',
     },
   ]
 
@@ -330,12 +333,14 @@ export default function ResearchPage() {
             const titleSize = titleSizes[index % titleSizes.length]
             const pinClass = pinTypes[index % pinTypes.length]
 
+            const isExternal = pub.link?.startsWith('http')
+
             return (
               <Link
                 key={index}
                 href={pub.link || '#'}
-                target={pub.link ? '_blank' : undefined}
-                rel={pub.link ? 'noopener noreferrer' : undefined}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
                 className={`blog-sticky-note ${color} ${pinClass}`}
                 style={{ transform: `rotate(${rotation}deg)` }}
               >
@@ -357,9 +362,9 @@ export default function ResearchPage() {
                   <span>·</span>
                   <span>{pub.year}</span>
                 </div>
-                {pub.link && (
-                  <span className="blog-note-tag">view paper →</span>
-                )}
+                <span className="blog-note-tag">
+                  {isExternal ? 'view paper →' : 'read more →'}
+                </span>
               </Link>
             )
           })}
