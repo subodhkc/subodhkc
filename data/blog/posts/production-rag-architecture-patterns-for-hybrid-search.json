@@ -1,74 +1,83 @@
 {
-    "id":  627492,
-    "title":  "Production RAG Architecture Patterns for Hybrid Search",
-    "slug":  "production-rag-architecture-patterns-for-hybrid-search",
-    "metaDescription":  "Explore practical RAG architecture patterns for hybrid search in enterprise AI, optimizing governance, compliance, and security.",
-    "contentHtml":  "\u003cp\u003e\u003ca href=\"/architecture-decision-master-sheet\"\u003eUse the Architecture Decision Master Sheet\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eThis article focuses on hybrid search implementation patterns (BM25 + vector search). For overall RAG security architecture, see \u003ca href=\"/secure-enterprise-rag-architecture\"\u003esecure enterprise RAG architecture\u003c/a\u003e.\u003c/p\u003e\n\u003ch2\u003eIntroduction to Production RAG Architecture Patterns\u003c/h2\u003e\u003cp\u003eIn the evolving landscape of enterprise AI, ensuring robust governance and compliance while harnessing the power of hybrid search is crucial. The Retrieval-Augmented Generation (RAG) architecture serves as a bridge, integrating large language models with external knowledge sources, enabling organizations to deliver accurate and relevant AI-driven solutions effectively. This blog post delves into practical implementation strategies for establishing RAG architecture patterns tailored for hybrid search environments.\u003c/p\u003e\u003ch2\u003eUnderstanding RAG Architecture\u003c/h2\u003e\u003cp\u003eRAG architecture combines generative models with retrieval methods, allowing AI systems to access the latest information and provide contextually relevant responses. This synergy is particularly beneficial for enterprises looking to incorporate AI solutions while adhering to compliance regulations such as HIPAA and ISO standards.\u003c/p\u003e\u003ch3\u003eKey Components of RAG Architecture\u003c/h3\u003e\u003cul\u003e\u003cli\u003e\u003cstrong\u003eRetrieval Component:\u003c/strong\u003e This part retrieves relevant documents or data from external sources, ensuring the generative model is grounded in accurate information.\u003c/li\u003e\u003cli\u003e\u003cstrong\u003eGeneration Component:\u003c/strong\u003e The generative model processes the retrieved information to produce human-like text outputs.\u003c/li\u003e\u003cli\u003e\u003cstrong\u003eFeedback Loop:\u003c/strong\u003e Integrating user feedback to refine the model\u0027s performance over time, ensuring relevance and accuracy.\u003c/li\u003e\u003c/ul\u003e\u003ch2\u003eImplementing RAG Architecture Patterns\u003c/h2\u003e\u003cp\u003eTo successfully implement RAG architecture patterns in your hybrid search system, consider the following steps:\u003c/p\u003e\u003ch3\u003eStep 1: Define Use Cases\u003c/h3\u003e\u003cp\u003eIdentify specific use cases where AI can add value. For instance, legal document automation, as discussed in our post on \u003ca href=\"/blog/legal-document-automation\"\u003eLegal Document Automation for New York Law Firms in 2026\u003c/a\u003e, can benefit from RAG architecture by ensuring compliance while generating accurate legal documents.\u003c/p\u003e\u003ch3\u003eStep 2: Establish Data Sources\u003c/h3\u003e\u003cp\u003eDetermine the data sources necessary for retrieval. This may include internal databases, public APIs, or industry-specific knowledge bases. Ensure these sources comply with relevant regulations such as HIPAA for healthcare applications or \u003ca href=\"/blog/haiec-modular-ai-governance-framework\"\u003eAI governance frameworks\u003c/a\u003e.\u003c/p\u003e\u003ch3\u003eStep 3: Choose the Right Technology Stack\u003c/h3\u003e\u003cp\u003eSelect the appropriate tools and frameworks to build your RAG system. Consider open-source libraries like Hugging Faceâ€™s Transformers for model implementation alongside robust retrieval systems such as Elasticsearch or Pinecone.\u003c/p\u003e\u003ch3\u003eStep 4: Develop the Retrieval System\u003c/h3\u003e\u003cp\u003eBuild a retrieval system that efficiently processes queries. For instance, use vector databases to enhance search capabilities, ensuring quick access to relevant documents that can be fed into the generative model.\u003c/p\u003e\u003ch3\u003eStep 5: Implement the Generation Component\u003c/h3\u003e\u003cp\u003eIntegrate a generative model that can interpret the retrieved data and produce accurate outputs. Train the model using domain-specific data to improve its understanding and contextual relevance.\u003c/p\u003e\u003ch3\u003eStep 6: Ensure Compliance and Security\u003c/h3\u003e\u003cp\u003eImplement strict data governance policies to adhere to compliance requirements such as HIPAA or ISO 42001. Regularly audit the system for vulnerabilities, incorporating security measures at every stage of the architecture.\u003c/p\u003e\u003ch3\u003eStep 7: Monitor and Optimize Performance\u003c/h3\u003e\u003cp\u003eEstablish metrics to monitor the system\u0027s performance and implement a feedback loop. Use user analytics to refine both the retrieval and generation components, enhancing overall accuracy and relevance.\u003c/p\u003e\u003ch2\u003ePractical Example: RAG in Legal Tech\u003c/h2\u003e\u003cp\u003eConsider a legal tech firm leveraging RAG architecture to automate document generation. By integrating a retrieval system that sources legal precedents, the firm ensures compliance with regulations while reducing the time necessary for legal drafting. The generative model tailors documents based on the retrieved information, ensuring accuracy and legal soundness.\u003c/p\u003e\u003ch2\u003eConclusion and Takeaway\u003c/h2\u003e\u003cp\u003eEstablishing a robust RAG architecture for hybrid search can significantly enhance your enterprise AI initiatives. By following the outlined steps, CTOs, CISOs, and AI program leaders can implement a compliant and secure system that improves decision-making and operational efficiency. Start by defining your use cases today and choose the right technologies to drive your AI strategy forward.\u003c/p\u003e\u003ch2\u003eFAQs\u003c/h2\u003e\u003ch3\u003eWhat is RAG architecture?\u003c/h3\u003e\u003cp\u003eRAG architecture combines retrieval and generative models, enabling AI systems to access external information for accurate and contextually relevant outputs.\u003c/p\u003e\u003ch3\u003eHow can RAG architecture improve compliance?\u003c/h3\u003e\u003cp\u003eBy integrating real-time data retrieval with generative models, RAG architecture can ensure that outputs adhere to compliance standards, reducing legal risks.\u003c/p\u003e\u003ch3\u003eWhat technologies are best for implementing RAG systems?\u003c/h3\u003e\u003cp\u003eOpen-source frameworks like Hugging Faceâ€™s Transformers and retrieval systems such as Elasticsearch are popular choices for implementing RAG architectures.\u003c/p\u003e\u003ch3\u003eCan RAG architecture be applied in healthcare?\u003c/h3\u003e\u003cp\u003eYes, RAG architecture can enhance AI applications in healthcare by ensuring that model outputs comply with HIPAA regulations while providing accurate information.\u003c/p\u003e\u003ch3\u003eHow do I measure the performance of a RAG system?\u003c/h3\u003e\u003cp\u003eEstablish metrics such as retrieval accuracy, user satisfaction, and output relevance, and implement a feedback loop for ongoing optimization.\u003c/p\u003e",
-    "contentMarkdown":  "",
-    "heroImageUrl":  "https://subodhkc.com/blog-images/production-rag-architecture-patterns-for-hybrid-search.png",
-    "jsonLd":  null,
-    "faqJsonLd":  {
-                      "@context":  "https://schema.org",
-                      "@type":  "FAQPage",
-                      "mainEntity":  [
-                                         {
-                                             "@type":  "Question",
-                                             "name":  "What is RAG architecture?",
-                                             "acceptedAnswer":  {
-                                                                    "@type":  "Answer",
-                                                                    "text":  "RAG architecture combines retrieval and generative models, enabling AI systems to access external information for accurate and contextually relevant outputs."
-                                                                }
-                                         },
-                                         {
-                                             "@type":  "Question",
-                                             "name":  "How can RAG architecture improve compliance?",
-                                             "acceptedAnswer":  {
-                                                                    "@type":  "Answer",
-                                                                    "text":  "By integrating real-time data retrieval with generative models, RAG architecture can ensure that outputs adhere to compliance standards, reducing legal risks."
-                                                                }
-                                         },
-                                         {
-                                             "@type":  "Question",
-                                             "name":  "What technologies are best for implementing RAG systems?",
-                                             "acceptedAnswer":  {
-                                                                    "@type":  "Answer",
-                                                                    "text":  "Open-source frameworks like Hugging Faceâ€™s Transformers and retrieval systems such as Elasticsearch are popular choices for implementing RAG architectures."
-                                                                }
-                                         },
-                                         {
-                                             "@type":  "Question",
-                                             "name":  "Can RAG architecture be applied in healthcare?",
-                                             "acceptedAnswer":  {
-                                                                    "@type":  "Answer",
-                                                                    "text":  "Yes, RAG architecture can enhance AI applications in healthcare by ensuring that model outputs comply with HIPAA regulations while providing accurate information."
-                                                                }
-                                         },
-                                         {
-                                             "@type":  "Question",
-                                             "name":  "How do I measure the performance of a RAG system?",
-                                             "acceptedAnswer":  {
-                                                                    "@type":  "Answer",
-                                                                    "text":  "Establish metrics such as retrieval accuracy, user satisfaction, and output relevance, and implement a feedback loop for ongoing optimization."
-                                                                }
-                                         }
-                                     ]
-                  },
-    "languageCode":  "en",
-    "createdAt":  "2026-07-22T14:39:30.534Z",
-    "keywords":  [
-                     "RAG architecture",
-                     "hybrid search",
-                     "AI governance",
-                     "AI compliance",
-                     "enterprise architecture",
-                     "legal tech AI",
-                     "AI security",
-                     "AI implementation"
-                 ],
-    "seedKeyword":  "RAG architecture",
-    "excerpt":  "Explore practical strategies for implementing RAG architecture patterns in hybrid search systems, ensuring AI governance, compliance, and security.",
-    "downloadableUrl":  "/downloads/production-rag-architecture-patterns-for-hybrid-search-checklist.md",
-    "downloadableLabel":  "Download the Production RAG Architecture Patterns Checklist",
-    "author":  "Subodh KC",
-    "pillar":  "production-ai-architecture"
+  "id": 627492,
+  "title": "Production RAG Architecture Patterns for Hybrid Search",
+  "slug": "production-rag-architecture-patterns-for-hybrid-search",
+  "metaDescription": "Implement hybrid search for production RAG: BM25 lexical + vector semantic search with reciprocal rank fusion, scoring code examples, and evaluation metrics.",
+  "contentHtml": "<h2>Why Pure Vector Search Fails in Production</h2><p>Vector-only RAG retrieval misses exact matches. A user searching for a specific error code, contract clause number, or product SKU gets semantically similar but wrong results. The embedding model captures meaning, not exact string identity.</p><p>BM25-only retrieval misses semantic matches. A user asking about data isolation gets nothing if the documents say tenant separation, because BM25 matches tokens, not concepts.</p><p>Hybrid search combines both: BM25 for lexical precision, vector search for semantic understanding. Production RAG systems that skip hybrid search trade retrieval quality for architectural simplicity. The cost shows up in answer accuracy and user trust.</p><p>For the broader RAG security architecture, see <a href=\"/secure-enterprise-rag-architecture\">secure enterprise RAG architecture</a>. For tenant isolation in multi-tenant RAG, see <a href=\"/blog/implementing-rag-row-level-security-for-multi-tenant-ai\">implementing RAG row-level security for multi-tenant AI</a>.</p><h2>BM25 vs Vector Search: What Each Catches</h2><table><tr><th>Query Type</th><th>BM25</th><th>Vector Search</th><th>Hybrid</th></tr><tr><td>Exact error code (e.g., CUDA OOM)</td><td>Strong match</td><td>Weak (semantic neighbors)</td><td>Strong</td></tr><tr><td>Synonym query (data isolation vs tenant separation)</td><td>Misses</td><td>Strong match</td><td>Strong</td></tr><tr><td>Specific document ID or clause number</td><td>Strong match</td><td>Misses</td><td>Strong</td></tr><tr><td>Conceptual question (how to govern AI)</td><td>Partial</td><td>Strong match</td><td>Strong</td></tr><tr><td>Multi-word technical query with exact terms</td><td>Strong match</td><td>Partial</td><td>Strong</td></tr></table><p>BM25 (Best Match 25) is the standard ranking function used by search engines like Elasticsearch and Lucene. It scores documents based on term frequency, inverse document frequency, and document length normalization. The original BM25 paper by Robertson and Zaragoza remains the canonical reference. (<a href=\"https://doi.org/10.1561/1500000019\">BM25 Paper, Foundations and Trends in IR</a>)</p><h2>Hybrid Search Architecture</h2><pre data-diagram><code>User Query\n    |\n    +---------------------+\n    |                     |\n    v                     v\n  BM25 Search         Vector Search\n  (lexical)           (semantic)\n    |                     |\n    v                     v\n  Top-K results       Top-K results\n  with BM25 scores    with cosine scores\n    |                     |\n    +----------+----------+\n               |\n               v\n        Score Fusion\n     (RRF or weighted)\n               |\n               v\n        Re-ranked results\n               |\n               v\n        Top-N to LLM</code></pre><p>The two retrieval paths run in parallel. Each returns its top-K results with scores. The fusion step combines the two ranked lists into a single ranking. The LLM receives only the top-N fused results.</p><h2>Score Fusion: Reciprocal Rank Fusion (RRF)</h2><p>RRF is the most robust fusion method for combining BM25 and vector search rankings. It does not require score calibration because it uses rank positions, not raw scores.</p><p>The formula:</p><pre><code>RRF(d) = sum over all ranklists: 1 / (k + rank_in_list(d))</code></pre><p>Where <code>k</code> is a constant (typically 60) that dampens the influence of high ranks. A document ranked #1 in both lists gets a higher RRF score than a document ranked #1 in one list and #50 in the other.</p><p>Implementation in Python:</p><pre><code>def reciprocal_rank_fusion(bm25_results, vector_results, k=60, top_n=5):\n    rrf_scores = {}\n    \n    for rank, doc in enumerate(bm25_results, start=1):\n        doc_id = doc['id']\n        rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + 1 / (k + rank)\n    \n    for rank, doc in enumerate(vector_results, start=1):\n        doc_id = doc['id']\n        rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + 1 / (k + rank)\n    \n    fused = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)\n    return fused[:top_n]</code></pre><p>RRF is robust because it does not assume BM25 scores and cosine similarity scores are on the same scale. They are not. BM25 scores can range from 0 to 20+ depending on corpus characteristics. Cosine similarity ranges from -1 to 1. Normalizing these into a common scale is fragile. Rank-based fusion sidesteps the problem entirely.</p><h2>Weighted Score Fusion (Alternative)</h2><p>If you need more control over the lexical-semantic balance, weighted fusion allows tuning:</p><pre><code>def weighted_fusion(bm25_results, vector_results, alpha=0.5, top_n=5):\n    # Normalize BM25 scores to 0-1\n    max_bm25 = max(d['score'] for d in bm25_results) or 1\n    bm25_norm = {d['id']: d['score'] / max_bm25 for d in bm25_results}\n    \n    # Vector scores are already 0-1 (cosine similarity)\n    vec_norm = {d['id']: d['score'] for d in vector_results}\n    \n    all_docs = set(bm25_norm.keys()) | set(vec_norm.keys())\n    fused = []\n    for doc_id in all_docs:\n        score = alpha * bm25_norm.get(doc_id, 0) + (1 - alpha) * vec_norm.get(doc_id, 0)\n        fused.append((doc_id, score))\n    \n    fused.sort(key=lambda x: x[1], reverse=True)\n    return fused[:top_n]</code></pre><p><code>alpha=0.5</code> gives equal weight. <code>alpha=0.7</code> favors lexical matching (useful for technical documentation with precise terminology). <code>alpha=0.3</code> favors semantic matching (useful for conversational queries). The right value depends on your query distribution and should be tuned with evaluation data.</p><h2>PostgreSQL Implementation with pgvector</h2><p>If you are using PostgreSQL with pgvector, hybrid search can be implemented in a single query using a CTE:</p><pre><code>WITH bm25_results AS (\n  SELECT id, content,\n    ts_rank_cd(\n      to_tsvector('english', content),\n      plainto_tsquery('english', $1)\n    ) AS bm25_score,\n    ROW_NUMBER() OVER (\n      ORDER BY ts_rank_cd(\n        to_tsvector('english', content),\n        plainto_tsquery('english', $1)\n      ) DESC\n    ) AS bm25_rank\n  FROM document_chunks\n  WHERE to_tsvector('english', content) @@ plainto_tsquery('english', $1)\n  LIMIT 20\n),\nvector_results AS (\n  SELECT id, content,\n    1 - (embedding &lt;-&gt; $2) AS vector_score,\n    ROW_NUMBER() OVER (\n      ORDER BY embedding &lt;-&gt; $2\n    ) AS vector_rank\n  FROM document_chunks\n  ORDER BY embedding &lt;-&gt; $2\n  LIMIT 20\n)\nSELECT COALESCE(b.id, v.id) AS id,\n       COALESCE(b.content, v.content) AS content,\n       COALESCE(1.0 / (60 + b.bm25_rank), 0) +\n       COALESCE(1.0 / (60 + v.vector_rank), 0) AS rrf_score\nFROM bm25_results b\nFULL OUTER JOIN vector_results v ON b.id = v.id\nORDER BY rrf_score DESC\nLIMIT 5;</code></pre><p>This query runs both retrieval paths, joins results by document ID, and applies RRF scoring in a single database round trip. (<a href=\"https://github.com/pgvector/pgvector\">pgvector Documentation</a>)</p><h2>Retrieval Evaluation Framework</h2><p>Without evaluation metrics, you cannot tell whether hybrid search is actually better than single-method retrieval. Three metrics matter for RAG retrieval:</p><table><tr><th>Metric</th><th>What It Measures</th><th>How to Compute</th></tr><tr><td>Recall@K</td><td>Fraction of relevant documents in top-K results</td><td>relevant_in_top_K / total_relevant</td></tr><tr><td>Precision@K</td><td>Fraction of top-K results that are relevant</td><td>relevant_in_top_K / K</td></tr><tr><td>MRR (Mean Reciprocal Rank)</td><td>Average position of first relevant document</td><td>mean(1 / rank_of_first_relevant)</td></tr></table><p>Build a evaluation set of 50-100 queries with human-labeled relevant documents. Run each retrieval method (BM25-only, vector-only, hybrid) against the set. Compare Recall@5 and MRR. If hybrid does not beat both single methods on your evaluation set, your fusion parameters need tuning.</p><h2>When to Use Each Retrieval Strategy</h2><ul><li><strong>BM25 only:</strong> Legal documents, compliance text, technical documentation with precise terminology. Exact match matters more than semantic similarity.</li><li><strong>Vector only:</strong> Conversational Q&A, customer support, knowledge base articles. Semantic intent matters more than exact tokens.</li><li><strong>Hybrid:</strong> Most production RAG systems. The cost of running both paths is small compared to the retrieval quality gain. Start with RRF (k=60) and tune based on evaluation data.</li></ul><h2>Production Deployment Checklist</h2><ul><li>BM25 index built and tested with exact-match queries</li><li>Vector index built with pgvector or dedicated vector DB</li><li>RRF fusion implemented and tested with mixed query types</li><li>Evaluation set of 50+ queries with labeled relevant documents</li><li>Recall@5 and MRR measured for BM25-only, vector-only, and hybrid</li><li>Hybrid outperforms both single methods on evaluation set</li><li>Latency budget defined (hybrid adds one parallel retrieval path)</li><li>RLS policies applied to both retrieval paths (see <a href=\"/blog/implementing-rag-row-level-security-for-multi-tenant-ai\">RAG row-level security</a>)</li><li>Audit logging captures which retrieval path contributed each result</li><li>Fallback strategy defined if one retrieval path fails</li></ul><p>If you need an independent systems advisor to evaluate your RAG retrieval architecture before production deployment, <a href=\"/advisory\">schedule a strategic evaluation</a>.</p><h2>FAQ</h2><p><strong>What is hybrid search in RAG?</strong> Hybrid search combines BM25 lexical retrieval with vector semantic retrieval. BM25 catches exact matches (error codes, IDs, specific terms). Vector search catches semantic matches (synonyms, conceptual queries). The two ranked lists are fused using reciprocal rank fusion or weighted scoring.</p><p><strong>What is reciprocal rank fusion (RRF)?</strong> RRF combines multiple ranked lists by scoring each document based on its rank position in each list. The formula is 1 / (k + rank), where k is typically 60. RRF is robust because it does not require raw scores to be on the same scale, which is important because BM25 scores and cosine similarity scores are not comparable.</p><p><strong>Should I use BM25 or vector search for RAG?</strong> Use both. BM25-only misses semantic matches. Vector-only misses exact matches. Hybrid search with RRF fusion outperforms either method alone on most query distributions. The cost of running both paths in parallel is small compared to the retrieval quality gain.</p><p><strong>How do I implement hybrid search in PostgreSQL?</strong> Use a CTE that runs BM25 (ts_rank_cd with to_tsvector) and vector search (pgvector cosine distance) in parallel, then joins results and applies RRF scoring. The full SQL query is included in this article.</p><p><strong>How do I evaluate RAG retrieval quality?</strong> Build an evaluation set of 50-100 queries with human-labeled relevant documents. Measure Recall@K (fraction of relevant docs in top-K), Precision@K (fraction of top-K that are relevant), and MRR (mean reciprocal rank of first relevant doc). Compare BM25-only, vector-only, and hybrid. If hybrid does not win, tune fusion parameters.</p><p><strong>What is the best RRF k value?</strong> The standard value is k=60, based on the original RRF research. Higher k values dampen the influence of top ranks more. Lower k values give more weight to top-ranked documents. Start with 60 and tune based on your evaluation set.</p>",
+  "contentMarkdown": "",
+  "heroImageUrl": "https://subodhkc.com/blog-images/production-rag-architecture-patterns-for-hybrid-search.png",
+  "jsonLd": null,
+  "faqJsonLd": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is hybrid search in RAG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hybrid search combines BM25 lexical retrieval with vector semantic retrieval. BM25 catches exact matches (error codes, IDs, specific terms). Vector search catches semantic matches (synonyms, conceptual queries). The two ranked lists are fused using reciprocal rank fusion or weighted scoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is reciprocal rank fusion (RRF)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RRF combines multiple ranked lists by scoring each document based on its rank position in each list. The formula is 1 / (k + rank), where k is typically 60. RRF is robust because it does not require raw scores to be on the same scale, which is important because BM25 scores and cosine similarity scores are not comparable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I use BM25 or vector search for RAG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use both. BM25-only misses semantic matches. Vector-only misses exact matches. Hybrid search with RRF fusion outperforms either method alone on most query distributions. The cost of running both paths in parallel is small compared to the retrieval quality gain."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I implement hybrid search in PostgreSQL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a CTE that runs BM25 (ts_rank_cd with to_tsvector) and vector search (pgvector cosine distance) in parallel, then joins results and applies RRF scoring. The full SQL query is included in this article."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I evaluate RAG retrieval quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Build an evaluation set of 50-100 queries with human-labeled relevant documents. Measure Recall@K (fraction of relevant docs in top-K), Precision@K (fraction of top-K that are relevant), and MRR (mean reciprocal rank of first relevant doc). Compare BM25-only, vector-only, and hybrid. If hybrid does not win, tune fusion parameters."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best RRF k value?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The standard value is k=60, based on the original RRF research. Higher k values dampen the influence of top ranks more. Lower k values give more weight to top-ranked documents. Start with 60 and tune based on your evaluation set."
+        }
+      }
+    ]
+  },
+  "languageCode": "en",
+  "createdAt": "2026-07-05T00:00:00.000Z",
+  "updatedAt": "2026-08-08T00:00:00.000Z",
+  "keywords": [
+    "hybrid search RAG",
+    "BM25 vector search",
+    "reciprocal rank fusion",
+    "RAG retrieval architecture",
+    "pgvector hybrid search",
+    "production RAG patterns",
+    "RAG evaluation metrics",
+    "semantic lexical search"
+  ],
+  "seedKeyword": "hybrid search RAG architecture",
+  "excerpt": "Implement hybrid search for production RAG: BM25 lexical plus vector semantic search with reciprocal rank fusion, scoring code examples, and retrieval evaluation metrics.",
+  "downloadableUrl": "",
+  "downloadableLabel": "",
+  "author": "Subodh KC",
+  "pillar": "production-ai-architecture"
 }
