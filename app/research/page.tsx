@@ -46,10 +46,10 @@ const articleSchemas = [
     '@type': 'ScholarlyArticle',
     headline: 'Deterministic Bias Detection for NYC Local Law 144: Why Reproducibility Matters More Than Accuracy',
     author: { '@type': 'Person', name: 'Subodh KC' },
-    datePublished: '2024-01-01',
-    url: 'https://zenodo.org/records/18056133',
-    publisher: { '@type': 'Organization', name: 'Zenodo' },
-    keywords: ['NYC Local Law 144', 'Bias Detection', 'Regulatory Compliance', 'Deterministic Systems'],
+    datePublished: '2026-01-20',
+    url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5968116',
+    publisher: { '@type': 'Organization', name: 'SSRN' },
+    keywords: ['Algorithmic Accountability', 'Bias Detection', 'Deterministic AI', 'NYC Local Law 144', 'Employment Discrimination', 'Reproducibility', 'Compliance Architecture'],
   },
   {
     '@context': 'https://schema.org',
@@ -184,13 +184,13 @@ export default function ResearchPage() {
     },
     {
       title: 'Deterministic Bias Detection for NYC Local Law 144: Why Reproducibility Matters More Than Accuracy',
-      venue: 'Zenodo',
+      venue: 'SSRN',
       type: 'Technical Report',
-      year: '2024',
+      year: '2026',
       summary:
         'Presents a reproducibility-first architecture for detecting linguistic bias in job descriptions under NYC Local Law 144. Argues that regulatory compliance requires deterministic systems over probabilistic ML models. Details rule-based pattern matching, version-controlled lexicons, reproducible scoring, and cryptographic evidence generation for legally defensible documentation.',
-      link: 'https://zenodo.org/records/18056133',
-      keywords: ['NYC Local Law 144', 'Bias Detection', 'Regulatory Compliance', 'Deterministic Systems'],
+      link: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5968116',
+      keywords: ['Algorithmic Accountability', 'Bias Detection', 'Deterministic AI', 'NYC Local Law 144', 'Employment Discrimination', 'Reproducibility', 'Compliance Architecture'],
     },
     {
       title: 'From Industrial Electrification to Artificial Intelligence: Institutional Lessons from Construction Governance for AI Risk Regulation',

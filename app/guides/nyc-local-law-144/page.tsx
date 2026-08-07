@@ -401,8 +401,8 @@ export default function NYCLL144Page() {
           </div>
           <div className="flex items-center gap-3 text-sm">
             <FileText className="h-4 w-4 text-primary" />
-            <Link href="https://zenodo.org/records/18056133" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              Read the deterministic bias detection paper on Zenodo →
+            <Link href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5968116" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              Read the deterministic bias detection paper on SSRN →
             </Link>
           </div>
         </div>

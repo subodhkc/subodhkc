@@ -477,7 +477,7 @@ const BOOK_HTML = `
       <div><h3>Editorial rule</h3><p class="small" style="margin-top:8px">Use exact status labels: technical report, working paper, published framework, patent application filed, or patent pending. Do not imply peer review where it did not occur.</p></div>
     </div>
   </div>
-  <div class="source">DOI-registered technical scholarship, publicly archived through CERN's open research infrastructure: ISAF - 10.5281/zenodo.18080355; Deterministic Bias Detection - 10.5281/zenodo.18056133; Industrial Electrification to AI Governance - 10.5281/zenodo.18664344. Repository publication provides a durable scholarly record; peer review is not implied.</div><div class="pg">19</div>
+  <div class="source">DOI-registered technical scholarship, publicly archived through CERN's open research infrastructure: ISAF - 10.5281/zenodo.18080355; Deterministic Bias Detection - published on SSRN (abstract_id=5968116); Industrial Electrification to AI Governance - 10.5281/zenodo.18664344. Repository publication provides a durable scholarly record; peer review is not implied.</div><div class="pg">19</div>
 </div></section>
 
 <!-- 20 -->

@@ -29,18 +29,22 @@ export const PAPERS: Paper[] = [
   },
   {
     title: "Deterministic Bias Detection for NYC Local Law 144",
-    subtitle: "Why Reproducibility Matters More Than Accuracy",
-    venue: "Zenodo",
-    year: "2024",
+    subtitle: "Why Reproducibility Matters More Than Accuracy: A Technical Framework for Compliance-Grade AI Auditing",
+    venue: "SSRN",
+    year: "2026",
     topics: [
       "NYC Local Law 144",
       "Bias Detection",
       "Regulatory Compliance",
       "Deterministic Systems",
+      "Algorithmic Accountability",
+      "Employment Discrimination",
+      "Reproducibility",
+      "Compliance Architecture",
     ],
     summary:
-      "Reproducibility-first architecture for detecting linguistic bias in job descriptions. Rule-based pattern matching, version-controlled lexicons, cryptographic evidence generation for legally defensible documentation.",
-    href: "https://zenodo.org/records/18056133",
+      "Presents a deterministic architecture for bias detection that prioritizes reproducibility over algorithmic sophistication. Demonstrates why probabilistic AI models cannot satisfy evidentiary requirements of regulatory compliance. Uses rule-based pattern matching, version-controlled lexicons, and cryptographic evidence generation. 35 pages.",
+    href: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5968116",
   },
   {
     title: "From Industrial Electrification to Artificial Intelligence",

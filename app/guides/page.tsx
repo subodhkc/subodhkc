@@ -168,8 +168,8 @@ const authorityCards = [
     icon: CheckCircle2,
     title: 'Deterministic Bias Detection',
     description:
-      'Zenodo-published research on deterministic bias detection for NYC LL144 addresses the reproducibility requirements that auditors need for defensible audit evidence.',
-    link: 'https://zenodo.org/records/18056133',
+      'SSRN-published research on deterministic bias detection for NYC LL144 addresses the reproducibility requirements that auditors need for defensible audit evidence.',
+    link: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5968116',
     linkText: 'View paper',
     external: true,
   },
