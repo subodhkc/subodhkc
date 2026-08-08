@@ -185,11 +185,11 @@ The CI pipeline must:
 
 ### Article Types and Structure Selection
 
-- **Authority articles** (general): Follow the 9-part structure below. Word count: 1500-2500 words.
+- **Authority articles** (general): Follow the 9-part structure below. Information density over length.
 - **Technical troubleshooting articles**: Follow the 10-part incident report structure in Section 17 instead. Troubleshooting articles override the general authority structure because engineer search intent differs from strategic reader intent.
 - **Newsletter posts and social posts**: Follow Section 4 (Universal Writing Rules) only. No structural template required.
 
-### Authority Articles (1500-2500 words)
+### Authority Articles
 1. Direct answer or operating conclusion (not a teaser)
 2. The actual problem
 3. Why common approaches fail
@@ -260,7 +260,7 @@ The editorial manifesto works alongside the SEO content strategy defined in `.de
 
 **Article structure:** Authority Hook (first 200 words) then Citable Blueprint (body) then Advisory CTA (footer)
 
-**Word count:** 1500-2500 words for authority articles. Information density over length.
+**Word count:** Information density over length. No hard word count limits.
 
 See the SEO theme skill for the full cluster framework, keyword strategy, and AI search optimization guidelines.
 
