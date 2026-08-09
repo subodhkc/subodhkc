@@ -162,7 +162,7 @@ export default function StructuredData() {
     '@type': 'Organization',
     name: 'HAIEC',
     description:
-      'Human AI Ethics Council - Enterprise-grade AI compliance and governance platform',
+      'Holistic AI Ethics & Compliance - Enterprise-grade AI compliance and governance platform',
     url: 'https://subodhkc.com/haiec',
     founder: {
       '@type': 'Person',

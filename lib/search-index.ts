@@ -44,7 +44,7 @@ const staticPages: StaticPage[] = [
   { title: 'SKC Log Analyser', description: 'AI log analysis and anomaly detection', href: '/products/skc-log-analyser', category: 'Product', keywords: 'log analyser ai log analysis anomaly detection early access' },
   { title: 'CourtCase', description: 'Legal document organization and evidence builder', href: '/products/courtcase', category: 'Product', keywords: 'courtcase legal document evidence builder coming soon' },
 
-  { title: 'HAIEC', description: 'AI compliance and governance platform', href: '/solutions/haiec', category: 'Solution', keywords: 'haiec ai compliance governance platform enterprise eu ai act nist iso 42001 nyc ll 144' },
+  { title: 'HAIEC', description: 'AI compliance and governance platform', href: '/solutions/haiec', category: 'Solution', keywords: 'haiec ai compliance governance platform enterprise eu ai act nist iso 42001 nyc ll 144 holistic ai ethics compliance high-eck hi-yek hi ai high tech pronunciation' },
   { title: 'KestrelVoice', description: 'AI voice operations platform for front desk automation', href: '/solutions/kestrelvoice', category: 'Solution', keywords: 'kestrelvoice ai voice operations front desk receptionist phone calls appointments' },
   { title: 'FrontOfAI', description: 'Enterprise AI solutions platform', href: '/solutions/frontofai', category: 'Solution', keywords: 'frontofai enterprise ai solutions platform' },
   { title: 'CourtCase Solution', description: 'AI-assisted court evidence builder', href: '/solutions/courtcase', category: 'Solution', keywords: 'courtcase ai court evidence legal beta' },

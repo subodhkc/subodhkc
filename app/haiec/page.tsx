@@ -17,7 +17,7 @@ import {
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'HAIEC – AI Governance & Compliance Platform | Human AI Ethics Council',
+  title: 'HAIEC – AI Governance & Compliance Platform | Holistic AI Ethics & Compliance',
   description:
     'HAIEC is a comprehensive AI governance, compliance, and ethical deployment platform. Features precision drift detection, Red Audit Kit, and Cognitive Systems Management. Built for EU AI Act, NIST AI RMF, and ISO 42001 compliance.',
   keywords: [

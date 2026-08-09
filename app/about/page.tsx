@@ -103,7 +103,7 @@ export default function AboutPage() {
     {
       date: '2020 - Present',
       title: 'Founder & CEO',
-      subtitle: 'Human AI Ethics Council (HAIEC)',
+      subtitle: 'Holistic AI Ethics & Compliance (HAIEC)',
       description:
         'Built comprehensive platform for AI governance, compliance, and ethical deployment. Created Cognitive Systems Management (CSM) Framework, SKC Meeting ResetFrame™, Red Audit Kit, and LegacyShift methodology.',
     },

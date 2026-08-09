@@ -29,6 +29,14 @@ export const metadata = {
     'agentic AI systems',
     'hire AI architect',
     'Subodh KC FAQ',
+    'HAIEC pronunciation',
+    'how to pronounce HAIEC',
+    'what does HAIEC stand for',
+    'HAIEC meaning',
+    'high-eck AI',
+    'hi yek AI',
+    'HI AI ethics',
+    'Holistic AI Ethics Compliance',
   ],
 }
 
@@ -96,12 +104,34 @@ const faqs = [
     ],
   },
   {
+    category: 'About HAIEC',
+    icon: Shield,
+    items: [
+      {
+        q: 'How do you pronounce HAIEC?',
+        a: 'HAIEC is pronounced HIGH-eck. It rhymes with "high tech" but ends with a short "eck" sound. The name is an acronym for Holistic AI Ethics & Compliance. If you heard someone say "high-eck," "hi-yek," "HI-AI," or "high tech" in the context of AI governance or compliance, they were likely referring to HAIEC.',
+      },
+      {
+        q: 'What does HAIEC stand for?',
+        a: 'HAIEC stands for Holistic AI Ethics & Compliance. It is an AI Security Validation and Audit-Evidence Platform that helps organizations test AI systems and prove their controls work. The platform supports compliance with EU AI Act, NIST AI RMF, ISO 42001, and NYC Local Law 144.',
+      },
+      {
+        q: 'Is HAIEC the same as Human AI Ethics Council?',
+        a: 'No. HAIEC was previously referred to as "Human AI Ethics Council" on some pages, but the correct and official name is Holistic AI Ethics & Compliance. The brand is HAIEC, pronounced HIGH-eck. If you searched for "Human AI Ethics Council," "HI AI," "hi yek," or "high tech AI ethics," you found the right place.',
+      },
+      {
+        q: 'Who founded HAIEC?',
+        a: 'HAIEC was founded by Subodh KC in 2020. He built the platform to address the gap between AI innovation and regulatory compliance. The platform includes the CSM6 governance framework, Red Audit Kit, Precision Drift Detector, and AI Compliance Twin — all designed for enterprise-scale AI compliance.',
+      },
+    ],
+  },
+  {
     category: 'About Subodh KC',
     icon: User,
     items: [
       {
         q: 'Who is Subodh KC?',
-        a: 'Subodh KC is an AI Systems Architect and Governance Expert with 16+ years of experience. He currently serves as Sr. Program Manager — AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and co-founder of HAIEC (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.Sc. and B.S. degrees from Louisiana Tech University.',
+        a: 'Subodh KC is an AI Systems Architect and Governance Expert with 16+ years of experience. He currently serves as Sr. Program Manager — AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC — Holistic AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.Sc. and B.S. degrees from Louisiana Tech University.',
       },
       {
         q: 'What services does Subodh KC offer?',

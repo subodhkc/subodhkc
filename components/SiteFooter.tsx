@@ -30,6 +30,7 @@ const SITEMAP = [
       ["/", "home"],
       ["/about", "about"],
       ["/services", "services"],
+      ["/blog", "blog"],
       ["/contact", "contact"],
     ],
   },
@@ -52,20 +53,6 @@ const SITEMAP = [
       ["/products/doc-timeline", "doc timeline"],
       ["/products/skc-log-analyser", "log analyser"],
       ["/products/courtcase", "courtcase"],
-    ],
-  },
-  {
-    head: "Articles",
-    items: [
-      ["/blog", "blog"],
-      ["/secure-enterprise-rag-architecture", "secure RAG architecture"],
-      ["/build-internal-ai-applications-streamlit-rag-mcp", "internal AI apps with Streamlit"],
-      ["/does-texas-ai-law-apply-to-my-business", "does the Texas AI law apply?"],
-      ["/how-to-secure-and-govern-ai", "how to secure and govern AI"],
-      ["/why-ai-voice-agents-fail-in-production", "why AI voice agents fail"],
-      ["/ai-voice-agent-architecture", "AI voice agent architecture"],
-      ["/kestrel-voice-ai-receptionist-platform", "Kestrel Voice AI receptionist"],
-      ["/architecture-decision-master-sheet", "architecture decision master sheet"],
     ],
   },
   {
@@ -494,7 +481,7 @@ export function SiteFooter() {
           className="footer-sitemap-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(8, 1fr)",
+            gridTemplateColumns: "repeat(7, 1fr)",
             gap: 28,
             fontFamily: "var(--font-mono)",
             fontSize: 12,

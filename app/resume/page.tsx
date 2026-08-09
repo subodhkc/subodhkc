@@ -129,7 +129,7 @@ export default function ResumePage() {
                   </div>
                   <span className="text-xs text-zinc-500 shrink-0">2020 – Present</span>
                 </div>
-                <p className="text-xs text-zinc-600 mb-1">Human AI Ethics Council (HAIEC)</p>
+                <p className="text-xs text-zinc-600 mb-1">Holistic AI Ethics & Compliance (HAIEC)</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Launched <strong>LLMVerify</strong>—npm package for real-time AI behavior verification, drift detection, PII exposure</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Created <strong>AI Compliance Twin™</strong> (patent 63/808,089)—modular engine mapping AI behaviors to regulatory rules</li>
