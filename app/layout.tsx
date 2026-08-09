@@ -8,6 +8,7 @@ import StructuredData from '@/components/StructuredData'
 import { AnalyticsBeacon } from '@/components/AnalyticsBeacon'
 import { ScrollProgress } from '@/components/ScrollProgress'
 import { headers } from 'next/headers'
+import { buildSearchIndex } from '@/lib/search-index'
 
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' })
@@ -120,6 +121,7 @@ export default async function RootLayout({
   const headersList = await headers()
   const pathname = headersList.get('x-pathname') || headersList.get('x-invoke-path') || ''
   const isResumePage = pathname.startsWith('/resume')
+  const searchEntries = isResumePage ? [] : buildSearchIndex()
 
   if (isResumePage) {
     return (
@@ -164,7 +166,7 @@ export default async function RootLayout({
       </head>
       <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
         <ScrollProgress />
-        <SiteNavigation />
+        <SiteNavigation searchEntries={searchEntries} />
         <main className="min-h-screen">{children}</main>
         <SiteFooter />
         <StickyCTA />

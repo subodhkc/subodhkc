@@ -4,6 +4,8 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { SearchDialog } from "./SearchDialog";
+import type { SearchEntry } from "@/lib/search-index";
 
 const products = [
   { name: "llmverify", href: "/products/llmverify", desc: "LLM output verification" },
@@ -43,9 +45,14 @@ const navLinks = [
   { label: "contact", href: "/contact" },
 ];
 
-export function SiteNavigation() {
+interface SiteNavigationProps {
+  searchEntries?: SearchEntry[];
+}
+
+export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
   const [open, setOpen] = React.useState<null | "products" | "solutions" | "interactiveTools" | "resources">(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [searchOpen, setSearchOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -53,13 +60,21 @@ export function SiteNavigation() {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) setOpen(null);
     };
     const onEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setOpen(null); setMobileOpen(false); }
+      if (e.key === "Escape") { setOpen(null); setMobileOpen(false); setSearchOpen(false); }
+    };
+    const onCmdK = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
     };
     document.addEventListener("mousedown", onClickDoc);
     document.addEventListener("keydown", onEsc);
+    document.addEventListener("keydown", onCmdK);
     return () => {
       document.removeEventListener("mousedown", onClickDoc);
       document.removeEventListener("keydown", onEsc);
+      document.removeEventListener("keydown", onCmdK);
     };
   }, []);
 
@@ -298,7 +313,43 @@ export function SiteNavigation() {
             <Link href="/contact" style={{ color: "var(--op-muted)", textDecoration: "none" }}>contact</Link>
           </nav>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <button
+              onClick={() => setSearchOpen(true)}
+              aria-label="Search"
+              className="nav-search-btn"
+              style={{
+                appearance: "none",
+                border: "1px solid var(--op-border)",
+                background: "var(--op-card)",
+                color: "var(--op-muted)",
+                borderRadius: 6,
+                padding: "6px 10px",
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontFamily: "var(--font-mono)",
+                fontSize: 11.5,
+                transition: "border-color 0.12s, color 0.12s",
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <circle cx="6" cy="6" r="4.5" />
+                <path d="M9.5 9.5 L13 13" />
+              </svg>
+              <span className="nav-search-label" style={{ fontSize: 11.5 }}>search</span>
+              <kbd className="nav-search-kbd" style={{
+                fontSize: 10,
+                padding: "1px 5px",
+                border: "1px solid var(--op-border)",
+                borderRadius: 3,
+                background: "var(--code)",
+                color: "var(--op-muted)",
+                fontFamily: "inherit",
+              }}>K</kbd>
+            </button>
+
             <Link
               href="https://calendly.com/subodhkc/30min"
               target="_blank"
@@ -405,6 +456,33 @@ export function SiteNavigation() {
                 </svg>
               </button>
             </div>
+
+            {/* Search button for mobile */}
+            <button
+              onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
+              style={{
+                appearance: "none",
+                width: "100%",
+                border: "1px solid var(--op-border)",
+                background: "var(--code)",
+                color: "var(--op-muted)",
+                borderRadius: 8,
+                padding: "10px 14px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                fontFamily: "var(--font-mono)",
+                fontSize: 13,
+                marginBottom: 20,
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <circle cx="6" cy="6" r="4.5" />
+                <path d="M9.5 9.5 L13 13" />
+              </svg>
+              Search articles, tools, guides...
+            </button>
 
             {/* Main links */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 20 }}>
@@ -559,12 +637,16 @@ export function SiteNavigation() {
         </div>
       )}
 
+      <SearchDialog isOpen={searchOpen} onClose={() => setSearchOpen(false)} entries={searchEntries} />
+
       {/* Responsive styles */}
       <style>{`
         @media (max-width: 860px) {
           .nav-desktop { display: none !important; }
           .nav-hamburger { display: flex !important; }
           .nav-registry-label { display: none; }
+          .nav-search-label { display: none !important; }
+          .nav-search-kbd { display: none !important; }
         }
         @media (min-width: 861px) {
           .nav-hamburger { display: none !important; }
