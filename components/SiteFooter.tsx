@@ -32,6 +32,11 @@ const SITEMAP = [
       ["/services", "services"],
       ["/blog", "blog"],
       ["/contact", "contact"],
+      ["/executive-bio", "executive bio"],
+      ["/person/subodh-kc", "person profile"],
+      ["/resume", "resume"],
+      ["/portfolio", "portfolio"],
+      ["/magazine", "AI magazine"],
     ],
   },
   {
@@ -42,6 +47,7 @@ const SITEMAP = [
       ["/solutions/frontofai", "frontofai"],
       ["/solutions/courtcase", "courtcase"],
       ["/solutions/ai-briefing", "ai briefing"],
+      ["/haiec", "haiec platform"],
     ],
   },
   {
@@ -68,30 +74,14 @@ const SITEMAP = [
     ],
   },
   {
-    head: "Training",
-    items: [
-      ["/course", "AI Governance Course"],
-      ["/webinar/ai-laws-small-business", "AI Laws Webinar"],
-    ],
-  },
-  {
     head: "Compliance",
     items: [
       ["/guides", "AI compliance guides"],
       ["/guides/texas-ai-law", "Texas AI law"],
       ["/guides/eu-ai-act", "EU AI Act"],
       ["/guides/nyc-local-law-144", "NYC LL144"],
-    ],
-  },
-  {
-    head: "About me",
-    items: [
-      ["/executive-bio", "executive bio"],
-      ["/person/subodh-kc", "person profile"],
-      ["/resume", "resume"],
-      ["/portfolio", "executive portfolio"],
-      ["/magazine", "AI magazine"],
-      ["/haiec", "haiec platform"],
+      ["/course", "AI Governance Course"],
+      ["/webinar/ai-laws-small-business", "AI Laws Webinar"],
     ],
   },
 ] as const;
@@ -481,7 +471,7 @@ export function SiteFooter() {
           className="footer-sitemap-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(7, 1fr)",
+            gridTemplateColumns: "repeat(5, 1fr)",
             gap: 28,
             fontFamily: "var(--font-mono)",
             fontSize: 12,
@@ -590,7 +580,7 @@ export function SiteFooter() {
             padding: 32px 20px 20px !important;
           }
           .footer-sitemap-grid {
-            grid-template-columns: repeat(4, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr) !important;
             gap: 20px !important;
           }
         }
