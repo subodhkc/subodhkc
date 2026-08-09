@@ -40,7 +40,7 @@ export default function ResumePage() {
           
           {/* Summary */}
           <p className="mt-3 text-xs text-zinc-700 leading-relaxed">
-            <span className="font-semibold text-zinc-900">16+ years</span> building AI and compliance systems at <span className="font-semibold text-zinc-900">Fortune 50</span> scale, with <span className="font-semibold text-zinc-900">3 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
+            <span className="font-semibold text-zinc-900">16+ years</span> building AI and compliance systems at <span className="font-semibold text-zinc-900">Fortune 50</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
             Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">$50M+</span> AI portfolios, reducing manual review by <span className="font-semibold text-zinc-900">40–60%</span>. 
             Shipped AI-native products for drift detection, autonomous RCA, and compliance mapping. 
             <span className="font-semibold text-zinc-900">5 patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.
@@ -110,7 +110,7 @@ export default function ResumePage() {
                   <div>
                     <span className="font-semibold text-sm text-zinc-900">Core Team Lead — Platform Enabling Applications</span>
                   </div>
-                  <span className="text-xs text-zinc-500 shrink-0">2023 – 2025</span>
+                  <span className="text-xs text-zinc-500 shrink-0">2022 – 2025</span>
                 </div>
                 <p className="text-xs text-zinc-600 mb-1">HP Inc. · 53 Applications Portfolio</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">

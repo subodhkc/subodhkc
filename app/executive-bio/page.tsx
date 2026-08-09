@@ -224,7 +224,7 @@ export default function ExecutiveBioPage() {
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardTitle className="text-xl">HP INC. (FORTUNE 50) — Senior Program Manager, AI Implementation & Governance</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground mb-4">2023–Present</CardDescription>
+              <CardDescription className="text-sm text-muted-foreground mb-4">2022–Present</CardDescription>
               <CardDescription className="text-base space-y-3">
                 <p className="text-foreground">
                   At HP, I'm responsible for something simple in description, brutal in execution:<br />

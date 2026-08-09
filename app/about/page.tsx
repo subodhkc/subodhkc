@@ -94,7 +94,7 @@ export default function AboutPage() {
         'Led Core Team of TPMs managing 53 applications across Education, Manageability, and Conferencing platforms. Drove end-to-end program management for enterprise software solutions.',
     },
     {
-      date: '2023 - Present',
+      date: '2022 - Present',
       title: 'Technical Program Manager',
       subtitle: 'HP Inc.',
       description:
