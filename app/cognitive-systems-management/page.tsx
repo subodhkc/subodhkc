@@ -244,7 +244,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="The Four Domains"
         title="Where Governance Responsibilities Operate"
-        sectionNum="\u00A701"
+        sectionNum="§01"
       >
         <Grid cols={2} className="gap-4">
           {csmDomains.map((domain) => {
@@ -288,7 +288,7 @@ export default function CSMPage() {
             id={domain.id}
             subtitle={`Domain ${index + 1} of 4`}
             title={domain.displayName}
-            sectionNum={`\u00A7${index + 2}`}
+            sectionNum={`§${index + 2}`}
           >
             <div className="max-w-4xl mx-auto space-y-6">
               {/* Tagline and Question */}
@@ -431,7 +431,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="System View"
         title="How CSM Works as a System"
-        sectionNum="\u00A706"
+        sectionNum="§06"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-base text-foreground/90">
@@ -471,7 +471,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Handoff Model"
         title="Governance Handoffs"
-        sectionNum="\u00A707"
+        sectionNum="§07"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90">
@@ -497,7 +497,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Getting Started"
         title="Implementation Guidance"
-        sectionNum="\u00A708"
+        sectionNum="§08"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-xs text-muted-foreground italic">
@@ -533,7 +533,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Right-Sizing"
         title={csmProportionality.title}
-        sectionNum="\u00A709"
+        sectionNum="§09"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
@@ -558,7 +558,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Boundaries"
         title="What CSM Is Not"
-        sectionNum="\u00A710"
+        sectionNum="§10"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <div className="grid gap-2 sm:grid-cols-3">
@@ -584,7 +584,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Current Architecture"
         title="CSM and the AI Governance Execution Framework"
-        sectionNum="\u00A711"
+        sectionNum="§11"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -637,7 +637,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Layered Architecture"
         title="CSM, Execution Framework, and HAIEC"
-        sectionNum="\u00A712"
+        sectionNum="§12"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           {csmToHaiec.layers.map((layer, i, arr) => (
@@ -664,7 +664,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Honest Assessment"
         title="Limitations"
-        sectionNum="\u00A713"
+        sectionNum="§13"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <div className="border-l-4 border-amber-500/40 pl-4 py-2 bg-amber-500/5 rounded-r-lg">
@@ -683,7 +683,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Resources"
         title="CSM 2.0 Framework Resources"
-        sectionNum="\u00A714"
+        sectionNum="§14"
       >
         <div className="max-w-3xl mx-auto">
           <Grid cols={2} className="gap-4">
@@ -810,7 +810,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Provenance"
         title="Source and References"
-        sectionNum="\u00A715"
+        sectionNum="§15"
       >
         <div className="max-w-3xl mx-auto space-y-3">
           <Card>
