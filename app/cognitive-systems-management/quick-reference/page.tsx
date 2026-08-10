@@ -1,7 +1,38 @@
 import Link from 'next/link'
 import { Printer, ArrowRight, ExternalLink } from 'lucide-react'
+import CTA from '@/components/CTA'
 import { csmDomains, csmHandoffs, csmProvenance, csmGuideVersion } from '@/data/csm'
 import { executionFunctions } from '@/data/csm/v2/spec'
+
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'CSM 2.0 Quick Reference',
+  author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  datePublished: '2025-08-29',
+  dateModified: '2026-08-10',
+  publisher: { '@type': 'Organization', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  mainEntityOfPage: 'https://subodhkc.com/cognitive-systems-management/quick-reference',
+  description:
+    'Printable quick reference for CSM 2.0: four domains (WHERE), six execution functions (WHAT), governance contract model (HOW), and the objective/human-review boundary.',
+  about: {
+    '@type': 'DefinedTerm',
+    name: 'Cognitive Systems Management 2.0',
+    description: 'A deterministic-by-design governance operating model for AI systems.',
+  },
+  version: '2.0.0',
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Research', item: 'https://subodhkc.com/research' },
+    { '@type': 'ListItem', position: 3, name: 'Cognitive Systems Management', item: 'https://subodhkc.com/cognitive-systems-management' },
+    { '@type': 'ListItem', position: 4, name: 'Quick Reference', item: 'https://subodhkc.com/cognitive-systems-management/quick-reference' },
+  ],
+}
 
 export const metadata = {
   title: 'CSM 2.0 Quick Reference | Subodh KC',
@@ -17,6 +48,10 @@ export const metadata = {
       'Printable quick reference for CSM 2.0: four domains, six execution functions, governance contract model.',
     url: 'https://subodhkc.com/cognitive-systems-management/quick-reference',
     type: 'article',
+    authors: ['Subodh KC'],
+    publishedTime: '2025-08-29',
+    modifiedTime: '2026-08-10',
+    tags: ['CSM 2.0', 'quick reference', 'AI governance', 'deterministic governance', 'governance contract model'],
   },
   twitter: {
     card: 'summary_large_image',
@@ -24,10 +59,31 @@ export const metadata = {
     description:
       'Printable quick reference: four domains, six execution functions, governance contract model.',
   },
+  keywords: [
+    'CSM 2.0',
+    'CSM quick reference',
+    'AI governance reference',
+    'deterministic governance',
+    'governance contract model',
+    'execution functions',
+    'governance domains',
+    'human review boundary',
+  ],
 }
 
 export default function CSMQuickReference() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <article className="print-friendly">
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-8">
         <header className="space-y-3 border-b border-border pb-4">
@@ -168,5 +224,16 @@ export default function CSMQuickReference() {
         </section>
       </div>
     </article>
+
+      <CTA
+        title="Explore CSM 2.0 Further"
+        description="Browse all 16 governance contracts, try the reference assessment, or read the full specification."
+        primaryButton={{
+          text: 'Governance Contracts',
+          href: '/cognitive-systems-management/contracts',
+        }}
+        secondaryButton={{ text: 'Back to CSM', href: '/cognitive-systems-management' }}
+      />
+    </>
   )
 }

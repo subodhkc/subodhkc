@@ -191,10 +191,16 @@ export default function AboutPage() {
       >
         <div className="prose max-w-none">
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            I entered technology on the ground floor: fixing computers in underfunded schools, documenting broken systems, 
+            I entered technology on the ground floor: fixing computers in underfunded schools, documenting broken systems,
             learning—up close—how much damage a bad workflow or a single misconfigured system can cause. Growing up in
-            Kathmandu, Nepal before moving to the United States, I wasn't groomed 
+            Kathmandu, Nepal before moving to the United States, I wasn't groomed
             for leadership. I earned it one failure mode at a time.
+          </p>
+          <p className="text-base text-muted-foreground/80 leading-relaxed mb-6 italic">
+            My name, Subodh, comes from Sanskrit: <strong className="font-semibold not-italic">su</strong> (good or easy)
+            and <strong className="font-semibold not-italic">bodh</strong> (knowledge or understanding). It translates
+            roughly to "one who understands easily" or "one who brings clear understanding." I have always treated it
+            as a professional obligation, not just a label.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             From those early field operations, I developed a trait that has shaped my entire career: <strong>I don't accept 

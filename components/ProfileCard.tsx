@@ -21,10 +21,13 @@ export default function ProfileCard() {
     <>
       <button
         onClick={handleOpen}
-        className="inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors group"
+        className="inline-flex flex-col items-start gap-0 text-foreground hover:text-primary transition-colors group"
       >
-        <span className="text-lg md:text-xl font-bold gradient-text">
+        <span className="text-lg md:text-xl font-bold gradient-text leading-tight">
           Subodh Kumar Kc
+        </span>
+        <span className="text-[10px] md:text-[11px] text-muted-foreground/70 font-normal tracking-wide leading-tight mt-0.5">
+          Sanskrit: su (good) + bodh (understanding)
         </span>
       </button>
 
@@ -73,9 +76,12 @@ export default function ProfileCard() {
                     </div>
                   </div>
 
-                  <h2 className="text-2xl font-bold mb-2">Subodh Kumar Kc</h2>
-                  <p className="text-primary font-medium mb-6">
+                  <h2 className="text-2xl font-bold mb-1">Subodh Kumar Kc</h2>
+                  <p className="text-primary font-medium mb-2">
                     Former Fortune 50 AI Strategy CTL
+                  </p>
+                  <p className="text-xs text-muted-foreground/80 italic mb-4">
+                    Sanskrit: <span className="font-medium">su</span> (good, easy) + <span className="font-medium">bodh</span> (knowledge, understanding)
                   </p>
 
                   <div className="w-full space-y-4 text-left">

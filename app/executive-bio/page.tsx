@@ -64,8 +64,12 @@ export default function ExecutiveBioPage() {
             Director of AI Programs | AI Systems Architect & Governance Expert
           </p>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8">
+          <p className="text-lg md:text-xl text-muted-foreground mb-3">
             Builder of Systems That Don't Break
+          </p>
+
+          <p className="text-sm text-muted-foreground/70 italic mb-8">
+            Subodh — Sanskrit: <span className="font-semibold not-italic">su</span> (good) + <span className="font-semibold not-italic">bodh</span> (understanding)
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-8">

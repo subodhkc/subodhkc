@@ -45,6 +45,13 @@ export const metadata = {
     authors: ['Subodh KC'],
     publishedTime: '2025-08-29',
     modifiedTime: '2026-08-10',
+    tags: ['CSM 2.0', 'CSM specification', 'governance contracts', 'deterministic governance', 'AI governance specification'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CSM 2.0 Specification | Subodh KC',
+    description:
+      'Versioned deterministic-by-design governance operating model for AI systems.',
   },
   keywords: [
     'CSM 2.0',
@@ -75,6 +82,17 @@ const techArticleSchema = {
   },
 }
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Research', item: 'https://subodhkc.com/research' },
+    { '@type': 'ListItem', position: 3, name: 'Cognitive Systems Management', item: 'https://subodhkc.com/cognitive-systems-management' },
+    { '@type': 'ListItem', position: 4, name: 'V2 Specification', item: 'https://subodhkc.com/cognitive-systems-management/v2' },
+  ],
+}
+
 export default function CSMV2SpecPage() {
   return (
     <>
@@ -82,6 +100,11 @@ export default function CSMV2SpecPage() {
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <Hero

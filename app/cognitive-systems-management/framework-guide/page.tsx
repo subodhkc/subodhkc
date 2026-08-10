@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { FileText, Printer, ExternalLink, ArrowRight } from 'lucide-react'
+import CTA from '@/components/CTA'
 import {
   csmFramework,
   csmDomains,
@@ -11,6 +12,36 @@ import {
   csmProvenance,
   csmGuideVersion,
 } from '@/data/csm'
+
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'Cognitive Systems Management 2.0 — Framework & Governance Specification',
+  author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  datePublished: '2025-08-29',
+  dateModified: '2026-08-10',
+  publisher: { '@type': 'Organization', name: 'Subodh KC', url: 'https://subodhkc.com' },
+  mainEntityOfPage: 'https://subodhkc.com/cognitive-systems-management/framework-guide',
+  description:
+    'Full versioned CSM 2.0 Framework Guide: four governance domains, six execution functions, governance contracts, state model, evidence and decision schemas, handoffs, reassessment and proportionality.',
+  about: {
+    '@type': 'DefinedTerm',
+    name: 'Cognitive Systems Management 2.0',
+    description: 'A deterministic-by-design governance operating model for AI systems.',
+  },
+  version: '2.0.0',
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Research', item: 'https://subodhkc.com/research' },
+    { '@type': 'ListItem', position: 3, name: 'Cognitive Systems Management', item: 'https://subodhkc.com/cognitive-systems-management' },
+    { '@type': 'ListItem', position: 4, name: 'Framework Guide', item: 'https://subodhkc.com/cognitive-systems-management/framework-guide' },
+  ],
+}
 
 export const metadata = {
   title: 'Cognitive Systems Management 2.0 — Framework & Governance Specification | Subodh KC',
@@ -27,6 +58,9 @@ export const metadata = {
     url: 'https://subodhkc.com/cognitive-systems-management/framework-guide',
     type: 'article',
     authors: ['Subodh KC'],
+    publishedTime: '2025-08-29',
+    modifiedTime: '2026-08-10',
+    tags: ['CSM 2.0', 'framework guide', 'AI governance', 'deterministic governance', 'governance contracts', 'evidence schemas'],
   },
   twitter: {
     card: 'summary_large_image',
@@ -34,10 +68,32 @@ export const metadata = {
     description:
       'Full versioned CSM 2.0 Framework Guide with four domains, six execution functions, governance contracts and implementation guidance.',
   },
+  keywords: [
+    'CSM 2.0',
+    'CSM framework guide',
+    'AI governance framework',
+    'deterministic governance',
+    'governance contracts',
+    'evidence schemas',
+    'reassessment triggers',
+    'proportionality',
+    'implementation guidance',
+  ],
 }
 
 export default function CSMFrameworkGuide() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <article className="print-friendly">
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-12">
         {/* Header */}
@@ -398,5 +454,16 @@ export default function CSMFrameworkGuide() {
         </footer>
       </div>
     </article>
+
+      <CTA
+        title="Explore CSM 2.0 Further"
+        description="Browse all 16 governance contracts, try the reference assessment, or read the full specification."
+        primaryButton={{
+          text: 'Governance Contracts',
+          href: '/cognitive-systems-management/contracts',
+        }}
+        secondaryButton={{ text: 'Back to CSM', href: '/cognitive-systems-management' }}
+      />
+    </>
   )
 }

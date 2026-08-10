@@ -171,7 +171,7 @@ export default function Navigation() {
           : 'bg-transparent'
       )}
     >
-      <nav className="section-container flex items-center justify-between py-4">
+      <nav className="section-container flex items-center justify-between py-3 lg:py-4">
         <div className="flex lg:flex-1">
           <div className="-m-1.5 p-1.5">
             <ProfileCard />
