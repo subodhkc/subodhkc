@@ -20,7 +20,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'AI Compliance Laws Guide | Subodh KC',
   description:
-    'Comprehensive guides to AI compliance laws — EU AI Act, NYC Local Law 144, and Texas TRAIGA (HB 149). Compare applicability, requirements, penalties, and defense pathways. By Subodh KC, co-founder of HAIEC.',
+    'Comprehensive guides to AI compliance laws — EU AI Act, NYC Local Law 144, and Texas TRAIGA (HB 149). Compare applicability, requirements, penalties, and defense pathways. By Subodh KC, founder of HAIEC.',
   alternates: {
     canonical: 'https://subodhkc.com/guides',
   },

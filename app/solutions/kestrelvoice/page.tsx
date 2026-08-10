@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import type { Metadata } from 'next'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
@@ -7,6 +8,37 @@ import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Phone, CheckCircle2, ExternalLink, Clock, Calendar, Shield, Zap, Users, TrendingUp } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'KestrelVoice — AI Voice Receptionist Platform for Small Business',
+  description: 'AI voice receptionist that answers every call, books appointments, and runs your front desk 24/7. Built for small businesses, dental offices, and service teams. Never miss a call again.',
+  keywords: [
+    'AI voice receptionist platform',
+    'AI front desk automation',
+    'AI phone receptionist small business',
+    'AI answering service',
+    '24/7 AI receptionist',
+    'AI appointment scheduling',
+    'voice AI for business',
+    'AI call handling',
+    'KestrelVoice',
+    'Subodh KC',
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/solutions/kestrelvoice',
+  },
+  openGraph: {
+    title: 'KestrelVoice — AI Voice Receptionist Platform for Small Business',
+    description: 'AI voice receptionist that answers every call, books appointments, and runs your front desk 24/7. Never miss a call again.',
+    url: 'https://subodhkc.com/solutions/kestrelvoice',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'KestrelVoice — AI Voice Receptionist Platform',
+    description: 'AI voice receptionist that answers every call, books appointments, and runs your front desk 24/7.',
+  },
+}
 
 export default function KestrelVoicePage() {
   const features = [

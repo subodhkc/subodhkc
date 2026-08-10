@@ -171,7 +171,7 @@ export async function POST(request: NextRequest) {
           <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
             <p style="margin: 0 0 5px 0;">
               <strong style="color: #6b7280;">Subodh KC</strong> &middot; Local AI Advisor<br>
-              Founder, Kestrel Voice &middot; Co-founder, HAIEC<br>
+              Founder, Kestrel Voice &middot; Founder, HAIEC<br>
               Dallas-Fort Worth &middot; HEB Chamber Member
             </p>
             <p style="margin: 10px 0 0 0;">
@@ -214,7 +214,7 @@ Tip: Save subodhkc@subodhkc.com to your contacts so this email does not go to sp
 
 --
 Subodh KC - Local AI Advisor
-Founder, Kestrel Voice - Co-founder, HAIEC
+Founder, Kestrel Voice - Founder, HAIEC
 Dallas-Fort Worth - HEB Chamber Member
 subodhkc.com
 

@@ -38,7 +38,7 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
         ...(post.heroImageUrl ? { images: [{ url: post.heroImageUrl }] } : {}),
         publishedTime: post.createdAt,
         modifiedTime: post.updatedAt || post.createdAt,
-        authors: [post.author || 'Subodh Kc Blogger'],
+        authors: [post.author || 'Yeti AI Writer'],
       },
       twitter: {
         card: 'summary_large_image',

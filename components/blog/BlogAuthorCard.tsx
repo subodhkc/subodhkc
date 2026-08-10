@@ -40,7 +40,7 @@ const DEFAULT_PROFILE = {
 }
 
 export function BlogAuthorCard({ author }: { author?: string | null }) {
-  const authorName = author || 'Subodh Kc Blogger'
+  const authorName = author || 'Yeti AI Writer'
   const profile = AUTHOR_PROFILES[authorName] || DEFAULT_PROFILE
 
   return (

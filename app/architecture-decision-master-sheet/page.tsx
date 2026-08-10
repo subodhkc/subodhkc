@@ -770,7 +770,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       <CTA
         title="Need Help With Your Architecture Decisions?"
-        description="Get a tailored architecture review and decision framework — from Subodh KC, co-founder of the HAIEC AI security and compliance engine."
+        description="Get a tailored architecture review and decision framework — from Subodh KC, founder of the HAIEC AI security and compliance engine."
         primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

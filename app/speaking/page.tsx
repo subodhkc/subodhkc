@@ -28,6 +28,17 @@ export const metadata = {
   alternates: {
     canonical: 'https://subodhkc.com/speaking',
   },
+  openGraph: {
+    title: 'Speaking & Keynotes | AI Governance & Strategy | Subodh KC',
+    description: 'Book Subodh KC for keynotes, workshops, and technical talks on AI architecture, governance, enterprise program management, and strategic execution at scale.',
+    url: 'https://subodhkc.com/speaking',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Speaking & Keynotes | AI Governance & Strategy | Subodh KC',
+    description: 'Book Subodh KC for keynotes, workshops, and technical talks on AI architecture and governance.',
+  },
 }
 
 export default function SpeakingPage() {

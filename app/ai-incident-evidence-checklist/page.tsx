@@ -886,7 +886,7 @@ export default function AIIncidentEvidenceChecklistPage() {
 
       <CTA
         title="Need AI Incident Response Support?"
-        description="Get expert AI security incident response — evidence preservation, root cause analysis, and remediation guidance from Subodh KC, co-founder of HAIEC."
+        description="Get expert AI security incident response — evidence preservation, root cause analysis, and remediation guidance from Subodh KC, founder of HAIEC."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

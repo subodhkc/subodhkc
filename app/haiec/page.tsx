@@ -24,7 +24,7 @@ export const metadata = {
     'HAIEC',
     'AI governance platform',
     'AI compliance',
-    'AI ethics council',
+    'AI ethics compliance',
     'EU AI Act compliance',
     'NIST AI RMF',
     'ISO 42001',

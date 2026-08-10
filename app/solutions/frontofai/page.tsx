@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
@@ -6,6 +7,37 @@ import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Sparkles, CheckCircle2, ExternalLink, FileText, Shield, Code, TrendingUp, Users } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'FrontOfAI — Enterprise AI Solutions Platform',
+  description: 'FrontOfAI delivers production-ready AI solutions for enterprise: AI briefings, compliance automation, voice operations, and legal document tools. Built for CTOs, CISOs, and AI program leaders.',
+  keywords: [
+    'enterprise AI solutions platform',
+    'AI business solutions',
+    'FrontOfAI',
+    'AI products for enterprise',
+    'AI compliance automation',
+    'AI voice operations platform',
+    'enterprise AI tools',
+    'AI governance solutions',
+    'production AI systems',
+    'Subodh KC',
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/solutions/frontofai',
+  },
+  openGraph: {
+    title: 'FrontOfAI — Enterprise AI Solutions Platform',
+    description: 'Production-ready AI solutions for enterprise: AI briefings, compliance automation, voice operations, and legal document tools.',
+    url: 'https://subodhkc.com/solutions/frontofai',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FrontOfAI — Enterprise AI Solutions Platform',
+    description: 'Production-ready AI solutions for enterprise: briefings, compliance, voice operations, and legal tools.',
+  },
+}
 
 export default function FrontOfAIPage() {
   const products = [

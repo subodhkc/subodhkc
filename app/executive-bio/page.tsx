@@ -37,6 +37,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://subodhkc.com/executive-bio',
   },
+  openGraph: {
+    title: 'Executive Bio - Subodh KC | AI Advisor and Systems Architect',
+    description: 'Builder of Systems That Don\'t Break. 16+ years from field operations to Fortune 50 AI strategy. 5 patent-pending frameworks. $50M+ portfolios.',
+    url: 'https://subodhkc.com/executive-bio',
+    type: 'profile',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Executive Bio - Subodh KC | AI Advisor and Systems Architect',
+    description: 'Builder of Systems That Don\'t Break. 16+ years from field operations to Fortune 50 AI strategy.',
+  },
 }
 
 export default function ExecutiveBioPage() {

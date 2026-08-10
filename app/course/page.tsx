@@ -336,7 +336,7 @@ export default function CoursePage() {
                 <p>
                   He has developed 5 patent-pending methodologies for AI compliance, drift detection, and
                   behavioral verification. He is the founder of KestrelVoice (AI voice operations) and
-                  co-founder of HAIEC (AI compliance platform). 16+ years from field technician to Fortune 50
+                  founder of HAIEC (AI compliance platform). 16+ years from field technician to Fortune 50
                   AI strategy leader.
                 </p>
                 <p>

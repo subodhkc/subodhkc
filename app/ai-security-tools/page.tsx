@@ -484,7 +484,7 @@ export default function AISecurityToolsPage() {
       {/* CTA */}
       <CTA
         title="Need an AI Security Assessment?"
-        description="Get a comprehensive AI application security review — prompt injection, RAG poisoning, tool abuse, RLS, tenant isolation, and evidence-grade compliance outputs from Subodh KC, co-founder of HAIEC."
+        description="Get a comprehensive AI application security review — prompt injection, RAG poisoning, tool abuse, RLS, tenant isolation, and evidence-grade compliance outputs from Subodh KC, founder of HAIEC."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

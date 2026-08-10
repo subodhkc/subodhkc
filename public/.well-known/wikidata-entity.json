@@ -56,9 +56,7 @@
         "name": "KestrelVoice",
         "url": "https://kestrelvoice.com",
         "description": "AI voice operations platform"
-      }
-    ],
-    "coFounder": [
+      },
       {
         "@type": "Organization",
         "name": "HAIEC",

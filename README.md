@@ -17,7 +17,7 @@
 
 ## 🚀 About Me
 
-Former **AI Strategy CTL at a Fortune 50 company** and founder of **HAIEC (Holistic AI Ethics and Compliance)**. I architect governance frameworks that turn regulatory requirements into competitive advantages. M.Sc. in Engineering & Technology Management from Louisiana Tech. Sixteen years of full-stack engineering experience building systems that scale.
+Former **AI Strategy CTL at a Fortune 50 company** and founder of **HAIEC (Holistic AI Ethics & Compliance)**. I architect governance frameworks that turn regulatory requirements into competitive advantages. M.Sc. in Engineering & Technology Management from Louisiana Tech. Sixteen years of full-stack engineering experience building systems that scale.
 
 **What I Do:**
 - 🛡️ Architect AI governance frameworks that enable innovation at scale
@@ -101,7 +101,7 @@ I write about AI compliance, governance, and enterprise strategy:
 
 - 🎯 **Former Fortune 50 AI Strategy CTL** - Led enterprise AI governance at global scale
 - 🛡️ **Published AI Governance Research** - Peer-reviewed frameworks for compliance
-- 🚀 **Founded HAIEC** - Holistic AI Ethics and Compliance platform
+- 🚀 **Founded HAIEC** - Holistic AI Ethics & Compliance platform
 - 📊 **Production Systems Deployed** - Voice AI and compliance platforms serving thousands
 - 🎓 **M.Sc. Engineering & Technology Management** - Louisiana Tech University
 - 🌍 **Based in Dallas, Texas**
@@ -116,7 +116,7 @@ I write about AI compliance, governance, and enterprise strategy:
 
 ```typescript
 const currentFocus = {
-  building: "HAIEC - Holistic AI Ethics and Compliance platform",
+  building: "HAIEC - Holistic AI Ethics & Compliance platform",
   researching: "Deterministic compliance engines and governance frameworks",
   deploying: "Production AI systems (KestrelVoice, FrontOfAI)",
   publishing: "Peer-reviewed AI governance research",

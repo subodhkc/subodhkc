@@ -4,7 +4,7 @@ import { BlogIndexClient } from '@/components/blog/BlogIndexClient'
 export const revalidate = 3600
 
 export const metadata = {
-  title: 'AI Governance & Architecture Blog | Articles by Subodh Kc Blogger',
+  title: 'AI Governance & Architecture Blog | Articles by Yeti AI Writer',
   description: 'In-depth articles on AI governance, compliance automation, enterprise AI architecture, production AI systems, EU AI Act, NIST AI RMF, and AI systems design.',
   keywords: [
     'AI governance blog',
@@ -18,20 +18,20 @@ export const metadata = {
     'EU AI Act',
     'NIST AI RMF',
     'AI systems architect',
-    'Subodh Kc Blogger'
+    'Yeti AI Writer'
   ],
   alternates: {
     canonical: 'https://subodhkc.com/blog',
   },
   openGraph: {
-    title: 'AI Governance & Architecture Blog | Subodh Kc Blogger',
+    title: 'AI Governance & Architecture Blog | Yeti AI Writer',
     description: 'In-depth articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
     url: 'https://subodhkc.com/blog',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Governance & Architecture Blog | Subodh Kc Blogger',
+    title: 'AI Governance & Architecture Blog | Yeti AI Writer',
     description: 'In-depth articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
   },
   robots: {
@@ -49,17 +49,17 @@ export default function BlogIndexPage() {
   const blogJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Subodh Kc Blogger — AI Governance & Architecture Blog',
+    name: 'Yeti AI Writer — AI Governance & Architecture Blog',
     description: 'Practical articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
     url: 'https://subodhkc.com/blog',
     author: {
       '@type': 'Person',
-      name: 'Subodh Kc Blogger',
+      name: 'Yeti AI Writer',
       url: 'https://subodhkc.com',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Subodh Kc Blogger',
+      name: 'Yeti AI Writer',
       url: 'https://subodhkc.com',
     },
     blogPost: posts.map((p) => ({

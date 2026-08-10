@@ -487,7 +487,7 @@ export default function AIRiskRegisterPage() {
 
       <CTA
         title="Need Help Building Your AI Risk Register?"
-        description="Get a tailored AI risk assessment and governance framework — from Subodh KC, co-founder of the HAIEC AI security and compliance engine."
+        description="Get a tailored AI risk assessment and governance framework — from Subodh KC, founder of the HAIEC AI security and compliance engine."
         primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

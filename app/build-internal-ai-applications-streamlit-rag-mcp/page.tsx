@@ -978,7 +978,7 @@ if __name__ == "__main__":
         <div className="max-w-4xl mx-auto">
           <CTA
             title="Need an Internal AI Application Architecture?"
-            description="Get an architecture assessment, security review, or implementation roadmap for your internal AI application — from Subodh KC, co-founder of the HAIEC AI security and compliance engine."
+            description="Get an architecture assessment, security review, or implementation roadmap for your internal AI application — from Subodh KC, founder of the HAIEC AI security and compliance engine."
             primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
             secondaryButton={{ text: 'Explore Research', href: '/research' }}
           />

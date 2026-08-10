@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
               </div>
               <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
-                  <strong>About the author:</strong> Subodh KC — AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.
+                  <strong>About the author:</strong> Subodh KC — AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC.
                 </p>
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/about" style="display: inline-block; color: #10B981; text-decoration: none; font-weight: 600; font-size: 14px;">
                   Learn More →
@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
                 <h3 style="color: #1f2937; margin-top: 0; font-size: 18px;">About Me</h3>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
                   I'm Subodh KC, AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL,
-                  founder of KestrelVoice, co-founder of HAIEC. With 16+ years architecting and deploying
+                  founder of KestrelVoice, founder of HAIEC. With 16+ years architecting and deploying
                   production AI systems, I help organizations navigate the intersection of AI innovation,
                   regulatory compliance, and ethical governance.
                 </p>
@@ -195,7 +195,7 @@ export async function POST(request: NextRequest) {
             <div style="text-align: center; padding: 30px 20px; color: #9ca3af; font-size: 12px;">
               <p style="margin: 0 0 10px 0;">
                 <strong style="color: #6b7280;">Subodh KC</strong><br>
-                AI Systems Architect & Governance Expert | Founder of KestrelVoice | Co-founder of HAIEC
+                AI Systems Architect & Governance Expert | Founder of KestrelVoice | Founder of HAIEC
               </p>
               <p style="margin: 10px 0;">
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}" style="color: #10B981; text-decoration: none;">Website</a> | 

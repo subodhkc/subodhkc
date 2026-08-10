@@ -544,13 +544,13 @@ async function generateArticle(item, posts, retryHint) {
 
   const prompt = `You are an expert AI systems architect and operator who writes practical, authoritative content for subodhkc.com. You design, deploy, and govern production AI systems.
 
-POSITIONING: Subodh Kc Blogger is an AI systems architect and operator who designs, deploys and governs production AI systems.
+POSITIONING: Yeti AI Writer is an AI systems architect and operator who designs, deploys and governs production AI systems.
 
 CONTENT NICHE: Production AI architecture, agentic AI and orchestration, RAG and enterprise knowledge systems, voice-AI operations, AI governance and evidence architecture, static testing, runtime testing and deterministic controls, AI program leadership and pilot recovery, AI-assisted software development and technical SEO.
 
 TARGET AUDIENCE: CTOs, CISOs, AI program leaders, enterprise architects, compliance officers, AI engineers, TPMs
 
-AUTHOR: Subodh Kc Blogger
+AUTHOR: Yeti AI Writer
 TONE: Practical, no fluff, frameworks and steps you can apply. Not "what is X" but "how to do X." Written by someone who builds production systems.
 
 BANNED WORDS (do NOT use any of these anywhere in the article):

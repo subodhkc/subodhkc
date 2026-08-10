@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Subodh KC - AI Systems Architect & Governance Expert',
     short_name: 'Subodh KC',
-    description: 'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. Production AI systems at enterprise scale.',
+    description: 'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. Production AI systems at enterprise scale.',
     start_url: '/',
     display: 'standalone',
     background_color: '#2b2e33',

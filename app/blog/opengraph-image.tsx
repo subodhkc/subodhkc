@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
-export const alt = 'AI Governance & Architecture Blog by Subodh Kc Blogger'
+export const alt = 'AI Governance & Architecture Blog by Yeti AI Writer'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -47,7 +47,7 @@ export default async function OGImage() {
             SK
           </div>
           <div style={{ fontSize: 22, fontWeight: 600, color: '#e0e0e0' }}>
-            Subodh Kc Blogger
+            Yeti AI Writer
           </div>
         </div>
 

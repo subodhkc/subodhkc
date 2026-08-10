@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
@@ -6,6 +7,37 @@ import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, Scale, CheckCircle2, ExternalLink, FileText, Clock, Lock, Zap, Upload, Eye, Download } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'CourtCase — AI Legal Evidence Builder & Case Organizer',
+  description: 'AI-assisted legal evidence builder. Upload documents, photos, and emails. CourtCase organizes evidence, builds case chronologies, and prepares document packets. Privacy-first, local processing.',
+  keywords: [
+    'AI legal evidence builder',
+    'case chronology tool',
+    'legal document organization',
+    'court case management AI',
+    'evidence organizer software',
+    'legal timeline builder',
+    'AI case preparation tool',
+    'document packet builder',
+    'privacy-first legal software',
+    'Subodh KC',
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/solutions/courtcase',
+  },
+  openGraph: {
+    title: 'CourtCase — AI Legal Evidence Builder & Case Organizer',
+    description: 'AI-assisted legal evidence builder. Organize evidence, build chronologies, prepare document packets. Privacy-first, local processing.',
+    url: 'https://subodhkc.com/solutions/courtcase',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CourtCase — AI Legal Evidence Builder',
+    description: 'AI-assisted legal evidence builder. Organize evidence, build chronologies, prepare document packets.',
+  },
+}
 
 export default function CourtCasePage() {
   const features = [

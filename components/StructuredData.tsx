@@ -6,7 +6,7 @@ export default function StructuredData() {
     alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri'],
     jobTitle: 'AI Systems Architect & Governance Expert',
     description:
-      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. 16+ years architecting, deploying, and governing production AI systems — including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
+      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. 16+ years architecting, deploying, and governing production AI systems — including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
     url: 'https://subodhkc.com',
     email: 'subodhkc@subodhkc.com',
     image: 'https://subodhkc.com/portrait.jpeg',
@@ -139,7 +139,7 @@ export default function StructuredData() {
       url: 'https://subodhkc.com',
       jobTitle: 'AI Systems Architect & Governance Expert',
       description:
-        'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC.',
+        'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC.',
     },
     dateCreated: '2024-01-01',
   }
@@ -167,7 +167,7 @@ export default function StructuredData() {
     founder: {
       '@type': 'Person',
       name: 'Subodh KC',
-      description: 'Co-founder of HAIEC',
+      description: 'Founder of HAIEC',
     },
     contactPoint: {
       '@type': 'ContactPoint',

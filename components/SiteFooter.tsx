@@ -37,6 +37,7 @@ const SITEMAP = [
       ["/resume", "resume"],
       ["/portfolio", "portfolio"],
       ["/magazine", "AI magazine"],
+      ["/local-ai-review", "local AI review"],
     ],
   },
   {
@@ -59,6 +60,7 @@ const SITEMAP = [
       ["/products/doc-timeline", "doc timeline"],
       ["/products/skc-log-analyser", "log analyser"],
       ["/products/courtcase", "courtcase"],
+      ["/products/ai-article-generator", "AI article generator"],
     ],
   },
   {

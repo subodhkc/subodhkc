@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
@@ -6,6 +7,37 @@ import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { ArrowRight, FileText, CheckCircle2, ExternalLink, TrendingUp, Users, Shield, Zap, Globe, Building } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'AI Executive Briefing | Weekly AI Intelligence for IT Leaders',
+  description: 'Weekly AI intelligence briefing for CTOs, CISOs, and IT leaders. 40+ sources monitored, impact-scored stories, role-based views. Stay ahead of AI developments that affect your budget, team, and competitive position.',
+  keywords: [
+    'AI executive briefing',
+    'AI intelligence newsletter',
+    'weekly AI briefing',
+    'AI news for IT leaders',
+    'AI strategy briefing',
+    'enterprise AI intelligence',
+    'CTO AI newsletter',
+    'CISO AI briefing',
+    'AI developments weekly',
+    'Subodh KC',
+  ],
+  alternates: {
+    canonical: 'https://subodhkc.com/solutions/ai-briefing',
+  },
+  openGraph: {
+    title: 'AI Executive Briefing | Weekly AI Intelligence for IT Leaders',
+    description: 'Weekly AI intelligence briefing for CTOs, CISOs, and IT leaders. 40+ sources monitored, impact-scored stories, role-based views.',
+    url: 'https://subodhkc.com/solutions/ai-briefing',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Executive Briefing | Weekly AI Intelligence for IT Leaders',
+    description: 'Weekly AI intelligence briefing for CTOs, CISOs, and IT leaders. 40+ sources monitored, impact-scored stories.',
+  },
+}
 
 export default function AIBriefingPage() {
   const features = [

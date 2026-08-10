@@ -28,6 +28,17 @@ export const metadata = {
   alternates: {
     canonical: 'https://subodhkc.com/research',
   },
+  openGraph: {
+    title: 'AI Governance Research & Frameworks | Subodh KC',
+    description: 'Research and frameworks on AI governance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies.',
+    url: 'https://subodhkc.com/research',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Governance Research & Frameworks | Subodh KC',
+    description: 'Research and frameworks on AI governance, drift detection, and audit methodologies. Published in Zenodo.',
+  },
 }
 
 const articleSchemas = [

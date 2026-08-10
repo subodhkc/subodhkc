@@ -757,7 +757,7 @@ USING (
         <div className="max-w-4xl mx-auto">
           <CTA
             title="Need a Secure Enterprise RAG Architecture?"
-            description="Get a RAG architecture assessment, security review, or implementation roadmap from Subodh KC — co-founder of the HAIEC AI security and compliance engine. See services or explore the HAIEC platform."
+            description="Get a RAG architecture assessment, security review, or implementation roadmap from Subodh KC — founder of the HAIEC AI security and compliance engine. See services or explore the HAIEC platform."
             primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
             secondaryButton={{ text: 'Explore Research', href: '/research' }}
           />

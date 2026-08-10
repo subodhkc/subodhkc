@@ -605,7 +605,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
 
       <CTA
         title="Need Help Evaluating an AI Vendor?"
-        description="Get a professional AI vendor security assessment — from Subodh KC, co-founder of the HAIEC AI security and compliance engine."
+        description="Get a professional AI vendor security assessment — from Subodh KC, founder of the HAIEC AI security and compliance engine."
         primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

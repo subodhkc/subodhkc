@@ -1,0 +1,35 @@
+feat: add Claude Code MCP failed to connect troubleshooting article
+
+New article covering 8 failure classes for MCP connection errors in
+Claude Code: pending approval, ENOENT, OS permissions, process crashes,
+stdout corruption, missing env vars, timeouts, and wrong transport type.
+Also covers the MCP 2026-07-28 protocol change, Cursor MCP parity,
+secure database MCP architecture, and a 20-step troubleshooting ladder.
+
+Aligned with editorial manifesto Section 17 (Technical Troubleshooting):
+- Symptom recognition in first 100 words
+- Diagnostic fork with transport identification table
+- 8 failure classes with code examples and expected outcomes
+- Parameter breakdown table (MCP_TIMEOUT, MCP_CONNECT_TIMEOUT_MS, etc.)
+- 4 pre[data-diagram] flowcharts for diagnostic trees
+- Symptom-to-root-cause mapping table
+- 10 FAQ Q&A pairs in faqJsonLd
+- Production configuration pattern
+- Anti-patterns section (what not to deploy)
+- Advisory CTA (not pressure-based)
+
+All 11 citation URLs verified to resolve and confirm article claims:
+- Claude Code MCP docs, env vars, sandboxing docs
+- MCP Python SDK run/index, index, whats-new docs
+- MCP 2026-07-28 specification blog post
+- MCP security best practices
+- Cursor CLI changelog
+
+Title: 58 chars (under 60)
+Meta description: 156 chars (under 160)
+Word count: ~2976 (comparable to existing vLLM article at 2655)
+No em dashes, no smart quotes, no forbidden AI phrases
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>

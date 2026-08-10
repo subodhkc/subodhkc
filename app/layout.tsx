@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     siteName: 'Subodh KC — AI Systems Architect & Governance Expert',
     title: 'Subodh KC | AI Systems Architect & Governance Expert',
     description:
-      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, co-founder of HAIEC. Production AI systems — architecture, deployment, and governance at enterprise scale.',
+      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. Production AI systems — architecture, deployment, and governance at enterprise scale.',
     images: [
       {
         url: '/portrait.jpeg',
@@ -94,7 +94,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Subodh KC — AI Systems Architect & Governance Expert',
     description:
-      'Former Fortune 50 AI Strategy CTL | Founder of KestrelVoice | Co-founder of HAIEC | 16+ Years Production AI Systems | EU AI Act, NIST AI RMF, ISO 42001 Expert',
+      'Former Fortune 50 AI Strategy CTL | Founder of KestrelVoice | Founder of HAIEC | 16+ Years Production AI Systems | EU AI Act, NIST AI RMF, ISO 42001 Expert',
     creator: '@subodhkc',
     images: ['/portrait.jpeg'],
   },

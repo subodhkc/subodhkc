@@ -900,7 +900,7 @@ export default function TexasAILawPage() {
       {/* ─── CTA ─── */}
       <CTA
         title="Prepare for TRAIGA Compliance"
-        description="The January 1, 2026 deadline is approaching. Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC — co-founder of the HAIEC TRAIGA compliance engine."
+        description="The January 1, 2026 deadline is approaching. Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC — founder of the HAIEC TRAIGA compliance engine."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'View Advisory Services', href: '/advisory' }}
       />

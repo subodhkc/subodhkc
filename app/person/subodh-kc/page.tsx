@@ -9,7 +9,7 @@ import { CheckCircle2, GraduationCap, Briefcase, Award, Building2 } from 'lucide
 export const metadata = {
   title: 'Subodh KC — AI Systems Architect & Governance Expert | Person Profile',
   description:
-    'Subodh KC is an AI Systems Architect and Governance Expert with 16+ years of experience. Sr. Program Manager at HP Inc. (Fortune 50). Founder of KestrelVoice, co-founder of HAIEC. 5 patent-pending AI compliance frameworks.',
+    'Subodh KC is an AI Systems Architect and Governance Expert with 16+ years of experience. Sr. Program Manager at HP Inc. (Fortune 50). Founder of KestrelVoice, founder of HAIEC. 5 patent-pending AI compliance frameworks.',
   alternates: {
     canonical: 'https://subodhkc.com/person/subodh-kc',
   },
@@ -78,18 +78,20 @@ const personSchema = {
     '@type': 'Organization',
     name: 'Fortune 50 Company',
   },
-  founder: {
-    '@type': 'Organization',
-    name: 'KestrelVoice',
-    url: 'https://kestrelvoice.com',
-    description: 'AI voice operations platform',
-  },
-  coFounder: {
-    '@type': 'Organization',
-    name: 'HAIEC',
-    url: 'https://haiec.com',
-    description: 'Enterprise AI governance and compliance platform',
-  },
+  founder: [
+    {
+      '@type': 'Organization',
+      name: 'KestrelVoice',
+      url: 'https://kestrelvoice.com',
+      description: 'AI voice operations platform',
+    },
+    {
+      '@type': 'Organization',
+      name: 'HAIEC',
+      url: 'https://haiec.com',
+      description: 'Enterprise AI governance and compliance platform',
+    },
+  ],
   award: ["Dean's Honor List", "President's Honor List"],
   knowsLanguage: ['English', 'Nepali'],
   nationality: { '@type': 'Country', name: 'United States' },

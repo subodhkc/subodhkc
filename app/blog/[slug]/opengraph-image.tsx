@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 import { getPostBySlug, getAllSlugs } from '@/lib/blog'
 
 export const runtime = 'nodejs'
-export const alt = 'Blog post by Subodh Kc Blogger'
+export const alt = 'Blog post by Yeti AI Writer'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -30,7 +30,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             fontFamily: 'sans-serif',
           }}
         >
-          <div style={{ fontSize: 48, fontWeight: 700 }}>Subodh Kc Blogger</div>
+          <div style={{ fontSize: 48, fontWeight: 700 }}>Yeti AI Writer</div>
           <div style={{ fontSize: 24, color: '#9a9a96', marginTop: 16 }}>Article Not Found</div>
         </div>
       ),
@@ -39,7 +39,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
   }
 
   const title = post.title.length > 80 ? post.title.slice(0, 77) + '...' : post.title
-  const authorName = post.author || 'Subodh Kc Blogger'
+  const authorName = post.author || 'Yeti AI Writer'
   const keywords = post.keywords.slice(0, 4)
   const dateStr = new Date(post.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',

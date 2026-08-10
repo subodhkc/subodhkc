@@ -1033,7 +1033,7 @@ export default function DoesTexasAILawApplyPage() {
       {/* CTA */}
       <CTA
         title="Prepare for TRAIGA Compliance"
-        description="Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC \u2014 co-founder of the HAIEC TRAIGA compliance engine. Based in Dallas, Texas."
+        description="Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC — founder of the HAIEC TRAIGA compliance engine. Based in Dallas, Texas."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

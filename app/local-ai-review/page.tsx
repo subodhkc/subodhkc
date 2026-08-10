@@ -217,7 +217,7 @@ export default function LocalAIReviewPage() {
               Start with one costly problem. Measure one result.
             </p>
             <div className="text-sm text-muted-foreground pt-2">
-              Dallas-Fort Worth &middot; Subodh KC &mdash; Local AI Advisor, Founder of Kestrel Voice, Co-founder of HAIEC
+              Dallas-Fort Worth &middot; Subodh KC &mdash; Local AI Advisor, Founder of Kestrel Voice, Founder of HAIEC
             </div>
             <a
               href="#request-review"
