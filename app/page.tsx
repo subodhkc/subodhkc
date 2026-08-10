@@ -4,7 +4,6 @@ import { Hero } from "@/components/hero/Hero";
 import { FrontOfAIBanner } from "@/components/home/FrontOfAIBanner";
 import { Registry } from "@/components/Registry";
 import { WritingSection } from "@/components/writing/WritingSection";
-import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { ComplianceGuidesSection } from "@/components/home/ComplianceGuidesSection";
 import { MagazineBadge } from "@/components/home/MagazineBadge";
 import { CSMFrameworkSection } from "@/components/home/CSMFrameworkSection";
@@ -60,7 +59,6 @@ export default function HomePage() {
       <MagazineBadge />
       <CSMFrameworkSection />
       <Registry />
-      <TestimonialsSection />
       <ComplianceGuidesSection />
       <WritingSection />
     </AccessProvider>

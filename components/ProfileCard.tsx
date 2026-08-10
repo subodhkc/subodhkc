@@ -26,7 +26,7 @@ export default function ProfileCard() {
         <span className="text-lg md:text-xl font-bold gradient-text leading-tight">
           Subodh Kumar Kc
         </span>
-        <span className="text-[10px] md:text-[11px] text-muted-foreground/70 font-normal tracking-wide leading-tight mt-0.5">
+        <span className="text-xs md:text-sm text-muted-foreground font-normal tracking-wide leading-tight mt-1">
           Sanskrit: su (good) + bodh (understanding)
         </span>
       </button>
