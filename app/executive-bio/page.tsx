@@ -217,11 +217,11 @@ export default function ExecutiveBioPage() {
               <CardTitle>Innovation & Patents</CardTitle>
               <CardDescription className="text-base space-y-2">
                 <p><strong>5 Patent-Pending Systems:</strong></p>
-                <p>• Adversarial Project Twin™</p>
-                <p>• Precision Drift Detector™</p>
-                <p>• AI Compliance Twin™</p>
-                <p>• Modular Audit Engine™</p>
-                <p>• Compliance Fingerprint Layer™</p>
+                <p>• Adversarial Project Twin</p>
+                <p>• Precision Drift Detector</p>
+                <p>• AI Compliance Twin</p>
+                <p>• Modular Audit Engine</p>
+                <p>• Compliance Fingerprint Layer</p>
               </CardDescription>
             </CardHeader>
           </Card>
@@ -269,10 +269,10 @@ export default function ExecutiveBioPage() {
                   inconsistent documentation, no visibility into drift, no shared accountability.
                 </p>
                 <p>HAIEC introduced:</p>
-                <p>• <strong>CSM6™</strong>: A governance model for enterprise AI delivery</p>
-                <p>• <strong>Red Audit Kit™</strong>: A forensic toolkit for compliance blind spots</p>
-                <p>• <strong>LegacyShift™</strong>: Modernization pathways for legacy systems used by global teams</p>
-                <p>• Frameworks that reduced compliance prep by 60%</p>
+                <p>• <strong>AI Governance Execution Framework</strong>: Six operational functions that operationalize and extend Cognitive Systems Management (CSM)</p>
+                <p>• <strong>Red Audit Kit</strong>: A forensic toolkit for compliance blind spots</p>
+                <p>• <strong>LegacyShift</strong>: Modernization pathways for legacy systems used by global teams</p>
+                <p>• Frameworks that cut compliance prep time from months to weeks</p>
                 <p className="text-foreground italic pt-2">
                   This platform is used by enterprise teams to turn regulatory pressure into operational maturity.
                 </p>

@@ -316,7 +316,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
         <section className="mb-20">
           <h2 className="text-2xl font-bold mb-6">Compliance Alignment</h2>
           <p className="text-muted-foreground mb-6">
-            Built on the CSM6 framework implementing baseline checks for:
+            llmverify provides technical evaluation and monitoring checks that can support selected activities within the AI Governance Execution Framework, implementing baseline checks for:
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card className="text-center">

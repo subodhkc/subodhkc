@@ -235,7 +235,7 @@ export const PRODUCTS: Product[] = [
     id: "skc-meeting",
     name: "SKC Meeting Tool",
     tagline:
-      "Tactical frameworks for decision-making — ResetFrame™, PM cheat sheet. Built for high-stakes rooms.",
+      "Tactical frameworks for decision-making — ResetFrame, PM cheat sheet. Built for high-stakes rooms.",
     kind: "oss",
     status: "stable",
     glyph: "frame-anchor",

@@ -223,6 +223,36 @@ The following claims are strictly forbidden because they cannot be substantiated
 - "proven at Fortune 50 scale" (unless citing specific evidence)
 - "adopted across the industry" (unless citing specific adoption data)
 
+### CSM Terminology Guardrails
+
+When referencing Cognitive Systems Management (CSM), the following rules are mandatory:
+
+- **Canonical name:** "Cognitive Systems Management (CSM)" — always use this full name on first reference in an article.
+- **Four domains only:** CSM has four domains: CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX. Never use "four-pillar," "four pillars," "pillar model," or any pillar-based terminology.
+- **No CSM6:** The term "CSM6" is stale and must not be used. The six-function operating model is called the "AI Governance Execution Framework."
+- **No renamed domains:** Never rename or rebrand the four CSM domains. The original names are: Enterprise, Project, Code, UX.
+- **No fabricated components:** Do not invent CSM components, sub-domains, or extensions not present in the canonical data (`data/csm/v2/spec.ts` for V2, `data/csm/v1.ts` for V1).
+- **Provenance:** When mentioning CSM's origin, cite: "First published August 29, 2025 in 'Cognitive System Management: A Framework for Enterprise AI Project Governance' on AI Governance on Medium."
+- **No overclaiming:** CSM is a practitioner-developed governance methodology, not a certification, regulation, standard, or peer-reviewed framework. Do not present it as such.
+- **CSM vs. Execution Framework:** CSM defines WHERE governance responsibilities operate (four domains). The AI Governance Execution Framework defines WHAT operating functions should continuously occur (six functions). Do not conflate them.
+- **CSM vs. HAIEC:** CSM is a governance methodology. HAIEC is a technology platform. HAIEC supports selected CSM activities but does not fully implement every CSM responsibility.
+- **Canonical URLs:** Link to `/cognitive-systems-management` for the main framework page, `/cognitive-systems-management/v2` for the V2 specification, `/cognitive-systems-management/contracts` for governance contracts, and `/cognitive-systems-management/assessment` for the interactive evaluator. Do not link CSM references to `/solutions/haiec` or `/research`.
+
+### CSM 2.0 Versioning Guardrails
+
+When referencing CSM 2.0 specifically, these additional rules apply:
+
+- **Versioning:** CSM 2.0 has spec version 2.0.0 and spec date 2026-08-10. Always cite the version when making V2-specific claims.
+- **Provenance separation:** CSM 2.0 is a formalization and extension of the original CSM publication. It does NOT claim the 2025 article contained V2 features. Never state or imply that governance contracts, execution functions, state models, or the determinism boundary were in the original article.
+- **Six execution functions:** The canonical function IDs are EF1-PURPOSE, EF2-MAPPING, EF3-RISK, EF4-DELIVERY, EF5-OVERSIGHT, EF6-COMPLIANCE. Use these IDs when referencing specific functions. Do not rename or reorder them.
+- **16 governance components:** The canonical component IDs are ENT-POLICY, ENT-RISK, ENT-DATA, ENT-MANDATE, PRJ-BUSINESS, PRJ-TESTING, PRJ-SCALE, PRJ-PLAYBOOK, CODE-STANDARDS, CODE-SECURITY, CODE-HUMAN, CODE-TRACE, UX-IMPACT, UX-EXPLAIN, UX-CAPABILITY, UX-ADOPTION. Do not invent additional components.
+- **Determinism boundary:** CSM 2.0 is deterministic-by-design for objective rules and makes human judgment explicit where interpretation is required. Never claim CSM 2.0 "automates" governance decisions or "replaces" human judgment.
+- **Forbidden output states:** Never claim CSM 2.0 produces "LEGAL_COMPLIANT," "EU_AI_ACT_COMPLIANT," "COMPLIANT," "SAFE," "TRUSTWORTHY," "CERTIFIED," or "AUDIT_PROOF" verdicts. CSM 2.0 does not produce legal compliance verdicts.
+- **Forbidden scores:** Never claim CSM 2.0 produces "compliance_score," "safety_score," "trust_score," or "risk_score." CSM 2.0 does not produce aggregate scores.
+- **Machine-readable spec:** The canonical machine-readable spec is at `/frameworks/csm/2.0/csm-2.0.json` with schema at `/frameworks/csm/2.0/csm-2.0.schema.json`. Reference these when discussing the machine-readable form.
+- **18 reassessment triggers:** The canonical trigger IDs are TRIGGER-USE-CHANGE, TRIGGER-SCOPE-EXPANSION, TRIGGER-OWNER-CHANGE, TRIGGER-MODEL-CHANGE, TRIGGER-PROVIDER-CHANGE, TRIGGER-CONFIG-CHANGE, TRIGGER-DATA-CHANGE, TRIGGER-TOOL-AUTHORITY-CHANGE, TRIGGER-NEW-INTEGRATION, TRIGGER-DEPENDENCY-CHANGE, TRIGGER-SECURITY-INCIDENT, TRIGGER-EVAL-FAILURE, TRIGGER-DRIFT, TRIGGER-USER-HARM, TRIGGER-JURISDICTION-CHANGE, TRIGGER-POLICY-CHANGE, TRIGGER-EXCEPTION-EXPIRY, TRIGGER-DECOMMISSION. Do not invent additional triggers.
+- **Governance depth:** Three levels: BASELINE, ENHANCED, INTENSIVE. Determined by proportionality factors, not arbitrary choice.
+
 ---
 
 ## 11. SEO and AI Search Optimization

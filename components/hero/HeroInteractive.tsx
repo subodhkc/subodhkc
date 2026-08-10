@@ -116,7 +116,7 @@ export function HeroInteractive() {
         >
           From agentic workflows, voice AI, RAG and MCP integrations to AI compliance certifications and
           enterprise-scale delivery. Subodh KC, former Fortune 50 AI Strategy CTL, founder of KestrelVoice,
-          co-founder of HAIEC. Dallas-based.
+          founder of HAIEC. Dallas-based.
         </p>
 
         {/* CTA buttons */}

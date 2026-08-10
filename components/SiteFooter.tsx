@@ -48,7 +48,6 @@ const SITEMAP = [
       ["/solutions/frontofai", "frontofai"],
       ["/solutions/courtcase", "courtcase"],
       ["/solutions/ai-briefing", "ai briefing"],
-      ["/haiec", "haiec platform"],
     ],
   },
   {

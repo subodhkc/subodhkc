@@ -324,7 +324,7 @@ export default function ServicesPage() {
               <CardTitle>Proven at Fortune 50 Scale</CardTitle>
               <CardDescription className="text-base">
                 Everything I build is tested in production at enterprise scale. 53-application portfolios,
-                $50M+ AI budgets, 5 patent-pending frameworks. If it works at Fortune 50, it works everywhere.
+                $50M+ AI portfolios, 5 patent-pending frameworks. If it works at Fortune 50, it works everywhere.
               </CardDescription>
             </CardHeader>
           </Card>

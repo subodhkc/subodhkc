@@ -1,4 +1,4 @@
-// data/papers.ts — peer-reviewed and published writing
+// data/papers.ts — published research and writing
 export interface Paper {
   title: string;
   subtitle: string;
@@ -84,13 +84,13 @@ export const PAPERS: Paper[] = [
     href: "https://medium.com/@subodhkc",
   },
   {
-    title: "Cognitive Systems Management: A Unified Approach",
-    subtitle: "Bridging AI strategy, implementation, and governance",
-    venue: "HAIEC Research",
-    year: "2024",
-    topics: ["Methodology", "AI Strategy", "Governance"],
+    title: "Cognitive System Management: A Framework for Enterprise AI Project Governance",
+    subtitle: "Four-domain AI governance methodology — now evolved to CSM 2.0",
+    venue: "AI Governance on Medium",
+    year: "2025",
+    topics: ["Methodology", "AI Governance", "AI Strategy"],
     summary:
-      "Comprehensive methodology bridging strategy, execution, and governance for enterprise-scale AI deployment.",
-    href: "https://www.haiec.com/resources/whitepapers",
+      "Original publication of the Cognitive Systems Management (CSM) framework: a four-domain governance methodology comprising Enterprise, Project, Code and UX. Current version: CSM 2.0 (spec v2.0.0, 2026-08-10).",
+    href: "https://medium.com/ai-governance-playbook/cognitive-system-management-a-framework-for-enterprise-ai-project-governance-ee7fc95a07ff",
   },
 ];

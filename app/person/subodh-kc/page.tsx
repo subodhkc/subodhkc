@@ -40,7 +40,7 @@ const personSchema = {
   familyName: 'KC',
   jobTitle: 'AI Systems Architect & Governance Expert',
   description:
-    'AI Systems Architect and Governance Expert with 16+ years of experience building production AI systems at enterprise scale. Sr. Program Manager — AI Implementation & Governance at HP Inc. (Fortune 50). Founder of KestrelVoice, co-founder of HAIEC. 5 patent-pending frameworks in AI compliance and drift detection.',
+    'AI Systems Architect and Governance Expert with 16+ years of experience building production AI systems at enterprise scale. Sr. Program Manager — AI Implementation & Governance at HP Inc. (Fortune 50). Founder of KestrelVoice, founder of HAIEC. 5 patent-pending frameworks in AI compliance and drift detection.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -179,7 +179,7 @@ export default function PersonPage() {
                   that enable innovation without regulatory risk.
                 </p>
                 <p>
-                  He is the founder of KestrelVoice, an AI voice operations platform, and co-founder of HAIEC,
+                  He is the founder of KestrelVoice, an AI voice operations platform, and founder of HAIEC,
                   an enterprise AI governance and compliance platform. He has developed 5 patent-pending
                   methodologies for AI compliance, drift detection, and behavioral verification.
                 </p>
@@ -277,7 +277,7 @@ export default function PersonPage() {
                     <CardDescription className="text-sm">
                       Enterprise AI governance and compliance platform. EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144.
                     </CardDescription>
-                    <p className="text-xs text-primary mt-2">Co-founder</p>
+                    <p className="text-xs text-primary mt-2">Founder</p>
                   </div>
                 </div>
               </CardHeader>

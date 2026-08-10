@@ -1,7 +1,7 @@
 // data/frameworks.ts — methodologies and frameworks (active + published)
 export interface Framework {
   name: string;
-  status: "Active Research" | "Published Framework" | "Active Framework";
+  status: string;
   years: string;
   summary: string;
   points: string[];
@@ -9,7 +9,7 @@ export interface Framework {
 
 export const FRAMEWORKS: Framework[] = [
   {
-    name: "Precision Drift Detection",
+    name: "Precision Drift Detector",
     status: "Active Research",
     years: "2024 – 2025",
     summary:
@@ -22,20 +22,22 @@ export const FRAMEWORKS: Framework[] = [
     ],
   },
   {
-    name: "Cognitive Systems Management (CSM)",
-    status: "Published Framework",
-    years: "2023 – 2025",
+    name: "Cognitive Systems Management 2.0 (CSM)",
+    status: "Published Framework · Current Version: CSM 2.0",
+    years: "2025–2026",
     summary:
-      "Foundational framework underlying the HAIEC platform — bridges AI strategy, technical execution, and governance into a single operating model.",
+      "A deterministic-by-design governance operating model for AI systems. Preserves the original four governance domains (Enterprise, Project, Code, UX) and adds six cross-functional execution functions plus versioned governance contracts for decisions, evidence, handoffs and reassessment. First published August 29, 2025. Current spec version 2.0.0.",
     points: [
-      "Four-pillar implementation model",
-      "Strategic-to-operational alignment",
-      "Risk-integrated decision frameworks",
-      "Continuous governance methodology",
+      "Four governance domains: Enterprise, Project, Code, UX",
+      "Six execution functions: cross-domain governance operations",
+      "Versioned governance contracts for all 16 components",
+      "Deterministic reference evaluator for objective rules",
+      "Explicit human review boundary for interpretive decisions",
+      "Practitioner-developed, versioned for public scrutiny",
     ],
   },
   {
-    name: "Red Audit Kit™",
+    name: "Red Audit Kit",
     status: "Active Framework",
     years: "2024 – 2025",
     summary:
@@ -48,7 +50,7 @@ export const FRAMEWORKS: Framework[] = [
     ],
   },
   {
-    name: "LegacyShift™ Methodology",
+    name: "LegacyShift Methodology",
     status: "Active Framework",
     years: "2024 – 2025",
     summary:

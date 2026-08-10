@@ -9,7 +9,6 @@ const STATIC_SITE_URLS = [
   'https://subodhkc.com',
   'https://subodhkc.com/about',
   'https://subodhkc.com/executive-bio',
-  'https://subodhkc.com/haiec',
   'https://subodhkc.com/services',
   'https://subodhkc.com/advisory',
   'https://subodhkc.com/solutions',

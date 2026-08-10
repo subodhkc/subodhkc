@@ -132,7 +132,7 @@ export default function ResumePage() {
                 <p className="text-xs text-zinc-600 mb-1">Holistic AI Ethics & Compliance (HAIEC)</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Launched <strong>LLMVerify</strong>—npm package for real-time AI behavior verification, drift detection, PII exposure</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Created <strong>AI Compliance Twin™</strong> (patent 63/808,089)—modular engine mapping AI behaviors to regulatory rules</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Created <strong>AI Compliance Twin</strong> (patent 63/808,089)—modular engine mapping AI behaviors to regulatory rules</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Built <strong>CourtCase Packet</strong>—legal workflow automation structuring events into evidence packets</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Developed precision drift detection engine (patent 19/284,705)—real-time anomaly detection for AI systems</li>
                 </ul>
@@ -165,7 +165,7 @@ export default function ResumePage() {
                   <p className="text-blue-600 text-[10px] mt-1">npmjs.com/package/llmverify</p>
                 </div>
                 <div className="p-2 bg-zinc-50 border border-zinc-200 rounded">
-                  <p className="font-semibold text-zinc-900">AI Compliance Twin™</p>
+                  <p className="font-semibold text-zinc-900">AI Compliance Twin</p>
                   <p className="text-zinc-600 text-[10px] mt-0.5">Maps AI/system behavior to regulatory rules. Drift alerts + audit trails.</p>
                   <p className="text-violet-600 text-[10px] mt-1">Patent 63/808,089</p>
                 </div>

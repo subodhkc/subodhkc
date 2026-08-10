@@ -51,7 +51,7 @@ export default function SolutionsPage() {
     {
       name: 'HAIEC',
       tagline: 'AI Compliance & Governance Platform',
-      description: 'Evidence-first frameworks for behavioral AI governance. CSM6 framework and AI readiness assessments for enterprise compliance.',
+      description: 'Evidence-first frameworks for behavioral AI governance. AI Governance Execution Framework and AI readiness assessments for enterprise compliance.',
       icon: Shield,
       href: '/solutions/haiec',
       external: 'https://www.haiec.com',

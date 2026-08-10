@@ -7,6 +7,7 @@ import { WritingSection } from "@/components/writing/WritingSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { ComplianceGuidesSection } from "@/components/home/ComplianceGuidesSection";
 import { MagazineBadge } from "@/components/home/MagazineBadge";
+import { CSMFrameworkSection } from "@/components/home/CSMFrameworkSection";
 
 export const metadata = {
   title: "Subodh KC | AI Advisor and Systems Architect | Governance Expert",
@@ -57,6 +58,7 @@ export default function HomePage() {
       <FrontOfAIBanner />
       <Hero />
       <MagazineBadge />
+      <CSMFrameworkSection />
       <Registry />
       <TestimonialsSection />
       <ComplianceGuidesSection />

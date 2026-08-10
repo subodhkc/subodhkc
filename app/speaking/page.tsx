@@ -75,14 +75,16 @@ export default function SpeakingPage() {
       icon: GraduationCap,
       title: 'Cognitive Systems Management',
       description:
-        'The comprehensive methodology for AI implementation that bridges strategy, technical execution, and governance for enterprise scale.',
+        'A four-domain governance methodology connecting Enterprise, Project, Code and UX so that governance handoffs remain visible across the AI lifecycle.',
       audience: 'Program managers, AI teams, governance leaders',
       format: 'Workshop (half-day or full-day)',
       keyTakeaways: [
-        'Four-pillar CSM framework',
-        'Strategic-to-operational alignment',
-        'Risk-integrated decision making',
-        'Hands-on framework application',
+        'Four-domain CSM framework: Enterprise, Project, Code and UX',
+        'Connecting governance across organizational handoffs',
+        'Moving from pilot decisions to implementation',
+        'Governing AI-assisted development',
+        'Designing appropriate human oversight',
+        'Translating CSM into an operating model',
       ],
     },
     {

@@ -43,6 +43,13 @@ const nextConfig = {
       // 301 redirects for purged thin content (consolidated into stronger pages)
       { source: '/blog/securing-ai-systems-after-openai-containment-breach', destination: '/how-to-secure-and-govern-ai', statusCode: 301 },
       { source: '/blog/ai-compliance-guide-addressing-hugging-face-risks', destination: '/blog/seven-layers-ai-compliance-nist-iso-soc2', statusCode: 301 },
+      // 301 redirect for consolidated HAIEC pages (single canonical page)
+      { source: '/haiec', destination: '/solutions/haiec', statusCode: 301 },
+      // 301 redirect for CSM short URL
+      { source: '/csm', destination: '/cognitive-systems-management', statusCode: 301 },
+      // 301 redirect for retired CSM6 name
+      { source: '/csm6', destination: '/cognitive-systems-management', statusCode: 301 },
+      { source: '/csm6/:path*', destination: '/cognitive-systems-management', statusCode: 301 },
     ]
   },
 }

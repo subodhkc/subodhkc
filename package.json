@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:csm:golden": "tsx tests/csm-v2/golden-tests.ts",
+    "test:csm:invariants": "tsx tests/csm-v2/invariant-tests.ts",
+    "test:csm": "tsx tests/csm-v2/golden-tests.ts && tsx tests/csm-v2/invariant-tests.ts",
+    "gen:csm": "tsx scripts/generate-csm-v2-json.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

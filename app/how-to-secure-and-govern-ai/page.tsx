@@ -127,7 +127,7 @@ const tocItems = [
   { id: 'maturity-ladder', label: 'The AI Assurance Maturity Ladder' },
   { id: 'truthful-claims', label: 'What Claims Can a Business Truthfully Make?' },
   { id: 'roadmap', label: 'A Practical Implementation Roadmap' },
-  { id: 'csm6', label: 'Where CSM6 Fits' },
+  { id: 'execution-framework', label: 'Where the Execution Framework Fits' },
   { id: 'haiec', label: 'How HAIEC Fits Into the Stack' },
   { id: 'faq', label: 'FAQ' },
   { id: 'final-perspective', label: 'Final Perspective' },
@@ -189,13 +189,13 @@ const phases = [
   { p: 'Phase 5: Assure and approve', o: 'Obtain the appropriate level of independent confidence.', t: ['Obtain independent security testing', 'Complete legal review', 'Pursue SOC 2 where customers require it', 'Pursue applicable ISO certification when justified', 'Complete executive risk acceptance', 'Document deployment approval'], d: ['Independent reports', 'Certification or SOC evidence', 'Legal assessment', 'Executive approval', 'Production readiness package'] },
   { p: 'Phase 6: Operate and improve', o: 'Keep the system controlled as it changes.', t: ['Monitor quality, access, incidents, and cost', 'Review model and prompt changes', 'Monitor vendors and subprocessors', 'Repeat evaluations after material changes', 'Review user feedback and complaints', 'Conduct periodic access reviews', 'Update the legal map', 'Retire obsolete systems'], d: ['Operational scorecard', 'Change history', 'Continuous evidence', 'Periodic risk review', 'Incident reports', 'Improvement backlog', 'Retirement records'] },
 ]
-const csm6 = [
-  ['Scope', 'Intended use, affected users, jurisdictions, laws, and risk tolerance'],
-  ['System', 'Models, data, RAG, agents, tools, MCP servers, vendors, and dependencies'],
-  ['Signal', 'Quality, drift, attacks, access failures, incidents, complaints, and costs'],
-  ['Structure', 'Lifecycle gates, ownership, testing, approvals, change control, and retirement'],
-  ['Strategy', 'Control depth, assurance investment, adoption plan, and risk acceptance'],
-  ['Compliance', 'Legal mapping, framework alignment, testing evidence, and independent assurance'],
+const executionFunctions = [
+  ['Purpose, Scope & Accountability', 'Intended use, affected users, jurisdictions, laws, and risk tolerance'],
+  ['System, Data & Dependency Mapping', 'Models, data, RAG, agents, tools, MCP servers, vendors, and dependencies'],
+  ['Risk, Evaluation & Monitoring', 'Quality, drift, attacks, access failures, incidents, complaints, and costs'],
+  ['Controlled Delivery & Change', 'Lifecycle gates, ownership, testing, approvals, change control, and retirement'],
+  ['Human Oversight, Feedback & Learning', 'Control depth, assurance investment, adoption plan, and risk acceptance'],
+  ['Compliance, Evidence & Assurance', 'Legal mapping, framework alignment, testing evidence, and independent assurance'],
 ]
 
 const howToSchema = {
@@ -500,13 +500,13 @@ export default function HowToSecureAndGovernAIPage() {
         </div>
       </Section>
 
-      {/* CSM6 */}
-      <Section className="pt-8" id="csm6">
+      {/* AI Governance Execution Framework */}
+      <Section className="pt-8" id="execution-framework">
         <div className="max-w-4xl mx-auto space-y-6">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Where CSM6 Fits</h2>
-          <p className="text-base text-foreground/90">CSM6 can serve as the execution bridge between the assurance stack and project delivery.</p>
-          <div className="overflow-x-auto"><table className="w-full text-sm border border-border rounded-lg"><thead className="bg-muted/50"><tr><th className="text-left p-3 border-b border-border font-semibold">CSM6 element</th><th className="text-left p-3 border-b border-border font-semibold">AI Secure &amp; Govern application</th></tr></thead><tbody className="divide-y divide-border">{csm6.map((row) => (<tr key={row[0]}><td className="p-3 font-medium text-foreground">{row[0]}</td><td className="p-3 text-muted-foreground">{row[1]}</td></tr>))}</tbody></table></div>
-          <p className="text-sm text-muted-foreground">CSM6 is not another certification standard. It is the practical operating framework that helps an organization move from requirement to ownership to implementation to validation to evidence to operation.</p>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Where the Execution Framework Fits</h2>
+          <p className="text-base text-foreground/90">The AI Governance Execution Framework operationalizes and extends Cognitive Systems Management (CSM) with six cross-functional governance functions. It serves as the execution bridge between the assurance stack and project delivery.</p>
+          <div className="overflow-x-auto"><table className="w-full text-sm border border-border rounded-lg"><thead className="bg-muted/50"><tr><th className="text-left p-3 border-b border-border font-semibold">Execution Framework function</th><th className="text-left p-3 border-b border-border font-semibold">AI Secure &amp; Govern application</th></tr></thead><tbody className="divide-y divide-border">{executionFunctions.map((row) => (<tr key={row[0]}><td className="p-3 font-medium text-foreground">{row[0]}</td><td className="p-3 text-muted-foreground">{row[1]}</td></tr>))}</tbody></table></div>
+          <p className="text-sm text-muted-foreground">The AI Governance Execution Framework is not another certification standard. It is the practical execution framework that helps an organization move from requirement to ownership to implementation to validation to evidence to operation.</p>
         </div>
       </Section>
 

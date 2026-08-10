@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
                 <ul style="margin: 0; padding-left: 20px; color: #065f46;">
                   <li style="margin-bottom: 10px;"><strong>Cognitive Systems Management (CSM) Framework</strong> - Proven methodology for AI program delivery</li>
                   <li style="margin-bottom: 10px;"><strong>5 Patent-Pending Methodologies</strong> - Adversarial Project Twin, AI Compliance Twin, Modular Audit Engine, Precision Drift Detector, Compliance Fingerprint Layer</li>
-                  <li style="margin-bottom: 10px;"><strong>SKC Meeting ResetFrame™</strong> - Enterprise accountability framework</li>
+                  <li style="margin-bottom: 10px;"><strong>SKC Meeting ResetFrame</strong> - Enterprise accountability framework</li>
                   <li style="margin-bottom: 10px;"><strong>Enterprise Implementation Strategies</strong> - Real-world deployment guidance</li>
                 </ul>
               </div>
@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
               <p style="margin: 10px 0;">
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}" style="color: #10B981; text-decoration: none;">subodhkc.com</a> | 
                 <a href="https://linkedin.com/in/subodhkc" style="color: #10B981; text-decoration: none;">LinkedIn</a> | 
-                <a href="https://haiec.com/csm6" style="color: #10B981; text-decoration: none;">HAIEC Platform</a>
+                <a href="https://www.haiec.com" style="color: #10B981; text-decoration: none;">HAIEC Platform</a>
               </p>
               <p style="margin: 15px 0 0 0; color: #d1d5db; font-size: 11px;">
                 You're receiving this because you downloaded the ${safeResource} from subodhkc.com<br>

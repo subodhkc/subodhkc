@@ -172,10 +172,10 @@ export async function POST(request: NextRequest) {
                   <strong>Key Achievements:</strong>
                 </p>
                 <ul style="color: #6b7280; font-size: 14px; margin: 0 0 15px 0; padding-left: 20px;">
-                  <li style="margin-bottom: 6px;">Led 50+ enterprise AI programs ($50M+ budgets)</li>
+                  <li style="margin-bottom: 6px;">Led 50+ enterprise AI programs ($50M+ portfolios)</li>
                   <li style="margin-bottom: 6px;">5 patent-pending AI compliance frameworks</li>
                   <li style="margin-bottom: 6px;">Managed 100+ stakeholder teams globally</li>
-                  <li style="margin-bottom: 6px;">Created CSM Framework & SKC ResetFrame™</li>
+                  <li style="margin-bottom: 6px;">Created CSM Framework & SKC ResetFrame</li>
                 </ul>
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/about" 
                    style="display: inline-block; color: #10B981; text-decoration: none; font-weight: 600; font-size: 14px;">
@@ -201,7 +201,7 @@ export async function POST(request: NextRequest) {
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}" style="color: #10B981; text-decoration: none;">Website</a> | 
                 <a href="https://linkedin.com/in/subodhkc" style="color: #10B981; text-decoration: none;">LinkedIn</a> | 
                 <a href="https://medium.com/@subodhkc" style="color: #10B981; text-decoration: none;">Medium</a> | 
-                <a href="https://haiec.com/csm6" style="color: #10B981; text-decoration: none;">HAIEC Platform</a>
+                <a href="https://www.haiec.com" style="color: #10B981; text-decoration: none;">HAIEC Platform</a>
               </p>
               <p style="margin: 15px 0 0 0; color: #d1d5db; font-size: 11px;">
                 You're receiving this because you subscribed to AI Insights & Compliance Updates at subodhkc.com<br>

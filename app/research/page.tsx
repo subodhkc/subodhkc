@@ -10,7 +10,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'AI Governance Research & Frameworks | Subodh KC',
   description:
-    'Research and frameworks on AI governance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies. Published in Zenodo with peer-reviewed methodologies.',
+    'Research and frameworks on AI governance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies. Published in Zenodo with reproducible methodologies.',
   keywords: [
     'AI governance research',
     'AI frameworks',
@@ -87,7 +87,7 @@ export default function ResearchPage() {
   const frameworks = [
     {
       icon: TrendingUp,
-      title: 'Precision Drift Detection',
+      title: 'Precision Drift Detector',
       description:
         'Advanced methodology for detecting subtle degradation patterns in production AI systems. Goes beyond basic statistical drift to identify concept drift, performance degradation, and silent failures before they impact users.',
       keyContributions: [
@@ -103,19 +103,26 @@ export default function ResearchPage() {
       icon: Layers,
       title: 'Cognitive Systems Management (CSM)',
       description:
-        'Comprehensive methodology for AI implementation that bridges strategy, technical execution, and governance. The foundational framework underlying HAIEC platform and approach to enterprise AI deployment.',
+        'A four-domain AI governance methodology comprising CSM-Enterprise, CSM-Project, CSM-Code and CSM-UX. First published August 29, 2025 in "Cognitive System Management: A Framework for Enterprise AI Project Governance" on AI Governance on Medium. Current version: CSM 2.0 — a deterministic-by-design governance operating model that preserves the original four domains and adds six cross-functional execution functions plus versioned governance contracts.',
       keyContributions: [
-        'Four-pillar implementation model',
-        'Strategic-to-operational alignment',
-        'Risk-integrated decision frameworks',
-        'Continuous governance methodology',
+        'Four-domain governance model (Enterprise, Project, Code, UX)',
+        'Cross-domain handoff visibility',
+        'Risk-integrated governance methodology',
+        'CSM 2.0: governance contracts, evidence schemas, reassessment triggers',
+        'Deterministic reference evaluator for objective rules',
+        'Practitioner-developed framework, versioned for public scrutiny',
       ],
-      status: 'Published Framework',
-      year: '2023-2025',
+      status: 'Published Framework · Current Version: CSM 2.0',
+      year: '2025–2026',
+      links: [
+        { label: 'Current Framework (CSM 2.0)', url: '/cognitive-systems-management' },
+        { label: 'V2 Specification', url: '/cognitive-systems-management/v2' },
+        { label: 'Original Publication (Medium)', url: 'https://medium.com/ai-governance-playbook/cognitive-system-management-a-framework-for-enterprise-ai-project-governance-ee7fc95a07ff' },
+      ],
     },
     {
       icon: Shield,
-      title: 'Red Audit Kit™',
+      title: 'Red Audit Kit',
       description:
         'Systematic assessment framework for AI systems covering models, data pipelines, infrastructure, and governance. Provides structured methodology for identifying compliance gaps and risk exposure.',
       keyContributions: [
@@ -129,7 +136,7 @@ export default function ResearchPage() {
     },
     {
       icon: FileText,
-      title: 'LegacyShift™ Methodology',
+      title: 'LegacyShift Methodology',
       description:
         'Structured approach to modernizing legacy AI systems. Addresses technical debt, compliance gaps, and operational inefficiencies while minimizing risk and maintaining business continuity.',
       keyContributions: [
@@ -232,13 +239,13 @@ export default function ResearchPage() {
       link: 'https://medium.com/design-bootcamp/why-enterprise-ai-integration-strategies-fail-and-what-actually-works-11fe2d748eab',
     },
     {
-      title: 'Cognitive Systems Management: A Unified Approach',
-      venue: 'HAIEC Research',
+      title: 'Cognitive System Management: A Framework for Enterprise AI Project Governance',
+      venue: 'AI Governance on Medium',
       type: 'Methodology',
-      year: '2024',
+      year: '2025',
       summary:
-        'Comprehensive methodology bridging AI strategy, implementation, and governance for enterprise scale.',
-      link: '/how-to-secure-and-govern-ai#csm6',
+        'Original publication of the Cognitive Systems Management (CSM) framework: a four-domain governance methodology comprising Enterprise, Project, Code and UX. Current version: CSM 2.0 (spec v2.0.0, 2026-08-10).',
+      link: 'https://medium.com/ai-governance-playbook/cognitive-system-management-a-framework-for-enterprise-ai-project-governance-ee7fc95a07ff',
     },
   ]
 
@@ -310,6 +317,21 @@ export default function ResearchPage() {
                       </div>
                     ))}
                   </Grid>
+                  {framework.links && (
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      {framework.links.map((link, idx) => (
+                        <Link
+                          key={idx}
+                          href={link.url}
+                          target={link.url.startsWith('http') ? '_blank' : undefined}
+                          rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                        >
+                          {link.label} <ArrowRight className="h-3 w-3" />
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )

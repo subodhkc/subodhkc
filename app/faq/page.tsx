@@ -121,7 +121,7 @@ const faqs = [
       },
       {
         q: 'Who founded HAIEC?',
-        a: 'HAIEC was founded by Subodh KC in 2020. He built the platform to address the gap between AI innovation and regulatory compliance. The platform includes the CSM6 governance framework, Red Audit Kit, Precision Drift Detector, and AI Compliance Twin — all designed for enterprise-scale AI compliance.',
+        a: 'HAIEC was founded by Subodh KC in 2020. He built the platform to address the gap between AI innovation and regulatory compliance. The platform includes the AI Governance Execution Framework, Red Audit Kit, Precision Drift Detector, and AI Compliance Twin — all designed for enterprise-scale AI compliance.',
       },
     ],
   },

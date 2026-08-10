@@ -116,7 +116,7 @@ const technicalGuides = [
     href: '/how-to-secure-and-govern-ai',
     title: 'How to Secure and Govern AI',
     description:
-      'Seven-layer compliance stack covering NIST AI RMF, ISO 42001, SOC 2, security testing, and continuous evidence. Includes CSM6 operating framework and HAIEC integration patterns.',
+      'Seven-layer compliance stack covering NIST AI RMF, ISO 42001, SOC 2, security testing, and continuous evidence. Includes the AI Governance Execution Framework and HAIEC integration patterns.',
     tag: 'Security & Governance',
   },
   {

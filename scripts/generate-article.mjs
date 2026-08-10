@@ -474,7 +474,29 @@ const FORBIDDEN_CLAIMS = `FORBIDDEN CLAIMS (do not use without verified evidence
 - "Eliminates AI risk"
 - "100% accurate"
 - "Proven at Fortune 50 scale"
-- "Adopted across the industry"`
+- "Adopted across the industry"
+
+CSM TERMINOLOGY GUARDRAILS (mandatory when referencing Cognitive Systems Management):
+- CSM has four DOMAINS: CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX. Never use "four-pillar," "four pillars," "pillar model," or any pillar-based terminology.
+- The term "CSM6" is stale and must not be used. The six-function operating model is called the "AI Governance Execution Framework."
+- Do not rename or rebrand the four CSM domains. The original names are: Enterprise, Project, Code, UX.
+- Do not invent CSM components, sub-domains, or extensions not present in the canonical data.
+- CSM is a practitioner-developed governance methodology, not a certification, regulation, standard, or peer-reviewed framework. Do not present it as such.
+- CSM defines WHERE governance responsibilities operate (four domains). The AI Governance Execution Framework defines WHAT operating functions should continuously occur (six functions). Do not conflate them.
+- CSM is a governance methodology. HAIEC is a technology platform. HAIEC supports selected CSM activities but does not fully implement every CSM responsibility.
+- When mentioning CSM's origin, cite: "First published August 29, 2025 in 'Cognitive System Management: A Framework for Enterprise AI Project Governance' on AI Governance on Medium."
+- Link to /cognitive-systems-management for CSM references, not /solutions/haiec or /research.
+
+CSM 2.0 VERSIONING GUARDRAILS (mandatory when referencing CSM 2.0 specifically):
+- CSM 2.0 has spec version 2.0.0 and spec date 2026-08-10. Always cite the version when making V2-specific claims.
+- CSM 2.0 is a formalization and extension of the original CSM publication. It does NOT claim the 2025 article contained V2 features. Never state or imply that governance contracts, execution functions, state models, or the determinism boundary were in the original article.
+- The six execution functions have canonical IDs: EF1-PURPOSE, EF2-MAPPING, EF3-RISK, EF4-DELIVERY, EF5-OVERSIGHT, EF6-COMPLIANCE. Do not rename or reorder them.
+- The 16 governance components have canonical IDs: ENT-POLICY, ENT-RISK, ENT-DATA, ENT-MANDATE, PRJ-BUSINESS, PRJ-TESTING, PRJ-SCALE, PRJ-PLAYBOOK, CODE-STANDARDS, CODE-SECURITY, CODE-HUMAN, CODE-TRACE, UX-IMPACT, UX-EXPLAIN, UX-CAPABILITY, UX-ADOPTION. Do not invent additional components.
+- CSM 2.0 is deterministic-by-design for objective rules and makes human judgment explicit where interpretation is required. Never claim CSM 2.0 "automates" governance decisions or "replaces" human judgment.
+- CSM 2.0 does NOT produce legal compliance verdicts. Never claim it produces "LEGAL_COMPLIANT," "COMPLIANT," "SAFE," "TRUSTWORTHY," "CERTIFIED," or "AUDIT_PROOF" verdicts.
+- CSM 2.0 does NOT produce aggregate scores. Never claim it produces "compliance_score," "safety_score," "trust_score," or "risk_score."
+- The machine-readable spec is at /frameworks/csm/2.0/csm-2.0.json with schema at /frameworks/csm/2.0/csm-2.0.schema.json.
+- Link to /cognitive-systems-management/v2 for V2 specification, /cognitive-systems-management/contracts for governance contracts, /cognitive-systems-management/assessment for the interactive evaluator.`
 
 const CITATION_SOURCES = [
   // Official / government
@@ -1038,6 +1060,27 @@ function validateArticle(article, item) {
     errors.push(`Forbidden claims detected: ${foundForbidden.join(', ')}`)
   }
 
+  // --- CSM stale terminology check ---
+  const csmStaleTerms = [
+    'four-pillar', 'four pillar', 'csm6', 'csm pillar',
+    'strategic alignment', 'technical implementation',
+    'governance and risk', 'operational excellence',
+  ]
+  const foundCsmStale = csmStaleTerms.filter((term) => contentLower.includes(term))
+  if (foundCsmStale.length > 0) {
+    errors.push(`Stale CSM terminology detected: ${foundCsmStale.join(', ')}. Use canonical four-domain model (Enterprise, Project, Code, UX) and "AI Governance Execution Framework" instead of CSM6.`)
+  }
+
+  // --- CSM 2.0 forbidden output states check ---
+  const csmForbiddenOutputs = [
+    'legal_compliant', 'eu_ai_act_compliant', 'audit_proof',
+    'compliance_score', 'safety_score', 'trust_score', 'risk_score',
+  ]
+  const foundCsmForbidden = csmForbiddenOutputs.filter((term) => contentLower.includes(term))
+  if (foundCsmForbidden.length > 0) {
+    errors.push(`Forbidden CSM 2.0 output states detected: ${foundCsmForbidden.join(', ')}. CSM 2.0 does not produce legal compliance verdicts or aggregate scores.`)
+  }
+
   // --- Citation density check ---
   // Target: at least 1 external citation per 500 words
   const citationCount = citationLinks.length
@@ -1062,6 +1105,10 @@ function validateArticle(article, item) {
       'sovereign', 'on-premises', 'on-prem', 'open-weight', 'inference',
       'token', 'latency', 'throughput', 'concurrency',
       'haiec', 'kestrelvoice', 'devin', 'openai', 'anthropic',
+      'cognitive systems management', 'csm', 'csm-enterprise', 'csm-project', 'csm-code', 'csm-ux',
+      'ai governance execution framework',
+      'csm 2.0', 'governance contract', 'determinism boundary', 'reassessment trigger',
+      'governance depth', 'baseline governance', 'enhanced governance', 'intensive governance',
       'python', 'typescript', 'nextjs', 'react',
       'api', 'rest', 'graphql', 'grpc',
       'kubernetes', 'docker', 'aws', 'azure', 'gcp',

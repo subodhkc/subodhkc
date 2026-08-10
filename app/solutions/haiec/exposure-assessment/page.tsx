@@ -352,7 +352,7 @@ export default function HAIECExposureAssessmentPage() {
 
       <CTA
         title="Ready for Your AI Exposure Assessment?"
-        description="Get a comprehensive AI security assessment with evidence-grade compliance outputs — from Subodh KC, co-founder of HAIEC."
+        description="Get a comprehensive AI security assessment with evidence-grade compliance outputs — from Subodh KC, founder of HAIEC."
         primaryButton={{ text: 'Book an Assessment', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

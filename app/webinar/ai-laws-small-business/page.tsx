@@ -256,7 +256,7 @@ export default function WebinarPage() {
               <CardDescription className="text-base space-y-3">
                 <p>
                   Subodh KC architects AI governance frameworks for a Fortune 50 company and has developed 5
-                  patent-pending methodologies for AI compliance and drift detection. He is the co-founder of
+                  patent-pending methodologies for AI compliance and drift detection. He is the founder of
                   HAIEC, an AI compliance platform, and founder of KestrelVoice, an AI voice operations platform.
                 </p>
                 <p>

@@ -4,19 +4,19 @@ import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { ArchitectureDecisionSheet } from '@/components/interactive/ArchitectureDecisionSheet'
-import { FileText, Shield, AlertTriangle, CheckCircle2, ArrowRight, Layers, Building, Cpu, ClipboardCheck, TrendingUp } from 'lucide-react'
+import { FileText, Shield, AlertTriangle, CheckCircle2, ArrowRight, Layers, Building, Cpu, ClipboardCheck, TrendingUp, Users } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Architecture Decision Master Sheet | Subodh KC',
   description:
-    'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads — with AI development risks, CSM pillar mapping, documents per step, and Definition of Done for every layer.',
+    'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads — with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer.',
   alternates: {
     canonical: 'https://subodhkc.com/architecture-decision-master-sheet',
   },
   openGraph: {
     title: 'Architecture Decision Master Sheet',
-    description: 'Interactive 25-layer architecture decision sheet with AI development risks, CSM alignment, documents per step, and Definition of Done — for PMs, architects, and tech leads.',
+    description: 'Interactive 25-layer architecture decision sheet with AI development risks, CSM domain mapping, documents per step, and Definition of Done — for PMs, architects, and tech leads.',
     url: 'https://subodhkc.com/architecture-decision-master-sheet',
     type: 'article',
     authors: ['Subodh KC'],
@@ -57,7 +57,7 @@ const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
   headline: 'Architecture Decision Master Sheet',
-  description: 'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads — with AI development risks, CSM pillar mapping, documents per step, and Definition of Done for every layer.',
+  description: 'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads — with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer.',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2026-07-17',
@@ -82,8 +82,8 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'What is the CSM pillar mapping and why does it matter?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Every layer maps to one of the four pillars of Cognitive Systems Management (CSM): Strategic Alignment (Layers 1–4), Technical Implementation (Layers 5–17), Governance & Risk (Layers 18–21), and Operational Excellence (Layers 22–25). CSM is the framework underlying the HAIEC platform. The mapping ensures every technical decision is connected to business strategy, governance, and operations.' },
+      name: 'What is the CSM domain mapping and why does it matter?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Architecture decisions may map to zero, one or multiple CSM domains (CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX). The master sheet is not CSM itself — its purpose is architecture completeness and blind-spot prevention. The mapping helps architects see which governance domains a given decision touches.' },
     },
     {
       '@type': 'Question',
@@ -118,11 +118,11 @@ const breadcrumbSchema = {
   ],
 }
 
-const csmPillarData = [
-  { pillar: 'Strategic Alignment', layers: '1–4 (Group A)', icon: Building, focus: 'Business objectives, risk-reward, stakeholder alignment. What are we building and why?' },
-  { pillar: 'Technical Implementation', layers: '5–17 (Groups B–E)', icon: Cpu, focus: 'Architecture decisions, infrastructure, integration patterns. How are we building it?' },
-  { pillar: 'Governance & Risk', layers: '18–21 (Group F)', icon: Shield, focus: 'Policy frameworks, compliance, continuous monitoring. How do we protect it?' },
-  { pillar: 'Operational Excellence', layers: '22–25 (Group G)', icon: TrendingUp, focus: 'Performance, incident response, continuous improvement. How do we run it?' },
+const csmDomainData = [
+  { domain: 'CSM-Enterprise', icon: Building, focus: 'Who decides, who owns the risk, and what organizational boundaries apply. Architecture decisions with enterprise-governance implications map here.' },
+  { domain: 'CSM-Project', icon: ClipboardCheck, focus: 'What evidence justifies continuing, changing, scaling or stopping. Decisions about business case, testing and scale boundaries map here.' },
+  { domain: 'CSM-Code', icon: Cpu, focus: 'How we govern what AI helps us build. Decisions about development standards, security protocols, human oversight and traceability map here.' },
+  { domain: 'CSM-UX', icon: Users, focus: 'What people need to understand, supervise and appropriately use AI-supported outcomes. Decisions affecting explainability, impact analysis and adoption map here.' },
 ]
 
 const antiPatterns = [
@@ -140,7 +140,7 @@ const antiPatterns = [
 const faqs = [
   { q: 'What is an Architecture Decision Master Sheet?', a: 'An interactive reference covering 25 architecture layers that every software development project must consider — from product scope to governance. Each layer answers seven questions: Why does it matter? Who is responsible? How is it implemented? When should it be addressed? What are the risks? What does bad look like? And what documents should architects and PMs produce?' },
   { q: 'How does this sheet handle AI development risks?', a: 'Every layer includes AI development risks in two dimensions: AI in the product (Layers 15–17 cover RAG pipeline, agent architecture, and output validation) and AI tools in the development process (all 25 layers include AI pitfalls, risks of using AI to build, mitigation approaches, and quality gates). This means even if your product has no AI features, the sheet covers risks from using AI code assistants like Copilot, Cursor, or Claude.' },
-  { q: 'What is the CSM pillar mapping and why does it matter?', a: 'Every layer maps to one of the four pillars of Cognitive Systems Management (CSM): Strategic Alignment (Layers 1–4), Technical Implementation (Layers 5–17), Governance & Risk (Layers 18–21), and Operational Excellence (Layers 22–25). CSM is the framework underlying the HAIEC platform. The mapping ensures every technical decision is connected to business strategy, governance, and operations.' },
+  { q: 'What is the CSM domain mapping and why does it matter?', a: 'Architecture decisions may map to zero, one or multiple CSM domains (CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX). The master sheet is not CSM itself — its purpose is architecture completeness and blind-spot prevention. The mapping helps architects see which governance domains a given decision touches.' },
   { q: 'What documents does each layer specify?', a: 'Each layer specifies two document lists: Architect Documents (ADRs, design documents, diagrams, specifications) and PM Documents (sprint plans, review schedules, staffing plans, compliance timelines). These are the concrete deliverables that prove a decision was made, reviewed, and approved. If a layer has no documents, it has not been decided.' },
   { q: 'Can I use this sheet for projects without AI features?', a: 'Yes. The sheet includes a "Web app without AI" scenario that filters to Layers 1–14 and 18–25, skipping the conditional AI layers (Group E). However, if your team uses AI code assistants (Copilot, Cursor, Claude), the AI development risks on all layers still apply — they cover risks from using AI tools to write code, not just AI features in the product.' },
   { q: 'How is the Definition of Done (DoD) different from a checklist item?', a: 'The DoD is a gate, not a checkbox. It is a specific, testable criterion that must be met before a layer is considered complete. For example, the DoD for Security & Policy is: "Security architecture documented; RLS implemented; encryption verified; audit logging active; security scan passing in CI." This prevents the common failure mode where teams believe a layer is "done" when it is merely "started."' },
@@ -163,7 +163,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
             <span className="gradient-text">Master Sheet</span>
           </>
         }
-        description="An interactive 25-layer architecture decision sheet for software development PMs, architects, and tech leads — with AI development risks, CSM pillar mapping, documents per step, and Definition of Done for every layer."
+        description="An interactive 25-layer architecture decision sheet for software development PMs, architects, and tech leads — with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer."
       />
 
       <Section className="pt-8">
@@ -185,9 +185,9 @@ export default function ArchitectureDecisionMasterSheetPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              The Architecture Decision Master Sheet covers 25 architecture layers across 7 groups — from product scope to governance. Each layer includes purpose, criticality, phase, decision options, RACI (Responsible, Accountable, Consulted, Informed), risks, AI development risks, documents for architects and PMs, and a Definition of Done. Aligned with the{' '}
-              <Link href="/haiec" className="text-primary font-medium hover:underline">Cognitive Systems Management (CSM)</Link>{' '}
-              framework, it bridges strategy, execution, governance, and operations. Use it alongside the{' '}
+              The Architecture Decision Master Sheet covers 25 architecture layers across 7 groups — from product scope to governance. Each layer includes purpose, criticality, phase, decision options, RACI (Responsible, Accountable, Consulted, Informed), risks, AI development risks, documents for architects and PMs, and a Definition of Done. Architecture decisions may map to zero, one or multiple{' '}
+              <Link href="/cognitive-systems-management" className="text-primary font-medium hover:underline">Cognitive Systems Management (CSM)</Link>{' '}
+              domains. The master sheet is not CSM itself — its purpose is architecture completeness and blind-spot prevention. Use it alongside the{' '}
               <Link href="/ai-risk-register" className="text-primary font-medium hover:underline">AI Risk Register</Link>,{' '}
               <Link href="/ai-security-tools" className="text-primary font-medium hover:underline">AI Security Tools</Link>,{' '}
               and the{' '}
@@ -212,7 +212,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
           </p>
           <div className="rounded-lg border border-purple-500/30 bg-purple-950/20 p-4">
             <p className="text-sm text-purple-200">
-              <strong>CSM-Aligned:</strong> Every layer maps to one of the four pillars of <Link href="/haiec" className="font-medium hover:underline">Cognitive Systems Management (CSM)</Link> — <span className="font-semibold">Strategic Alignment</span>, <span className="font-semibold">Technical Implementation</span>, <span className="font-semibold">Governance & Risk</span>, and <span className="font-semibold">Operational Excellence</span>. Use the CSM Pillar View in the interactive tool to see how the sheet operationalizes the framework.
+              <strong>CSM Domain Mapping:</strong> Architecture decisions may map to zero, one or multiple <Link href="/cognitive-systems-management" className="font-medium hover:underline">Cognitive Systems Management (CSM)</Link> domains — <span className="font-semibold">CSM-Enterprise</span>, <span className="font-semibold">CSM-Project</span>, <span className="font-semibold">CSM-Code</span>, and <span className="font-semibold">CSM-UX</span>. The master sheet is not CSM itself; its purpose is architecture completeness and blind-spot prevention.
             </p>
           </div>
         </div>
@@ -236,7 +236,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">2</span>
                   <h3 className="text-sm font-semibold">Filter & explore</h3>
                 </div>
-                <p className="text-xs text-muted-foreground">Filter by phase, CSM pillar, criticality, or keyword. Click any layer for 6 tabs of detail.</p>
+                <p className="text-xs text-muted-foreground">Filter by phase, CSM domain, criticality, or keyword. Click any layer for 6 tabs of detail.</p>
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -491,26 +491,25 @@ export default function ArchitectureDecisionMasterSheetPage() {
       {/* Article: CSM Alignment */}
       <Section className="pt-4">
         <div className="max-w-3xl mx-auto space-y-4 prose-article">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight"><span className="gradient-text">CSM Alignment</span>: How This Sheet Maps to the Four Pillars</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight"><span className="gradient-text">CSM Domain Mapping</span>: How This Sheet Relates to Cognitive Systems Management</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            The Architecture Decision Master Sheet operationalizes the <Link href="/haiec" className="text-primary font-medium hover:underline">Cognitive Systems Management (CSM)</Link> framework — the methodology underlying the HAIEC platform. CSM bridges AI strategy, technical execution, and governance into a single operating model with four pillars:
+            The Architecture Decision Master Sheet is not CSM itself. Its purpose is architecture completeness and blind-spot prevention. Architecture decisions may map to zero, one or multiple <Link href="/cognitive-systems-management" className="text-primary font-medium hover:underline">Cognitive Systems Management (CSM)</Link> domains. CSM defines four governance domains so that handoffs between enterprise intent, project decisions, technical implementation and human use remain visible:
           </p>
           <div className="grid gap-4 md:grid-cols-2">
-            {csmPillarData.map(p => {
-              const Icon = p.icon
+            {csmDomainData.map(d => {
+              const Icon = d.icon
               return (
-                <Card key={p.pillar} className="border-l-4 border-l-purple-500/40">
+                <Card key={d.domain} className="border-l-4 border-l-purple-500/40">
                   <CardHeader>
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
                         <Icon className="h-5 w-5 text-purple-500" />
                       </div>
                       <div>
-                        <CardTitle className="text-sm">{p.pillar}</CardTitle>
-                        <p className="text-xs text-muted-foreground">{p.layers}</p>
+                        <CardTitle className="text-sm">{d.domain}</CardTitle>
                       </div>
                     </div>
-                    <CardDescription className="text-sm">{p.focus}</CardDescription>
+                    <CardDescription className="text-sm">{d.focus}</CardDescription>
                   </CardHeader>
                 </Card>
               )
@@ -518,7 +517,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
           </div>
           <div className="rounded-lg border border-purple-500/30 bg-purple-950/20 p-4">
             <p className="text-sm text-purple-200">
-              <strong>Why CSM matters:</strong> Most architecture frameworks stop at technical decisions. CSM ensures that every technical decision is connected to business strategy, governance, and operations. The Architecture Decision Master Sheet is the practical tool that makes this connection explicit — every layer has a CSM pillar, and every pillar has concrete deliverables.
+              <strong>Why this matters:</strong> Most architecture frameworks stop at technical decisions. Mapping decisions to CSM domains helps architects see which governance areas a given decision touches. Not every layer will map to every domain — and that is the point. The mapping reveals blind spots where governance handoffs might otherwise go unnoticed.
             </p>
           </div>
         </div>
@@ -750,7 +749,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
                 </CardHeader>
               </Card>
             </Link>
-            <Link href="/haiec" className="block">
+            <Link href="/solutions/haiec" className="block">
               <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">

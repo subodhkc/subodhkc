@@ -105,7 +105,7 @@ export default function AboutPage() {
       title: 'Founder & CEO',
       subtitle: 'Holistic AI Ethics & Compliance (HAIEC)',
       description:
-        'Built comprehensive platform for AI governance, compliance, and ethical deployment. Created Cognitive Systems Management (CSM) Framework, SKC Meeting ResetFrame™, Red Audit Kit, and LegacyShift methodology.',
+        'Built comprehensive platform for AI governance, compliance, and ethical deployment. Developed Cognitive Systems Management (CSM), a four-domain governance methodology first published in 2025. Also created SKC Meeting ResetFrame, Red Audit Kit, and LegacyShift methodology.',
     },
     {
       date: '2022',
@@ -327,11 +327,11 @@ export default function AboutPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
-                CSM Framework & SKC ResetFrame™
+                CSM Framework & SKC ResetFrame
               </CardTitle>
               <CardDescription>
-                Cognitive Systems Management methodology and Meeting ResetFrame for enterprise AI program delivery. 
-                Designed for enterprise AI programs with practical, repeatable delivery.
+                Subodh developed Cognitive Systems Management (CSM), a four-domain governance methodology spanning Enterprise, Project, Code and UX, first published in 2025.{' '}
+                <Link href="/cognitive-systems-management" className="text-primary hover:underline">Explore the framework</Link>.
               </CardDescription>
             </CardHeader>
           </Card>

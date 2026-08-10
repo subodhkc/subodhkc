@@ -919,7 +919,7 @@ export default function LocalAIReviewPage() {
             <TrendingUp className="h-5 w-5" />
           </div>
           <p className="text-sm font-medium">Subodh KC &middot; Local AI Advisor</p>
-          <p className="text-sm text-muted-foreground">Founder, Kestrel Voice &middot; Co-founder, HAIEC</p>
+          <p className="text-sm text-muted-foreground">Founder, Kestrel Voice &middot; Founder, HAIEC</p>
           <p className="text-sm text-muted-foreground mt-1">Dallas-Fort Worth &middot; HEB Chamber Member</p>
           <p className="text-sm text-primary mt-2">subodhkc.com</p>
         </div>

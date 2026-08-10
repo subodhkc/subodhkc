@@ -23,7 +23,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Texas AI Law (TRAIGA / HB 149) Compliance Guide | Subodh KC',
   description:
-    'Complete guide to the Texas Responsible AI Governance Act (TRAIGA, HB 149). Effective January 1, 2026. Applicability tests, prohibited practices, disclosure duties, penalties, defense pathways, and compliance checklist by Subodh KC — co-founder of HAIEC.',
+    'Complete guide to the Texas Responsible AI Governance Act (TRAIGA, HB 149). Effective January 1, 2026. Applicability tests, prohibited practices, disclosure duties, penalties, defense pathways, and compliance checklist by Subodh KC — founder of HAIEC.',
   alternates: {
     canonical: 'https://subodhkc.com/guides/texas-ai-law',
   },

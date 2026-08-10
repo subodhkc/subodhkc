@@ -138,7 +138,7 @@ export default function WritingPage() {
   const upcomingTopics = [
     {
       icon: BookOpen,
-      title: 'Precision Drift Detection',
+      title: 'Precision Drift Detector',
       description:
         'Going beyond basic monitoring: How to detect subtle degradation patterns in production AI systems before they impact users.',
     },

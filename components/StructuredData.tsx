@@ -35,7 +35,12 @@ export default function StructuredData() {
       'AI Security Architecture',
       'Technical Program Management',
       'Enterprise AI Strategy',
-      'Cognitive Systems Management',
+      'Cognitive Systems Management (CSM)',
+      'CSM-Enterprise',
+      'CSM-Project',
+      'CSM-Code',
+      'CSM-UX',
+      'AI Governance Execution Framework',
       'AI Regulatory Compliance',
       'Compliance Architecture',
       'AI Risk Management',
@@ -163,7 +168,7 @@ export default function StructuredData() {
     name: 'HAIEC',
     description:
       'Holistic AI Ethics & Compliance - Enterprise-grade AI compliance and governance platform',
-    url: 'https://subodhkc.com/haiec',
+    url: 'https://subodhkc.com/solutions/haiec',
     founder: {
       '@type': 'Person',
       name: 'Subodh KC',
@@ -267,7 +272,12 @@ export default function StructuredData() {
       'AI Governance Frameworks',
       'AI Risk Management',
       'AI Audit and Evidence Architecture',
-      'Cognitive Systems Management',
+      'Cognitive Systems Management (CSM)',
+      'AI Governance Execution Framework',
+      'CSM-Enterprise',
+      'CSM-Project',
+      'CSM-Code',
+      'CSM-UX',
     ],
   }
 
@@ -474,6 +484,16 @@ export default function StructuredData() {
     {
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
+      name: 'Cognitive Systems Management (CSM)',
+      description: 'A four-domain AI governance methodology spanning Enterprise, Project, Code and UX. First published August 29, 2025 in "Cognitive System Management: A Framework for Enterprise AI Project Governance" on AI Governance on Medium.',
+      author: { '@type': 'Person', name: 'Subodh KC' },
+      url: 'https://subodhkc.com/cognitive-systems-management',
+      keywords: 'AI governance, CSM, Cognitive Systems Management, CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX, governance methodology',
+      datePublished: '2025-08-29',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
       name: 'Adversarial Project Twin',
       description: 'Drift and sabotage simulation framework that proactively identifies AI system vulnerabilities before production impact.',
       author: { '@type': 'Person', name: 'Subodh KC' },
@@ -524,8 +544,8 @@ export default function StructuredData() {
       '@type': 'DefinedTerm',
       name: 'Cognitive Systems Management (CSM)',
       description:
-        'A comprehensive methodology for AI implementation that bridges strategy, technical execution, and governance. The foundational framework underlying HAIEC platform and enterprise AI deployment.',
-      url: 'https://subodhkc.com/research',
+        'A four-domain AI governance methodology spanning Enterprise, Project, Code and UX. Designed to connect organizational governance, initiative execution, technical development and human interaction so governance decisions remain visible across the lifecycle of an AI-enabled system. First published August 29, 2025.',
+      url: 'https://subodhkc.com/cognitive-systems-management',
       inDefinedTermSet: {
         '@type': 'DefinedTermSet',
         name: 'Subodh KC AI Governance Frameworks',
@@ -535,9 +555,74 @@ export default function StructuredData() {
     {
       '@context': 'https://schema.org',
       '@type': 'DefinedTerm',
+      name: 'AI Governance Execution Framework',
+      description:
+        'A six-function operating model that operationalizes and extends Cognitive Systems Management (CSM). Functions: Purpose/Scope/Accountability, System/Data/Dependency Mapping, Risk/Evaluation/Monitoring, Controlled Delivery/Change, Human Oversight/Feedback/Learning, Compliance/Evidence/Assurance.',
+      url: 'https://subodhkc.com/cognitive-systems-management',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Subodh KC AI Governance Frameworks',
+        url: 'https://subodhkc.com/research',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'CSM-Enterprise',
+      description:
+        'Who has authority, who owns the outcome and risk, and what organizational boundaries apply. One of four CSM domains.',
+      url: 'https://subodhkc.com/cognitive-systems-management',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Cognitive Systems Management Domains',
+        url: 'https://subodhkc.com/cognitive-systems-management',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'CSM-Project',
+      description:
+        'What evidence should justify continuing, changing, scaling or stopping an AI initiative. One of four CSM domains.',
+      url: 'https://subodhkc.com/cognitive-systems-management',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Cognitive Systems Management Domains',
+        url: 'https://subodhkc.com/cognitive-systems-management',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'CSM-Code',
+      description:
+        'How should software engineering governance change when AI contributes to implementation. One of four CSM domains.',
+      url: 'https://subodhkc.com/cognitive-systems-management',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Cognitive Systems Management Domains',
+        url: 'https://subodhkc.com/cognitive-systems-management',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
+      name: 'CSM-UX',
+      description:
+        'What do humans need to understand, supervise, challenge and appropriately use AI-supported outcomes. One of four CSM domains.',
+      url: 'https://subodhkc.com/cognitive-systems-management',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'Cognitive Systems Management Domains',
+        url: 'https://subodhkc.com/cognitive-systems-management',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTerm',
       name: 'Instruction Stack Audit Framework (ISAF)',
       description:
-        'A technical methodology for tracing AI accountability across nine abstraction layers. Published in Zenodo as peer-reviewed research.',
+        'A technical methodology for tracing AI accountability across nine abstraction layers. Published in Zenodo with reproducible methodology.',
       url: 'https://zenodo.org/records/18080355',
       inDefinedTermSet: {
         '@type': 'DefinedTermSet',
@@ -561,7 +646,7 @@ export default function StructuredData() {
     {
       '@context': 'https://schema.org',
       '@type': 'DefinedTerm',
-      name: 'Precision Drift Detection',
+      name: 'Precision Drift Detector',
       description:
         'Advanced methodology for detecting subtle degradation patterns in production AI systems. Goes beyond basic statistical drift to identify concept drift and silent failures.',
       url: 'https://subodhkc.com/research',

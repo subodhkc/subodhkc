@@ -903,3 +903,20 @@ section[id], [id] {
   .diagram-reveal svg marker { opacity: 1 !important; }
   .tilt-card { transform: none !important; }
 }
+
+/* Print-friendly styles for CSM artifacts */
+@media print {
+  .print\:hidden { display: none !important; }
+  .print-friendly {
+    background: white !important;
+    color: black !important;
+  }
+  .print-friendly * {
+    color: black !important;
+    border-color: #ccc !important;
+  }
+  .print-friendly a {
+    text-decoration: underline !important;
+  }
+  body { background: white !important; }
+}

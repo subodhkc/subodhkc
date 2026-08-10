@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield, Globe, Phone, Sparkles, FileText, Briefcase } from 'lucide-react'
+import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield, Globe, Phone, Sparkles, FileText, Briefcase, Layers, Grid } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ProfileCard from './ProfileCard'
 
@@ -94,9 +94,34 @@ const solutions = [
   },
 ]
 
+const frameworks = [
+  {
+    name: 'Cognitive Systems Management',
+    href: '/cognitive-systems-management',
+    description: 'Four-domain AI governance methodology',
+    icon: Layers,
+    badge: 'Published 2025'
+  },
+  {
+    name: 'Architecture Decision Master Sheet',
+    href: '/architecture-decision-master-sheet',
+    description: '25-layer architecture decision reference',
+    icon: Grid,
+    badge: 'Interactive'
+  },
+  {
+    name: 'Research',
+    href: '/research',
+    description: 'Frameworks, methodologies and publications',
+    icon: FileText,
+    badge: ''
+  },
+]
+
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
+  { name: 'Frameworks', href: '/cognitive-systems-management', hasDropdown: true, dropdownType: 'frameworks' },
   { name: 'Solutions', href: '/solutions', hasDropdown: true, dropdownType: 'solutions' },
   { name: 'Products', href: '/products', hasDropdown: true, dropdownType: 'products' },
   { name: 'Services', href: '/services' },
@@ -108,8 +133,10 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [productsOpen, setProductsOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
+  const [frameworksOpen, setFrameworksOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const solutionsDropdownRef = useRef<HTMLDivElement>(null)
+  const frameworksDropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -126,6 +153,9 @@ export default function Navigation() {
       }
       if (solutionsDropdownRef.current && !solutionsDropdownRef.current.contains(event.target as Node)) {
         setSolutionsOpen(false)
+      }
+      if (frameworksDropdownRef.current && !frameworksDropdownRef.current.contains(event.target as Node)) {
+        setFrameworksOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -162,23 +192,23 @@ export default function Navigation() {
         <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
           {navigation.map((item) => (
             item.hasDropdown ? (
-              <div key={item.name} className="relative" ref={item.dropdownType === 'solutions' ? solutionsDropdownRef : dropdownRef}>
+              <div key={item.name} className="relative" ref={item.dropdownType === 'solutions' ? solutionsDropdownRef : item.dropdownType === 'frameworks' ? frameworksDropdownRef : dropdownRef}>
                 <button
-                  onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(!solutionsOpen) : setProductsOpen(!productsOpen)}
+                  onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(!solutionsOpen) : item.dropdownType === 'frameworks' ? setFrameworksOpen(!frameworksOpen) : setProductsOpen(!productsOpen)}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
                 >
                   {item.name}
-                  <ChevronDown className={cn("h-4 w-4 transition-transform", (item.dropdownType === 'solutions' ? solutionsOpen : productsOpen) && "rotate-180")} />
+                  <ChevronDown className={cn("h-4 w-4 transition-transform", (item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : productsOpen) && "rotate-180")} />
                 </button>
-                {(item.dropdownType === 'solutions' ? solutionsOpen : productsOpen) && (
+                {(item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : productsOpen) && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-background border border-border rounded-xl shadow-xl p-2 z-50">
-                    {(item.dropdownType === 'solutions' ? solutions : products).map((product) => {
+                    {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : products).map((product) => {
                       const Icon = product.icon
                       return (
                         <Link
                           key={product.name}
                           href={product.href}
-                          onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(false) : setProductsOpen(false)}
+                          onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(false) : item.dropdownType === 'frameworks' ? setFrameworksOpen(false) : setProductsOpen(false)}
                           className="flex items-start gap-3 p-3 rounded-lg hover:bg-secondary/50 transition-colors"
                         >
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -187,19 +217,23 @@ export default function Navigation() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
                               <span className="text-sm font-medium text-foreground">{product.name}</span>
-                              <span className={cn(
-                                "text-xs px-2 py-0.5 rounded-full",
-                                product.badge === 'Free' && "bg-green-500/10 text-green-500",
-                                product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
-                                product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
-                                product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
-                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500",
-                                product.badge === 'Production' && "bg-emerald-500/10 text-emerald-500",
-                                product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
-                                product.badge === 'Beta' && "bg-orange-500/10 text-orange-500"
-                              )}>
-                                {product.badge}
-                              </span>
+                              {product.badge && (
+                                <span className={cn(
+                                  "text-xs px-2 py-0.5 rounded-full",
+                                  product.badge === 'Free' && "bg-green-500/10 text-green-500",
+                                  product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
+                                  product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
+                                  product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
+                                  product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500",
+                                  product.badge === 'Production' && "bg-emerald-500/10 text-emerald-500",
+                                  product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
+                                  product.badge === 'Beta' && "bg-orange-500/10 text-orange-500",
+                                  product.badge === 'Published 2025' && "bg-purple-500/10 text-purple-500",
+                                  product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500"
+                                )}>
+                                  {product.badge}
+                                </span>
+                              )}
                             </div>
                             <p className="text-xs text-muted-foreground mt-0.5">{product.description}</p>
                           </div>
@@ -257,7 +291,7 @@ export default function Navigation() {
                         {item.name}
                       </div>
                       <div className="pl-4 space-y-1">
-                        {(item.dropdownType === 'solutions' ? solutions : products).map((product) => {
+                        {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : products).map((product) => {
                           const Icon = product.icon
                           return (
                             <Link
@@ -268,6 +302,7 @@ export default function Navigation() {
                             >
                               <Icon className="h-4 w-4" />
                               <span>{product.name}</span>
+                              {product.badge && (
                               <span className={cn(
                                 "text-xs px-2 py-0.5 rounded-full ml-auto",
                                 product.badge === 'Free' && "bg-green-500/10 text-green-500",
@@ -277,10 +312,13 @@ export default function Navigation() {
                                 product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500",
                                 product.badge === 'Production' && "bg-emerald-500/10 text-emerald-500",
                                 product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
-                                product.badge === 'Beta' && "bg-orange-500/10 text-orange-500"
+                                product.badge === 'Beta' && "bg-orange-500/10 text-orange-500",
+                                product.badge === 'Published 2025' && "bg-purple-500/10 text-purple-500",
+                                product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500"
                               )}>
                                 {product.badge}
                               </span>
+                              )}
                             </Link>
                           )
                         })}
