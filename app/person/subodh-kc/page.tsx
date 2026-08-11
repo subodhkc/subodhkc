@@ -19,6 +19,20 @@ export const metadata = {
       'Sr. Program Manager at HP Inc. (Fortune 50). 16+ years building production AI systems. Founder of KestrelVoice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight.',
     url: 'https://subodhkc.com/person/subodh-kc',
     type: 'profile',
+    images: [
+      {
+        url: 'https://subodhkc.com/portrait.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Subodh KC - Director of AI Programs & AI Systems Architect',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Subodh KC - Director of AI Programs & AI Systems Architect',
+    description: 'Sr. Program Manager at HP Inc. (Fortune 50). 16+ years building production AI systems. 5 patent-pending frameworks. $50M+ portfolio oversight.',
+    images: ['https://subodhkc.com/portrait.jpeg'],
   },
   keywords: [
     'Subodh KC',
@@ -238,6 +252,20 @@ const personSchema = {
     '@type': 'Demand',
     description: 'Open to Director of AI Programs, Head of AI, VP of AI Strategy, Senior Program Manager, and fractional AI executive roles.',
   },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': 'https://subodhkc.com/person/subodh-kc',
+  },
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Person', item: 'https://subodhkc.com/person' },
+    { '@type': 'ListItem', position: 3, name: 'Subodh KC', item: 'https://subodhkc.com/person/subodh-kc' },
+  ],
 }
 
 const profilePageSchema = {
@@ -342,6 +370,11 @@ export default function PersonPage() {
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <Hero

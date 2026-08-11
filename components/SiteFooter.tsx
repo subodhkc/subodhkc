@@ -1,4 +1,4 @@
-// components/SiteFooter.tsx — operator footer with portrait, newsletter, sitemap
+// components/SiteFooter.tsx - operator footer with portrait, newsletter, sitemap
 "use client";
 
 import * as React from "react";
@@ -34,7 +34,6 @@ const SITEMAP = [
       ["/contact", "contact"],
       ["/executive-bio", "executive bio"],
       ["/person/subodh-kc", "person profile"],
-      ["/resume", "resume"],
       ["/portfolio", "portfolio"],
       ["/magazine", "AI magazine"],
       ["/local-ai-review", "local AI review"],
@@ -229,7 +228,7 @@ export function SiteFooter() {
               color: "var(--text-secondary)",
             }}
           >
-            <span>fig.02 — operator</span>
+            <span>fig.02 - operator</span>
             <span>Dallas, TX</span>
           </figcaption>
         </figure>
@@ -269,7 +268,7 @@ export function SiteFooter() {
               maxWidth: 560,
             }}
           >
-            Former Fortune 50 AI Strategy CTL. Founder of HAIEC — Holistic AI Ethics & Compliance. M.Sc.
+            Former Fortune 50 AI Strategy CTL. Founder of HAIEC - integrated AI Ethics & Compliance. M.Sc.
             Engineering & Technology Management, Louisiana Tech. 16+ years of full-stack engineering from
             startups to global enterprise. Open for consulting, advisory boards, and research partnerships.
           </p>
@@ -278,7 +277,7 @@ export function SiteFooter() {
               ["Executive Bio", "/executive-bio"],
               ["Speaking", "/speaking"],
               ["Advisory", "/advisory"],
-              ["Resume", "/resume"],
+              ["Person Profile", "/person/subodh-kc"],
             ].map(([label, href]) => (
               <Link
                 key={label as string}
@@ -333,7 +332,7 @@ export function SiteFooter() {
           </p>
           {done ? (
             <p style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--op-accent)" }}>
-              ✓ subscribed — see you in your inbox.
+              ✓ subscribed - see you in your inbox.
             </p>
           ) : (
             <form
@@ -446,7 +445,7 @@ export function SiteFooter() {
             Now
           </h4>
           <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14, color: "var(--text-secondary)" }}>
-            <li><span style={{ color: "var(--fg)" }}>Building</span> HAIEC — compliance platform</li>
+            <li><span style={{ color: "var(--fg)" }}>Building</span> HAIEC - compliance platform</li>
             <li><span style={{ color: "var(--fg)" }}>Deploying</span> KestrelVoice + FrontOfAI</li>
             <li><span style={{ color: "var(--fg)" }}>Researching</span> deterministic compliance</li>
             <li><span style={{ color: "var(--fg)" }}>Advising</span> on AI transformation</li>
