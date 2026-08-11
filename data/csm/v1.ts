@@ -120,6 +120,12 @@ export const csmDomains: CSMDomain[] = [
       { name: 'Prohibited-use boundaries', description: 'Explicit list of uses the organization will not pursue.' },
       { name: 'Risk-acceptance authority', description: 'Defined escalation path for accepting residual risk.' },
       { name: 'Strategic alignment record', description: 'Documentation linking AI initiatives to organizational objectives.' },
+      { name: 'Vendor governance agreement', description: 'Contractual terms with AI providers covering data usage, model disclosure, liability and exit conditions.' },
+      { name: 'Provider data-processing review', description: 'Assessment of how third-party AI providers handle organizational data, including training-on-input prohibitions.' },
+      { name: 'Model card / system card requirement', description: 'Requirement that vendors provide documented model capabilities, limitations and training data provenance.' },
+      { name: 'Incident response authority', description: 'Named role with authority to declare an AI incident, trigger shutdown and initiate escalation.' },
+      { name: 'Incident escalation protocol', description: 'Defined escalation path from operational teams to governance leadership for AI-related incidents.' },
+      { name: 'Breach notification procedure', description: 'Process for determining whether an AI incident triggers regulatory or contractual breach notification obligations.' },
     ],
     exampleArtifacts: [
       'AI use policy',
@@ -128,6 +134,10 @@ export const csmDomains: CSMDomain[] = [
       'Data stewardship assignment',
       'Prohibited-use list',
       'Risk-acceptance record',
+      'Vendor governance agreement',
+      'Provider data-processing assessment',
+      'Incident response plan',
+      'Incident escalation matrix',
     ],
     typicalRoles: [
       'Executive sponsor',
@@ -149,12 +159,18 @@ export const csmDomains: CSMDomain[] = [
       'Risk classification is assigned but never revisited',
       'Data stewardship is nominal without actual enforcement',
       'Strategic mandate is implicit rather than documented',
+      'Vendor agreements lack AI-specific data usage and exit terms',
+      'No one has authority to declare an incident or trigger shutdown',
+      'Incident escalation path is undefined or bypasses governance leadership',
     ],
     reassessmentTriggers: [
       'New regulatory or contractual obligations',
       'Organizational restructuring',
       'New AI use cases outside existing policy',
       'Incidents from other AI initiatives',
+      'Vendor changes terms of service, data handling or model behavior',
+      'Vendor announces model deprecation or end-of-life',
+      'AI-related incident requiring escalation beyond operational teams',
     ],
     limitations:
       'Enterprise governance is only effective if downstream domains actually receive and apply the decision context. Policy without communication does not create governance.',
@@ -257,7 +273,7 @@ export const csmDomains: CSMDomain[] = [
     centralQuestion:
       'How should software engineering governance change when AI contributes to implementation?',
     problem:
-      'AI coding tools contribute to software development. Traditional code review processes were not designed for AI-assisted code. The question is how to maintain engineering accountability when AI tools participate in implementation.',
+      'AI coding tools contribute to software development. Traditional code review processes were not designed for AI-assisted code. The question is how to maintain engineering accountability when AI tools participate in implementation, including tools that can autonomously execute commands, create files and run tests without per-action human approval.',
     value:
       'Extends normal engineering accountability into AI-assisted development rather than creating an exception to normal review and security practices.',
     originalComponents: [
@@ -291,6 +307,10 @@ export const csmDomains: CSMDomain[] = [
       { name: 'Testing expectations', description: 'Test coverage requirements for AI-assisted changes.' },
       { name: 'AI-assisted change declarations', description: 'Disclosure of AI assistance where proportionate to risk.' },
       { name: 'Provenance/traceability', description: 'Records linking AI-assisted changes to review and approval where risk warrants.' },
+      { name: 'Agentic tool authority policy', description: 'Document defining what actions autonomous coding agents may take without per-action human approval, including file creation, command execution and test running.' },
+      { name: 'Agent sandbox boundaries', description: 'Constraints on autonomous coding agents limiting filesystem access, network calls and production system interaction.' },
+      { name: 'AI API key management', description: 'Controls governing API keys used by AI coding tools, including rotation, scope limitation and secret scanning.' },
+      { name: 'Prompt injection defense', description: 'Review requirements for AI-generated code that may process untrusted input susceptible to prompt injection.' },
     ],
     exampleArtifacts: [
       'AI coding-tool policy',
@@ -299,6 +319,8 @@ export const csmDomains: CSMDomain[] = [
       'Test coverage report',
       'AI-assisted change log',
       'Exception record',
+      'Agentic tool authority matrix',
+      'Agent sandbox configuration',
     ],
     typicalRoles: [
       'Engineering lead',
@@ -324,12 +346,16 @@ export const csmDomains: CSMDomain[] = [
       'Security scanning is skipped for AI-generated contributions',
       'No record of which AI tools were used',
       'Provenance tracking is required for every token, creating disproportionate overhead',
+      'Autonomous coding agents execute commands or access systems beyond their approved authority',
+      'AI API keys are committed to repositories or shared across projects without scope limitation',
     ],
     reassessmentTriggers: [
       'New AI coding tool introduced',
       'Security incident involving AI-assisted code',
       'Change in approved tool list',
       'Change in regulatory or contractual requirements for software provenance',
+      'Autonomous coding agent granted expanded tool authority or filesystem access',
+      'AI coding tool underlying model updated or changed by vendor',
     ],
     limitations:
       'CSM-Code does not require tracking every AI-generated token. Provenance and traceability should be proportionate to risk. AI-assisted code is not inherently insecure, but it should not bypass normal review and security practices.',
@@ -378,6 +404,10 @@ export const csmDomains: CSMDomain[] = [
       { name: 'Feedback channel', description: 'Mechanism for users to report issues or provide feedback.' },
       { name: 'Adoption/usage review', description: 'Periodic review of how the system is actually being used.' },
       { name: 'Complaint/recourse process', description: 'Process for affected individuals to seek review or remedy where relevant.' },
+      { name: 'AI processing consent', description: 'Mechanism for users to consent to AI processing of their data, with clear disclosure of what AI does and why.' },
+      { name: 'Opt-out and human review request', description: 'User-facing option to opt out of AI processing or request human review of AI-supported outcomes.' },
+      { name: 'Misuse detection monitoring', description: 'Proactive monitoring for users bypassing safety controls or using the system for prohibited purposes.' },
+      { name: 'Manipulation guardrail review', description: 'Review of interface patterns to prevent deceptive, manipulative or addictive design in AI-driven interactions.' },
     ],
     exampleArtifacts: [
       'User impact assessment',
@@ -386,6 +416,8 @@ export const csmDomains: CSMDomain[] = [
       'Training material',
       'Feedback log',
       'Adoption review report',
+      'Consent disclosure record',
+      'Misuse detection report',
     ],
     typicalRoles: [
       'UX designer',
@@ -411,12 +443,17 @@ export const csmDomains: CSMDomain[] = [
       'Users are not informed of system limitations',
       'Feedback is collected but never reaches project or enterprise domains',
       'Training is one-time and not updated as the system changes',
+      'Consent is buried or bundled with unrelated terms, preventing meaningful user choice',
+      'No mechanism for users to request human review of AI-supported outcomes',
+      'Misuse patterns go undetected because adoption monitoring only tracks volume, not behavior',
     ],
     reassessmentTriggers: [
       'Change in system behavior or output characteristics',
       'User complaints or feedback indicating mismatched expectations',
       'Change in affected population',
       'New regulatory disclosure requirements',
+      'Detected misuse pattern or users bypassing safety controls',
+      'Change in consent requirements under applicable privacy or AI regulation',
     ],
     limitations:
       'Explainability design does not guarantee perfect model interpretability. The goal is appropriate user understanding, not full transparency into model internals. CSM-UX is only effective if feedback actually returns to project and enterprise domains.',
