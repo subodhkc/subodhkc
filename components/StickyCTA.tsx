@@ -37,7 +37,7 @@ export function StickyCTA() {
         href="https://calendly.com/subodhkc/30min"
         target="_blank"
         rel="noopener noreferrer"
-        data-track-click="sticky-cta-talk"
+        data-track-click="sticky-cta-schedule"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -56,7 +56,7 @@ export function StickyCTA() {
           border: '1px solid var(--op-border)',
         }}
       >
-        Let&apos;s Talk →
+        Schedule Meeting →
       </Link>
     </div>
   )

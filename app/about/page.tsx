@@ -113,6 +113,13 @@ export default function AboutPage() {
             Long before AI became the center of my work, I was interested in the relationship between technology and practical outcomes.
           </p>
 
+          {/* Name Meaning */}
+          <div className="mt-6 p-5 rounded-lg bg-muted/30 border border-border/50">
+            <p className="text-base text-muted-foreground/80 leading-relaxed italic">
+              My name, Subodh, comes from Sanskrit: <strong className="not-italic text-foreground">su</strong> (good or easy) and <strong className="not-italic text-foreground">bodh</strong> (knowledge or understanding). It translates roughly to "one who understands easily" or "one who brings clear understanding." I have always treated it as a professional obligation, not just a label.
+            </p>
+          </div>
+
           {/* Education */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
@@ -371,12 +378,58 @@ export default function AboutPage() {
       </Section>
 
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-sm text-muted-foreground mb-4">
+        <div className="max-w-4xl mx-auto mb-8">
+          <p className="text-base text-muted-foreground text-center">
             Comprehensive guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
+        </div>
+        <Grid cols={3}>
+          <Link href="/guides/texas-ai-law">
+            <Card className="hover:border-primary/40 transition-all h-full">
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="h-5 w-5 text-primary" />
+                  <span className="text-xs font-medium text-amber-600">Effective Jan 2026</span>
+                </div>
+                <CardTitle className="text-base">Texas AI Law (TRAIGA / HB 149)</CardTitle>
+                <CardDescription className="text-sm">
+                  Texas Responsible AI Governance Act. Applicability tests, prohibited practices, disclosure duties, penalties, and NIST AI RMF defense pathway.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+          <Link href="/guides/eu-ai-act">
+            <Card className="hover:border-primary/40 transition-all h-full">
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="h-5 w-5 text-primary" />
+                  <span className="text-xs font-medium text-amber-600">Full enforcement Aug 2026</span>
+                </div>
+                <CardTitle className="text-base">EU AI Act</CardTitle>
+                <CardDescription className="text-sm">
+                  World's first comprehensive AI regulation. Risk-tiered framework for all AI on the EU market. Penalties up to 35M euros or 7% of global revenue.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+          <Link href="/guides/nyc-local-law-144">
+            <Card className="hover:border-primary/40 transition-all h-full">
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="h-5 w-5 text-primary" />
+                  <span className="text-xs font-medium text-red-600">Active enforcement</span>
+                </div>
+                <CardTitle className="text-base">NYC Local Law 144</CardTitle>
+                <CardDescription className="text-sm">
+                  Bias audit requirements for automated employment decision tools. Annual independent bias audits, 10-day candidate notice, daily penalties.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+        </Grid>
+        <div className="text-center mt-8">
           <Link href="/guides" className="text-sm text-primary hover:underline">
-            View all compliance guides →
+            View all compliance guides and technical resources →
           </Link>
         </div>
       </Section>

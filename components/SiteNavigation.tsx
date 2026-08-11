@@ -341,7 +341,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
                 textDecoration: "none",
               }}
             >
-              let&apos;s talk →
+              Schedule Meeting →
             </Link>
 
             {/* Mobile hamburger */}
@@ -597,7 +597,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
                 textDecoration: "none",
               }}
             >
-              let&apos;s talk →
+              Schedule Meeting →
             </Link>
           </div>
         </div>
