@@ -5,38 +5,41 @@ import CTA from '@/components/CTA'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Grid from '@/components/Grid'
-import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, FileText, BookOpen, User, Newspaper, MapPin, Code2 } from 'lucide-react'
+import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, BookOpen, User, Newspaper, MapPin, Code2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'About Subodh KC | AI Advisor and Systems Architect | Founder',
+  title: 'About Subodh KC | Enterprise AI Strategy & Governance Leader',
   description:
-    'Learn about Subodh KC, AI Advisor and Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
+    'Subodh KC is an enterprise AI strategy and governance leader with 16+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
   keywords: [
     'Subodh KC',
-    'AI systems architect',
-    'AI governance expert',
-    'Fortune 50 AI strategy',
-    'KestrelVoice founder',
+    'enterprise AI strategy leader',
+    'AI governance program manager',
+    'AI program management Fortune 50',
+    'HP Inc AI program manager',
     'HAIEC founder',
-    'AI compliance',
-    'technical program manager',
-    'HP Inc AI',
-    'enterprise AI leadership',
+    'Kestrel Voice founder',
+    'AI drift detection frameworks',
+    'manufacturing AI reliability engineering',
+    'technology commercialization AI',
+    'AI transformation leader Dallas Fort Worth',
+    'Six Sigma AI program management',
+    'AI compliance frameworks inventor',
   ],
   alternates: {
     canonical: 'https://subodhkc.com/about',
   },
   openGraph: {
-    title: 'About Subodh KC | AI Advisor and Systems Architect | Founder',
+    title: 'About Subodh KC | Enterprise AI Strategy & Governance Leader',
     description:
-      'Learn about Subodh KC, AI Advisor and Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. 16+ years building production AI systems from pilot to enterprise scale.',
+      '16+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Subodh KC | AI Advisor and Systems Architect | Founder',
-    description: 'AI Advisor and Systems Architect, former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC.',
+    title: 'About Subodh KC | Enterprise AI Strategy & Governance Leader',
+    description: '16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
   },
 }
 
@@ -49,6 +52,75 @@ const breadcrumbSchema = {
   ],
 }
 
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Subodh KC',
+  alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
+  givenName: 'Subodh',
+  familyName: 'KC',
+  jobTitle: 'Director of AI Programs | Enterprise AI Strategy & Governance Leader',
+  description: 'Enterprise AI strategy and transformation leader with 16+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
+  url: 'https://subodhkc.com',
+  email: 'subodhkc@subodhkc.com',
+  image: 'https://subodhkc.com/portrait.jpeg',
+  sameAs: [
+    'https://www.wikidata.org/wiki/Q140546484',
+    'https://www.linkedin.com/in/subodhkc',
+    'https://twitter.com/subodhkc',
+    'https://github.com/subodhkc',
+    'https://medium.com/@subodhkc',
+    'https://kestrelvoice.com',
+    'https://frontofai.com',
+    'https://haiec.com',
+  ],
+  knowsAbout: [
+    'Enterprise AI Strategy',
+    'AI Governance',
+    'AI Program Management',
+    'AI Compliance Frameworks',
+    'Drift Detection',
+    'Manufacturing Execution Systems',
+    'Technology Commercialization',
+    'Portfolio Management',
+    'Continuous Improvement',
+    'AI Assurance',
+  ],
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Louisiana Tech University',
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'HP Inc.',
+    description: 'Fortune 50 technology company',
+    url: 'https://www.hp.com',
+  },
+  founder: [
+    {
+      '@type': 'Organization',
+      name: 'HAIEC',
+      url: 'https://haiec.com',
+      description: 'AI assurance and governance platform',
+    },
+    {
+      '@type': 'Organization',
+      name: 'Kestrel Voice',
+      url: 'https://kestrelvoice.com',
+      description: 'AI communications and workflow platform',
+    },
+  ],
+  award: ["Dean's Honor List", "President's Honor List"],
+  knowsLanguage: ['English', 'Nepali'],
+  nationality: { '@type': 'Country', name: 'United States' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Dallas-Fort Worth',
+    addressRegion: 'TX',
+    addressCountry: 'US',
+  },
+}
+
 export default function AboutPage() {
   const values = [
     {
@@ -59,9 +131,9 @@ export default function AboutPage() {
     },
     {
       icon: Award,
-      title: 'Excellence as Standard',
+      title: 'Standards as Baseline',
       description:
-        'From Dean\'s Honor List to enterprise leadership, high standards aren\'t optional. They\'re the baseline.',
+        'From academic scholarships to enterprise leadership, high standards are the starting point, not the goal.',
     },
     {
       icon: GraduationCap,
@@ -73,7 +145,7 @@ export default function AboutPage() {
       icon: Heart,
       title: 'Impact Over Activity',
       description:
-        'It\'s not about the number of programs shipped. It\'s about the problems solved and value created.',
+        'The number of programs shipped matters less than the problems solved and value created.',
     },
   ]
 
@@ -84,6 +156,11 @@ export default function AboutPage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       <Hero
         subtitle="About"
         title={
@@ -93,7 +170,7 @@ export default function AboutPage() {
             <span className="gradient-text">Improve what can be improved.</span>
           </>
         }
-        description="My career has followed one pattern: fix problems inside individual systems, then work across production environments, enterprise portfolios, AI systems, and communities. The scale changes. The work does not."
+        description="16+ years across public-sector technology, manufacturing reliability, small-business transformation, enterprise program leadership, and AI governance. The scale changes. The work does not."
       />
 
       <Section
@@ -279,12 +356,6 @@ export default function AboutPage() {
                 Read the Magazine
               </Button>
             </Link>
-            <Link href="/resume">
-              <Button size="lg" variant="outline" className="gap-2">
-                <FileText className="h-5 w-5" />
-                View Resume
-              </Button>
-            </Link>
             <Link href="/executive-bio">
               <Button size="lg" variant="outline" className="gap-2">
                 <User className="h-5 w-5" />
@@ -380,7 +451,7 @@ export default function AboutPage() {
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
         <div className="max-w-4xl mx-auto mb-8">
           <p className="text-base text-muted-foreground text-center">
-            Comprehensive guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
+            complete guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
         </div>
         <Grid cols={3}>
@@ -407,7 +478,7 @@ export default function AboutPage() {
                 </div>
                 <CardTitle className="text-base">EU AI Act</CardTitle>
                 <CardDescription className="text-sm">
-                  World's first comprehensive AI regulation. Risk-tiered framework for all AI on the EU market. Penalties up to 35M euros or 7% of global revenue.
+                  World's first complete AI regulation. Risk-tiered framework for all AI on the EU market. Penalties up to 35M euros or 7% of global revenue.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -434,117 +505,25 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section subtitle="What Makes Me Different" title="Why Teams Trust Me">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>I See Failure Modes Before They Emerge</CardTitle>
-              <CardDescription className="text-base">
-                Years of drift detection, RCA, and governance work have trained me to anticipate what most teams 
-                discover only after outages or audit failures. I protect organizations from invisible risks before 
-                they become front-page news.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>I Design Frameworks That Survive Contact With Real Organizations</CardTitle>
-              <CardDescription className="text-base">
-                Compliance is useless if engineers won't follow it. Engineering is dangerous if compliance can't see it. 
-                My systems bridge both worlds, creating governance structures that scale across dozens of teams without 
-                breaking velocity.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>I Make Ambiguity Executable</CardTitle>
-              <CardDescription className="text-base">
-                When teams don't know how to proceed, I create structures that turn confusion into predictable delivery. 
-                I've operated at every altitude: from field technician to system engineer to program manager to founder to 
-                enterprise AI strategist. I understand every layer of the stack, technical and human.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>I Don't Accept Chaos as "The Way Things Are"</CardTitle>
-              <CardDescription className="text-base">
-                Where others see regulatory pressure as a blocker, I see it as a blueprint. Where others ship models, 
-                I ship systems that protect organizations from failure modes they didn't even know existed. This discipline 
-                has shaped every framework, patent, and program I've delivered.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </Section>
-
-      <Section subtitle="Testimonials" title="What People Say" className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardDescription className="text-base italic text-foreground mb-4">
-                "We were drowning in AI compliance requirements and honestly did not know where to start. Subodh sat with us, broke everything down into plain language, and helped us build a governance framework that our team could actually follow day to day. What used to be a scramble before audits is now just part of our normal workflow."
-              </CardDescription>
-              <CardTitle className="text-sm font-normal">
-                <span className="font-semibold">Director of Engineering</span>
-                <br />
-                <span className="text-muted-foreground">Healthcare technology company</span>
-              </CardTitle>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardDescription className="text-base italic text-foreground mb-4">
-                "Subodh is not the kind of consultant who hands you a slide deck and leaves. He stayed engaged through the messy parts of rolling out AI across our business units and helped us think through edge cases we would have missed on our own. The framework he built with us is still in use and still adapting."
-              </CardDescription>
-              <CardTitle className="text-sm font-normal">
-                <span className="font-semibold">VP of AI Strategy</span>
-                <br />
-                <span className="text-muted-foreground">Enterprise SaaS company</span>
-              </CardTitle>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardDescription className="text-base italic text-foreground mb-4">
-                "What stood out to me was how Subodh balanced moving fast with staying compliant. He understood the regulatory pressure we were under but never let it slow things down to a halt. He has a way of making compliance feel less like a roadblock and more like a design constraint you can work with."
-              </CardDescription>
-              <CardTitle className="text-sm font-normal">
-                <span className="font-semibold">CTO</span>
-                <br />
-                <span className="text-muted-foreground">Financial services firm</span>
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        </div>
-      </Section>
-
-      <Section subtitle="Why This Work Matters" title="The Personal Note" className="bg-primary/5">
+      <Section subtitle="Why This Work Matters" title="Personal Note" className="bg-primary/5">
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I grew up navigating systems that weren't designed for people like me. So I became someone who designs better systems.
+            My name, Subodh, comes from Sanskrit: <strong className="text-foreground">su</strong> (good) and <strong className="text-foreground">bodh</strong> (understanding). I have always treated it as a professional obligation, not just a label.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Not just faster or smarter, but <strong>safer, fairer, more accountable.</strong>
+            I started in technology fixing computers in underfunded schools. That work taught me something I carry into every program I lead today: technology succeeds only when it works inside the institution that depends on it. A broken system in a classroom is not an abstract problem. It affects real people trying to do their jobs.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            AI will shape the next century. My mission is to ensure it does so without repeating the failures of the last one: 
-            hidden bias, silent drift, ungoverned decisions, and operational fragility.
+            That principle scaled from school districts to manufacturing floors to Fortune 50 engineering organizations. The systems got larger. The stakes got higher. The core question stayed the same: does this actually work for the people who depend on it?
           </p>
-          <p className="text-lg text-foreground font-semibold leading-relaxed">
-            Everything I build, frameworks, programs, platforms, patents, follows one philosophy:
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            AI adds a new dimension to that question. When a system can make decisions that affect people's lives, the obligation to govern it properly is not optional. Hidden bias, silent drift, and ungoverned automated decisions are not theoretical risks. They are operational failures waiting for the right conditions.
           </p>
-          <p className="text-xl text-foreground font-bold leading-relaxed text-center py-4">
+          <p className="text-lg text-foreground font-semibold leading-relaxed text-center py-4">
             If a system can harm people, it must be governed as seriously as it is engineered.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed text-center">
-            This isn't just my work. It's my discipline.
+            That is the standard I hold for my own work and the standard I bring to every organization I work with.
           </p>
         </div>
       </Section>

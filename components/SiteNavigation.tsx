@@ -1,4 +1,4 @@
-// components/SiteNavigation.tsx — operator-aesthetic nav with full mobile menu
+// components/SiteNavigation.tsx - operator-aesthetic nav with full mobile menu
 "use client";
 
 import * as React from "react";
@@ -40,6 +40,15 @@ const aboutLinks = [
   { name: "Contact", href: "/contact", desc: "Get in touch or schedule a meeting" },
 ];
 
+const blogLinks = [
+  { name: "12 Production Readiness Checks for AI Pilots", href: "/blog/12-production-readiness-checks-for-ai-pilots", desc: "Enterprise architecture gate for AI deployments" },
+  { name: "7 Layers of AI Compliance: NIST, ISO & SOC 2", href: "/blog/seven-layers-ai-compliance-nist-iso-soc2", desc: "Compliance framework mapping and implementation" },
+  { name: "Texas HB 149 vs EU AI Act: Engineering Playbook", href: "/blog/texas-hb-149-eu-ai-act-engineering-compliance-playbook", desc: "CTO-level compliance comparison with code" },
+  { name: "Claude Code MCP: Fix stdio, ENOENT, Timeouts", href: "/blog/claude-code-mcp-failed-to-connect-stdio-enoent-timeout", desc: "Practical debugging guide for MCP connections" },
+  { name: "Low-Latency AI Voice Pipeline Architecture", href: "/blog/modal-fastapi-postgres-ai-voice-pipeline-architecture", desc: "Modal, FastAPI and Postgres for sub-second voice AI" },
+  { name: "Production RAG Architecture for Hybrid Search", href: "/blog/production-rag-architecture-patterns-for-hybrid-search", desc: "RAG patterns, vector databases, and hybrid retrieval" },
+];
+
 const navLinks = [
   { label: "services", href: "/services" },
 ];
@@ -49,7 +58,7 @@ interface SiteNavigationProps {
 }
 
 export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
-  const [open, setOpen] = React.useState<null | "products" | "solutions" | "interactiveTools" | "about">(null);
+  const [open, setOpen] = React.useState<null | "products" | "solutions" | "interactiveTools" | "about" | "blog">(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLDivElement>(null);
@@ -311,7 +320,98 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
               {open === "interactiveTools" && dropdown(interactiveTools)}
             </div>
 
-            <Link href="/blog" style={{ color: "var(--op-muted)", textDecoration: "none" }}>blog</Link>
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setOpen(open === "blog" ? null : "blog")}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: "transparent",
+                  fontFamily: "inherit",
+                  fontSize: "inherit",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  color: open === "blog" ? "var(--fg)" : "var(--op-muted)",
+                }}
+              >
+                blog
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "blog" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                  <path d="M2 4 L5 7 L8 4" />
+                </svg>
+              </button>
+              {open === "blog" && (
+                <div
+                  role="menu"
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 8px)",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    minWidth: 340,
+                    background: "var(--op-card)",
+                    border: "1px solid var(--op-border)",
+                    borderRadius: 10,
+                    padding: 4,
+                    boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
+                    zIndex: 40,
+                  }}
+                >
+                  <Link
+                    href="/blog"
+                    onClick={() => setOpen(null)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "10px 12px",
+                      borderRadius: 6,
+                      color: "var(--fg)",
+                      textDecoration: "none",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      borderBottom: "1px solid var(--op-border)",
+                      marginBottom: 4,
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                  >
+                    View All Articles
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--op-muted)" }}>→</span>
+                  </Link>
+                  {blogLinks.map((it, i) => (
+                    <React.Fragment key={it.href}>
+                      {i > 0 && (
+                        <div style={{ height: 1, background: "var(--op-border)", margin: "4px 8px" }} />
+                      )}
+                      <Link
+                        href={it.href}
+                        onClick={() => setOpen(null)}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 3,
+                          padding: "10px 12px",
+                          borderRadius: 6,
+                          color: "var(--fg)",
+                          transition: "background .12s",
+                          textDecoration: "none",
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                      >
+                        <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: "-0.005em", lineHeight: 1.3 }}>{it.name}</span>
+                        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", lineHeight: 1.4 }}>
+                          {it.desc}
+                        </span>
+                      </Link>
+                    </React.Fragment>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -613,25 +713,48 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
               ))}
             </div>
 
-            {/* Blog link */}
+            {/* Blog section */}
             <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>Blog</div>
               <Link
                 href="/blog"
                 onClick={() => setMobileOpen(false)}
                 style={{
-                  display: "block",
-                  padding: "10px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 2,
+                  padding: "9px 12px",
                   borderRadius: 6,
                   textDecoration: "none",
                   color: "var(--fg)",
-                  fontSize: 13,
-                  fontWeight: 500,
+                  marginBottom: 4,
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
-                Blog
+                <span style={{ fontSize: 13, fontWeight: 600 }}>View All Articles</span>
               </Link>
+              {blogLinks.map((b) => (
+                <Link
+                  key={b.href}
+                  href={b.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    padding: "9px 12px",
+                    borderRadius: 6,
+                    textDecoration: "none",
+                    color: "var(--fg)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 500 }}>{b.name}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{b.desc}</span>
+                </Link>
+              ))}
             </div>
 
             <Link

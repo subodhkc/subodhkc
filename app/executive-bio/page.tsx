@@ -6,53 +6,126 @@ import Section from '@/components/Section'
 import { 
   Shield, 
   Briefcase, 
-  Users, 
   Award, 
-  GraduationCap, 
   TrendingUp, 
-  Zap,
-  CheckCircle2,
   Mail,
   Linkedin,
-  Globe
+  Globe,
+  MapPin,
+  Code2,
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Executive Bio - Subodh KC | AI Advisor and Systems Architect',
-  description: 'Builder of Systems That Don\'t Break. 16+ years from field operations to Fortune 50 AI strategy. 5 patent-pending frameworks. $50M+ portfolios. This is the story behind the systems.',
+  title: 'Subodh KC | Enterprise AI Strategy & Transformation Leader',
+  description: 'Subodh KC is an enterprise AI strategy and transformation leader with 16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks.',
   keywords: [
     'Subodh KC',
-    'AI systems architect',
-    'AI director',
-    'AI strategy leader',
-    'Fortune 50 AI',
-    'AI governance expert',
-    'AI compliance',
-    'enterprise AI',
-    'AI systems design',
-    'AI leadership',
-    'AI advisor',
-    'AI consultant'
+    'enterprise AI strategy leader',
+    'AI program management Fortune 50',
+    'AI governance program manager',
+    'patent-pending AI compliance frameworks',
+    'AI drift detection frameworks',
+    'enterprise AI portfolio management',
+    'AI systems architect Dallas Fort Worth',
+    'manufacturing AI reliability engineering',
+    'Six Sigma AI program management',
+    'technology commercialization AI',
+    'AI transformation leader Texas',
   ],
   alternates: {
     canonical: 'https://subodhkc.com/executive-bio',
   },
   openGraph: {
-    title: 'Executive Bio - Subodh KC | AI Advisor and Systems Architect',
-    description: 'Builder of Systems That Don\'t Break. 16+ years from field operations to Fortune 50 AI strategy. 5 patent-pending frameworks. $50M+ portfolios.',
+    title: 'Subodh KC | Enterprise AI Strategy & Transformation Leader',
+    description: '16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks.',
     url: 'https://subodhkc.com/executive-bio',
     type: 'profile',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Executive Bio - Subodh KC | AI Advisor and Systems Architect',
-    description: 'Builder of Systems That Don\'t Break. 16+ years from field operations to Fortune 50 AI strategy.',
+    title: 'Subodh KC | Enterprise AI Strategy & Transformation Leader',
+    description: '16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
+  },
+}
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Subodh KC',
+  alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
+  givenName: 'Subodh',
+  familyName: 'KC',
+  jobTitle: 'Director of AI Programs | Enterprise AI Strategy & Transformation Leader',
+  description: 'Enterprise AI strategy and transformation leader with 16+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
+  url: 'https://subodhkc.com',
+  email: 'subodhkc@subodhkc.com',
+  image: 'https://subodhkc.com/portrait.jpeg',
+  sameAs: [
+    'https://www.wikidata.org/wiki/Q140546484',
+    'https://www.linkedin.com/in/subodhkc',
+    'https://twitter.com/subodhkc',
+    'https://github.com/subodhkc',
+    'https://medium.com/@subodhkc',
+    'https://kestrelvoice.com',
+    'https://frontofai.com',
+    'https://haiec.com',
+  ],
+  knowsAbout: [
+    'Enterprise AI Strategy',
+    'AI Governance',
+    'AI Program Management',
+    'AI Compliance Frameworks',
+    'Drift Detection',
+    'Manufacturing Execution Systems',
+    'Technology Commercialization',
+    'Portfolio Management',
+    'Continuous Improvement',
+    'AI Assurance',
+  ],
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Louisiana Tech University',
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'HP Inc.',
+    description: 'Fortune 50 technology company',
+    url: 'https://www.hp.com',
+  },
+  founder: [
+    {
+      '@type': 'Organization',
+      name: 'HAIEC',
+      url: 'https://haiec.com',
+      description: 'AI assurance and governance platform',
+    },
+    {
+      '@type': 'Organization',
+      name: 'Kestrel Voice',
+      url: 'https://kestrelvoice.com',
+      description: 'AI communications and workflow platform',
+    },
+  ],
+  award: ["Dean's Honor List", "President's Honor List"],
+  knowsLanguage: ['English', 'Nepali'],
+  nationality: { '@type': 'Country', name: 'United States' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Dallas-Fort Worth',
+    addressRegion: 'TX',
+    addressCountry: 'US',
   },
 }
 
 export default function ExecutiveBioPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+
       {/* Hero Section */}
       <section className="section-container py-20 md:py-32">
         <div className="max-w-4xl mx-auto text-center">
@@ -61,15 +134,11 @@ export default function ExecutiveBioPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-foreground font-semibold mb-2">
-            Director of AI Programs | AI Systems Architect & Governance Expert
+            Enterprise AI Strategy & Transformation Leader
           </p>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-3">
-            Builder of Systems That Don't Break
-          </p>
-
-          <p className="text-sm text-muted-foreground/70 italic mb-8">
-            Subodh — Sanskrit: <span className="font-semibold not-italic">su</span> (good) + <span className="font-semibold not-italic">bodh</span> (understanding)
+          <p className="text-lg md:text-xl text-muted-foreground mb-8">
+            16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -94,92 +163,62 @@ export default function ExecutiveBioPage() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <span>📍 Dallas / Austin, TX</span>
-            <span>•</span>
-            <span>🌐 Open to Remote or Relocation</span>
+            <span className="flex items-center gap-1">
+              <MapPin className="h-4 w-4" />
+              Dallas-Fort Worth, TX
+            </span>
           </div>
         </div>
       </section>
 
-      {/* The Story */}
+      {/* Professional Bio */}
       <Section className="bg-secondary/20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8">Executive Profile — The Story Behind the Systems</h2>
+          <h2 className="text-3xl font-bold mb-8">Professional Background</h2>
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Some leaders arrive through prestige.</strong><br />
-              <strong className="text-foreground">Others arrive through survival.</strong>
+              Subodh KC is an enterprise AI strategy and transformation leader with more than 16 years of experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I entered technology on the ground floor: fixing computers in underfunded schools, documenting broken systems, 
-              learning—up close—how much damage a bad workflow or a single misconfigured system can cause. I wasn't groomed 
-              for leadership. I earned it one failure mode at a time.
+              His career has been built from the operational level up. He has worked across public-sector technology, manufacturing systems, production reliability, small-business transformation, enterprise software, and artificial intelligence. That range gives him a practical understanding of transformation from both sides: what leadership expects from an investment and what engineering and operations must do to make it work.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              From those early field operations, I developed a trait that has shaped my entire career:{' '}
-              <strong className="text-foreground">I don't accept chaos as "the way things are." I build structures that eliminate it.</strong>
+              At HP, Subodh led complex enterprise technology programs across a portfolio of 53 applications and more than 100 stakeholders. His work brought together product, engineering, quality, operations, vendors, risk functions, and senior leadership. His responsibilities included portfolio planning, program execution, dependency management, release readiness, risk management, stakeholder alignment, executive communication, and continuous improvement across large-scale technology environments.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Fast forward 16+ years.
+              Earlier in his career, he worked in manufacturing technology and reliability engineering, including Manufacturing Execution System environments supporting more than 400 production stations. He has also worked with small and midsized businesses across Dallas-Fort Worth on technology implementation, business process improvement, automation, and program delivery. His experience at Louisiana Tech University's Office of Intellectual Property & Commercialization added exposure to invention assessment, intellectual property, market opportunity, and technology commercialization.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I now architect AI governance frameworks for a Fortune 50 company, manage multimillion-dollar AI portfolios, 
-              deploy systems at enterprise scale, and design compliance architectures that withstand legal, operational, and 
-              engineering scrutiny. I built a governance platform (HAIEC) from scratch—used in enterprise settings—and 
-              authored five patent-pending frameworks in drift detection, audit automation, and real-time AI enforcement.
-            </p>
-            <p className="text-lg text-foreground font-semibold leading-relaxed">
-              I bridge the world between AI ambition and organizational reality.
+              Subodh is also a founder and hands-on builder of applied AI systems. He created <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an AI assurance and governance platform focused on evaluation, controls, evidence, monitoring, and responsible deployment. He also built <Link href="/solutions/kestrelvoice" className="text-primary hover:underline font-semibold">Kestrel Voice</Link>, an AI communications and workflow platform that combines voice agents, business knowledge, scheduling, automation, integrations, escalation, and operational controls. His open-source and research work includes <Link href="/products/llmverify" className="text-primary hover:underline font-semibold">llmverify</Link> and multiple patent-pending systems related to AI assurance, behavioral drift, traceability, compliance automation, and system monitoring.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Most people see growing regulatory pressure as a blocker.<br />
-              I see it as a blueprint.
+              His work today sits at the intersection of <strong className="text-foreground">enterprise AI strategy, AI transformation, program and portfolio management, operating-model design, product and platform strategy, continuous improvement, technology commercialization, and AI governance</strong>.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Where others ship models, I ship systems that protect organizations from the failure modes they didn't even know existed.
+              Subodh holds a B.S. in Computer Information Systems and an M.S. in Engineering and Technology Management from Louisiana Tech University. He is a Six Sigma Green Belt with additional education in AI ethics and governance.
             </p>
-            <p className="text-xl text-foreground font-bold leading-relaxed">
-              This is why teams trust me to lead the programs that matter.
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Based in Dallas-Fort Worth, Subodh is most effective in complex environments where strategy must become execution, multiple teams must move together, and new technology has to deliver measurable business value without losing operational discipline.
             </p>
           </div>
         </div>
       </Section>
 
-      {/* Signature Value */}
-      <Section>
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-center">Signature Value</h2>
-          <Card className="border-2 border-primary bg-primary/5">
-            <CardHeader>
-              <CardDescription className="text-lg text-foreground text-center">
-                <strong>I protect organizations from invisible risks before they become front-page news.</strong>
-                <br /><br />
-                My frameworks predict drift, detect sabotage paths, expose hidden compliance debt, and create governance 
-                structures that scale across dozens of teams.
-                <br /><br />
-                I've done this inside Fortune 50 engineering orgs, in high-stake product ecosystems, and in global deployments 
-                with legal, engineering, security, and PMO all watching closely.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </Section>
-
       {/* Capabilities */}
-      <Section className="bg-secondary/20">
-        <h2 className="text-3xl font-bold mb-8 text-center">Capabilities</h2>
+      <Section>
+        <h2 className="text-3xl font-bold mb-8 text-center">Areas of Expertise</h2>
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <Shield className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle>AI Compliance & Governance</CardTitle>
+              <CardTitle>AI Governance & Compliance</CardTitle>
               <CardDescription className="text-base space-y-2">
-                <p>• Enterprise AI oversight aligned to EU AI Act, GDPR, NIST, NYC 144</p>
-                <p>• Model documentation, risk scoring, audit automation</p>
-                <p>• Precision drift detection</p>
-                <p>• Governance structures for multi-application ecosystems</p>
+                <p>Enterprise AI oversight aligned to EU AI Act, GDPR, NIST AI RMF, and NYC Local Law 144</p>
+                <p>Model documentation, risk scoring, and audit automation</p>
+                <p>Drift detection and behavioral monitoring for production AI systems</p>
+                <p>Governance structures for multi-application enterprise ecosystems</p>
               </CardDescription>
             </CardHeader>
           </Card>
@@ -189,12 +228,12 @@ export default function ExecutiveBioPage() {
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <Briefcase className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle>Enterprise Technical Program Leadership</CardTitle>
+              <CardTitle>Enterprise Program & Portfolio Leadership</CardTitle>
               <CardDescription className="text-base space-y-2">
-                <p>• Led 53 enterprise applications spanning Education, Manageability & Conferencing</p>
-                <p>• Delivered 50+ AI programs, managing $50M+ portfolios</p>
-                <p>• Built multi-team execution engines across 100+ stakeholders</p>
-                <p>• Created cross-org alignment frameworks used in global operations</p>
+                <p>Led 53 enterprise applications across education, manageability, and conferencing portfolios at HP</p>
+                <p>50+ AI programs delivered with $50M+ in portfolio oversight</p>
+                <p>Cross-functional alignment across 100+ stakeholders, vendors, and senior leadership</p>
+                <p>Dependency management, release readiness, and continuous improvement at scale</p>
               </CardDescription>
             </CardHeader>
           </Card>
@@ -206,9 +245,10 @@ export default function ExecutiveBioPage() {
               </div>
               <CardTitle>Systems Architecture & Reliability</CardTitle>
               <CardDescription className="text-base space-y-2">
-                <p>• Designed AI systems serving enterprise scale across Fortune 50 platforms</p>
-                <p>• Built traceability, explainability, and compliance fingerprinting layers</p>
-                <p>• Deep expertise in operational risk, regulatory enforcement, and system integrity</p>
+                <p>Designed AI systems serving enterprise scale across Fortune 50 platforms</p>
+                <p>Built traceability, explainability, and compliance fingerprinting layers</p>
+                <p>Manufacturing Execution System experience across 400+ production stations</p>
+                <p>Operational risk, regulatory enforcement, and system integrity</p>
               </CardDescription>
             </CardHeader>
           </Card>
@@ -216,69 +256,62 @@ export default function ExecutiveBioPage() {
           <Card>
             <CardHeader>
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <Award className="h-6 w-6 text-primary" />
+                <Code2 className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle>Innovation & Patents</CardTitle>
+              <CardTitle>Product Development & Commercialization</CardTitle>
               <CardDescription className="text-base space-y-2">
-                <p><strong>5 Patent-Pending Systems:</strong></p>
-                <p>• Adversarial Project Twin</p>
-                <p>• Precision Drift Detector</p>
-                <p>• AI Compliance Twin</p>
-                <p>• Modular Audit Engine</p>
-                <p>• Compliance Fingerprint Layer</p>
+                <p>Founder of HAIEC (AI governance) and Kestrel Voice (AI communications)</p>
+                <p>Open-source tools including llmverify for LLM verification</p>
+                <p>Invention assessment and intellectual property evaluation experience</p>
+                <p>Technology commercialization from university research to market</p>
               </CardDescription>
             </CardHeader>
           </Card>
         </div>
       </Section>
 
-      {/* The Career */}
-      <Section>
-        <h2 className="text-3xl font-bold mb-8 text-center">The Career (Told Clearly)</h2>
+      {/* Career Timeline */}
+      <Section className="bg-secondary/20">
+        <h2 className="text-3xl font-bold mb-8 text-center">Career Highlights</h2>
         <div className="max-w-4xl mx-auto space-y-6">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="text-xl">HP INC. (FORTUNE 50) — Senior Program Manager, AI Implementation & Governance</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground mb-4">2022–Present</CardDescription>
+              <CardTitle className="text-xl">HP Inc. (Fortune 50) - Senior Program Manager, AI Implementation & Governance</CardTitle>
+              <CardDescription className="text-sm text-muted-foreground mb-4">2022 - Present</CardDescription>
               <CardDescription className="text-base space-y-3">
-                <p className="text-foreground">
-                  At HP, I'm responsible for something simple in description, brutal in execution:<br />
-                  <strong>Make AI safe, compliant, scalable, and reliable across 53 global applications.</strong>
-                </p>
-                <p>My work includes:</p>
-                <p>• Orchestrating enterprise-wide AI rollouts with 100+ stakeholders</p>
-                <p>• Managing a combined $50M+ AI portfolio</p>
-                <p>• Developing five patent-pending compliance and drift frameworks</p>
-                <p>• Reducing audit preparation from months to weeks</p>
-                <p>• Leading TPMs across Education, Manageability, and Conferencing ecosystems</p>
-                <p>• Setting strategy for AI governance during regulatory uncertainty</p>
-                <p className="text-foreground italic pt-2">
-                  I operate at a quiet but critical tier: where engineering meets legal, meets risk, meets executive expectation.
-                </p>
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle className="text-xl">HAIEC — Founder & Chief Architect</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground mb-4">2020–Present</CardDescription>
-              <CardDescription className="text-base space-y-3">
-                <p className="text-foreground">
-                  HAIEC is not a startup story.<br />
-                  <strong>It's a systems story.</strong>
-                </p>
                 <p>
-                  I built HAIEC because AI governance was becoming chaos across the industry—scattered standards, 
-                  inconsistent documentation, no visibility into drift, no shared accountability.
+                  Leads enterprise technology programs across a portfolio of 53 applications with 100+ stakeholders. Coordinates across product, engineering, quality, operations, vendors, risk functions, and senior leadership.
                 </p>
-                <p>HAIEC introduced:</p>
-                <p>• <strong>AI Governance Execution Framework</strong>: Six operational functions that operationalize and extend Cognitive Systems Management (CSM)</p>
-                <p>• <strong>Red Audit Kit</strong>: A forensic toolkit for compliance blind spots</p>
-                <p>• <strong>LegacyShift</strong>: Modernization pathways for legacy systems used by global teams</p>
-                <p>• Frameworks that cut compliance prep time from months to weeks</p>
-                <p className="text-foreground italic pt-2">
-                  This platform is used by enterprise teams to turn regulatory pressure into operational maturity.
+                <p>Key contributions:</p>
+                <p>Orchestrating enterprise-wide AI rollouts with 100+ stakeholders</p>
+                <p>Managing a combined $50M+ AI and technology portfolio</p>
+                <p>Developing five patent-pending compliance and drift frameworks</p>
+                <p>Reducing audit preparation from months to weeks</p>
+                <p>Leading TPMs across education, manageability, and conferencing ecosystems</p>
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-xl">HAIEC - Founder & Chief Architect</CardTitle>
+              <CardDescription className="text-sm text-muted-foreground mb-4">2020 - Present</CardDescription>
+              <CardDescription className="text-base space-y-3">
+                <p>
+                  Built HAIEC as an AI assurance and governance platform focused on evaluation, controls, evidence, monitoring, and responsible deployment. The platform introduced an AI Governance Execution Framework with six operational functions, a forensic audit toolkit for compliance blind spots, and modernization pathways for legacy systems.
+                </p>
+                <p>Used by enterprise teams to turn regulatory pressure into operational maturity.</p>
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-xl">Kestrel Voice - Founder</CardTitle>
+              <CardDescription className="text-sm text-muted-foreground mb-4">2023 - Present</CardDescription>
+              <CardDescription className="text-base space-y-3">
+                <p>
+                  Built an AI communications and workflow platform combining voice agents, business knowledge, scheduling, automation, integrations, escalation, and operational controls. The platform confronts real deployment challenges: latency, integration failures, customer expectations, data boundaries, and knowing when automation should hand responsibility back to a person.
                 </p>
               </CardDescription>
             </CardHeader>
@@ -286,16 +319,13 @@ export default function ExecutiveBioPage() {
 
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="text-xl">Earlier Technical Roles (Condensed but Relevant)</CardTitle>
+              <CardTitle className="text-xl">Earlier Technical Roles</CardTitle>
               <CardDescription className="text-base space-y-2">
-                <p>• <strong>ACTIVE Network</strong> – System Engineer II: Release automation, QA, incident workflows</p>
-                <p>• <strong>Cummins (via TCS)</strong> – System Analyst: $10M MES implementation, 400+ stations deployed</p>
-                <p>• <strong>Centaurus</strong> – Business Systems Analyst: Red Hat & AWS platform delivery</p>
-                <p>• <strong>Louisiana Tech</strong> – IP Strategist: IP valuation & commercialization</p>
-                <p>• <strong>Dallas ISD</strong> – Field Ops Lead: Government contractor; tech modernization initiative</p>
-                <p className="text-foreground italic pt-2">
-                  Each of these roles taught me something different: scale, reliability, risk, ambiguity, and how to lead people through all of it.
-                </p>
+                <p>ACTIVE Network - System Engineer II: Release automation, QA, incident workflows</p>
+                <p>Cummins (via TCS) - System Analyst: $10M MES implementation, 400+ stations deployed</p>
+                <p>Centaurus - Business Systems Analyst: Red Hat & AWS platform delivery</p>
+                <p>Louisiana Tech University - IP Strategist: Invention assessment and commercialization</p>
+                <p>Dallas ISD - Field Ops Lead: Technology modernization in education environments</p>
               </CardDescription>
             </CardHeader>
           </Card>
@@ -303,8 +333,8 @@ export default function ExecutiveBioPage() {
       </Section>
 
       {/* Measurable Impact */}
-      <Section className="bg-secondary/20">
-        <h2 className="text-3xl font-bold mb-8 text-center">Measurable Impact</h2>
+      <Section>
+        <h2 className="text-3xl font-bold mb-8 text-center">Quantified Impact</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <Card className="text-center border-2 border-primary/20">
             <CardHeader>
@@ -322,13 +352,6 @@ export default function ExecutiveBioPage() {
 
           <Card className="text-center border-2 border-primary/20">
             <CardHeader>
-              <div className="text-5xl font-bold text-primary mb-2">60%</div>
-              <CardTitle className="text-lg">Audit Prep Reduction</CardTitle>
-            </CardHeader>
-          </Card>
-
-          <Card className="text-center border-2 border-primary/20">
-            <CardHeader>
               <div className="text-5xl font-bold text-primary mb-2">$50M+</div>
               <CardTitle className="text-lg">Portfolio Oversight</CardTitle>
             </CardHeader>
@@ -337,7 +360,7 @@ export default function ExecutiveBioPage() {
           <Card className="text-center border-2 border-primary/20">
             <CardHeader>
               <div className="text-5xl font-bold text-primary mb-2">100+</div>
-              <CardTitle className="text-lg">Stakeholders Orchestrated</CardTitle>
+              <CardTitle className="text-lg">Stakeholders Aligned</CardTitle>
             </CardHeader>
           </Card>
 
@@ -357,124 +380,121 @@ export default function ExecutiveBioPage() {
 
           <Card className="text-center border-2 border-primary/20">
             <CardHeader>
-              <div className="text-5xl font-bold text-primary mb-2">Enterprise</div>
-              <CardTitle className="text-lg">Scale Delivery</CardTitle>
+              <div className="text-5xl font-bold text-primary mb-2">16+</div>
+              <CardTitle className="text-lg">Years of Experience</CardTitle>
+            </CardHeader>
+          </Card>
+
+          <Card className="text-center border-2 border-primary/20">
+            <CardHeader>
+              <div className="text-5xl font-bold text-primary mb-2">2</div>
+              <CardTitle className="text-lg">Companies Founded</CardTitle>
             </CardHeader>
           </Card>
         </div>
       </Section>
 
-      {/* What Makes Me Different */}
-      <Section>
-        <h2 className="text-3xl font-bold mb-8 text-center">What Makes Me Different</h2>
-        <div className="max-w-4xl mx-auto space-y-6">
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>1. I See Failure Modes Before They Emerge</CardTitle>
-              <CardDescription className="text-base">
-                Years of drift detection, RCA, and governance work have trained me to anticipate what most teams 
-                discover only after outages or audit failures.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>2. I Design Frameworks That Survive Contact With Real Organizations</CardTitle>
-              <CardDescription className="text-base">
-                Compliance is useless if engineers won't follow it.<br />
-                Engineering is dangerous if compliance can't see it.<br />
-                My systems bridge both worlds.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>3. I Make Ambiguity Executable</CardTitle>
-              <CardDescription className="text-base">
-                When teams don't know how to proceed, I create structures that turn confusion into predictable delivery.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>4. I've Operated at Every Altitude</CardTitle>
-              <CardDescription className="text-base">
-                From field technician → system engineer → program manager → founder → enterprise AI strategist.<br />
-                I understand every layer of the stack, technical and human.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </Section>
-
-      {/* Roles I Am Built For */}
+      {/* Patent-Pending Frameworks */}
       <Section className="bg-secondary/20">
-        <h2 className="text-3xl font-bold mb-8 text-center">Roles I Am Built For</h2>
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-          <Card className="border-2 border-primary">
+        <h2 className="text-3xl font-bold mb-8 text-center">Patent-Pending Frameworks</h2>
+        <div className="max-w-4xl mx-auto space-y-4">
+          <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Briefcase className="h-5 w-5 text-primary" />
-                Director / Senior Director
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Award className="h-5 w-5 text-primary" />
+                Adversarial Project Twin
               </CardTitle>
-              <CardDescription className="text-base space-y-2">
-                <p>• AI Programs</p>
-                <p>• AI Governance & Risk</p>
-                <p>• Engineering Operations</p>
-                <p>• Responsible AI / Compliance Tech</p>
-                <p className="pt-2"><strong>Compensation:</strong> $250K - $400K+ (base + equity/bonus)</p>
+              <CardDescription className="text-base">
+                Drift and sabotage simulation framework that identifies AI system vulnerabilities before production deployment.
               </CardDescription>
             </CardHeader>
           </Card>
-
-          <Card className="border-2 border-primary">
+          <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
-                Consulting / Fractional
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Award className="h-5 w-5 text-primary" />
+                Precision Drift Detector
               </CardTitle>
-              <CardDescription className="text-base space-y-2">
-                <p>• AI Governance Architecture</p>
-                <p>• Risk & Compliance Acceleration</p>
-                <p>• Enterprise Drift Detection</p>
-                <p>• POC Delivery & Executive Advisory</p>
-                <p className="pt-2"><strong>Rate:</strong> $300 - $500/hour (project minimums apply)</p>
+              <CardDescription className="text-base">
+                Numerical anomaly detection system for AI model performance monitoring. Identifies behavioral drift patterns before they affect business outcomes.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Award className="h-5 w-5 text-primary" />
+                AI Compliance Twin
+              </CardTitle>
+              <CardDescription className="text-base">
+                Real-time regulatory enforcement engine that validates AI systems against EU AI Act, GDPR, and sector-specific compliance requirements.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Award className="h-5 w-5 text-primary" />
+                Modular Audit Engine
+              </CardTitle>
+              <CardDescription className="text-base">
+                AI fairness and transparency scoring system with modular architecture. Provides audit-grade documentation for enterprise deployments.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Award className="h-5 w-5 text-primary" />
+                Compliance Fingerprint Layer
+              </CardTitle>
+              <CardDescription className="text-base">
+                Tamper-evident traceability system for AI decision-making. Creates immutable audit trails for regulatory compliance and forensic analysis.
               </CardDescription>
             </CardHeader>
           </Card>
         </div>
       </Section>
 
-      {/* The Personal Note */}
+      {/* Education & Credentials */}
+      <Section>
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center">Education & Credentials</h2>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardDescription className="text-base space-y-3">
+                <p><strong className="text-foreground">M.S. Engineering and Technology Management</strong> - Louisiana Tech University</p>
+                <p><strong className="text-foreground">B.S. Computer Information Systems</strong> - Louisiana Tech University</p>
+                <p><strong className="text-foreground">Six Sigma Green Belt</strong> - Certified</p>
+                <p>Additional education in AI ethics and governance</p>
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </Section>
+
+      {/* Personal Note */}
       <Section className="bg-primary/5">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">The Personal Note (Why This Work Matters to Me)</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Personal Note</h2>
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I grew up navigating systems that weren't designed for people like me.
+              My name, Subodh, comes from Sanskrit: <strong className="text-foreground">su</strong> (good) and <strong className="text-foreground">bodh</strong> (understanding). I have always treated it as a professional obligation, not just a label.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              So I became someone who designs better systems.
+              I started in technology fixing computers in underfunded schools. That work taught me something I carry into every program I lead today: technology succeeds only when it works inside the institution that depends on it. A broken system in a classroom is not an abstract problem. It affects real people trying to do their jobs.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Not just faster or smarter—<strong className="text-foreground">safer, fairer, more accountable.</strong>
+              That principle scaled from school districts to manufacturing floors to Fortune 50 engineering organizations. The systems got larger. The stakes got higher. The core question stayed the same: does this actually work for the people who depend on it?
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              AI will shape the next century. My mission is to ensure it does so without repeating the failures of the last one: 
-              hidden bias, silent drift, ungoverned decisions, and operational fragility.
+              AI adds a new dimension to that question. When a system can make decisions that affect people's lives, the obligation to govern it properly is not optional. Hidden bias, silent drift, and ungoverned automated decisions are not theoretical risks. They are operational failures waiting for the right conditions.
             </p>
-            <p className="text-lg text-foreground font-semibold leading-relaxed">
-              Everything I build—frameworks, programs, platforms, patents—follows one philosophy:
-            </p>
-            <p className="text-2xl text-foreground font-bold leading-relaxed text-center py-6">
+            <p className="text-lg text-foreground font-semibold leading-relaxed text-center py-4">
               If a system can harm people, it must be governed as seriously as it is engineered.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed text-center">
-              This isn't just my work.<br />
-              <strong className="text-foreground">It's my discipline.</strong>
+              That is the standard I hold for my own work and the standard I bring to every organization I work with.
             </p>
           </div>
         </div>
@@ -483,10 +503,9 @@ export default function ExecutiveBioPage() {
       {/* Contact CTA */}
       <Section>
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Let's Connect</h2>
+          <h2 className="text-3xl font-bold mb-4">Connect</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Ready to discuss how I can help your organization navigate AI compliance, lead enterprise programs, 
-            or implement proven frameworks? Let's start a conversation.
+            For advisory, consulting, or leadership opportunities, reach out through any of the channels below.
           </p>
           
           <div className="flex flex-wrap justify-center gap-4">
@@ -502,16 +521,16 @@ export default function ExecutiveBioPage() {
                 Connect on LinkedIn
               </Button>
             </a>
-            <Link href="/">
+            <Link href="/about">
               <Button size="lg" variant="outline" className="gap-2">
                 <Globe className="h-5 w-5" />
-                View Full Website
+                About Page
               </Button>
             </Link>
           </div>
 
           <p className="text-sm text-muted-foreground mt-8">
-            Last Updated: November 2025
+            Last Updated: August 2026
           </p>
         </div>
       </Section>
