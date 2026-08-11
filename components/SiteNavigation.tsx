@@ -33,10 +33,15 @@ const interactiveTools = [
 ];
 
 
+const aboutLinks = [
+  { name: "About", href: "/about", desc: "Background, story, and credentials" },
+  { name: "Magazine", href: "/magazine", desc: "Curated reading and publications" },
+  { name: "Executive Portfolio", href: "/portfolio", desc: "Programs, metrics, and deliverables" },
+  { name: "Contact", href: "/contact", desc: "Get in touch or schedule a meeting" },
+];
+
 const navLinks = [
-  { label: "about", href: "/about" },
   { label: "services", href: "/services" },
-  { label: "contact", href: "/contact" },
 ];
 
 interface SiteNavigationProps {
@@ -44,7 +49,7 @@ interface SiteNavigationProps {
 }
 
 export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
-  const [open, setOpen] = React.useState<null | "products" | "solutions" | "interactiveTools">(null);
+  const [open, setOpen] = React.useState<null | "products" | "solutions" | "interactiveTools" | "about">(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLDivElement>(null);
@@ -88,34 +93,38 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
         background: "var(--op-card)",
         border: "1px solid var(--op-border)",
         borderRadius: 10,
-        padding: 6,
+        padding: 4,
         boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
         zIndex: 40,
       }}
     >
-      {items.map((it) => (
-        <Link
-          key={it.name}
-          href={it.href}
-          onClick={() => setOpen(null)}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            padding: "9px 11px",
-            borderRadius: 6,
-            color: "var(--fg)",
-            transition: "background .12s",
-            textDecoration: "none",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-        >
-          <span style={{ fontSize: 13.5, fontWeight: 500 }}>{it.name}</span>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-secondary)" }}>
-            {it.desc}
-          </span>
-        </Link>
+      {items.map((it, i) => (
+        <React.Fragment key={it.name}>
+          {i > 0 && (
+            <div style={{ height: 1, background: "var(--op-border)", margin: "4px 8px" }} />
+          )}
+          <Link
+            href={it.href}
+            onClick={() => setOpen(null)}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 3,
+              padding: "10px 12px",
+              borderRadius: 6,
+              color: "var(--fg)",
+              transition: "background .12s",
+              textDecoration: "none",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
+            <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: "-0.005em" }}>{it.name}</span>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", lineHeight: 1.4 }}>
+              {it.desc}
+            </span>
+          </Link>
+        </React.Fragment>
       ))}
     </div>
   );
@@ -202,7 +211,30 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
               fontSize: 12,
             }}
           >
-            <Link href="/about" style={{ color: "var(--op-muted)", textDecoration: "none" }}>about</Link>
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setOpen(open === "about" ? null : "about")}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: "transparent",
+                  fontFamily: "inherit",
+                  fontSize: "inherit",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  color: open === "about" ? "var(--fg)" : "var(--op-muted)",
+                }}
+              >
+                about
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "about" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                  <path d="M2 4 L5 7 L8 4" />
+                </svg>
+              </button>
+              {open === "about" && dropdown(aboutLinks)}
+            </div>
 
             <div style={{ position: "relative" }}>
               <button
@@ -280,8 +312,6 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
             </div>
 
             <Link href="/blog" style={{ color: "var(--op-muted)", textDecoration: "none" }}>blog</Link>
-
-            <Link href="/contact" style={{ color: "var(--op-muted)", textDecoration: "none" }}>contact</Link>
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -455,8 +485,34 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
               Search articles, tools, guides...
             </button>
 
-            {/* Main links */}
+            {/* About section */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 20 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>About</div>
+              {aboutLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    padding: "9px 12px",
+                    borderRadius: 6,
+                    textDecoration: "none",
+                    color: "var(--fg)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 600 }}>{l.name}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)" }}>{l.desc}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Services link */}
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
               {navLinks.map((l) => (
                 <Link
                   key={l.href}
