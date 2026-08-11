@@ -120,6 +120,69 @@ const breadcrumbSchema = {
   ],
 }
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Is CSM a standard or certification?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. CSM is a practitioner-developed governance methodology. It is not an industry standard, regulation, or certification program. It is designed to complement standards like NIST AI RMF and ISO/IEC 42001, not replace them.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does CSM replace NIST AI RMF or ISO 42001?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. CSM provides a governance operating model that helps organizations implement those standards more effectively. The V2 specification includes an informative NIST/ISO crosswalk showing how CSM components map to NIST functions and ISO clauses.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is CSM 2.0 backward compatible with V1?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. CSM 2.0 preserves all four original domains, all sixteen original components, and their names unchanged. V2 adds an operational specification layer on top of the existing structure: governance contracts, execution functions, state models, and reassessment triggers.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long does CSM adoption take?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CSM is designed to be adopted incrementally. The implementation guidance outlines three phases: assess current state, pilot on one system, then scale. Organizations can start with a single domain or system and expand. Proportionality factors allow smaller AI deployments to apply lighter governance depth.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between CSM and the Execution Framework?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CSM defines WHERE governance responsibilities operate (the four domains: Enterprise, Project, Code, UX). The AI Governance Execution Framework defines WHAT governance activities happen (six cross-functional execution functions: Purpose, Mapping, Risk, Delivery, Oversight, Compliance). Together they form a two-axis operating architecture.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does CSM 2.0 produce compliance verdicts or scores?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. CSM 2.0 does not produce legal compliance verdicts, aggregate scores, or pass/fail ratings. The reference assessment identifies applicable requirements, evidence gaps, and human review items. It is a governance tool, not an audit instrument.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can CSM be used for non-AI systems?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CSM was designed specifically for AI systems where model behavior, training data, and human-AI interaction introduce governance challenges not covered by traditional software governance. While some concepts transfer, the framework is optimized for AI and machine learning systems.',
+      },
+    },
+  ],
+}
+
 export default function CSMPage() {
   return (
     <>
@@ -132,6 +195,11 @@ export default function CSMPage() {
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <Hero
@@ -437,6 +505,72 @@ export default function CSMPage() {
           <p className="text-base text-foreground/90">
             CSM domains are not four sequential phases. They are interconnected governance lenses.
           </p>
+
+          {/* Visual architecture diagram */}
+          <div className="my-6 p-6 rounded-xl border border-border bg-muted/20">
+            <svg viewBox="0 0 600 420" className="w-full h-auto" role="img" aria-label="CSM architecture diagram showing four governance domains and feedback flow">
+              {/* Enterprise domain */}
+              <rect x="210" y="10" width="180" height="70" rx="8" className="fill-primary/10 stroke-primary/40" strokeWidth="1.5" />
+              <text x="300" y="35" textAnchor="middle" className="fill-foreground" fontSize="13" fontWeight="700">Enterprise</text>
+              <text x="300" y="52" textAnchor="middle" className="fill-muted-foreground" fontSize="10">Policy, risk, data, mandate</text>
+              <text x="300" y="67" textAnchor="middle" className="fill-primary" fontSize="8" fontFamily="monospace">ENT-POLICY · ENT-RISK · ENT-DATA · ENT-MANDATE</text>
+
+              {/* Arrow Enterprise -> Project */}
+              <line x1="300" y1="80" x2="300" y2="105" className="stroke-primary/40" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+
+              {/* Project domain */}
+              <rect x="210" y="110" width="180" height="70" rx="8" className="fill-primary/10 stroke-primary/40" strokeWidth="1.5" />
+              <text x="300" y="135" textAnchor="middle" className="fill-foreground" fontSize="13" fontWeight="700">Project</text>
+              <text x="300" y="152" textAnchor="middle" className="fill-muted-foreground" fontSize="10">Business, testing, scale, playbook</text>
+              <text x="300" y="167" textAnchor="middle" className="fill-primary" fontSize="8" fontFamily="monospace">PRJ-BUSINESS · PRJ-TESTING · PRJ-SCALE · PRJ-PLAYBOOK</text>
+
+              {/* Arrow Project -> Code */}
+              <line x1="300" y1="180" x2="300" y2="205" className="stroke-primary/40" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+
+              {/* Code domain */}
+              <rect x="210" y="210" width="180" height="70" rx="8" className="fill-primary/10 stroke-primary/40" strokeWidth="1.5" />
+              <text x="300" y="235" textAnchor="middle" className="fill-foreground" fontSize="13" fontWeight="700">Code</text>
+              <text x="300" y="252" textAnchor="middle" className="fill-muted-foreground" fontSize="10">Standards, security, human, trace</text>
+              <text x="300" y="267" textAnchor="middle" className="fill-primary" fontSize="8" fontFamily="monospace">CODE-STANDARDS · CODE-SECURITY · CODE-HUMAN · CODE-TRACE</text>
+
+              {/* Arrow Code -> UX */}
+              <line x1="300" y1="280" x2="300" y2="305" className="stroke-primary/40" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+
+              {/* UX domain */}
+              <rect x="210" y="310" width="180" height="70" rx="8" className="fill-primary/10 stroke-primary/40" strokeWidth="1.5" />
+              <text x="300" y="335" textAnchor="middle" className="fill-foreground" fontSize="13" fontWeight="700">UX</text>
+              <text x="300" y="352" textAnchor="middle" className="fill-muted-foreground" fontSize="10">Impact, explain, capability, adoption</text>
+              <text x="300" y="367" textAnchor="middle" className="fill-primary" fontSize="8" fontFamily="monospace">UX-IMPACT · UX-EXPLAIN · UX-CAPABILITY · UX-ADOPTION</text>
+
+              {/* Feedback loop arrow (UX -> Enterprise, curved left) */}
+              <path d="M 210 345 Q 80 345 80 45 Q 80 20 210 45" className="stroke-orange-500/50" strokeWidth="1.5" fill="none" strokeDasharray="4 3" markerEnd="url(#arrowhead-orange)" />
+              <text x="60" y="200" textAnchor="middle" className="fill-orange-500/70" fontSize="10" fontWeight="600" transform="rotate(-90 60 200)">Feedback Loop</text>
+
+              {/* Execution Functions sidebar */}
+              <rect x="430" y="110" width="150" height="200" rx="8" className="fill-muted/30 stroke-border" strokeWidth="1" />
+              <text x="505" y="130" textAnchor="middle" className="fill-foreground" fontSize="11" fontWeight="700">Execution Functions</text>
+              <line x1="445" y1="138" x2="565" y2="138" className="stroke-border" strokeWidth="0.5" />
+              <text x="445" y="155" className="fill-muted-foreground" fontSize="9" fontFamily="monospace">EF1-PURPOSE</text>
+              <text x="445" y="172" className="fill-muted-foreground" fontSize="9" fontFamily="monospace">EF2-MAPPING</text>
+              <text x="445" y="189" className="fill-muted-foreground" fontSize="9" fontFamily="monospace">EF3-RISK</text>
+              <text x="445" y="206" className="fill-muted-foreground" fontSize="9" fontFamily="monospace">EF4-DELIVERY</text>
+              <text x="445" y="223" className="fill-muted-foreground" fontSize="9" fontFamily="monospace">EF5-OVERSIGHT</text>
+              <text x="445" y="240" className="fill-muted-foreground" fontSize="9" fontFamily="monospace">EF6-COMPLIANCE</text>
+              <text x="505" y="265" textAnchor="middle" className="fill-muted-foreground" fontSize="8" fontStyle="italic">Cross-functional</text>
+              <text x="505" y="278" textAnchor="middle" className="fill-muted-foreground" fontSize="8" fontStyle="italic">across all domains</text>
+
+              {/* Arrow markers */}
+              <defs>
+                <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" className="fill-primary/40" />
+                </marker>
+                <marker id="arrowhead-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" className="fill-orange-500/50" />
+                </marker>
+              </defs>
+            </svg>
+          </div>
+
           <div className="space-y-3">
             {[
               { name: 'Enterprise', desc: 'Defines purpose, ownership and boundaries.' },
@@ -805,12 +939,138 @@ export default function CSMPage() {
         </div>
       </Section>
 
+      {/* Related Reading */}
+      <Section
+        className="pt-8"
+        subtitle="Related Reading"
+        title="Compliance Guides and Field Articles"
+        sectionNum="§15"
+      >
+        <div className="max-w-3xl mx-auto space-y-6">
+          <p className="text-sm text-muted-foreground">
+            CSM connects to regulatory frameworks and field practice. These guides and articles complement CSM implementation.
+          </p>
+
+          {/* Compliance Guides */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-3">Compliance Guides</h3>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <Link href="/guides/eu-ai-act" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <Scale className="h-5 w-5 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">EU AI Act Guide</p>
+                <p className="text-xs text-muted-foreground mt-1">Risk tiers, conformity assessments, and CSM-Enterprise alignment.</p>
+              </Link>
+              <Link href="/guides/nyc-local-law-144" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <Scale className="h-5 w-5 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">NYC Local Law 144</p>
+                <p className="text-xs text-muted-foreground mt-1">Bias audit requirements and CSM-Code evidence obligations.</p>
+              </Link>
+              <Link href="/guides/texas-ai-law" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <Scale className="h-5 w-5 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">Texas AI Law (HB 149)</p>
+                <p className="text-xs text-muted-foreground mt-1">Inventory, disclosure, and CSM-Project scale decisions.</p>
+              </Link>
+            </div>
+          </div>
+
+          {/* Field Articles */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-3">Field Articles</h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Link href="/blog/haiec-modular-ai-governance-framework" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <FileText className="h-4 w-4 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">HAIEC: Modular AI Governance Framework</p>
+                <p className="text-xs text-muted-foreground mt-1">How HAIEC supports CSM activities in practice.</p>
+              </Link>
+              <Link href="/blog/seven-layers-ai-compliance-nist-iso-soc2" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <FileText className="h-4 w-4 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">Seven Layers of AI Compliance</p>
+                <p className="text-xs text-muted-foreground mt-1">NIST, ISO, and SOC 2 alignment with CSM governance domains.</p>
+              </Link>
+              <Link href="/blog/12-production-readiness-checks-for-ai-pilots" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <FileText className="h-4 w-4 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">12 Production Readiness Checks</p>
+                <p className="text-xs text-muted-foreground mt-1">Architecture gates that map to CSM-Project testing and scale decisions.</p>
+              </Link>
+              <Link href="/blog/recover-a-stalled-ai-pilot-in-30-days" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <FileText className="h-4 w-4 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">Recover a Stalled AI Pilot</p>
+                <p className="text-xs text-muted-foreground mt-1">Reassessment triggers and handoff failures in real projects.</p>
+              </Link>
+              <Link href="/blog/implementing-immutable-audit-trails-for-soc-2-ai-compliance" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <FileText className="h-4 w-4 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">Immutable Audit Trails for SOC 2</p>
+                <p className="text-xs text-muted-foreground mt-1">Evidence schema implementation aligned with CSM-Code trace requirements.</p>
+              </Link>
+              <Link href="/blog/texas-hb-149-eu-ai-act-engineering-compliance-playbook" className="block p-4 rounded-lg border border-border bg-muted/20 hover:border-primary/40 transition-colors">
+                <FileText className="h-4 w-4 text-primary mb-2" />
+                <p className="text-sm font-medium text-foreground">Texas HB 149 & EU AI Act Playbook</p>
+                <p className="text-xs text-muted-foreground mt-1">Engineering compliance across jurisdictions using CSM domains.</p>
+              </Link>
+            </div>
+          </div>
+
+          <div className="border-l-4 border-primary/40 pl-4 py-2 bg-muted/20 rounded-r-lg">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">Need hands-on help?</strong>{' '}
+              <Link href="/advisory" className="text-primary hover:underline">Explore advisory services</Link> for CSM implementation, assessment, and governance architecture.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section
+        className="pt-8"
+        subtitle="FAQ"
+        title="Frequently Asked Questions"
+        sectionNum="§16"
+      >
+        <div className="max-w-3xl mx-auto space-y-4">
+          {[
+            {
+              q: 'Is CSM a standard or certification?',
+              a: 'No. CSM is a practitioner-developed governance methodology. It is not an industry standard, regulation, or certification program. It is designed to complement standards like NIST AI RMF and ISO/IEC 42001, not replace them.',
+            },
+            {
+              q: 'Does CSM replace NIST AI RMF or ISO 42001?',
+              a: 'No. CSM provides a governance operating model that helps organizations implement those standards more effectively. The V2 specification includes an informative NIST/ISO crosswalk showing how CSM components map to NIST functions and ISO clauses.',
+            },
+            {
+              q: 'Is CSM 2.0 backward compatible with V1?',
+              a: 'Yes. CSM 2.0 preserves all four original domains, all sixteen original components, and their names unchanged. V2 adds an operational specification layer on top of the existing structure: governance contracts, execution functions, state models, and reassessment triggers.',
+            },
+            {
+              q: 'How long does CSM adoption take?',
+              a: 'CSM is designed to be adopted incrementally. The implementation guidance outlines three phases: assess current state, pilot on one system, then scale. Organizations can start with a single domain or system and expand. Proportionality factors allow smaller AI deployments to apply lighter governance depth.',
+            },
+            {
+              q: 'What is the difference between CSM and the Execution Framework?',
+              a: 'CSM defines WHERE governance responsibilities operate (the four domains: Enterprise, Project, Code, UX). The AI Governance Execution Framework defines WHAT governance activities happen (six cross-functional execution functions: Purpose, Mapping, Risk, Delivery, Oversight, Compliance). Together they form a two-axis operating architecture.',
+            },
+            {
+              q: 'Does CSM 2.0 produce compliance verdicts or scores?',
+              a: 'No. CSM 2.0 does not produce legal compliance verdicts, aggregate scores, or pass/fail ratings. The reference assessment identifies applicable requirements, evidence gaps, and human review items. It is a governance tool, not an audit instrument.',
+            },
+            {
+              q: 'Can CSM be used for non-AI systems?',
+              a: 'CSM was designed specifically for AI systems where model behavior, training data, and human-AI interaction introduce governance challenges not covered by traditional software governance. While some concepts transfer, the framework is optimized for AI and machine learning systems.',
+            },
+          ].map((faq) => (
+            <div key={faq.q} className="border-l-4 border-primary/30 pl-4 py-2">
+              <p className="text-sm font-semibold text-foreground">{faq.q}</p>
+              <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       {/* Source / References */}
       <Section
         className="pt-8"
         subtitle="Provenance"
         title="Source and References"
-        sectionNum="§15"
+        sectionNum="§17"
       >
         <div className="max-w-3xl mx-auto space-y-3">
           <Card>
