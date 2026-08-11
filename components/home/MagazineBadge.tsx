@@ -90,7 +90,6 @@ export function MagazineBadge() {
                       padding: '10px 20px',
                       borderRadius: 999,
                       border: '1px solid var(--op-accent)',
-                      color: 'var(--op-accent)',
                       fontFamily: "'Courier New', monospace",
                       fontSize: 12,
                       fontWeight: 700,
@@ -98,7 +97,7 @@ export function MagazineBadge() {
                       textTransform: 'uppercase',
                       transition: 'background-color 0.2s, color 0.2s',
                     }}
-                    className="group-hover:bg-[var(--op-accent)] group-hover:text-[var(--bg)]"
+                    className="text-[var(--op-accent)] group-hover:bg-[var(--op-accent)] group-hover:text-[var(--bg)]"
                   >
                     Read the Magazine →
                   </div>
