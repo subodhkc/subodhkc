@@ -82,6 +82,31 @@ export const csmChangelog: ChangelogEntry[] = [
       'Handoff visibility as core value',
     ],
   },
+  {
+    version: '2.0.1',
+    date: '2026-08-11',
+    label: 'Expanded implementation examples',
+    summary:
+      'Expanded V1 implementation examples and handoffs to address vendor governance, agentic code generation, consent management, and incident response governance.',
+    added: [
+      'Enterprise: vendor governance, provider data-processing review, model card requirements',
+      'Enterprise: incident response authority, escalation protocol, breach notification procedure',
+      'Code: agentic tool authority policy, agent sandbox boundaries, AI API key management, prompt injection defense',
+      'UX: AI processing consent, opt-out and human review request, misuse detection monitoring, manipulation guardrail review',
+      'Enterprise roles: vendor manager, incident response lead',
+      'Code roles: platform engineer',
+      'UX roles: privacy counsel',
+      'Handoffs: Enterprise to Code (security incidents), Code to Enterprise (policy gaps), UX to Enterprise (user-reported incidents)',
+    ],
+    unchanged: [
+      'Four governance domains: Enterprise, Project, Code, UX',
+      'Sixteen original components and their names',
+      'All V2 governance contracts, objective rules, and state models',
+      'Operational mapping (4x6 matrix)',
+      'Reassessment trigger definitions',
+      'Determinism contract',
+    ],
+  },
 ]
 
 // ============================================================================

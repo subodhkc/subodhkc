@@ -146,12 +146,19 @@ export const csmDomains: CSMDomain[] = [
       'Data steward',
       'Legal/privacy counsel',
       'Compliance lead',
+      'Vendor manager',
+      'Incident response lead',
     ],
     handoffs: [
       {
         from: 'CSM-Enterprise',
         to: 'CSM-Project',
         description: 'Policy and risk boundaries become project requirements.',
+      },
+      {
+        from: 'CSM-Enterprise',
+        to: 'CSM-Code',
+        description: 'Security incidents require code-level investigation and remediation.',
       },
     ],
     failureModes: [
@@ -328,6 +335,7 @@ export const csmDomains: CSMDomain[] = [
       'Code reviewer',
       'Developer',
       'DevOps engineer',
+      'Platform engineer',
     ],
     handoffs: [
       {
@@ -339,6 +347,11 @@ export const csmDomains: CSMDomain[] = [
         from: 'CSM-Code',
         to: 'CSM-UX',
         description: 'Actual system behavior and limitations shape user interaction and oversight.',
+      },
+      {
+        from: 'CSM-Code',
+        to: 'CSM-Enterprise',
+        description: 'Security findings from AI-assisted code may indicate enterprise policy gaps.',
       },
     ],
     failureModes: [
@@ -425,6 +438,7 @@ export const csmDomains: CSMDomain[] = [
       'User advocate',
       'Training lead',
       'Support lead',
+      'Privacy counsel',
     ],
     handoffs: [
       {
@@ -436,6 +450,11 @@ export const csmDomains: CSMDomain[] = [
         from: 'CSM-UX',
         to: 'CSM-Project',
         description: 'User feedback and operational behavior trigger product/project reassessment.',
+      },
+      {
+        from: 'CSM-UX',
+        to: 'CSM-Enterprise',
+        description: 'User-reported incidents may trigger enterprise-level incident response.',
       },
     ],
     failureModes: [
@@ -485,6 +504,21 @@ export const csmHandoffs: CSMHandoff[] = [
     from: 'CSM-Project',
     to: 'CSM-Enterprise',
     description: 'Incidents, lessons and newly discovered risks may require policy or risk updates.',
+  },
+  {
+    from: 'CSM-Enterprise',
+    to: 'CSM-Code',
+    description: 'Security incidents require code-level investigation and remediation.',
+  },
+  {
+    from: 'CSM-Code',
+    to: 'CSM-Enterprise',
+    description: 'Security findings from AI-assisted code may indicate enterprise policy gaps.',
+  },
+  {
+    from: 'CSM-UX',
+    to: 'CSM-Enterprise',
+    description: 'User-reported incidents may trigger enterprise-level incident response.',
   },
 ]
 
