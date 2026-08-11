@@ -16,11 +16,15 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Subodh KC | Enterprise AI Strategy & Transformation Leader',
-  description: 'Subodh KC is an enterprise AI strategy and transformation leader with 16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks.',
+  title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+  description: 'Subodh KC is an AI advisor and enterprise AI governance leader with 12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
   keywords: [
     'Subodh KC',
-    'enterprise AI strategy leader',
+    'Subodh KC AI advisor',
+    'AI Advisor',
+    'AI advisor HEB',
+    'AI advisor Dallas Fort Worth',
+    'enterprise AI governance leader',
     'AI program management Fortune 50',
     'AI governance program manager',
     'patent-pending AI compliance frameworks',
@@ -31,20 +35,32 @@ export const metadata: Metadata = {
     'Six Sigma AI program management',
     'technology commercialization AI',
     'AI transformation leader Texas',
+    'fractional AI executive',
+    'Director of AI Programs',
+    'Head of AI',
+    'VP of AI Strategy',
   ],
   alternates: {
     canonical: 'https://subodhkc.com/executive-bio',
   },
   openGraph: {
-    title: 'Subodh KC | Enterprise AI Strategy & Transformation Leader',
-    description: '16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks.',
+    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    description: '12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
     url: 'https://subodhkc.com/executive-bio',
     type: 'profile',
+    images: [
+      {
+        url: 'https://subodhkc.com/portrait.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC | Enterprise AI Strategy & Transformation Leader',
-    description: '16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
+    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    description: '12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
   },
 }
 
@@ -55,8 +71,8 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'Director of AI Programs | Enterprise AI Strategy & Transformation Leader',
-  description: 'Enterprise AI strategy and transformation leader with 16+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
+  jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
+  description: 'AI advisor and enterprise AI governance leader with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -136,9 +152,17 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
+      name: 'AI Advisor & Enterprise AI Governance Consultant',
+      occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
+      startDate: '2026',
+      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations.',
+    },
+    {
+      '@type': 'Occupation',
       name: 'Sr. Program Manager - AI Implementation & Governance',
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2025',
+      endDate: '2026',
       description: 'Driving strategic AI transformation across enterprise systems. Architecting governance frameworks that enable innovation without regulatory risk.',
     },
     {
@@ -146,6 +170,7 @@ const personSchema = {
       name: 'Technical Program Manager',
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2022',
+      endDate: '2025',
       description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 50 scale.',
     },
     {
@@ -171,7 +196,7 @@ const personSchema = {
     {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'degree',
-      name: 'B.S. Computer & Information Systems Security',
+      name: 'B.S. Computer Information Systems',
       recognizedBy: { '@type': 'CollegeOrUniversity', name: 'Louisiana Tech University' },
     },
     {
@@ -183,12 +208,6 @@ const personSchema = {
   alumniOf: {
     '@type': 'CollegeOrUniversity',
     name: 'Louisiana Tech University',
-  },
-  worksFor: {
-    '@type': 'Organization',
-    name: 'HP Inc.',
-    description: 'Fortune 50 technology company',
-    url: 'https://www.hp.com',
   },
   founder: [
     {
@@ -204,7 +223,7 @@ const personSchema = {
       description: 'AI communications and workflow platform',
     },
   ],
-  award: ["Dean's Honor List", "President's Honor List"],
+  award: ["Dean's Honor List", "President's Honor List", 'University Coding Competition Winner', 'Global Business Strategy Competition - Top 3 Global'],
   knowsLanguage: ['English', 'Nepali'],
   nationality: { '@type': 'Country', name: 'United States' },
   address: {
@@ -223,6 +242,15 @@ const personSchema = {
   },
 }
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
+    { '@type': 'ListItem', position: 2, name: 'Executive Bio', item: 'https://subodhkc.com/executive-bio' },
+  ],
+}
+
 export default function ExecutiveBioPage() {
   return (
     <>
@@ -230,6 +258,11 @@ export default function ExecutiveBioPage() {
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {/* Hero Section */}
@@ -240,11 +273,11 @@ export default function ExecutiveBioPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-foreground font-semibold mb-2">
-            Enterprise AI Strategy & Transformation Leader
+            AI Advisor & Enterprise AI Governance Leader
           </p>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-8">
-            16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization
+            12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -283,13 +316,13 @@ export default function ExecutiveBioPage() {
           <h2 className="text-3xl font-bold mb-8">Professional Background</h2>
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Subodh KC is an enterprise AI strategy and transformation leader with more than 16 years of experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.
+              Subodh KC is an AI advisor and enterprise AI governance leader with more than 12 years of experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               His career has been built from the operational level up. He has worked across public-sector technology, manufacturing systems, production reliability, small-business transformation, enterprise software, and artificial intelligence. That range gives him a practical understanding of transformation from both sides: what leadership expects from an investment and what engineering and operations must do to make it work.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              At HP, Subodh led complex enterprise technology programs across a portfolio of 53 applications and more than 100 stakeholders. His work brought together product, engineering, quality, operations, vendors, risk functions, and senior leadership. His responsibilities included portfolio planning, program execution, dependency management, release readiness, risk management, stakeholder alignment, executive communication, and continuous improvement across large-scale technology environments.
+              At HP, Subodh led complex enterprise technology programs across a portfolio of 53 applications and more than 100 stakeholders. His work brought together product, engineering, quality, operations, vendors, risk functions, and senior leadership. His responsibilities included portfolio planning, program execution, dependency management, release readiness, risk management, stakeholder alignment, executive communication, and continuous improvement across large-scale technology environments. He was promoted from Technical Program Manager to Sr. Program Manager during his tenure.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Earlier in his career, he worked in manufacturing technology and reliability engineering, including Manufacturing Execution System environments supporting more than 400 production stations. He has also worked with small and midsized businesses across Dallas-Fort Worth on technology implementation, business process improvement, automation, and program delivery. His experience at Louisiana Tech University's Office of Intellectual Property & Commercialization added exposure to invention assessment, intellectual property, market opportunity, and technology commercialization.
@@ -304,7 +337,7 @@ export default function ExecutiveBioPage() {
               Subodh holds a B.S. in Computer Information Systems and an M.S. in Engineering and Technology Management from Louisiana Tech University. He is a Six Sigma Green Belt with additional education in AI ethics and governance.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Based in Dallas-Fort Worth, Subodh is most effective in complex environments where strategy must become execution, multiple teams must move together, and new technology has to deliver measurable business value without losing operational discipline.
+              Based in Dallas-Fort Worth, Subodh advises enterprises on AI governance and compliance while building tools that make AI systems more observable, testable, and defensible. He is most effective in complex environments where strategy must become execution, multiple teams must move together, and new technology has to deliver measurable business value without losing operational discipline.
             </p>
           </div>
         </div>
@@ -382,18 +415,20 @@ export default function ExecutiveBioPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="text-xl">HP Inc. (Fortune 50) - Senior Program Manager, AI Implementation & Governance</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground mb-4">2022 - Present</CardDescription>
+              <CardTitle className="text-xl">HP Inc. (Fortune 50) — Technical Program Manager → Sr. Program Manager (Promoted)</CardTitle>
+              <CardDescription className="text-sm text-muted-foreground mb-4">2022 - 2026</CardDescription>
               <CardDescription className="text-base space-y-3">
                 <p>
-                  Leads enterprise technology programs across a portfolio of 53 applications with 100+ stakeholders. Coordinates across product, engineering, quality, operations, vendors, risk functions, and senior leadership.
+                  Joined HP as Technical Program Manager in 2022, promoted to Sr. Program Manager - AI Implementation & Governance in 2025. Led enterprise technology programs across a portfolio of 53 applications with 100+ stakeholders. Coordinated across product, engineering, quality, operations, vendors, risk functions, and senior leadership.
                 </p>
-                <p>Key contributions:</p>
-                <p>Orchestrating enterprise-wide AI rollouts with 100+ stakeholders</p>
-                <p>Managing a combined $50M+ AI and technology portfolio</p>
-                <p>Developing five patent-pending compliance and drift frameworks</p>
-                <p>Reducing audit preparation from months to weeks</p>
-                <p>Leading TPMs across education, manageability, and conferencing ecosystems</p>
+                <p className="font-semibold text-foreground">Key contributions:</p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>Orchestrating enterprise-wide AI rollouts with 100+ stakeholders</li>
+                  <li>Managing a combined $50M+ AI and technology portfolio</li>
+                  <li>Developing five patent-pending compliance and drift frameworks</li>
+                  <li>Reducing audit preparation from months to weeks</li>
+                  <li>Leading TPMs across education, manageability, and conferencing ecosystems</li>
+                </ul>
               </CardDescription>
             </CardHeader>
           </Card>
@@ -486,7 +521,7 @@ export default function ExecutiveBioPage() {
 
           <Card className="text-center border-2 border-primary/20">
             <CardHeader>
-              <div className="text-5xl font-bold text-primary mb-2">16+</div>
+              <div className="text-5xl font-bold text-primary mb-2">12+</div>
               <CardTitle className="text-lg">Years of Experience</CardTitle>
             </CardHeader>
           </Card>
@@ -569,10 +604,33 @@ export default function ExecutiveBioPage() {
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardDescription className="text-base space-y-3">
-                <p><strong className="text-foreground">M.S. Engineering and Technology Management</strong> - Louisiana Tech University</p>
-                <p><strong className="text-foreground">B.S. Computer Information Systems</strong> - Louisiana Tech University</p>
-                <p><strong className="text-foreground">Six Sigma Green Belt</strong> - Certified</p>
+                <p><strong className="text-foreground">M.S. Engineering and Technology Management</strong> — Louisiana Tech University</p>
+                <p><strong className="text-foreground">B.S. Computer Information Systems</strong> — Louisiana Tech University</p>
+                <p><strong className="text-foreground">Six Sigma Green Belt</strong> — Certified</p>
                 <p>Additional education in AI ethics and governance</p>
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </Section>
+
+      {/* CSM Framework */}
+      <Section className="bg-secondary/20">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center">Cognitive Systems Management (CSM)</h2>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardDescription className="text-base space-y-3">
+                <p>
+                  Subodh developed Cognitive Systems Management (CSM), a governance methodology with four domains:
+                  CSM-Enterprise, CSM-Project, CSM-Code, and CSM-UX. Six execution functions span purpose, mapping,
+                  risk, delivery, oversight, and compliance.
+                </p>
+                <p>
+                  CSM 2.0 (spec version 2.0.0) extends the original 2025 publication with machine-readable contracts
+                  and 16 governance components for enterprise AI deployment.
+                </p>
+                <Link href="/cognitive-systems-management" className="text-primary hover:underline">Explore the framework →</Link>
               </CardDescription>
             </CardHeader>
           </Card>
@@ -627,17 +685,19 @@ export default function ExecutiveBioPage() {
                 Connect on LinkedIn
               </Button>
             </a>
-            <Link href="/about">
+            <Link href="/portfolio">
               <Button size="lg" variant="outline" className="gap-2">
                 <Globe className="h-5 w-5" />
-                About Page
+                View Portfolio
               </Button>
             </Link>
           </div>
 
-          <p className="text-sm text-muted-foreground mt-8">
-            Last Updated: August 2026
-          </p>
+          <div className="text-center mt-8">
+            <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Page →</Link>
+            <span className="mx-2 text-muted-foreground/30">|</span>
+            <Link href="/person/subodh-kc" className="text-sm text-muted-foreground hover:text-primary transition-colors">Person Profile →</Link>
+          </div>
         </div>
       </Section>
     </>

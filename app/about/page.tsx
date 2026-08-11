@@ -8,13 +8,16 @@ import Grid from '@/components/Grid'
 import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, BookOpen, User, Newspaper, MapPin, Code2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'About Subodh KC | Enterprise AI Strategy & Governance Leader',
+  title: 'About Subodh KC | AI Advisor & Enterprise AI Governance Leader',
   description:
-    'Subodh KC is an enterprise AI strategy and governance leader with 16+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+    'Subodh KC is an AI advisor and enterprise AI governance leader with 12+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
   keywords: [
     'Subodh KC',
-    'enterprise AI strategy leader',
-    'AI governance program manager',
+    'Subodh KC AI advisor',
+    'AI Advisor',
+    'AI advisor HEB',
+    'AI advisor Dallas Fort Worth',
+    'enterprise AI governance leader',
     'AI program management Fortune 50',
     'HP Inc AI program manager',
     'HAIEC founder',
@@ -25,21 +28,33 @@ export const metadata = {
     'AI transformation leader Dallas Fort Worth',
     'Six Sigma AI program management',
     'AI compliance frameworks inventor',
+    'fractional AI executive',
+    'Director of AI Programs',
+    'Head of AI',
+    'VP of AI Strategy',
   ],
   alternates: {
     canonical: 'https://subodhkc.com/about',
   },
   openGraph: {
-    title: 'About Subodh KC | Enterprise AI Strategy & Governance Leader',
+    title: 'About Subodh KC | AI Advisor & Enterprise AI Governance Leader',
     description:
-      '16+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+      '12+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
+    images: [
+      {
+        url: 'https://subodhkc.com/portrait.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Subodh KC | Enterprise AI Strategy & Governance Leader',
-    description: '16+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
+    title: 'About Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    description: '12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
   },
 }
 
@@ -59,8 +74,8 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'Director of AI Programs | Enterprise AI Strategy & Governance Leader',
-  description: 'Enterprise AI strategy and transformation leader with 16+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
+  jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
+  description: 'AI advisor and enterprise AI governance leader with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -140,9 +155,17 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
+      name: 'AI Advisor & Enterprise AI Governance Consultant',
+      occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
+      startDate: '2026',
+      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations.',
+    },
+    {
+      '@type': 'Occupation',
       name: 'Sr. Program Manager - AI Implementation & Governance',
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2025',
+      endDate: '2026',
       description: 'Driving strategic AI transformation across enterprise systems. Architecting governance frameworks that enable innovation without regulatory risk.',
     },
     {
@@ -150,6 +173,7 @@ const personSchema = {
       name: 'Technical Program Manager',
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2022',
+      endDate: '2025',
       description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 50 scale.',
     },
     {
@@ -175,7 +199,7 @@ const personSchema = {
     {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'degree',
-      name: 'B.S. Computer & Information Systems Security',
+      name: 'B.S. Computer Information Systems',
       recognizedBy: { '@type': 'CollegeOrUniversity', name: 'Louisiana Tech University' },
     },
     {
@@ -187,12 +211,6 @@ const personSchema = {
   alumniOf: {
     '@type': 'CollegeOrUniversity',
     name: 'Louisiana Tech University',
-  },
-  worksFor: {
-    '@type': 'Organization',
-    name: 'HP Inc.',
-    description: 'Fortune 50 technology company',
-    url: 'https://www.hp.com',
   },
   founder: [
     {
@@ -208,7 +226,7 @@ const personSchema = {
       description: 'AI communications and workflow platform',
     },
   ],
-  award: ["Dean's Honor List", "President's Honor List"],
+  award: ["Dean's Honor List", "President's Honor List", 'University Coding Competition Winner', 'Global Business Strategy Competition - Top 3 Global'],
   knowsLanguage: ['English', 'Nepali'],
   nationality: { '@type': 'Country', name: 'United States' },
   address: {
@@ -233,7 +251,7 @@ export default function AboutPage() {
       icon: Briefcase,
       title: 'Strategic Execution',
       description:
-        'Complex problems require surgical precision. I build systems and frameworks that work at scale.',
+        'Complex problems require surgical precision. He builds systems and frameworks that work at scale.',
     },
     {
       icon: Award,
@@ -276,7 +294,7 @@ export default function AboutPage() {
             <span className="gradient-text">Improve what can be improved.</span>
           </>
         }
-        description="16+ years across public-sector technology, manufacturing reliability, small-business transformation, enterprise program leadership, and AI governance. The scale changes. The work does not."
+        description="12+ years across public-sector technology, manufacturing reliability, small-business transformation, enterprise program leadership, and AI governance. The scale changes. The work does not."
       />
 
       <Section
@@ -285,170 +303,157 @@ export default function AboutPage() {
         description="The scale of the systems has changed. The underlying work has not."
       >
         <div className="max-w-3xl mx-auto space-y-6">
-          {/* Intro */}
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I have built my career around <strong className="text-foreground">continuous improvement</strong>: understanding how systems work, finding where they break down, and building better ways for people and organizations to operate.
+            Subodh KC has built his career around <strong className="text-foreground">continuous improvement</strong>: understanding how systems work, finding where they break down, and building better ways for people and organizations to operate.
           </p>
           <p className="text-base text-muted-foreground/80 leading-relaxed">
-            That instinct has carried me through public-sector technology, manufacturing, intellectual property and commercialization, small-business transformation, enterprise program leadership, artificial intelligence, entrepreneurship, research, and community involvement.
+            That instinct has carried him through public-sector technology, manufacturing, intellectual property and commercialization, small-business transformation, enterprise program leadership, artificial intelligence, entrepreneurship, research, and community involvement.
           </p>
           <p className="text-base text-muted-foreground/80 leading-relaxed">
-            Long before AI became the center of my work, I was interested in the relationship between technology and practical outcomes.
+            Long before AI became the center of his work, he was interested in the relationship between technology and practical outcomes.
           </p>
 
-          {/* Name Meaning */}
           <div className="mt-6 p-5 rounded-lg bg-muted/30 border border-border/50">
             <p className="text-base text-muted-foreground/80 leading-relaxed italic">
-              My name, Subodh, comes from Sanskrit: <strong className="not-italic text-foreground">su</strong> (good or easy) and <strong className="not-italic text-foreground">bodh</strong> (knowledge or understanding). It translates roughly to "one who understands easily" or "one who brings clear understanding." I have always treated it as a professional obligation, not just a label.
+              His name, Subodh, comes from Sanskrit: <strong className="not-italic text-foreground">su</strong> (good or easy) and <strong className="not-italic text-foreground">bodh</strong> (knowledge or understanding). It translates roughly to "one who understands easily" or "one who brings clear understanding." He has always treated it as a professional obligation, not just a label.
             </p>
           </div>
 
-          {/* Education */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <GraduationCap className="h-4 w-4 text-primary" />
               Education and Early Lessons
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              While earning my undergraduate degree in Computer Information Systems, I balanced school with remote technology work that helped pay for college. I earned academic scholarships, appeared on the President's and Dean's Lists, and won a university coding competition. But some of my most formative experiences happened outside the classroom.
+              While earning his undergraduate degree in Computer Information Systems, Subodh balanced school with remote technology work that helped pay for college. He earned academic scholarships, appeared on the President's and Dean's Lists, and won a university coding competition. But some of his most formative experiences happened outside the classroom.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              In a global business strategy competition involving tens of thousands of university students, I helped lead Louisiana Tech to a top-three global ranking, at the time the university's strongest performance in the competition. The experience reinforced something that would become increasingly important in my career: technical ability mattered, but strategy, resource allocation, competitive positioning, and execution determined the outcome.
+              In a global business strategy competition involving tens of thousands of university students, he helped lead Louisiana Tech to a top-three global ranking, at the time the university's strongest performance in the competition. The experience reinforced something that would become increasingly important in his career: technical ability mattered, but strategy, resource allocation, competitive positioning, and execution determined the outcome.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              I later served as Secretary of Louisiana Tech's Graduate Student Council while completing my M.S. in Engineering and Technology Management, adding another dimension to an education that increasingly sat between engineering, business, and organizational leadership.
+              He later served as Secretary of Louisiana Tech's Graduate Student Council while completing his M.S. in Engineering and Technology Management, adding another dimension to an education that increasingly sat between engineering, business, and organizational leadership.
             </p>
           </div>
 
-          {/* Early Career */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <Briefcase className="h-4 w-4 text-primary" />
               Starting Close to the People Using Technology
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              My professional career began close to the people using technology. Working in Dallas-area education environments, including Dallas ISD during the No Child Left Behind era, I supported distributed technology operations where failures were not abstract technical problems. They affected classrooms, administrators, teachers, and students. It was an early lesson in a principle that would follow me throughout my career: technology succeeds only when it works inside the institution that depends on it.
+              His professional career began close to the people using technology. Working in Dallas-area education environments, including Dallas ISD during the No Child Left Behind era, he supported distributed technology operations where failures were not abstract technical problems. They affected classrooms, administrators, teachers, and students. It was an early lesson in a principle that would follow him throughout his career: technology succeeds only when it works inside the institution that depends on it.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              At Louisiana Tech, I later worked with the university's <strong className="text-foreground">Office of Intellectual Property and Commercialization</strong>, gaining exposure to another side of technology: evaluating inventions not only for their technical merit, but for their potential application, market relevance, intellectual property value, and path to commercialization.
+              At Louisiana Tech, he later worked with the university's <strong className="text-foreground">Office of Intellectual Property and Commercialization</strong>, gaining exposure to another side of technology: evaluating inventions not only for their technical merit, but for their potential application, market relevance, intellectual property value, and path to commercialization.
             </p>
           </div>
 
-          {/* Manufacturing and Reliability */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-primary" />
               Manufacturing, Reliability, and Small Business
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              From there, my work expanded into business systems, infrastructure, manufacturing technology, and reliability engineering. At Cummins, through TCS, I worked within a manufacturing execution environment spanning more than 400 production stations, where software, machines, processes, data, and people had to function as one operational system. At ACTIVE Network, my work moved deeper into production reliability, telemetry, incident analysis, and the discipline required to keep high-volume technology platforms operating consistently.
+              From there, his work expanded into business systems, infrastructure, manufacturing technology, and reliability engineering. At Cummins, through TCS, he worked within a manufacturing execution environment spanning more than 400 production stations, where software, machines, processes, data, and people had to function as one operational system. At ACTIVE Network, his work moved deeper into production reliability, telemetry, incident analysis, and the discipline required to keep high-volume technology platforms operating consistently.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              I also spent several years working with small and midsized organizations across Dallas-Fort Worth on technology implementation, process improvement, automation, and program execution. Those environments presented a different kind of challenge from large enterprises. Smaller companies rarely lacked ambition or ideas. More often, they lacked time, specialized resources, and the margin for expensive technology mistakes. That experience gave me an appreciation for solutions that are useful before they are sophisticated, a perspective that would later influence my work with AI and automation for smaller businesses.
+              He also spent several years working with small and midsized organizations across Dallas-Fort Worth on technology implementation, process improvement, automation, and program execution. Those environments presented a different kind of challenge from large enterprises. Smaller companies rarely lacked ambition or ideas. More often, they lacked time, specialized resources, and the margin for expensive technology mistakes. That experience gave him an appreciation for solutions that are useful before they are sophisticated, a perspective that would later influence his work with AI and automation for smaller businesses.
             </p>
           </div>
 
-          {/* HP */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <Shield className="h-4 w-4 text-primary" />
               Enterprise Scale at HP
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              In 2023, I joined HP, where the scale and complexity of my work expanded substantially. As a technical program leader and Core Team Lead, I coordinated programs across a portfolio of 53 enterprise applications and more than 100 stakeholders spanning product, engineering, quality, operations, vendors, risk functions, and senior leadership.
+              In 2022, Subodh joined HP as a Technical Program Manager and was later promoted to Sr. Program Manager - AI Implementation & Governance. The scale and complexity of his work expanded substantially. As a technical program leader and Core Team Lead, he coordinated programs across a portfolio of 53 enterprise applications and more than 100 stakeholders spanning product, engineering, quality, operations, vendors, risk functions, and senior leadership.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              My responsibilities increasingly moved beyond individual project delivery into the systems behind execution itself: portfolio prioritization, dependency management, release readiness, risk escalation, governance, stakeholder alignment, executive communication, and the operating cadence required to move complex technology programs from strategy into production.
+              His responsibilities increasingly moved beyond individual project delivery into the systems behind execution itself: portfolio prioritization, dependency management, release readiness, risk escalation, governance, stakeholder alignment, executive communication, and the operating cadence required to move complex technology programs from strategy into production.
             </p>
           </div>
 
-          {/* AI */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <Zap className="h-4 w-4 text-primary" />
               The AI Question
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              That progression led naturally into artificial intelligence. As organizations accelerated AI adoption, I became interested in a gap that was becoming increasingly difficult to ignore: the difference between what an AI system could demonstrate and what an organization could reliably operate.
+              That progression led naturally into artificial intelligence. As organizations accelerated AI adoption, he became interested in a gap that was becoming increasingly difficult to ignore: the difference between what an AI system could demonstrate and what an organization could reliably operate.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
               A model could produce an impressive answer. But could a company determine when its behavior had changed? Could it reproduce an important decision? Could it understand what controls were actually working? Could it show evidence of how a system had been tested? And when an AI system became part of a real business process, who was accountable when it failed?
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              Those questions became the foundation for <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an AI assurance and governance platform focused on making AI systems more observable, testable, controlled, and defensible. My related research and invention work spans behavioral drift, deterministic assurance, AI evaluation, compliance automation, adversarial testing, traceability, monitoring, and evidence systems. Several of those ideas have developed into patent-pending systems and methodologies.
+              Those questions became the foundation for <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an AI assurance and governance platform focused on making AI systems more observable, testable, controlled, and defensible. His related research and invention work spans behavioral drift, deterministic assurance, AI evaluation, compliance automation, adversarial testing, traceability, monitoring, and evidence systems. Several of those ideas have developed into patent-pending systems and methodologies.
             </p>
           </div>
 
-          {/* Kestrel and llmverify */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <Code2 className="h-4 w-4 text-primary" />
               Kestrel Voice and llmverify
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              I also built <Link href="/solutions/kestrelvoice" className="text-primary hover:underline font-semibold">Kestrel Voice</Link>, approaching AI from the opposite side of the problem: not simply how to control intelligent systems, but how to make them perform useful work. Kestrel combines AI voice agents, business knowledge, scheduling, workflow automation, integrations, transcripts, escalation, and operational controls. Building the platform has meant confronting the realities that disappear in demonstrations: latency, integration failures, customer expectations, data boundaries, recovery paths, and knowing when automation should hand responsibility back to a person.
+              He also built <Link href="/solutions/kestrelvoice" className="text-primary hover:underline font-semibold">Kestrel Voice</Link>, approaching AI from the opposite side of the problem: not simply how to control intelligent systems, but how to make them perform useful work. Kestrel combines AI voice agents, business knowledge, scheduling, workflow automation, integrations, transcripts, escalation, and operational controls. Building the platform has meant confronting the realities that disappear in demonstrations: latency, integration failures, customer expectations, data boundaries, recovery paths, and knowing when automation should hand responsibility back to a person.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              My open-source work, including <Link href="/products/llmverify" className="text-primary hover:underline font-semibold">llmverify</Link>, extends the same thinking into practical tools for developers working with language models.
+              His open-source work, including <Link href="/products/llmverify" className="text-primary hover:underline font-semibold">llmverify</Link>, extends the same thinking into practical tools for developers working with language models.
             </p>
           </div>
 
-          {/* Writing */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <BookOpen className="h-4 w-4 text-primary" />
               Writing and Frameworks
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              I also write and develop frameworks around AI assurance, software reliability, enterprise adoption, governance, and the operational consequences of emerging technology. My writing is less concerned with predicting what AI may eventually become than with understanding what organizations must do to use it responsibly and effectively today.
+              He also writes and develops frameworks around AI assurance, software reliability, enterprise adoption, governance, and the operational consequences of emerging technology. His writing is less concerned with predicting what AI may eventually become than with understanding what organizations must do to use it responsibly and effectively today.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              Across these efforts, my work now sits at the intersection of <strong className="text-foreground">AI strategy, enterprise transformation, program and portfolio leadership, continuous improvement, operating-model design, product development, technology commercialization, and responsible AI deployment</strong>.
+              Across these efforts, his work now sits at the intersection of <strong className="text-foreground">AI strategy, enterprise transformation, program and portfolio leadership, continuous improvement, operating-model design, product development, technology commercialization, and responsible AI deployment</strong>.
             </p>
           </div>
 
-          {/* Community */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <MapPin className="h-4 w-4 text-primary" />
               Community and Civic Involvement
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              Increasingly, that interest in systems and institutions has moved beyond companies. Based in Euless, Texas, I am active in the Hurst-Euless-Bedford business and civic community. I participate in the HEB Chamber of Commerce and volunteer with <strong className="text-foreground">6 Stones</strong>, including initiatives supporting local students and families.
+              Increasingly, that interest in systems and institutions has moved beyond companies. Based in Euless, Texas, Subodh is active in the Hurst-Euless-Bedford business and civic community. He participates in the HEB Chamber of Commerce and volunteers with <strong className="text-foreground">6 Stones</strong>, including initiatives supporting local students and families.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              I have also joined HEB ISD's <strong className="text-foreground">Adopt-A-School program with Wilshire Elementary</strong>, where my daughter attends school. Rather than approaching the relationship only through sponsorship, I have offered the skills I know best: helping teachers and staff explore useful automation, supporting technology and AI learning opportunities for students, mentoring, and contributing professional expertise where it can make a practical difference.
+              He has also joined HEB ISD's <strong className="text-foreground">Adopt-A-School program with Wilshire Elementary</strong>, where his daughter attends school. Rather than approaching the relationship only through sponsorship, he has offered the skills he knows best: helping teachers and staff explore useful automation, supporting technology and AI learning opportunities for students, mentoring, and contributing professional expertise where it can make a practical difference.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              I remain engaged in local civic affairs and increasingly interested in the intersection of technology, education, entrepreneurship, economic development, and effective public institutions.
+              He remains engaged in local civic affairs and increasingly interested in the intersection of technology, education, entrepreneurship, economic development, and effective public institutions.
             </p>
           </div>
 
-          {/* Credentials */}
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <Award className="h-4 w-4 text-primary" />
               Education and Credentials
             </h3>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              I hold a B.S. in Computer Information Systems and an M.S. in Engineering and Technology Management from Louisiana Tech University. I am a Six Sigma Green Belt and have completed additional study in AI ethics and governance.
+              He holds a B.S. in Computer Information Systems and an M.S. in Engineering and Technology Management from Louisiana Tech University. He is a Six Sigma Green Belt and has completed additional study in AI ethics and governance.
             </p>
           </div>
 
-          {/* The Pattern */}
           <div className="mt-10 p-6 rounded-xl bg-primary/5 border border-primary/20">
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              Looking across the different stages of my career, what can appear to be a broad collection of experiences follows a fairly consistent pattern.
+              Looking across the different stages of his career, what can appear to be a broad collection of experiences follows a fairly consistent pattern.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              I began by fixing problems inside individual systems. Then I worked across production environments, business processes, and manufacturing operations. Later came enterprise portfolios, AI systems, products, and companies. Today, that same instinct is extending toward the institutions and communities around me.
+              He began by fixing problems inside individual systems. Then he worked across production environments, business processes, and manufacturing operations. Later came enterprise portfolios, AI systems, products, and companies. Today, that same instinct is extending toward the institutions and communities around him.
             </p>
             <p className="text-lg text-foreground font-semibold leading-relaxed">
-              The scale of the systems has changed. The underlying work has not: understand how things work, improve what can be improved, and leave the system stronger than I found it.
+              The scale of the systems has changed. The underlying work has not: understand how things work, improve what can be improved, and leave the system stronger than it was found.
             </p>
           </div>
 
-          {/* Buttons */}
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Link href="/portfolio">
               <Button size="lg" className="gap-2">
@@ -546,7 +551,7 @@ export default function AboutPage() {
                 CSM Framework & SKC ResetFrame
               </CardTitle>
               <CardDescription>
-                Subodh developed Cognitive Systems Management (CSM), a four-domain governance methodology spanning Enterprise, Project, Code and UX, first published in 2025.{' '}
+                Subodh developed Cognitive Systems Management (CSM), a governance methodology with four domains: CSM-Enterprise, CSM-Project, CSM-Code, and CSM-UX. Six execution functions span purpose, mapping, risk, delivery, oversight, and compliance. CSM 2.0 (spec version 2.0.0) extends the original 2025 publication with machine-readable contracts and 16 governance components for enterprise AI deployment.{' '}
                 <Link href="/cognitive-systems-management" className="text-primary hover:underline">Explore the framework</Link>.
               </CardDescription>
             </CardHeader>
@@ -557,7 +562,7 @@ export default function AboutPage() {
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
         <div className="max-w-4xl mx-auto mb-8">
           <p className="text-base text-muted-foreground text-center">
-            complete guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
+            Complete guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
         </div>
         <Grid cols={3}>
@@ -614,10 +619,10 @@ export default function AboutPage() {
       <Section subtitle="Why This Work Matters" title="Personal Note" className="bg-primary/5">
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            My name, Subodh, comes from Sanskrit: <strong className="text-foreground">su</strong> (good) and <strong className="text-foreground">bodh</strong> (understanding). I have always treated it as a professional obligation, not just a label.
+            His name, Subodh, comes from Sanskrit: <strong className="text-foreground">su</strong> (good) and <strong className="text-foreground">bodh</strong> (understanding). He has always treated it as a professional obligation, not just a label.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I started in technology fixing computers in underfunded schools. That work taught me something I carry into every program I lead today: technology succeeds only when it works inside the institution that depends on it. A broken system in a classroom is not an abstract problem. It affects real people trying to do their jobs.
+            He started in technology fixing computers in underfunded schools. That work taught him something he carries into every program he leads today: technology succeeds only when it works inside the institution that depends on it. A broken system in a classroom is not an abstract problem. It affects real people trying to do their jobs.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
             That principle scaled from school districts to manufacturing floors to Fortune 50 engineering organizations. The systems got larger. The stakes got higher. The core question stayed the same: does this actually work for the people who depend on it?
@@ -629,17 +634,20 @@ export default function AboutPage() {
             If a system can harm people, it must be governed as seriously as it is engineered.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed text-center">
-            That is the standard I hold for my own work and the standard I bring to every organization I work with.
+            That is the standard he holds for his own work and the standard he brings to every organization he works with.
           </p>
         </div>
       </Section>
 
       <CTA
         title="Let's Work Together"
-        description="Whether you need advisory on AI compliance, executive coaching, or help driving a complex technical program, I bring strategic thinking and proven execution to the table."
+        description="Whether you need advisory on AI compliance, executive coaching, or help driving a complex technical program, Subodh brings strategic thinking and proven execution to the table."
         primaryButton={{ text: 'Get in touch', href: '/contact' }}
         secondaryButton={{ text: 'View services', href: '/advisory' }}
       />
+      <div className="text-center pb-8">
+        <Link href="/person/subodh-kc" className="text-sm text-muted-foreground hover:text-primary transition-colors">Person Profile →</Link>
+      </div>
     </>
   )
 }

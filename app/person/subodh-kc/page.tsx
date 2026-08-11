@@ -7,16 +7,16 @@ import Link from 'next/link'
 import { CheckCircle2, GraduationCap, Briefcase, Award, Building2, Shield, Code2, Cpu } from 'lucide-react'
 
 export const metadata = {
-  title: 'Subodh KC - Director of AI Programs, AI Systems Architect & Governance Expert',
+  title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
   description:
-    'Subodh KC is a Director-level AI Programs leader and AI Systems Architect with 16+ years of experience. Sr. Program Manager at HP Inc. (Fortune 50). Founder of KestrelVoice and HAIEC. 5 patent-pending AI compliance frameworks. $50M+ portfolio oversight. 53 enterprise applications governed. 100+ stakeholders aligned.',
+    'Subodh KC is an AI advisor and enterprise AI governance leader with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. $50M+ portfolio oversight. 53 enterprise applications governed.',
   alternates: {
     canonical: 'https://subodhkc.com/person/subodh-kc',
   },
   openGraph: {
-    title: 'Subodh KC - Director of AI Programs & AI Systems Architect',
+    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
     description:
-      'Sr. Program Manager at HP Inc. (Fortune 50). 16+ years building production AI systems. Founder of KestrelVoice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight.',
+      'Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight.',
     url: 'https://subodhkc.com/person/subodh-kc',
     type: 'profile',
     images: [
@@ -24,24 +24,26 @@ export const metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC - Director of AI Programs & AI Systems Architect',
+        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC - Director of AI Programs & AI Systems Architect',
-    description: 'Sr. Program Manager at HP Inc. (Fortune 50). 16+ years building production AI systems. 5 patent-pending frameworks. $50M+ portfolio oversight.',
+    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems. 5 patent-pending frameworks. $50M+ portfolio oversight.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
   keywords: [
     'Subodh KC',
-    'Subodh KC AI architect',
+    'Subodh KC AI advisor',
     'Subodh KC governance',
     'Subodh KC HAIEC',
-    'Subodh KC KestrelVoice',
-    'AI Systems Architect',
-    'AI Governance Expert',
+    'Subodh KC Kestrel Voice',
+    'AI Advisor',
+    'AI advisor HEB',
+    'AI advisor Dallas Fort Worth',
+    'enterprise AI governance leader',
     'Director of AI Programs',
     'Head of AI',
     'VP of AI Strategy',
@@ -79,9 +81,9 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'Director of AI Programs | AI Systems Architect & Governance Expert',
+  jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
   description:
-    'Director-level AI programs leader and AI Systems Architect with 16+ years building production AI systems at enterprise scale. Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of KestrelVoice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. $50M+ portfolio oversight across 53 enterprise applications.',
+    'AI advisor and enterprise AI governance leader with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. $50M+ portfolio oversight across 53 enterprise applications.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -161,9 +163,17 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
+      name: 'AI Advisor & Enterprise AI Governance Consultant',
+      occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
+      startDate: '2026',
+      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations.',
+    },
+    {
+      '@type': 'Occupation',
       name: 'Sr. Program Manager - AI Implementation & Governance',
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2025',
+      endDate: '2026',
       description: 'Driving strategic AI transformation across enterprise systems. Architecting governance frameworks that enable innovation without regulatory risk.',
     },
     {
@@ -171,6 +181,7 @@ const personSchema = {
       name: 'Technical Program Manager',
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2022',
+      endDate: '2025',
       description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 50 scale.',
     },
     {
@@ -196,7 +207,7 @@ const personSchema = {
     {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'degree',
-      name: 'B.S. Computer & Information Systems Security',
+      name: 'B.S. Computer Information Systems',
       recognizedBy: { '@type': 'CollegeOrUniversity', name: 'Louisiana Tech University' },
     },
     {
@@ -205,22 +216,14 @@ const personSchema = {
       name: 'Six Sigma Green Belt',
     },
   ],
-  alumniOf: [
-    {
-      '@type': 'CollegeOrUniversity',
-      name: 'Louisiana Tech University',
-    },
-  ],
-  worksFor: {
-    '@type': 'Organization',
-    name: 'HP Inc.',
-    description: 'Fortune 50 technology company',
-    url: 'https://www.hp.com',
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Louisiana Tech University',
   },
   founder: [
     {
       '@type': 'Organization',
-      name: 'KestrelVoice',
+      name: 'Kestrel Voice',
       url: 'https://kestrelvoice.com',
       description: 'AI voice operations platform',
     },
@@ -279,23 +282,23 @@ const profilePageSchema = {
 export default function PersonPage() {
   const career = [
     {
-      period: '2025 - Present',
-      role: 'Sr. Program Manager - AI Implementation & Governance',
-      org: 'HP Inc. (Fortune 50)',
-      description: 'Driving strategic AI transformation across enterprise systems. Architecting governance frameworks that enable innovation without regulatory risk. Orchestrating enterprise-wide AI rollouts with 100+ stakeholders. Managing $50M+ AI and technology portfolio. Developing five patent-pending compliance and drift frameworks. Reducing audit preparation from months to weeks.',
-      achievements: ['$50M+ portfolio oversight', '53 enterprise applications governed', '100+ stakeholders aligned', '5 patent-pending frameworks developed'],
+      period: '2026 - Present',
+      role: 'AI Advisor & Enterprise AI Governance Consultant',
+      org: 'Independent Practice',
+      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations with operational discipline gained from Fortune 50 experience.',
+      achievements: ['Enterprise AI governance advisory', 'Compliance framework development', 'Production AI deployment consulting'],
     },
     {
-      period: '2022 - 2025',
-      role: 'Technical Program Manager',
+      period: '2022 - 2026',
+      role: 'Technical Program Manager → Sr. Program Manager (Promoted)',
       org: 'HP Inc. (Fortune 50)',
-      description: 'Directed development and release cycles for 53 enterprise applications including Power Manager and enterprise software portfolio. Led cross-functional teams through Agile delivery at Fortune 50 scale. Coordinated across product, engineering, quality, operations, vendors, risk functions, and senior leadership.',
-      achievements: ['53 enterprise applications managed', 'Agile delivery at Fortune 50 scale', 'Cross-functional team leadership'],
+      description: 'Joined HP as Technical Program Manager in 2022, promoted to Sr. Program Manager - AI Implementation & Governance in 2025. Directed development and release cycles for 53 enterprise applications. Architected governance frameworks that enabled innovation without regulatory risk. Orchestrated enterprise-wide AI rollouts with 100+ stakeholders. Managed $50M+ AI and technology portfolio. Developed five patent-pending compliance and drift frameworks.',
+      achievements: ['$50M+ portfolio oversight', '53 enterprise applications governed', '100+ stakeholders aligned', '5 patent-pending frameworks developed', 'Promoted from TPM to Sr. Program Manager'],
     },
     {
       period: '2023 - Present',
       role: 'Founder',
-      org: 'KestrelVoice',
+      org: 'Kestrel Voice',
       description: 'Built AI voice operations platform combining voice agents, business knowledge, scheduling, automation, integrations, escalation, and operational controls. Confronts real deployment challenges: latency, integration failures, customer expectations, data boundaries, and knowing when automation should hand responsibility back to a person.',
       achievements: ['Production AI voice platform', 'Multi-channel AI operations', '24/7 automated receptionist'],
     },
@@ -310,14 +313,14 @@ export default function PersonPage() {
       period: '2010 - 2022',
       role: 'Engineer to Program Manager',
       org: 'ACTIVE Network, Cummins (TCS), Centaurus, Louisiana Tech, Dallas ISD',
-      description: '16+ years from field technician to system engineer to program manager. System Engineer II at ACTIVE Network (release automation, QA, incident workflows). System Analyst at Cummins via TCS ($10M MES implementation, 400+ stations). Business Systems Analyst at Centaurus (Red Hat and AWS platform delivery). IP Strategist at Louisiana Tech (invention assessment and commercialization). Field Ops Lead at Dallas ISD (technology modernization in education).',
+      description: '12+ years from field technician to system engineer to program manager. System Engineer II at ACTIVE Network (release automation, QA, incident workflows). System Analyst at Cummins via TCS ($10M MES implementation, 400+ stations). Business Systems Analyst at Centaurus (Red Hat and AWS platform delivery). IP Strategist at Louisiana Tech (invention assessment and commercialization). Field Ops Lead at Dallas ISD (technology modernization in education).',
       achievements: ['$10M MES implementation', '400+ production stations deployed', 'Global business strategy competition top 3'],
     },
   ]
 
   const education = [
     { degree: 'M.Sc. Engineering & Technology Management', institution: 'Louisiana Tech University' },
-    { degree: 'B.S. Computer & Information Systems Security', institution: 'Louisiana Tech University' },
+    { degree: 'B.S. Computer Information Systems', institution: 'Louisiana Tech University' },
     { degree: 'Six Sigma Green Belt', institution: 'Certified' },
     { degree: 'AI Ethics & Governance', institution: 'Additional Study' },
   ]
@@ -344,19 +347,31 @@ export default function PersonPage() {
     { value: '100+', label: 'Stakeholders Aligned' },
     { value: '5', label: 'Patent-Pending Frameworks' },
     { value: '400+', label: 'MES Stations Deployed' },
-    { value: '16+', label: 'Years of Experience' },
+    { value: '12+', label: 'Years of Experience' },
     { value: '2', label: 'Companies Founded' },
   ]
 
-  const coreSkills = [
-    'AI Architecture', 'Agentic AI Systems', 'RAG Pipelines', 'MCP Integrations', 'Voice AI Operations',
-    'AI Governance', 'EU AI Act', 'NIST AI RMF', 'ISO 42001', 'NYC LL 144', 'Texas TRAIGA',
-    'Drift Detection', 'Audit Readiness', 'AI Risk Management', 'AI Assurance',
-    'Enterprise Program Management', 'Portfolio Management', 'Stakeholder Alignment',
-    'Risk Management', 'Release Readiness', 'Dependency Management', 'Executive Communication',
-    'Cross-functional Leadership', 'Agile Delivery', 'Six Sigma', 'Continuous Improvement',
-    'Python', 'TypeScript', 'Next.js', 'FastAPI', 'PostgreSQL', 'Vector Databases', 'Docker', 'CI/CD',
-    'Manufacturing Execution Systems', 'Technology Commercialization', 'Intellectual Property',
+  const skillGroups = [
+    {
+      category: 'AI & Systems Architecture',
+      skills: ['AI Architecture', 'Agentic AI Systems', 'RAG Pipelines', 'MCP Integrations', 'Voice AI Operations', 'AI Systems Design'],
+    },
+    {
+      category: 'AI Governance & Compliance',
+      skills: ['AI Governance', 'EU AI Act', 'NIST AI RMF', 'ISO 42001', 'NYC LL 144', 'Texas TRAIGA', 'Drift Detection', 'Audit Readiness', 'AI Risk Management', 'AI Assurance'],
+    },
+    {
+      category: 'Program & Portfolio Leadership',
+      skills: ['Enterprise Program Management', 'Portfolio Management', 'Stakeholder Alignment', 'Risk Management', 'Release Readiness', 'Dependency Management', 'Executive Communication', 'Cross-functional Leadership', 'Agile Delivery', 'Continuous Improvement'],
+    },
+    {
+      category: 'Technical Stack',
+      skills: ['Python', 'TypeScript', 'Next.js', 'FastAPI', 'PostgreSQL', 'Vector Databases', 'Docker', 'CI/CD'],
+    },
+    {
+      category: 'Domain Expertise',
+      skills: ['Manufacturing Execution Systems', 'Technology Commercialization', 'Intellectual Property', 'Six Sigma'],
+    },
   ]
 
   return (
@@ -383,10 +398,10 @@ export default function PersonPage() {
           <>
             Subodh KC
             <br />
-            <span className="gradient-text">Director of AI Programs | AI Systems Architect</span>
+            <span className="gradient-text">AI Advisor | Enterprise AI Governance Leader</span>
           </>
         }
-        description="Sr. Program Manager at HP Inc. (Fortune 50). 16+ years building production AI systems at enterprise scale. Founder of KestrelVoice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight across 53 enterprise applications."
+        description="Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight across 53 enterprise applications."
       />
 
       <Section subtitle="Biography" title="About Subodh KC">
@@ -395,25 +410,27 @@ export default function PersonPage() {
             <CardHeader>
               <CardDescription className="text-base leading-relaxed space-y-4">
                 <p>
-                  Subodh KC is a Director-level AI programs leader and AI Systems Architect currently serving as
-                  Sr. Program Manager - AI Implementation & Governance at HP Inc., a Fortune 50 company. He
-                  drives strategic AI transformation across enterprise systems and architects governance
-                  frameworks that enable innovation without regulatory risk.
+                  Subodh KC is an AI advisor and enterprise AI governance leader. He recently served as
+                  Sr. Program Manager - AI Implementation & Governance at HP Inc., a Fortune 50 company,
+                  where he drove strategic AI transformation across enterprise systems and architected
+                  governance frameworks that enable innovation without regulatory risk.
                 </p>
                 <p>
-                  He manages a $50M+ technology portfolio spanning 53 enterprise applications, aligning 100+
-                  stakeholders across product, engineering, quality, operations, vendors, risk functions, and
-                  senior leadership. He is the founder of KestrelVoice, an AI voice operations platform, and
-                  founder of HAIEC, an enterprise AI governance and compliance platform. He has developed 5
-                  patent-pending methodologies for AI compliance, drift detection, and behavioral verification.
+                  At HP, he managed a $50M+ technology portfolio spanning 53 enterprise applications,
+                  aligning 100+ stakeholders across product, engineering, quality, operations, vendors,
+                  risk functions, and senior leadership. He is the founder of Kestrel Voice, an AI voice
+                  operations platform, and HAIEC, an enterprise AI governance and compliance platform.
+                  He has developed 5 patent-pending methodologies for AI compliance, drift detection, and
+                  behavioral verification.
                 </p>
                 <p>
-                  His career spans 16+ years from field technician to Fortune 50 AI strategy leader, with
+                  His career spans 12+ years from field technician to Fortune 50 AI strategy leader, with
                   experience across public-sector technology, manufacturing systems (Cummins, 400+ MES
-                  stations), production reliability (ACTIVE Network), technology commercialization (Louisiana
-                  Tech IP Office), and enterprise program leadership (HP Inc.). Born in Kathmandu, Nepal, he
-                  holds an M.Sc. in Engineering & Technology Management and a B.S. in Computer & Information
-                  Systems Security from Louisiana Tech University. He is based in Dallas-Fort Worth, Texas.
+                  stations), production reliability (ACTIVE Network), technology commercialization
+                  (Louisiana Tech IP Office), and enterprise program leadership (HP Inc.). Born in
+                  Kathmandu, Nepal, he holds an M.Sc. in Engineering & Technology Management and a B.S.
+                  in Computer Information Systems from Louisiana Tech University. He is based in
+                  Dallas-Fort Worth, Texas.
                 </p>
                 <p className="italic text-muted-foreground/80">
                   His name, Subodh, comes from Sanskrit: <strong className="not-italic text-foreground">su</strong> (good or easy) and <strong className="not-italic text-foreground">bodh</strong> (knowledge or understanding). It translates roughly to "one who understands easily" or "one who brings clear understanding."
@@ -493,17 +510,22 @@ export default function PersonPage() {
       </Section>
 
       <Section subtitle="Skills" title="Technical & Leadership Skills">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap gap-2">
-            {coreSkills.map((skill, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium border border-border bg-card text-foreground hover:border-primary/40 transition-colors"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
+        <div className="max-w-4xl mx-auto space-y-6">
+          {skillGroups.map((group, gi) => (
+            <div key={gi}>
+              <p className="text-sm font-semibold text-muted-foreground mb-3">{group.category}</p>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill, si) => (
+                  <span
+                    key={si}
+                    className="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium border border-border bg-card text-foreground hover:border-primary/40 transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </Section>
 
@@ -581,7 +603,7 @@ export default function PersonPage() {
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm text-muted-foreground mb-6">
-            Complete guides to the AI regulations that matter most - informed by the HAIEC compliance engine and Zenodo-published research.
+            Complete guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link href="/guides/texas-ai-law" className="block">
@@ -618,12 +640,44 @@ export default function PersonPage() {
         </div>
       </Section>
 
+      <Section subtitle="Framework" title="Cognitive Systems Management (CSM)" className="bg-secondary/20">
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <div className="flex items-start gap-3">
+                <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <CardTitle className="text-base mb-2">CSM 2.0 — Governance Methodology</CardTitle>
+                  <CardDescription className="text-sm space-y-2">
+                    <p>
+                      Subodh developed Cognitive Systems Management (CSM), a governance methodology with four
+                      domains: CSM-Enterprise, CSM-Project, CSM-Code, and CSM-UX. Six execution functions span
+                      purpose, mapping, risk, delivery, oversight, and compliance.
+                    </p>
+                    <p>
+                      CSM 2.0 (spec version 2.0.0) extends the original 2025 publication with machine-readable
+                      contracts and 16 governance components for enterprise AI deployment.
+                    </p>
+                    <Link href="/cognitive-systems-management" className="text-primary hover:underline text-sm">Explore the framework →</Link>
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+        </div>
+      </Section>
+
       <CTA
         title="Open to Leadership Opportunities"
-        description="Available for Director of AI Programs, Head of AI, VP of AI Strategy, Senior Program Manager, and fractional AI executive roles. Full-time, advisory, and fractional engagements considered."
+        description="Available for Director of AI Programs, Head of AI, VP of AI Strategy, AI advisory, and fractional AI executive roles. Full-time, advisory, and fractional engagements considered."
         primaryButton={{ text: 'Get in Touch', href: '/contact' }}
         secondaryButton={{ text: 'View Executive Bio', href: '/executive-bio' }}
       />
+      <div className="text-center pb-8">
+        <Link href="/portfolio" className="text-sm text-muted-foreground hover:text-primary transition-colors">View Portfolio →</Link>
+        <span className="mx-2 text-muted-foreground/30">|</span>
+        <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Page →</Link>
+      </div>
     </>
   )
 }
