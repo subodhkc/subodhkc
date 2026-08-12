@@ -31,6 +31,7 @@ export function InviteAcceptClient({ token, email }: InviteAcceptClientProps) {
           invitation_revoked: 'This invitation has been revoked.',
           invitation_expired: 'This invitation has expired.',
           unauthenticated: 'You must be signed in to accept an invitation.',
+          email_mismatch: 'This invitation was sent to a different email address. Sign in using the invited account or ask the administrator to resend the invitation.',
         }
         setError(errorMessages[data.error] || 'Failed to accept invitation')
       } else {

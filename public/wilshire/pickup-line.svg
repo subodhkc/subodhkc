@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Car line illustration for pickup -->
+  <!-- Road -->
+  <rect y="120" width="200" height="80" fill="#6b7280"/>
+  <rect y="155" width="200" height="3" fill="#fbbf24" stroke-dasharray="10 6"/>
+  <!-- Car 1 (blue) -->
+  <rect x="20" y="130" width="40" height="22" rx="4" fill="#2563eb"/>
+  <rect x="25" y="125" width="30" height="10" rx="3" fill="#1d4ed8"/>
+  <circle cx="30" cy="155" r="6" fill="#1f2937"/>
+  <circle cx="50" cy="155" r="6" fill="#1f2937"/>
+  <circle cx="30" cy="155" r="3" fill="#9ca3af"/>
+  <circle cx="50" cy="155" r="3" fill="#9ca3af"/>
+  <!-- Car 2 (green) -->
+  <rect x="80" y="130" width="40" height="22" rx="4" fill="#16a34a"/>
+  <rect x="85" y="125" width="30" height="10" rx="3" fill="#15803d"/>
+  <circle cx="90" cy="155" r="6" fill="#1f2937"/>
+  <circle cx="110" cy="155" r="6" fill="#1f2937"/>
+  <circle cx="90" cy="155" r="3" fill="#9ca3af"/>
+  <circle cx="110" cy="155" r="3" fill="#9ca3af"/>
+  <!-- Car 3 (orange) -->
+  <rect x="140" y="130" width="40" height="22" rx="4" fill="#f97316"/>
+  <rect x="145" y="125" width="30" height="10" rx="3" fill="#ea580c"/>
+  <circle cx="150" cy="155" r="6" fill="#1f2937"/>
+  <circle cx="170" cy="155" r="6" fill="#1f2937"/>
+  <circle cx="150" cy="155" r="3" fill="#9ca3af"/>
+  <circle cx="170" cy="155" r="3" fill="#9ca3af"/>
+  <!-- School building in background -->
+  <rect x="50" y="50" width="100" height="60" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <path d="M45 50 L100 25 L155 50 Z" fill="#dc2626"/>
+  <rect x="90" y="70" width="20" height="40" rx="2" fill="#92400e"/>
+  <rect x="60" y="60" width="20" height="20" rx="2" fill="#bfdbfe" stroke="#60a5fa" stroke-width="1"/>
+  <rect x="120" y="60" width="20" height="20" rx="2" fill="#bfdbfe" stroke="#60a5fa" stroke-width="1"/>
+  <!-- Sun -->
+  <circle cx="170" cy="30" r="12" fill="#fbbf24"/>
+</svg>

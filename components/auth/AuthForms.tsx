@@ -13,7 +13,7 @@ function getSupabase() {
   return createBrowserClient(supabaseUrl, supabaseAnonKey)
 }
 
-export function GoogleSignInButton({ next = '/dashboard' }: { next?: string }) {
+export function GoogleSignInButton({ next }: { next?: string }) {
   const [loading, setLoading] = useState(false)
 
   function handleGoogleLogin() {
@@ -21,10 +21,13 @@ export function GoogleSignInButton({ next = '/dashboard' }: { next?: string }) {
     if (!supabase) return
     setLoading(true)
 
+    const safeNext = next && next.startsWith('/') && !next.startsWith('//') ? next : '/app'
+    const callbackUrl = `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`
+
     supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        redirectTo: callbackUrl,
       },
     })
   }

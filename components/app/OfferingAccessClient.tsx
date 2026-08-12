@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 
@@ -10,8 +12,15 @@ interface OfferingAccessClientProps {
 }
 
 export function OfferingAccessClient({ user, ctx, offeringKey }: OfferingAccessClientProps) {
+  const router = useRouter()
   const entitlement = ctx.entitlements.find(e => e.offering_key === offeringKey)
   const role = ctx.offeringRoles.find(r => r.offering_key === offeringKey)
+
+  useEffect(() => {
+    if (offeringKey === 'school_pickup' && entitlement?.effective_status === 'active') {
+      router.replace(`/app/${ctx.organization.slug}/school-pickup`)
+    }
+  }, [offeringKey, entitlement, ctx.organization.slug, router])
 
   return (
     <div className="min-h-screen bg-background">

@@ -7,6 +7,7 @@
 -- Functions:
 -- public.open_pickup_session(site_id, service_date) -> uuid
 -- public.close_pickup_session(session_id) -> void
+-- public.cancel_pickup_session(session_id, reason) -> void
 -- public.process_pickup_checkin(site_id, credential_token, pickup_group_id, source) -> jsonb
 -- public.transition_queue_status(queue_item_id, new_status, reason) -> jsonb
 -- public.revoke_credential(credential_id, reason) -> void
@@ -15,6 +16,14 @@
 -- All functions are SECURITY DEFINER with explicit search_path.
 -- Execute revoked from anon and authenticated.
 -- Called via service role client from API routes.
+
+-- State machine (sessions):
+--   scheduled -> open (via open_pickup_session)
+--   open -> closed (via close_pickup_session)
+--   scheduled -> cancelled (via cancel_pickup_session)
+--   open -> cancelled (via cancel_pickup_session)
+--   closed -> (terminal)
+--   cancelled -> (terminal)
 
 -- State machine (queue items):
 --   null -> arrived (initial)

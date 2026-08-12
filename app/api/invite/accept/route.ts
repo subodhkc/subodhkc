@@ -33,6 +33,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'missing_params' }, { status: 400 })
   }
 
+  // Verify the authenticated user's email matches the invited email
+  const invitedEmail = email.toLowerCase()
+  const userEmail = (user.email || '').toLowerCase()
+  if (userEmail !== invitedEmail) {
+    return NextResponse.json({
+      error: 'email_mismatch',
+      message: 'This invitation was sent to a different email address. Sign in using the invited account or ask the administrator to resend the invitation.',
+    }, { status: 403 })
+  }
+
   // Hash the token to compare with stored hash
   const crypto = await import('crypto')
   const tokenHash = crypto.createHash('sha256').update(token).digest('hex')

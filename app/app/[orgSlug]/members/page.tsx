@@ -75,6 +75,16 @@ export default async function MembersPage({
     .eq('organization_id', ctx.organization.id)
     .order('created_at', { ascending: false })
 
+  // Fetch access requests
+  const { data: accessRequests } = await serviceClient
+    .from('join_requests')
+    .select(`
+      id, status, requested_role, created_at, reviewed_at, reviewer_notes,
+      user_id, profiles!inner(email, display_name, avatar_url)
+    `)
+    .eq('organization_id', ctx.organization.id)
+    .order('created_at', { ascending: false })
+
   return (
     <MembersClient
       user={user}
@@ -96,6 +106,20 @@ export default async function MembersPage({
         accepted_at: i.accepted_at,
         revoked_at: i.revoked_at,
         created_at: i.created_at,
+      }))}
+      accessRequests={(accessRequests || []).map((r: any) => ({
+        id: r.id,
+        status: r.status,
+        requested_role: r.requested_role,
+        created_at: r.created_at,
+        reviewed_at: r.reviewed_at,
+        reviewer_notes: r.reviewer_notes,
+        user_id: r.user_id,
+        profiles: {
+          email: r.profiles?.email || '',
+          display_name: r.profiles?.display_name || null,
+          avatar_url: r.profiles?.avatar_url || null,
+        },
       }))}
     />
   )

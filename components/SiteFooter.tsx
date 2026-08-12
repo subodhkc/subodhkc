@@ -560,7 +560,11 @@ export function SiteFooter() {
         }}
       >
         <span>© 2026 Subodh Kumar KC · Dallas, Texas</span>
-        <span>v3.1 · last shipped {new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
+        <span style={{ display: "flex", gap: 16 }}>
+          <Link href="/terms" style={{ color: "var(--op-muted)", textDecoration: "none" }}>Terms</Link>
+          <Link href="/privacy" style={{ color: "var(--op-muted)", textDecoration: "none" }}>Privacy</Link>
+          <span>v3.1 · last shipped {new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
+        </span>
       </div>
 
       {/* Responsive styles */}

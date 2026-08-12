@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- School building illustration for Wilshire Elementary -->
+  <!-- Sky background -->
+  <rect width="400" height="300" fill="#dbeafe"/>
+  <!-- Sun -->
+  <circle cx="340" cy="50" r="25" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="340" cy="50" r="18" fill="#f59e0b" opacity="0.6"/>
+  <!-- Clouds -->
+  <ellipse cx="80" cy="50" rx="30" ry="15" fill="white" opacity="0.8"/>
+  <ellipse cx="100" cy="45" rx="25" ry="12" fill="white" opacity="0.8"/>
+  <ellipse cx="200" cy="40" rx="35" ry="14" fill="white" opacity="0.7"/>
+  <!-- Ground -->
+  <rect y="240" width="400" height="60" fill="#86efac"/>
+  <!-- Path -->
+  <path d="M170 300 L180 240 L220 240 L230 300 Z" fill="#d9d9d9"/>
+  <!-- Main building -->
+  <rect x="100" y="120" width="200" height="120" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <!-- Roof -->
+  <path d="M90 120 L200 70 L310 120 Z" fill="#dc2626"/>
+  <path d="M90 120 L200 70 L310 120 L310 125 L90 125 Z" fill="#991b1b"/>
+  <!-- Flag pole -->
+  <line x1="200" y1="70" x2="200" y2="35" stroke="#4b5563" stroke-width="2"/>
+  <path d="M200 35 L220 38 L200 45 Z" fill="#dc2626"/>
+  <!-- Door -->
+  <rect x="180" y="170" width="40" height="70" rx="3" fill="#92400e"/>
+  <rect x="184" y="174" width="32" height="62" rx="2" fill="#78350f"/>
+  <circle cx="210" cy="205" r="2" fill="#fbbf24"/>
+  <!-- Windows -->
+  <rect x="120" y="140" width="40" height="40" rx="3" fill="#bfdbfe" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="140" y1="140" x2="140" y2="180" stroke="#60a5fa" stroke-width="1.5"/>
+  <line x1="120" y1="160" x2="160" y2="160" stroke="#60a5fa" stroke-width="1.5"/>
+  <rect x="240" y="140" width="40" height="40" rx="3" fill="#bfdbfe" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="260" y1="140" x2="260" y2="180" stroke="#60a5fa" stroke-width="1.5"/>
+  <line x1="240" y1="160" x2="280" y2="160" stroke="#60a5fa" stroke-width="1.5"/>
+  <!-- "WILSHIRE" sign -->
+  <rect x="130" y="195" width="140" height="20" rx="3" fill="#1e3a5f"/>
+  <text x="200" y="209" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">WILSHIRE ELEMENTARY</text>
+  <!-- Trees -->
+  <circle cx="60" cy="200" r="25" fill="#16a34a"/>
+  <circle cx="50" cy="210" r="20" fill="#15803d"/>
+  <circle cx="70" cy="210" r="20" fill="#15803d"/>
+  <rect x="57" y="220" width="6" height="20" fill="#92400e"/>
+  <circle cx="340" cy="200" r="25" fill="#16a34a"/>
+  <circle cx="330" cy="210" r="20" fill="#15803d"/>
+  <circle cx="350" cy="210" r="20" fill="#15803d"/>
+  <rect x="337" y="220" width="6" height="20" fill="#92400e"/>
+  <!-- Bushes -->
+  <ellipse cx="110" cy="245" rx="20" ry="10" fill="#16a34a"/>
+  <ellipse cx="290" cy="245" rx="20" ry="10" fill="#16a34a"/>
+</svg>

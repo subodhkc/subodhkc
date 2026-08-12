@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Friendly owl mascot for Wilshire Elementary -->
+  <!-- Body -->
+  <ellipse cx="100" cy="120" rx="55" ry="60" fill="#2563eb"/>
+  <!-- Belly -->
+  <ellipse cx="100" cy="130" rx="38" ry="42" fill="#dbeafe"/>
+  <!-- Belly spots -->
+  <circle cx="88" cy="125" r="6" fill="#93c5fd" opacity="0.6"/>
+  <circle cx="112" cy="125" r="6" fill="#93c5fd" opacity="0.6"/>
+  <circle cx="100" cy="145" r="6" fill="#93c5fd" opacity="0.6"/>
+  <!-- Head -->
+  <circle cx="100" cy="70" r="50" fill="#2563eb"/>
+  <!-- Ear tufts -->
+  <path d="M60 35 L55 20 L70 30 Z" fill="#1d4ed8"/>
+  <path d="M140 35 L145 20 L130 30 Z" fill="#1d4ed8"/>
+  <!-- Eye whites -->
+  <circle cx="80" cy="65" r="20" fill="white"/>
+  <circle cx="120" cy="65" r="20" fill="white"/>
+  <!-- Pupils -->
+  <circle cx="82" cy="67" r="10" fill="#1e3a5f"/>
+  <circle cx="122" cy="67" r="10" fill="#1e3a5f"/>
+  <!-- Eye shine -->
+  <circle cx="85" cy="63" r="3" fill="white"/>
+  <circle cx="125" cy="63" r="3" fill="white"/>
+  <!-- Beak -->
+  <path d="M100 78 L92 88 L100 95 L108 88 Z" fill="#f59e0b"/>
+  <!-- Feet -->
+  <path d="M85 178 L80 185 M85 178 L90 185 M85 178 L85 188" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+  <path d="M115 178 L110 185 M115 178 L120 185 M115 178 L115 188" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Wings -->
+  <path d="M50 100 Q35 120 45 150 Q50 155 55 150 Q48 130 55 105 Z" fill="#1d4ed8"/>
+  <path d="M150 100 Q165 120 155 150 Q150 155 145 150 Q152 130 145 105 Z" fill="#1d4ed8"/>
+  <!-- Graduation cap -->
+  <rect x="75" y="25" width="50" height="8" rx="2" fill="#1e3a5f"/>
+  <path d="M60 28 L100 15 L140 28 L100 41 Z" fill="#1e3a5f"/>
+  <line x1="135" y1="28" x2="135" y2="42" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="135" cy="44" r="3" fill="#f59e0b"/>
+</svg>

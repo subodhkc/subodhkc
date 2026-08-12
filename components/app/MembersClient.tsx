@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Trash2, UserPlus, X } from 'lucide-react'
+import { Trash2, UserPlus, X, Send, Check, Clock } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 
 interface Member {
@@ -26,20 +26,33 @@ interface Invitation {
   created_at: string
 }
 
+interface AccessRequest {
+  id: string
+  status: string
+  requested_role: string
+  created_at: string
+  reviewed_at: string | null
+  reviewer_notes: string | null
+  user_id: string
+  profiles: { email: string; display_name: string | null; avatar_url: string | null }
+}
+
 interface MembersClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
   members: Member[]
   invitations: Invitation[]
+  accessRequests: AccessRequest[]
 }
 
-export function MembersClient({ user, ctx, members, invitations }: MembersClientProps) {
+export function MembersClient({ user, ctx, members, invitations, accessRequests }: MembersClientProps) {
   const router = useRouter()
   const [inviteEmail, setInviteEmail] = useState('')
   const [inviteRole, setInviteRole] = useState('member')
   const [inviting, setInviting] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [actionLoading, setActionLoading] = useState<string | null>(null)
 
   const isOwner = ctx.organizationRole === 'owner' || ctx.isPlatformAdmin
   const basePath = `/app/${ctx.organization.slug}`
@@ -95,6 +108,99 @@ export function MembersClient({ user, ctx, members, invitations }: MembersClient
       }
     } catch {
       setError('Failed to revoke invitation')
+    }
+  }
+
+  async function handleResendInvitation(invitationId: string) {
+    setActionLoading(invitationId)
+    setError('')
+    try {
+      const res = await fetch(`/api/org/${ctx.organization.id}/invitations/${invitationId}/resend`, {
+        method: 'POST',
+      })
+      if (res.ok) {
+        setSuccess('Invitation resent')
+        setTimeout(() => setSuccess(''), 3000)
+      } else {
+        setError('Failed to resend invitation')
+      }
+    } catch {
+      setError('Network error')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
+  async function handleRoleChange(memberUserId: string, newRole: string) {
+    setActionLoading(memberUserId)
+    setError('')
+    try {
+      const res = await fetch(`/api/org/${ctx.organization.id}/members/${memberUserId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: newRole }),
+      })
+      if (res.ok) {
+        router.refresh()
+      } else {
+        const data = await res.json()
+        if (data.error === 'last_owner_protection') {
+          setError('Cannot change the last owner\'s role. Assign another owner first.')
+        } else {
+          setError('Failed to change role')
+        }
+      }
+    } catch {
+      setError('Network error')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
+  async function handleApproveRequest(requestId: string) {
+    setActionLoading(requestId)
+    setError('')
+    try {
+      const res = await fetch('/api/join-requests', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ request_id: requestId, action: 'approve' }),
+      })
+      if (res.ok) {
+        setSuccess('Access request approved')
+        setTimeout(() => setSuccess(''), 3000)
+        router.refresh()
+      } else {
+        const data = await res.json()
+        setError(data.error === 'cannot_approve_own_request' ? 'You cannot approve your own request.' : 'Failed to approve request')
+      }
+    } catch {
+      setError('Network error')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
+  async function handleRejectRequest(requestId: string) {
+    setActionLoading(requestId)
+    setError('')
+    try {
+      const res = await fetch('/api/join-requests', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ request_id: requestId, action: 'reject' }),
+      })
+      if (res.ok) {
+        setSuccess('Access request rejected')
+        setTimeout(() => setSuccess(''), 3000)
+        router.refresh()
+      } else {
+        setError('Failed to reject request')
+      }
+    } catch {
+      setError('Network error')
+    } finally {
+      setActionLoading(null)
     }
   }
 
@@ -161,13 +267,20 @@ export function MembersClient({ user, ctx, members, invitations }: MembersClient
                   <span className="ml-2 text-xs text-muted-foreground">{m.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`text-xs px-2 py-0.5 rounded ${
-                    m.role === 'owner' ? 'bg-purple-500/10 text-purple-700' :
-                    m.role === 'admin' ? 'bg-blue-500/10 text-blue-700' :
-                    'bg-gray-500/10 text-gray-700'
-                  }`}>
-                    {m.role}
-                  </span>
+                  <select
+                    value={m.role}
+                    onChange={(e) => handleRoleChange(m.user_id, e.target.value)}
+                    disabled={m.user_id === user.id || !isOwner || actionLoading === m.user_id}
+                    className={`text-xs px-2 py-0.5 rounded border-none bg-transparent ${
+                      m.role === 'owner' ? 'text-purple-700 font-medium' :
+                      m.role === 'admin' ? 'text-blue-700 font-medium' :
+                      'text-gray-700'
+                    }`}
+                  >
+                    <option value="member">Member</option>
+                    <option value="admin">Admin</option>
+                    {isOwner && <option value="owner">Owner</option>}
+                  </select>
                   {m.user_id !== user.id && isOwner && (
                     <button
                       onClick={() => handleRemoveMember(m.user_id)}
@@ -198,13 +311,23 @@ export function MembersClient({ user, ctx, members, invitations }: MembersClient
                     {i.role} · expires {new Date(i.expires_at).toLocaleDateString()}
                   </span>
                 </div>
-                <button
-                  onClick={() => handleRevokeInvitation(i.id)}
-                  className="p-1 hover:bg-accent rounded"
-                  title="Revoke invitation"
-                >
-                  <X className="h-3.5 w-3.5 text-red-500" />
-                </button>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => handleResendInvitation(i.id)}
+                    disabled={actionLoading === i.id}
+                    className="p-1 hover:bg-accent rounded"
+                    title="Resend invitation"
+                  >
+                    <Send className="h-3.5 w-3.5 text-muted-foreground" />
+                  </button>
+                  <button
+                    onClick={() => handleRevokeInvitation(i.id)}
+                    className="p-1 hover:bg-accent rounded"
+                    title="Revoke invitation"
+                  >
+                    <X className="h-3.5 w-3.5 text-red-500" />
+                  </button>
+                </div>
               </div>
             ))}
             {invitations.filter(i => !i.accepted_at && !i.revoked_at).length === 0 && (
@@ -212,6 +335,58 @@ export function MembersClient({ user, ctx, members, invitations }: MembersClient
             )}
           </div>
         </section>
+
+        {/* Access Requests */}
+        {accessRequests.length > 0 && (
+          <section className="mt-6">
+            <h2 className="font-semibold mb-3 flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              Access Requests
+            </h2>
+            <div className="border rounded-lg divide-y">
+              {accessRequests.map((r) => (
+                <div key={r.id} className="flex items-center justify-between p-3">
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">{r.profiles.display_name || r.profiles.email}</span>
+                      <span className="text-xs text-muted-foreground">{r.profiles.email}</span>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Requested {r.requested_role} · {new Date(r.created_at).toLocaleDateString()}
+                    </div>
+                  </div>
+                  {r.status === 'pending' ? (
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleApproveRequest(r.id)}
+                        disabled={actionLoading === r.id}
+                        className="flex items-center gap-1 px-2.5 py-1 bg-primary text-primary-foreground rounded text-xs font-medium hover:bg-primary/90 disabled:opacity-50"
+                      >
+                        <Check className="h-3 w-3" />
+                        Approve
+                      </button>
+                      <button
+                        onClick={() => handleRejectRequest(r.id)}
+                        disabled={actionLoading === r.id}
+                        className="flex items-center gap-1 px-2.5 py-1 border rounded text-xs hover:bg-accent disabled:opacity-50"
+                      >
+                        <X className="h-3 w-3" />
+                        Reject
+                      </button>
+                    </div>
+                  ) : (
+                    <span className={`text-xs px-2 py-0.5 rounded ${
+                      r.status === 'approved' ? 'bg-green-500/10 text-green-700' :
+                      'bg-red-500/10 text-red-700'
+                    }`}>
+                      {r.status}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
     </div>
   )
