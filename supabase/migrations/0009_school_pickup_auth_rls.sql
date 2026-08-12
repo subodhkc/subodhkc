@@ -1,0 +1,39 @@
+-- ============================================
+-- Migration 0009: School Pickup RLS + Authorization Helpers
+-- Applied via Supabase MCP
+-- ============================================
+-- This file is the repository source of truth for the RLS policies.
+-- The migration was applied directly to the Supabase project.
+
+-- Authorization helpers:
+-- private.has_school_role(site_id, roles[])
+-- private.has_school_access(site_id)
+-- private.has_org_school_access(org_id)
+-- private.user_site_ids(org_id)
+-- private.validate_queue_transition(from_status, to_status)
+
+-- RLS enabled on all school pickup tables:
+-- school_sites, school_staff_assignments, school_classrooms,
+-- school_students, pickup_groups, pickup_group_students,
+-- pickup_credentials, pickup_sessions, pickup_session_counters,
+-- pickup_arrivals, pickup_queue_items, pickup_status_events,
+-- pickup_scan_events
+
+-- Permission matrix:
+-- | Action              | school_admin | dismissal_manager | scanner | teacher | org_admin/owner |
+-- |---------------------|--------------|-------------------|---------|---------|-----------------|
+-- | roster read         | Y            | Y                 | N*      | N*      | Y               |
+-- | roster edit         | Y            | Y                 | N       | N       | Y               |
+-- | credential issue    | Y            | Y                 | N       | N       | Y               |
+-- | credential revoke   | Y            | Y                 | N       | N       | Y               |
+-- | session open/close  | Y            | Y                 | N       | N       | Y               |
+-- | scan                | Y            | Y                 | Y       | N       | N               |
+-- | manual check-in     | Y            | Y                 | Y       | N       | N               |
+-- | queue read          | Y            | Y                 | Y       | Y*      | Y               |
+-- | status transition   | Y            | Y                 | Y**     | Y***    | N               |
+-- | exception handling  | Y            | Y                 | N       | N       | Y               |
+-- | staff administration| Y            | N                 | N       | N       | Y               |
+--
+-- * Scanner/teacher get narrow projections via RPC, not full table access
+-- ** Scanner: arrived->preparing, arrived->ready, arrived->completed
+-- *** Teacher: arrived->preparing, preparing->ready
