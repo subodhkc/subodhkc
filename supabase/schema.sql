@@ -1,6 +1,22 @@
 -- SubodhKC Database Schema
 -- Project ref: shnbyttoswxhfnurdnxo
--- Run this in Supabase SQL Editor or via MCP
+--
+-- The canonical schema is now maintained as versioned migration files in:
+--   supabase/migrations/
+--
+-- Run migrations in order:
+--   0001_profiles_and_trigger.sql
+--   0002_organizations.sql
+--   0003_offerings_entitlements.sql
+--   0004_engagements_external_audit.sql
+--   0005_private_helpers.sql
+--   0006_rls_policies.sql
+--   0007_existing_tables_rls.sql
+--
+-- See docs/architecture/multi-tenancy.md for the full architecture documentation.
+--
+-- This file is kept for reference only. Do not run this file directly.
+-- All schema changes must go through versioned migration files.
 
 -- ============================================
 -- 1. PROFILES TABLE (linked to auth.users)

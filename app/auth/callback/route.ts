@@ -1,70 +1,63 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createServerClient } from '@supabase/ssr'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
 export async function GET(request: NextRequest) {
-  const code = request.nextUrl.searchParams.get('code')
-  const token = request.nextUrl.searchParams.get('access_token')
-  const refreshToken = request.nextUrl.searchParams.get('refresh_token')
-  const next = request.nextUrl.searchParams.get('next') || '/dashboard'
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get('code')
+  const nextParam = requestUrl.searchParams.get('next') || '/dashboard'
 
-  if (token && refreshToken) {
-    const response = NextResponse.redirect(new URL(next, request.url))
-    response.cookies.set('sb-access-token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-    })
-    response.cookies.set('sb-refresh-token', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-    })
-    return response
+  // Prevent open redirect: only allow relative paths
+  const next = nextParam.startsWith('/') && !nextParam.startsWith('//')
+    ? nextParam
+    : '/dashboard'
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return NextResponse.redirect(new URL('/login?error=config', request.url))
   }
 
   if (code) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    if (!supabaseUrl || !anonKey) {
-      return NextResponse.redirect(new URL('/login?error=config', request.url))
-    }
-
-    const tokenUrl = `${supabaseUrl}/auth/v1/token?grant_type=authorization_code`
-    const tokenRes = await fetch(tokenUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': anonKey,
+    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            request.cookies.set(name, value)
+          )
+        },
       },
-      body: JSON.stringify({ code }),
     })
 
-    if (!tokenRes.ok) {
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+
+    if (error) {
       return NextResponse.redirect(new URL('/login?error=auth_failed', request.url))
     }
 
-    const tokens = await tokenRes.json()
     const response = NextResponse.redirect(new URL(next, request.url))
-    response.cookies.set('sb-access-token', tokens.access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-    })
-    response.cookies.set('sb-refresh-token', tokens.refresh_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-    })
+
+    // Copy cookies from the request to the response
+    const allCookies = request.cookies.getAll()
+    for (const cookie of allCookies) {
+      const isAuthCookie = cookie.name.startsWith('sb-')
+      if (isAuthCookie) {
+        response.cookies.set(cookie.name, cookie.value, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 24 * 7,
+          path: '/',
+        })
+      }
+    }
+
     return response
   }
 

@@ -1,3 +1,5 @@
+import { createBrowserClient as ssrCreateBrowserClient } from '@supabase/ssr'
+import { createServerClient as ssrCreateServerClient } from '@supabase/ssr'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
@@ -5,12 +7,43 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
+// ============================================
+// BROWSER CLIENT (client-side, uses @supabase/ssr for cookie sync)
+// ============================================
 export function createBrowserClient() {
   if (!supabaseUrl || !supabaseAnonKey) return null
-  return createClient(supabaseUrl, supabaseAnonKey)
+  return ssrCreateBrowserClient(supabaseUrl, supabaseAnonKey)
 }
 
-export function createServerClient() {
+// ============================================
+// SERVER CLIENT (server-side with user session, uses @supabase/ssr)
+// ============================================
+export async function createServerClient() {
+  if (!supabaseUrl || !supabaseAnonKey) return null
+  const cookieStore = await cookies()
+  return ssrCreateServerClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll()
+      },
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options)
+          )
+        } catch {
+          // Called from a Server Component - middleware handles refresh
+        }
+      },
+    },
+  })
+}
+
+// ============================================
+// SERVICE CLIENT (service-role key, bypasses RLS)
+// Server-only. Never expose to browser.
+// ============================================
+export function createServiceClient() {
   if (!supabaseUrl || !supabaseServiceKey) return null
   return createClient(supabaseUrl, supabaseServiceKey, {
     auth: {
@@ -20,48 +53,30 @@ export function createServerClient() {
   })
 }
 
-export async function createAuthClient() {
-  if (!supabaseUrl || !supabaseAnonKey) return null
-  const cookieStore = await cookies()
-  const token = cookieStore.get('sb-access-token')?.value
-
-  const client = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  })
-
-  if (token) {
-    await client.auth.setSession({
-      access_token: token,
-      refresh_token: cookieStore.get('sb-refresh-token')?.value || '',
-    })
-  }
-
-  return client
-}
-
+// ============================================
+// AUTH HELPERS
+// ============================================
 export async function getCurrentUser() {
-  const client = await createAuthClient()
+  const client = await createServerClient()
   if (!client) return null
   const { data: { user } } = await client.auth.getUser()
   return user
 }
 
-export async function requireAdmin() {
+export async function requirePlatformAdmin() {
   const user = await getCurrentUser()
   if (!user) return null
 
-  const serverClient = createServerClient()
-  if (!serverClient) return null
+  const serviceClient = createServiceClient()
+  if (!serviceClient) return null
 
-  const { data: profile } = await serverClient
-    .from('profiles')
+  const { data: role } = await serviceClient
+    .from('platform_user_roles')
     .select('role')
-    .eq('id', user.id)
+    .eq('user_id', user.id)
+    .eq('role', 'platform_admin')
     .single()
 
-  if (profile?.role !== 'admin') return null
+  if (!role) return null
   return user
 }

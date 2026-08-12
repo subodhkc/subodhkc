@@ -13,6 +13,7 @@
     "gen:csm": "tsx scripts/generate-csm-v2-json.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.110.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
