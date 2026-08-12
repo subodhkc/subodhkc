@@ -325,23 +325,24 @@ export default function CoursePage() {
             <CardHeader>
               <CardTitle className="text-xl mb-2">Subodh KC</CardTitle>
               <p className="text-sm font-medium text-primary mb-3">
-                AI Systems Architect & Governance Expert · Sr. Program Manager, HP Inc. (Fortune 50)
+                AI Advisor & Enterprise AI Governance Leader · Former Sr. Program Manager, HP Inc. (Fortune 50)
               </p>
               <CardDescription className="text-base space-y-3">
                 <p>
-                  Subodh KC is currently Sr. Program Manager - AI Implementation & Governance at HP Inc.,
-                  where he drives strategic AI transformation across enterprise systems and architects
-                  governance frameworks for Fortune 50 scale.
+                  Subodh KC is an AI Advisor and Enterprise AI Governance Leader. He recently served as
+                  Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50), where he
+                  drove strategic AI transformation across enterprise systems and architected governance
+                  frameworks for Fortune 50 scale.
                 </p>
                 <p>
                   He has developed 5 patent-pending methodologies for AI compliance, drift detection, and
-                  behavioral verification. He is the founder of KestrelVoice (AI voice operations) and
-                  founder of HAIEC (AI compliance platform). 16+ years from field technician to Fortune 50
+                  behavioral verification. He is the founder of Kestrel Voice (AI voice operations) and
+                  founder of HAIEC (AI compliance platform). 12+ years from field technician to Fortune 50
                   AI strategy leader.
                 </p>
                 <p>
                   <strong className="text-foreground">Credentials:</strong> M.Sc. Engineering & Technology
-                  Management (Louisiana Tech), B.S. Computer & Information Systems Security, Six Sigma Green
+                  Management (Louisiana Tech), B.S. Computer Information Systems, Six Sigma Green
                   Belt, Dean's Honor List.
                 </p>
               </CardDescription>

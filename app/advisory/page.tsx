@@ -123,7 +123,7 @@ export default function AdvisoryPage() {
     {
       phase: '3. Execution',
       description:
-        'Hands-on implementation support. I don\'t just provide recommendations - I help you execute them.',
+        'Hands-on implementation support. He doesn\'t just provide recommendations - he helps you execute them.',
       duration: 'Ongoing',
     },
     {
@@ -195,7 +195,7 @@ export default function AdvisoryPage() {
             <span className="gradient-text">Enterprise AI Leaders</span>
           </>
         }
-        description="16+ years of experience driving AI compliance, governance, and technical programs at Fortune 50 scale. I help organizations navigate complexity and execute with precision."
+        description="12+ years of experience driving AI compliance, governance, and technical programs at Fortune 50 scale. He helps organizations navigate complexity and execute with precision."
       >
         <Link href="/contact">
           <Button size="lg" className="group">
@@ -207,7 +207,7 @@ export default function AdvisoryPage() {
 
       <Section
         subtitle="Services"
-        title="How I Work With Organizations"
+        title="How Subodh Works With Organizations"
         description="Strategic advisory and hands-on implementation support for enterprises navigating AI compliance, governance, and scale."
       >
         <div className="space-y-8">
@@ -270,7 +270,7 @@ export default function AdvisoryPage() {
         </Grid>
       </Section>
 
-      <Section subtitle="Expertise" title="What I Bring">
+      <Section subtitle="Expertise" title="What Subodh Brings">
         <div className="max-w-4xl">
           <Grid cols={2} gap="md">
             {expertise.map((item, index) => (
@@ -325,7 +325,7 @@ export default function AdvisoryPage() {
         </div>
       </Section>
 
-      <Section subtitle="Who I Work With" title="Ideal Clients">
+      <Section subtitle="Who He Works With" title="Ideal Clients">
         <div className="max-w-3xl mx-auto">
           <div className="space-y-6">
             <Card>
@@ -382,7 +382,7 @@ export default function AdvisoryPage() {
 
       <CTA
         title="Ready to Build AI Systems That Scale?"
-        description="Whether you need strategic counsel, implementation support, or fractional leadership, I bring proven frameworks and hands-on execution to your most critical initiatives."
+        description="Whether you need strategic counsel, implementation support, or fractional leadership, Subodh brings proven frameworks and hands-on execution to your most critical initiatives."
         primaryButton={{ text: 'Schedule consultation', href: '/contact' }}
         secondaryButton={{ text: 'View case studies', href: '/research' }}
       />

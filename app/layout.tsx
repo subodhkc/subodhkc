@@ -20,12 +20,15 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Subodh KC - AI Systems Architect | AI Governance Expert | Former Fortune 50 AI Strategy CTL',
+    default: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
     template: '%s | Subodh KC',
   },
   description:
-    'Subodh KC - AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL with 16+ years full-stack development experience. Specializing in AI governance frameworks, EU AI Act compliance, NIST AI RMF, ISO 42001. Building production AI systems that scale with confidence.',
+    'Subodh KC - AI Advisor and Enterprise AI Governance Leader. Former Sr. Program Manager at HP Inc. (Fortune 50) with 12+ years building production AI systems. Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. EU AI Act, NIST AI RMF, ISO 42001 compliance expertise.',
   keywords: [
+    'AI Advisor',
+    'AI advisor Dallas Fort Worth',
+    'AI advisor HEB',
     'AI Systems Architect',
     'AI Developer',
     'AI Governance Architect',
@@ -77,24 +80,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://subodhkc.com',
-    siteName: 'Subodh KC - AI Systems Architect & Governance Expert',
-    title: 'Subodh KC | AI Systems Architect & Governance Expert',
+    siteName: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
     description:
-      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. Production AI systems - architecture, deployment, and governance at enterprise scale.',
+      'AI Advisor and Enterprise AI Governance Leader. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. 12+ years building production AI systems at enterprise scale.',
     images: [
       {
         url: '/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC - AI Systems Architect & Governance Expert',
+        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC - AI Systems Architect & Governance Expert',
+    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
     description:
-      'Former Fortune 50 AI Strategy CTL | Founder of KestrelVoice | Founder of HAIEC | 16+ Years Production AI Systems | EU AI Act, NIST AI RMF, ISO 42001 Expert',
+      'Former Sr. Program Manager at HP Inc. (Fortune 50) | Founder of Kestrel Voice | Founder of HAIEC | 12+ Years Production AI Systems | EU AI Act, NIST AI RMF, ISO 42001 Expert',
     creator: '@subodhkc',
     images: ['/portrait.jpeg'],
   },
@@ -150,7 +153,7 @@ export default async function RootLayout({
           <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GSC_VERIFICATION} />
         )}
         <meta name="person" content="Subodh KC" />
-        <meta name="person-type" content="AI Systems Architect & Governance Expert" />
+        <meta name="person-type" content="AI Advisor & Enterprise AI Governance Leader" />
         <meta name="profile:first_name" content="Subodh" />
         <meta name="profile:last_name" content="KC" />
         <meta name="profile:username" content="subodhkc" />

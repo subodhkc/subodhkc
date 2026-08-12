@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
             <div style="text-align: center; padding: 30px 20px; color: #9ca3af; font-size: 12px;">
               <p style="margin: 0 0 10px 0;">
                 <strong style="color: #6b7280;">Subodh KC</strong><br>
-                AI Systems Architect & Governance Expert | Founder of KestrelVoice | Founder of HAIEC
+                AI Advisor & Enterprise AI Governance Leader | Founder of Kestrel Voice | Founder of HAIEC
               </p>
               <p style="margin: 10px 0;">
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}" style="color: #10B981; text-decoration: none;">subodhkc.com</a> | 
