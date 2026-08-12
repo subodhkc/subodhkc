@@ -553,6 +553,9 @@ export interface Database {
     Functions: {
       handle_new_user: () => void
       update_updated_at: () => void
+      accept_invitation: (inv_token: string, inv_email: string) => string
+      transfer_ownership: (org_id: string, new_owner_user_id: string) => void
+      remove_member: (org_id: string, member_user_id: string) => void
     }
   }
   private: {
@@ -562,6 +565,18 @@ export interface Database {
       has_org_role: (org_id: string, roles: string[]) => boolean
       has_offering_access: (org_id: string, offering_key: string) => boolean
       has_offering_role: (org_id: string, offering_key: string, roles: string[]) => boolean
+      is_entitlement_active: (ent_org_id: string, off_key: string) => boolean
+      can_access_offering: (acc_org_id: string, off_key: string) => boolean
+      has_active_entitlement: (hae_org_id: string, off_key: string) => boolean
+      get_entitlement_status: (ge_ent_id: string) => string
+      write_audit_event: (
+        audit_action: string,
+        audit_entity_type: string,
+        audit_org_id?: string | null,
+        audit_actor_id?: string | null,
+        audit_entity_id?: string | null,
+        audit_metadata?: Record<string, unknown>
+      ) => number
     }
   }
 }
