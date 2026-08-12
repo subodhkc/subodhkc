@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { LogOut, ChevronDown, Home, Users, QrCode, Settings, GraduationCap, UserCog, Zap, ScanLine, ListChecks, Share2, Layers, Heart } from 'lucide-react'
+import { LogOut, ChevronDown, Home, Users, QrCode, Settings, GraduationCap, UserCog, Zap, ScanLine, ListChecks, Share2, Layers, Heart, FlaskConical } from 'lucide-react'
 import type { AuthenticatedUser } from '@/lib/auth/organization-resolver'
 import type { SchoolContext } from '@/lib/auth/school-resolver'
 
@@ -22,6 +22,7 @@ export function SchoolPickupLayout({ user, ctx, sites, children }: SchoolPickupL
   const { site, schoolRole, canManageStaff, canManageSettings } = ctx
   const org = ctx.organization.organization
   const basePath = `/app/${org.slug}/school-pickup/${site.slug}`
+  const isDemoUser = user.email === 'demo-junekc@subodhkc.com'
 
   const navItems = [
     { href: basePath, label: 'Overview', icon: Home, exact: true },
@@ -44,6 +45,14 @@ export function SchoolPickupLayout({ user, ctx, sites, children }: SchoolPickupL
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Demo mode indicator */}
+      {isDemoUser && (
+        <div className="bg-amber-50 border-b border-amber-200 px-4 py-1.5 flex items-center justify-center gap-2 text-xs text-amber-800">
+          <FlaskConical className="h-3.5 w-3.5" />
+          <span className="font-medium">Demo — Synthetic Data</span>
+        </div>
+      )}
+
       {/* Top bar */}
       <header className="border-b bg-card sticky top-0 z-30">
         <div className="flex items-center justify-between px-4 h-14">
