@@ -643,10 +643,10 @@ export default function ExecutiveBioPage() {
           <h2 className="text-3xl font-bold mb-8 text-center">Personal Note</h2>
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              My name, Subodh, comes from Sanskrit: <strong className="text-foreground">su</strong> (good) and <strong className="text-foreground">bodh</strong> (understanding). I have always treated it as a professional obligation, not just a label.
+              His name, Subodh, comes from Sanskrit: <strong className="text-foreground">su</strong> (good) and <strong className="text-foreground">bodh</strong> (understanding). He has always treated it as a professional obligation, not just a label.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I started in technology fixing computers in underfunded schools. That work taught me something I carry into every program I lead today: technology succeeds only when it works inside the institution that depends on it. A broken system in a classroom is not an abstract problem. It affects real people trying to do their jobs.
+              He started in technology fixing computers in underfunded schools. That work taught him something he carries into every program he leads today: technology succeeds only when it works inside the institution that depends on it. A broken system in a classroom is not an abstract problem. It affects real people trying to do their jobs.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               That principle scaled from school districts to manufacturing floors to Fortune 50 engineering organizations. The systems got larger. The stakes got higher. The core question stayed the same: does this actually work for the people who depend on it?
@@ -658,7 +658,7 @@ export default function ExecutiveBioPage() {
               If a system can harm people, it must be governed as seriously as it is engineered.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed text-center">
-              That is the standard I hold for my own work and the standard I bring to every organization I work with.
+              That is the standard he holds for his own work and the standard he brings to every organization he works with.
             </p>
           </div>
         </div>

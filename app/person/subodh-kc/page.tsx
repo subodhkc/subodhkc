@@ -276,7 +276,7 @@ const profilePageSchema = {
   '@type': 'ProfilePage',
   mainEntity: personSchema,
   dateCreated: '2026-07-14',
-  dateModified: '2026-08-11',
+  dateModified: '2026-08-12',
 }
 
 export default function PersonPage() {
@@ -573,7 +573,7 @@ export default function PersonPage() {
                 <div className="flex items-start gap-3">
                   <Building2 className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <CardTitle className="text-base mb-1">KestrelVoice</CardTitle>
+                    <CardTitle className="text-base mb-1">Kestrel Voice</CardTitle>
                     <CardDescription className="text-sm">
                       AI voice operations platform. Answers every call, books appointments, runs the front desk 24/7.
                     </CardDescription>
