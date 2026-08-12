@@ -2,7 +2,7 @@ name: Revalidate FrontOfAI News
 
 on:
   schedule:
-    # Every day at 14:00 UTC (09:00 CST) — aligned with FrontOfAI's daily update window
+    # Every day at 14:00 UTC (09:00 CST) - aligned with FrontOfAI's daily update window
     - cron: "0 14 * * *"
   workflow_dispatch:
 

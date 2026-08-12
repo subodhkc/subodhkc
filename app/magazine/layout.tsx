@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'AI That Works — Issue 01 | Magazine by Subodh KC',
+  title: 'AI That Works - Issue 01 | Magazine by Subodh KC',
   description: 'AI That Works, Issue 01: From Demo to Operating System. A 36-page independent field magazine on AI strategy, systems, governance, and field practice. By Subodh KC.',
   keywords: ['AI magazine', 'AI strategy', 'AI governance', 'AI systems', 'AI operating system', 'Subodh KC', 'enterprise AI', 'AI compliance', 'AI field practice'],
   robots: {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/magazine',
   },
   openGraph: {
-    title: 'AI That Works — Issue 01 | Magazine by Subodh KC',
+    title: 'AI That Works - Issue 01 | Magazine by Subodh KC',
     description: 'A 36-page independent field magazine on AI strategy, systems, governance, and field practice. From demo to operating system.',
     type: 'article',
     url: 'https://subodhkc.com/magazine',
@@ -23,13 +23,13 @@ export const metadata: Metadata = {
         url: 'https://subodhkc.com/magazine/img-1.png',
         width: 760,
         height: 594,
-        alt: 'AI That Works — Issue 01 Magazine Cover',
+        alt: 'AI That Works - Issue 01 Magazine Cover',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI That Works — Issue 01 | Magazine by Subodh KC',
+    title: 'AI That Works - Issue 01 | Magazine by Subodh KC',
     description: 'A 36-page independent field magazine on AI strategy, systems, governance, and field practice.',
     images: ['https://subodhkc.com/magazine/img-1.png'],
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 const magazineSchema = {
   '@context': 'https://schema.org',
   '@type': ['PublicationIssue', 'CreativeWork'],
-  name: 'AI That Works — Issue 01',
+  name: 'AI That Works - Issue 01',
   issueNumber: 1,
   datePublished: '2026-07-18T00:00:00Z',
   description: 'From demo to operating system. A 36-page independent field magazine on AI strategy, systems, governance, and field practice.',

@@ -119,7 +119,7 @@ const products = [
   {
     name: 'CourtCase',
     href: '/products/courtcase',
-    description: 'Organize your legal documents with ease. Manage case files, track deadlines, and prepare document packets — all locally on your computer.',
+    description: 'Organize your legal documents with ease. Manage case files, track deadlines, and prepare document packets - all locally on your computer.',
     icon: Scale,
     badge: 'Coming Soon',
     badgeColor: 'bg-amber-500/10 text-amber-500',

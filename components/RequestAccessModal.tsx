@@ -49,7 +49,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
         body: JSON.stringify(payload),
       });
     } catch {
-      // best-effort — the mailto fallback is still surfaced in the UI
+      // best-effort - the mailto fallback is still surfaced in the UI
     } finally {
       setSubmitting(false);
       setSent(true);
@@ -192,7 +192,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
         ) : (
           <>
             <p style={{ marginTop: 14, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              {product.name} isn't shipping a public download yet — I'm onboarding a small group of early
+              {product.name} isn't shipping a public download yet - I'm onboarding a small group of early
               operators by hand to make sure it's solving the right problem. Send a short note about your use
               case and I'll get back personally with access details.
             </p>

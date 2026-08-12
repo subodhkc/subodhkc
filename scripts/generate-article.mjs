@@ -406,7 +406,7 @@ function pickNextTopics(posts) {
   const typeOrder = { authority: 0, implementation: 1, 'operator-brief': 2 }
   dayTopics.sort((a, b) => (typeOrder[a.type] ?? 3) - (typeOrder[b.type] ?? 3))
 
-  // Only generate the authority article each day — focus on depth over volume
+  // Only generate the authority article each day - focus on depth over volume
   const authorityOnly = dayTopics.filter((t) => t.type === 'authority')
   if (authorityOnly.length > 0) {
     console.log(`Selected day ${lowestDay}: 1 authority article (depth-first mode)`)

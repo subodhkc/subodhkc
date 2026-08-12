@@ -191,7 +191,7 @@ export default function DoesTexasAILawApplyPage() {
             <span className="gradient-text">Apply to My Business?</span>
           </>
         }
-        description="A plain-English TRAIGA guide for small and midsize businesses — applicability checker, disclosure rules, penalties, examples, and final-law-vs-draft matrix."
+        description="A plain-English TRAIGA guide for small and midsize businesses - applicability checker, disclosure rules, penalties, examples, and final-law-vs-draft matrix."
       />
 
       {/* Byline + TOC */}
@@ -227,7 +227,7 @@ export default function DoesTexasAILawApplyPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              The Texas Responsible Artificial Intelligence Governance Act (TRAIGA), enacted through HB 149 and effective January 1, 2026, can apply to businesses of any size — but it is narrower than most commentary suggests. There is no small-business exemption, no general registration requirement, no mandatory impact assessment, and no universal private-chatbot disclosure rule. The law targets specific prohibited conduct (harm, crime, discrimination, illegal content), healthcare AI disclosure, biometric compliance, and Attorney General enforcement with a 60-day cure period. This guide explains what the final statute actually says, what it does not say, and what small and midsize businesses should do about it.
+              The Texas Responsible Artificial Intelligence Governance Act (TRAIGA), enacted through HB 149 and effective January 1, 2026, can apply to businesses of any size - but it is narrower than most commentary suggests. There is no small-business exemption, no general registration requirement, no mandatory impact assessment, and no universal private-chatbot disclosure rule. The law targets specific prohibited conduct (harm, crime, discrimination, illegal content), healthcare AI disclosure, biometric compliance, and Attorney General enforcement with a 60-day cure period. This guide explains what the final statute actually says, what it does not say, and what small and midsize businesses should do about it.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {['Texas-based businesses', 'Out-of-state companies serving Texas', 'Healthcare practices using AI', 'Employers using AI hiring tools', 'SaaS companies selling AI in Texas', 'Any business using AI chatbots'].map((audience) => (
@@ -936,7 +936,7 @@ export default function DoesTexasAILawApplyPage() {
                     <CardTitle className="text-base">How to Secure and Govern AI</CardTitle>
                   </div>
                   <CardDescription className="text-sm leading-relaxed">
-                    Seven layers of AI compliance — NIST AI RMF, ISO/IEC 42001, SOC 2, OWASP GenAI, and continuous evidence. Includes interactive framework decision tool.
+                    Seven layers of AI compliance - NIST AI RMF, ISO/IEC 42001, SOC 2, OWASP GenAI, and continuous evidence. Includes interactive framework decision tool.
                   </CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
                     Read guide <ArrowRight className="h-3 w-3" />
@@ -999,7 +999,7 @@ export default function DoesTexasAILawApplyPage() {
       <Section className="pt-4" id="final-takeaway">
         <div className="max-w-4xl mx-auto space-y-6 text-base leading-relaxed text-foreground/90">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Final Takeaway</h2>
-          <p>Texas did not enact a Colorado-style comprehensive high-risk AI governance regime. It enacted a more targeted law.</p>
+          <p>Texas did not enact a Colorado-style complete high-risk AI governance regime. It enacted a more targeted law.</p>
           <p>TRAIGA can reach small and midsize businesses, but it does not require every company using AI to register, complete an annual impact assessment, or identify every private chatbot.</p>
           <p>The real compliance work is more practical:</p>
           <ul className="ml-4 space-y-1.5 text-muted-foreground">
@@ -1033,7 +1033,7 @@ export default function DoesTexasAILawApplyPage() {
       {/* CTA */}
       <CTA
         title="Prepare for TRAIGA Compliance"
-        description="Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC — founder of the HAIEC TRAIGA compliance engine. Based in Dallas, Texas."
+        description="Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC - founder of the HAIEC TRAIGA compliance engine. Based in Dallas, Texas."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

@@ -1,4 +1,4 @@
-// app/api/revalidate/route.ts — on-demand ISR revalidation endpoint
+// app/api/revalidate/route.ts - on-demand ISR revalidation endpoint
 // Triggered daily at 09:00 CST by the .github/workflows/revalidate-frontofai.yml
 // cron (and manually via workflow_dispatch). Refreshes the FrontOfAI news banner
 // feed cache and the homepage so the news ticker stays aligned with FrontOfAI's

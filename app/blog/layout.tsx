@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Blog — AI Governance, Security & Architecture Insights',
+  title: 'Blog - AI Governance, Security & Architecture Insights',
   description:
     'Articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems. Practical insights from building AI at Fortune 50 scale.',
   alternates: {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Blog — AI Governance, Security & Architecture Insights',
+    title: 'Blog - AI Governance, Security & Architecture Insights',
     description:
       'Articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
     url: 'https://subodhkc.com/blog',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Blog — AI Governance, Security & Architecture Insights',
+    title: 'Blog - AI Governance, Security & Architecture Insights',
     description:
       'Articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
     images: ['https://subodhkc.com/portrait.jpeg'],

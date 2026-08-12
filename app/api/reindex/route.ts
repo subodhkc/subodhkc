@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
           urls = body.urls
         }
       } catch {
-        // body parse failed — fall through to default
+        // body parse failed - fall through to default
       }
     }
 
@@ -115,10 +115,10 @@ export async function GET() {
     method: 'POST',
     description: 'Submit URLs to IndexNow for faster indexing (Bing, Yandex, Seznam)',
     usage: {
-      submit_all: 'POST /api/reindex (no body) — submits all 32 site URLs',
+      submit_all: 'POST /api/reindex (no body) - submits all 32 site URLs',
       submit_specific: 'POST /api/reindex with JSON body { "urls": ["https://subodhkc.com/page"] }',
     },
     totalUrls: STATIC_SITE_URLS.length + ' + dynamic blog URLs',
-    note: 'IndexNow works with Bing, Yandex, and Seznam. Google does not support IndexNow — use Google Search Console to submit sitemap manually.',
+    note: 'IndexNow works with Bing, Yandex, and Seznam. Google does not support IndexNow - use Google Search Console to submit sitemap manually.',
   })
 }

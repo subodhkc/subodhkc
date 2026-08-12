@@ -1,5 +1,5 @@
 /**
- * CSM 2.0 Invariant Tests — Verify invariants hold across all fixtures.
+ * CSM 2.0 Invariant Tests - Verify invariants hold across all fixtures.
  *
  * Run: npx tsx tests/csm-v2/invariant-tests.ts
  */

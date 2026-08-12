@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
-export const alt = 'AI Article Generator — Open-Source Content Automation Engine'
+export const alt = 'AI Article Generator - Open-Source Content Automation Engine'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

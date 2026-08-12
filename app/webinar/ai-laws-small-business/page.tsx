@@ -37,7 +37,7 @@ export const metadata = {
 const eventSchema = {
   '@context': 'https://schema.org',
   '@type': 'Event',
-  name: 'AI Laws and Policies for Small Business — Monthly Webinar',
+  name: 'AI Laws and Policies for Small Business - Monthly Webinar',
   description:
     'Free monthly webinar covering AI laws, regulations, and policies that impact small businesses. EU AI Act, NIST AI RMF, NYC Local Law 144, state-level AI regulations, and practical compliance checklists. Held on the 2nd Monday of every month.',
   url: 'https://subodhkc.com/webinar/ai-laws-small-business',
@@ -123,7 +123,7 @@ export default function WebinarPage() {
 
   const details = [
     { label: 'Frequency', value: '2nd Monday of every month', icon: Calendar },
-    { label: 'Duration', value: '12:00 PM – 1:30 PM CST', icon: Clock },
+    { label: 'Duration', value: '12:00 PM - 1:30 PM CST', icon: Clock },
     { label: 'Format', value: 'Live online webinar', icon: Video },
     { label: 'Cost', value: 'Free', icon: Users },
   ]
@@ -156,7 +156,7 @@ export default function WebinarPage() {
               Next session: 2nd Monday of every month, 12:00 PM CST
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Free registration — spots are limited to ensure quality Q&amp;A time
+              Free registration - spots are limited to ensure quality Q&amp;A time
             </p>
           </div>
         </div>
@@ -273,7 +273,7 @@ export default function WebinarPage() {
       <Section subtitle="Deep-Dive Guides" title="Explore AI Compliance Law Guides" className="bg-secondary/20">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm text-muted-foreground mb-6">
-            Want to go deeper before the webinar? Read these comprehensive compliance guides covering the three major AI regulations.
+            Want to go deeper before the webinar? Read these complete compliance guides covering the three major AI regulations.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link href="/guides/texas-ai-law" className="block">
@@ -312,7 +312,7 @@ export default function WebinarPage() {
 
       <CTA
         title="Register for the Next Webinar"
-        description="Free monthly webinar — 2nd Monday of every month. Register to receive the access link and prep materials. Limited spots for quality Q&A."
+        description="Free monthly webinar - 2nd Monday of every month. Register to receive the access link and prep materials. Limited spots for quality Q&A."
         primaryButton={{ text: 'Register Now', href: '/contact' }}
         secondaryButton={{ text: 'View All Services', href: '/services' }}
       />

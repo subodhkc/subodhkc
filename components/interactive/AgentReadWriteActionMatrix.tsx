@@ -144,7 +144,7 @@ export function AgentReadWriteActionMatrix() {
                             isActive ? riskColors[risk] : 'border-border bg-muted/20 text-muted-foreground hover:border-primary/40'
                           }`}
                         >
-                          {isActive ? risk!.charAt(0).toUpperCase() + risk!.slice(1) : '—'}
+                          {isActive ? risk!.charAt(0).toUpperCase() + risk!.slice(1) : '-'}
                         </button>
                       </td>
                     )
@@ -159,10 +159,10 @@ export function AgentReadWriteActionMatrix() {
           <p><strong className="text-foreground">How to use:</strong> Click a cell to toggle that capability for that resource. Risk is automatically classified based on the combination.</p>
           <p><strong className="text-foreground">Risk levels:</strong></p>
           <ul className="ml-4 space-y-0.5">
-            <li className="list-disc"><span className="text-green-600 font-medium">Low</span> — {riskDescriptions.low}</li>
-            <li className="list-disc"><span className="text-amber-600 font-medium">Medium</span> — {riskDescriptions.medium}</li>
-            <li className="list-disc"><span className="text-orange-600 font-medium">High</span> — {riskDescriptions.high}</li>
-            <li className="list-disc"><span className="text-red-600 font-medium">Critical</span> — {riskDescriptions.critical}</li>
+            <li className="list-disc"><span className="text-green-600 font-medium">Low</span> - {riskDescriptions.low}</li>
+            <li className="list-disc"><span className="text-amber-600 font-medium">Medium</span> - {riskDescriptions.medium}</li>
+            <li className="list-disc"><span className="text-orange-600 font-medium">High</span> - {riskDescriptions.high}</li>
+            <li className="list-disc"><span className="text-red-600 font-medium">Critical</span> - {riskDescriptions.critical}</li>
           </ul>
         </div>
 

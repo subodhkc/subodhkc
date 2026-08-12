@@ -133,7 +133,7 @@ async function main() {
       console.log(`    ✓ Saved to public/downloads/${post.slug}-checklist.md`)
       generated++
     } else {
-      console.log(`    ⚠ Skipped — generation failed`)
+      console.log(`    ⚠ Skipped - generation failed`)
     }
 
     // Small delay to avoid rate limiting

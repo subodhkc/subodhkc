@@ -15,11 +15,11 @@ import {
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'Why AI Voice Agents Fail in Production—and How to Deploy One Safely | Subodh KC',
+  title: 'Why AI Voice Agents Fail in Production-and How to Deploy One Safely | Subodh KC',
   description: 'Learn why AI voice agents fail, how controlled orchestration reduces hallucinations and unsafe actions, and which metrics prove business value.',
   alternates: { canonical: 'https://subodhkc.com/why-ai-voice-agents-fail-in-production' },
   openGraph: {
-    title: 'Why AI Voice Agents Fail in Production—and How to Deploy One Safely',
+    title: 'Why AI Voice Agents Fail in Production-and How to Deploy One Safely',
     description: 'Learn why AI voice agents fail, how controlled orchestration reduces hallucinations and unsafe actions, and which metrics prove business value.',
     url: 'https://subodhkc.com/why-ai-voice-agents-fail-in-production',
     type: 'article', authors: ['Subodh KC'],
@@ -29,7 +29,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Why AI Voice Agents Fail in Production—and How to Deploy One Safely',
+    title: 'Why AI Voice Agents Fail in Production-and How to Deploy One Safely',
     description: 'Learn why AI voice agents fail, how controlled orchestration reduces hallucinations and unsafe actions, and which metrics prove business value.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
@@ -54,7 +54,7 @@ export const metadata = {
 
 const articleSchema = {
   '@context': 'https://schema.org', '@type': 'TechArticle',
-  headline: 'Why AI Voice Agents Fail in Production—and How to Deploy One That Actually Works',
+  headline: 'Why AI Voice Agents Fail in Production-and How to Deploy One That Actually Works',
   description: 'Learn why AI voice agents fail, how controlled orchestration reduces hallucinations and unsafe actions, and which metrics prove business value.',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com/person/subodh-kc' },
   publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
@@ -416,7 +416,7 @@ export default function WhyAIVoiceAgentsFailPage() {
       <Section id="three-ways" className="pb-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Three Ways to Deploy Kestrel Voice</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel can support three different deployment paths. They serve different levels of risk and customization — they should not be positioned as competing offerings.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel can support three different deployment paths. They serve different levels of risk and customization - they should not be positioned as competing offerings.</p>
           <Grid cols={3} gap="md">
             {deploymentPaths.map((path) => {
               const Icon = path.icon
@@ -666,7 +666,7 @@ export default function WhyAIVoiceAgentsFailPage() {
           <blockquote className="border-l-4 border-primary/40 pl-4 py-2">
             <p className="text-sm font-medium text-foreground/90 italic">RAG does not make information true. It makes information retrievable.</p>
           </blockquote>
-          <p className="text-sm text-muted-foreground leading-relaxed">A malicious, outdated, or unauthorized document can still influence the agent. OWASP identifies prompt injection, data poisoning, sensitive-information disclosure, vector weaknesses, excessive agency, and unbounded consumption as distinct GenAI application risks. For a comprehensive RAG security architecture covering row-level security, tenant isolation, and retrieval governance, see the <Link href="/secure-enterprise-rag-architecture" className="text-primary hover:underline">secure enterprise RAG architecture guide</Link>.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">A malicious, outdated, or unauthorized document can still influence the agent. OWASP identifies prompt injection, data poisoning, sensitive-information disclosure, vector weaknesses, excessive agency, and unbounded consumption as distinct GenAI application risks. For a complete RAG security architecture covering row-level security, tenant isolation, and retrieval governance, see the <Link href="/secure-enterprise-rag-architecture" className="text-primary hover:underline">secure enterprise RAG architecture guide</Link>.</p>
         </div>
       </Section>
 
@@ -777,7 +777,7 @@ export default function WhyAIVoiceAgentsFailPage() {
               )
             })}
           </Grid>
-          <p className="text-sm text-muted-foreground leading-relaxed mt-2">The most meaningful ROI metric is typically <strong className="text-foreground">cost per verified completed outcome</strong> — cost per appointment booked, cost per qualified lead, cost per resolved inquiry — rather than cost per minute or containment alone.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mt-2">The most meaningful ROI metric is typically <strong className="text-foreground">cost per verified completed outcome</strong> - cost per appointment booked, cost per qualified lead, cost per resolved inquiry - rather than cost per minute or containment alone.</p>
           <Card className="border-l-4 border-l-primary/40">
             <CardContent className="pt-4">
               <p className="text-sm font-mono text-foreground/90">
@@ -811,12 +811,12 @@ export default function WhyAIVoiceAgentsFailPage() {
                   ['Transferred', 'Transfer reason and destination'],
                   ['Ended', 'Outcome: booked, captured, transferred, failed'],
                   ['Cost', 'Cost per completed outcome'],
-                  ['—', 'Tool calls and tool responses'],
-                  ['—', 'RAG sources retrieved'],
-                  ['—', 'Prompt version and configuration hash'],
-                  ['—', 'Emergency or safety events'],
-                  ['—', 'Failed-call review queue'],
-                  ['—', 'Human correction log'],
+                  ['-', 'Tool calls and tool responses'],
+                  ['-', 'RAG sources retrieved'],
+                  ['-', 'Prompt version and configuration hash'],
+                  ['-', 'Emergency or safety events'],
+                  ['-', 'Failed-call review queue'],
+                  ['-', 'Human correction log'],
                 ].map(([basic, advanced]) => (
                   <tr key={basic} className="hover:bg-muted/20">
                     <td className="p-2 text-muted-foreground">{basic}</td>
@@ -902,7 +902,7 @@ export default function WhyAIVoiceAgentsFailPage() {
               )
             })}
           </Grid>
-          <p className="text-sm text-muted-foreground leading-relaxed">For a comprehensive framework covering NIST AI RMF, ISO/IEC 42001, SOC 2, and seven layers of AI compliance, see <Link href="/how-to-secure-and-govern-ai" className="text-primary hover:underline">How to Secure and Govern AI</Link>. For incident evidence preservation, see the <Link href="/ai-incident-evidence-checklist" className="text-primary hover:underline">AI incident evidence checklist</Link>.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">For a complete framework covering NIST AI RMF, ISO/IEC 42001, SOC 2, and seven layers of AI compliance, see <Link href="/how-to-secure-and-govern-ai" className="text-primary hover:underline">How to Secure and Govern AI</Link>. For incident evidence preservation, see the <Link href="/ai-incident-evidence-checklist" className="text-primary hover:underline">AI incident evidence checklist</Link>.</p>
         </div>
       </Section>
 
@@ -1138,7 +1138,7 @@ export default function WhyAIVoiceAgentsFailPage() {
                     </div>
                     <CardTitle className="text-sm">Kestrel Voice AI Receptionist Platform</CardTitle>
                   </div>
-                  <CardDescription className="text-xs">No-code AI receptionist platform — market positioning, six strengths, deterministic controls, knowledge stack, verified actions, three deployment paths.</CardDescription>
+                  <CardDescription className="text-xs">No-code AI receptionist platform - market positioning, six strengths, deterministic controls, knowledge stack, verified actions, three deployment paths.</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read article <ArrowRight className="h-3 w-3" /></span>
@@ -1202,7 +1202,7 @@ export default function WhyAIVoiceAgentsFailPage() {
                     </div>
                     <CardTitle className="text-sm">AI Voice Agent Architecture</CardTitle>
                   </div>
-                  <CardDescription className="text-xs">Complete architecture behind Kestrel Voice — telephony, adaptive orchestration, RAG, tools, degradation, security, and evidence pipeline.</CardDescription>
+                  <CardDescription className="text-xs">Complete architecture behind Kestrel Voice - telephony, adaptive orchestration, RAG, tools, degradation, security, and evidence pipeline.</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Read article <ArrowRight className="h-3 w-3" /></span>

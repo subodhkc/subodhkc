@@ -34,7 +34,7 @@ export function AIFrameworkDecisionTool() {
     const hasSensitiveData = dataSensitivity === 'confidential' || dataSensitivity === 'phi' || dataSensitivity === 'biometric'
     const hasAgentActions = aiUseCase === 'agent-actions'
 
-    // NIST AI RMF — recommended for everyone, required for higher risk
+    // NIST AI RMF - recommended for everyone, required for higher risk
     recs.push({
       name: 'NIST AI RMF',
       required: isHighRisk || hasSensitiveData || isSaaS,
@@ -90,7 +90,7 @@ export function AIFrameworkDecisionTool() {
       required: testingNeeded,
       reason: testingNeeded
         ? hasAgentActions
-          ? 'Critical for agent systems — test prompt injection, tool abuse, excessive agency, and RAG poisoning.'
+          ? 'Critical for agent systems - test prompt injection, tool abuse, excessive agency, and RAG poisoning.'
           : 'Important for testing AI-specific vulnerabilities like prompt injection and retrieval poisoning.'
         : 'Recommended for any AI application to validate against AI-specific attack vectors.',
       icon: FileText,
@@ -118,7 +118,7 @@ export function AIFrameworkDecisionTool() {
       priority: 'start-here',
     })
 
-    // CSA AI Controls Matrix — for SaaS and cloud-based AI
+    // CSA AI Controls Matrix - for SaaS and cloud-based AI
     const csaNeeded = isSaaS || hasAgentActions || aiUseCase === 'rag-assistant'
     recs.push({
       name: 'CSA AI Controls Matrix',

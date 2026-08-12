@@ -42,7 +42,7 @@ export function BlogNewsletterCTA() {
             margin: 0,
           }}
         >
-          ✓ Subscribed — see you in your inbox.
+          ✓ Subscribed - see you in your inbox.
         </p>
       </div>
     )

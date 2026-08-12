@@ -102,16 +102,16 @@ export default function CSMQuickReference() {
             </button>
           </div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Cognitive Systems Management 2.0 — Quick Reference
+            Cognitive Systems Management 2.0 - Quick Reference
           </h1>
           <p className="text-xs text-muted-foreground">
             Derived from the canonical CSM data. This is a reference artifact, not the canonical framework definition.
           </p>
         </header>
 
-        {/* Four Domains — WHERE */}
+        {/* Four Domains - WHERE */}
         <section className="space-y-4">
-          <h2 className="text-lg font-semibold">Four Domains <span className="text-sm text-muted-foreground font-normal">— WHERE</span></h2>
+          <h2 className="text-lg font-semibold">Four Domains <span className="text-sm text-muted-foreground font-normal">- WHERE</span></h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-border rounded-lg">
               <thead className="bg-muted/50">
@@ -148,9 +148,9 @@ export default function CSMQuickReference() {
           </div>
         </section>
 
-        {/* Six Execution Functions — WHAT */}
+        {/* Six Execution Functions - WHAT */}
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">Six Execution Functions <span className="text-sm text-muted-foreground font-normal">— WHAT</span></h2>
+          <h2 className="text-lg font-semibold">Six Execution Functions <span className="text-sm text-muted-foreground font-normal">- WHAT</span></h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-border rounded-lg">
               <thead className="bg-muted/50">
@@ -173,9 +173,9 @@ export default function CSMQuickReference() {
           </div>
         </section>
 
-        {/* Governance Contract — HOW */}
+        {/* Governance Contract - HOW */}
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">Governance Contract <span className="text-sm text-muted-foreground font-normal">— HOW</span></h2>
+          <h2 className="text-lg font-semibold">Governance Contract <span className="text-sm text-muted-foreground font-normal">- HOW</span></h2>
           <p className="text-sm text-muted-foreground">
             Every component has a contract specifying purpose, applicability, objective rules, human judgment points, evidence requirements, handoffs and reassessment triggers.
           </p>

@@ -153,7 +153,7 @@ export default function CentaurusPage() {
             HAIEC
           </h2>
           <p className="text-sm text-slate-500 mb-4">
-            Holistic AI Integrity &amp; Evidence Compliance Platform
+            integrated AI Integrity &amp; Evidence Compliance Platform
             <span className="ml-2 text-xs text-slate-400">(Patent Pending)</span>
           </p>
 

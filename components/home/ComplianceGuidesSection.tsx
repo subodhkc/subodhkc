@@ -31,7 +31,7 @@ export function ComplianceGuidesSection() {
           AI Compliance Law Guides
         </h2>
         <p style={{ fontSize: '1.125rem', color: 'var(--op-muted)', maxWidth: 600, margin: '0 auto' }}>
-          Comprehensive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
+          complete guides to the AI regulations that matter most - informed by the HAIEC compliance engine and Zenodo-published research.
         </p>
       </div>
 

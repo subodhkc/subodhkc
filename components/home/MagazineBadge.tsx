@@ -8,7 +8,7 @@ export function MagazineBadge() {
           href="/magazine"
           className="block group"
           style={{ textDecoration: 'none' }}
-          aria-label="Read AI That Works Magazine, Issue 01 — 36-page field magazine on AI strategy, systems, and governance"
+          aria-label="Read AI That Works Magazine, Issue 01 - 36-page field magazine on AI strategy, systems, and governance"
         >
           <div
             className="relative overflow-hidden rounded-2xl"

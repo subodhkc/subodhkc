@@ -9,13 +9,13 @@ import Link from 'next/link'
 export const metadata = {
   title: 'AI Vendor Due-Diligence Checklist | Subodh KC',
   description:
-    'A comprehensive checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, incident response, and contractual protections.',
+    'A complete checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, incident response, and contractual protections.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-vendor-due-diligence-checklist',
   },
   openGraph: {
     title: 'AI Vendor Due-Diligence Checklist',
-    description: 'A comprehensive checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, and contractual protections.',
+    description: 'A complete checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, and contractual protections.',
     url: 'https://subodhkc.com/ai-vendor-due-diligence-checklist',
     type: 'article',
     authors: ['Subodh KC'],
@@ -25,7 +25,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'AI Vendor Due-Diligence Checklist',
-    description: 'A comprehensive checklist for evaluating AI vendors: data handling, security, model transparency, compliance, and contracts.',
+    description: 'A complete checklist for evaluating AI vendors: data handling, security, model transparency, compliance, and contracts.',
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
   keywords: ['AI vendor due diligence', 'AI vendor checklist', 'AI procurement checklist', 'AI vendor security assessment', 'AI vendor evaluation', 'AI vendor compliance', 'AI vendor risk assessment template', 'AI vendor security questionnaire', 'AI vendor contract requirements', 'AI vendor SOC 2 requirements', 'AI startup vendor evaluation', 'AI vendor bias audit requirements', 'AI vendor data processing agreement', 'AI vendor continuous monitoring'],
@@ -35,7 +35,7 @@ const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
   headline: 'AI Vendor Due-Diligence Checklist',
-  description: 'A comprehensive checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, incident response, and contractual protections.',
+  description: 'A complete checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, incident response, and contractual protections.',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2026-07-15',
@@ -55,7 +55,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'What if the vendor is a startup without SOC 2 yet?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Startups may not have SOC 2 Type II yet, but they should have a clear timeline and evidence of progress. Require: a signed security plan with target dates, a completed security questionnaire (e.g., CAIQ), penetration test results, and contractual commitments for certification within 12 months. Weigh the risk against the business value — a startup handling PHI without SOC 2 is a different risk profile than one handling public data.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Startups may not have SOC 2 Type II yet, but they should have a clear timeline and evidence of progress. Require: a signed security plan with target dates, a completed security questionnaire (e.g., CAIQ), penetration test results, and contractual commitments for certification within 12 months. Weigh the risk against the business value - a startup handling PHI without SOC 2 is a different risk profile than one handling public data.' },
     },
     {
       '@type': 'Question',
@@ -125,7 +125,7 @@ const checklistSections = [
       'How does the vendor handle model deprecation and migration?',
       'Does the vendor expose tool/function calling, MCP, or agent capabilities? If so, what are the security controls?',
       'Does the vendor conduct adversarial testing or red-teaming on their own models? What is the cadence and scope?',
-      'Can the vendor disclose training data provenance — what data was used to train the model, and whether any copyrighted or licensed data is included?',
+      'Can the vendor disclose training data provenance - what data was used to train the model, and whether any copyrighted or licensed data is included?',
       'Does the vendor use open-source models (e.g., HuggingFace, Ollama)? If so, what are the license terms and attribution requirements?',
     ],
   },
@@ -194,7 +194,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <span className="gradient-text">Checklist</span>
           </>
         }
-        description="A comprehensive checklist for evaluating AI vendors across data handling, security posture, model transparency, compliance, contracts, and incident response."
+        description="A complete checklist for evaluating AI vendors across data handling, security posture, model transparency, compliance, contracts, and incident response."
       />
 
       <Section className="pt-8">
@@ -205,7 +205,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
           </div>
           <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
             <p className="text-xs text-amber-200">
-              <strong>Educational notice:</strong> This checklist is a starting point for vendor evaluation, not a legal document. Adapt it to your jurisdiction, industry, and risk tolerance. Have your legal team review all contractual provisions before signing. Some items may not apply to your use case — document why if you skip them.
+              <strong>Educational notice:</strong> This checklist is a starting point for vendor evaluation, not a legal document. Adapt it to your jurisdiction, industry, and risk tolerance. Have your legal team review all contractual provisions before signing. Some items may not apply to your use case - document why if you skip them.
             </p>
           </div>
         </div>
@@ -216,7 +216,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              Selecting an AI vendor is not just a procurement decision — it is a security, compliance, and liability decision. This checklist covers six domains: data handling and privacy, security posture, model transparency, regulatory compliance, contractual protections, and operational incident response. Use it before signing any AI vendor contract, and revisit it annually or when the vendor architecture changes.
+              Selecting an AI vendor is not just a procurement decision - it is a security, compliance, and liability decision. This checklist covers six domains: data handling and privacy, security posture, model transparency, regulatory compliance, contractual protections, and operational incident response. Use it before signing any AI vendor contract, and revisit it annually or when the vendor architecture changes.
             </p>
           </div>
         </div>
@@ -226,7 +226,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Not Every Check Applies to Every Business</h2>
-          <p className="text-sm text-muted-foreground">The full 60-item checklist is the maximum bar for enterprises handling sensitive data at scale. Smaller organizations or lower-risk use cases should scope down — but document what they skipped and why.</p>
+          <p className="text-sm text-muted-foreground">The full 60-item checklist is the maximum bar for enterprises handling sensitive data at scale. Smaller organizations or lower-risk use cases should scope down - but document what they skipped and why.</p>
           <div className="grid gap-4 md:grid-cols-3">
             <Card className="border-l-4 border-l-red-500/40">
               <CardHeader>
@@ -248,7 +248,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
                   Tier 2: Core checklist (~35 items)
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block"><strong className="text-foreground">Who:</strong> Mid-size companies (50–500 employees) handling internal business data (not PHI/financial/biometric), SaaS AI tools for internal productivity, non-regulated use cases.</span>
+                  <span className="block"><strong className="text-foreground">Who:</strong> Mid-size companies (50-500 employees) handling internal business data (not PHI/financial/biometric), SaaS AI tools for internal productivity, non-regulated use cases.</span>
                   <span className="block"><strong className="text-foreground">Skip:</strong> CMEK, on-premise deployment, sub-processor geographic restrictions (unless EU customers), disaster recovery plan review, dedicated CISO liaison, tabletop exercise requirements.</span>
                   <span className="block"><strong className="text-foreground">Must keep:</strong> Data handling, DPA, encryption, SOC 2 (or equivalent), breach notification, API key rotation, audit logs, data deletion on termination, no-training-on-data clause.</span>
                 </CardDescription>
@@ -271,7 +271,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
           <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 p-4">
             <p className="text-sm text-amber-200">
               <AlertTriangle className="h-4 w-4 inline mr-1" />
-              <strong>Important:</strong> Tier 3 does NOT apply if you handle PHI, financial records, biometric data, hiring decisions, or operate in the EU. A small business handling PHI still needs the full Tier 1 checklist — the data sensitivity determines the tier, not just the company size.
+              <strong>Important:</strong> Tier 3 does NOT apply if you handle PHI, financial records, biometric data, hiring decisions, or operate in the EU. A small business handling PHI still needs the full Tier 1 checklist - the data sensitivity determines the tier, not just the company size.
             </p>
           </div>
         </div>
@@ -292,7 +292,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
                 <CardTitle className="text-sm">Source code or data escrow</CardTitle>
-                <CardDescription className="text-sm mt-1">Require the vendor to deposit source code, model weights, or critical configuration in an escrow account with a third-party escrow agent. If the vendor goes out of business, is acquired, or fails to meet SLAs, you gain access to the escrowed materials. This is especially important for AI vendors where model continuity matters — if the vendor disappears, you need the ability to continue operations or migrate.</CardDescription>
+                <CardDescription className="text-sm mt-1">Require the vendor to deposit source code, model weights, or critical configuration in an escrow account with a third-party escrow agent. If the vendor goes out of business, is acquired, or fails to meet SLAs, you gain access to the escrowed materials. This is especially important for AI vendors where model continuity matters - if the vendor disappears, you need the ability to continue operations or migrate.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
@@ -310,13 +310,13 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
                 <CardTitle className="text-sm">Third-party security attestation</CardTitle>
-                <CardDescription className="text-sm mt-1">If SOC 2 is not yet available, require a completed CAIQ (Consensus Assessments Initiative Questionnaire), a SIG (Standardized Information Gathering) questionnaire, or a letter of attestation from a reputable security firm. These are lighter than SOC 2 but demonstrate security awareness. Set a contractual deadline for SOC 2 Type II (typically 12–18 months) with termination rights if not achieved.</CardDescription>
+                <CardDescription className="text-sm mt-1">If SOC 2 is not yet available, require a completed CAIQ (Consensus Assessments Initiative Questionnaire), a SIG (Standardized Information Gathering) questionnaire, or a letter of attestation from a reputable security firm. These are lighter than SOC 2 but demonstrate security awareness. Set a contractual deadline for SOC 2 Type II (typically 12-18 months) with termination rights if not achieved.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
                 <CardTitle className="text-sm">Data residency and processing guarantees</CardTitle>
-                <CardDescription className="text-sm mt-1">For new vendors, require contractual guarantees on data residency (specific regions), processing location, and sub-processor disclosure. Include audit rights for data handling practices — even if full SOC 2 is not yet available, the vendor should allow you to verify how your data is stored, processed, and deleted. Require a data flow diagram and a signed DPA before any data is shared.</CardDescription>
+                <CardDescription className="text-sm mt-1">For new vendors, require contractual guarantees on data residency (specific regions), processing location, and sub-processor disclosure. Include audit rights for data handling practices - even if full SOC 2 is not yet available, the vendor should allow you to verify how your data is stored, processed, and deleted. Require a data flow diagram and a signed DPA before any data is shared.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
@@ -328,13 +328,13 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
                 <CardTitle className="text-sm">Reference customers and pilot testing</CardTitle>
-                <CardDescription className="text-sm mt-1">Require the vendor to provide 2–3 reference customers you can contact. Ask specifically about security incidents, data handling, and whether the vendor met its contractual commitments. Conduct a limited-scope pilot (30–60 days) with non-sensitive data before full deployment. Document pilot results and require remediation of any identified issues before production rollout.</CardDescription>
+                <CardDescription className="text-sm mt-1">Require the vendor to provide 2-3 reference customers you can contact. Ask specifically about security incidents, data handling, and whether the vendor met its contractual commitments. Conduct a limited-scope pilot (30-60 days) with non-sensitive data before full deployment. Document pilot results and require remediation of any identified issues before production rollout.</CardDescription>
               </CardHeader>
             </Card>
           </div>
           <div className="rounded-lg border border-border bg-muted/20 p-4">
             <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">When to walk away from a new vendor:</strong> If they refuse to sign a DPA, will not provide any security documentation, cannot name a single reference customer, have no plan for SOC 2 or equivalent, and resist milestone-based contracting — the risk is not manageable. No AI tool is worth an unmanageable security and compliance exposure.
+              <strong className="text-foreground">When to walk away from a new vendor:</strong> If they refuse to sign a DPA, will not provide any security documentation, cannot name a single reference customer, have no plan for SOC 2 or equivalent, and resist milestone-based contracting - the risk is not manageable. No AI tool is worth an unmanageable security and compliance exposure.
             </p>
           </div>
         </div>
@@ -347,16 +347,16 @@ export default function AIVendorDueDiligenceChecklistPage() {
           <p className="text-sm text-muted-foreground">If a vendor exhibits any of these, pause and escalate to security leadership before proceeding.</p>
           <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-6 space-y-3">
             {[
-              'Cannot or will not sign a Data Processing Agreement (DPA) — walk away',
-              'Uses your data to train their models and cannot opt out — this is a data leakage and IP risk',
+              'Cannot or will not sign a Data Processing Agreement (DPA) - walk away',
+              'Uses your data to train their models and cannot opt out - this is a data leakage and IP risk',
               'No SOC 2 Type II or equivalent certification, and no plans to obtain one',
               'Cannot provide model cards, capability documentation, or limitation disclosures',
-              'No documented incident response process — if they cannot handle their own incidents, they cannot protect your data',
+              'No documented incident response process - if they cannot handle their own incidents, they cannot protect your data',
               'Refuses right-to-audit or limits it to self-assessment only',
               'Liability caps that do not cover AI-specific harm (hallucination, bias, data leakage)',
               'No breach notification timeline commitment, or timeline exceeds your regulatory requirements',
               'Sub-processors are not disclosed or cannot be reviewed before contract signing',
-              'No API key rotation or scoped permissions — this indicates an immature security program',
+              'No API key rotation or scoped permissions - this indicates an immature security program',
             ].map((flag) => (
               <div key={flag} className="flex items-start gap-3">
                 <XCircle className="h-4 w-4 text-red-600 flex-shrink-0 mt-0.5" />
@@ -370,13 +370,13 @@ export default function AIVendorDueDiligenceChecklistPage() {
       {/* Continuous Monitoring */}
       <Section className="pt-8">
         <div className="max-w-4xl mx-auto space-y-4">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Continuous Vendor Monitoring — After the Contract Is Signed</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Continuous Vendor Monitoring - After the Contract Is Signed</h2>
           <p className="text-sm text-muted-foreground">Due diligence does not end at contract signing. AI vendors change models, add sub-processors, and evolve their architecture continuously. Set up these monitoring practices to catch issues before they become incidents.</p>
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
                 <CardTitle className="text-sm">Annual re-evaluation</CardTitle>
-                <CardDescription className="text-sm mt-1">Re-run the full checklist at least once per year. Schedule it on contract anniversary. Include updated SOC 2 reports, new penetration test results, and any architecture changes. Document the re-evaluation results and compare against the prior year — track regressions.</CardDescription>
+                <CardDescription className="text-sm mt-1">Re-run the full checklist at least once per year. Schedule it on contract anniversary. Include updated SOC 2 reports, new penetration test results, and any architecture changes. Document the re-evaluation results and compare against the prior year - track regressions.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
@@ -406,7 +406,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
                 <CardTitle className="text-sm">Bias audit and compliance renewal</CardTitle>
-                <CardDescription className="text-sm mt-1">For vendors used in hiring, lending, or other regulated decisions, track bias audit expiration dates. Require the vendor to provide updated audit results before the current audit expires. If the vendor&apos;s audit lapses, suspend use of the tool until a new audit is completed — continuing to use an unaudited tool is a regulatory violation.</CardDescription>
+                <CardDescription className="text-sm mt-1">For vendors used in hiring, lending, or other regulated decisions, track bias audit expiration dates. Require the vendor to provide updated audit results before the current audit expires. If the vendor&apos;s audit lapses, suspend use of the tool until a new audit is completed - continuing to use an unaudited tool is a regulatory violation.</CardDescription>
               </CardHeader>
             </Card>
           </div>
@@ -449,7 +449,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
           </div>
           <div className="rounded-lg border border-border bg-muted/20 p-4">
             <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Interpreting the total:</strong> 100–110 = low risk, proceed with standard contracting. 80–99 = moderate risk, require remediation plan before signing. 60–79 = high risk, require senior leadership approval and contractual commitments with deadlines. Below 60 = unacceptable risk — do not proceed without compensating controls or a different vendor.
+              <strong className="text-foreground">Interpreting the total:</strong> 100-110 = low risk, proceed with standard contracting. 80-99 = moderate risk, require remediation plan before signing. 60-79 = high risk, require senior leadership approval and contractual commitments with deadlines. Below 60 = unacceptable risk - do not proceed without compensating controls or a different vendor.
             </p>
           </div>
         </div>
@@ -486,7 +486,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
         <div className="max-w-4xl mx-auto">
           <LeadMagnetCard
             title="Download the AI Vendor Due-Diligence Checklist"
-            description="Get the complete checklist as a structured spreadsheet with scoring, risk weighting, and vendor comparison columns — ready for your procurement process."
+            description="Get the complete checklist as a structured spreadsheet with scoring, risk weighting, and vendor comparison columns - ready for your procurement process."
             resourceName="AI Vendor Due-Diligence Checklist"
           />
         </div>
@@ -503,7 +503,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
             },
             {
               q: 'What if the vendor is a startup without SOC 2 yet?',
-              a: 'Startups may not have SOC 2 Type II yet, but they should have a clear timeline and evidence of progress. Require: a signed security plan with target dates, a completed security questionnaire (e.g., CAIQ), penetration test results, and contractual commitments for certification within 12 months. Weigh the risk against the business value — a startup handling PHI without SOC 2 is a different risk profile than one handling public data.',
+              a: 'Startups may not have SOC 2 Type II yet, but they should have a clear timeline and evidence of progress. Require: a signed security plan with target dates, a completed security questionnaire (e.g., CAIQ), penetration test results, and contractual commitments for certification within 12 months. Weigh the risk against the business value - a startup handling PHI without SOC 2 is a different risk profile than one handling public data.',
             },
             {
               q: 'Should I require the vendor to support on-premise deployment?',
@@ -538,7 +538,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
                     </div>
                     <CardTitle className="text-sm">How to Secure and Govern AI</CardTitle>
                   </div>
-                  <CardDescription className="text-sm">Seven layers of AI compliance — NIST AI RMF, ISO 42001, SOC 2, and continuous evidence.</CardDescription>
+                  <CardDescription className="text-sm">Seven layers of AI compliance - NIST AI RMF, ISO 42001, SOC 2, and continuous evidence.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Read guide <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
@@ -605,7 +605,7 @@ export default function AIVendorDueDiligenceChecklistPage() {
 
       <CTA
         title="Need Help Evaluating an AI Vendor?"
-        description="Get a professional AI vendor security assessment — from Subodh KC, founder of the HAIEC AI security and compliance engine."
+        description="Get a professional AI vendor security assessment - from Subodh KC, founder of the HAIEC AI security and compliance engine."
         primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

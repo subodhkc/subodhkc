@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * cross-post-devto.mjs — Cross-post blog articles to Dev.to as drafts.
+ * cross-post-devto.mjs - Cross-post blog articles to Dev.to as drafts.
  *
  * Uses the Dev.to API to create draft articles with canonical URLs
  * pointing back to subodhkc.com. This gives you:
@@ -477,7 +477,7 @@ async function main() {
       const result = await createDevtoArticle(apiKey, articleData)
 
       if (result.duplicate) {
-        console.log(`  ⊘ ${slug}: duplicate canonical URL — already exists on Dev.to`)
+        console.log(`  ⊘ ${slug}: duplicate canonical URL - already exists on Dev.to`)
         continue
       }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * daily-outreach-brief.mjs — Sends a daily summary email of outreach activity.
+ * daily-outreach-brief.mjs - Sends a daily summary email of outreach activity.
  *
  * Fetches outreach email data from Supabase, identifies pending follow-ups,
  * and sends a brief to the admin email via Resend.
@@ -241,7 +241,7 @@ function buildBriefHtml(emails) {
   </div>
 
   <div style="text-align:center;margin-top:16px;padding:12px;color:#9ca3af;font-size:11px;">
-    <p>Automated daily brief from subodhkc.com — sent via GitHub Actions</p>
+    <p>Automated daily brief from subodhkc.com - sent via GitHub Actions</p>
   </div>
 </div>`
 
@@ -250,7 +250,7 @@ function buildBriefHtml(emails) {
 
 async function sendBrief(html) {
   if (!RESEND_API_KEY) {
-    console.error('RESEND_API_KEY not set — cannot send brief')
+    console.error('RESEND_API_KEY not set - cannot send brief')
     process.exit(1)
   }
 
@@ -260,7 +260,7 @@ async function sendBrief(html) {
   const { data, error } = await resend.emails.send({
     from: 'Outreach Brief <noreply@subodhkc.com>',
     to: [ADMIN_EMAIL],
-    subject: `📊 Daily Outreach Brief — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+    subject: `📊 Daily Outreach Brief - ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
     html,
   })
 
@@ -278,7 +278,7 @@ async function main() {
   console.log(`  Found ${emails.length} outreach emails`)
 
   if (emails.length === 0) {
-    console.log('No outreach emails to report — skipping brief')
+    console.log('No outreach emails to report - skipping brief')
     return
   }
 

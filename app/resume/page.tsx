@@ -15,7 +15,7 @@ export default function ResumePage() {
       `}</style>
 
       <div className="resume-toolbar sticky top-0 z-50 flex justify-between items-center px-4 py-2 bg-zinc-900 text-white shadow-md" role="toolbar" aria-label="Resume actions">
-        <strong className="text-sm">Resume — Subodh KC</strong>
+        <strong className="text-sm">Resume - Subodh KC</strong>
         <div className="flex gap-2">
           <button onClick={() => window.print()} aria-label="Print or save resume as PDF" className="border border-white/25 bg-white/10 text-white rounded-full px-3 py-1.5 text-xs font-bold cursor-pointer hover:bg-white/20">Print / Save as PDF</button>
           <Link href="/portfolio" aria-label="View executive portfolio" className="bg-white text-zinc-900 rounded-full px-3 py-1.5 text-xs font-bold hover:bg-zinc-100">View Portfolio</Link>
@@ -29,7 +29,7 @@ export default function ResumePage() {
           <div className="flex justify-between items-start gap-4">
             <div>
               <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">Subodh Kumar KC</h1>
-              <p className="text-sm font-semibold text-blue-600 mt-0.5">Product Manager — Compliance Automation & AI Systems</p>
+              <p className="text-sm font-semibold text-blue-600 mt-0.5">Product Manager - Compliance Automation & AI Systems</p>
             </div>
             <div className="text-right text-xs text-zinc-600 leading-relaxed shrink-0">
               <p className="font-medium text-zinc-900">Dallas, TX (Hybrid)</p>
@@ -41,7 +41,7 @@ export default function ResumePage() {
           {/* Summary */}
           <p className="mt-3 text-xs text-zinc-700 leading-relaxed">
             <span className="font-semibold text-zinc-900">16+ years</span> building AI and compliance systems at <span className="font-semibold text-zinc-900">Fortune 50</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
-            Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">$50M+</span> AI portfolios, reducing manual review by <span className="font-semibold text-zinc-900">40–60%</span>. 
+            Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">$50M+</span> AI portfolios, reducing manual review by <span className="font-semibold text-zinc-900">40-60%</span>. 
             Shipped AI-native products for drift detection, autonomous RCA, and compliance mapping. 
             <span className="font-semibold text-zinc-900">5 patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.
           </p>
@@ -93,13 +93,13 @@ export default function ResumePage() {
               <div className="mb-3">
                 <div className="flex justify-between items-baseline mb-0.5">
                   <div>
-                    <span className="font-semibold text-sm text-zinc-900">Sr Program Manager — AI Implementation & Governance</span>
+                    <span className="font-semibold text-sm text-zinc-900">Sr Program Manager - AI Implementation & Governance</span>
                   </div>
-                  <span className="text-xs text-zinc-500 shrink-0">2025 – Present</span>
+                  <span className="text-xs text-zinc-500 shrink-0">2025 - Present</span>
                 </div>
                 <p className="text-xs text-zinc-600 mb-1">HP Inc. · Core Team Lead · Dallas, TX</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Leading strategic AI initiatives across enterprise systems, accelerating AI adoption while ensuring responsible implementation</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Leading strategic AI initiatives across enterprise systems, accelerating AI adoption while so that responsible implementation</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Driving AI governance frameworks aligned with organizational values and compliance requirements</li>
                 </ul>
               </div>
@@ -108,13 +108,13 @@ export default function ResumePage() {
               <div className="mb-3">
                 <div className="flex justify-between items-baseline mb-0.5">
                   <div>
-                    <span className="font-semibold text-sm text-zinc-900">Core Team Lead — Platform Enabling Applications</span>
+                    <span className="font-semibold text-sm text-zinc-900">Core Team Lead - Platform Enabling Applications</span>
                   </div>
-                  <span className="text-xs text-zinc-500 shrink-0">2022 – 2025</span>
+                  <span className="text-xs text-zinc-500 shrink-0">2022 - 2025</span>
                 </div>
                 <p className="text-xs text-zinc-600 mb-1">HP Inc. · 53 Applications Portfolio</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Defined multi-quarter roadmaps for AI Efficiency Workstreams, reducing manual review by 40–60%</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Defined multi-quarter roadmaps for AI Efficiency Workstreams, reducing manual review by 40-60%</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Led AI-powered Root Cause Analysis initiatives, compressing investigation cycles from days to hours</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Built metrics dashboards for error rates, model trust scores; ran A/B tests and controlled rollouts</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Drove cross-functional initiatives with engineering, data, design, and security teams</li>
@@ -125,16 +125,16 @@ export default function ResumePage() {
               <div className="mb-3">
                 <div className="flex justify-between items-baseline mb-0.5">
                   <div>
-                    <span className="font-semibold text-sm text-zinc-900">Founder & CEO — AI Compliance Platform</span>
+                    <span className="font-semibold text-sm text-zinc-900">Founder & CEO - AI Compliance Platform</span>
                   </div>
-                  <span className="text-xs text-zinc-500 shrink-0">2020 – Present</span>
+                  <span className="text-xs text-zinc-500 shrink-0">2020 - Present</span>
                 </div>
-                <p className="text-xs text-zinc-600 mb-1">Holistic AI Ethics & Compliance (HAIEC)</p>
+                <p className="text-xs text-zinc-600 mb-1">integrated AI Ethics & Compliance (HAIEC)</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Launched <strong>LLMVerify</strong>—npm package for real-time AI behavior verification, drift detection, PII exposure</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Created <strong>AI Compliance Twin</strong> (patent 63/808,089)—modular engine mapping AI behaviors to regulatory rules</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Built <strong>CourtCase Packet</strong>—legal workflow automation structuring events into evidence packets</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Developed precision drift detection engine (patent 19/284,705)—real-time anomaly detection for AI systems</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Launched <strong>LLMVerify</strong>-npm package for real-time AI behavior verification, drift detection, PII exposure</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Created <strong>AI Compliance Twin</strong> (patent 63/808,089)-modular engine mapping AI behaviors to regulatory rules</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Built <strong>CourtCase Packet</strong>-legal workflow automation structuring events into evidence packets</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Developed precision drift detection engine (patent 19/284,705)-real-time anomaly detection for AI systems</li>
                 </ul>
               </div>
 
@@ -142,13 +142,13 @@ export default function ResumePage() {
               <div>
                 <div className="flex justify-between items-baseline mb-0.5">
                   <span className="font-semibold text-sm text-zinc-900">Earlier Experience</span>
-                  <span className="text-xs text-zinc-500 shrink-0">2010 – 2022</span>
+                  <span className="text-xs text-zinc-500 shrink-0">2010 - 2022</span>
                 </div>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>Entrepreneur / Project Manager</strong> (2018–2022) — Business process automation, Agile Scrum delivery</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>System Engineer II</strong> @ ACTIVE Network (2017–2018) — Web apps, automation testing, PowerShell, SQL</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>System Analyst</strong> @ Cummins Inc./TCS (2016–2017) — Led $10M+ MES implementation, 400+ stations</li>
-                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>Business System Analyst</strong> @ Centaurus (2013–2016) — RHEL, Puppet, AWS, 24x7 support</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>Entrepreneur / Project Manager</strong> (2018-2022) - Business process automation, Agile Scrum delivery</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>System Engineer II</strong> @ ACTIVE Network (2017-2018) - Web apps, automation testing, PowerShell, SQL</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>System Analyst</strong> @ Cummins Inc./TCS (2016-2017) - Led $10M+ MES implementation, 400+ stations</li>
+                  <li className="flex gap-1.5"><span className="text-blue-600">▸</span><strong>Business System Analyst</strong> @ Centaurus (2013-2016) - RHEL, Puppet, AWS, 24x7 support</li>
                 </ul>
               </div>
             </section>
@@ -193,7 +193,7 @@ export default function ResumePage() {
                 </div>
                 <div className="flex gap-3">
                   <span className="font-mono text-zinc-500 shrink-0">63/808,089</span>
-                  <span className="text-zinc-700">AI Compliance Twin — Modular compliance engine for AI governance</span>
+                  <span className="text-zinc-700">AI Compliance Twin - Modular compliance engine for AI governance</span>
                 </div>
               </div>
             </section>
@@ -206,15 +206,15 @@ export default function ResumePage() {
               <div className="text-xs space-y-1.5">
                 <div>
                   <p className="font-semibold text-zinc-900">The Instruction Stack Audit Framework (ISAF)</p>
-                  <p className="text-zinc-600">Zenodo · 2025 — Nine-layer AI accountability methodology, 127-checkpoint audit protocol</p>
+                  <p className="text-zinc-600">Zenodo · 2025 - Nine-layer AI accountability methodology, 127-checkpoint audit protocol</p>
                 </div>
                 <div>
                   <p className="font-semibold text-zinc-900">Deterministic Bias Detection for NYC Local Law 144</p>
-                  <p className="text-zinc-600">Zenodo · 2024 — Reproducibility-first architecture for regulatory bias detection</p>
+                  <p className="text-zinc-600">Zenodo · 2024 - Reproducibility-first architecture for regulatory bias detection</p>
                 </div>
                 <div>
                   <p className="font-semibold text-zinc-900">From Industrial Electrification to Artificial Intelligence</p>
-                  <p className="text-zinc-600">Zenodo · 2025 — Institutional lessons for AI risk regulation maturation</p>
+                  <p className="text-zinc-600">Zenodo · 2025 - Institutional lessons for AI risk regulation maturation</p>
                 </div>
               </div>
             </section>
@@ -285,11 +285,11 @@ export default function ResumePage() {
               </h2>
               <div className="text-xs space-y-1">
                 <div>
-                  <p className="font-semibold text-zinc-900">MS – Engineering & Technology Management</p>
+                  <p className="font-semibold text-zinc-900">MS - Engineering & Technology Management</p>
                   <p className="text-zinc-600">Louisiana Tech University · 2022</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-zinc-900">BS – Computer Information Systems</p>
+                  <p className="font-semibold text-zinc-900">BS - Computer Information Systems</p>
                   <p className="text-zinc-600">Louisiana Tech University · Information Assurance · 2014</p>
                 </div>
               </div>
@@ -301,7 +301,7 @@ export default function ResumePage() {
                 What I'm Looking For
               </h2>
               <p className="text-[10px] text-zinc-700 leading-relaxed">
-                Roles where AI meets regulated, high-stakes workflows — Senior PM, Director of AI Programs, or Head of AI Governance.
+                Roles where AI meets regulated, high-stakes workflows - Senior PM, Director of AI Programs, or Head of AI Governance.
                 I thrive at the intersection of product, compliance, and engineering, building systems that make regulatory excellence
                 a competitive advantage rather than a tax on innovation. Open to fintech, healthcare, enterprise SaaS, and AI infrastructure companies.
               </p>

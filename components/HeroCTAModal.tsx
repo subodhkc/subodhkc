@@ -23,7 +23,7 @@ const DISCUSS_FIELDS: FieldDef[] = [
   { name: "name", label: "Name", type: "text", required: true, placeholder: "Your full name" },
   { name: "email", label: "Email", type: "email", required: true, placeholder: "your@email.com" },
   { name: "company", label: "Company", type: "text", required: false, placeholder: "Company / Organization" },
-  { name: "system", label: "AI System Description", type: "textarea", required: true, placeholder: "Describe the AI system you want to discuss — use case, current stack, scale, challenges..." },
+  { name: "system", label: "AI System Description", type: "textarea", required: true, placeholder: "Describe the AI system you want to discuss - use case, current stack, scale, challenges..." },
   { name: "stack", label: "Current Stack (optional)", type: "text", required: false, placeholder: "e.g. Python, OpenAI, LangChain, Pinecone, AWS..." },
 ];
 
@@ -46,12 +46,12 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
   const title = formType === "discuss" ? "Discuss an AI System" : "Hire Subodh KC";
   const subtitle =
     formType === "discuss"
-      ? "Tell me about your AI system — I'll review and reply within 24-48 hours."
-      : "Tell me about the opportunity — I'll review and respond within 24-48 hours.";
+      ? "Tell me about your AI system - I'll review and reply within 24-48 hours."
+      : "Tell me about the opportunity - I'll review and respond within 24-48 hours.";
   const successMsg =
     formType === "discuss"
-      ? "Thanks — I'll review your AI system context and reply within 24-48 hours."
-      : "Thanks — I'll review your opportunity and respond within 24-48 hours.";
+      ? "Thanks - I'll review your AI system context and reply within 24-48 hours."
+      : "Thanks - I'll review your opportunity and respond within 24-48 hours.";
 
   const handleChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));

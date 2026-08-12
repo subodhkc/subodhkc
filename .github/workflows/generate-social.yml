@@ -29,7 +29,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           if [ -z "$OPENAI_API_KEY" ]; then
-            echo "::warning::OPENAI_API_KEY secret not set — skipping social content generation"
+            echo "::warning::OPENAI_API_KEY secret not set - skipping social content generation"
             exit 0
           fi
 
@@ -58,5 +58,5 @@ jobs:
               sleep 5
             done
           else
-            echo "No changes to social content — already up to date"
+            echo "No changes to social content - already up to date"
           fi

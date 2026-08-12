@@ -40,12 +40,12 @@ export default function PDFRedactorPage() {
     {
       icon: EyeOff,
       title: 'True Redaction',
-      description: 'Not just black boxes over text. Our redaction permanently removes data from the PDF — no hidden layers, no metadata leaks, no recovery possible.'
+      description: 'Not just black boxes over text. Our redaction permanently removes data from the PDF - no hidden layers, no metadata leaks, no recovery possible.'
     },
     {
       icon: Fingerprint,
       title: 'Pattern Recognition',
-      description: 'Create custom patterns for industry-specific data. Medical record numbers, case IDs, internal codes — if it has a pattern, we can find it.'
+      description: 'Create custom patterns for industry-specific data. Medical record numbers, case IDs, internal codes - if it has a pattern, we can find it.'
     },
     {
       icon: Layers,
@@ -128,7 +128,7 @@ export default function PDFRedactorPage() {
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
             One data breach costs an average of $4.45 million. PDF Redactor uses AI to automatically detect and 
-            permanently remove sensitive information from your documents — all processed locally on your machine. 
+            permanently remove sensitive information from your documents - all processed locally on your machine. 
             No cloud. No risk. No trace.
           </p>
 
@@ -269,7 +269,7 @@ export default function PDFRedactorPage() {
                 Detects 50+ Types of Sensitive Data
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Our AI is trained on millions of document patterns. It finds what humans miss — 
+                Our AI is trained on millions of document patterns. It finds what humans miss - 
                 and does it in seconds, not hours.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -291,7 +291,7 @@ export default function PDFRedactorPage() {
                 <h3 className="text-2xl font-bold mb-4">True Permanent Redaction</h3>
                 <p className="text-muted-foreground mb-6">
                   Unlike simple black boxes, our redaction removes data at the byte level. 
-                  No hidden layers. No metadata traces. No recovery possible — ever.
+                  No hidden layers. No metadata traces. No recovery possible - ever.
                 </p>
                 <div className="space-y-3 text-left">
                   <div className="flex items-center gap-3">
@@ -390,7 +390,7 @@ export default function PDFRedactorPage() {
               </div>
               <h3 className="text-lg font-semibold mb-3">AI Auto-Detects PII</h3>
               <p className="text-muted-foreground text-sm">
-                The AI engine scans your document and highlights all sensitive data — SSNs, credit cards, names, addresses, and 50+ other PII types.
+                The AI engine scans your document and highlights all sensitive data - SSNs, credit cards, names, addresses, and 50+ other PII types.
               </p>
             </div>
             <div className="text-center">
@@ -423,7 +423,7 @@ export default function PDFRedactorPage() {
               Built for Your Industry
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From legal discovery to healthcare compliance — PDF Redactor handles the sensitive data your industry demands.
+              From legal discovery to healthcare compliance - PDF Redactor handles the sensitive data your industry demands.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -449,7 +449,7 @@ export default function PDFRedactorPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Remove PHI from medical records, insurance claims, and patient correspondence. HIPAA-compliant redaction with local processing — no data ever leaves your facility.
+                  Remove PHI from medical records, insurance claims, and patient correspondence. HIPAA-compliant redaction with local processing - no data ever leaves your facility.
                 </p>
               </CardContent>
             </Card>
@@ -504,7 +504,7 @@ export default function PDFRedactorPage() {
               <CardHeader>
                 <CardTitle className="text-lg">Can redacted text be recovered?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  No. PDF Redactor flattens all annotations, clears document metadata, and removes data from all PDF layers. Once redacted, the sensitive information is gone — not hidden, not obscured, permanently deleted.
+                  No. PDF Redactor flattens all annotations, clears document metadata, and removes data from all PDF layers. Once redacted, the sensitive information is gone - not hidden, not obscured, permanently deleted.
                 </p>
               </CardHeader>
             </Card>
@@ -536,7 +536,7 @@ export default function PDFRedactorPage() {
               <CardHeader>
                 <CardTitle className="text-lg">How does it compare to Adobe Acrobat redaction?</CardTitle>
                 <p className="text-muted-foreground text-sm">
-                  Adobe Acrobat requires a subscription and cloud processing. PDF Redactor is free, runs locally, and uses AI to auto-detect PII — no manual searching. Acrobat requires you to manually find and mark each sensitive item. PDF Redactor finds them for you.
+                  Adobe Acrobat requires a subscription and cloud processing. PDF Redactor is free, runs locally, and uses AI to auto-detect PII - no manual searching. Acrobat requires you to manually find and mark each sensitive item. PDF Redactor finds them for you.
                 </p>
               </CardHeader>
             </Card>
@@ -569,7 +569,7 @@ export default function PDFRedactorPage() {
               {
                 '@type': 'Question',
                 name: 'Can redacted text be recovered?',
-                acceptedAnswer: { '@type': 'Answer', text: 'No. PDF Redactor flattens all annotations, clears document metadata, and removes data from all PDF layers. Once redacted, the sensitive information is gone — not hidden, not obscured, permanently deleted.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'No. PDF Redactor flattens all annotations, clears document metadata, and removes data from all PDF layers. Once redacted, the sensitive information is gone - not hidden, not obscured, permanently deleted.' },
               },
               {
                 '@type': 'Question',
@@ -589,7 +589,7 @@ export default function PDFRedactorPage() {
               {
                 '@type': 'Question',
                 name: 'How does it compare to Adobe Acrobat redaction?',
-                acceptedAnswer: { '@type': 'Answer', text: 'Adobe Acrobat requires a subscription and cloud processing. PDF Redactor is free, runs locally, and uses AI to auto-detect PII — no manual searching. Acrobat requires you to manually find and mark each sensitive item. PDF Redactor finds them for you.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'Adobe Acrobat requires a subscription and cloud processing. PDF Redactor is free, runs locally, and uses AI to auto-detect PII - no manual searching. Acrobat requires you to manually find and mark each sensitive item. PDF Redactor finds them for you.' },
               },
               {
                 '@type': 'Question',

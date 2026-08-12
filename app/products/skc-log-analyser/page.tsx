@@ -39,12 +39,12 @@ export default function SKCLogAnalyserPage() {
     {
       icon: Search,
       title: 'Intelligent Pattern Detection',
-      description: 'AI doesn\'t just search — it understands. Automatically identifies anomalies, error cascades, and performance degradation patterns across your log files.'
+      description: 'AI doesn\'t just search - it understands. Automatically identifies anomalies, error cascades, and performance degradation patterns across your log files.'
     },
     {
       icon: AlertTriangle,
       title: 'Anomaly Detection',
-      description: 'SKC Log Analyser identifies unusual patterns in your logs — error spikes, latency degradation, and unexpected behavior — without manual threshold tuning.'
+      description: 'SKC Log Analyser identifies unusual patterns in your logs - error spikes, latency degradation, and unexpected behavior - without manual threshold tuning.'
     },
     {
       icon: TrendingUp,
@@ -54,7 +54,7 @@ export default function SKCLogAnalyserPage() {
     {
       icon: Terminal,
       title: 'Universal Log Support',
-      description: 'Apache, Nginx, Docker, Kubernetes, JSON, CSV, Syslog, custom formats — if it\'s a text-based log file, upload it and get analysis. No reformatting required.'
+      description: 'Apache, Nginx, Docker, Kubernetes, JSON, CSV, Syslog, custom formats - if it\'s a text-based log file, upload it and get analysis. No reformatting required.'
     },
     {
       icon: BarChart3,
@@ -133,7 +133,7 @@ export default function SKCLogAnalyserPage() {
               
               <p className="text-xl text-muted-foreground mb-8">
                 Upload your log files and get instant AI-powered insights. SKC Log Analyser runs as a
-                local Streamlit web app on your machine — no cloud, no data leaving your network.
+                local Streamlit web app on your machine - no cloud, no data leaving your network.
                 Detect anomalies, trace root causes, and stop drowning in log lines.
               </p>
 
@@ -189,7 +189,7 @@ export default function SKCLogAnalyserPage() {
                   <div className="w-3 h-3 rounded-full bg-red-500" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
-                  <span className="text-gray-500 ml-2 text-xs font-mono">localhost:8501 — SKC Log Analyser</span>
+                  <span className="text-gray-500 ml-2 text-xs font-mono">localhost:8501 - SKC Log Analyser</span>
                 </div>
                 <div className="p-5 space-y-4">
                   <div className="flex items-center justify-between">
@@ -372,7 +372,7 @@ export default function SKCLogAnalyserPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                    <span>Upload and analyze — no CLI, no config</span>
+                    <span>Upload and analyze - no CLI, no config</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
@@ -380,7 +380,7 @@ export default function SKCLogAnalyserPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                    <span>100% private — your logs never leave your network</span>
+                    <span>100% private - your logs never leave your network</span>
                   </div>
                 </div>
               </div>
@@ -455,8 +455,8 @@ export default function SKCLogAnalyserPage() {
                 <CardTitle className="text-lg">What is SKC Log Analyser?</CardTitle>
                 <p className="text-muted-foreground text-sm">
                   SKC Log Analyser is a self-hosted Streamlit web app for AI-powered log analysis.
-                  Upload your log files and get instant insights — anomaly detection, root cause
-                  analysis, and visual analytics — all in your browser.
+                  Upload your log files and get instant insights - anomaly detection, root cause
+                  analysis, and visual analytics - all in your browser.
                 </p>
               </CardHeader>
             </Card>
@@ -582,7 +582,7 @@ export default function SKCLogAnalyserPage() {
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
             name: 'SKC Log Analyser',
-            description: 'Self-hosted Streamlit web app for AI-powered log analysis. Upload log files and get instant anomaly detection, root cause analysis, and visual analytics. Runs locally — no cloud, no data leaves your machine.',
+            description: 'Self-hosted Streamlit web app for AI-powered log analysis. Upload log files and get instant anomaly detection, root cause analysis, and visual analytics. Runs locally - no cloud, no data leaves your machine.',
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'Python 3.9+ (Streamlit, locally hosted)',
             offers: {
@@ -623,7 +623,7 @@ export default function SKCLogAnalyserPage() {
               {
                 '@type': 'Question',
                 name: 'What is SKC Log Analyser?',
-                acceptedAnswer: { '@type': 'Answer', text: 'SKC Log Analyser is a self-hosted Streamlit web app for AI-powered log analysis. Upload your log files and get instant insights — anomaly detection, root cause analysis, and visual analytics — all in your browser.' },
+                acceptedAnswer: { '@type': 'Answer', text: 'SKC Log Analyser is a self-hosted Streamlit web app for AI-powered log analysis. Upload your log files and get instant insights - anomaly detection, root cause analysis, and visual analytics - all in your browser.' },
               },
               {
                 '@type': 'Question',

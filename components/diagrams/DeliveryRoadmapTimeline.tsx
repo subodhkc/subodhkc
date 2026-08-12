@@ -29,7 +29,7 @@ export function DeliveryRoadmapTimeline() {
   return (
     <div className="my-8 w-full overflow-x-auto" style={{ position: 'relative' }}>
       <svg ref={svgRef} viewBox="0 0 840 280" className="w-full min-w-[750px] h-auto" role="img" aria-label="Delivery roadmap timeline with seven phases from Define through Launch and Operate">
-        <title>Delivery Roadmap — Seven Phases</title>
+        <title>Delivery Roadmap - Seven Phases</title>
         <defs>
           <linearGradient id="dr-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="hsl(var(--primary) / 0.15)" /><stop offset="100%" stopColor="hsl(var(--accent) / 0.15)" /></linearGradient>
           <marker id="dr-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="hsl(var(--muted-foreground) / 0.5)" /></marker>
@@ -52,7 +52,7 @@ export function DeliveryRoadmapTimeline() {
 
         <rect x="30" y="200" width="780" height="60" rx="8" fill="hsl(var(--primary) / 0.05)" stroke="hsl(var(--primary) / 0.15)" strokeWidth="1" strokeDasharray="4 2" />
         <text x="420" y="222" textAnchor="middle" className="fill-foreground" style={{ fontSize: 11, fontWeight: 600 }}>Exit Criteria</text>
-        <text x="420" y={240} textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10 }}>Each phase has measurable exit criteria — the application is not &quot;done&quot; until it is operating, controlled and improvable</text>
+        <text x="420" y={240} textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10 }}>Each phase has measurable exit criteria - the application is not &quot;done&quot; until it is operating, controlled and improvable</text>
         <text x="420" y={254} textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10 }}>Business, technical and security owners must accept residual risk before go-live</text>
       </svg>
       <DiagramTooltip viewBoxW={840} viewBoxH={280} active={activeNode} svgRef={svgRef} onClose={hideNode} />

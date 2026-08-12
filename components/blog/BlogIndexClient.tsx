@@ -194,7 +194,7 @@ export function BlogIndexClient({ posts, blogJsonLd, breadcrumbJsonLd }: BlogInd
         }}
       >
         Practical articles on AI governance, compliance automation, enterprise AI architecture,
-        and production AI systems. No fluff — frameworks, patterns, and steps you can apply.
+        and production AI systems. No fluff - frameworks, patterns, and steps you can apply.
       </p>
 
       {allKeywords.length > 0 && (

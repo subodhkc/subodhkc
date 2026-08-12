@@ -214,7 +214,7 @@ export default function MagazinePage() {
       `}</style>
 
       <div className="magazine-toolbar" role="toolbar" aria-label="Magazine actions">
-        <strong>AI That Works — Issue 01</strong>
+        <strong>AI That Works - Issue 01</strong>
         <div className="actions">
           <button onClick={() => window.print()} aria-label="Print or save magazine as PDF">Print / Save as PDF</button>
           <button
@@ -242,8 +242,8 @@ export default function MagazinePage() {
 
       <noscript>
         <style>{`body{font-family:Georgia,serif;max-width:8.5in;margin:0 auto;padding:40px 20px;color:#1a1a1a;line-height:1.5}h1{font-size:28px;margin-bottom:16px}img{max-width:100%;height:auto}.page{margin-bottom:40px;padding:20px 0;border-bottom:1px solid #ddd}`}</style>
-        <h1>AI That Works — Issue 01: From Demo to Operating System</h1>
-        <p>By Subodh KC — A 36-page independent field magazine on AI strategy, systems, governance, and field practice.</p>
+        <h1>AI That Works - Issue 01: From Demo to Operating System</h1>
+        <p>By Subodh KC - A 36-page independent field magazine on AI strategy, systems, governance, and field practice.</p>
         <div dangerouslySetInnerHTML={{ __html: MAGAZINE_HTML }} />
       </noscript>
 
@@ -255,9 +255,9 @@ export default function MagazinePage() {
           </>
         ) : (
           <>
-            <span className="issue-badge">Issue 02 — Coming Soon</span>
+            <span className="issue-badge">Issue 02 - Coming Soon</span>
             <h3>Subscribe for the Next Issue</h3>
-            <p>Get notified when Issue 02 arrives. No spam, no fluff — just field-tested AI strategy, systems, and governance. One issue at a time.</p>
+            <p>Get notified when Issue 02 arrives. No spam, no fluff - just field-tested AI strategy, systems, and governance. One issue at a time.</p>
             {error && <div className="error-msg" role="alert" aria-live="assertive">{error}</div>}
             <form onSubmit={handleSubscribe}>
               <input

@@ -42,7 +42,7 @@ export default function DocTimelinePage() {
     {
       icon: GitBranch,
       title: 'Automatic Timeline Extraction',
-      description: 'Upload any document — contracts, case files, medical records — and watch as our AI extracts every date, event, and milestone into a chronological timeline.'
+      description: 'Upload any document - contracts, case files, medical records - and watch as our AI extracts every date, event, and milestone into a chronological timeline.'
     },
     {
       icon: Search,
@@ -149,7 +149,7 @@ export default function DocTimelinePage() {
               
               <p className="text-xl text-muted-foreground mb-8">
                 Stop spending weeks manually reviewing documents. Doc Timeline Generator uses advanced AI to extract, 
-                organize, and visualize every date and event from your document set — in minutes, not months.
+                organize, and visualize every date and event from your document set - in minutes, not months.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">

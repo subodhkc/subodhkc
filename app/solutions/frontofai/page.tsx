@@ -9,7 +9,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { ArrowRight, Sparkles, CheckCircle2, ExternalLink, FileText, Shield, Code, TrendingUp, Users } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'FrontOfAI — Enterprise AI Solutions Platform',
+  title: 'FrontOfAI - Enterprise AI Solutions Platform',
   description: 'FrontOfAI delivers production-ready AI solutions for enterprise: AI briefings, compliance automation, voice operations, and legal document tools. Built for CTOs, CISOs, and AI program leaders.',
   keywords: [
     'enterprise AI solutions platform',
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/solutions/frontofai',
   },
   openGraph: {
-    title: 'FrontOfAI — Enterprise AI Solutions Platform',
+    title: 'FrontOfAI - Enterprise AI Solutions Platform',
     description: 'Production-ready AI solutions for enterprise: AI briefings, compliance automation, voice operations, and legal document tools.',
     url: 'https://subodhkc.com/solutions/frontofai',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'FrontOfAI — Enterprise AI Solutions Platform',
+    title: 'FrontOfAI - Enterprise AI Solutions Platform',
     description: 'Production-ready AI solutions for enterprise: briefings, compliance, voice operations, and legal tools.',
   },
 }

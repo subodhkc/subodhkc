@@ -109,7 +109,7 @@ export default function AIVoiceAgentArchitecturePage() {
       <Hero
         subtitle="AI Voice Architecture"
         title={<>AI Voice Agent Architecture:<br /><span className="gradient-text">How Kestrel Voice Works</span></>}
-        description="Custom Python orchestration, realtime voice, deterministic guardrails, RAG, business tools, fallback modes, and operational evidence — the complete architecture behind a production voice agent platform."
+        description="Custom Python orchestration, realtime voice, deterministic guardrails, RAG, business tools, fallback modes, and operational evidence - the complete architecture behind a production voice agent platform."
       />
 
       {/* Metadata + Disclosure */}
@@ -118,7 +118,7 @@ export default function AIVoiceAgentArchitecturePage() {
           <p className="text-xs text-muted-foreground mb-1">By Subodh KC · July 15, 2026 · 30 min read</p>
           <div className="mt-2 rounded-lg border border-border bg-muted/30 p-3 text-xs text-muted-foreground space-y-1">
             <p><strong className="text-foreground">Last reviewed:</strong> July 15, 2026</p>
-            <p><strong className="text-foreground">Scope:</strong> Production architecture for AI voice agent platforms — telephony, orchestration, RAG, tools, security, fallback modes, post-call intelligence, learning, and multi-channel coverage</p>
+            <p><strong className="text-foreground">Scope:</strong> Production architecture for AI voice agent platforms - telephony, orchestration, RAG, tools, security, fallback modes, post-call intelligence, learning, and multi-channel coverage</p>
             <p><strong className="text-foreground">Disclosure:</strong> Kestrel Voice and HAIEC are platforms developed by Subodh KC. This article refers to Kestrel as the product through which these architectural principles have been applied directly, and HAIEC as the companion AI security, governance, and compliance-readiness platform. Neither platform eliminates AI risk. Their purpose is to make that risk more visible, controlled, testable, and supportable with evidence.</p>
           </div>
           <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
@@ -147,7 +147,7 @@ export default function AIVoiceAgentArchitecturePage() {
           <div className="rounded-lg border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-5">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-sm text-foreground/90 leading-relaxed">
-              A production AI voice agent is not a model connected to a phone number. It is a layered operational system coordinating telephony, tenant identity, deterministic rules, realtime AI, retrieval-augmented knowledge, tool execution, fallback modes, post-call intelligence, learning, and evidence. This article documents the architecture behind Kestrel Voice — the platform I built to handle real calls for service businesses — covering inbound and outbound call flows, adaptive orchestration, RAG, security, compliance, and the operational pipeline that makes the system trustworthy enough to answer a phone.
+              A production AI voice agent is not a model connected to a phone number. It is a layered operational system coordinating telephony, tenant identity, deterministic rules, realtime AI, retrieval-augmented knowledge, tool execution, fallback modes, post-call intelligence, learning, and evidence. This article documents the architecture behind Kestrel Voice - the platform I built to handle real calls for service businesses - covering inbound and outbound call flows, adaptive orchestration, RAG, security, compliance, and the operational pipeline that makes the system trustworthy enough to answer a phone.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {['AI Voice Agents', 'Voice Orchestration', 'RAG', 'Security', 'Multi-Channel', 'Kestrel Voice'].map((tag) => (
@@ -167,7 +167,7 @@ export default function AIVoiceAgentArchitecturePage() {
           <blockquote className="border-l-4 border-primary/40 pl-4 py-2 my-4">
             <p className="text-sm font-medium text-foreground/90 italic">The model handles the conversation. The architecture handles the business.</p>
           </blockquote>
-          <p className="text-sm text-muted-foreground leading-relaxed">This article documents that architecture — not as an abstract framework, but as the actual system running in production today.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">This article documents that architecture - not as an abstract framework, but as the actual system running in production today.</p>
         </div>
       </Section>
 
@@ -175,7 +175,7 @@ export default function AIVoiceAgentArchitecturePage() {
       <Section id="direct-answer" className="pb-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">The Direct Answer</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice is a multi-tenant AI voice agent platform built on FastAPI, deployed on Modal, and backed by Supabase and Postgres. When a call arrives, the system resolves the called number to a tenant, loads that tenant business configuration, selects an AI mode based on plan and credits, and routes the call through a layered orchestration pipeline: deterministic hard interrupts first, fast-path answers second, and realtime AI reasoning third. RAG grounds the model in tenant-specific knowledge. Tools execute bookings and CRM operations with result verification. A four-level degradation system handles failures. Post-call intelligence extracts structured outcomes. A learning pipeline promotes recurring patterns into fast paths. And every step produces evidence — transcripts, tool calls, prompt hashes, and outcome records — that a human can review.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice is a multi-tenant AI voice agent platform built on FastAPI, deployed on Modal, and backed by Supabase and Postgres. When a call arrives, the system resolves the called number to a tenant, loads that tenant business configuration, selects an AI mode based on plan and credits, and routes the call through a layered orchestration pipeline: deterministic hard interrupts first, fast-path answers second, and realtime AI reasoning third. RAG grounds the model in tenant-specific knowledge. Tools execute bookings and CRM operations with result verification. A four-level degradation system handles failures. Post-call intelligence extracts structured outcomes. A learning pipeline promotes recurring patterns into fast paths. And every step produces evidence - transcripts, tool calls, prompt hashes, and outcome records - that a human can review.</p>
           <p className="text-sm text-muted-foreground leading-relaxed">The architecture is not a demo. It is an operational system handling real calls for real businesses.</p>
         </div>
       </Section>
@@ -187,9 +187,9 @@ export default function AIVoiceAgentArchitecturePage() {
           <DiagramReveal>
             <VoiceAgentArchitectureDiagram />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 — Five-layer architecture: Presentation (Next.js), Voice Runtime (FastAPI on Modal), Telephony (Twilio), Demand Engine, and Data (Supabase/Postgres with pgvector).</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 - Five-layer architecture: Presentation (Next.js), Voice Runtime (FastAPI on Modal), Telephony (Twilio), Demand Engine, and Data (Supabase/Postgres with pgvector).</p>
           <p className="text-sm text-muted-foreground leading-relaxed">The diagram shows the five layers of the system. Telephony (Twilio) handles the phone call and media stream. The Voice Runtime (FastAPI on Modal) processes the call through tenant resolution, mode selection, deterministic intercepts, AI conversation, and tool execution. The Data Layer (Supabase/Postgres with pgvector) stores tenant configurations, call logs, RAG chunks, and analytics. The Demand Engine handles CRM, onboarding, and reporting. The Presentation Layer (Next.js) provides the dashboard, RAG management, and configuration UI.</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">These are logically separated services with a consolidated deployment option — the voice runtime, demand engine, and scrapers share a single Modal container for cost efficiency, while the frontend runs on Vercel. The separation is logical, not physical, which simplifies operations without sacrificing isolation.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">These are logically separated services with a consolidated deployment option - the voice runtime, demand engine, and scrapers share a single Modal container for cost efficiency, while the frontend runs on Vercel. The separation is logical, not physical, which simplifies operations without sacrificing isolation.</p>
         </div>
       </Section>
 
@@ -239,7 +239,7 @@ export default function AIVoiceAgentArchitecturePage() {
               )
             })}
           </Grid>
-          <p className="text-sm text-muted-foreground leading-relaxed">The mode is selected per call based on the tenant plan, available credits, and configuration. A smart mode router can escalate or downgrade mid-call based on conversation signals — for example, switching from adaptive to gather if the realtime API degrades.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">The mode is selected per call based on the tenant plan, available credits, and configuration. A smart mode router can escalate or downgrade mid-call based on conversation signals - for example, switching from adaptive to gather if the realtime API degrades.</p>
         </div>
       </Section>
 
@@ -287,7 +287,7 @@ export default function AIVoiceAgentArchitecturePage() {
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Tenant-Specific Business Runtime</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">Every tenant has a unique business configuration stored in Postgres: business name, industry type, greeting, communication style, services offered, service areas, business hours, transfer destination, emergency behavior, appointment settings, and FAQ entries. This configuration is assembled into a system prompt using a three-tier hierarchy.</p>
           <div className="space-y-2">
-            {['Tenant-specific override — If the tenant has a custom prompt, it takes precedence.', 'Industry template default — If no custom prompt, the system loads an industry template (HVAC, restaurant, veterinary, dental, legal, etc.) with pre-configured prompts, L2 intent patterns, and FAQ templates.', 'Safe fallback — If neither is available, a generic voice agent prompt is used.'].map((tier, i) => (
+            {['Tenant-specific override - If the tenant has a custom prompt, it takes precedence.', 'Industry template default - If no custom prompt, the system loads an industry template (HVAC, restaurant, veterinary, dental, legal, etc.) with pre-configured prompts, L2 intent patterns, and FAQ templates.', 'Safe fallback - If neither is available, a generic voice agent prompt is used.'].map((tier, i) => (
               <div key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
                 <span className="flex-shrink-0 w-6 h-6 rounded bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">{i + 1}</span>
                 <span className="leading-relaxed">{tier}</span>
@@ -297,14 +297,14 @@ export default function AIVoiceAgentArchitecturePage() {
           <div className="rounded-lg border border-border bg-muted/20 p-4">
             <h3 className="text-sm font-semibold mb-2">Prompt Evidence Logged</h3>
             <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-              <div><strong className="text-foreground">Tenant ID</strong> — Which business the prompt belongs to</div>
-              <div><strong className="text-foreground">Source</strong> — Tenant-specific, template, or fallback</div>
-              <div><strong className="text-foreground">Template name</strong> — Industry template used (if any)</div>
-              <div><strong className="text-foreground">Business name</strong> — Identity injected into prompt</div>
-              <div><strong className="text-foreground">Prompt hash</strong> — SHA-256 hash for version tracking</div>
+              <div><strong className="text-foreground">Tenant ID</strong> - Which business the prompt belongs to</div>
+              <div><strong className="text-foreground">Source</strong> - Tenant-specific, template, or fallback</div>
+              <div><strong className="text-foreground">Template name</strong> - Industry template used (if any)</div>
+              <div><strong className="text-foreground">Business name</strong> - Identity injected into prompt</div>
+              <div><strong className="text-foreground">Prompt hash</strong> - SHA-256 hash for version tracking</div>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">The prompt includes temporal context — today date and time — injected automatically to prevent the model from hallucinating dates. "What is your earliest appointment?" gets an answer grounded in the actual calendar, not the model training data.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">The prompt includes temporal context - today date and time - injected automatically to prevent the model from hallucinating dates. "What is your earliest appointment?" gets an answer grounded in the actual calendar, not the model training data.</p>
         </div>
       </Section>
 
@@ -331,7 +331,7 @@ export default function AIVoiceAgentArchitecturePage() {
               </tbody>
             </table>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">The deterministic layer means "What are your hours?" never goes to the model. The answer comes from the tenant configured business hours, injected as a fast-path response. This costs zero AI tokens and returns in zero model-response time. The model is reserved for questions that actually require reasoning — and when it does answer, RAG grounds it in the tenant own knowledge base rather than the model training data.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">The deterministic layer means "What are your hours?" never goes to the model. The answer comes from the tenant configured business hours, injected as a fast-path response. This costs zero AI tokens and returns in zero model-response time. The model is reserved for questions that actually require reasoning - and when it does answer, RAG grounds it in the tenant own knowledge base rather than the model training data.</p>
         </div>
       </Section>
 
@@ -343,7 +343,7 @@ export default function AIVoiceAgentArchitecturePage() {
           <DiagramReveal>
             <VoiceRAGPipelineDiagram />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 — RAG pipeline: ingestion from three source types, tenant-scoped storage with RLS, keyword-triggered retrieval with similarity threshold, and SHA-256-based refresh tracking.</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 - RAG pipeline: ingestion from three source types, tenant-scoped storage with RLS, keyword-triggered retrieval with similarity threshold, and SHA-256-based refresh tracking.</p>
           <Grid cols={2} gap="md">
             <Card>
               <CardHeader>
@@ -352,9 +352,9 @@ export default function AIVoiceAgentArchitecturePage() {
                   <CardTitle className="text-base">Stage 1: Ingestion</CardTitle>
                 </div>
                 <CardDescription className="text-sm leading-relaxed space-y-1">
-                  <span className="block"><strong>Website scraping</strong> — The tenant provides a URL. The system scrapes the page, extracts text content, and validates the URL to prevent server-side request forgery (private IPs, localhost, and internal domains are blocked).</span>
-                  <span className="block"><strong>FAQ ingestion</strong> — FAQ entries from the tenant configuration are chunked and embedded with metadata identifying them as FAQ source type.</span>
-                  <span className="block"><strong>Google Drive folder</strong> — Tenants can designate a Drive folder as a knowledge source. The system indexes the content and tracks storage usage.</span>
+                  <span className="block"><strong>Website scraping</strong> - The tenant provides a URL. The system scrapes the page, extracts text content, and validates the URL to prevent server-side request forgery (private IPs, localhost, and internal domains are blocked).</span>
+                  <span className="block"><strong>FAQ ingestion</strong> - FAQ entries from the tenant configuration are chunked and embedded with metadata identifying them as FAQ source type.</span>
+                  <span className="block"><strong>Google Drive folder</strong> - Tenants can designate a Drive folder as a knowledge source. The system indexes the content and tracks storage usage.</span>
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -373,7 +373,7 @@ export default function AIVoiceAgentArchitecturePage() {
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"><Zap className="h-5 w-5 text-primary" /></div>
                   <CardTitle className="text-base">Stage 3: Retrieval</CardTitle>
                 </div>
-                <CardDescription className="text-sm leading-relaxed">During a call, the system detects knowledge-seeking keywords in the user speech ("warranty", "pricing", "policy", "hours") and triggers a retrieval. The user utterance is embedded, and a Postgres RPC function performs cosine similarity search against the tenant chunks — filtered by tenant ID and optional source type. A minimum similarity threshold excludes low-quality matches. The top results are formatted as context and injected into the model prompt. RAG works in adaptive and realtime modes, not in Gather or IVR.</CardDescription>
+                <CardDescription className="text-sm leading-relaxed">During a call, the system detects knowledge-seeking keywords in the user speech ("warranty", "pricing", "policy", "hours") and triggers a retrieval. The user utterance is embedded, and a Postgres RPC function performs cosine similarity search against the tenant chunks - filtered by tenant ID and optional source type. A minimum similarity threshold excludes low-quality matches. The top results are formatted as context and injected into the model prompt. RAG works in adaptive and realtime modes, not in Gather or IVR.</CardDescription>
               </CardHeader>
             </Card>
             <Card>
@@ -386,7 +386,7 @@ export default function AIVoiceAgentArchitecturePage() {
               </CardHeader>
             </Card>
           </Grid>
-          <p className="text-sm text-muted-foreground leading-relaxed">RAG is per-tenant and opt-out. Each tenant RAG enablement is checked and cached. The retrieval path tries the frontend API first, then falls back to a direct database RPC — ensuring retrieval works even if the frontend is temporarily unavailable.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">RAG is per-tenant and opt-out. Each tenant RAG enablement is checked and cached. The retrieval path tries the frontend API first, then falls back to a direct database RPC - so that retrieval works even if the frontend is temporarily unavailable.</p>
         </div>
       </Section>
 
@@ -410,7 +410,7 @@ export default function AIVoiceAgentArchitecturePage() {
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"><Calendar className="h-5 w-5 text-primary" /></div>
                   <CardTitle className="text-sm">Calendar Service</CardTitle>
                 </div>
-                <CardDescription className="text-xs leading-relaxed">Book, reschedule, and cancel appointments with Google Calendar sync. The AI gathers required fields (name, phone, service, date), the caller confirms, and the booking API executes. The AI reports the result based on the tool return value — not its own assumption. The system prompt explicitly instructs the model to confirm bookings only after tool success.</CardDescription>
+                <CardDescription className="text-xs leading-relaxed">Book, reschedule, and cancel appointments with Google Calendar sync. The AI gathers required fields (name, phone, service, date), the caller confirms, and the booking API executes. The AI reports the result based on the tool return value - not its own assumption. The system prompt explicitly instructs the model to confirm bookings only after tool success.</CardDescription>
               </CardHeader>
             </Card>
             <Card>
@@ -495,7 +495,7 @@ export default function AIVoiceAgentArchitecturePage() {
                 {intelligenceFields.map((field) => (
                   <div key={field.label} className="flex items-start gap-2 text-xs">
                     <CheckCircle2 className="h-3.5 w-3.5 text-primary flex-shrink-0 mt-0.5" />
-                    <span><strong className="text-foreground">{field.label}</strong> — <span className="text-muted-foreground">{field.desc}</span></span>
+                    <span><strong className="text-foreground">{field.label}</strong> - <span className="text-muted-foreground">{field.desc}</span></span>
                   </div>
                 ))}
               </div>
@@ -515,7 +515,7 @@ export default function AIVoiceAgentArchitecturePage() {
       <Section id="learning-pipeline" className="pb-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Learning Pipeline</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice learns from call patterns. The learning pipeline promotes recurring fast-path patterns into active fast actions — but with guardrails.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice learns from call patterns. The learning pipeline promotes recurring fast-path patterns into active fast actions - but with guardrails.</p>
           <div className="grid sm:grid-cols-4 gap-3">
             {learningSteps.map((s) => (
               <Card key={s.step}>
@@ -546,7 +546,7 @@ export default function AIVoiceAgentArchitecturePage() {
           <Card className="border-l-4 border-l-accent/40">
             <CardHeader>
               <CardTitle className="text-sm">Template FAQs</CardTitle>
-              <CardDescription className="text-xs mt-1">Separately from learned patterns, industry template FAQs provide pre-written answers for common questions in each business type. A restaurant template includes FAQs about party size, reservations, and menu questions. An HVAC template includes FAQs about service calls, estimates, and emergency dispatch. These template FAQs are injected into the system prompt and matched against user input — no AI call needed.</CardDescription>
+              <CardDescription className="text-xs mt-1">Separately from learned patterns, industry template FAQs provide pre-written answers for common questions in each business type. A restaurant template includes FAQs about party size, reservations, and menu questions. An HVAC template includes FAQs about service calls, estimates, and emergency dispatch. These template FAQs are injected into the system prompt and matched against user input - no AI call needed.</CardDescription>
             </CardHeader>
           </Card>
           <Card className="border-l-4 border-l-blue-500/40">
@@ -562,7 +562,7 @@ export default function AIVoiceAgentArchitecturePage() {
       <Section id="beyond-inbound" className="pb-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Beyond Inbound: Outbound, Meetings, and Copilot</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice handles more than inbound calls. The platform supports outbound dialing, meeting bridges, live AI copilot, and sequential ring — each with its own state machine and guardrails.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice handles more than inbound calls. The platform supports outbound dialing, meeting bridges, live AI copilot, and sequential ring - each with its own state machine and guardrails.</p>
           <Grid cols={2} gap="md">
             {beyondInboundFeatures.map((feature, i) => {
               const Icon = beyondInboundIcons[i]
@@ -643,9 +643,9 @@ export default function AIVoiceAgentArchitecturePage() {
             })}
           </Grid>
           <div className="rounded-lg border border-border bg-muted/20 p-4">
-            <h3 className="text-sm font-semibold mb-3">Tenant Isolation — Five Concentric Layers</h3>
+            <h3 className="text-sm font-semibold mb-3">Tenant Isolation - Five Concentric Layers</h3>
             <div className="space-y-1.5">
-              {['ASGI Middleware — Extracts tenant ID from JWT on every request', 'Parameter Scoping — All database queries pass tenant ID as a parameter', 'RLS Policies — Postgres row-level security enforces tenant-scoped access', 'Auth Extraction — Server-side, never trusts client-provided tenant IDs', 'Internal API — Separate authentication path for service-to-service calls'].map((layer, i) => (
+              {['ASGI Middleware - Extracts tenant ID from JWT on every request', 'Parameter Scoping - All database queries pass tenant ID as a parameter', 'RLS Policies - Postgres row-level security enforces tenant-scoped access', 'Auth Extraction - Server-side, never trusts client-provided tenant IDs', 'Internal API - Separate authentication path for service-to-service calls'].map((layer, i) => (
                 <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground" style={{ paddingLeft: `${i * 16}px` }}>
                   <div className="w-4 h-4 rounded-full border-2 border-primary/30 flex-shrink-0" />
                   <span>{layer}</span>
@@ -661,7 +661,7 @@ export default function AIVoiceAgentArchitecturePage() {
       <Section id="technology-decisions" className="pb-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Technology Decisions</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">The key technology decisions and why they were made. This is not an exhaustive dependency list — it covers the decisions that shaped the architecture.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">The key technology decisions and why they were made. This is not an exhaustive dependency list - it covers the decisions that shaped the architecture.</p>
           <Grid cols={2} gap="md">
             {techDecisions.map((decision, i) => {
               const Icon = techIcons[i]
@@ -762,7 +762,7 @@ export default function AIVoiceAgentArchitecturePage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>For the failure modes this architecture prevents, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the product positioning and market comparison, read <Link href="/kestrel-voice-ai-receptionist-platform" className="text-primary font-medium hover:underline">Kestrel Voice AI Receptionist Platform</Link>. For the RAG governance framework behind the retrieval pipeline, read <Link href="/secure-enterprise-rag-architecture" className="text-primary font-medium hover:underline">Secure Enterprise RAG Architecture</Link>. For the full AI compliance stack — NIST, ISO, SOC 2 — read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI</Link>.</p>
+            <p>For the failure modes this architecture prevents, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the product positioning and market comparison, read <Link href="/kestrel-voice-ai-receptionist-platform" className="text-primary font-medium hover:underline">Kestrel Voice AI Receptionist Platform</Link>. For the RAG governance framework behind the retrieval pipeline, read <Link href="/secure-enterprise-rag-architecture" className="text-primary font-medium hover:underline">Secure Enterprise RAG Architecture</Link>. For the full AI compliance stack - NIST, ISO, SOC 2 - read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI</Link>.</p>
           </div>
         </div>
       </Section>

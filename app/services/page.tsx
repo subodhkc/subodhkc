@@ -61,7 +61,7 @@ export default function ServicesPage() {
       subtitle: 'Pillar 01',
       title: 'AI Architecture & Integration',
       description:
-        'Designing and building production AI systems that integrate with your existing stack — from agentic workflows to enterprise knowledge systems.',
+        'Designing and building production AI systems that integrate with your existing stack - from agentic workflows to enterprise knowledge systems.',
       services: [
         {
           icon: Bot,
@@ -86,7 +86,7 @@ export default function ServicesPage() {
         {
           icon: Zap,
           name: 'AI Pilot Recovery',
-          desc: 'Rescuing stalled AI pilots — diagnosing architecture failures, rebuilding for production, and getting to deployment.',
+          desc: 'Rescuing stalled AI pilots - diagnosing architecture failures, rebuilding for production, and getting to deployment.',
         },
         {
           icon: Layers,
@@ -101,7 +101,7 @@ export default function ServicesPage() {
       subtitle: 'Pillar 02',
       title: 'AI Operations & Deployment',
       description:
-        'Deploying AI systems into production — voice agents, customer intake, monitoring, and the operational hardening that keeps systems running.',
+        'Deploying AI systems into production - voice agents, customer intake, monitoring, and the operational hardening that keeps systems running.',
       services: [
         {
           icon: Phone,
@@ -116,7 +116,7 @@ export default function ServicesPage() {
         {
           icon: Network,
           name: 'Human Escalation',
-          desc: 'Seamless AI-to-human handoff architecture, escalation policies, and context preservation.',
+          desc: 'smooth AI-to-human handoff architecture, escalation policies, and context preservation.',
         },
         {
           icon: Activity,
@@ -135,7 +135,7 @@ export default function ServicesPage() {
       subtitle: 'Pillar 03',
       title: 'AI Governance & Assurance',
       description:
-        'Building governance structures that scale — from readiness assessments to evidence architecture and drift controls.',
+        'Building governance structures that scale - from readiness assessments to evidence architecture and drift controls.',
       services: [
         {
           icon: Target,
@@ -361,7 +361,7 @@ export default function ServicesPage() {
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-sm text-muted-foreground mb-4">
-            Deep-dive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
+            Deep-dive guides to the AI regulations that matter most - informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
           <Link href="/guides" className="text-sm text-primary hover:underline">
             View all compliance guides →
@@ -381,7 +381,7 @@ export default function ServicesPage() {
 
       <CTA
         title="Let's Discuss Your AI Challenge"
-        description="Whether you need architecture, deployment, governance, or all three — I bring 16+ years of experience, 5 patent-pending methodologies, and a track record of delivering results in the most demanding environments."
+        description="Whether you need architecture, deployment, governance, or all three - I bring 16+ years of experience, 5 patent-pending methodologies, and a track record of delivering results in the most demanding environments."
         primaryButton={{ text: 'Schedule a Conversation', href: '/contact' }}
         secondaryButton={{ text: 'View Executive Bio', href: '/executive-bio' }}
       />

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'PDF Redactor – Free AI-Powered PDF Redaction Tool | Download',
-  description: 'PDF Redactor is a free desktop tool that uses AI to permanently redact SSNs, credit cards, names, and 50+ PII types from PDFs. 100% local processing — your documents never leave your computer. Download free.',
+  title: 'PDF Redactor - Free AI-Powered PDF Redaction Tool | Download',
+  description: 'PDF Redactor is a free desktop tool that uses AI to permanently redact SSNs, credit cards, names, and 50+ PII types from PDFs. 100% local processing - your documents never leave your computer. Download free.',
   keywords: [
     'PDF redactor',
     'PDF redaction',
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
     'Subodh KC'
   ],
   openGraph: {
-    title: 'PDF Redactor – Free AI-Powered PDF Redaction Tool',
+    title: 'PDF Redactor - Free AI-Powered PDF Redaction Tool',
     description: 'Permanently redact sensitive data from PDFs. AI-powered detection, 100% local processing. Free download.',
     type: 'website',
     url: 'https://subodhkc.com/products/pdf-redactor',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PDF Redactor – Free AI-Powered PDF Redaction',
+    title: 'PDF Redactor - Free AI-Powered PDF Redaction',
     description: 'Permanently redact sensitive data from PDFs. 100% local, AI-powered, free download.',
   },
   alternates: {

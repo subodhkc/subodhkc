@@ -12,8 +12,8 @@
  *   node scripts/linkedin-comment-monitor.mjs --dry-run  # Preview without sending email
  *
  * Requires:
- *   LINKEDIN_ACCESS_TOKEN — OAuth token with r_member_social scope
- *   RESEND_API_KEY — for sending email notifications
+ *   LINKEDIN_ACCESS_TOKEN - OAuth token with r_member_social scope
+ *   RESEND_API_KEY - for sending email notifications
  *
  * Note: To read comments, your LinkedIn app needs the "r_member_social" scope.
  * Add it by enabling the "Share on LinkedIn" product (which you already have)
@@ -90,7 +90,7 @@ async function fetchComments(accessToken, postUrn) {
 async function sendNotificationEmail(commentsByPost) {
   const resendApiKey = process.env.RESEND_API_KEY
   if (!resendApiKey) {
-    console.warn('RESEND_API_KEY not set — cannot send email notification')
+    console.warn('RESEND_API_KEY not set - cannot send email notification')
     return false
   }
 

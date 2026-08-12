@@ -20,14 +20,14 @@ import Link from 'next/link'
 export const metadata = {
   title: 'AI Compliance Laws Guide | Subodh KC',
   description:
-    'Comprehensive guides to AI compliance laws — EU AI Act, NYC Local Law 144, and Texas TRAIGA (HB 149). Compare applicability, requirements, penalties, and defense pathways. By Subodh KC, founder of HAIEC.',
+    'complete guides to AI compliance laws - EU AI Act, NYC Local Law 144, and Texas TRAIGA (HB 149). Compare applicability, requirements, penalties, and defense pathways. By Subodh KC, founder of HAIEC.',
   alternates: {
     canonical: 'https://subodhkc.com/guides',
   },
   openGraph: {
     title: 'AI Compliance Laws Guide | Subodh KC',
     description:
-      'Comprehensive guides to EU AI Act, NYC Local Law 144, and Texas TRAIGA. Compare applicability, requirements, penalties, and defense pathways.',
+      'complete guides to EU AI Act, NYC Local Law 144, and Texas TRAIGA. Compare applicability, requirements, penalties, and defense pathways.',
     url: 'https://subodhkc.com/guides',
     type: 'website',
   },
@@ -95,7 +95,7 @@ const lawGuides = [
     href: '/guides/eu-ai-act',
     title: 'EU AI Act',
     description:
-      'World\'s first comprehensive AI regulation. Risk-tiered framework for all AI on the EU market. Full enforcement August 2026. Penalties up to €35M or 7% of global revenue. Mapped to the ISAF framework published in Zenodo.',
+      'World\'s first complete AI regulation. Risk-tiered framework for all AI on the EU market. Full enforcement August 2026. Penalties up to €35M or 7% of global revenue. Mapped to the ISAF framework published in Zenodo.',
     badge: 'Full enforcement Aug 2026',
     badgeColor: 'text-amber-600',
   },
@@ -141,7 +141,7 @@ const technicalGuides = [
     href: '/ai-security-tools',
     title: 'AI Security Tools & Checklists',
     description:
-      'Interactive tools — blast radius calculator, agent read/write/action matrix, prompt-injection scenario library. Plus downloadable risk register, vendor due-diligence checklist, and incident evidence checklist.',
+      'Interactive tools - blast radius calculator, agent read/write/action matrix, prompt-injection scenario library. Plus downloadable risk register, vendor due-diligence checklist, and incident evidence checklist.',
     tag: 'Interactive Tools',
   },
 ]
@@ -151,7 +151,7 @@ const authorityCards = [
     icon: Scale,
     title: 'HAIEC TRAIGA Engine',
     description:
-      'Subodh KC co-founded HAIEC and built the TRAIGA compliance engine — a 9-section deterministic assessment wizard covering Chapters 551-554 of the Texas Business and Commerce Code.',
+      'Subodh KC co-founded HAIEC and built the TRAIGA compliance engine - a 9-section deterministic assessment wizard covering Chapters 551-554 of the Texas Business and Commerce Code.',
     link: '/solutions/haiec',
     linkText: 'Explore HAIEC',
   },
@@ -159,7 +159,7 @@ const authorityCards = [
     icon: Shield,
     title: 'ISAF Framework',
     description:
-      'The Instruction Stack Audit Framework, published in Zenodo, maps to EU AI Act Article 9 requirements across nine abstraction layers — providing practical implementation guidance.',
+      'The Instruction Stack Audit Framework, published in Zenodo, maps to EU AI Act Article 9 requirements across nine abstraction layers - providing practical implementation guidance.',
     link: 'https://zenodo.org/records/18080355',
     linkText: 'View paper',
     external: true,
@@ -198,14 +198,14 @@ export default function GuidesIndexPage() {
             <span className="gradient-text">Laws Guide</span>
           </>
         }
-        description="Three AI laws are reshaping how companies build and deploy AI. Here's what each one requires — and which ones apply to you."
+        description="Three AI laws are reshaping how companies build and deploy AI. Here's what each one requires - and which ones apply to you."
       />
 
       {/* ─── Compliance Law Guides (Sticky Notes) ─── */}
       <Section
         subtitle="Regulatory Compliance"
         title="AI Law Compliance Guides"
-        description="Three AI regulations with different scopes, penalties, and timelines. Pick the one that applies to your organization — or compare them all below."
+        description="Three AI regulations with different scopes, penalties, and timelines. Pick the one that applies to your organization - or compare them all below."
         id="guides"
       >
         <div className="blog-notes-board" style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -250,7 +250,7 @@ export default function GuidesIndexPage() {
       <Section
         subtitle="Practical Implementation"
         title="Technical Guides & Security Tools"
-        description="Beyond legal compliance — the engineering guides, assessment tools, and frameworks you need to actually implement AI governance in production."
+        description="Beyond legal compliance - the engineering guides, assessment tools, and frameworks you need to actually implement AI governance in production."
         id="technical-guides"
         className="bg-secondary/20"
       >
@@ -354,7 +354,7 @@ export default function GuidesIndexPage() {
                   <td className="py-3 px-4 font-medium">Cure Period</td>
                   <td className="py-3 px-4 text-red-500">No</td>
                   <td className="py-3 px-4 text-red-500">No</td>
-                  <td className="py-3 px-4 text-green-600">Yes — 60 days</td>
+                  <td className="py-3 px-4 text-green-600">Yes - 60 days</td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-medium">NIST AI RMF</td>
@@ -399,7 +399,7 @@ export default function GuidesIndexPage() {
             {[
               {
                 law: 'EU AI Act',
-                applies: 'You place AI systems on the EU market, or your AI output is used in the EU — regardless of where your company is headquartered.',
+                applies: 'You place AI systems on the EU market, or your AI output is used in the EU - regardless of where your company is headquartered.',
                 icon: Globe,
               },
               {
@@ -409,7 +409,7 @@ export default function GuidesIndexPage() {
               },
               {
                 law: 'Texas TRAIGA',
-                applies: 'You develop, deploy, or offer AI systems with a Texas nexus — you conduct business in TX, produce products used by TX residents, or develop/deploy AI in TX.',
+                applies: 'You develop, deploy, or offer AI systems with a Texas nexus - you conduct business in TX, produce products used by TX residents, or develop/deploy AI in TX.',
                 icon: Scale,
               },
             ].map((item, i) => {
@@ -444,7 +444,7 @@ export default function GuidesIndexPage() {
       <Section
         subtitle="Why Trust These Guides"
         title="Built on Real Compliance Engineering"
-        description="These guides are informed by the HAIEC compliance platform and Zenodo-published research — not just legal analysis."
+        description="These guides are informed by the HAIEC compliance platform and Zenodo-published research - not just legal analysis."
         id="authority"
       >
         <div className="max-w-4xl mx-auto">
@@ -487,7 +487,7 @@ export default function GuidesIndexPage() {
       {/* ─── CTA ─── */}
       <CTA
         title="Not Sure Which Laws Apply to You?"
-        description="Get a comprehensive AI compliance applicability assessment from Subodh KC. Identify which regulations apply to your organization, what your obligations are, and build a compliance roadmap."
+        description="Get a complete AI compliance applicability assessment from Subodh KC. Identify which regulations apply to your organization, what your obligations are, and build a compliance roadmap."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'View Advisory Services', href: '/advisory' }}
       />

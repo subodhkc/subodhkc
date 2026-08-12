@@ -58,7 +58,7 @@ export function TRAIGAApplicabilityChecker() {
 
   const resultConfig = {
     A: {
-      title: 'Result A — Likely outside TRAIGA\u2019s direct scope',
+      title: 'Result A - Likely outside TRAIGA\u2019s direct scope',
       color: 'border-l-blue-500',
       bg: 'bg-blue-950/20',
       icon: Info,
@@ -70,7 +70,7 @@ export function TRAIGAApplicabilityChecker() {
       ],
     },
     B: {
-      title: 'Result B — Within scope, but no obvious direct TRAIGA trigger identified',
+      title: 'Result B - Within scope, but no obvious direct TRAIGA trigger identified',
       color: 'border-l-amber-500',
       bg: 'bg-amber-950/20',
       icon: CheckCircle2,
@@ -84,7 +84,7 @@ export function TRAIGAApplicabilityChecker() {
       ],
     },
     C: {
-      title: 'Result C — A specific TRAIGA duty or prohibition may apply',
+      title: 'Result C - A specific TRAIGA duty or prohibition may apply',
       color: 'border-l-orange-500',
       bg: 'bg-orange-950/20',
       icon: AlertTriangle,
@@ -98,7 +98,7 @@ export function TRAIGAApplicabilityChecker() {
       ],
     },
     D: {
-      title: 'Result D — Elevated regulated-use review needed',
+      title: 'Result D - Elevated regulated-use review needed',
       color: 'border-l-red-500',
       bg: 'bg-red-950/20',
       icon: Shield,
@@ -108,7 +108,7 @@ export function TRAIGAApplicabilityChecker() {
         'Conduct a full regulated-use legal review.',
         'Implement all Result C controls.',
         'Evaluate HIPAA, employment law, biometric law, and sector-specific requirements.',
-        'Maintain comprehensive AI System Records.',
+        'Maintain complete AI System Records.',
         'Obtain qualified legal counsel.',
       ],
     },
@@ -284,7 +284,7 @@ export function TRAIGAApplicabilityChecker() {
         <div className="space-y-4">
           <div>
             <h3 className="text-lg font-bold mb-1">Step 4: Does the use case trigger a specific concern?</h3>
-            <p className="text-sm text-muted-foreground">Mark every applicable category. A checked category does not automatically mean a violation exists — it means the use case deserves provision-specific review.</p>
+            <p className="text-sm text-muted-foreground">Mark every applicable category. A checked category does not automatically mean a violation exists - it means the use case deserves provision-specific review.</p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
             {step4Options.map((opt) => (

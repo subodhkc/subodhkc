@@ -107,7 +107,7 @@ export default function CourtCasePage() {
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            CourtCase helps you organize case files, track deadlines, and prepare document packets — 
+            CourtCase helps you organize case files, track deadlines, and prepare document packets - 
             all stored locally on your computer. No cloud. No subscriptions. No data risk.
           </p>
 
@@ -218,7 +218,7 @@ export default function CourtCasePage() {
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
-                    <span>No cloud storage — everything local</span>
+                    <span>No cloud storage - everything local</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
@@ -258,7 +258,7 @@ export default function CourtCasePage() {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Try Print Later Today</h3>
                 <p className="text-muted-foreground mb-4">
-                  While you wait for CourtCase, check out Print Later — our free tool for saving 
+                  While you wait for CourtCase, check out Print Later - our free tool for saving 
                   web pages and printing them when you&apos;re ready.
                 </p>
                 <Link href="/products/print-later">

@@ -154,7 +154,7 @@ export default function SecureEnterpriseRAGPage() {
             <span className="gradient-text">Enterprise RAG System</span>
           </>
         }
-        description="Embeddings, vector databases, hybrid search, agentic retrieval and row-level security — explained for production, not demos."
+        description="Embeddings, vector databases, hybrid search, agentic retrieval and row-level security - explained for production, not demos."
       />
 
       {/* Table of Contents */}
@@ -202,7 +202,7 @@ export default function SecureEnterpriseRAGPage() {
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>RAG is an information-control system,</strong> not just a chatbot over documents. Security and retrieval design matter more than the LLM choice.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>You usually don't need a dedicated vector database.</strong> PostgreSQL pgvector, MongoDB Vector Search, and Databricks AI Search can serve production RAG within your existing data platform.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Hybrid search beats vector-only.</strong> Combine semantic, keyword, and metadata filtering for enterprise queries that include exact identifiers.</span></li>
-              <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Row-level security must be enforced before retrieval</strong> — not by asking the model to self-censor. Apply four layers: source, retrieval, application, generation.</span></li>
+              <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Row-level security must be enforced before retrieval</strong> - not by asking the model to self-censor. Apply four layers: source, retrieval, application, generation.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>RAG poisoning is a real attack vector.</strong> Use trusted-source registries, ingestion validation, and prompt/data separation. See the <Link href="/guides" className="text-primary hover:underline">AI compliance guides</Link> for regulatory context.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Agentic RAG adds tool selection, but authorization must remain deterministic.</strong> The model picks tools; the application controls permissions.</span></li>
             </ul>
@@ -217,7 +217,7 @@ export default function SecureEnterpriseRAGPage() {
           <DiagramReveal>
             <RAGArchitectureDiagram />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 — Four-phase enterprise RAG pipeline: ingestion, storage with RLS, retrieval with hybrid search, and generation with citations. Audit logging spans all phases.</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 - Four-phase enterprise RAG pipeline: ingestion, storage with RLS, retrieval with hybrid search, and generation with citations. Audit logging spans all phases.</p>
         </div>
       </Section>
 
@@ -232,7 +232,7 @@ export default function SecureEnterpriseRAGPage() {
             Embeddings are numerical representations of content that allow applications to compare meaning rather than only exact words. OpenAI documents embeddings as useful for search, clustering, recommendations, anomaly detection and classification.
           </p>
           <p>
-            RAG can improve the relevance and freshness of an AI system, but it does not guarantee accuracy. It only determines how external information reaches the model. The design of that retrieval path is what makes the system reliable — or dangerous.
+            RAG can improve the relevance and freshness of an AI system, but it does not guarantee accuracy. It only determines how external information reaches the model. The design of that retrieval path is what makes the system reliable - or dangerous.
           </p>
         </div>
       </Section>
@@ -393,7 +393,7 @@ export default function SecureEnterpriseRAGPage() {
             </Card>
           </div>
           <blockquote className="border-l-4 border-primary pl-6 py-2 text-base font-medium italic">
-            A dedicated vector database should be introduced because the retrieval workload requires it — not because every RAG diagram contains one.
+            A dedicated vector database should be introduced because the retrieval workload requires it - not because every RAG diagram contains one.
           </blockquote>
         </div>
       </Section>
@@ -407,7 +407,7 @@ export default function SecureEnterpriseRAGPage() {
           <div className="space-y-3">
             <div className="flex gap-3"><span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">1</span><p className="text-sm"><strong>Identify authoritative fields.</strong> A customer table may have hundreds of columns, but only the service description, case summary and resolution may be appropriate for semantic search.</p></div>
             <div className="flex gap-3"><span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">2</span><p className="text-sm"><strong>Create canonical text.</strong> Convert structured records into readable text with field labels for meaningful embeddings.</p></div>
-            <div className="flex gap-3"><span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">3</span><p className="text-sm"><strong>Divide into logical chunks.</strong> Split by headings, policy clauses, procedures, Q&amp;A pairs — not arbitrary character counts.</p></div>
+            <div className="flex gap-3"><span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">3</span><p className="text-sm"><strong>Divide into logical chunks.</strong> Split by headings, policy clauses, procedures, Q&amp;A pairs - not arbitrary character counts.</p></div>
             <div className="flex gap-3"><span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">4</span><p className="text-sm"><strong>Add metadata.</strong> Metadata often improves retrieval more than changing the embedding model. Include tenant, department, region, document type, owner, effective date, version and security classification.</p></div>
             <div className="flex gap-3"><span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">5</span><p className="text-sm"><strong>Generate embeddings.</strong> Create vectors in batches and store the embedding-model version. Do not store vectors without recording which model and dimensions produced them.</p></div>
             <div className="flex gap-3"><span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">6</span><p className="text-sm"><strong>Create the vector index.</strong> Select the distance metric and index according to the database, vector model and workload.</p></div>
@@ -436,7 +436,7 @@ export default function SecureEnterpriseRAGPage() {
               <CardHeader>
                 <CardTitle className="text-base">HNSW vs IVFFlat</CardTitle>
                 <CardDescription className="text-sm">
-                  Use HNSW when query latency and high recall matter. Consider IVFFlat when faster index construction or controlled memory use matters. Test with realistic filters — a fast search that retrieves the wrong tenant's content is not acceptable.
+                  Use HNSW when query latency and high recall matter. Consider IVFFlat when faster index construction or controlled memory use matters. Test with realistic filters - a fast search that retrieves the wrong tenant's content is not acceptable.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -581,7 +581,7 @@ USING (
       <Section className="pt-4" id="rag-vs-sql">
         <div className="max-w-4xl mx-auto space-y-6 text-base leading-relaxed text-foreground/90">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">RAG Versus SQL</h2>
-          <p>RAG is not the correct answer for every data question. Consider: <em>"What was total revenue in Texas last quarter?"</em> That should normally be answered through a governed SQL query, a semantic BI model or a trusted analytics API — not reconstructed from paragraphs retrieved from quarterly reports.</p>
+          <p>RAG is not the correct answer for every data question. Consider: <em>"What was total revenue in Texas last quarter?"</em> That should normally be answered through a governed SQL query, a semantic BI model or a trusted analytics API - not reconstructed from paragraphs retrieved from quarterly reports.</p>
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="border-l-4 border-l-blue-500/40">
               <CardHeader>
@@ -596,7 +596,7 @@ USING (
               </CardHeader>
             </Card>
           </div>
-          <p>Use both when the question crosses structured and unstructured information. For example: <em>"What caused support incidents to increase, and which policy changes addressed the issue?"</em> — the incident trend may come from SQL, the policy explanation from document retrieval.</p>
+          <p>Use both when the question crosses structured and unstructured information. For example: <em>"What caused support incidents to increase, and which policy changes addressed the issue?"</em> - the incident trend may come from SQL, the policy explanation from document retrieval.</p>
         </div>
       </Section>
 
@@ -660,7 +660,7 @@ USING (
               </CardHeader>
             </Card>
           </div>
-          <p className="text-sm">Create a fixed "golden set" of questions and run it after every material change — chunking, metadata, embedding model, search index, reranker, generation model, prompt, or authorization policy.</p>
+          <p className="text-sm">Create a fixed "golden set" of questions and run it after every material change - chunking, metadata, embedding model, search index, reranker, generation model, prompt, or authorization policy.</p>
         </div>
       </Section>
 
@@ -689,7 +689,7 @@ USING (
           <DiagramReveal>
             <RAGDecisionTree />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 — Decision framework: impact level determines search method, which determines storage and security requirements. All paths converge on the 4-layer security model.</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 - Decision framework: impact level determines search method, which determines storage and security requirements. All paths converge on the 4-layer security model.</p>
         </div>
         <div className="max-w-4xl mx-auto space-y-4 mt-4">
           <div className="grid gap-3 md:grid-cols-2">
@@ -712,7 +712,7 @@ USING (
           <div className="rounded-lg bg-muted/30 p-4 text-center text-sm font-mono text-muted-foreground">
             Source → Classification → Parsing → Chunking → Embedding → Index → Authorization → Retrieval → Reranking → Generation → Evidence
           </div>
-          <p>Every weak link changes the final answer. A reliable RAG system does not merely retrieve similar text. It retrieves the correct, current and authorized evidence — and can prove why that evidence was used.</p>
+          <p>Every weak link changes the final answer. A reliable RAG system does not merely retrieve similar text. It retrieves the correct, current and authorized evidence - and can prove why that evidence was used.</p>
           <p>Readers can also use the AI chat available through <Link href="/" className="text-primary hover:underline">my public profile</Link> to explore how these architectural choices apply to a specific use case. For advisory on implementing secure RAG in your organization, see <Link href="/services" className="text-primary hover:underline">services</Link> or learn more <Link href="/about" className="text-primary hover:underline">about my background</Link>.</p>
         </div>
       </Section>
@@ -722,7 +722,7 @@ USING (
         <div className="max-w-4xl mx-auto">
           <LeadMagnetCard
             title="Free Enterprise RAG Architecture Checklist"
-            description="Get a practical checklist covering embedding selection, vector database decisions, hybrid search, row-level security, RAG poisoning controls and evaluation metrics — based on the framework in this article."
+            description="Get a practical checklist covering embedding selection, vector database decisions, hybrid search, row-level security, RAG poisoning controls and evaluation metrics - based on the framework in this article."
             resourceName="Enterprise RAG Architecture Checklist"
           />
         </div>
@@ -747,7 +747,7 @@ USING (
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>For the complete AI compliance stack — how NIST AI RMF, ISO/IEC 42001, SOC 2, and AI-specific security testing fit together — read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link>. For AI voice agent-specific RAG, security, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the complete production architecture behind Kestrel Voice — telephony, adaptive orchestration, RAG pipeline, tools, degradation, and security — read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link>.</p>
+            <p>For the complete AI compliance stack - how NIST AI RMF, ISO/IEC 42001, SOC 2, and AI-specific security testing fit together - read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link>. For AI voice agent-specific RAG, security, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the complete production architecture behind Kestrel Voice - telephony, adaptive orchestration, RAG pipeline, tools, degradation, and security - read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link>.</p>
           </div>
         </div>
       </Section>
@@ -757,7 +757,7 @@ USING (
         <div className="max-w-4xl mx-auto">
           <CTA
             title="Need a Secure Enterprise RAG Architecture?"
-            description="Get a RAG architecture assessment, security review, or implementation roadmap from Subodh KC — founder of the HAIEC AI security and compliance engine. See services or explore the HAIEC platform."
+            description="Get a RAG architecture assessment, security review, or implementation roadmap from Subodh KC - founder of the HAIEC AI security and compliance engine. See services or explore the HAIEC platform."
             primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
             secondaryButton={{ text: 'Explore Research', href: '/research' }}
           />

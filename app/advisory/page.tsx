@@ -103,7 +103,7 @@ export default function AdvisoryPage() {
         'Operational playbooks',
       ],
       engagement: '3-6 months',
-      ideal: 'Organizations adopting HAIEC platform or CSM methodology — see the Architecture Decision Master Sheet for a practical tool that operationalizes CSM across 25 architecture layers.',
+      ideal: 'Organizations adopting HAIEC platform or CSM methodology - see the Architecture Decision Master Sheet for a practical tool that operationalizes CSM across 25 architecture layers.',
     },
   ]
 
@@ -111,7 +111,7 @@ export default function AdvisoryPage() {
     {
       phase: '1. Discovery',
       description:
-        'Deep dive into your current state, challenges, and objectives. No generic playbooks—every engagement starts with understanding your specific context.',
+        'detailed look into your current state, challenges, and objectives. No generic playbooks-every engagement starts with understanding your specific context.',
       duration: '2-4 weeks',
     },
     {
@@ -164,7 +164,7 @@ export default function AdvisoryPage() {
       structure: 'Fixed fee or time & materials',
       commitment: '3-6 months typical',
       includes: [
-        'Comprehensive discovery',
+        'complete discovery',
         'Custom frameworks & roadmaps',
         'Implementation support',
         'Team training',
@@ -374,7 +374,7 @@ export default function AdvisoryPage() {
         <div className="max-w-md mx-auto">
           <LeadMagnetCard
             title="Free AI Governance & Compliance Framework Guide"
-            description="A practical guide to building AI governance frameworks that scale — covering the CSM Framework, risk classification, compliance workflows, and audit-ready documentation patterns."
+            description="A practical guide to building AI governance frameworks that scale - covering the CSM Framework, risk classification, compliance workflows, and audit-ready documentation patterns."
             resourceName="AI Governance & Compliance Framework Guide"
           />
         </div>

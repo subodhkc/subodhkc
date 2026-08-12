@@ -124,7 +124,7 @@ const downloadableResources = [
   {
     icon: Shield,
     title: 'AI Vendor Due-Diligence Checklist',
-    description: 'A comprehensive checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, incident response, and contractual protections.',
+    description: 'A complete checklist for evaluating AI vendors: data handling, security posture, model transparency, compliance, incident response, and contractual protections.',
     href: '/ai-vendor-due-diligence-checklist',
   },
   {
@@ -157,7 +157,7 @@ export default function AISecurityToolsPage() {
             <span className="gradient-text">& Calculators</span>
           </>
         }
-        description="Assess your internal AI application's security posture with interactive tools — blast radius, agent capability matrix, prompt-injection scenarios, and downloadable checklists."
+        description="Assess your internal AI application's security posture with interactive tools - blast radius, agent capability matrix, prompt-injection scenarios, and downloadable checklists."
       />
 
       <Section className="pt-8">
@@ -259,7 +259,7 @@ export default function AISecurityToolsPage() {
           </div>
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
             <p className="text-sm text-foreground/90">
-              <strong>Need comprehensive analysis?</strong> The{' '}
+              <strong>Need complete analysis?</strong> The{' '}
               <Link href="/solutions/haiec/exposure-assessment" className="text-primary font-medium hover:underline">HAIEC AI Exposure Assessment</Link>{' '}
               performs deterministic code analysis, runtime adversarial testing, and produces evidence-grade compliance documentation.
             </p>
@@ -311,7 +311,7 @@ export default function AISecurityToolsPage() {
                   Healthcare (PHI)
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block"><strong className="text-foreground">Typical profile:</strong> PHI data, 100–1,000+ users, action tools (lab lookups, order entry), RAG from EHR, internal server deployment.</span>
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> PHI data, 100-1,000+ users, action tools (lab lookups, order entry), RAG from EHR, internal server deployment.</span>
                   <span className="block"><strong className="text-foreground">Key risks:</strong> RAG poisoning via clinical documents, PHI leakage in model prompts to external APIs, unauthorized access through shared clinical workstations, HIPAA breach notification obligations.</span>
                   <span className="block"><strong className="text-foreground">Regulatory:</strong> HIPAA, TRAIGA (if using AI for clinical decisions), state health privacy laws.</span>
                 </CardDescription>
@@ -324,7 +324,7 @@ export default function AISecurityToolsPage() {
                   Financial Services
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Confidential/financial data, 100–1,000+ users, action tools (trade tickets, email), RAG from research corpus, auto-approval enabled.</span>
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Confidential/financial data, 100-1,000+ users, action tools (trade tickets, email), RAG from research corpus, auto-approval enabled.</span>
                   <span className="block"><strong className="text-foreground">Key risks:</strong> Indirect injection via uploaded research notes, unauthorized trade execution, insider data leakage through shared RAG corpus, SEC/FINRA reporting obligations.</span>
                   <span className="block"><strong className="text-foreground">Regulatory:</strong> SEC, FINRA, SOX, GDPR (if EU clients), TRAIGA.</span>
                 </CardDescription>
@@ -337,7 +337,7 @@ export default function AISecurityToolsPage() {
                   HR / Hiring
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block"><strong className="text-foreground">Typical profile:</strong> PII/biometric data, 10–100 users, admin tools (candidate status changes), cloud deployment, RAG from resume database.</span>
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> PII/biometric data, 10-100 users, admin tools (candidate status changes), cloud deployment, RAG from resume database.</span>
                   <span className="block"><strong className="text-foreground">Key risks:</strong> Algorithmic bias in screening decisions, disparate impact on protected classes, unauthorized use of biometric data (facial analysis), missing bias audits, failure to notify candidates of AI use.</span>
                   <span className="block"><strong className="text-foreground">Regulatory:</strong> NYC Local Law 144 (bias audits + candidate notice), Illinois HB-3773 + AIVIA, California FEHA regulations (Oct 2025), Colorado SB 189 (Jan 2027), EU AI Act Annex III (high-risk), Texas HB 149, Maryland HB 1202.</span>
                 </CardDescription>
@@ -350,7 +350,7 @@ export default function AISecurityToolsPage() {
                   Legal
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Confidential/privileged data, 10–100 users, read-only tools, RAG from case documents, internal server.</span>
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Confidential/privileged data, 10-100 users, read-only tools, RAG from case documents, internal server.</span>
                   <span className="block"><strong className="text-foreground">Key risks:</strong> Privilege waiver through AI processing, RAG poisoning via opposing party documents, unauthorized disclosure of case strategy, malpractice exposure from hallucinated citations.</span>
                   <span className="block"><strong className="text-foreground">Regulatory:</strong> State bar AI ethics rules, ABA Model Rules 1.1 (competence) and 1.6 (confidentiality), EU AI Act (if EU clients).</span>
                 </CardDescription>
@@ -376,7 +376,7 @@ export default function AISecurityToolsPage() {
                   Small Business
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Internal data, 1–10 users, read-only tools, local or internal server, no RAG or MCP.</span>
+                  <span className="block"><strong className="text-foreground">Typical profile:</strong> Internal data, 1-10 users, read-only tools, local or internal server, no RAG or MCP.</span>
                   <span className="block"><strong className="text-foreground">Key risks:</strong> Shadow AI (employees using personal ChatGPT with company data), lack of formal AI policy, missing vendor review for adopted SaaS AI tools, no incident response plan.</span>
                   <span className="block"><strong className="text-foreground">Regulatory:</strong> Generally lighter obligations, but CCPA (if California customers), GDPR (if EU customers), and industry-specific rules may still apply.</span>
                 </CardDescription>
@@ -398,8 +398,8 @@ export default function AISecurityToolsPage() {
             <div className="space-y-2">
               <p className="text-sm font-semibold text-foreground">Step-by-step assessment:</p>
               <ol className="ml-4 space-y-2 text-sm text-muted-foreground">
-                <li className="list-decimal"><strong className="text-foreground">Blast Radius Calculator:</strong> Select PHI data, 101–1,000 users, action tool access, internal server deployment, MCP connected, RAG enabled. Result: <span className="text-red-600 font-medium">Critical (score 31/44)</span>. The tool recommends mandatory adversarial testing and dual authorization.</li>
-                <li className="list-decimal"><strong className="text-foreground">Agent Matrix:</strong> Toggle read on patient records (high), action on lab-result lookup (critical), and admin on user management (critical). The matrix flags 2 critical combinations — confirming that admin access should be removed from the agent scope entirely.</li>
+                <li className="list-decimal"><strong className="text-foreground">Blast Radius Calculator:</strong> Select PHI data, 101-1,000 users, action tool access, internal server deployment, MCP connected, RAG enabled. Result: <span className="text-red-600 font-medium">Critical (score 31/44)</span>. The tool recommends mandatory adversarial testing and dual authorization.</li>
+                <li className="list-decimal"><strong className="text-foreground">Agent Matrix:</strong> Toggle read on patient records (high), action on lab-result lookup (critical), and admin on user management (critical). The matrix flags 2 critical combinations - confirming that admin access should be removed from the agent scope entirely.</li>
                 <li className="list-decimal"><strong className="text-foreground">Scenario Library:</strong> Review the indirect prompt injection via RAG document scenario (PI-02). The team realizes that a malicious document uploaded to the EHR knowledge base could instruct the model to call the lab-result tool and exfiltrate results. They add document provenance tracking and human approval for all action tools.</li>
                 <li className="list-decimal"><strong className="text-foreground">Risk Register:</strong> Create entries for each identified risk with owners from IT, Security, and Compliance. Set the RAG poisoning risk to High likelihood given that clinicians can upload documents.</li>
                 <li className="list-decimal"><strong className="text-foreground">Vendor Checklist:</strong> Evaluate the EHR vendor and MCP server provider against the 60-item checklist before signing the integration agreement.</li>
@@ -413,11 +413,11 @@ export default function AISecurityToolsPage() {
             </div>
             <div className="space-y-2">
               <ol className="ml-4 space-y-2 text-sm text-muted-foreground">
-                <li className="list-decimal"><strong className="text-foreground">Blast Radius Calculator:</strong> Load the HR/Hiring preset. Result: confidential data (PII), 50 users, admin tools, cloud deployment, RAG enabled, auto-approval. Score: <span className="text-red-600 font-medium">Critical (score 29/44)</span> — driven by admin access to candidate records and auto-approval without human review.</li>
-                <li className="list-decimal"><strong className="text-foreground">Agent Matrix:</strong> Toggle admin on candidate records (critical) and read on job descriptions (low). The matrix immediately flags admin access as critical-risk — the tool should not have admin authority over candidate status without human approval.</li>
+                <li className="list-decimal"><strong className="text-foreground">Blast Radius Calculator:</strong> Load the HR/Hiring preset. Result: confidential data (PII), 50 users, admin tools, cloud deployment, RAG enabled, auto-approval. Score: <span className="text-red-600 font-medium">Critical (score 29/44)</span> - driven by admin access to candidate records and auto-approval without human review.</li>
+                <li className="list-decimal"><strong className="text-foreground">Agent Matrix:</strong> Toggle admin on candidate records (critical) and read on job descriptions (low). The matrix immediately flags admin access as critical-risk - the tool should not have admin authority over candidate status without human approval.</li>
                 <li className="list-decimal"><strong className="text-foreground">Risk Register:</strong> Create entries for algorithmic bias (R-16), missing bias audit (R-17), candidate notification failure (R-18), and unauthorized biometric analysis (R-19). Set all to High likelihood given multi-state operations.</li>
                 <li className="list-decimal"><strong className="text-foreground">Vendor Checklist:</strong> Evaluate the ATS vendor against the full 60-item checklist. Require evidence of independent bias audit (NYC LL 144), compliance with Illinois AIVIA (video interview consent), California FEHA alignment, and EU AI Act Annex III high-risk classification documentation.</li>
-                <li className="list-decimal"><strong className="text-foreground">Incident Evidence Checklist:</strong> Prepare the evidence preservation plan in advance — if a candidate files a discrimination claim, the company must preserve all screening decisions, model outputs, scoring criteria, and bias audit records for 4 years (California FEHA requirement).</li>
+                <li className="list-decimal"><strong className="text-foreground">Incident Evidence Checklist:</strong> Prepare the evidence preservation plan in advance - if a candidate files a discrimination claim, the company must preserve all screening decisions, model outputs, scoring criteria, and bias audit records for 4 years (California FEHA requirement).</li>
               </ol>
             </div>
           </div>
@@ -466,7 +466,7 @@ export default function AISecurityToolsPage() {
         <div className="max-w-4xl mx-auto">
           <LeadMagnetCard
             title="AI Governance & Compliance Framework Guide"
-            description="Get a structured framework for AI governance, risk management, and compliance — aligned with NIST AI RMF, EU AI Act, and TRAIGA. Includes templates for AI system records, disclosure reviews, and cure-response packages."
+            description="Get a structured framework for AI governance, risk management, and compliance - aligned with NIST AI RMF, EU AI Act, and TRAIGA. Includes templates for AI system records, disclosure reviews, and cure-response packages."
             resourceName="AI Governance & Compliance Framework Guide"
           />
         </div>
@@ -476,7 +476,7 @@ export default function AISecurityToolsPage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>For a comprehensive guide on how NIST AI RMF, ISO/IEC 42001, SOC 2, and AI-specific security testing fit together, read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link>. For AI voice agent-specific security, failure modes, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the complete production architecture behind Kestrel Voice — telephony, adaptive orchestration, RAG pipeline, tools, degradation, and security — read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link>.</p>
+            <p>For a complete guide on how NIST AI RMF, ISO/IEC 42001, SOC 2, and AI-specific security testing fit together, read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link>. For AI voice agent-specific security, failure modes, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>. For the complete production architecture behind Kestrel Voice - telephony, adaptive orchestration, RAG pipeline, tools, degradation, and security - read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link>.</p>
           </div>
         </div>
       </Section>
@@ -484,7 +484,7 @@ export default function AISecurityToolsPage() {
       {/* CTA */}
       <CTA
         title="Need an AI Security Assessment?"
-        description="Get a comprehensive AI application security review — prompt injection, RAG poisoning, tool abuse, RLS, tenant isolation, and evidence-grade compliance outputs from Subodh KC, founder of HAIEC."
+        description="Get a complete AI application security review - prompt injection, RAG poisoning, tool abuse, RLS, tenant isolation, and evidence-grade compliance outputs from Subodh KC, founder of HAIEC."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

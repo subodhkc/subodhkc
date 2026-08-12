@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Local AI Review | Subodh KC — Practical AI for Local Businesses',
+  title: 'Local AI Review | Subodh KC - Practical AI for Local Businesses',
   description:
     'Complimentary 20-minute AI review for Dallas-Fort Worth local and founder-led businesses. Find one practical use case, one measure of success, and the most useful next step.',
   alternates: {
     canonical: 'https://subodhkc.com/local-ai-review',
   },
   openGraph: {
-    title: 'Local AI Review | Subodh KC — Practical AI for Local Businesses',
+    title: 'Local AI Review | Subodh KC - Practical AI for Local Businesses',
     description:
       'Complimentary 20-minute AI review for Dallas-Fort Worth local and founder-led businesses. Find one practical use case, one measure of success, and the most useful next step.',
     url: 'https://subodhkc.com/local-ai-review',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         url: '/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC — Local AI Advisor | Complimentary AI Review for DFW Businesses',
+        alt: 'Subodh KC - Local AI Advisor | Complimentary AI Review for DFW Businesses',
       },
     ],
   },
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'Subodh KC — Local AI Advisor',
+  name: 'Subodh KC - Local AI Advisor',
   description:
     'Practical AI strategy, deployment, and readiness support for local and founder-led businesses in Dallas-Fort Worth.',
   url: 'https://subodhkc.com/local-ai-review',
@@ -98,7 +98,7 @@ const professionalServiceSchema = {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Kestrel Voice — AI Call Coverage',
+          name: 'Kestrel Voice - AI Call Coverage',
           description: 'After-hours and peak-hour AI call coverage for service businesses.',
         },
       },

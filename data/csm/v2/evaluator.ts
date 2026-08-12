@@ -318,7 +318,7 @@ function evaluateComponent(
     // Simple evaluation: check if the condition's referenced input is truthy
     // In a full implementation, this would parse and evaluate the condition expression
     const inputId = rule.id.split('-R')[0].replace(/-/g, '')
-    // Map rule to input field — this is a simplified evaluator
+    // Map rule to input field - this is a simplified evaluator
     const ruleInputMap: Record<string, string> = {
       'ENT-POLICY-R1': 'aiPolicyDocumented',
       'ENT-POLICY-R2': 'policyAddressesAdaptiveBehavior',

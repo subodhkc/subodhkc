@@ -61,15 +61,15 @@ const steps = [
     icon: MousePointerClick,
     title: 'Step 1: Save a web page with Ctrl+P',
     description:
-      'Open any web page in Chrome, Edge, or Firefox. Press Ctrl+P to open the print dialog. Select "Print Later" as your printer. The page is captured and saved to your local queue — no print dialog, no paper wasted.',
+      'Open any web page in Chrome, Edge, or Firefox. Press Ctrl+P to open the print dialog. Select "Print Later" as your printer. The page is captured and saved to your local queue - no print dialog, no paper wasted.',
     detail:
-      'Print Later installs as a system printer, so any browser or app that supports printing can save to your queue. You don\'t need to install a browser extension to use the basic save feature — just select Print Later in the print dialog.',
+      'Print Later installs as a system printer, so any browser or app that supports printing can save to your queue. You don\'t need to install a browser extension to use the basic save feature - just select Print Later in the print dialog.',
   },
   {
     icon: Clock,
     title: 'Step 2: Organize your print queue',
     description:
-      'Open the Print Later app. Your saved pages appear in a queue. Sort by date, search by title, reorder pages, or delete pages you no longer need. Everything is stored locally on your computer — no cloud, no account.',
+      'Open the Print Later app. Your saved pages appear in a queue. Sort by date, search by title, reorder pages, or delete pages you no longer need. Everything is stored locally on your computer - no cloud, no account.',
     detail:
       'The queue shows a thumbnail preview of each saved page. You can drag and drop to reorder, click to preview full size, or select multiple pages to delete or move together.',
   },
@@ -85,7 +85,7 @@ const steps = [
     icon: FileStack,
     title: 'Step 4: Combine pages into a print packet',
     description:
-      'Select pages from multiple different documents and combine them into one print job. Perfect for meetings — pull the relevant pages from 5 different reports into a single organized packet.',
+      'Select pages from multiple different documents and combine them into one print job. Perfect for meetings - pull the relevant pages from 5 different reports into a single organized packet.',
     detail:
       'The packet builder lets you mix pages from web pages, PDFs, and any other printable document. Reorder the combined pages, then send the entire packet to your printer in one job.',
   },
@@ -235,7 +235,7 @@ export default function HowItWorksPage() {
                 <p className="text-muted-foreground">
                   <strong className="text-foreground">Install the browser extension.</strong>{' '}
                   Print Later comes with a Chrome/Edge extension that adds a one-click &quot;Save to
-                  Print Later&quot; button — no need to open the print dialog every time.
+                  Print Later&quot; button - no need to open the print dialog every time.
                 </p>
               </CardContent>
             </Card>
@@ -274,7 +274,7 @@ export default function HowItWorksPage() {
           <Card className="p-8 bg-gradient-to-br from-green-500/5 to-primary/5">
             <h2 className="text-2xl font-bold mb-4">Ready to Try It?</h2>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Print Later is free and open source. Download for Windows 10/11 — no account required.
+              Print Later is free and open source. Download for Windows 10/11 - no account required.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/products/print-later">

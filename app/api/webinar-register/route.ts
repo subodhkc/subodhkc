@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       from: 'KC Webinar <noreply@subodhkc.com>',
       to: ['subodhkc@subodhkc.com'],
       reply_to: email,
-      subject: `Webinar Registration: AI Laws for Small Business — ${safeName}`,
+      subject: `Webinar Registration: AI Laws for Small Business - ${safeName}`,
       html: `
         <!DOCTYPE html>
         <html>

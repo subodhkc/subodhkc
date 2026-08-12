@@ -1,4 +1,4 @@
-// components/hero/Aurora.tsx — cursor-following accent glow
+// components/hero/Aurora.tsx - cursor-following accent glow
 "use client";
 
 import * as React from "react";

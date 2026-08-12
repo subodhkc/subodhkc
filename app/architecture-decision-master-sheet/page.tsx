@@ -10,13 +10,13 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Architecture Decision Master Sheet | Subodh KC',
   description:
-    'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads — with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer.',
+    'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads - with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer.',
   alternates: {
     canonical: 'https://subodhkc.com/architecture-decision-master-sheet',
   },
   openGraph: {
     title: 'Architecture Decision Master Sheet',
-    description: 'Interactive 25-layer architecture decision sheet with AI development risks, CSM domain mapping, documents per step, and Definition of Done — for PMs, architects, and tech leads.',
+    description: 'Interactive 25-layer architecture decision sheet with AI development risks, CSM domain mapping, documents per step, and Definition of Done - for PMs, architects, and tech leads.',
     url: 'https://subodhkc.com/architecture-decision-master-sheet',
     type: 'article',
     authors: ['Subodh KC'],
@@ -57,7 +57,7 @@ const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
   headline: 'Architecture Decision Master Sheet',
-  description: 'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads — with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer.',
+  description: 'An interactive 25-layer architecture decision master sheet for software development PMs, architects, and tech leads - with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer.',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2026-07-17',
@@ -73,17 +73,17 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'What is an Architecture Decision Master Sheet?',
-      acceptedAnswer: { '@type': 'Answer', text: 'An Architecture Decision Master Sheet is an interactive reference covering 25 architecture layers that every software development project must consider — from product scope to governance. Each layer answers seven questions: Why does it matter? Who is responsible? How is it implemented? When should it be addressed? What are the risks? What does bad look like? And what documents should architects and PMs produce?' },
+      acceptedAnswer: { '@type': 'Answer', text: 'An Architecture Decision Master Sheet is an interactive reference covering 25 architecture layers that every software development project must consider - from product scope to governance. Each layer answers seven questions: Why does it matter? Who is responsible? How is it implemented? When should it be addressed? What are the risks? What does bad look like? And what documents should architects and PMs produce?' },
     },
     {
       '@type': 'Question',
       name: 'How does this sheet handle AI development risks?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Every layer includes AI development risks in two dimensions: AI in the product (Layers 15–17 cover RAG pipeline, agent architecture, and output validation) and AI tools in the development process (all 25 layers include AI pitfalls, risks of using AI to build, mitigation approaches, and quality gates). This means even if your product has no AI features, the sheet covers risks from using AI code assistants like Copilot, Cursor, or Claude.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Every layer includes AI development risks in two dimensions: AI in the product (Layers 15-17 cover RAG pipeline, agent architecture, and output validation) and AI tools in the development process (all 25 layers include AI pitfalls, risks of using AI to build, mitigation approaches, and quality gates). This means even if your product has no AI features, the sheet covers risks from using AI code assistants like Copilot, Cursor, or Claude.' },
     },
     {
       '@type': 'Question',
       name: 'What is the CSM domain mapping and why does it matter?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Architecture decisions may map to zero, one or multiple CSM domains (CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX). The master sheet is not CSM itself — its purpose is architecture completeness and blind-spot prevention. The mapping helps architects see which governance domains a given decision touches.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Architecture decisions may map to zero, one or multiple CSM domains (CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX). The master sheet is not CSM itself - its purpose is architecture completeness and blind-spot prevention. The mapping helps architects see which governance domains a given decision touches.' },
     },
     {
       '@type': 'Question',
@@ -93,7 +93,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'Can I use this sheet for projects without AI features?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The sheet includes a "Web app without AI" scenario that filters to Layers 1–14 and 18–25, skipping the conditional AI layers (Group E). However, if your team uses AI code assistants (Copilot, Cursor, Claude), the AI development risks on all layers still apply — they cover risks from using AI tools to write code, not just AI features in the product.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The sheet includes a "Web app without AI" scenario that filters to Layers 1-14 and 18-25, skipping the conditional AI layers (Group E). However, if your team uses AI code assistants (Copilot, Cursor, Claude), the AI development risks on all layers still apply - they cover risks from using AI tools to write code, not just AI features in the product.' },
     },
     {
       '@type': 'Question',
@@ -138,11 +138,11 @@ const antiPatterns = [
 ]
 
 const faqs = [
-  { q: 'What is an Architecture Decision Master Sheet?', a: 'An interactive reference covering 25 architecture layers that every software development project must consider — from product scope to governance. Each layer answers seven questions: Why does it matter? Who is responsible? How is it implemented? When should it be addressed? What are the risks? What does bad look like? And what documents should architects and PMs produce?' },
-  { q: 'How does this sheet handle AI development risks?', a: 'Every layer includes AI development risks in two dimensions: AI in the product (Layers 15–17 cover RAG pipeline, agent architecture, and output validation) and AI tools in the development process (all 25 layers include AI pitfalls, risks of using AI to build, mitigation approaches, and quality gates). This means even if your product has no AI features, the sheet covers risks from using AI code assistants like Copilot, Cursor, or Claude.' },
-  { q: 'What is the CSM domain mapping and why does it matter?', a: 'Architecture decisions may map to zero, one or multiple CSM domains (CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX). The master sheet is not CSM itself — its purpose is architecture completeness and blind-spot prevention. The mapping helps architects see which governance domains a given decision touches.' },
+  { q: 'What is an Architecture Decision Master Sheet?', a: 'An interactive reference covering 25 architecture layers that every software development project must consider - from product scope to governance. Each layer answers seven questions: Why does it matter? Who is responsible? How is it implemented? When should it be addressed? What are the risks? What does bad look like? And what documents should architects and PMs produce?' },
+  { q: 'How does this sheet handle AI development risks?', a: 'Every layer includes AI development risks in two dimensions: AI in the product (Layers 15-17 cover RAG pipeline, agent architecture, and output validation) and AI tools in the development process (all 25 layers include AI pitfalls, risks of using AI to build, mitigation approaches, and quality gates). This means even if your product has no AI features, the sheet covers risks from using AI code assistants like Copilot, Cursor, or Claude.' },
+  { q: 'What is the CSM domain mapping and why does it matter?', a: 'Architecture decisions may map to zero, one or multiple CSM domains (CSM-Enterprise, CSM-Project, CSM-Code, CSM-UX). The master sheet is not CSM itself - its purpose is architecture completeness and blind-spot prevention. The mapping helps architects see which governance domains a given decision touches.' },
   { q: 'What documents does each layer specify?', a: 'Each layer specifies two document lists: Architect Documents (ADRs, design documents, diagrams, specifications) and PM Documents (sprint plans, review schedules, staffing plans, compliance timelines). These are the concrete deliverables that prove a decision was made, reviewed, and approved. If a layer has no documents, it has not been decided.' },
-  { q: 'Can I use this sheet for projects without AI features?', a: 'Yes. The sheet includes a "Web app without AI" scenario that filters to Layers 1–14 and 18–25, skipping the conditional AI layers (Group E). However, if your team uses AI code assistants (Copilot, Cursor, Claude), the AI development risks on all layers still apply — they cover risks from using AI tools to write code, not just AI features in the product.' },
+  { q: 'Can I use this sheet for projects without AI features?', a: 'Yes. The sheet includes a "Web app without AI" scenario that filters to Layers 1-14 and 18-25, skipping the conditional AI layers (Group E). However, if your team uses AI code assistants (Copilot, Cursor, Claude), the AI development risks on all layers still apply - they cover risks from using AI tools to write code, not just AI features in the product.' },
   { q: 'How is the Definition of Done (DoD) different from a checklist item?', a: 'The DoD is a gate, not a checkbox. It is a specific, testable criterion that must be met before a layer is considered complete. For example, the DoD for Security & Policy is: "Security architecture documented; RLS implemented; encryption verified; audit logging active; security scan passing in CI." This prevents the common failure mode where teams believe a layer is "done" when it is merely "started."' },
   { q: 'Does the tool save my progress?', a: 'Yes. When you assign owners, statuses, sprints, or ADR references in the PM Tracking tab, your edits are saved automatically to your browser via localStorage. Your data persists across sessions on the same browser. Use the Export CSV or JSON buttons to share your tracking data with your team, or the Reset button to start fresh.' },
 ]
@@ -163,7 +163,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
             <span className="gradient-text">Master Sheet</span>
           </>
         }
-        description="An interactive 25-layer architecture decision sheet for software development PMs, architects, and tech leads — with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer."
+        description="An interactive 25-layer architecture decision sheet for software development PMs, architects, and tech leads - with AI development risks, CSM domain mapping, documents per step, and Definition of Done for every layer."
       />
 
       <Section className="pt-8">
@@ -174,7 +174,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
           </div>
           <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
             <p className="text-xs text-amber-200">
-              <strong>Educational notice:</strong> This master sheet provides a comprehensive framework for architecture decisions. Production deployments should undergo organization-specific architecture review with qualified architects and security professionals. Decisions should be tailored to your specific tech stack, team composition, and regulatory environment.
+              <strong>Educational notice:</strong> This master sheet provides a complete framework for architecture decisions. Production deployments should undergo organization-specific architecture review with qualified architects and security professionals. Decisions should be tailored to your specific tech stack, team composition, and regulatory environment.
             </p>
           </div>
         </div>
@@ -185,9 +185,9 @@ export default function ArchitectureDecisionMasterSheetPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              The Architecture Decision Master Sheet covers 25 architecture layers across 7 groups — from product scope to governance. Each layer includes purpose, criticality, phase, decision options, RACI (Responsible, Accountable, Consulted, Informed), risks, AI development risks, documents for architects and PMs, and a Definition of Done. Architecture decisions may map to zero, one or multiple{' '}
+              The Architecture Decision Master Sheet covers 25 architecture layers across 7 groups - from product scope to governance. Each layer includes purpose, criticality, phase, decision options, RACI (Responsible, Accountable, Consulted, Informed), risks, AI development risks, documents for architects and PMs, and a Definition of Done. Architecture decisions may map to zero, one or multiple{' '}
               <Link href="/cognitive-systems-management" className="text-primary font-medium hover:underline">Cognitive Systems Management (CSM)</Link>{' '}
-              domains. The master sheet is not CSM itself — its purpose is architecture completeness and blind-spot prevention. Use it alongside the{' '}
+              domains. The master sheet is not CSM itself - its purpose is architecture completeness and blind-spot prevention. Use it alongside the{' '}
               <Link href="/ai-risk-register" className="text-primary font-medium hover:underline">AI Risk Register</Link>,{' '}
               <Link href="/ai-security-tools" className="text-primary font-medium hover:underline">AI Security Tools</Link>,{' '}
               and the{' '}
@@ -202,17 +202,17 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">What Is the <span className="gradient-text">Architecture Decision Master Sheet</span>?</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            The Architecture Decision Master Sheet is an interactive reference covering <strong className="text-foreground">25 architecture layers</strong> that every software development project must consider — from product scope to governance. It is designed for <strong className="text-primary">PMs, architects, and tech leads</strong> who need a structured way to track decisions, risks, and deliverables across the full lifecycle of a software project, whether or not AI is part of the product.
+            The Architecture Decision Master Sheet is an interactive reference covering <strong className="text-foreground">25 architecture layers</strong> that every software development project must consider - from product scope to governance. It is designed for <strong className="text-primary">PMs, architects, and tech leads</strong> who need a structured way to track decisions, risks, and deliverables across the full lifecycle of a software project, whether or not AI is part of the product.
           </p>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Each layer answers <strong className="text-foreground">seven questions</strong>: <span className="text-primary font-medium">Why</span> does it matter? <span className="text-primary font-medium">Who</span> is responsible? <span className="text-primary font-medium">How</span> is it implemented? <span className="text-primary font-medium">When</span> should it be addressed? <span className="text-primary font-medium">What</span> are the risks? <span className="text-primary font-medium">What</span> does bad look like? And <span className="text-primary font-medium">what documents</span> should architects and PMs produce?
           </p>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            The sheet also includes <strong className="text-red-500">AI development risks</strong> for every layer — not just the AI-specific layers (Group E). If your team uses AI tools to write code, or if your product includes AI features, these risks apply to you.
+            The sheet also includes <strong className="text-red-500">AI development risks</strong> for every layer - not just the AI-specific layers (Group E). If your team uses AI tools to write code, or if your product includes AI features, these risks apply to you.
           </p>
           <div className="rounded-lg border border-purple-500/30 bg-purple-950/20 p-4">
             <p className="text-sm text-purple-200">
-              <strong>CSM Domain Mapping:</strong> Architecture decisions may map to zero, one or multiple <Link href="/cognitive-systems-management" className="font-medium hover:underline">Cognitive Systems Management (CSM)</Link> domains — <span className="font-semibold">CSM-Enterprise</span>, <span className="font-semibold">CSM-Project</span>, <span className="font-semibold">CSM-Code</span>, and <span className="font-semibold">CSM-UX</span>. The master sheet is not CSM itself; its purpose is architecture completeness and blind-spot prevention.
+              <strong>CSM Domain Mapping:</strong> Architecture decisions may map to zero, one or multiple <Link href="/cognitive-systems-management" className="font-medium hover:underline">Cognitive Systems Management (CSM)</Link> domains - <span className="font-semibold">CSM-Enterprise</span>, <span className="font-semibold">CSM-Project</span>, <span className="font-semibold">CSM-Code</span>, and <span className="font-semibold">CSM-UX</span>. The master sheet is not CSM itself; its purpose is architecture completeness and blind-spot prevention.
             </p>
           </div>
         </div>
@@ -222,7 +222,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
-            <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-4">Quick Start — 5 Steps</h2>
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-4">Quick Start - 5 Steps</h2>
             <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -250,7 +250,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">4</span>
                   <h3 className="text-sm font-semibold">Review AI risks</h3>
                 </div>
-                <p className="text-xs text-muted-foreground">Switch to AI Risk View. Check AI pitfalls and quality gates for every layer — especially if using AI code assistants.</p>
+                <p className="text-xs text-muted-foreground">Switch to AI Risk View. Check AI pitfalls and quality gates for every layer - especially if using AI code assistants.</p>
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -290,19 +290,19 @@ export default function ArchitectureDecisionMasterSheetPage() {
             <Card className="border-l-4 border-l-red-500/40">
               <CardHeader>
                 <CardTitle className="text-sm flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-red-500" /> AI Leads</CardTitle>
-                <CardDescription className="text-sm mt-2">Focus on Layers 15–17 (AI Pipeline, Agents, Validation). Use the AI Risk View to see AI-specific risks across all layers. Ensure quality gates are enforced in CI before AI features ship.</CardDescription>
+                <CardDescription className="text-sm mt-2">Focus on Layers 15-17 (AI Pipeline, Agents, Validation). Use the AI Risk View to see AI-specific risks across all layers. Ensure quality gates are enforced in CI before AI features ship.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-amber-500/40">
               <CardHeader>
                 <CardTitle className="text-sm flex items-center gap-2"><TrendingUp className="h-4 w-4 text-amber-500" /> DevOps & SRE</CardTitle>
-                <CardDescription className="text-sm mt-2">Focus on Layers 22–25 (Observability, DevOps, Performance, Governance). Ensure rollback strategies are tested. Set up AI-specific monitoring (drift, cost, quality) before launch.</CardDescription>
+                <CardDescription className="text-sm mt-2">Focus on Layers 22-25 (Observability, DevOps, Performance, Governance). Ensure rollback strategies are tested. Set up AI-specific monitoring (drift, cost, quality) before launch.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-purple-500/40">
               <CardHeader>
                 <CardTitle className="text-sm flex items-center gap-2"><Shield className="h-4 w-4 text-purple-500" /> Security & Compliance</CardTitle>
-                <CardDescription className="text-sm mt-2">Focus on Layers 18–21 (Security, Validation, Testing, Code Review). Use the CSM Pillar View to filter by Governance & Risk. Map controls to NIST AI RMF, ISO 42001, and regulatory requirements.</CardDescription>
+                <CardDescription className="text-sm mt-2">Focus on Layers 18-21 (Security, Validation, Testing, Code Review). Use the CSM Pillar View to filter by Governance & Risk. Map controls to NIST AI RMF, ISO 42001, and regulatory requirements.</CardDescription>
               </CardHeader>
             </Card>
           </div>
@@ -324,13 +324,13 @@ export default function ArchitectureDecisionMasterSheetPage() {
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">The 25 Layers at a <span className="gradient-text">Glance</span></h2>
           <div className="space-y-1.5">
             {[
-              { label: 'Group A — Foundation & Scope', layers: '1–4', color: 'bg-blue-500/80', text: 'text-white', csm: 'Strategic Alignment' },
-              { label: 'Group B — Interface & Interaction', layers: '5–7', color: 'bg-cyan-500/80', text: 'text-white', csm: 'Technical' },
-              { label: 'Group C — Logic & Data', layers: '8–11', color: 'bg-teal-500/80', text: 'text-white', csm: 'Technical' },
-              { label: 'Group D — Integration & Async', layers: '12–14', color: 'bg-green-500/80', text: 'text-white', csm: 'Technical' },
-              { label: 'Group E — AI Layer (Conditional)', layers: '15–17', color: 'bg-red-500/80', text: 'text-white', csm: 'Technical' },
-              { label: 'Group F — Quality & Security', layers: '18–21', color: 'bg-purple-500/80', text: 'text-white', csm: 'Governance & Risk' },
-              { label: 'Group G — Operations & Delivery', layers: '22–25', color: 'bg-amber-500/80', text: 'text-white', csm: 'Operational Excellence' },
+              { label: 'Group A - Foundation & Scope', layers: '1-4', color: 'bg-blue-500/80', text: 'text-white', csm: 'Strategic Alignment' },
+              { label: 'Group B - Interface & Interaction', layers: '5-7', color: 'bg-cyan-500/80', text: 'text-white', csm: 'Technical' },
+              { label: 'Group C - Logic & Data', layers: '8-11', color: 'bg-teal-500/80', text: 'text-white', csm: 'Technical' },
+              { label: 'Group D - Integration & Async', layers: '12-14', color: 'bg-green-500/80', text: 'text-white', csm: 'Technical' },
+              { label: 'Group E - AI Layer (Conditional)', layers: '15-17', color: 'bg-red-500/80', text: 'text-white', csm: 'Technical' },
+              { label: 'Group F - Quality & Security', layers: '18-21', color: 'bg-purple-500/80', text: 'text-white', csm: 'Governance & Risk' },
+              { label: 'Group G - Operations & Delivery', layers: '22-25', color: 'bg-amber-500/80', text: 'text-white', csm: 'Operational Excellence' },
             ].map((g, i) => (
               <div key={i} className={`flex items-center justify-between rounded-lg ${g.color} ${g.text} px-4 py-2.5 shadow-sm`} style={{ marginLeft: `${i * 8}px`, marginRight: `${(7 - i) * 8}px` }}>
                 <span className="text-sm font-medium">{g.label}</span>
@@ -338,7 +338,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
               </div>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground mt-3 text-center">Each group maps to a CSM pillar. Group E (red) is conditional — only if your product includes AI features.</p>
+          <p className="text-xs text-muted-foreground mt-3 text-center">Each group maps to a CSM pillar. Group E (red) is conditional - only if your product includes AI features.</p>
         </div>
       </Section>
 
@@ -348,13 +348,13 @@ export default function ArchitectureDecisionMasterSheetPage() {
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">The <span className="gradient-text">7 Layer Groups</span> Explained</h2>
 
           {[
-            { group: 'Group A — Foundation & Scope (Layers 1–4)', csm: 'Strategic Alignment', desc: 'These layers define what you are building and why. They are the highest-leverage decisions in the entire sheet. Getting these wrong means every downstream layer inherits the wrong assumptions.', items: ['Product & Scope — What problem are you solving?', 'Domain Modeling — Core business entities and rules', 'Tech Stack & Framework — Technologies and constraints', 'Build vs Buy Strategy — In-house vs SaaS decisions'] },
-            { group: 'Group B — Interface & Interaction (Layers 5–7)', csm: 'Technical Implementation', desc: 'These layers define how users interact with the system. Key decisions include rendering strategy, state management, and API gateway design.', items: ['Client / UI Layer — Rendering, design system, accessibility', 'UI State Management — Global vs server vs local state', 'API & Gateway — Contract between frontend and backend'] },
-            { group: 'Group C — Logic & Data (Layers 8–11)', csm: 'Technical Implementation', desc: 'These layers define where business logic lives and how data is stored. This is where most one-way doors live — schema migrations and domain model changes are expensive to reverse.', items: ['Service Layer — Centralized business logic', 'Controllers / Routing — Thin controllers', 'Data & Persistence — Schema, indexes, migrations', 'Caching & Performance — Invalidation strategy, TTL'] },
-            { group: 'Group D — Integration & Async (Layers 12–14)', csm: 'Technical Implementation', desc: 'These layers define how external services connect and how background work gets done. The adapter pattern isolates vendor risk.', items: ['Integration / Adapters — Isolate vendor calls', 'Events & Async — Queue topology, idempotency, DLQ (Dead Letter Queue)', 'Middleware — Cross-cutting concerns'] },
-            { group: 'Group E — AI Layer (Layers 15–17, Conditional)', csm: 'Technical Implementation', desc: 'These layers are only applicable if your product includes AI features. They carry the highest risk in the entire sheet — this is where most AI pilots fail.', items: ['AI / RAG Pipeline — Retrieval, chunking, embeddings, guardrails', 'AI Agent Architecture — Tool use, autonomy, escalation', 'AI Output Validation — Multi-layer validation, bias detection'] },
-            { group: 'Group F — Quality & Security (Layers 18–21)', csm: 'Governance & Risk', desc: 'These layers define how you protect the system and verify correctness. AI introduces new attack surfaces that traditional security does not cover.', items: ['Security & Policy — Auth, encryption, RLS (Row-Level Security), audit logging', 'Validation & Integrity — Schema validation, sanitization', 'Testing Strategy — Unit, integration, e2e, AI evaluation', 'Code Review & Quality Gates — PR review, CI gates, AI code policy'] },
-            { group: 'Group G — Operations & Delivery (Layers 22–25)', csm: 'Operational Excellence', desc: 'These layers define how you ship, monitor, and govern the system in production. AI features need specialized monitoring that standard observability does not provide.', items: ['Observability — Logs, metrics, traces, AI monitoring', 'DevOps & Delivery — CI/CD, environments, rollback', 'Performance & Cost — Load testing, auto-scaling, AI cost limits', 'Ownership & Governance — ADRs, decision log, ownership matrix'] },
+            { group: 'Group A - Foundation & Scope (Layers 1-4)', csm: 'Strategic Alignment', desc: 'These layers define what you are building and why. They are the highest-use decisions in the entire sheet. Getting these wrong means every downstream layer inherits the wrong assumptions.', items: ['Product & Scope - What problem are you solving?', 'Domain Modeling - Core business entities and rules', 'Tech Stack & Framework - Technologies and constraints', 'Build vs Buy Strategy - In-house vs SaaS decisions'] },
+            { group: 'Group B - Interface & Interaction (Layers 5-7)', csm: 'Technical Implementation', desc: 'These layers define how users interact with the system. Key decisions include rendering strategy, state management, and API gateway design.', items: ['Client / UI Layer - Rendering, design system, accessibility', 'UI State Management - Global vs server vs local state', 'API & Gateway - Contract between frontend and backend'] },
+            { group: 'Group C - Logic & Data (Layers 8-11)', csm: 'Technical Implementation', desc: 'These layers define where business logic lives and how data is stored. This is where most one-way doors live - schema migrations and domain model changes are expensive to reverse.', items: ['Service Layer - Centralized business logic', 'Controllers / Routing - Thin controllers', 'Data & Persistence - Schema, indexes, migrations', 'Caching & Performance - Invalidation strategy, TTL'] },
+            { group: 'Group D - Integration & Async (Layers 12-14)', csm: 'Technical Implementation', desc: 'These layers define how external services connect and how background work gets done. The adapter pattern isolates vendor risk.', items: ['Integration / Adapters - Isolate vendor calls', 'Events & Async - Queue topology, idempotency, DLQ (Dead Letter Queue)', 'Middleware - Cross-cutting concerns'] },
+            { group: 'Group E - AI Layer (Layers 15-17, Conditional)', csm: 'Technical Implementation', desc: 'These layers are only applicable if your product includes AI features. They carry the highest risk in the entire sheet - this is where most AI pilots fail.', items: ['AI / RAG Pipeline - Retrieval, chunking, embeddings, guardrails', 'AI Agent Architecture - Tool use, autonomy, escalation', 'AI Output Validation - Multi-layer validation, bias detection'] },
+            { group: 'Group F - Quality & Security (Layers 18-21)', csm: 'Governance & Risk', desc: 'These layers define how you protect the system and verify correctness. AI introduces new attack surfaces that traditional security does not cover.', items: ['Security & Policy - Auth, encryption, RLS (Row-Level Security), audit logging', 'Validation & Integrity - Schema validation, sanitization', 'Testing Strategy - Unit, integration, e2e, AI evaluation', 'Code Review & Quality Gates - PR review, CI gates, AI code policy'] },
+            { group: 'Group G - Operations & Delivery (Layers 22-25)', csm: 'Operational Excellence', desc: 'These layers define how you ship, monitor, and govern the system in production. AI features need specialized monitoring that standard observability does not provide.', items: ['Observability - Logs, metrics, traces, AI monitoring', 'DevOps & Delivery - CI/CD, environments, rollback', 'Performance & Cost - Load testing, auto-scaling, AI cost limits', 'Ownership & Governance - ADRs, decision log, ownership matrix'] },
           ].map(g => (
             <div key={g.group}>
               <h3 className="text-lg font-semibold">{g.group}</h3>
@@ -383,24 +383,24 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
           <div className="space-y-3">
             <div className="rounded-lg border border-border p-4">
-              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 0 — Discovery</h3>
-              <p className="text-sm text-muted-foreground">The PM selects the <strong className="text-foreground">"AI-powered product"</strong> scenario. The team reviews Layers 1–4 (Foundation & Scope): they write a PRD with success metrics (deflection rate, CSAT, cost per ticket), document the domain model (tickets, users, knowledge base articles), choose Next.js + Postgres + pgvector, and decide to use OpenAI API (build-vs-buy decision). The architect writes ADR-001 (tech stack) and ADR-002 (AI vendor). The PM creates a sprint plan and staffing matrix.</p>
+              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 0 - Discovery</h3>
+              <p className="text-sm text-muted-foreground">The PM selects the <strong className="text-foreground">"AI-powered product"</strong> scenario. The team reviews Layers 1-4 (Foundation & Scope): they write a PRD with success metrics (deflection rate, CSAT, cost per ticket), document the domain model (tickets, users, knowledge base articles), choose Next.js + Postgres + pgvector, and decide to use OpenAI API (build-vs-buy decision). The architect writes ADR-001 (tech stack) and ADR-002 (AI vendor). The PM creates a sprint plan and staffing matrix.</p>
             </div>
             <div className="rounded-lg border border-border p-4">
-              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 1 — Design</h3>
-              <p className="text-sm text-muted-foreground">The team filters by <strong className="text-foreground">Phase: Design</strong>. They address Layers 5–7 (UI, State, API), Layer 10 (Data — including vector schema for embeddings), Layer 15 (AI/RAG Pipeline — chunking strategy, embedding model, retrieval pipeline), and Layer 18 (Security — RLS for multi-tenant, audit logging). The AI Lead writes the AI pipeline design document. The architect reviews the reversibility column: domain model and schema are <strong className="text-foreground">one-way doors</strong> — they get these right before building.</p>
+              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 1 - Design</h3>
+              <p className="text-sm text-muted-foreground">The team filters by <strong className="text-foreground">Phase: Design</strong>. They address Layers 5-7 (UI, State, API), Layer 10 (Data - including vector schema for embeddings), Layer 15 (AI/RAG Pipeline - chunking strategy, embedding model, retrieval pipeline), and Layer 18 (Security - RLS for multi-tenant, audit logging). The AI Lead writes the AI pipeline design document. The architect reviews the reversibility column: domain model and schema are <strong className="text-foreground">one-way doors</strong> - they get these right before building.</p>
             </div>
             <div className="rounded-lg border border-border p-4">
-              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 2 — Build</h3>
-              <p className="text-sm text-muted-foreground">The team filters by <strong className="text-foreground">Phase: Build</strong>. They address Layers 8–9 (Services, Controllers), Layer 11 (Caching — with AI response caching + validation), Layer 12–13 (Integration with OpenAI via adapter pattern, async queue for embeddings), Layer 16 (Agent Architecture — tool use for ticket actions, escalation to human), Layer 17 (Output Validation — LLM-as-judge for response quality, content filtering), Layer 19 (Input validation), Layer 22 (Observability — AI-specific monitoring for drift, cost, hallucination rate). The team checks the <strong className="text-foreground">AI Risk View</strong> to verify they have mitigations for every AI pitfall.</p>
+              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 2 - Build</h3>
+              <p className="text-sm text-muted-foreground">The team filters by <strong className="text-foreground">Phase: Build</strong>. They address Layers 8-9 (Services, Controllers), Layer 11 (Caching - with AI response caching + validation), Layer 12-13 (Integration with OpenAI via adapter pattern, async queue for embeddings), Layer 16 (Agent Architecture - tool use for ticket actions, escalation to human), Layer 17 (Output Validation - LLM-as-judge for response quality, content filtering), Layer 19 (Input validation), Layer 22 (Observability - AI-specific monitoring for drift, cost, hallucination rate). The team checks the <strong className="text-foreground">AI Risk View</strong> to verify they have mitigations for every AI pitfall.</p>
             </div>
             <div className="rounded-lg border border-border p-4">
-              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 3 — Launch</h3>
-              <p className="text-sm text-muted-foreground">The team filters by <strong className="text-foreground">Phase: Launch</strong>. They address Layer 20 (Testing — including AI evaluation suite for response quality), Layer 21 (Code Review — AI code policy), Layer 23 (DevOps — CI/CD with rollback, feature flags for gradual rollout), Layer 24 (Performance — load testing, AI cost limits with alerts). They run the <strong className="text-foreground">Definition of Done</strong> checklist for every layer before launch. The PM exports the final sheet as CSV and shares it with stakeholders.</p>
+              <h3 className="text-sm font-semibold text-primary mb-1">Sprint 3 - Launch</h3>
+              <p className="text-sm text-muted-foreground">The team filters by <strong className="text-foreground">Phase: Launch</strong>. They address Layer 20 (Testing - including AI evaluation suite for response quality), Layer 21 (Code Review - AI code policy), Layer 23 (DevOps - CI/CD with rollback, feature flags for gradual rollout), Layer 24 (Performance - load testing, AI cost limits with alerts). They run the <strong className="text-foreground">Definition of Done</strong> checklist for every layer before launch. The PM exports the final sheet as CSV and shares it with stakeholders.</p>
             </div>
             <div className="rounded-lg border border-border p-4">
-              <h3 className="text-sm font-semibold text-primary mb-1">Operate — Ongoing</h3>
-              <p className="text-sm text-muted-foreground">The team uses the <strong className="text-foreground">CSM Pillar View</strong> in quarterly reviews. They check Operational Excellence (Layers 22–25) for drift, cost trends, and incident response readiness. They update the sheet when new tools are added, when the AI vendor changes models, or when new compliance requirements emerge. The sheet becomes the living record of their architecture decisions.</p>
+              <h3 className="text-sm font-semibold text-primary mb-1">Operate - Ongoing</h3>
+              <p className="text-sm text-muted-foreground">The team uses the <strong className="text-foreground">CSM Pillar View</strong> in quarterly reviews. They check Operational Excellence (Layers 22-25) for drift, cost trends, and incident response readiness. They update the sheet when new tools are added, when the AI vendor changes models, or when new compliance requirements emerge. The sheet becomes the living record of their architecture decisions.</p>
             </div>
           </div>
 
@@ -417,19 +417,19 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight"><span className="gradient-text">AI Development Risks</span>: What Is Different</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            Building software with AI — whether AI is in the product or AI tools write the code — introduces risks that traditional architecture decision frameworks do not cover. This sheet addresses both dimensions:
+            Building software with AI - whether AI is in the product or AI tools write the code - introduces risks that traditional architecture decision frameworks do not cover. This sheet addresses both dimensions:
           </p>
-          <h3 className="text-lg font-semibold">AI in the Product (Layers 15–17)</h3>
-          <p className="text-sm text-muted-foreground">If your product includes AI features, three additional layers apply. These are conditional — skip them only if your product has no AI components. The risks here are existential: hallucinations in production, runaway agents, compliance violations, and cost spirals.</p>
+          <h3 className="text-lg font-semibold">AI in the Product (Layers 15-17)</h3>
+          <p className="text-sm text-muted-foreground">If your product includes AI features, three additional layers apply. These are conditional - skip them only if your product has no AI components. The risks here are existential: hallucinations in production, runaway agents, compliance violations, and cost spirals.</p>
           <h3 className="text-lg font-semibold">AI Tools in the Development Process (All Layers)</h3>
           <p className="text-sm text-muted-foreground">Even if your product has no AI features, if your team uses AI code assistants (Copilot, Cursor, Claude), every layer carries additional risk. AI-generated code:</p>
           <ul className="space-y-2">
             {[
-              'Looks correct but contains subtle bugs — handles the happy path but fails on edge cases, race conditions, and transaction boundaries.',
-              'Does not know your architecture decisions — generates code that violates existing ADRs because it has no context about your decisions.',
-              'Introduces security vulnerabilities — missing auth, over-permissive CORS, SQL injection, prompt injection, insecure crypto.',
-              'Generates tautological tests — coverage goes up while real validation stays flat. Tests pass but do not validate behavior.',
-              'Recommends deprecated or incompatible packages — libraries that are no longer maintained or that conflict with your existing stack.',
+              'Looks correct but contains subtle bugs - handles the happy path but fails on edge cases, race conditions, and transaction boundaries.',
+              'Does not know your architecture decisions - generates code that violates existing ADRs because it has no context about your decisions.',
+              'Introduces security vulnerabilities - missing auth, over-permissive CORS, SQL injection, prompt injection, insecure crypto.',
+              'Generates tautological tests - coverage goes up while real validation stays flat. Tests pass but do not validate behavior.',
+              'Recommends deprecated or incompatible packages - libraries that are no longer maintained or that conflict with your existing stack.',
             ].map((item, i) => (
               <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
@@ -439,7 +439,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
           </ul>
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
             <p className="text-sm text-foreground">
-              <strong>Quality Gate Approach:</strong> Every layer includes an <em>AI Quality Gate</em> — a specific, testable checkpoint that must pass before AI-generated code or AI features are deployed. These gates are enforced in CI, not in code review alone.
+              <strong>Quality Gate Approach:</strong> Every layer includes an <em>AI Quality Gate</em> - a specific, testable checkpoint that must pass before AI-generated code or AI features are deployed. These gates are enforced in CI, not in code review alone.
             </p>
           </div>
         </div>
@@ -517,7 +517,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
           </div>
           <div className="rounded-lg border border-purple-500/30 bg-purple-950/20 p-4">
             <p className="text-sm text-purple-200">
-              <strong>Why this matters:</strong> Most architecture frameworks stop at technical decisions. Mapping decisions to CSM domains helps architects see which governance areas a given decision touches. Not every layer will map to every domain — and that is the point. The mapping reveals blind spots where governance handoffs might otherwise go unnoticed.
+              <strong>Why this matters:</strong> Most architecture frameworks stop at technical decisions. Mapping decisions to CSM domains helps architects see which governance areas a given decision touches. Not every layer will map to every domain - and that is the point. The mapping reveals blind spots where governance handoffs might otherwise go unnoticed.
             </p>
           </div>
         </div>
@@ -528,7 +528,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight"><span className="gradient-text">Definition of Done</span>: Why It Matters</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            Each of the 25 layers includes a <strong className="text-foreground">Definition of Done (DoD)</strong> — a specific, testable criterion that must be met before the layer is considered complete. The DoD is not a checklist item; it is a gate. Examples:
+            Each of the 25 layers includes a <strong className="text-foreground">Definition of Done (DoD)</strong> - a specific, testable criterion that must be met before the layer is considered complete. The DoD is not a checklist item; it is a gate. Examples:
           </p>
           <ul className="space-y-2">
             {[
@@ -554,7 +554,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Common <span className="text-red-500">Anti-Patterns</span></h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            Every layer includes an <strong className="text-foreground">anti-pattern</strong> field — a description of what bad looks like. Here are the top anti-patterns across all 25 layers:
+            Every layer includes an <strong className="text-foreground">anti-pattern</strong> field - a description of what bad looks like. Here are the top anti-patterns across all 25 layers:
           </p>
           <div className="space-y-2">
             {antiPatterns.map((ap, i) => (
@@ -575,7 +575,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-3xl mx-auto space-y-4 prose-article">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">How This Compares to Other <span className="gradient-text">Architecture Frameworks</span></h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            Several architecture frameworks exist. This sheet is not a replacement for any of them — it is a <strong className="text-foreground">complementary tool</strong> that operationalizes their principles into a trackable, layer-by-layer checklist with AI risks and PM deliverables.
+            Several architecture frameworks exist. This sheet is not a replacement for any of them - it is a <strong className="text-foreground">complementary tool</strong> that operationalizes their principles into a trackable, layer-by-layer checklist with AI risks and PM deliverables.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse border border-border rounded-lg overflow-hidden">
@@ -628,7 +628,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
             </table>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">Key difference:</strong> This sheet is the only framework that pairs every layer with AI development risks (both AI-in-product and AI-tools-in-process), PM-specific deliverables, and a testable Definition of Done. It is designed to be used alongside TOGAF (for enterprise context), C4 (for visualization), and AWS Well-Architected (for cloud review) — not to replace them.
+            <strong className="text-foreground">Key difference:</strong> This sheet is the only framework that pairs every layer with AI development risks (both AI-in-product and AI-tools-in-process), PM-specific deliverables, and a testable Definition of Done. It is designed to be used alongside TOGAF (for enterprise context), C4 (for visualization), and AWS Well-Architected (for cloud review) - not to replace them.
           </p>
         </div>
       </Section>
@@ -638,9 +638,9 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-3xl mx-auto">
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-background p-6 md:p-8 text-center">
             <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed">
-              "We used this sheet to audit a stalled AI pilot and found <span className="text-primary font-bold">3 missing layers</span> in 20 minutes — output validation, observability, and governance. The Definition of Done alone saved us from shipping another hallucination."
+              "We used this sheet to audit a stalled AI pilot and found <span className="text-primary font-bold">3 missing layers</span> in 20 minutes - output validation, observability, and governance. The Definition of Done alone saved us from shipping another hallucination."
             </p>
-            <p className="text-sm text-muted-foreground mt-4">— Architecture review team, AI customer support pilot</p>
+            <p className="text-sm text-muted-foreground mt-4">- Architecture review team, AI customer support pilot</p>
           </div>
         </div>
       </Section>
@@ -650,7 +650,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
         <div className="max-w-2xl mx-auto">
           <LeadMagnetCard
             title="Free CSM Framework Guide"
-            description="Get the Cognitive Systems Management (CSM) framework guide — the four-pillar methodology underlying the HAIEC platform that bridges AI strategy, technical execution, and governance into a single operating model."
+            description="Get the Cognitive Systems Management (CSM) framework guide - the four-pillar methodology underlying the HAIEC platform that bridges AI strategy, technical execution, and governance into a single operating model."
             resourceName="CSM Framework Guide"
           />
         </div>
@@ -730,7 +730,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
                     </div>
                     <CardTitle className="text-sm">Vendor Due-Diligence Checklist</CardTitle>
                   </div>
-                  <CardDescription className="text-sm">60-item checklist for evaluating AI vendors — for Layer 4 (Build vs Buy) and Layer 12 (Integration).</CardDescription>
+                  <CardDescription className="text-sm">60-item checklist for evaluating AI vendors - for Layer 4 (Build vs Buy) and Layer 12 (Integration).</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Open checklist <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
@@ -744,7 +744,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
                     </div>
                     <CardTitle className="text-sm">How to Secure and Govern AI</CardTitle>
                   </div>
-                  <CardDescription className="text-sm">Seven layers of AI compliance — NIST AI RMF, ISO 42001, SOC 2, and continuous evidence.</CardDescription>
+                  <CardDescription className="text-sm">Seven layers of AI compliance - NIST AI RMF, ISO 42001, SOC 2, and continuous evidence.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Read guide <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
@@ -758,7 +758,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
                     </div>
                     <CardTitle className="text-sm">HAIEC Platform</CardTitle>
                   </div>
-                  <CardDescription className="text-sm">The CSM framework and AI governance platform — bridges strategy, execution, and operations.</CardDescription>
+                  <CardDescription className="text-sm">The CSM framework and AI governance platform - bridges strategy, execution, and operations.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Explore platform <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
@@ -769,7 +769,7 @@ export default function ArchitectureDecisionMasterSheetPage() {
 
       <CTA
         title="Need Help With Your Architecture Decisions?"
-        description="Get a tailored architecture review and decision framework — from Subodh KC, founder of the HAIEC AI security and compliance engine."
+        description="Get a tailored architecture review and decision framework - from Subodh KC, founder of the HAIEC AI security and compliance engine."
         primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

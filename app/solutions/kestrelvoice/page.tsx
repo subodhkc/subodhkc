@@ -10,7 +10,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { ArrowRight, Phone, CheckCircle2, ExternalLink, Clock, Calendar, Shield, Zap, Users, TrendingUp } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'KestrelVoice — AI Voice Receptionist Platform for Small Business',
+  title: 'KestrelVoice - AI Voice Receptionist Platform for Small Business',
   description: 'AI voice receptionist that answers every call, books appointments, and runs your front desk 24/7. Built for small businesses, dental offices, and service teams. Never miss a call again.',
   keywords: [
     'AI voice receptionist platform',
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/solutions/kestrelvoice',
   },
   openGraph: {
-    title: 'KestrelVoice — AI Voice Receptionist Platform for Small Business',
+    title: 'KestrelVoice - AI Voice Receptionist Platform for Small Business',
     description: 'AI voice receptionist that answers every call, books appointments, and runs your front desk 24/7. Never miss a call again.',
     url: 'https://subodhkc.com/solutions/kestrelvoice',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'KestrelVoice — AI Voice Receptionist Platform',
+    title: 'KestrelVoice - AI Voice Receptionist Platform',
     description: 'AI voice receptionist that answers every call, books appointments, and runs your front desk 24/7.',
   },
 }
@@ -227,7 +227,7 @@ stats: 'Missed calls mean lost revenue'
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>Want to understand the architecture behind a production AI voice agent? Read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link> — ten failure modes, the three-layer voice decision model, AI voice control ladder, security threat model, TCPA and TRAIGA compliance, and a six-phase deployment plan.</p>
+            <p>Want to understand the architecture behind a production AI voice agent? Read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link> - ten failure modes, the three-layer voice decision model, AI voice control ladder, security threat model, TCPA and TRAIGA compliance, and a six-phase deployment plan.</p>
           </div>
         </div>
       </Section>
@@ -235,7 +235,7 @@ stats: 'Missed calls mean lost revenue'
       <Section className="pt-4">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>Want to see how Kestrel Voice works under the hood? Read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link> — the complete production architecture covering telephony, adaptive orchestration, RAG, tools, degradation, security, and evidence pipeline. For the product positioning and market comparison, read <Link href="/kestrel-voice-ai-receptionist-platform" className="text-primary font-medium hover:underline">Kestrel Voice AI Receptionist Platform</Link>.</p>
+            <p>Want to see how Kestrel Voice works under the hood? Read <Link href="/ai-voice-agent-architecture" className="text-primary font-medium hover:underline">AI Voice Agent Architecture: How Kestrel Voice Works</Link> - the complete production architecture covering telephony, adaptive orchestration, RAG, tools, degradation, security, and evidence pipeline. For the product positioning and market comparison, read <Link href="/kestrel-voice-ai-receptionist-platform" className="text-primary font-medium hover:underline">Kestrel Voice AI Receptionist Platform</Link>.</p>
           </div>
         </div>
       </Section>

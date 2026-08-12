@@ -73,7 +73,7 @@ const BOOK_HTML = `
   <div class="cover-copy"><div class="edition">Executive portfolio / 2026 edition</div>
     <h1>AI THAT <span>WORKS</span></h1>
     <div class="sub">Strategy. Programs. Platforms. Governance.<br/>Turning AI ambition into operating systems, measurable value, and evidence that survives scrutiny.</div>
-    <div class="cover-tags"><span>AI Strategy</span><span>Program &amp; Portfolio Leadership</span><span>Production AI</span><span>Governance &amp; Reliability</span><span>Dallas–Fort Worth</span></div>
+    <div class="cover-tags"><span>AI Strategy</span><span>Program &amp; Portfolio Leadership</span><span>Production AI</span><span>Governance &amp; Reliability</span><span>Dallas-Fort Worth</span></div>
     <div class="name">Subodh KC</div><div class="role">AI Strategy &amp; Transformation Leader<br/>Enterprise Portfolio Operator · AI Systems Architect · Product &amp; Governance Builder</div>
   </div>
   <div class="cover-photo"><img src="/portrait.jpeg" alt="Subodh KC portrait"/></div>
@@ -111,7 +111,7 @@ const BOOK_HTML = `
   <p class="kicker">The decision rules behind the work</p><h1>Five rules for building AI that earns its place.</h1>
   <p class="lead" style="margin-top:12px">Strategy, product, and governance aren't three different jobs. They're the same instinct - build things that survive contact with reality - applied at three altitudes. These are the rules that instinct runs on.</p>
   <div class="four" style="margin-top:20px">
-    <div class="mini"><div class="icon">1</div><h3>Configure before you customize. Connect before you rebuild.</h3><p>Most "AI transformation" is buying novelty instead of buying leverage. Before I write a line of code or scope a platform, I check whether an existing tool already does 80% of the job.</p></div>
+    <div class="mini"><div class="icon">1</div><h3>Configure before you customize. Connect before you rebuild.</h3><p>Most "AI transformation" is buying novelty instead of buying use. Before I write a line of code or scope a platform, I check whether an existing tool already does 80% of the job.</p></div>
     <div class="mini"><div class="icon" style="background:var(--softteal);color:var(--teal)">2</div><h3>If a human can't stop it, it isn't ready.</h3><p>Systems with operational authority need an explicit human owner, escalation path, and safe-stop mechanism. Autonomy without an off-ramp is unmanaged exposure.</p></div>
     <div class="mini"><div class="icon" style="background:var(--softgold);color:var(--gold)">3</div><h3>Evidence beats confidence.</h3><p>"It works" is an opinion. A versioned test log, a dated metric, and a named owner are a fact. I build the second kind, even when it's slower.</p></div>
     <div class="mini"><div class="icon">4</div><h3>Small systems that remove expensive friction beat big systems that remove none.</h3><p>A log analyzer that saves four hours a week is worth more than a platform nobody adopts. I'd rather ship the narrow thing that gets used.</p></div>
@@ -347,7 +347,7 @@ const BOOK_HTML = `
 <!-- 14 -->
 <section class="page" id="haiec-product"><div class="page-grid"></div><div class="page-inner">
   <div class="running"><b>HAIEC</b><span>Product strategy</span></div>
-  <p class="kicker">Holistic AI Ethics &amp; Compliance · Evidence layer for operational AI</p><h2>AI adoption moves fast. Defensible evidence usually arrives late.</h2>
+  <p class="kicker">integrated AI Ethics &amp; Compliance · Evidence layer for operational AI</p><h2>AI adoption moves fast. Defensible evidence usually arrives late.</h2>
   <div class="columns-2" style="margin-top:18px">
     <div class="case-content">
       <div class="card"><span class="status">Problem</span><h3 style="margin-top:6px">Policy is not proof</h3><p>AI systems may not be inventoried. Vendor claims substitute for internal evidence. Testing happens late. Ownership, authority, and human review are unclear. Artifacts remain scattered across teams.</p></div>
@@ -422,7 +422,7 @@ const BOOK_HTML = `
 <!-- 17 -->
 <section class="page" id="selected-systems"><div class="page-grid"></div><div class="page-inner">
   <div class="running"><b>SELECTED SYSTEMS</b><span>Builder portfolio</span></div>
-  <p class="kicker">Small systems that remove expensive friction</p><h2>Build where control creates leverage. Configure everywhere else.</h2>
+  <p class="kicker">Small systems that remove expensive friction</p><h2>Build where control creates use. Configure everywhere else.</h2>
   <div class="four" style="margin-top:20px">
     <div class="mini"><span class="tag blue">Open source / active</span><h3 style="margin-top:10px">PM Orchestrator</h3><p>Specification-driven coordination for multiple AI coding agents, using separated roles, scheduled check-ins, Git safety, and explicit success criteria.</p><div class="rule"></div><p class="small"><b>Proves:</b> agent orchestration, program logic, safety constraints, and developer workflow design.</p></div>
     <div class="mini"><span class="tag teal">Applied tool</span><h3 style="margin-top:10px">SKC Log Analyser</h3><p>Multi-log root-cause analysis, comparison, clustering, anomaly detection, and export for faster investigation of complex system failures.</p><div class="rule"></div><p class="small"><b>Proves:</b> reliability thinking, data analysis, RCA, and practical internal-tool development.</p></div>
@@ -645,7 +645,7 @@ export default function PortfolioPage() {
         }
       `}</style>
       <div className="toolbar" role="toolbar" aria-label="Portfolio actions">
-        <strong>AI That Works — Executive Portfolio</strong>
+        <strong>AI That Works - Executive Portfolio</strong>
         <div className="actions">
           <button onClick={() => window.print()} aria-label="Print or save portfolio as PDF">Print / Save as PDF</button>
           <button

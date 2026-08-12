@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * outreach-generator.mjs — Generate enhanced outreach opportunities for each blog post.
+ * outreach-generator.mjs - Generate enhanced outreach opportunities for each blog post.
  *
  * For each article, this script:
  * 1. Analyzes article content and keywords for topic classification
@@ -102,7 +102,7 @@ async function logOutreachToSupabase(post, email, emailType = 'initial') {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!supabaseUrl || !supabaseKey) {
-    console.log('  ℹ Supabase not configured — skipping dashboard logging')
+    console.log('  ℹ Supabase not configured - skipping dashboard logging')
     return false
   }
 
@@ -160,7 +160,7 @@ const TOPIC_CATEGORIES = {
     ],
     newsletters: [
       { name: 'The Rundown AI', url: 'https://www.therundown.ai/', pitch: 'Practical compliance framework breakdown for AI practitioners' },
-      { name: 'TLDR AI', url: 'https://tldr.tech/ai', pitch: 'Enterprise AI compliance — how frameworks fit together' },
+      { name: 'TLDR AI', url: 'https://tldr.tech/ai', pitch: 'Enterprise AI compliance - how frameworks fit together' },
       { name: 'AI Tinkerers Weekly', url: 'https://www.aitinkerers.org/', pitch: 'Implementation-level compliance guidance for AI builders' },
     ],
     backlinkTargets: [
@@ -212,7 +212,7 @@ const TOPIC_CATEGORIES = {
     ],
     newsletters: [
       { name: 'Voicebot.ai', url: 'https://voicebot.ai/', pitch: 'Production voice AI architecture and failure modes' },
-      { name: 'The Rundown AI', url: 'https://www.therundown.ai/', pitch: 'Voice AI in production — what works and what fails' },
+      { name: 'The Rundown AI', url: 'https://www.therundown.ai/', pitch: 'Voice AI in production - what works and what fails' },
     ],
     backlinkTargets: [
       { type: 'Resource Page', target: 'Voicebot.ai Research', url: 'https://voicebot.ai/research/', action: 'Submit article as reference material' },
@@ -307,7 +307,7 @@ const TOPIC_CATEGORIES = {
       'How to audit AI systems for compliance?',
     ],
     newsletters: [
-      { name: 'The Rundown AI', url: 'https://www.therundown.ai/', pitch: 'AI risk management — practical framework' },
+      { name: 'The Rundown AI', url: 'https://www.therundown.ai/', pitch: 'AI risk management - practical framework' },
       { name: 'TLDR AI', url: 'https://tldr.tech/ai', pitch: 'AI incident response and evidence collection' },
     ],
     backlinkTargets: [
@@ -361,14 +361,14 @@ function extractSpecificClaims(post) {
   const text = `${post.title} ${post.excerpt || post.metaDescription || ''}`
   const lower = text.toLowerCase()
 
-  // Use metaDescription as first claim if available — it's already a specific summary
+  // Use metaDescription as first claim if available - it's already a specific summary
   if (post.metaDescription && post.metaDescription.length > 40) {
     claims.push(post.metaDescription.trim())
   }
 
   // Extract specific claims based on article content patterns
   if (lower.includes('nist') && lower.includes('iso')) {
-    claims.push('Where NIST AI RMF and ISO 42001 overlap — and the gaps that cause audit failures')
+    claims.push('Where NIST AI RMF and ISO 42001 overlap - and the gaps that cause audit failures')
   }
   if (lower.includes('rag') && (lower.includes('security') || lower.includes('row-level'))) {
     claims.push('Row-level security patterns for multi-tenant RAG that most tutorials skip')
@@ -439,7 +439,7 @@ function generateArticleHook(post, primaryCategory) {
   return 'This article provides implementation-level detail that most coverage in this space skips.'
 }
 
-// Known disposable/honeypot email domains — never send to these
+// Known disposable/honeypot email domains - never send to these
 const HONEYPOT_DOMAINS = [
   'mailinator.com', 'guerrillamail.com', 'tempmail.com', 'throwaway.email',
   'trashmail.com', 'yopmail.com', 'sharklasers.com', 'guerrillamailblock.com',
@@ -459,7 +459,7 @@ function isHoneypotEmail(email) {
   const domain = lower.split('@')[1] || ''
   if (HONEYPOT_DOMAINS.some((d) => domain.endsWith(d))) return true
   // Role-based emails are not necessarily honeypots but are low-value for outreach
-  // We flag them but don't block — the caller decides
+  // We flag them but don't block - the caller decides
   return false
 }
 
@@ -470,7 +470,7 @@ function isRoleBasedEmail(email) {
 }
 
 // CAN-SPAM required footer for all commercial outreach emails
-// Uses PO Box placeholder — replace with actual PO Box or virtual address when obtained
+// Uses PO Box placeholder - replace with actual PO Box or virtual address when obtained
 const CAN_SPAM_FOOTER = `
 ---
 Subodh KC
@@ -495,25 +495,25 @@ function generateOutreachEmails(post, categories) {
   // Article-specific hook (not category-level template)
   const hook = generateArticleHook(post, primaryCategory)
 
-  // Email 1: Newsletter editor pitch — value-first, specific, non-generic
+  // Email 1: Newsletter editor pitch - value-first, specific, non-generic
   const newsletter = categoryConfig?.newsletters?.[0] || { name: 'The Rundown AI', pitch: 'AI insights for practitioners' }
   const claimsList = claims.length > 0 ? claims : themes
 
-  // Short punchy subject angle — extract first phrase, max ~50 chars
-  const rawAngle = claims[0]?.split(' — ')[0] || themes[0] || 'AI governance'
+  // Short punchy subject angle - extract first phrase, max ~50 chars
+  const rawAngle = claims[0]?.split(' - ')[0] || themes[0] || 'AI governance'
   const firstPhrase = rawAngle.split(/[.,;]/)[0].trim()
   const subjectAngle = firstPhrase.length > 50 ? firstPhrase.split(' ').slice(0, 6).join(' ') : firstPhrase
 
   emails.push({
     recipient: `${newsletter.name} editor`,
-    subject: `Quick idea for ${newsletter.name} — ${subjectAngle} angle your readers haven't seen`,
+    subject: `Quick idea for ${newsletter.name} - ${subjectAngle} angle your readers haven't seen`,
     body: `Hi [Editor Name],
 
 I'll be direct because I know you get dozens of these.
 
 ${hook}
 
-I just published "${title}" — ${excerpt}
+I just published "${title}" - ${excerpt}
 
 What's specifically in it:
 ${claimsList.map(c => `- ${c}`).join('\n')}
@@ -522,7 +522,7 @@ ${claimsList.map(c => `- ${c}`).join('\n')}
 
 Why I'm reaching out to ${newsletter.name} specifically: ${newsletter.pitch || 'Your readership matches the audience that needs this level of detail.'}
 
-Before I wrote this, I read your recent piece "[REFERENCE ONE OF THEIR RECENT ARTICLES OR NEWSLETTER ISSUES HERE — search their site, find a specific title]" and noticed you cover [topic] regularly. This article extends that conversation.
+Before I wrote this, I read your recent piece "[REFERENCE ONE OF THEIR RECENT ARTICLES OR NEWSLETTER ISSUES HERE - search their site, find a specific title]" and noticed you cover [topic] regularly. This article extends that conversation.
 
 I can provide:
 - A 150-word version adapted for your format
@@ -531,24 +531,24 @@ I can provide:
 
 Article for reference: ${articleUrl}
 
-If this isn't a fit, no worries — I read ${newsletter.name} regardless.
+If this isn't a fit, no worries - I read ${newsletter.name} regardless.
 
 Best,
 Subodh KC
 https://subodhkc.com${CAN_SPAM_FOOTER}`,
   })
 
-  // Email 2: Resource exchange / guest post pitch — specific, proof of reading
+  // Email 2: Resource exchange / guest post pitch - specific, proof of reading
   const backlinkTarget = categoryConfig?.backlinkTargets?.find((t) => t.type === 'Guest Post') || categoryConfig?.backlinkTargets?.[0]
   if (backlinkTarget) {
     const targetName = backlinkTarget.target
     const topicArea = primaryCategory.toLowerCase().replace(' & ', ' and ')
     emails.push({
       recipient: `${targetName} editorial team`,
-      subject: `${subjectAngle} resource for ${targetName} — or a guest post if you're open to it`,
+      subject: `${subjectAngle} resource for ${targetName} - or a guest post if you're open to it`,
       body: `Hi [Editor Name],
 
-I read your recent article "[REFERENCE A SPECIFIC ARTICLE FROM ${targetName.toUpperCase()} HERE — find one published in the last 30 days, use the exact title]" and noticed a gap that I just wrote about.
+I read your recent article "[REFERENCE A SPECIFIC ARTICLE FROM ${targetName.toUpperCase()} HERE - find one published in the last 30 days, use the exact title]" and noticed a gap that I just wrote about.
 
 "${title}"
 ${articleUrl}
@@ -562,7 +562,7 @@ Two options, your call:
 
 1. Link to it from your existing ${topicArea} resources page if your readers would benefit
 
-2. I write an exclusive version for ${targetName} — different angle, same depth. I can turn it around in 48 hours and I don't need payment, just attribution and a link back to subodhkc.com.
+2. I write an exclusive version for ${targetName} - different angle, same depth. I can turn it around in 48 hours and I don't need payment, just attribution and a link back to subodhkc.com.
 
 If neither works, I'd appreciate knowing what you're currently looking for so I can pitch better next time.
 
@@ -576,10 +576,10 @@ https://subodhkc.com${CAN_SPAM_FOOTER}`,
   if (categories.some((c) => c.includes('Voice') || c.includes('RAG') || c.includes('Security'))) {
     emails.push({
       recipient: 'AI engineering community leaders (for content amplification)',
-      subject: `Your community might find this useful — ${subjectAngle} deep-dive`,
+      subject: `Your community might find this useful - ${subjectAngle} deep-dive`,
       body: `Hi [Name],
 
-Not a generic pitch — I'll keep this short.
+Not a generic pitch - I'll keep this short.
 
 I wrote a technical deep-dive on ${primaryCategory.toLowerCase()} that goes past the usual surface level:
 
@@ -607,7 +607,7 @@ https://subodhkc.com${CAN_SPAM_FOOTER}`,
   // ─── Follow-up email templates (send 7 days after initial if no reply) ───
   // Newsletter follow-up
   emails.push({
-    recipient: `${newsletter.name} editor (FOLLOW-UP — send 7 days after Email 1 if no reply)`,
+    recipient: `${newsletter.name} editor (FOLLOW-UP - send 7 days after Email 1 if no reply)`,
     subject: `Re: Quick idea for ${newsletter.name}`,
     body: `Hi [Editor Name],
 
@@ -615,7 +615,7 @@ Bumping this up in case it got buried. I know inboxes get crowded.
 
 Quick recap: I published "${title}" and thought it'd be a fit for ${newsletter.name} because ${newsletter.pitch || 'it matches your audience'}.
 
-I'm happy to adapt it to your format — a 150-word version, an exclusive angle, or a guest contribution. Whatever works best for you.
+I'm happy to adapt it to your format - a 150-word version, an exclusive angle, or a guest contribution. Whatever works best for you.
 
 Article: ${articleUrl}
 
@@ -628,7 +628,7 @@ Subodh KC${CAN_SPAM_FOOTER}`,
   // Guest post follow-up
   if (backlinkTarget) {
     emails.push({
-      recipient: `${backlinkTarget.target} editorial team (FOLLOW-UP — send 7 days after Email 2 if no reply)`,
+      recipient: `${backlinkTarget.target} editorial team (FOLLOW-UP - send 7 days after Email 2 if no reply)`,
       subject: `Re: ${subjectAngle} resource for ${backlinkTarget.target}`,
       body: `Hi [Editor Name],
 
@@ -636,7 +636,7 @@ Following up on my note from last week about "${title}".
 
 I noticed ${backlinkTarget.target} has been covering ${primaryCategory.toLowerCase()} more lately, and I think an exclusive version for your audience would perform well.
 
-I can turn it around in 48 hours — different angle from the original, same depth. No payment needed, just attribution and a link back.
+I can turn it around in 48 hours - different angle from the original, same depth. No payment needed, just attribution and a link back.
 
 Article for reference: ${articleUrl}
 
@@ -703,7 +703,7 @@ function generateReport(post, tracker) {
     md += `1. Check each subreddit's rules before posting (especially r/MachineLearning requires self-post format)\n`
     md += `2. Use the Reddit post from data/social/${post.slug}.md as starting point\n`
     md += `3. Post at optimal times: 8-10 AM EST on weekdays\n`
-    md += `4. Engage with comments within first 2 hours — this is critical for visibility\n`
+    md += `4. Engage with comments within first 2 hours - this is critical for visibility\n`
     md += `5. Cross-post to 2-3 subreddits max per day to avoid spam detection\n\n`
   } else {
     md += `No matching subreddits. Consider r/artificial or r/MachineLearning.\n\n`
@@ -758,7 +758,7 @@ function generateReport(post, tracker) {
   if (todayTargets.length > 0) {
     md += `### Ready to Send Today (${todayTargets.length})\n\n`
     for (const t of todayTargets) {
-      md += `- **${t.target}** — ${t.url}\n  Action: ${t.action}\n`
+      md += `- **${t.target}** - ${t.url}\n  Action: ${t.action}\n`
     }
     md += `\n`
   }
@@ -766,7 +766,7 @@ function generateReport(post, tracker) {
     md += `### Queued for Tomorrow+ (${queuedTargets.length})\n\n`
     md += `> These will be sent on subsequent days, respecting the ${DAILY_SEND_LIMIT}/day limit.\n\n`
     for (const t of queuedTargets) {
-      md += `- **${t.target}** — ${t.url}\n  Action: ${t.action}\n`
+      md += `- **${t.target}** - ${t.url}\n  Action: ${t.action}\n`
     }
     md += `\n`
   }
@@ -788,7 +788,7 @@ function generateReport(post, tracker) {
   md += `## Email Safety & Anti-Honeypot Checklist\n\n`
   md += `> Before sending ANY outreach email, verify these items:\n\n`
   md += `- [ ] **Verify recipient email is real**: Check the target's website for a personal email (not info@, admin@, contact@). Role-based emails often go to spam filters or honeypot inboxes.\n`
-  md += `- [ ] **Check domain MX records**: Run \`dig MX targetdomain.com\` — if no MX records exist, do not send.\n`
+  md += `- [ ] **Check domain MX records**: Run \`dig MX targetdomain.com\` - if no MX records exist, do not send.\n`
   md += `- [ ] **Avoid disposable domains**: Never send to mailinator.com, guerrillamail.com, tempmail.com, or similar disposable email services.\n`
   md += `- [ ] **Find a real name**: Use LinkedIn to find the editor or content manager's name. "Hi Sarah" gets 10x the response rate of "Hi [Editor Name]".\n`
   md += `- [ ] **Reference their specific work**: Before sending, read 1-2 recent articles from the target site and reference them by title in your email. Replace all [REFERENCE...] placeholders with actual article titles. This proves you're not blasting.\n`
@@ -817,7 +817,7 @@ function generateReport(post, tracker) {
     md += `### Follow-Up Templates (${followUpEmails.length} emails)\n\n`
     md += `> Send these 7 days after the initial email IF you haven't received a reply.\n`
     md += `> Do NOT send a follow-up if you already got a response (positive or negative).\n`
-    md += `> If no reply after the follow-up, consider the lead closed — don't send a third email.\n\n`
+    md += `> If no reply after the follow-up, consider the lead closed - don't send a third email.\n\n`
     for (let i = 0; i < followUpEmails.length; i++) {
       const email = followUpEmails[i]
       md += `### Follow-Up ${i + 1}: To ${email.recipient}\n\n`
@@ -851,27 +851,27 @@ function generateReport(post, tracker) {
 
   // ─── Distribution Checklist (Priority Ordered) ───
   md += `## Distribution Checklist (Priority Order)\n\n`
-  md += `### P0 — Automated (already running)\n`
+  md += `### P0 - Automated (already running)\n`
   md += `- [x] LinkedIn post (automated via post-linkedin.mjs)\n`
   md += `- [x] Dev.to cross-post (automated via cross-post-devto.mjs)\n`
   md += `- [x] Medium import reminder (automated via cross-post-medium.mjs)\n\n`
-  md += `### P1 — High Impact, Do Today\n`
-  md += `- [ ] Submit to Hacker News — https://news.ycombinator.com/submit\n`
+  md += `### P1 - High Impact, Do Today\n`
+  md += `- [ ] Submit to Hacker News - https://news.ycombinator.com/submit\n`
   if (subreddits.length > 0) {
     md += `- [ ] Post to Reddit: ${subreddits.slice(0, 2).map((s) => `r/${s.name}`).join(', ')}\n`
   }
   md += `- [ ] Post Twitter/X thread (copy from data/social/${post.slug}.md)\n\n`
-  md += `### P2 — Medium Impact, Do This Week\n`
+  md += `### P2 - Medium Impact, Do This Week\n`
   md += `- [ ] Send outreach email to ${newsletters[0]?.name || 'newsletter editors'}\n`
   if (backlinkTargets.length > 0) {
-    md += `- [ ] Contact ${backlinkTargets[0].target} — ${backlinkTargets[0].action}\n`
+    md += `- [ ] Contact ${backlinkTargets[0].target} - ${backlinkTargets[0].action}\n`
   }
   if (quoraTopics.length > 0) {
     md += `- [ ] Answer 2-3 Quora questions in: ${quoraTopics.join(', ')}\n`
   }
   md += `- [ ] Submit to Daily.dev and Lobste.rs\n\n`
-  md += `### P3 — Long-Tail, Do When Time Permits\n`
-  md += `- [ ] Send guest post pitches (max ${DAILY_SEND_LIMIT}/day — see Guest Post Pitches section above)\n`
+  md += `### P3 - Long-Tail, Do When Time Permits\n`
+  md += `- [ ] Send guest post pitches (max ${DAILY_SEND_LIMIT}/day - see Guest Post Pitches section above)\n`
   if (outreachEmails.length > 1) {
     md += `- [ ] Follow up with ${backlinkTargets.find((t) => t.type === 'Guest Post')?.target || 'relevant blogs'}\n`
   }
@@ -901,7 +901,7 @@ function generateReport(post, tracker) {
 
 async function sendReportEmail(post, reportMd) {
   if (!process.env.RESEND_API_KEY) {
-    console.log('  ℹ RESEND_API_KEY not set — skipping email delivery')
+    console.log('  ℹ RESEND_API_KEY not set - skipping email delivery')
     return false
   }
 
@@ -978,7 +978,7 @@ async function main() {
       process.exit(1)
     }
     slugsToProcess = [allSlugs[allSlugs.length - 1]]
-    console.log(`No slug specified — using latest: ${slugsToProcess[0]}\n`)
+    console.log(`No slug specified - using latest: ${slugsToProcess[0]}\n`)
   }
 
   if (!fs.existsSync(OUTPUT_DIR)) {

@@ -15,14 +15,14 @@ import Grid from '@/components/Grid'
 export const metadata = {
   title: 'Build Internal AI Apps with Streamlit, RAG and MCP | Subodh KC',
   description:
-    'Learn how to build internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP—plus security, architecture choices and a practical delivery roadmap.',
+    'Learn how to build internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP-plus security, architecture choices and a practical delivery roadmap.',
   alternates: {
     canonical: 'https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp',
   },
   openGraph: {
     title: 'Build Internal AI Apps with Streamlit, RAG and MCP',
     description:
-      'A practical architecture guide for teams that need useful internal software—not another AI demonstration. Streamlit, OpenAI, RAG, MCP, security and delivery roadmap.',
+      'A practical architecture guide for teams that need useful internal software-not another AI demonstration. Streamlit, OpenAI, RAG, MCP, security and delivery roadmap.',
     url: 'https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp',
     type: 'article',
     authors: ['Subodh KC'],
@@ -35,7 +35,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Build Internal AI Apps with Streamlit, RAG and MCP',
     description:
-      'A practical architecture guide for teams that need useful internal software—not another AI demonstration.',
+      'A practical architecture guide for teams that need useful internal software-not another AI demonstration.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
   robots: {
@@ -68,7 +68,7 @@ const articleSchema = {
   '@type': 'Article',
   headline: 'How to Build Internal AI Applications with Streamlit: RAG, AI Chat, MCP and Custom OpenAI Workflows',
   description:
-    'A practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP—plus security, architecture choices and a delivery roadmap.',
+    'A practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP-plus security, architecture choices and a delivery roadmap.',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com/person/subodh-kc' },
   publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2026-07-14',
@@ -172,7 +172,7 @@ export default function StreamlitRAGMCPPage() {
 
       <Hero
         title="How to Build Internal AI Applications with Streamlit"
-        subtitle="A practical architecture guide for teams that need useful internal software—not another AI demonstration."
+        subtitle="A practical architecture guide for teams that need useful internal software-not another AI demonstration."
       />
 
       <Section className="pt-6">
@@ -184,7 +184,7 @@ export default function StreamlitRAGMCPPage() {
           </div>
           <div className="mt-3 rounded-lg border border-border bg-muted/30 p-3 text-xs text-muted-foreground space-y-1">
             <p><strong className="text-foreground">Last reviewed:</strong> July 14, 2026</p>
-            <p><strong className="text-foreground">Scope:</strong> Architecture guide for internal AI applications using Streamlit, OpenAI, RAG, and MCP — covering security, state management, framework selection, and delivery roadmap</p>
+            <p><strong className="text-foreground">Scope:</strong> Architecture guide for internal AI applications using Streamlit, OpenAI, RAG, and MCP - covering security, state management, framework selection, and delivery roadmap</p>
           </div>
           <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/20 p-3">
             <p className="text-xs text-amber-200">
@@ -214,7 +214,7 @@ export default function StreamlitRAGMCPPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              Streamlit is one of the fastest ways to build internal AI applications — combining chat, forms, dashboards, file workflows, and tool execution in Python. But the interface is not the architecture. This guide covers the complete picture: using OpenAI without an agent framework, custom orchestration, what MCP actually is and when to use it, RAG with row-level security, Session State versus durable storage, caching risks, authentication and authorization, framework selection (Streamlit vs Gradio vs Dash vs React), a seven-phase delivery roadmap, and the security review that should not be deferred. For teams that need useful internal software — not another AI demonstration.
+              Streamlit is one of the fastest ways to build internal AI applications - combining chat, forms, dashboards, file workflows, and tool execution in Python. But the interface is not the architecture. This guide covers the complete picture: using OpenAI without an agent framework, custom orchestration, what MCP actually is and when to use it, RAG with row-level security, Session State versus durable storage, caching risks, authentication and authorization, framework selection (Streamlit vs Gradio vs Dash vs React), a seven-phase delivery roadmap, and the security review that should not be deferred. For teams that need useful internal software - not another AI demonstration.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {['Python teams building internal AI', 'Architects evaluating Streamlit', 'Engineering leads planning AI deployments', 'Security teams reviewing AI applications', 'Developers evaluating MCP', 'Anyone building RAG with Streamlit'].map((audience) => (
@@ -266,12 +266,12 @@ export default function StreamlitRAGMCPPage() {
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-6">
             <h2 className="text-lg font-bold mb-3">Key Takeaways</h2>
             <ul className="space-y-2 text-sm text-foreground/90">
-              <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Streamlit is the interface, not the architecture.</strong> It excels at combining chat, forms, dashboards and file workflows — but durable state, security and authorization belong in backend services.</span></li>
+              <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Streamlit is the interface, not the architecture.</strong> It excels at combining chat, forms, dashboards and file workflows - but durable state, security and authorization belong in backend services.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>You don&apos;t need an agent framework.</strong> Call the OpenAI API directly, define your own tools, and own the orchestration loop. Add a framework only when complexity justifies it.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>MCP standardizes tool discovery, not authorization.</strong> Use it when multiple applications need the same capability. Use direct function calling for app-specific tools.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>RLS must be enforced before retrieval.</strong> The model should never receive unauthorized context. See the <Link href="/secure-enterprise-rag-architecture" className="text-primary hover:underline">secure enterprise RAG architecture guide</Link> for the full security model.</span></li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Session State is not a database.</strong> Use it for interface continuity. Store approvals, audit evidence and workflow state in durable storage.</span></li>
-              <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Choose the framework by the product requirements</strong> — not by what the prototype was built in. See the <Link href="/guides" className="text-primary hover:underline">AI compliance guides</Link> for regulatory context.</span></li>
+              <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /><span><strong>Choose the framework by the product requirements</strong> - not by what the prototype was built in. See the <Link href="/guides" className="text-primary hover:underline">AI compliance guides</Link> for regulatory context.</span></li>
             </ul>
           </div>
         </div>
@@ -288,7 +288,7 @@ export default function StreamlitRAGMCPPage() {
               <div key={item} className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary flex-shrink-0" /><span>{item}</span></div>
             ))}
           </div>
-          <p>These applications are usually heavy on Python, data and business logic but relatively light on complex frontend behavior. That is where Streamlit creates leverage.</p>
+          <p>These applications are usually heavy on Python, data and business logic but relatively light on complex frontend behavior. That is where Streamlit creates use.</p>
           <p>Its chat components can display user and assistant messages, stream responses and include tables, charts, images and other application elements inside a conversation. Its Session State mechanism allows values to persist across script reruns for an individual user session.</p>
           <p>A Streamlit application can therefore combine conversational AI, traditional forms, dashboards, file analysis, review queues, approval screens and administrative configuration. That matters because not every AI workflow should be forced into a chat window.</p>
           <p>A compliance assessment may work better as a guided questionnaire. A log analyzer may need a file panel, timeline and evidence table. An analytics assistant may need charts beside its explanation. Streamlit allows these interaction styles to coexist.</p>
@@ -306,7 +306,7 @@ export default function StreamlitRAGMCPPage() {
           <DiagramReveal>
             <StreamlitArchitectureDiagram />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 — Each layer has a distinct responsibility. Security, evidence and monitoring span all layers as a cross-cutting concern.</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 1 - Each layer has a distinct responsibility. Security, evidence and monitoring span all layers as a cross-cutting concern.</p>
         </div>
         <div className="max-w-4xl mx-auto space-y-4 mt-4">
           <div className="grid gap-3 md:grid-cols-2">
@@ -333,7 +333,7 @@ export default function StreamlitRAGMCPPage() {
 
           <h3 className="text-xl font-semibold mt-4">Large Language Model</h3>
           <p>A large language model, or LLM, is the component that interprets language and generates language. It can understand the engineer&apos;s request, summarize technical records, compare evidence, explain likely relationships, and draft the remediation ticket.</p>
-          <p>It should not automatically receive unrestricted access to the incident database. The model is the reasoning and language component — not the database, authorization system or workflow engine.</p>
+          <p>It should not automatically receive unrestricted access to the incident database. The model is the reasoning and language component - not the database, authorization system or workflow engine.</p>
 
           <h3 className="text-xl font-semibold mt-4">System Instructions</h3>
           <p>System instructions define the model&apos;s operating expectations.</p>
@@ -372,7 +372,7 @@ Do not create or update tickets without human approval.`}</code></pre></div>
           <p>The process is: Question &rarr; Search approved knowledge &rarr; Retrieve relevant sections &rarr; Send those sections to the model &rarr; Generate a grounded answer.</p>
           <p>RAG is different from querying structured operational data. Use RAG for policies, procedures, manuals, reports, contracts, and technical narratives. Use SQL or governed analytics for counts, totals, current status, aggregations, and time-series metrics. A strong internal application may use both.</p>
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-            <p className="text-sm">For a comprehensive guide on RAG architecture, vector databases, hybrid search and row-level security, see the <Link href="/secure-enterprise-rag-architecture" className="text-primary hover:underline">Secure Enterprise RAG Architecture</Link> article.</p>
+            <p className="text-sm">For a complete guide on RAG architecture, vector databases, hybrid search and row-level security, see the <Link href="/secure-enterprise-rag-architecture" className="text-primary hover:underline">Secure Enterprise RAG Architecture</Link> article.</p>
           </div>
 
           <h3 className="text-xl font-semibold mt-4">Embedding</h3>
@@ -458,7 +458,7 @@ if question:
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">What Model Context Protocol Actually Is</h2>
           <p>Model Context Protocol, or MCP, is often described vaguely as a way to &ldquo;connect AI to tools.&rdquo; A more precise definition is:</p>
           <blockquote className="border-l-4 border-primary pl-6 py-2 text-base font-medium italic">
-            MCP is a standardized client–server protocol through which AI applications can discover and use external data, reusable prompts and executable tools.
+            MCP is a standardized client-server protocol through which AI applications can discover and use external data, reusable prompts and executable tools.
           </blockquote>
           <p>MCP does not replace the language model, the AI application, authentication, authorization, RAG, or the underlying business API. It standardizes the connection between the AI application and external capabilities.</p>
           <p>The official MCP architecture uses three participants:</p>
@@ -473,7 +473,7 @@ if question:
           <DiagramReveal>
             <MCPArchitectureDiagram />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 — The host application owns the model, authorization and tool registry. The MCP server exposes tools, resources and prompts to the host through a standardized protocol. The server is model-independent.</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 2 - The host application owns the model, authorization and tool registry. The MCP server exposes tools, resources and prompts to the host through a standardized protocol. The server is model-independent.</p>
         </div>
       </Section>
 
@@ -561,7 +561,7 @@ if __name__ == "__main__":
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
             <h3 className="text-sm font-semibold mb-2">Useful Python components</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-sm">
-              {['mcp — official MCP Python SDK', 'FastMCP — higher-level server interface', 'pydantic — typed validation', 'fastapi — optional REST service layer', 'httpx — asynchronous API client', 'sqlalchemy — relational database access'].map((item) => (
+              {['mcp - official MCP Python SDK', 'FastMCP - higher-level server interface', 'pydantic - typed validation', 'fastapi - optional REST service layer', 'httpx - asynchronous API client', 'sqlalchemy - relational database access'].map((item) => (
                 <div key={item} className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary flex-shrink-0" /><span>{item}</span></div>
               ))}
             </div>
@@ -576,7 +576,7 @@ if __name__ == "__main__":
           <p>The official TypeScript SDK uses:</p>
           <div className="relative"><span className="absolute top-2 right-3 text-xs text-muted-foreground/60 font-mono">Bash</span><pre className="rounded-lg bg-muted/50 p-4 overflow-x-auto text-sm"><code>{`npm install @modelcontextprotocol/sdk zod`}</code></pre></div>
           <p>The SDK supports servers and clients, tool schemas, resources, prompts and local or remote transports. Its current documentation recommends Streamable HTTP for remote servers and <code className="rounded bg-muted px-1.5 py-0.5 text-sm">stdio</code> for locally spawned integrations.</p>
-          <p>TypeScript may be preferable when the underlying service is already Node.js, the integration team works in TypeScript, the server shares types with a web application, or the capability is deployed inside an existing JavaScript platform. The language choice should follow the system being exposed — not the language of the model provider.</p>
+          <p>TypeScript may be preferable when the underlying service is already Node.js, the integration team works in TypeScript, the server shares types with a web application, or the capability is deployed inside an existing JavaScript platform. The language choice should follow the system being exposed - not the language of the model provider.</p>
         </div>
       </Section>
 
@@ -622,7 +622,7 @@ if __name__ == "__main__":
       <Section className="pt-4" id="rag-in-streamlit">
         <div className="max-w-4xl mx-auto space-y-6 text-base leading-relaxed text-foreground/90">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Where RAG Fits in a Streamlit Application</h2>
-          <p>RAG is a retrieval capability — not the entire application. A useful Streamlit RAG experience may allow users to select a knowledge domain, upload approved documents, ask questions, see source passages, review document versions, apply business filters, correct an answer, and flag outdated information.</p>
+          <p>RAG is a retrieval capability - not the entire application. A useful Streamlit RAG experience may allow users to select a knowledge domain, upload approved documents, ask questions, see source passages, review document versions, apply business filters, correct an answer, and flag outdated information.</p>
           <p>The architecture should separate ingestion from questioning.</p>
           <div className="grid gap-4 md:grid-cols-3">
             <Card className="border-l-4 border-l-primary/40"><CardHeader><CardTitle className="text-sm">Ingestion pipeline</CardTitle><CardDescription className="text-xs">Receiving files, scanning uploads, extracting text, identifying structure, classifying sensitivity, dividing content into chunks, generating embeddings, updating the vector index, propagating deletions, recording versions.</CardDescription></CardHeader></Card>
@@ -696,7 +696,7 @@ if __name__ == "__main__":
   "contains_phi": false,
   "document_version": 4
 }`}</code></pre></div>
-          <p className="text-sm text-muted-foreground">The server — not the user prompt — should determine the effective tenant and group filters. For the complete RLS implementation guide, see <Link href="/secure-enterprise-rag-architecture" className="text-primary hover:underline">Secure Enterprise RAG Architecture</Link>.</p>
+          <p className="text-sm text-muted-foreground">The server - not the user prompt - should determine the effective tenant and group filters. For the complete RLS implementation guide, see <Link href="/secure-enterprise-rag-architecture" className="text-primary hover:underline">Secure Enterprise RAG Architecture</Link>.</p>
         </div>
       </Section>
 
@@ -737,7 +737,7 @@ if __name__ == "__main__":
           <DiagramReveal>
             <FrameworkDecisionTree />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 3 — Decision tree for choosing a Python AI application framework based on product requirements.</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 3 - Decision tree for choosing a Python AI application framework based on product requirements.</p>
         </div>
         <div className="max-w-4xl mx-auto mt-4">
           <div className="rounded-lg border border-border overflow-hidden">
@@ -778,7 +778,7 @@ if __name__ == "__main__":
           <DiagramReveal>
             <DeliveryRoadmapTimeline />
           </DiagramReveal>
-          <p className="text-center text-xs text-muted-foreground mt-2">Figure 4 — Seven phases from definition through operation. Each phase has measurable exit criteria.</p>
+          <p className="text-center text-xs text-muted-foreground mt-2">Figure 4 - Seven phases from definition through operation. Each phase has measurable exit criteria.</p>
         </div>
         <div className="max-w-4xl mx-auto space-y-4 mt-4">
           <div className="grid gap-3 md:grid-cols-2">
@@ -844,7 +844,7 @@ if __name__ == "__main__":
           <blockquote className="border-l-4 border-primary pl-6 py-2 text-lg font-medium italic text-foreground">
             The most important question is not &ldquo;Which AI framework are we using?&rdquo; It is: &ldquo;What decision or action are we improving, and how will we prove the application remains correct, authorized and controlled?&rdquo;
           </blockquote>
-          <p>Readers can also use the AI chat available through <Link href="/" className="text-primary hover:underline">my public profile</Link> to explore which architecture — Streamlit, a custom frontend, RAG, MCP or direct tool integration — best fits their specific use case. For advisory on implementing internal AI applications, see <Link href="/services" className="text-primary hover:underline">services</Link> or learn more <Link href="/about" className="text-primary hover:underline">about my background</Link>.</p>
+          <p>Readers can also use the AI chat available through <Link href="/" className="text-primary hover:underline">my public profile</Link> to explore which architecture - Streamlit, a custom frontend, RAG, MCP or direct tool integration - best fits their specific use case. For advisory on implementing internal AI applications, see <Link href="/services" className="text-primary hover:underline">services</Link> or learn more <Link href="/about" className="text-primary hover:underline">about my background</Link>.</p>
         </div>
       </Section>
 
@@ -853,7 +853,7 @@ if __name__ == "__main__":
         <div className="max-w-4xl mx-auto">
           <LeadMagnetCard
             title="Free Internal AI Application Architecture Checklist"
-            description="Get a practical checklist covering framework selection, OpenAI integration, MCP decisions, RAG in Streamlit, RLS, caching risks, security review and delivery roadmap phases — based on the framework in this article."
+            description="Get a practical checklist covering framework selection, OpenAI integration, MCP decisions, RAG in Streamlit, RLS, caching risks, security review and delivery roadmap phases - based on the framework in this article."
             resourceName="Internal AI Application Architecture Checklist"
           />
         </div>
@@ -874,7 +874,7 @@ if __name__ == "__main__":
                     <CardTitle className="text-base">How to Secure and Govern AI</CardTitle>
                   </div>
                   <CardDescription className="text-sm leading-relaxed">
-                    Seven layers of AI compliance — NIST AI RMF, ISO/IEC 42001, SOC 2, OWASP GenAI, and continuous evidence. Includes interactive framework decision tool.
+                    Seven layers of AI compliance - NIST AI RMF, ISO/IEC 42001, SOC 2, OWASP GenAI, and continuous evidence. Includes interactive framework decision tool.
                   </CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
                     Read guide <ArrowRight className="h-3 w-3" />
@@ -892,7 +892,7 @@ if __name__ == "__main__":
                     <CardTitle className="text-base">Secure Enterprise RAG Architecture</CardTitle>
                   </div>
                   <CardDescription className="text-sm leading-relaxed">
-                    Comprehensive guide to RAG with vector databases, hybrid search, row-level security, tenant isolation, and evidence-grade retrieval.
+                    complete guide to RAG with vector databases, hybrid search, row-level security, tenant isolation, and evidence-grade retrieval.
                   </CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
                     Read guide <ArrowRight className="h-3 w-3" />
@@ -978,7 +978,7 @@ if __name__ == "__main__":
         <div className="max-w-4xl mx-auto">
           <CTA
             title="Need an Internal AI Application Architecture?"
-            description="Get an architecture assessment, security review, or implementation roadmap for your internal AI application — from Subodh KC, founder of the HAIEC AI security and compliance engine."
+            description="Get an architecture assessment, security review, or implementation roadmap for your internal AI application - from Subodh KC, founder of the HAIEC AI security and compliance engine."
             primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
             secondaryButton={{ text: 'Explore Research', href: '/research' }}
           />

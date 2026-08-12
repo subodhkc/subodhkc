@@ -103,7 +103,7 @@ export default function ResearchPage() {
       icon: Layers,
       title: 'Cognitive Systems Management (CSM)',
       description:
-        'A four-domain AI governance methodology comprising CSM-Enterprise, CSM-Project, CSM-Code and CSM-UX. First published August 29, 2025 in "Cognitive System Management: A Framework for Enterprise AI Project Governance" on AI Governance on Medium. Current version: CSM 2.0 — a deterministic-by-design governance operating model that preserves the original four domains and adds six cross-functional execution functions plus versioned governance contracts.',
+        'A four-domain AI governance methodology comprising CSM-Enterprise, CSM-Project, CSM-Code and CSM-UX. First published August 29, 2025 in "Cognitive System Management: A Framework for Enterprise AI Project Governance" on AI Governance on Medium. Current version: CSM 2.0 - a deterministic-by-design governance operating model that preserves the original four domains and adds six cross-functional execution functions plus versioned governance contracts.',
       keyContributions: [
         'Four-domain governance model (Enterprise, Project, Code, UX)',
         'Cross-domain handoff visibility',
@@ -113,7 +113,7 @@ export default function ResearchPage() {
         'Practitioner-developed framework, versioned for public scrutiny',
       ],
       status: 'Published Framework · Current Version: CSM 2.0',
-      year: '2025–2026',
+      year: '2025-2026',
       links: [
         { label: 'Current Framework (CSM 2.0)', url: '/cognitive-systems-management' },
         { label: 'V2 Specification', url: '/cognitive-systems-management/v2' },

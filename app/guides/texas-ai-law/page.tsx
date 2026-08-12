@@ -23,7 +23,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Texas AI Law (TRAIGA / HB 149) Compliance Guide | Subodh KC',
   description:
-    'Complete guide to the Texas Responsible AI Governance Act (TRAIGA, HB 149). Effective January 1, 2026. Applicability tests, prohibited practices, disclosure duties, penalties, defense pathways, and compliance checklist by Subodh KC — founder of HAIEC.',
+    'Complete guide to the Texas Responsible AI Governance Act (TRAIGA, HB 149). Effective January 1, 2026. Applicability tests, prohibited practices, disclosure duties, penalties, defense pathways, and compliance checklist by Subodh KC - founder of HAIEC.',
   alternates: {
     canonical: 'https://subodhkc.com/guides/texas-ai-law',
   },
@@ -82,7 +82,7 @@ const breadcrumbSchema = {
 const faqs = [
   {
     q: 'What is the Texas AI law?',
-    a: 'The Texas Responsible AI Governance Act (TRAIGA), enacted as House Bill 149, is a comprehensive state law regulating the development and deployment of artificial intelligence systems in Texas. It covers Chapters 551-554 of the Texas Business and Commerce Code and takes effect on January 1, 2026.',
+    a: 'The Texas Responsible AI Governance Act (TRAIGA), enacted as House Bill 149, is a complete state law regulating the development and deployment of artificial intelligence systems in Texas. It covers Chapters 551-554 of the Texas Business and Commerce Code and takes effect on January 1, 2026.',
   },
   {
     q: 'When does the Texas AI law take effect?',
@@ -98,7 +98,7 @@ const faqs = [
   },
   {
     q: 'Does the Texas AI law apply to my company?',
-    a: 'TRAIGA applies if you have a "Texas nexus" — meaning any one of these is true: (1) you do business in Texas, (2) you produce a product or service used by Texas residents, or (3) you develop or deploy AI in Texas. Any one of these is enough. If you\'re not sure, an applicability assessment is worth doing before the January 2026 deadline.',
+    a: 'TRAIGA applies if you have a "Texas nexus" - meaning any one of these is true: (1) you do business in Texas, (2) you produce a product or service used by Texas residents, or (3) you develop or deploy AI in Texas. Any one of these is enough. If you\'re not sure, an applicability assessment is worth doing before the January 2026 deadline.',
   },
   {
     q: 'Is there a cure period under the Texas AI law?',
@@ -106,7 +106,7 @@ const faqs = [
   },
   {
     q: 'Can NIST AI RMF compliance help under the Texas AI law?',
-    a: 'Yes. If you follow the NIST AI RMF or NIST Generative AI Profile in good faith, it can serve as a defense if you\'re ever investigated. It\'s not a safe harbor or certification — but it shows you took reasonable steps. The key: your internal review process must be the one that actually caught the issue.',
+    a: 'Yes. If you follow the NIST AI RMF or NIST Generative AI Profile in good faith, it can serve as a defense if you\'re ever investigated. It\'s not a safe harbor or certification - but it shows you took reasonable steps. The key: your internal review process must be the one that actually caught the issue.',
   },
   {
     q: 'Does the Texas AI law have a regulatory sandbox?',
@@ -152,7 +152,7 @@ export default function TexasAILawPage() {
             <span className="gradient-text">TRAIGA (HB 149)</span>
           </>
         }
-        description="Texas is the first US state with a comprehensive AI law. TRAIGA takes effect January 1, 2026 — here's what your business needs to do."
+        description="Texas is the first US state with a complete AI law. TRAIGA takes effect January 1, 2026 - here's what your business needs to do."
       />
 
       {/* ─── What is TRAIGA ─── */}
@@ -164,7 +164,7 @@ export default function TexasAILawPage() {
         <div className="max-w-3xl space-y-4">
           <p className="text-lg text-muted-foreground leading-relaxed">
             The Texas Responsible AI Governance Act (TRAIGA), enacted as <strong>House Bill 149</strong>,
-            is a comprehensive state law regulating the development and deployment of artificial intelligence
+            is a complete state law regulating the development and deployment of artificial intelligence
             systems in Texas. It spans <strong>Chapters 551-554</strong> of the Texas Business and Commerce
             Code, with cross-references to the Texas Data Privacy and Security Act (TDPSA), the Capture or
             Use of Biometric Identifier Act (CUBI), and the Texas Government Code.
@@ -193,7 +193,7 @@ export default function TexasAILawPage() {
       <Section
         subtitle="Applicability"
         title="Does TRAIGA apply to you?"
-        description="TRAIGA applies if your AI system meets the statutory definition and you have a Texas nexus. Three independent nexus tests — any one is sufficient."
+        description="TRAIGA applies if your AI system meets the statutory definition and you have a Texas nexus. Three independent nexus tests - any one is sufficient."
         id="applicability"
         className="bg-secondary/20"
       >
@@ -267,37 +267,37 @@ export default function TexasAILawPage() {
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>Developer</strong> — develops AI offered, sold, leased, or provided in Texas</span>
+                  <span><strong>Developer</strong> - develops AI offered, sold, leased, or provided in Texas</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>Deployer</strong> — deploys AI for use in Texas</span>
+                  <span><strong>Deployer</strong> - deploys AI for use in Texas</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>Governmental entity</strong> — state or political subdivision (excludes hospital districts and higher education)</span>
+                  <span><strong>Governmental entity</strong> - state or political subdivision (excludes hospital districts and higher education)</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>Healthcare provider</strong> — licensed, registered, or certified individual</span>
+                  <span><strong>Healthcare provider</strong> - licensed, registered, or certified individual</span>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>Controller</strong> — under TDPSA (Chapter 541)</span>
+                  <span><strong>Controller</strong> - under TDPSA (Chapter 541)</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>Processor</strong> — under TDPSA (Chapter 541)</span>
+                  <span><strong>Processor</strong> - under TDPSA (Chapter 541)</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>State agency</strong> — subject to AI inventory and reporting</span>
+                  <span><strong>State agency</strong> - subject to AI inventory and reporting</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span><strong>Sandbox applicant</strong> — Chapter 553 participant</span>
+                  <span><strong>Sandbox applicant</strong> - Chapter 553 participant</span>
                 </div>
               </div>
             </Grid>
@@ -309,7 +309,7 @@ export default function TexasAILawPage() {
       <Section
         subtitle="Chapter 552, Subchapter B"
         title="Prohibited AI Practices"
-        description="TRAIGA prohibits specific AI practices. Each prohibition is tested independently using its exact statutory elements. Intent is central — disparate impact alone is insufficient."
+        description="TRAIGA prohibits specific AI practices. Each prohibition is tested independently using its exact statutory elements. Intent is central - disparate impact alone is insufficient."
         id="prohibited-practices"
       >
         <div className="max-w-4xl mx-auto space-y-4">
@@ -323,7 +323,7 @@ export default function TexasAILawPage() {
                   <CardTitle className="text-base mb-1">Harmful Manipulation</CardTitle>
                   <CardDescription className="text-sm leading-relaxed">
                     Prohibits developing or deploying AI with intent to incite or encourage self-harm,
-                    harm to another, or criminal activity. The intent element is central — disparate
+                    harm to another, or criminal activity. The intent element is central - disparate
                     impact alone is insufficient.
                   </CardDescription>
                   <p className="text-xs text-muted-foreground mt-1">Tex. Bus. &amp; Com. Code § 552.052</p>
@@ -362,7 +362,7 @@ export default function TexasAILawPage() {
                   <CardTitle className="text-base mb-1">Constitutional Rights Impairment</CardTitle>
                   <CardDescription className="text-sm leading-relaxed">
                     Prohibits developing or deploying AI with the sole intent to impair, infringe, or
-                    violate a constitutional right. The sole intent element is critical — if the system
+                    violate a constitutional right. The sole intent element is critical - if the system
                     has other primary purposes, this prohibition may not apply.
                   </CardDescription>
                   <p className="text-xs text-muted-foreground mt-1">Tex. Bus. &amp; Com. Code § 552.055</p>
@@ -461,7 +461,7 @@ export default function TexasAILawPage() {
                     a service or treatment, disclosure is required by the <strong>first date of service</strong>.
                   </p>
                   <p>
-                    In an emergency, disclosure must be provided as soon as reasonably possible — not
+                    In an emergency, disclosure must be provided as soon as reasonably possible - not
                     necessarily by the first date of service.
                   </p>
                   <p>The provider must document the disclosure date and recipient.</p>
@@ -487,14 +487,14 @@ export default function TexasAILawPage() {
           </p>
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 space-y-3">
             <div>
-              <p className="text-sm font-medium text-primary">CUBI (§ 503.001) — narrower</p>
+              <p className="text-sm font-medium text-primary">CUBI (§ 503.001) - narrower</p>
               <p className="text-sm text-muted-foreground">
                 Retina/iris scan, fingerprint, voiceprint, hand/face geometry record. Notice and consent
                 required before commercial capture. Destruction within one year of purpose expiration.
               </p>
             </div>
             <div>
-              <p className="text-sm font-medium text-primary">TRAIGA (§ 552.054) — broader</p>
+              <p className="text-sm font-medium text-primary">TRAIGA (§ 552.054) - broader</p>
               <p className="text-sm text-muted-foreground">
                 Broader biometric data definition for government biometric provisions. A CUBI violation
                 automatically triggers a § 552.054 violation.
@@ -534,7 +534,7 @@ export default function TexasAILawPage() {
                 <tr>
                   <td className="py-3 px-4">Curable violations</td>
                   <td className="py-3 px-4 font-medium text-amber-600">$10,000 - $12,000 per violation</td>
-                  <td className="py-3 px-4">Yes — 60 days</td>
+                  <td className="py-3 px-4">Yes - 60 days</td>
                   <td className="py-3 px-4 text-muted-foreground">§ 552.105</td>
                 </tr>
                 <tr>
@@ -656,7 +656,7 @@ export default function TexasAILawPage() {
           <Grid cols={2} gap="md">
             <Card>
               <CardHeader>
-                <CardTitle className="text-base mb-2">SB 1964 — Government AI Use</CardTitle>
+                <CardTitle className="text-base mb-2">SB 1964 - Government AI Use</CardTitle>
                 <CardDescription className="text-sm leading-relaxed">
                   Amends the Texas Government Code Chapter 2054. Creates code of ethics compliance,
                   minimum standards, impact assessment, and vendor obligations for government AI use.
@@ -666,7 +666,7 @@ export default function TexasAILawPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-base mb-2">SB 1188 — Healthcare AI</CardTitle>
+                <CardTitle className="text-base mb-2">SB 1188 - Healthcare AI</CardTitle>
                 <CardDescription className="text-sm leading-relaxed">
                   Amends the Texas Health and Safety Code Chapter 183. Creates EHR location,
                   safeguards, AI review, and diagnostic disclosure duties for healthcare AI use.
@@ -759,7 +759,7 @@ export default function TexasAILawPage() {
         <div className="max-w-xl mx-auto">
           <LeadMagnetCard
             title="Free Texas AI Law Compliance Checklist"
-            description="A practical, printable checklist covering TRAIGA applicability tests, prohibited practices, disclosure duties, defense pathways, and companion laws — based on the HAIEC TRAIGA compliance engine."
+            description="A practical, printable checklist covering TRAIGA applicability tests, prohibited practices, disclosure duties, defense pathways, and companion laws - based on the HAIEC TRAIGA compliance engine."
             resourceName="Texas AI Law Compliance Checklist"
           />
         </div>
@@ -769,7 +769,7 @@ export default function TexasAILawPage() {
       <Section
         subtitle="Expertise"
         title="How Subodh KC Can Help"
-        description="I co-founded HAIEC and built the TRAIGA compliance engine — a 9-section deterministic assessment wizard covering Chapters 551-554 of the Texas Business and Commerce Code."
+        description="I co-founded HAIEC and built the TRAIGA compliance engine - a 9-section deterministic assessment wizard covering Chapters 551-554 of the Texas Business and Commerce Code."
         id="expertise"
         className="bg-secondary/20"
       >
@@ -900,7 +900,7 @@ export default function TexasAILawPage() {
       {/* ─── CTA ─── */}
       <CTA
         title="Prepare for TRAIGA Compliance"
-        description="The January 1, 2026 deadline is approaching. Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC — founder of the HAIEC TRAIGA compliance engine."
+        description="The January 1, 2026 deadline is approaching. Get a TRAIGA applicability assessment or compliance roadmap from Subodh KC - founder of the HAIEC TRAIGA compliance engine."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'View Advisory Services', href: '/advisory' }}
       />

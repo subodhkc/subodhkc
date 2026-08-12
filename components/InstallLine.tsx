@@ -1,4 +1,4 @@
-// components/InstallLine.tsx — npm/pip install command with copy-to-clipboard
+// components/InstallLine.tsx - npm/pip install command with copy-to-clipboard
 "use client";
 
 import * as React from "react";

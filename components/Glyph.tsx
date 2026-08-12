@@ -1,5 +1,5 @@
 // components/Glyph.tsx
-// Original geometric product marks — strict primitives composed into per-product
+// Original geometric product marks - strict primitives composed into per-product
 // identities. Stroke = currentColor so glyphs adopt theme.
 
 import * as React from "react";

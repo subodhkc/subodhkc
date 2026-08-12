@@ -68,7 +68,7 @@ const faqSchema = {
 }
 
 export const metadata = {
-  title: 'Privacy Policy — Subodh KC',
+  title: 'Privacy Policy - Subodh KC',
   description: 'Learn how Subodh KC collects, uses, and protects your data. GDPR and CCPA compliant privacy policy covering analytics, email, and contact forms.',
   keywords: [
     'privacy policy',
@@ -87,14 +87,14 @@ export const metadata = {
     canonical: 'https://subodhkc.com/privacy',
   },
   openGraph: {
-    title: 'Privacy Policy — Subodh KC',
+    title: 'Privacy Policy - Subodh KC',
     description: 'GDPR and CCPA compliant privacy policy for subodhkc.com',
     url: 'https://subodhkc.com/privacy',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'Privacy Policy — Subodh KC',
+    title: 'Privacy Policy - Subodh KC',
     description: 'GDPR and CCPA compliant privacy policy for subodhkc.com',
   },
 }
@@ -286,10 +286,10 @@ export default function PrivacyPage() {
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>We use third-party service providers that may store and process your data in the United States and other countries. These providers include:</p>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li><strong>Resend</strong> — Email delivery (United States)</li>
-                <li><strong>Supabase</strong> — Analytics storage (United States)</li>
-                <li><strong>Vercel</strong> — Website hosting (United States)</li>
-                <li><strong>Calendly</strong> — Scheduling widget (United States)</li>
+                <li><strong>Resend</strong> - Email delivery (United States)</li>
+                <li><strong>Supabase</strong> - Analytics storage (United States)</li>
+                <li><strong>Vercel</strong> - Website hosting (United States)</li>
+                <li><strong>Calendly</strong> - Scheduling widget (United States)</li>
               </ul>
               <p>When we transfer data outside the European Economic Area, we ensure appropriate safeguards are in place, including EU Standard Contractual Clauses (SCCs) where applicable, and that the receiving country provides an adequate level of data protection.</p>
             </CardContent>
@@ -372,10 +372,10 @@ export default function PrivacyPage() {
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>We do not sell your personal information to third parties. We only share data with the following service providers as necessary to operate our website and deliver services:</p>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li><strong>Resend</strong> — Email delivery and newsletter management</li>
-                <li><strong>Supabase</strong> — Analytics data storage</li>
-                <li><strong>Vercel</strong> — Website hosting and infrastructure</li>
-                <li><strong>Calendly</strong> — Appointment scheduling (only when you interact with the widget)</li>
+                <li><strong>Resend</strong> - Email delivery and newsletter management</li>
+                <li><strong>Supabase</strong> - Analytics data storage</li>
+                <li><strong>Vercel</strong> - Website hosting and infrastructure</li>
+                <li><strong>Calendly</strong> - Appointment scheduling (only when you interact with the widget)</li>
               </ul>
               <p>Each of these providers has its own privacy policy governing its use of your data. We encourage you to review their policies.</p>
             </CardContent>
@@ -389,7 +389,7 @@ export default function PrivacyPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground">
-              <p>Subodh KC — AI Systems Architect &amp; Governance Expert</p>
+              <p>Subodh KC - AI Systems Architect &amp; Governance Expert</p>
               <p>Dallas, Texas, USA</p>
               <p>Email: <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a></p>
               <p>Website: <a href="https://subodhkc.com" className="text-primary hover:underline">subodhkc.com</a></p>

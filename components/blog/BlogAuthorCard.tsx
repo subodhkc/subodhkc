@@ -8,7 +8,7 @@ const AUTHOR_PROFILES: Record<string, {
   imagePosition: string
 }> = {
   'Subodh KC': {
-    bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC — Holistic AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
+    bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC - integrated AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
     links: [
       ['About', '/about'],
       ['Services', '/services'],
@@ -18,7 +18,7 @@ const AUTHOR_PROFILES: Record<string, {
     imagePosition: 'center 18%',
   },
   'Yeti AI Writer': {
-    bio: 'AI-powered research and content engine for subodhkc.com. Generates daily authority articles on AI governance, production architecture, and compliance — reviewed and curated by Subodh KC before publication.',
+    bio: 'AI-powered research and content engine for subodhkc.com. Generates daily authority articles on AI governance, production architecture, and compliance - reviewed and curated by Subodh KC before publication.',
     links: [
       ['About', '/about'],
       ['Blog', '/blog'],
@@ -29,7 +29,7 @@ const AUTHOR_PROFILES: Record<string, {
 }
 
 const DEFAULT_PROFILE = {
-  bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC — Holistic AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
+  bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC - integrated AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
   links: [
     ['About', '/about'],
     ['Services', '/services'],

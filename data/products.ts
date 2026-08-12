@@ -49,7 +49,7 @@ export const PRODUCTS: Product[] = [
     id: "haiec",
     name: "HAIEC",
     tagline:
-      "Holistic AI Ethics & Compliance. Deterministic governance engine for EU AI Act, NIST AI RMF, ISO 42001, NYC LL144.",
+      "integrated AI Ethics & Compliance. Deterministic governance engine for EU AI Act, NIST AI RMF, ISO 42001, NYC LL144.",
     kind: "platform",
     status: "live",
     glyph: "shield",
@@ -83,7 +83,7 @@ export const PRODUCTS: Product[] = [
     id: "llmverify-npm",
     name: "llmverify",
     tagline:
-      "Runtime health monitor for LLM apps. Drift, hallucination risk, latency, JSON quality — drop-in for any client.",
+      "Runtime health monitor for LLM apps. Drift, hallucination risk, latency, JSON quality - drop-in for any client.",
     kind: "package",
     status: "stable",
     glyph: "brackets",
@@ -206,7 +206,7 @@ export const PRODUCTS: Product[] = [
     id: "haiec-action",
     name: "HAIEC Action",
     tagline:
-      "Static AI/compliance scan in your CI. Drop-in GitHub Action — fails the build on policy drift.",
+      "Static AI/compliance scan in your CI. Drop-in GitHub Action - fails the build on policy drift.",
     kind: "oss",
     status: "stable",
     glyph: "octagon",
@@ -235,7 +235,7 @@ export const PRODUCTS: Product[] = [
     id: "skc-meeting",
     name: "SKC Meeting Tool",
     tagline:
-      "Tactical frameworks for decision-making — ResetFrame, PM cheat sheet. Built for high-stakes rooms.",
+      "Tactical frameworks for decision-making - ResetFrame, PM cheat sheet. Built for high-stakes rooms.",
     kind: "oss",
     status: "stable",
     glyph: "frame-anchor",

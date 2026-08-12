@@ -1,4 +1,4 @@
-// components/hero/ShipLog.tsx — scrolling release feed
+// components/hero/ShipLog.tsx - scrolling release feed
 "use client";
 
 import * as React from "react";

@@ -22,9 +22,9 @@ const dataTypes: { value: DataType; label: string; weight: number }[] = [
 ]
 
 const userScales: { value: UserScale; label: string; weight: number }[] = [
-  { value: 'small', label: '1–10 users', weight: 1 },
-  { value: 'medium', label: '11–100 users', weight: 3 },
-  { value: 'large', label: '101–1,000 users', weight: 5 },
+  { value: 'small', label: '1-10 users', weight: 1 },
+  { value: 'medium', label: '11-100 users', weight: 3 },
+  { value: 'large', label: '101-1,000 users', weight: 5 },
   { value: 'enterprise', label: '1,000+ users', weight: 8 },
 ]
 
@@ -74,7 +74,7 @@ export function AIBlastRadiusCalculator() {
       recommendations: [
         'Document the AI system in your AI inventory with data types and user populations',
         'Enable basic audit logging for all model interactions and tool calls',
-        'Review access controls quarterly — ensure only intended users can reach the application',
+        'Review access controls quarterly - ensure only intended users can reach the application',
         'Keep the tool allow-list minimal: remove any tool that is not actively used',
       ],
     }
@@ -85,7 +85,7 @@ export function AIBlastRadiusCalculator() {
       description: 'Meaningful exposure. Formal security review, RLS, and tool authorization are recommended.',
       recommendations: [
         'Conduct a formal security review covering prompt injection, tool authorization, and data access paths',
-        'Implement row-level security (RLS) before retrieval — never rely on the model to filter restricted content',
+        'Implement row-level security (RLS) before retrieval - never rely on the model to filter restricted content',
         'Add human approval for any tool that writes, sends, or modifies data',
         'Scope cache keys with tenant and user identity to prevent cross-tenant leakage',
         'Create an AI risk register entry for this application and assign an owner',
@@ -97,8 +97,8 @@ export function AIBlastRadiusCalculator() {
       icon: AlertTriangle,
       description: 'Significant exposure. Mandatory security review, human approval for actions, and evidence-grade logging required.',
       recommendations: [
-        'Mandatory security review before production deployment — do not defer to post-launch',
-        'Human approval required for all action and admin tools — no automatic execution',
+        'Mandatory security review before production deployment - do not defer to post-launch',
+        'Human approval required for all action and admin tools - no automatic execution',
         'Server-side authorization independent of model output for every sensitive operation',
         'Evidence-grade logging: prompts, outputs, tool calls, authorization decisions, approver identity',
         'Negative-access testing for cross-tenant data leakage before each release',
@@ -112,14 +112,14 @@ export function AIBlastRadiusCalculator() {
       icon: Zap,
       description: 'High blast radius. Full governance program, adversarial testing, and continuous monitoring are essential.',
       recommendations: [
-        'Do not deploy without a completed AI security assessment — the blast radius is too large for informal review',
+        'Do not deploy without a completed AI security assessment - the blast radius is too large for informal review',
         'Full governance program: AI system registry, risk register, disclosure review, and compliance documentation',
         'Mandatory adversarial testing: prompt injection, RAG poisoning, tool abuse, auth bypass, and cross-tenant access',
         'Dual authorization for high-value actions (two humans must approve)',
         'Continuous monitoring with alerting on anomalous tool calls, unusual retrieval patterns, and authorization failures',
         'Quarterly security review and after any architecture change, new MCP integration, or data source expansion',
-        'Regulatory compliance assessment: TRAIGA, EU AI Act, HIPAA, NYC LL 144 — depending on data types and jurisdictions',
-        'Engage HAIEC for a comprehensive AI Exposure Assessment with evidence-grade outputs',
+        'Regulatory compliance assessment: TRAIGA, EU AI Act, HIPAA, NYC LL 144 - depending on data types and jurisdictions',
+        'Engage HAIEC for a complete AI Exposure Assessment with evidence-grade outputs',
       ],
     }
   }, [score])
@@ -264,22 +264,22 @@ export function AIBlastRadiusCalculator() {
           <div className="mt-3 space-y-2 text-xs text-muted-foreground">
             <p>The score is the sum of weighted factors:</p>
             <ul className="ml-4 space-y-1">
-              <li className="list-disc"><strong className="text-foreground">Data type</strong> (0–9): No sensitive data = 0, Public = 1, Internal = 3, Confidential = 6, PII = 7, PHI/Biometric = 9</li>
-              <li className="list-disc"><strong className="text-foreground">User scale</strong> (1–8): 1–10 users = 1, 11–100 = 3, 101–1,000 = 5, 1,000+ = 8</li>
-              <li className="list-disc"><strong className="text-foreground">Tool access</strong> (1–10): Read-only = 1, Write = 5, Action = 8, Admin = 10</li>
-              <li className="list-disc"><strong className="text-foreground">Deployment</strong> (1–7): Local = 1, Internal server = 2, Cloud = 4, Public = 7</li>
+              <li className="list-disc"><strong className="text-foreground">Data type</strong> (0-9): No sensitive data = 0, Public = 1, Internal = 3, Confidential = 6, PII = 7, PHI/Biometric = 9</li>
+              <li className="list-disc"><strong className="text-foreground">User scale</strong> (1-8): 1-10 users = 1, 11-100 = 3, 101-1,000 = 5, 1,000+ = 8</li>
+              <li className="list-disc"><strong className="text-foreground">Tool access</strong> (1-10): Read-only = 1, Write = 5, Action = 8, Admin = 10</li>
+              <li className="list-disc"><strong className="text-foreground">Deployment</strong> (1-7): Local = 1, Internal server = 2, Cloud = 4, Public = 7</li>
               <li className="list-disc"><strong className="text-foreground">MCP connected</strong>: +3 (external tool discovery expands attack surface)</li>
               <li className="list-disc"><strong className="text-foreground">RAG enabled</strong>: +2 (document corpus is an injection vector)</li>
               <li className="list-disc"><strong className="text-foreground">Automatic execution</strong>: +5 (no human checkpoint before actions)</li>
               <li className="list-disc"><strong className="text-foreground">Multi-tenant</strong>: +4 (cross-tenant leakage risk)</li>
             </ul>
-            <p className="mt-2">Risk bands: 0–7 Low, 8–17 Moderate, 18–29 High, 30+ Critical.</p>
+            <p className="mt-2">Risk bands: 0-7 Low, 8-17 Moderate, 18-29 High, 30+ Critical.</p>
           </div>
         </details>
 
         {/* Industry Scenarios */}
         <div className="border-t border-border pt-4 space-y-3">
-          <p className="text-sm font-medium text-foreground">Industry scenarios — click to load:</p>
+          <p className="text-sm font-medium text-foreground">Industry scenarios - click to load:</p>
           <div className="grid gap-2">
             {[
               { label: 'Healthcare: clinical AI assistant (PHI, 500+ users, action tools, RAG)', config: { d: 'phi' as DataType, u: 'large' as UserScale, t: 'action' as ToolAccess, dep: 'internal-server' as Deployment, mcp: true, rag: true, auto: false } },

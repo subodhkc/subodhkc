@@ -20,7 +20,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'NYC Local Law 144 Compliance Guide | Subodh KC',
   description:
-    'Complete guide to NYC Local Law 144 — bias audit requirements for automated employment decision tools (AEDTs). Who must comply, audit requirements, candidate notice, penalties, and compliance checklist. By Subodh KC.',
+    'Complete guide to NYC Local Law 144 - bias audit requirements for automated employment decision tools (AEDTs). Who must comply, audit requirements, candidate notice, penalties, and compliance checklist. By Subodh KC.',
   alternates: {
     canonical: 'https://subodhkc.com/guides/nyc-local-law-144',
   },
@@ -55,7 +55,7 @@ const articleSchema = {
   '@type': 'Article',
   headline: 'NYC Local Law 144 Compliance Guide',
   description:
-    'Complete guide to NYC Local Law 144 — bias audit requirements for automated employment decision tools (AEDTs). Who must comply, audit requirements, candidate notice, penalties, and compliance checklist.',
+    'Complete guide to NYC Local Law 144 - bias audit requirements for automated employment decision tools (AEDTs). Who must comply, audit requirements, candidate notice, penalties, and compliance checklist.',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com/person/subodh-kc' },
   publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2026-07-14',
@@ -89,7 +89,7 @@ const faqs = [
   },
   {
     q: 'What is an AEDT under NYC Local Law 144?',
-    a: 'An Automated Employment Decision Tool (AEDT) is any computational process derived from machine learning, artificial intelligence, or other statistical modeling that generates a simplified output (score, classification, or recommendation) used to substantially assist in hiring or promotion decisions. The law applies when the tool substantially assists — meaning it is a principal factor in the decision.',
+    a: 'An Automated Employment Decision Tool (AEDT) is any computational process derived from machine learning, artificial intelligence, or other statistical modeling that generates a simplified output (score, classification, or recommendation) used to substantially assist in hiring or promotion decisions. The law applies when the tool substantially assists - meaning it is a principal factor in the decision.',
   },
   {
     q: 'What does a NYC LL144 bias audit require?',
@@ -105,7 +105,7 @@ const faqs = [
   },
   {
     q: 'How does deterministic bias detection help with NYC LL144?',
-    a: 'Bias audits must produce the same results every time they\'re run — otherwise the audit evidence is weak. Deterministic methods (fixed calculations, no randomness) guarantee identical results on repeated runs. Probabilistic or AI-generated assessments may give different answers each time, which undermines audit defensibility. Subodh KC\'s Zenodo publication addresses this directly.',
+    a: 'Bias audits must produce the same results every time they\'re run - otherwise the audit evidence is weak. Deterministic methods (fixed calculations, no randomness) guarantee identical results on repeated runs. Probabilistic or AI-generated assessments may give different answers each time, which undermines audit defensibility. Subodh KC\'s Zenodo publication addresses this directly.',
   },
 ]
 
@@ -147,7 +147,7 @@ export default function NYCLL144Page() {
             <span className="gradient-text">AEDT Bias Audit Guide</span>
           </>
         }
-        description="NYC requires bias audits for AI hiring tools — and enforcement is already happening. Here's what you need to do to comply."
+        description="NYC requires bias audits for AI hiring tools - and enforcement is already happening. Here's what you need to do to comply."
       />
 
       {/* ─── What is NYC LL144 ─── */}
@@ -231,7 +231,7 @@ export default function NYCLL144Page() {
               from machine learning, artificial intelligence, or other statistical modeling that generates
               a simplified output (score, classification, or recommendation) used to <strong>substantially
               assist</strong> in hiring or promotion decisions. "Substantially assist" means the tool is a
-              principal factor in the decision — not merely a minor input.
+              principal factor in the decision - not merely a minor input.
             </p>
           </div>
 
@@ -263,7 +263,7 @@ export default function NYCLL144Page() {
               { title: 'Protected Categories', desc: 'The audit must assess the tool\'s impact on sex and race/ethnicity categories. The auditor must calculate selection rates and impact ratios for each category.' },
               { title: 'Selection Rate', desc: 'The proportion of individuals in a category who are selected, recommended, or classified by the AEDT. Must be calculated for each protected category.' },
               { title: 'Impact Ratio', desc: 'The selection rate for a category divided by the selection rate for the most selected category. An impact ratio below 0.8 (the four-fifths rule) may indicate adverse impact.' },
-              { title: 'Distribution Information', desc: 'The audit must include information about the tool\'s distribution — the number of individuals assessed, categorized, or selected by the tool.' },
+              { title: 'Distribution Information', desc: 'The audit must include information about the tool\'s distribution - the number of individuals assessed, categorized, or selected by the tool.' },
               { title: 'Public Disclosure', desc: 'Audit results must be publicly available on the employer\'s website. The summary must include the date of the audit, the auditor\'s name, and the results for each category.' },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-3">
@@ -378,7 +378,7 @@ export default function NYCLL144Page() {
       <Section
         subtitle="Research Connection"
         title="Deterministic Bias Detection for NYC LL144"
-        description="Subodh KC's Zenodo publication addresses the reproducibility requirements that auditors need — why deterministic methods matter more than accuracy for audit defensibility."
+        description="Subodh KC's Zenodo publication addresses the reproducibility requirements that auditors need - why deterministic methods matter more than accuracy for audit defensibility."
         id="deterministic-bias-detection"
         className="bg-secondary/20"
       >
@@ -386,7 +386,7 @@ export default function NYCLL144Page() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             Bias audits under NYC LL144 must produce <strong>reproducible results</strong>. If an auditor
             runs the same bias assessment twice and gets different results, the audit evidence is
-            undermined. Deterministic methods produce identical results on repeated runs — which is
+            undermined. Deterministic methods produce identical results on repeated runs - which is
             critical for audit defensibility.
           </p>
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
@@ -395,7 +395,7 @@ export default function NYCLL144Page() {
               Probabilistic or AI-generated bias assessments may produce different results on each run
               due to random initialization, sampling, or model stochasticity. This makes them unsuitable
               for regulatory audits where reproducibility is essential. Deterministic bias detection
-              methods — using fixed seeds, exact calculations, and transparent logic — produce the same
+              methods - using fixed seeds, exact calculations, and transparent logic - produce the same
               output every time, making them defensible in regulatory proceedings.
             </p>
           </div>
@@ -470,7 +470,7 @@ export default function NYCLL144Page() {
         <div className="max-w-xl mx-auto">
           <LeadMagnetCard
             title="Free NYC LL144 Compliance Checklist"
-            description="A practical, printable checklist covering AEDT identification, bias audit requirements, candidate notification, and ongoing compliance maintenance — informed by deterministic bias detection research published in Zenodo."
+            description="A practical, printable checklist covering AEDT identification, bias audit requirements, candidate notification, and ongoing compliance maintenance - informed by deterministic bias detection research published in Zenodo."
             resourceName="NYC LL144 Compliance Checklist"
           />
         </div>
@@ -495,7 +495,7 @@ export default function NYCLL144Page() {
                 </div>
                 <CardDescription className="text-sm leading-relaxed">
                   Determine whether your hiring tool qualifies as an AEDT and whether it "substantially
-                  assists" in decisions — the threshold for LL144 applicability.
+                  assists" in decisions - the threshold for LL144 applicability.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -508,7 +508,7 @@ export default function NYCLL144Page() {
                   <CardTitle className="text-base">Bias Audit Preparation</CardTitle>
                 </div>
                 <CardDescription className="text-sm leading-relaxed">
-                  Implement deterministic bias detection methods that produce reproducible results —
+                  Implement deterministic bias detection methods that produce reproducible results -
                   essential for audit defensibility and regulatory proceedings.
                 </CardDescription>
               </CardHeader>
@@ -609,7 +609,7 @@ export default function NYCLL144Page() {
       {/* ─── CTA ─── */}
       <CTA
         title="Achieve NYC LL144 Compliance"
-        description="Enforcement is already underway. Get an AEDT assessment or bias audit preparation consultation from Subodh KC — author of the Zenodo publication on deterministic bias detection for NYC LL144."
+        description="Enforcement is already underway. Get an AEDT assessment or bias audit preparation consultation from Subodh KC - author of the Zenodo publication on deterministic bias detection for NYC LL144."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'View Advisory Services', href: '/advisory' }}
       />

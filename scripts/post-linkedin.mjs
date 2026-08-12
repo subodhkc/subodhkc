@@ -4,7 +4,7 @@
  * Post a blog article to LinkedIn using the Posts API.
  *
  * Reads the LinkedIn section from data/social/<slug>.md,
- * strips raw URLs from the post body (LinkedIn best practice —
+ * strips raw URLs from the post body (LinkedIn best practice -
  * the URL is attached as the article link, not in the text),
  * and posts via the LinkedIn Posts API.
  *
@@ -14,8 +14,8 @@
  *   node scripts/post-linkedin.mjs --slug=my-article --dry-run
  *
  * Requires:
- *   LINKEDIN_ACCESS_TOKEN — OAuth 2.0 access token with w_member_social scope
- *   LINKEDIN_MEMBER_ID — your LinkedIn member ID (numeric)
+ *   LINKEDIN_ACCESS_TOKEN - OAuth 2.0 access token with w_member_social scope
+ *   LINKEDIN_MEMBER_ID - your LinkedIn member ID (numeric)
  *
  * To get an access token:
  *   1. Go to https://www.linkedin.com/developers/apps → your app
@@ -71,7 +71,7 @@ function extractLinkedInSection(markdown) {
  * - Remove raw URLs from the body (LinkedIn best practice: link is attached separately)
  * - Remove markdown formatting that LinkedIn doesn't support
  * - Remove the AI Review section if it was included
- * - Remove "Read the full article at [URL]" lines — the URL is in the link card
+ * - Remove "Read the full article at [URL]" lines - the URL is in the link card
  * - Remove empty lines at start/end
  * - Ensure hashtags are on their own lines at the end
  */
@@ -81,7 +81,7 @@ function cleanLinkedInPost(text, articleUrl) {
   // Remove any AI review content that may have been included
   cleaned = cleaned.replace(/## AI Review[\s\S]*$/i, '')
 
-  // Remove "Read the full article at ..." lines — no link card anymore
+  // Remove "Read the full article at ..." lines - no link card anymore
   cleaned = cleaned.replace(/Read the full article at.*$/gim, '')
   cleaned = cleaned.replace(/Read more at.*$/gim, '')
   cleaned = cleaned.replace(/Check out the full article.*$/gim, '')
@@ -159,7 +159,7 @@ function cleanLinkedInPost(text, articleUrl) {
   cleaned = cleaned.replace(/What do you think.*$/gim, '')
   cleaned = cleaned.replace(/Thoughts\?*$/gim, '')
 
-  // Strip markdown headers (##, ###, #) — LinkedIn doesn't render them
+  // Strip markdown headers (##, ###, #) - LinkedIn doesn't render them
   cleaned = cleaned.replace(/^#{1,6}\s+/gm, '')
 
   // Strip orphaned brackets from incomplete markdown link removal
@@ -178,10 +178,10 @@ function cleanLinkedInPost(text, articleUrl) {
   cleaned = cleaned.replace(/[ \t]+$/gm, '')
 
   // Replace em-dashes with regular hyphens
-  cleaned = cleaned.replace(/—/g, '-')
-  cleaned = cleaned.replace(/–/g, '-')
+  cleaned = cleaned.replace(/-/g, '-')
+  cleaned = cleaned.replace(/-/g, '-')
 
-  // Remove raw URLs from the body — LinkedIn attaches the link separately
+  // Remove raw URLs from the body - LinkedIn attaches the link separately
   // This is a best practice: raw URLs in the body hurt reach due to LinkedIn's algorithm
   cleaned = cleaned.replace(/https?:\/\/\S+/g, '')
 
@@ -222,17 +222,17 @@ function validatePost(text) {
   // Check for leftover raw URLs (should have been stripped)
   const urlMatches = text.match(/https?:\/\//g)
   if (urlMatches) {
-    console.warn('Warning: Raw URL found in post body — stripping (LinkedIn penalizes raw URLs)')
+    console.warn('Warning: Raw URL found in post body - stripping (LinkedIn penalizes raw URLs)')
     text = text.replace(/https?:\/\/\S+/g, '').trim()
   }
 
   // Check hashtags
   const hashtags = text.match(/#\w+/g) || []
   if (hashtags.length === 0) {
-    console.warn('Warning: No hashtags found — adding relevant ones from article keywords')
-    // Will be handled by caller — return text as-is and let caller append hashtags
+    console.warn('Warning: No hashtags found - adding relevant ones from article keywords')
+    // Will be handled by caller - return text as-is and let caller append hashtags
   } else if (hashtags.length > 5) {
-    console.warn(`Warning: ${hashtags.length} hashtags found — LinkedIn penalizes >5. Keeping first 5.`)
+    console.warn(`Warning: ${hashtags.length} hashtags found - LinkedIn penalizes >5. Keeping first 5.`)
     // Keep only first 5 hashtags
     let count = 0
     text = text.replace(/#\w+/g, (match) => {
@@ -245,7 +245,7 @@ function validatePost(text) {
   const upperChars = text.replace(/[^A-Z]/g, '').length
   const alphaChars = text.replace(/[^A-Za-z]/g, '').length
   if (alphaChars > 0 && upperChars / alphaChars > 0.3) {
-    console.warn('Warning: Excessive capitalization detected — LinkedIn may flag as spam')
+    console.warn('Warning: Excessive capitalization detected - LinkedIn may flag as spam')
   }
 
   // Check for prohibited content patterns
@@ -259,14 +259,14 @@ function validatePost(text) {
   }
 
   // Guardrail: check for em-dashes (should have been replaced)
-  if (/—|–/.test(text)) {
-    console.warn('Warning: Em-dash found in post — replacing with hyphen')
-    text = text.replace(/—/g, '-').replace(/–/g, '-')
+  if (/-|-/.test(text)) {
+    console.warn('Warning: Em-dash found in post - replacing with hyphen')
+    text = text.replace(/-/g, '-').replace(/-/g, '-')
   }
 
   // Guardrail: check for link placeholders (should have been stripped)
   if (/\[(link here|link|url|insert link|insert url)\]/i.test(text) || /\[link[^\]]*\]/i.test(text)) {
-    console.warn('Warning: Link placeholder found in post — stripping')
+    console.warn('Warning: Link placeholder found in post - stripping')
     text = text.replace(/\[(link here|link|url|insert link|insert url)\]/gi, '').replace(/\[link[^\]]*\]/gi, '')
   }
 
@@ -556,7 +556,7 @@ async function postToLinkedIn(accessToken, memberId, text, imageAssetUrn) {
 }
 
 /**
- * Load the posted tracker — prevents duplicate posts.
+ * Load the posted tracker - prevents duplicate posts.
  * Returns a map of slug -> { urn, postedAt }
  */
 function loadPostedTracker() {
@@ -593,7 +593,7 @@ async function main() {
 
   if (!dryRun && (!accessToken || !memberId)) {
     console.error('ERROR: LINKEDIN_ACCESS_TOKEN and LINKEDIN_MEMBER_ID must be set')
-    console.error('Get them via the OAuth flow — see scripts/linkedin-token-exchange.mjs')
+    console.error('Get them via the OAuth flow - see scripts/linkedin-token-exchange.mjs')
     process.exit(1)
   }
 

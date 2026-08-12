@@ -49,7 +49,7 @@ export default function BlogIndexPage() {
   const blogJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Yeti AI Writer — AI Governance & Architecture Blog',
+    name: 'Yeti AI Writer - AI Governance & Architecture Blog',
     description: 'Practical articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems.',
     url: 'https://subodhkc.com/blog',
     author: {

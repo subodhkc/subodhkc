@@ -46,7 +46,7 @@ export default function WritingPage() {
     {
       title: 'AI Security Tools & Calculators',
       description:
-        'Interactive AI security tools — blast radius calculator, agent read/write/action matrix, prompt-injection scenario library, plus downloadable risk register, vendor due-diligence checklist, and incident evidence checklist.',
+        'Interactive AI security tools - blast radius calculator, agent read/write/action matrix, prompt-injection scenario library, plus downloadable risk register, vendor due-diligence checklist, and incident evidence checklist.',
       publication: 'subodhkc.com',
       date: 'July 2026',
       url: '/ai-security-tools',
@@ -55,7 +55,7 @@ export default function WritingPage() {
     {
       title: 'Does the Texas AI Law Apply to My Business?',
       description:
-        'A plain-English TRAIGA guide for small and midsize businesses — interactive applicability checker, disclosure rules, penalties, healthcare AI, biometrics, final-law-vs-draft matrix, and a 10-step readiness plan.',
+        'A plain-English TRAIGA guide for small and midsize businesses - interactive applicability checker, disclosure rules, penalties, healthcare AI, biometrics, final-law-vs-draft matrix, and a 10-step readiness plan.',
       publication: 'subodhkc.com',
       date: 'July 2026',
       url: '/does-texas-ai-law-apply-to-my-business',
@@ -64,7 +64,7 @@ export default function WritingPage() {
     {
       title: 'How to Build Internal AI Applications with Streamlit',
       description:
-        'A practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP — plus security, framework comparisons and a delivery roadmap.',
+        'A practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP - plus security, framework comparisons and a delivery roadmap.',
       publication: 'subodhkc.com',
       date: 'July 2026',
       url: '/build-internal-ai-applications-streamlit-rag-mcp',
@@ -73,7 +73,7 @@ export default function WritingPage() {
     {
       title: 'AI Voice Agent Architecture: How Kestrel Voice Works',
       description:
-        'Production architecture for AI voice agent platforms — telephony, custom Python orchestration, realtime AI, adaptive three-layer intent routing, RAG pipeline, tool execution with verification, four-level degradation, post-call intelligence, learning pipeline, outbound dialer, meeting bridge, AI copilot, sequential ring, SMS, video, WebRTC, security architecture, technology decisions, and limitations.',
+        'Production architecture for AI voice agent platforms - telephony, custom Python orchestration, realtime AI, adaptive three-layer intent routing, RAG pipeline, tool execution with verification, four-level degradation, post-call intelligence, learning pipeline, outbound dialer, meeting bridge, AI copilot, sequential ring, SMS, video, WebRTC, security architecture, technology decisions, and limitations.',
       publication: 'subodhkc.com',
       date: 'July 2026',
       url: '/ai-voice-agent-architecture',
@@ -82,14 +82,14 @@ export default function WritingPage() {
     {
       title: 'Kestrel Voice: A No-Code AI Receptionist Platform Built for Real Business Calls',
       description:
-        'Product positioning for Kestrel Voice as a hosted AI receptionist — no-code setup, custom Python orchestration, deterministic controls, managed knowledge, verified actions, operations dashboard, degradation, learning pipeline, multi-channel, security, three deployment paths, and HAIEC coordination.',
+        'Product positioning for Kestrel Voice as a hosted AI receptionist - no-code setup, custom Python orchestration, deterministic controls, managed knowledge, verified actions, operations dashboard, degradation, learning pipeline, multi-channel, security, three deployment paths, and HAIEC coordination.',
       publication: 'subodhkc.com',
       date: 'July 2026',
       url: '/kestrel-voice-ai-receptionist-platform',
       topics: ['AI Receptionist', 'No-Code Voice AI', 'Kestrel Voice', 'AI Voice Operations', 'HAIEC'],
     },
     {
-      title: 'Why AI Voice Agents Fail in Production — and How to Deploy One Safely',
+      title: 'Why AI Voice Agents Fail in Production - and How to Deploy One Safely',
       description:
         'Ten failure modes, a production architecture, AI voice control ladder, security threat model, TCPA and TRAIGA compliance for voice, and a six-phase deployment plan.',
       publication: 'subodhkc.com',
@@ -100,7 +100,7 @@ export default function WritingPage() {
     {
       title: 'How to Build a Secure Enterprise RAG System',
       description:
-        'A comprehensive guide to building production enterprise RAG systems — embedding models, vector databases (PostgreSQL pgvector, MongoDB, Databricks), hybrid search, row-level security, RAG poisoning prevention, agentic RAG, and evaluation metrics.',
+        'A complete guide to building production enterprise RAG systems - embedding models, vector databases (PostgreSQL pgvector, MongoDB, Databricks), hybrid search, row-level security, RAG poisoning prevention, agentic RAG, and evaluation metrics.',
       publication: 'subodhkc.com',
       date: 'July 2026',
       url: '/secure-enterprise-rag-architecture',
@@ -127,7 +127,7 @@ export default function WritingPage() {
     {
       title: "Nepal's Digital Power War",
       description:
-        'A deep dive into the digital governance crisis that changed everything in Nepal. Examining the intersection of technology, governance, and citizen power in the digital age.',
+        'A detailed look into the digital governance crisis that changed everything in Nepal. Examining the intersection of technology, governance, and citizen power in the digital age.',
       publication: 'Medium',
       date: 'September 2025',
       url: 'https://subodh-kc.medium.com/nepals-digital-power-war-everything-you-need-to-know-about-the-crisis-that-changed-digital-e64d4750a9ee',

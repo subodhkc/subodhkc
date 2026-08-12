@@ -21,7 +21,7 @@ const nodes: NodeDef[] = [
     subtitle: 'Configuration · RAG Management',
     details: [
       'Tenant configuration UI for hours, services, transfer rules',
-      'RAG source management — approve, review, refresh, delete',
+      'RAG source management - approve, review, refresh, delete',
       'Built on Next.js app router, deployed on Vercel',
     ],
   },

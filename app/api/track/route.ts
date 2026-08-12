@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
         console.error('[ANALYTICS] Supabase insert error:', error.message)
       }
     } else {
-      console.log('[ANALYTICS] Supabase not configured — logging only:', JSON.stringify({
+      console.log('[ANALYTICS] Supabase not configured - logging only:', JSON.stringify({
         type: body.type,
         path: body.path,
         timestamp: new Date().toISOString(),

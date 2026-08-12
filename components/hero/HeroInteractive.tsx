@@ -55,7 +55,7 @@ export function HeroInteractive() {
             <span style={{ width: 18, height: 1, background: "var(--op-accent)", display: "inline-block" }} />
             §00 / AI systems architect · since 2009
           </span>
-          <span>v3.2.0 — Jul 2026</span>
+          <span>v3.2.0 - Jul 2026</span>
         </div>
 
         <h1
@@ -244,7 +244,7 @@ export function HeroInteractive() {
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
             <span style={{ width: 18, height: 1, background: "var(--op-border)" }} />
-            fig.01 — deployed systems
+            fig.01 - deployed systems
           </span>
           <span>click a node ↓</span>
         </div>

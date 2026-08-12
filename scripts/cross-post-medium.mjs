@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * cross-post-medium.mjs — Generate Medium import reminders for blog articles.
+ * cross-post-medium.mjs - Generate Medium import reminders for blog articles.
  *
  * Medium shut down API token generation for new accounts. The only reliable
  * automated path is Medium's "Import a story" feature, which pulls content

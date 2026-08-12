@@ -71,7 +71,7 @@ export default function LLMVerifyPage() {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            llmverify — LLM Checker npm Package
+            llmverify - LLM Checker npm Package
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
@@ -124,7 +124,7 @@ export default function LLMVerifyPage() {
           <h2 className="text-2xl font-bold mb-6">The Problem</h2>
           <div className="prose max-w-none">
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-              You're shipping AI features. Your LLM outputs need validation before they reach users—prompt injection detection, 
+              You're shipping AI features. Your LLM outputs need validation before they reach users-prompt injection detection, 
               PII redaction, hallucination risk scoring. The standard options are:
             </p>
             <ul className="space-y-2 text-muted-foreground mb-6">
@@ -142,7 +142,7 @@ export default function LLMVerifyPage() {
               </li>
             </ul>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Most teams end up with a patchwork of solutions—or skip validation entirely and hope for the best.
+              Most teams end up with a patchwork of solutions-or skip validation entirely and hope for the best.
             </p>
           </div>
         </section>
@@ -216,7 +216,7 @@ export default function LLMVerifyPage() {
                 <CardTitle>JSON Repair & Validation</CardTitle>
                 <CardDescription>
                   Auto-fix common JSON formatting errors from LLM outputs. Trailing commas, 
-                  unquoted keys, truncated responses—handled automatically.
+                  unquoted keys, truncated responses-handled automatically.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -361,7 +361,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
                     <li>• Zero network requests</li>
                     <li>• Zero telemetry</li>
                     <li>• Zero data collection</li>
-                    <li>• Open source—verify yourself</li>
+                    <li>• Open source-verify yourself</li>
                   </ul>
                 </div>
                 <div>
@@ -378,7 +378,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mt-6 pt-4 border-t border-green-500/20">
-                Run <code className="bg-zinc-800 px-1.5 py-0.5 rounded text-xs">tcpdump</code> while using it—you'll see zero network traffic.
+                Run <code className="bg-zinc-800 px-1.5 py-0.5 rounded text-xs">tcpdump</code> while using it-you'll see zero network traffic.
               </p>
             </CardContent>
           </Card>
@@ -390,7 +390,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
           <div className="prose max-w-none">
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
               I've spent years building AI governance frameworks for large-scale enterprise deployments. I've seen what happens 
-              when teams ship AI features without proper guardrails—and I've seen the compliance overhead that comes with 
+              when teams ship AI features without proper guardrails-and I've seen the compliance overhead that comes with 
               enterprise-grade solutions.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
@@ -398,7 +398,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
               runs locally, and doesn't require a PhD to configure.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              llmverify is that tool. It's not perfect—the limitations section is honest about that—but it covers 
+              llmverify is that tool. It's not perfect-the limitations section is honest about that-but it covers 
               the 80% case for teams who need to ship safely without overengineering.
             </p>
           </div>
@@ -497,25 +497,25 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
             <Card className="p-5">
               <h3 className="font-semibold mb-2">Is llmverify an AI model?</h3>
               <p className="text-sm text-muted-foreground">
-                No. llmverify is a deterministic rule-based library. It uses pattern matching, regex, and heuristic scoring — not a neural network. This means results are reproducible, fast, and require no GPU or model inference.
+                No. llmverify is a deterministic rule-based library. It uses pattern matching, regex, and heuristic scoring - not a neural network. This means results are reproducible, fast, and require no GPU or model inference.
               </p>
             </Card>
             <Card className="p-5">
               <h3 className="font-semibold mb-2">Does it send data anywhere?</h3>
               <p className="text-sm text-muted-foreground">
-                No. llmverify makes zero network requests. All processing happens in your Node.js process. You can verify this with <code className="bg-zinc-800 px-1.5 py-0.5 rounded text-xs">tcpdump</code> or any network monitor — there is zero telemetry, zero data collection, zero phone-home behavior.
+                No. llmverify makes zero network requests. All processing happens in your Node.js process. You can verify this with <code className="bg-zinc-800 px-1.5 py-0.5 rounded text-xs">tcpdump</code> or any network monitor - there is zero telemetry, zero data collection, zero phone-home behavior.
               </p>
             </Card>
             <Card className="p-5">
               <h3 className="font-semibold mb-2">What LLM providers are supported?</h3>
               <p className="text-sm text-muted-foreground">
-                llmverify is provider-agnostic. It works with any LLM output — OpenAI, Anthropic, Google, Mistral, local models via Ollama, or any custom LLM. You pass the output text to llmverify, and it returns structured verification results.
+                llmverify is provider-agnostic. It works with any LLM output - OpenAI, Anthropic, Google, Mistral, local models via Ollama, or any custom LLM. You pass the output text to llmverify, and it returns structured verification results.
               </p>
             </Card>
             <Card className="p-5">
               <h3 className="font-semibold mb-2">How accurate is prompt injection detection?</h3>
               <p className="text-sm text-muted-foreground">
-                llmverify uses pattern-based detection which catches common injection patterns (ignore previous instructions, role-play attacks, encoding tricks). It is not 100% — novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.
+                llmverify uses pattern-based detection which catches common injection patterns (ignore previous instructions, role-play attacks, encoding tricks). It is not 100% - novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.
               </p>
             </Card>
             <Card className="p-5">
@@ -545,7 +545,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
                 {
                   '@type': 'Question',
                   name: 'Is llmverify an AI model?',
-                  acceptedAnswer: { '@type': 'Answer', text: 'No. llmverify is a deterministic rule-based library. It uses pattern matching, regex, and heuristic scoring — not a neural network. This means results are reproducible, fast, and require no GPU or model inference.' },
+                  acceptedAnswer: { '@type': 'Answer', text: 'No. llmverify is a deterministic rule-based library. It uses pattern matching, regex, and heuristic scoring - not a neural network. This means results are reproducible, fast, and require no GPU or model inference.' },
                 },
                 {
                   '@type': 'Question',
@@ -555,12 +555,12 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
                 {
                   '@type': 'Question',
                   name: 'What LLM providers are supported?',
-                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify is provider-agnostic. It works with any LLM output — OpenAI, Anthropic, Google, Mistral, local models via Ollama, or any custom LLM. You pass the output text to llmverify, and it returns structured verification results.' },
+                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify is provider-agnostic. It works with any LLM output - OpenAI, Anthropic, Google, Mistral, local models via Ollama, or any custom LLM. You pass the output text to llmverify, and it returns structured verification results.' },
                 },
                 {
                   '@type': 'Question',
                   name: 'How accurate is prompt injection detection?',
-                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify uses pattern-based detection which catches common injection patterns. It is not 100% — novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.' },
+                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify uses pattern-based detection which catches common injection patterns. It is not 100% - novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.' },
                 },
                 {
                   '@type': 'Question',

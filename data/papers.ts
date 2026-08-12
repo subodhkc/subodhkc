@@ -1,4 +1,4 @@
-// data/papers.ts — published research and writing
+// data/papers.ts - published research and writing
 export interface Paper {
   title: string;
   subtitle: string;
@@ -85,7 +85,7 @@ export const PAPERS: Paper[] = [
   },
   {
     title: "Cognitive System Management: A Framework for Enterprise AI Project Governance",
-    subtitle: "Four-domain AI governance methodology — now evolved to CSM 2.0",
+    subtitle: "Four-domain AI governance methodology - now evolved to CSM 2.0",
     venue: "AI Governance on Medium",
     year: "2025",
     topics: ["Methodology", "AI Governance", "AI Strategy"],

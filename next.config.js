@@ -19,7 +19,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://hebtx.chambermaster.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://hebtx.chambermaster.com https://calendly.com; frame-src 'self' https://calendly.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://hebtx.chambermaster.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://hebtx.chambermaster.com https://calendly.com https://assets.calendly.com; frame-src 'self' https://calendly.com https://calendly.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
           },
           {
             key: 'Permissions-Policy',

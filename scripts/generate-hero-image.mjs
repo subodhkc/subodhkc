@@ -59,9 +59,9 @@ Key topics: ${keywords}
 Design requirements:
 - Clean, modern infographic style with a dark navy and electric blue color scheme
 - Include 3-4 visual elements representing the key concepts (icons, flowcharts, or layered diagrams)
-- Professional enterprise tech aesthetic — think McKinsey/Deloitte report visuals
+- Professional enterprise tech aesthetic - think McKinsey/Deloitte report visuals
 - No text or words in the image (the title is rendered separately by the website)
-- Abstract but recognizable — geometric shapes, connected nodes, layered architecture
+- Abstract but recognizable - geometric shapes, connected nodes, layered architecture
 - 16:9 aspect ratio composition
 - High contrast, crisp lines, suitable for display at 1200x630px on social media`
 }
@@ -145,7 +145,7 @@ async function generateHeroImage(slug, regenerate = false) {
   const post = JSON.parse(fs.readFileSync(postPath, 'utf-8'))
 
   if (post.heroImageUrl && !regenerate) {
-    console.log(`  ${slug}: Already has hero image — skipping (use --regenerate to override)`)
+    console.log(`  ${slug}: Already has hero image - skipping (use --regenerate to override)`)
     return false
   }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * send-newsletter.mjs — Broadcast newsletter to all Resend contacts.
+ * send-newsletter.mjs - Broadcast newsletter to all Resend contacts.
  *
  * CAN-SPAM compliant:
  * - Physical postal address in footer
@@ -129,7 +129,7 @@ function generateNewsletterHtml(posts) {
     <!-- Author note -->
     <div style="background: white; padding: 24px 30px; margin: 0 20px 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
       <p style="font-size: 14px; color: #6b7280; margin: 0;">
-        <strong>Subodh KC</strong> — AI Systems Architect & Governance Expert.
+        <strong>Subodh KC</strong> - AI Systems Architect & Governance Expert.
         Former Fortune 50 AI Strategy CTL. Founder of HAIEC.
         <a href="${SITE_URL}/about" style="color: #10B981; text-decoration: none;">Learn more →</a>
       </p>
@@ -202,7 +202,7 @@ async function sendBroadcast(emails, subject, html) {
         const text = await res.text()
         results.failed++
         results.errors.push({ email, error: text })
-        console.error(`  ✗ Failed: ${email} — ${text}`)
+        console.error(`  ✗ Failed: ${email} - ${text}`)
       } else {
         results.sent++
         console.log(`  ✓ Sent: ${email}`)
@@ -213,7 +213,7 @@ async function sendBroadcast(emails, subject, html) {
     } catch (err) {
       results.failed++
       results.errors.push({ email, error: err.message })
-      console.error(`  ✗ Error: ${email} — ${err.message}`)
+      console.error(`  ✗ Error: ${email} - ${err.message}`)
     }
   }
 

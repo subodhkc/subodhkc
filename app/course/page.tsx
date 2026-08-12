@@ -112,7 +112,7 @@ const courseSchema = {
 const eventSchema = {
   '@context': 'https://schema.org',
   '@type': 'EducationEvent',
-  name: 'AI Governance & Compliance Masterclass — Monthly Session',
+  name: 'AI Governance & Compliance Masterclass - Monthly Session',
   description:
     'Live online masterclass session covering AI architecture, governance, compliance, and audit readiness. Held on the 1st and 3rd Thursday of every month at 8 PM CST.',
   url: 'https://subodhkc.com/course',
@@ -178,7 +178,7 @@ export default function CoursePage() {
       number: 'Module 03',
       title: 'AI Governance Frameworks',
       description:
-        'Building governance structures that scale. EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144 — what applies, what doesn\'t, and how to implement.',
+        'Building governance structures that scale. EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144 - what applies, what doesn\'t, and how to implement.',
       topics: [
         'EU AI Act: risk classification, conformity assessment, obligations',
         'NIST AI RMF: govern, map, measure, manage functions',
@@ -216,9 +216,9 @@ export default function CoursePage() {
 
   const schedule = [
     { label: 'Frequency', value: '1st & 3rd Thursday of every month', icon: Calendar },
-    { label: 'Time', value: '8:00 PM – 10:00 PM CST', icon: Clock },
+    { label: 'Time', value: '8:00 PM - 10:00 PM CST', icon: Clock },
     { label: 'Format', value: 'Live online (virtual)', icon: GraduationCap },
-    { label: 'Class Size', value: 'Limited — message to join', icon: Users },
+    { label: 'Class Size', value: 'Limited - message to join', icon: Users },
   ]
 
   return (
@@ -254,7 +254,7 @@ export default function CoursePage() {
               Next session: 1st & 3rd Thursday of every month, 8:00 PM CST
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Limited class size — message early to secure your spot
+              Limited class size - message early to secure your spot
             </p>
           </div>
         </div>
@@ -329,7 +329,7 @@ export default function CoursePage() {
               </p>
               <CardDescription className="text-base space-y-3">
                 <p>
-                  Subodh KC is currently Sr. Program Manager — AI Implementation & Governance at HP Inc.,
+                  Subodh KC is currently Sr. Program Manager - AI Implementation & Governance at HP Inc.,
                   where he drives strategic AI transformation across enterprise systems and architects
                   governance frameworks for Fortune 50 scale.
                 </p>
@@ -405,7 +405,7 @@ export default function CoursePage() {
 
       <CTA
         title="Join the Next Session"
-        description="Message Subodh KC to enroll in the AI Governance & Compliance Masterclass. Limited spots — 1st & 3rd Thursday of every month, 8 PM CST."
+        description="Message Subodh KC to enroll in the AI Governance & Compliance Masterclass. Limited spots - 1st & 3rd Thursday of every month, 8 PM CST."
         primaryButton={{ text: 'Message to Join', href: '/contact' }}
         secondaryButton={{ text: 'View Services', href: '/services' }}
       />

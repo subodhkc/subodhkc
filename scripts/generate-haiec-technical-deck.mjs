@@ -828,7 +828,7 @@ function buildSlide9(pptx) {
   // Output
   addCard(slide, 9.1, 1.3, 3.6, 1.5, { fill: THEME.bgAlt, border: THEME.navy })
   addMonoLabel(slide, 9.25, 1.4, 'OUTPUT', { w: 3.3 })
-  const outputs = ['DIS score (0–100)', 'Per-node breakdown', 'Audit package (JSON)', 'Review sign-off chain', 'Drift detection']
+  const outputs = ['DIS score (0-100)', 'Per-node breakdown', 'Audit package (JSON)', 'Review sign-off chain', 'Drift detection']
   outputs.forEach((item, i) => {
     slide.addText(`•  ${item}`, {
       x: 9.25, y: 1.7 + i * 0.22, w: 3.3, h: 0.2,
@@ -979,7 +979,7 @@ function buildSlide10(pptx) {
     'Maturity Notes:',
     { fontSize: 10, color: THEME.white, bold: true })
   addBodyText(slide, 0.8, 5.6, 11.7, 1.0,
-    '•  Compliance Twin: Substantive implemented subsystem (17 files, 17 API routes, 8 DB models). Full lifecycle management across 6 jurisdictions.\n•  Kill Switch: Layers 1–3 available (rate limiting, circuit breaker, AI execution stop). Layers 4–5 (network block, database revoke) in development. SDK published as npm package.',
+    '•  Compliance Twin: Substantive implemented subsystem (17 files, 17 API routes, 8 DB models). Full lifecycle management across 6 jurisdictions.\n•  Kill Switch: Layers 1-3 available (rate limiting, circuit breaker, AI execution stop). Layers 4-5 (network block, database revoke) in development. SDK published as npm package.',
     { fontSize: 9, color: THEME.gray })
 
   addFooter(slide, 10, TOTAL_SLIDES)
@@ -1132,11 +1132,11 @@ function buildAppendixA(pptx) {
     },
     {
       cap: 'Kill Switch',
-      status: 'Active development (L1–L3 available)',
+      status: 'Active development (L1-L3 available)',
       statusType: 'implemented',
       proof: 'Published SDK v0.3.0, execution guard, 19 API routes',
       value: 'Emergency shutdown capability for AI systems',
-      limit: 'Layers 4–5 (network block, database revoke) in development'
+      limit: 'Layers 4-5 (network block, database revoke) in development'
     },
   ]
 

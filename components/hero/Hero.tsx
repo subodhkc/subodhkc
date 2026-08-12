@@ -1,4 +1,4 @@
-// components/hero/Hero.tsx — server component wrapper for SEO + interactive hero
+// components/hero/Hero.tsx - server component wrapper for SEO + interactive hero
 import { HeroInteractive } from "./HeroInteractive";
 
 export function Hero() {

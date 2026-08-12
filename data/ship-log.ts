@@ -1,4 +1,4 @@
-// data/ship-log.ts — recent shipments marquee
+// data/ship-log.ts - recent shipments marquee
 export interface ShipEntry {
   ver: string;
   note: string;

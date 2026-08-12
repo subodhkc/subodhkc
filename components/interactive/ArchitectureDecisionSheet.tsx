@@ -345,7 +345,7 @@ export function ArchitectureDecisionSheet() {
 
       <div className="arch-header">
         <h2>Architecture Decision Master Sheet</h2>
-        <p>A practitioner&apos;s guide for software development PMs, architects, and tech leads — with or without AI.</p>
+        <p>A practitioner&apos;s guide for software development PMs, architects, and tech leads - with or without AI.</p>
         <div>
           <span className="badge">Software Dev PM</span>
           <span className="badge">Architect</span>
@@ -359,7 +359,7 @@ export function ArchitectureDecisionSheet() {
 
       <div className="scenarios">
         {[
-          { id: 'webapp', title: 'Web app without AI', desc: 'Layers 1–14, 18–25. Standard delivery decisions.' },
+          { id: 'webapp', title: 'Web app without AI', desc: 'Layers 1-14, 18-25. Standard delivery decisions.' },
           { id: 'aiproduct', title: 'AI-powered product', desc: 'All 25 layers. Emphasis on AI Pipeline, Agents, Validation.' },
           { id: 'aitools', title: 'Using AI tools to develop', desc: 'All layers. Focus on AI Development Risks per layer.' },
           { id: 'audit', title: 'Auditing existing system', desc: '8 key layers: Observability, Governance, Security, Data, Services, API, Testing, Caching.' },
@@ -468,7 +468,7 @@ export function ArchitectureDecisionSheet() {
                           <td><span className={`crit-badge crit-${layer.crit}`}>{layer.crit}</span></td>
                           <td>{layer.phase}</td>
                           <td><span className={`status-badge status-${(getTracking(layer.id).status || layer.status).replace(/\s/g, '')}`}>{getTracking(layer.id).status || layer.status}</span></td>
-                          <td>{layer.g === 'E' ? <span style={{ color: 'var(--danger)' }}>High</span> : <span style={{ opacity: 0.5 }}>—</span>}</td>
+                          <td>{layer.g === 'E' ? <span style={{ color: 'var(--danger)' }}>High</span> : <span style={{ opacity: 0.5 }}>-</span>}</td>
                         </tr>
                       </Fragment>
                     )
@@ -538,7 +538,7 @@ export function ArchitectureDecisionSheet() {
                       <td><strong>{l.name}</strong></td>
                       {phases.map(p => (
                         <td key={p} className="phase-cell">
-                          {l.phase === p ? <><strong>{l.short}</strong><br /><span className={`crit-badge crit-${l.crit}`}>{l.crit}</span></> : <span style={{ opacity: 0.3 }}>—</span>}
+                          {l.phase === p ? <><strong>{l.short}</strong><br /><span className={`crit-badge crit-${l.crit}`}>{l.crit}</span></> : <span style={{ opacity: 0.3 }}>-</span>}
                         </td>
                       ))}
                     </tr>
@@ -577,7 +577,7 @@ export function ArchitectureDecisionSheet() {
 
       {currentView === 'csm' && (
         <div>
-          <p style={{ fontSize: '14px', opacity: 0.8, marginBottom: '12px' }}>Layers mapped to the four pillars of Cognitive Systems Management (CSM) — the methodology underlying the HAIEC platform.</p>
+          <p style={{ fontSize: '14px', opacity: 0.8, marginBottom: '12px' }}>Layers mapped to the four pillars of Cognitive Systems Management (CSM) - the methodology underlying the HAIEC platform.</p>
           {csmPillars.map(pillar => {
             const pillarLayers = filteredLayers.filter(l => l.csmPillar === pillar.id)
             return (
@@ -769,7 +769,7 @@ export function ArchitectureDecisionSheet() {
 
       <div className="arch-footer">
         <p>Use this as a living checklist. Your tracking edits save automatically to your browser. Export to CSV/JSON to share with your team.</p>
-        <p>Part of <a href="https://subodhkc.com">subodhkc.com</a> — AI Architecture, Governance & Advisory</p>
+        <p>Part of <a href="https://subodhkc.com">subodhkc.com</a> - AI Architecture, Governance & Advisory</p>
       </div>
     </div>
     </div>

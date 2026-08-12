@@ -284,7 +284,7 @@ section[id], [id] {
   scroll-margin-top: 80px;
 }
 
-/* Article body text — use on <div> wrappers around long-form content */
+/* Article body text - use on <div> wrappers around long-form content */
 .prose-article p {
   font-size: 0.9375rem;
   line-height: 1.7;
@@ -337,7 +337,7 @@ section[id], [id] {
   color: hsl(var(--foreground));
 }
 
-/* Key insight callout — for highlighting main takeaways */
+/* Key insight callout - for highlighting main takeaways */
 .insight-callout {
   border-left: 3px solid hsl(var(--accent));
   background: hsl(var(--accent) / 0.06);
@@ -407,16 +407,16 @@ section[id], [id] {
 .prose a {
   @apply text-primary hover:text-accent transition-colors underline;
 }
-/* app/globals.css — APPEND this block at the end of your existing globals.css
+/* app/globals.css - APPEND this block at the end of your existing globals.css
  * (or replace your :root section). It introduces the operator design tokens
  * and the global keyframes used by Hero animations.
  *
- * Coexists with your shadcn/ui --primary/--secondary tokens — those still work
+ * Coexists with your shadcn/ui --primary/--secondary tokens - those still work
  * for inner pages. The new pages read --bg/--fg/--muted/--border/--card/etc.
  */
 
 :root {
-  /* Operator surface — mild dark silver metallic (brushed gunmetal) */
+  /* Operator surface - mild dark silver metallic (brushed gunmetal) */
   --bg:         #2b2e33;
   --fg:         #ebe6d8;
   --op-muted:      #9a9a96;
@@ -427,7 +427,7 @@ section[id], [id] {
   --code:       #25282d;
   --chip:       #3e4147;
 
-  /* Phosphor accent — bright CRT green */
+  /* Phosphor accent - bright CRT green */
   --op-accent:     #16d088;
 
   /* Font stacks (load via next/font or <link> in layout.tsx) */
@@ -436,7 +436,7 @@ section[id], [id] {
   --font-serif: "Instrument Serif", Georgia, serif;
 }
 
-/* Alternative themes — set data-theme on <html> or <body> to switch */
+/* Alternative themes - set data-theme on <html> or <body> to switch */
 [data-theme="paper"] {
   --bg: #f6f4ef; --fg: #1c1a16; --op-muted: #6f6a5e;
   --op-border: #e3ddd1; --op-card: #fbfaf6; --card-hover: #fffdf8;

@@ -1,5 +1,5 @@
 /**
- * CSM 2.0 Golden Tests — Deterministic replay and exact output verification.
+ * CSM 2.0 Golden Tests - Deterministic replay and exact output verification.
  *
  * Run: npx tsx tests/csm-v2/golden-tests.ts
  */
@@ -43,7 +43,7 @@ for (const fx of fixtures) {
   assert(output.domainResults.length === 4, `${fx.id}: 4 domain results`)
 }
 
-// Test 2: Deterministic replay — same inputs produce identical outputs
+// Test 2: Deterministic replay - same inputs produce identical outputs
 for (const fx of fixtures) {
   const args: Parameters<typeof evaluateCsmV2> = [
     fx.input,
@@ -98,7 +98,7 @@ for (const fx of fixtures) {
   assert(!forbiddenStates.includes(output.summary.systemState), `${fx.id}: system state is not forbidden (${output.summary.systemState})`)
 }
 
-// Test 5: Fixture 6 — expired exception should not produce EXCEPTION_APPROVED
+// Test 5: Fixture 6 - expired exception should not produce EXCEPTION_APPROVED
 {
   const fx6 = fixtures.find((f) => f.id === 'fixture-6')!
   const output = evaluateCsmV2(
@@ -117,7 +117,7 @@ for (const fx of fixtures) {
   assert(expiredException !== undefined, 'fixture-6: expired exception is marked as expired')
 }
 
-// Test 6: Fixture 1 — low-impact BASELINE should not have BLOCKED state for missing optional items
+// Test 6: Fixture 1 - low-impact BASELINE should not have BLOCKED state for missing optional items
 {
   const fx1 = fixtures.find((f) => f.id === 'fixture-1')!
   const output = evaluateCsmV2(

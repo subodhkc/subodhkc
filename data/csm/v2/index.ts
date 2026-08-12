@@ -1,5 +1,5 @@
 /**
- * CSM 2.0 — Public API barrel
+ * CSM 2.0 - Public API barrel
  *
  * Import from data/csm/v2 for all CSM 2.0 types, contracts, evaluator and fixtures.
  */

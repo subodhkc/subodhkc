@@ -1,5 +1,5 @@
 /**
- * CSM 2.0 — Deterministic-by-Design Governance Operating Model for AI Systems
+ * CSM 2.0 - Deterministic-by-Design Governance Operating Model for AI Systems
  *
  * Canonical TypeScript specification source.
  * All machine-readable artifacts (JSON, schema) should be generated from this file.
@@ -502,7 +502,7 @@ export const csmDomains: DomainDefinition[] = [
 ]
 
 // ============================================================================
-// 11. COMPONENT DEFINITIONS (metadata only — contracts in contracts.ts)
+// 11. COMPONENT DEFINITIONS (metadata only - contracts in contracts.ts)
 // ============================================================================
 
 export interface ComponentDefinition {

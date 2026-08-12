@@ -44,7 +44,7 @@ export default function AIBriefingPage() {
     {
       icon: Globe,
       title: '40+ Sources Monitored',
-      description: 'From MIT to TechCrunch to White House briefings. Comprehensive coverage of AI developments.',
+      description: 'From MIT to TechCrunch to White House briefings. complete coverage of AI developments.',
       stat: '40+'
     },
     {
@@ -62,7 +62,7 @@ export default function AIBriefingPage() {
     {
       icon: Zap,
       title: 'Weekly Delivery',
-      description: 'One comprehensive brief every week. No daily noise, just actionable intelligence.',
+      description: 'One complete brief every week. No daily noise, just actionable intelligence.',
       stat: '1/week'
     }
   ]
@@ -171,7 +171,7 @@ export default function AIBriefingPage() {
       <Section
         subtitle="Key Features"
         title="What You Get"
-        description="Comprehensive AI intelligence delivered weekly"
+        description="complete AI intelligence delivered weekly"
         sectionNum="§02"
       >
         <div className="grid md:grid-cols-2 gap-6">

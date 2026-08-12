@@ -1,4 +1,4 @@
-// app/page.tsx — AI systems architect homepage
+// app/page.tsx - AI systems architect homepage
 import { AccessProvider } from "@/components/AccessProvider";
 import { Hero } from "@/components/hero/Hero";
 import { FrontOfAIBanner } from "@/components/home/FrontOfAIBanner";
@@ -11,7 +11,7 @@ import { CSMFrameworkSection } from "@/components/home/CSMFrameworkSection";
 export const metadata = {
   title: "Subodh KC | AI Advisor and Systems Architect | Governance Expert",
   description:
-    "Subodh KC architects, deploys and governs production AI systems — including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.",
+    "Subodh KC architects, deploys and governs production AI systems - including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.",
   keywords: [
     'Subodh KC',
     'AI systems architect',
@@ -30,7 +30,7 @@ export const metadata = {
   openGraph: {
     title: 'Subodh KC | AI Systems Architect & Governance Expert',
     description:
-      'Subodh KC architects, deploys and governs production AI systems — including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.',
+      'Subodh KC architects, deploys and governs production AI systems - including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.',
     url: 'https://subodhkc.com',
     type: 'website',
     images: [
@@ -38,7 +38,7 @@ export const metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC — AI Systems Architect & Governance Expert',
+        alt: 'Subodh KC - AI Systems Architect & Governance Expert',
       },
     ],
   },
@@ -46,7 +46,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Subodh KC | AI Systems Architect & Governance Expert',
     description:
-      'Architects, deploys and governs production AI systems — agentic workflows, RAG, voice AI, compliance automation.',
+      'Architects, deploys and governs production AI systems - agentic workflows, RAG, voice AI, compliance automation.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
 };

@@ -1,4 +1,4 @@
-// data/frameworks.ts — methodologies and frameworks (active + published)
+// data/frameworks.ts - methodologies and frameworks (active + published)
 export interface Framework {
   name: string;
   status: string;
@@ -11,7 +11,7 @@ export const FRAMEWORKS: Framework[] = [
   {
     name: "Precision Drift Detector",
     status: "Active Research",
-    years: "2024 – 2025",
+    years: "2024 - 2025",
     summary:
       "Advanced methodology for detecting subtle degradation patterns in production AI. Goes beyond statistical drift to identify concept drift, performance degradation, and silent failures before they impact users.",
     points: [
@@ -24,7 +24,7 @@ export const FRAMEWORKS: Framework[] = [
   {
     name: "Cognitive Systems Management 2.0 (CSM)",
     status: "Published Framework · Current Version: CSM 2.0",
-    years: "2025–2026",
+    years: "2025-2026",
     summary:
       "A deterministic-by-design governance operating model for AI systems. Preserves the original four governance domains (Enterprise, Project, Code, UX) and adds six cross-functional execution functions plus versioned governance contracts for decisions, evidence, handoffs and reassessment. First published August 29, 2025. Current spec version 2.0.0.",
     points: [
@@ -39,7 +39,7 @@ export const FRAMEWORKS: Framework[] = [
   {
     name: "Red Audit Kit",
     status: "Active Framework",
-    years: "2024 – 2025",
+    years: "2024 - 2025",
     summary:
       "Systematic assessment framework covering models, data pipelines, infrastructure, and governance. Identifies compliance gaps and produces a defensible remediation roadmap.",
     points: [
@@ -52,7 +52,7 @@ export const FRAMEWORKS: Framework[] = [
   {
     name: "LegacyShift Methodology",
     status: "Active Framework",
-    years: "2024 – 2025",
+    years: "2024 - 2025",
     summary:
       "Structured approach to modernizing legacy AI systems. Addresses technical debt, compliance gaps, and operational drag while minimizing risk and preserving continuity.",
     points: [

@@ -1,4 +1,4 @@
-// components/Registry.tsx — filterable/searchable production systems grid + manifest list
+// components/Registry.tsx - filterable/searchable production systems grid + manifest list
 "use client";
 
 import * as React from "react";

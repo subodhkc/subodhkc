@@ -9,13 +9,13 @@ import Link from 'next/link'
 export const metadata = {
   title: 'HAIEC AI Exposure Assessment | Subodh KC',
   description:
-    'Comprehensive AI exposure assessment from HAIEC — deterministic security analysis, prompt injection testing, RAG poisoning detection, tool abuse analysis, and evidence-grade compliance outputs.',
+    'complete AI exposure assessment from HAIEC - deterministic security analysis, prompt injection testing, RAG poisoning detection, tool abuse analysis, and evidence-grade compliance outputs.',
   alternates: {
     canonical: 'https://subodhkc.com/solutions/haiec/exposure-assessment',
   },
   openGraph: {
     title: 'HAIEC AI Exposure Assessment',
-    description: 'Comprehensive AI exposure assessment — deterministic security analysis, prompt injection testing, RAG poisoning detection, and evidence-grade compliance outputs.',
+    description: 'complete AI exposure assessment - deterministic security analysis, prompt injection testing, RAG poisoning detection, and evidence-grade compliance outputs.',
     url: 'https://subodhkc.com/solutions/haiec/exposure-assessment',
     type: 'website',
     authors: ['Subodh KC'],
@@ -25,7 +25,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'HAIEC AI Exposure Assessment',
-    description: 'Comprehensive AI exposure assessment — deterministic security analysis, prompt injection testing, and evidence-grade compliance outputs.',
+    description: 'complete AI exposure assessment - deterministic security analysis, prompt injection testing, and evidence-grade compliance outputs.',
   },
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
   keywords: [
@@ -56,7 +56,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'HAIEC AI Exposure Assessment',
-  description: 'Comprehensive AI exposure assessment with deterministic security analysis, prompt injection testing, RAG poisoning detection, tool abuse analysis, and evidence-grade compliance outputs.',
+  description: 'complete AI exposure assessment with deterministic security analysis, prompt injection testing, RAG poisoning detection, tool abuse analysis, and evidence-grade compliance outputs.',
   url: 'https://subodhkc.com/solutions/haiec/exposure-assessment',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'AI Security Assessment',
@@ -69,7 +69,7 @@ const assessmentAreas = [
   { icon: Zap, title: 'Tool Abuse & Permission Analysis', description: 'Maps agent tool access against the principle of least privilege. Identifies excessive permissions, missing approval workflows, and automatic execution risks.' },
   { icon: Lock, title: 'Authentication & Authorization Review', description: 'Verifies that authorization is enforced server-side, independent of model output. Tests for Session State misuse, role escalation, and identity bypass.' },
   { icon: Eye, title: 'Tenant Isolation Testing', description: 'Negative-access testing for cross-tenant data leakage through vector search, caching, session state, and shared infrastructure.' },
-  { icon: Shield, title: 'Evidence-Grade Compliance Output', description: 'Generates defensible documentation for TRAIGA, EU AI Act, NIST AI RMF, and NYC LL 144 — including system records, disclosure reviews, and cure-response packages.' },
+  { icon: Shield, title: 'Evidence-Grade Compliance Output', description: 'Generates defensible documentation for TRAIGA, EU AI Act, NIST AI RMF, and NYC LL 144 - including system records, disclosure reviews, and cure-response packages.' },
 ]
 
 const assessmentProcess = [
@@ -96,7 +96,7 @@ export default function HAIECExposureAssessmentPage() {
             <span className="gradient-text">Assessment</span>
           </>
         }
-        description="Comprehensive AI security assessment — deterministic analysis, adversarial testing, and evidence-grade compliance outputs for internal AI applications."
+        description="complete AI security assessment - deterministic analysis, adversarial testing, and evidence-grade compliance outputs for internal AI applications."
       />
 
       <Section className="pt-8">
@@ -118,7 +118,7 @@ export default function HAIECExposureAssessmentPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              The HAIEC AI Exposure Assessment is a structured security evaluation of your internal AI application — covering prompt injection, RAG poisoning, tool abuse, authentication bypass, tenant isolation, and compliance documentation. Unlike generic security scans, HAIEC performs deterministic analysis of the AI-specific attack surface: prompts, tool definitions, retrieval pipelines, MCP servers, and model-driven authorization decisions. The output is evidence-grade documentation suitable for TRAIGA, EU AI Act, NIST AI RMF, and NYC LL 144 compliance.
+              The HAIEC AI Exposure Assessment is a structured security evaluation of your internal AI application - covering prompt injection, RAG poisoning, tool abuse, authentication bypass, tenant isolation, and compliance documentation. Unlike generic security scans, HAIEC performs deterministic analysis of the AI-specific attack surface: prompts, tool definitions, retrieval pipelines, MCP servers, and model-driven authorization decisions. The output is evidence-grade documentation suitable for TRAIGA, EU AI Act, NIST AI RMF, and NYC LL 144 compliance.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {['Internal AI applications', 'Streamlit + RAG deployments', 'MCP-integrated systems', 'AI hiring tools', 'Healthcare AI systems', 'Customer-facing AI chatbots'].map((audience) => (
@@ -182,7 +182,7 @@ export default function HAIECExposureAssessmentPage() {
                   <Bug className="h-4 w-4 text-primary" />
                   Deterministic, not probabilistic
                 </CardTitle>
-                <CardDescription className="text-sm mt-1">HAIEC performs static analysis on your prompts, tool definitions, RAG configurations, and authorization logic. It does not rely on LLM-based judgment calls — it identifies specific, reproducible security weaknesses with code-level precision.</CardDescription>
+                <CardDescription className="text-sm mt-1">HAIEC performs static analysis on your prompts, tool definitions, RAG configurations, and authorization logic. It does not rely on LLM-based judgment calls - it identifies specific, reproducible security weaknesses with code-level precision.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
@@ -200,7 +200,7 @@ export default function HAIECExposureAssessmentPage() {
                   <FileText className="h-4 w-4 text-primary" />
                   Evidence-grade outputs
                 </CardTitle>
-                <CardDescription className="text-sm mt-1">Every finding includes the attack transcript, the control gap, the remediation recommendation, and the compliance mapping. The output is structured for regulators, auditors, and legal teams — not just engineering.</CardDescription>
+                <CardDescription className="text-sm mt-1">Every finding includes the attack transcript, the control gap, the remediation recommendation, and the compliance mapping. The output is structured for regulators, auditors, and legal teams - not just engineering.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
@@ -209,7 +209,7 @@ export default function HAIECExposureAssessmentPage() {
                   <Scale className="h-4 w-4 text-primary" />
                   Multi-framework compliance mapping
                 </CardTitle>
-                <CardDescription className="text-sm mt-1">Findings are mapped to TRAIGA, EU AI Act, NIST AI RMF, NYC LL 144, HIPAA, and GDPR requirements. One assessment produces documentation for multiple regulatory frameworks — no separate compliance audits needed.</CardDescription>
+                <CardDescription className="text-sm mt-1">Findings are mapped to TRAIGA, EU AI Act, NIST AI RMF, NYC LL 144, HIPAA, and GDPR requirements. One assessment produces documentation for multiple regulatory frameworks - no separate compliance audits needed.</CardDescription>
               </CardHeader>
             </Card>
           </div>
@@ -224,7 +224,7 @@ export default function HAIECExposureAssessmentPage() {
           <div className="rounded-lg border border-border p-6 space-y-3">
             {[
               { title: 'Architecture & Trust Boundary Map', desc: 'A visual map of your AI application architecture showing all trust boundaries, data flows, tool integrations, MCP servers, and control points.' },
-              { title: 'Findings Report', desc: 'Each finding classified by severity, likelihood, and blast radius — with the attack transcript, control gap, and specific remediation recommendation.' },
+              { title: 'Findings Report', desc: 'Each finding classified by severity, likelihood, and blast radius - with the attack transcript, control gap, and specific remediation recommendation.' },
               { title: 'Risk Register Integration', desc: 'Findings pre-formatted for direct import into the AI risk register, with owners, controls, and remediation timeline.' },
               { title: 'Compliance Mapping', desc: 'Cross-reference of each finding to applicable regulatory requirements under TRAIGA, EU AI Act, NIST AI RMF, NYC LL 144, HIPAA, and GDPR.' },
               { title: 'Remediation Roadmap', desc: 'Prioritized remediation plan with P0/P1/P2 classification, estimated effort, and dependency mapping.' },
@@ -270,7 +270,7 @@ export default function HAIECExposureAssessmentPage() {
           {[
             {
               q: 'How long does an AI Exposure Assessment take?',
-              a: 'A typical assessment takes 2–4 weeks depending on the complexity of the application, the number of integrations (MCP servers, tools, data sources), and the regulatory frameworks in scope. Phase 1 (scope and intake) takes 2–3 days, phases 2–4 (analysis and testing) take 1–2 weeks, and phases 5–6 (classification and reporting) take 3–5 days.',
+              a: 'A typical assessment takes 2-4 weeks depending on the complexity of the application, the number of integrations (MCP servers, tools, data sources), and the regulatory frameworks in scope. Phase 1 (scope and intake) takes 2-3 days, phases 2-4 (analysis and testing) take 1-2 weeks, and phases 5-6 (classification and reporting) take 3-5 days.',
             },
             {
               q: 'Do you need access to our source code?',
@@ -278,7 +278,7 @@ export default function HAIECExposureAssessmentPage() {
             },
             {
               q: 'Can the assessment be done without exposing production data?',
-              a: 'Yes. Adversarial testing is performed against a staging or test environment with synthetic or anonymized data. HAIEC does not need access to real PHI, PII, or confidential business data. The assessment evaluates the architecture and controls — not your actual data.',
+              a: 'Yes. Adversarial testing is performed against a staging or test environment with synthetic or anonymized data. HAIEC does not need access to real PHI, PII, or confidential business data. The assessment evaluates the architecture and controls - not your actual data.',
             },
             {
               q: 'How is this different from a penetration test?',
@@ -352,7 +352,7 @@ export default function HAIECExposureAssessmentPage() {
 
       <CTA
         title="Ready for Your AI Exposure Assessment?"
-        description="Get a comprehensive AI security assessment with evidence-grade compliance outputs — from Subodh KC, founder of HAIEC."
+        description="Get a complete AI security assessment with evidence-grade compliance outputs - from Subodh KC, founder of HAIEC."
         primaryButton={{ text: 'Book an Assessment', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

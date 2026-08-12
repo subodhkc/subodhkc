@@ -1,5 +1,5 @@
 /**
- * CSM data barrel — exports both V1 (historical) and V2 (current specification).
+ * CSM data barrel - exports both V1 (historical) and V2 (current specification).
  *
  * V1 imports: import { csmDomains, csmProvenance, ... } from '@/data/csm'
  * V2 imports: import { CSM_SPEC_VERSION, governanceContracts, ... } from '@/data/csm/v2'
@@ -8,10 +8,10 @@
  * V2 is the current deterministic-by-design specification.
  */
 
-// V1 — original CSM publication data (historical, do not mutate)
+// V1 - original CSM publication data (historical, do not mutate)
 export * from './v1'
 
-// V2 — current specification (re-export for convenience)
+// V2 - current specification (re-export for convenience)
 export {
   CSM_SPEC_VERSION,
   CSM_SPEC_DATE,

@@ -109,7 +109,7 @@ export default function KestrelVoiceReceptionistPage() {
       <Hero
         subtitle="AI Voice Operations"
         title={<>Kestrel Voice: A No-Code AI Receptionist Platform<br /><span className="gradient-text">Built for Real Business Calls</span></>}
-        description="Deploy a hosted AI receptionist quickly — then add custom workflows, RAG, guardrails, integrations, testing, and managed support as your needs grow."
+        description="Deploy a hosted AI receptionist quickly - then add custom workflows, RAG, guardrails, integrations, testing, and managed support as your needs grow."
       />
 
       {/* Byline + TOC */}
@@ -158,7 +158,7 @@ export default function KestrelVoiceReceptionistPage() {
             Kestrel Voice is a hosted AI receptionist and voice-operations platform for businesses. A business can configure an agent to answer inbound calls, introduce the business correctly, respond to approved questions, capture leads, check appointment availability, create bookings, route or transfer callers, handle after-hours calls, detect configured urgent scenarios, use business knowledge through RAG, retain recordings and transcripts, summarize calls, and track outcomes.
           </p>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            The basic setup is handled through a dashboard rather than through source code. The onboarding flow covers business information, industry templates, voice and greeting selection, business hours, forwarding, services, FAQs, phone setup, and test calling. More complicated deployments — multi-location routing, custom CRMs, regulated workflows, complex scheduling, or consequential actions — can move into a supported customization or managed implementation process.
+            The basic setup is handled through a dashboard rather than through source code. The onboarding flow covers business information, industry templates, voice and greeting selection, business hours, forwarding, services, FAQs, phone setup, and test calling. More complicated deployments - multi-location routing, custom CRMs, regulated workflows, complex scheduling, or consequential actions - can move into a supported customization or managed implementation process.
           </p>
         </div>
       </Section>
@@ -278,7 +278,7 @@ export default function KestrelVoiceReceptionistPage() {
               </div>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">These are application and orchestration decisions — not merely conversational preferences.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">These are application and orchestration decisions - not merely conversational preferences.</p>
         </div>
       </Section>
 
@@ -486,7 +486,7 @@ export default function KestrelVoiceReceptionistPage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Learning From Calls</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Kestrel Voice learns from call patterns. The learning pipeline promotes recurring fast-path patterns into active fast actions — but with guardrails.
+            Kestrel Voice learns from call patterns. The learning pipeline promotes recurring fast-path patterns into active fast actions - but with guardrails.
           </p>
           <div className="grid sm:grid-cols-4 gap-3">
             {learningSteps.map((s) => (
@@ -650,7 +650,7 @@ export default function KestrelVoiceReceptionistPage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">A Practical Kestrel Call Scenario</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Imagine a homeowner calling an HVAC company at 8:15 p.m.: "The furnace is making a strange noise, and I can smell something burning." A generic voice bot may continue through its normal intake script. A Kestrel deployment can be configured to follow a more controlled path.
+            consider a homeowner calling an HVAC company at 8:15 p.m.: "The furnace is making a strange noise, and I can smell something burning." A generic voice bot may continue through its normal intake script. A Kestrel deployment can be configured to follow a more controlled path.
           </p>
           <div className="space-y-2">
             {callScenarioSteps.map((s) => (

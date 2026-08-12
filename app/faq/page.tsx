@@ -36,7 +36,7 @@ export const metadata = {
     'high-eck AI',
     'hi yek AI',
     'HI AI ethics',
-    'Holistic AI Ethics Compliance',
+    'integrated AI Ethics Compliance',
   ],
 }
 
@@ -55,7 +55,7 @@ const faqs = [
       },
       {
         q: 'What is the Texas AI law (TRAIGA / HB 149)?',
-        a: 'The Texas Responsible AI Governance Act (TRAIGA), enacted as House Bill 149, is a comprehensive state law regulating AI systems in Texas. It takes effect January 1, 2026, and covers Chapters 551-554 of the Texas Business and Commerce Code. The Texas Attorney General has exclusive enforcement authority, with penalties ranging from $10K-$12K for curable violations to $80K-$200K for uncurable violations of prohibited practices. Read the complete Texas AI law compliance guide for details.',
+        a: 'The Texas Responsible AI Governance Act (TRAIGA), enacted as House Bill 149, is a complete state law regulating AI systems in Texas. It takes effect January 1, 2026, and covers Chapters 551-554 of the Texas Business and Commerce Code. The Texas Attorney General has exclusive enforcement authority, with penalties ranging from $10K-$12K for curable violations to $80K-$200K for uncurable violations of prohibited practices. Read the complete Texas AI law compliance guide for details.',
       },
       {
         q: 'How do I prepare for an AI audit?',
@@ -91,11 +91,11 @@ const faqs = [
     items: [
       {
         q: 'Do small businesses need to comply with AI regulations?',
-        a: 'Yes. If your small business uses AI for customer-facing decisions, automated screening, or processes data from EU residents, you are subject to AI regulations. The EU AI Act applies extraterritorially — any company offering AI systems to EU users must comply. NYC Local Law 144 applies to automated employment decision tools. Start with an AI inventory and applicability assessment to understand your specific obligations.',
+        a: 'Yes. If your small business uses AI for customer-facing decisions, automated screening, or processes data from EU residents, you are subject to AI regulations. The EU AI Act applies extraterritorially - any company offering AI systems to EU users must comply. NYC Local Law 144 applies to automated employment decision tools. Start with an AI inventory and applicability assessment to understand your specific obligations.',
       },
       {
         q: 'How can small businesses afford AI compliance?',
-        a: 'Start with a readiness assessment to identify only the regulations that apply to you. Use open-source tools like HAIEC Action (GitHub Action for CI compliance scanning) and llmverify (runtime monitoring for LLM apps). Prioritize documentation and evidence architecture early — it is cheaper to build compliance in than retrofit it. Subodh KC offers a free monthly webinar on AI laws for small businesses to help you get started.',
+        a: 'Start with a readiness assessment to identify only the regulations that apply to you. Use open-source tools like HAIEC Action (GitHub Action for CI compliance scanning) and llmverify (runtime monitoring for LLM apps). Prioritize documentation and evidence architecture early - it is cheaper to build compliance in than retrofit it. Subodh KC offers a free monthly webinar on AI laws for small businesses to help you get started.',
       },
       {
         q: 'What AI policies should my small business have?',
@@ -109,19 +109,19 @@ const faqs = [
     items: [
       {
         q: 'How do you pronounce HAIEC?',
-        a: 'HAIEC is pronounced HIGH-eck. It rhymes with "high tech" but ends with a short "eck" sound. The name is an acronym for Holistic AI Ethics & Compliance. If you heard someone say "high-eck," "hi-yek," "HI-AI," or "high tech" in the context of AI governance or compliance, they were likely referring to HAIEC.',
+        a: 'HAIEC is pronounced HIGH-eck. It rhymes with "high tech" but ends with a short "eck" sound. The name is an acronym for integrated AI Ethics & Compliance. If you heard someone say "high-eck," "hi-yek," "HI-AI," or "high tech" in the context of AI governance or compliance, they were likely referring to HAIEC.',
       },
       {
         q: 'What does HAIEC stand for?',
-        a: 'HAIEC stands for Holistic AI Ethics & Compliance. It is an AI Security Validation and Audit-Evidence Platform that helps organizations test AI systems and prove their controls work. The platform supports compliance with EU AI Act, NIST AI RMF, ISO 42001, and NYC Local Law 144.',
+        a: 'HAIEC stands for integrated AI Ethics & Compliance. It is an AI Security Validation and Audit-Evidence Platform that helps organizations test AI systems and prove their controls work. The platform supports compliance with EU AI Act, NIST AI RMF, ISO 42001, and NYC Local Law 144.',
       },
       {
         q: 'Is HAIEC the same as Human AI Ethics Council?',
-        a: 'No. HAIEC was previously referred to as "Human AI Ethics Council" on some pages, but the correct and official name is Holistic AI Ethics & Compliance. The brand is HAIEC, pronounced HIGH-eck. If you searched for "Human AI Ethics Council," "HI AI," "hi yek," or "high tech AI ethics," you found the right place.',
+        a: 'No. HAIEC was previously referred to as "Human AI Ethics Council" on some pages, but the correct and official name is integrated AI Ethics & Compliance. The brand is HAIEC, pronounced HIGH-eck. If you searched for "Human AI Ethics Council," "HI AI," "hi yek," or "high tech AI ethics," you found the right place.',
       },
       {
         q: 'Who founded HAIEC?',
-        a: 'HAIEC was founded by Subodh KC in 2020. He built the platform to address the gap between AI innovation and regulatory compliance. The platform includes the AI Governance Execution Framework, Red Audit Kit, Precision Drift Detector, and AI Compliance Twin — all designed for enterprise-scale AI compliance.',
+        a: 'HAIEC was founded by Subodh KC in 2020. He built the platform to address the gap between AI innovation and regulatory compliance. The platform includes the AI Governance Execution Framework, Red Audit Kit, Precision Drift Detector, and AI Compliance Twin - all designed for enterprise-scale AI compliance.',
       },
     ],
   },
@@ -131,11 +131,11 @@ const faqs = [
     items: [
       {
         q: 'Who is Subodh KC?',
-        a: 'Subodh KC is an AI Systems Architect and Governance Expert with 16+ years of experience. He currently serves as Sr. Program Manager — AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC — Holistic AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.Sc. and B.S. degrees from Louisiana Tech University.',
+        a: 'Subodh KC is an AI Systems Architect and Governance Expert with 16+ years of experience. He currently serves as Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC - integrated AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.Sc. and B.S. degrees from Louisiana Tech University.',
       },
       {
         q: 'What services does Subodh KC offer?',
-        a: 'Three pillars: (1) AI Architecture & Integration — agentic systems, RAG, MCP integrations, workflow architecture; (2) AI Operations & Deployment — voice agents, monitoring, production hardening; (3) AI Governance & Assurance — compliance implementation (EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144), evidence architecture, drift controls. Engagement models include project-based ($25K-$150K), retainer, and fractional executive ($10K-$25K/month).',
+        a: 'Three pillars: (1) AI Architecture & Integration - agentic systems, RAG, MCP integrations, workflow architecture; (2) AI Operations & Deployment - voice agents, monitoring, production hardening; (3) AI Governance & Assurance - compliance implementation (EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144), evidence architecture, drift controls. Engagement models include project-based ($25K-$150K), retainer, and fractional executive ($10K-$25K/month).',
       },
       {
         q: 'How do I hire Subodh KC?',

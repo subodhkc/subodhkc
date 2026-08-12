@@ -68,7 +68,7 @@ export const metadata = {
 const techArticleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
-  headline: 'Cognitive Systems Management 2.0 — Framework & Governance Specification',
+  headline: 'Cognitive Systems Management 2.0 - Framework & Governance Specification',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2025-08-29',
   dateModified: '2026-08-10',

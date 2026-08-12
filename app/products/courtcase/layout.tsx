@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'CourtCase - Legal Document Organization Tool (Coming Soon)',
-  description: 'Organize your legal documents with ease. CourtCase helps you manage case files, track deadlines, and prepare document packets — all locally on your computer. Join the waitlist!',
+  description: 'Organize your legal documents with ease. CourtCase helps you manage case files, track deadlines, and prepare document packets - all locally on your computer. Join the waitlist!',
   keywords: [
     'CourtCase',
     'legal document management',

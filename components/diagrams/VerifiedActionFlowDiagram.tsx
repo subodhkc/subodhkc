@@ -34,7 +34,7 @@ export function VerifiedActionFlowDiagram() {
   return (
     <div className="my-8 w-full overflow-x-auto" style={{ position: 'relative' }}>
       <svg ref={svgRef} viewBox="0 0 600 380" className="w-full min-w-[500px] h-auto" role="img" aria-label="Comparison of weak and controlled AI action flows, showing how guardrails, human approval, and audit trails prevent uncontrolled data deletion">
-        <title>Verified Action Flow — Weak vs Controlled</title>
+        <title>Verified Action Flow - Weak vs Controlled</title>
         <defs>
           <linearGradient id="vaf-weak" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(0 70% 50% / 0.08)" /><stop offset="100%" stopColor="hsl(0 70% 50% / 0.02)" /></linearGradient>
           <linearGradient id="vaf-ctrl" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(142 70% 40% / 0.08)" /><stop offset="100%" stopColor="hsl(142 70% 40% / 0.02)" /></linearGradient>
@@ -62,7 +62,7 @@ export function VerifiedActionFlowDiagram() {
           </g>
         ))}
 
-        <text x="300" y="365" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10, fontStyle: 'italic' }}>The difference is not the AI model — it is the guardrails around it.</text>
+        <text x="300" y="365" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10, fontStyle: 'italic' }}>The difference is not the AI model - it is the guardrails around it.</text>
       </svg>
       <DiagramTooltip viewBoxW={600} viewBoxH={380} active={activeNode} svgRef={svgRef} onClose={hideNode} />
     </div>

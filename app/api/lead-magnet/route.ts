@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
               </p>
 
               <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
-                This comprehensive guide includes:
+                This complete guide includes:
               </p>
 
               <div style="background: #f0fdf4; border-left: 4px solid #10B981; padding: 20px; margin-bottom: 30px; border-radius: 8px;">

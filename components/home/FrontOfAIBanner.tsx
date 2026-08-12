@@ -1,4 +1,4 @@
-// components/home/FrontOfAIBanner.tsx — FrontOfAI live news banner (RSS-fed)
+// components/home/FrontOfAIBanner.tsx - FrontOfAI live news banner (RSS-fed)
 // Server component. Fetches the FrontOfAI briefing RSS feed and renders a
 // compact news ticker above the hero. Falls back gracefully.
 //
@@ -118,7 +118,7 @@ export async function FrontOfAIBanner() {
   const items = await fetchNews()
   const visible = items.slice(0, 8)
 
-  // Duplicate the list so the marquee loops seamlessly.
+  // Duplicate the list so the marquee loops smoothly.
   const loop = [...visible, ...visible]
 
   return (
@@ -208,7 +208,7 @@ export async function FrontOfAIBanner() {
               color: 'var(--op-muted)',
             }}
           >
-            AI intelligence feed unavailable —{' '}
+            AI intelligence feed unavailable -{' '}
             <a
               href={BRIEFING_URL}
               target="_blank"

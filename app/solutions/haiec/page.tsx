@@ -17,14 +17,14 @@ import {
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'HAIEC — AI Compliance & Governance Platform | Subodh KC',
+  title: 'HAIEC - AI Compliance & Governance Platform | Subodh KC',
   description:
     'HAIEC is an evidence-first AI governance platform. EU AI Act compliance, NIST AI RMF, ISO 42001, NYC LL144 bias audits, runtime adversarial testing, and audit-grade evidence generation. Features precision drift detection, Red Audit Kit, and Cognitive Systems Management.',
   alternates: {
     canonical: 'https://subodhkc.com/solutions/haiec',
   },
   openGraph: {
-    title: 'HAIEC — AI Compliance & Governance Platform',
+    title: 'HAIEC - AI Compliance & Governance Platform',
     description:
       'Evidence-first frameworks for behavioral AI governance. AI Governance Execution Framework, AI readiness assessments, and audit-grade evidence for enterprise compliance.',
     url: 'https://subodhkc.com/solutions/haiec',
@@ -32,8 +32,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HAIEC — AI Compliance & Governance Platform',
-    description: 'Comprehensive AI governance, compliance, and ethical deployment platform. EU AI Act, NIST AI RMF, ISO 42001 aligned.',
+    title: 'HAIEC - AI Compliance & Governance Platform',
+    description: 'complete AI governance, compliance, and ethical deployment platform. EU AI Act, NIST AI RMF, ISO 42001 aligned.',
   },
   keywords: [
     'HAIEC',
@@ -72,7 +72,7 @@ export default function HAIECPage() {
       icon: FileCheck,
       title: 'Red Audit Kit',
       description:
-        'Comprehensive assessment framework for AI systems. Evaluates models, data pipelines, and deployment infrastructure against compliance and risk criteria.',
+        'complete assessment framework for AI systems. Evaluates models, data pipelines, and deployment infrastructure against compliance and risk criteria.',
       features: [
         'Multi-layer system audits',
         'Risk scoring methodology',
@@ -122,7 +122,7 @@ export default function HAIECPage() {
   const csm = {
     title: 'Cognitive Systems Management (CSM)',
     description:
-      'The foundational methodology underlying HAIEC. CSM defines four governance domains — Enterprise, Project, Code, and UX. The AI Governance Execution Framework operationalizes and extends CSM with six cross-functional governance functions.',
+      'The foundational methodology underlying HAIEC. CSM defines four governance domains - Enterprise, Project, Code, and UX. The AI Governance Execution Framework operationalizes and extends CSM with six cross-functional governance functions.',
     domains: [
       {
         name: 'CSM-Enterprise',
@@ -317,7 +317,7 @@ export default function HAIECPage() {
                 <h3 className="text-xl font-semibold mb-3">Evidence-First Approach</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Dashboards are not evidence. HAIEC generates audit-grade documentation that stands up to regulatory scrutiny.
-                  Every claim is backed by deterministic testing and SHA-256 cryptographic hashing — tamper-evident evidence you can verify independently.
+                  Every claim is backed by deterministic testing and SHA-256 cryptographic hashing - tamper-evident evidence you can verify independently.
                 </p>
               </Card>
               <Card className="p-6">
@@ -331,7 +331,7 @@ export default function HAIECPage() {
                 <h3 className="text-xl font-semibold mb-3">Framework Aligned</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Built on research published in Zenodo and aligned with EU AI Act, NIST AI RMF, ISO 42001, and NYC Local Law 144.
-                  Deterministic engines with open-source foundations you can verify — llmverify on npm and PyPI, plus the HAIEC GitHub Action for CI.
+                  Deterministic engines with open-source foundations you can verify - llmverify on npm and PyPI, plus the HAIEC GitHub Action for CI.
                 </p>
               </Card>
             </div>
@@ -506,7 +506,7 @@ export default function HAIECPage() {
       <Section className="pt-8">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
-            <p>Learn how HAIEC fits into the complete AI compliance stack: read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link> — the seven layers of AI compliance, framework comparison, and implementation roadmap. For AI voice agent-specific compliance, security, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>.</p>
+            <p>Learn how HAIEC fits into the complete AI compliance stack: read <Link href="/how-to-secure-and-govern-ai" className="text-primary font-medium hover:underline">How to Secure and Govern AI: NIST, ISO and SOC 2</Link> - the seven layers of AI compliance, framework comparison, and implementation roadmap. For AI voice agent-specific compliance, security, and deployment architecture, read <Link href="/why-ai-voice-agents-fail-in-production" className="text-primary font-medium hover:underline">Why AI Voice Agents Fail in Production</Link>.</p>
           </div>
         </div>
       </Section>

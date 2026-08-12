@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'SKC Log Analyser – AI-Powered Log Analysis (Streamlit, Self-Hosted)',
-  description: 'Self-hosted Streamlit app for AI-powered log analysis. Upload log files and get instant anomaly detection, root cause analysis, and visual analytics. Runs locally — no cloud, no data leaves your machine.',
+  title: 'SKC Log Analyser - AI-Powered Log Analysis (Streamlit, Self-Hosted)',
+  description: 'Self-hosted Streamlit app for AI-powered log analysis. Upload log files and get instant anomaly detection, root cause analysis, and visual analytics. Runs locally - no cloud, no data leaves your machine.',
   keywords: [
     'log analysis tool',
     'AI log analysis',
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
     'Subodh KC',
   ],
   openGraph: {
-    title: 'SKC Log Analyser – AI Log Analysis (Streamlit, Self-Hosted)',
-    description: 'Upload log files and get instant AI-powered insights. Runs locally as a Streamlit app — no cloud, no data leaves your machine.',
+    title: 'SKC Log Analyser - AI Log Analysis (Streamlit, Self-Hosted)',
+    description: 'Upload log files and get instant AI-powered insights. Runs locally as a Streamlit app - no cloud, no data leaves your machine.',
     type: 'website',
     url: 'https://subodhkc.com/products/skc-log-analyser',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SKC Log Analyser – AI Log Analysis (Streamlit)',
+    title: 'SKC Log Analyser - AI Log Analysis (Streamlit)',
     description: 'Self-hosted AI log analysis. Upload logs, get instant insights. No cloud, no data leaves your machine.',
   },
   alternates: {

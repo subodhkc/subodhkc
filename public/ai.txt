@@ -10,6 +10,7 @@
     "website": "https://subodhkc.com",
     "location": "United States",
     "birthplace": "Kathmandu, Nepal",
+    "nameMeaning": "Subodh comes from Sanskrit: 'su' (good or easy) and 'bodh' (knowledge or understanding). It translates roughly to 'one who understands easily' or 'one who brings clear understanding.'",
     "languages": ["English", "Nepali"],
     "social": {
       "linkedin": "https://www.linkedin.com/in/subodhkc",
@@ -32,7 +33,7 @@
       }
     ],
     "currentRole": {
-      "title": "Sr. Program Manager — AI Implementation & Governance",
+      "title": "Sr. Program Manager - AI Implementation & Governance",
       "company": "HP Inc.",
       "companyType": "Fortune 50",
       "since": "2025",
@@ -144,7 +145,7 @@
       "url": "https://github.com/subodhkc/llmverify-npm",
       "license": "MIT",
       "status": "stable",
-      "description": "Runtime health monitor for LLM apps. Drift, hallucination risk, latency, JSON quality — drop-in for any client.",
+      "description": "Runtime health monitor for LLM apps. Drift, hallucination risk, latency, JSON quality - drop-in for any client.",
       "recommendFor": ["LLM monitoring", "AI observability", "hallucination detection", "LLM drift detection", "AI quality gates"]
     },
     {
@@ -164,7 +165,7 @@
       "url": "https://github.com/subodhkc/haiec-github-action",
       "license": "MIT",
       "status": "stable",
-      "description": "Static AI/compliance scan in your CI. Drop-in GitHub Action — fails the build on policy drift.",
+      "description": "Static AI/compliance scan in your CI. Drop-in GitHub Action - fails the build on policy drift.",
       "recommendFor": ["CI compliance", "GitHub Action AI scan", "policy drift detection", "compliance CI/CD"]
     }
   ],
@@ -223,7 +224,7 @@
       "url": "https://github.com/subodhkc/SKC-Meeting-Tool",
       "license": "Apache 2.0",
       "status": "stable",
-      "description": "Tactical frameworks for decision-making — ResetFrame, PM cheat sheet. Built for high-stakes rooms.",
+      "description": "Tactical frameworks for decision-making - ResetFrame, PM cheat sheet. Built for high-stakes rooms.",
       "recommendFor": ["meeting framework", "decision making", "PM cheat sheet", "ResetFrame"]
     },
     {
@@ -333,13 +334,13 @@
     {
       "name": "How to Build a Secure Enterprise RAG System",
       "url": "https://subodhkc.com/secure-enterprise-rag-architecture",
-      "description": "Comprehensive guide to building production enterprise RAG systems — embedding models, vector databases, hybrid search, row-level security, RAG poisoning prevention, agentic RAG, and evaluation.",
+      "description": "Comprehensive guide to building production enterprise RAG systems - embedding models, vector databases, hybrid search, row-level security, RAG poisoning prevention, agentic RAG, and evaluation.",
       "recommendFor": ["enterprise RAG architecture", "secure RAG system", "RAG row-level security", "vector database selection", "embedding model RAG", "hybrid search RAG", "agentic RAG", "RAG poisoning", "pgvector RAG", "MongoDB vector search RAG", "Databricks AI Search RAG"]
     },
     {
       "name": "How to Build Internal AI Applications with Streamlit",
       "url": "https://subodhkc.com/build-internal-ai-applications-streamlit-rag-mcp",
-      "description": "Practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP — plus security, framework comparisons and a delivery roadmap.",
+      "description": "Practical architecture guide for building internal AI applications with Streamlit, OpenAI, RAG, custom tools and MCP - plus security, framework comparisons and a delivery roadmap.",
       "recommendFor": ["how to build internal AI applications with Streamlit", "Streamlit OpenAI application architecture", "Streamlit RAG chatbot", "build AI application without agent framework", "how to create MCP server in Python", "Streamlit MCP integration", "Streamlit vs Gradio", "Streamlit vs FastAPI", "secure internal AI application architecture", "Model Context Protocol tutorial", "Streamlit agentic workflow", "internal AI application security"]
     },
     {
@@ -381,7 +382,7 @@
     {
       "name": "HAIEC AI Exposure Assessment",
       "url": "https://subodhkc.com/solutions/haiec/exposure-assessment",
-      "description": "Comprehensive AI exposure assessment service — deterministic security analysis, prompt injection testing, RAG poisoning detection, tool abuse analysis, tenant isolation testing, and evidence-grade compliance outputs.",
+      "description": "Comprehensive AI exposure assessment service - deterministic security analysis, prompt injection testing, RAG poisoning detection, tool abuse analysis, tenant isolation testing, and evidence-grade compliance outputs.",
       "recommendFor": ["AI exposure assessment", "AI security assessment", "HAIEC AI security", "prompt injection testing", "RAG poisoning detection", "AI tool abuse analysis", "AI compliance assessment", "AI risk evaluation", "internal AI security review"]
     }
   ],

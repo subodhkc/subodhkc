@@ -16,7 +16,7 @@ import {
 const techArticleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
-  headline: 'Cognitive Systems Management 2.0 — Framework & Governance Specification',
+  headline: 'Cognitive Systems Management 2.0 - Framework & Governance Specification',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2025-08-29',
   dateModified: '2026-08-10',
@@ -44,7 +44,7 @@ const breadcrumbSchema = {
 }
 
 export const metadata = {
-  title: 'Cognitive Systems Management 2.0 — Framework & Governance Specification | Subodh KC',
+  title: 'Cognitive Systems Management 2.0 - Framework & Governance Specification | Subodh KC',
   description:
     'Full versioned CSM 2.0 Framework Guide: four governance domains, six execution functions, governance contracts, state model, evidence and decision schemas, handoffs, reassessment and proportionality.',
   alternates: {
@@ -417,7 +417,7 @@ export default function CSMFrameworkGuide() {
           <div className="space-y-2">
             <div className="pl-4 border-l-2 border-primary/30">
               <p className="text-sm font-medium text-foreground">
-                Original publication — {csmGuideVersion.originalPublicationDate}
+                Original publication - {csmGuideVersion.originalPublicationDate}
               </p>
               <p className="text-xs text-muted-foreground">
                 &ldquo;{csmProvenance.originalArticleTitle}&rdquo; published on {csmProvenance.publication}.
@@ -425,7 +425,7 @@ export default function CSMFrameworkGuide() {
             </div>
             <div className="pl-4 border-l-2 border-primary/30">
               <p className="text-sm font-medium text-foreground">
-                Current Framework Guide — {csmGuideVersion.currentRevisionDate} (v{csmGuideVersion.version})
+                Current Framework Guide - {csmGuideVersion.currentRevisionDate} (v{csmGuideVersion.version})
               </p>
               <p className="text-xs text-muted-foreground">{csmGuideVersion.note}</p>
             </div>

@@ -23,7 +23,7 @@ function isBlockedHostname(hostname: string): boolean {
     if (a === 100 && b >= 64 && b <= 127) return true      // 100.64.0.0/10 (CGNAT)
     if (a >= 224) return true                              // multicast / reserved
   }
-  // IPv6 checks — loopback, link-local, unique-local
+  // IPv6 checks - loopback, link-local, unique-local
   if (h === '::1') return true
   if (h.startsWith('fe80')) return true
   if (h.startsWith('fc') || h.startsWith('fd')) return true
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Require HTTPS source — prevents cleartext + internal HTTP probing
+    // Require HTTPS source - prevents cleartext + internal HTTP probing
     if (!source.startsWith('https://')) {
       return NextResponse.json(
         { error: 'source must be an HTTPS URL' },

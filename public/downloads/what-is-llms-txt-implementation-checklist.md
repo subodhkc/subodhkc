@@ -12,7 +12,7 @@ A practical checklist for publishing llms.txt, llms-full.txt, and the supporting
 
 ## 2. Provide Markdown Page Versions
 
-- [ ] Identify the 5–20 most important pages on your site
+- [ ] Identify the 5-20 most important pages on your site
 - [ ] Create clean Markdown versions of each (e.g., `/about.md`, `/product.md`, `/security.md`)
 - [ ] Strip navigation, footers, cookie banners, ads, and tracking from Markdown versions
 - [ ] Ensure Markdown pages are linked from the corresponding llms.txt sections

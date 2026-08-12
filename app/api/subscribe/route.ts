@@ -378,7 +378,7 @@ export async function POST(request: NextRequest) {
                 <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; margin-top: 30px;">
                   <h3 style="color: #065f46; margin-top: 0;">While You Wait...</h3>
                   <p style="color: #065f46; font-size: 14px; margin-bottom: 15px;">
-                    Check out <strong>Print Later</strong> — our free tool for saving web pages and printing them when you're ready. 
+                    Check out <strong>Print Later</strong> - our free tool for saving web pages and printing them when you're ready. 
                     Same privacy-first approach, available now!
                   </p>
                   <a href="${siteUrl}/products/print-later" 
@@ -391,7 +391,7 @@ export async function POST(request: NextRequest) {
                   <h3 style="color: #1f2937; margin-top: 0;">Privacy Promise</h3>
                   <p style="color: #6b7280; font-size: 14px;">
                     Like Print Later, CourtCase will store everything locally on your computer. 
-                    Your legal documents are sensitive — we'll never have access to them.
+                    Your legal documents are sensitive - we'll never have access to them.
                   </p>
                 </div>
 

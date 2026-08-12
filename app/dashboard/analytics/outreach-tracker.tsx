@@ -165,7 +165,7 @@ export function OutreachTracker() {
                 <div key={f.id} className="flex items-center justify-between text-sm">
                   <div className="flex-1 min-w-0">
                     <span className="font-medium">{f.target}</span>
-                    <span className="text-muted-foreground ml-2">— {f.article_title}</span>
+                    <span className="text-muted-foreground ml-2">- {f.article_title}</span>
                   </div>
                   <div className="flex items-center gap-3 ml-4">
                     <span className="text-orange-500 font-mono text-xs whitespace-nowrap">

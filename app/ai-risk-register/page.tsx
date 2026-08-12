@@ -65,7 +65,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'What is the difference between likelihood and impact?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Likelihood is the probability that the risk will materialize given your current controls and architecture. Impact is the severity of consequences if it does materialize — considering data sensitivity, number of users affected, financial cost, regulatory exposure, and reputational damage. A risk with Low likelihood but Critical impact (e.g., PHI exposure) still demands immediate attention.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Likelihood is the probability that the risk will materialize given your current controls and architecture. Impact is the severity of consequences if it does materialize - considering data sensitivity, number of users affected, financial cost, regulatory exposure, and reputational damage. A risk with Low likelihood but Critical impact (e.g., PHI exposure) still demands immediate attention.' },
     },
   ],
 }
@@ -177,7 +177,7 @@ export default function AIRiskRegisterPage() {
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-background p-6 md:p-8">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Synopsis</h2>
             <p className="text-base md:text-lg leading-relaxed text-foreground/90">
-              A risk register is the foundation of AI governance. This template covers data and privacy risks, prompt injection vectors, tool and action security, infrastructure and supply chain threats, model behavior and output risks, organizational factors, and compliance gaps — aligned with the NIST AI RMF functions of Govern, Map, Measure, and Manage. Each risk includes likelihood, impact, recommended controls, an owner, and status tracking. Use it alongside the{' '}
+              A risk register is the foundation of AI governance. This template covers data and privacy risks, prompt injection vectors, tool and action security, infrastructure and supply chain threats, model behavior and output risks, organizational factors, and compliance gaps - aligned with the NIST AI RMF functions of Govern, Map, Measure, and Manage. Each risk includes likelihood, impact, recommended controls, an owner, and status tracking. Use it alongside the{' '}
               <Link href="/ai-security-tools" className="text-primary font-medium hover:underline">AI Security Tools</Link>,{' '}
               the{' '}
               <Link href="/ai-vendor-due-diligence-checklist" className="text-primary font-medium hover:underline">Vendor Due-Diligence Checklist</Link>,{' '}
@@ -203,7 +203,7 @@ export default function AIRiskRegisterPage() {
                   Fix immediately (Critical impact)
                 </CardTitle>
                 <CardDescription className="text-sm mt-1 space-y-1.5">
-                  <span className="block">Any risk with Critical impact — regardless of likelihood — deserves immediate attention. A single occurrence could cause irreversible harm: PHI exposure, unauthorized fund transfers, or cross-tenant data breach.</span>
+                  <span className="block">Any risk with Critical impact - regardless of likelihood - deserves immediate attention. A single occurrence could cause irreversible harm: PHI exposure, unauthorized fund transfers, or cross-tenant data breach.</span>
                   <span className="block"><strong className="text-foreground">Action:</strong> Implement controls before the next release. Block deployment if the control is not in place.</span>
                 </CardDescription>
               </CardHeader>
@@ -256,25 +256,25 @@ export default function AIRiskRegisterPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
-                <CardTitle className="text-sm">Govern — Policies, procedures, and accountability</CardTitle>
+                <CardTitle className="text-sm">Govern - Policies, procedures, and accountability</CardTitle>
                 <CardDescription className="text-sm mt-1">Risks R-32 through R-34 (documentation, incident response, bias in consequential decisions). Establish who owns AI risk decisions, how risks are escalated, and what the organization's risk tolerance is. The risk register itself is a Govern artifact.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
-                <CardTitle className="text-sm">Map — Context and risk identification</CardTitle>
+                <CardTitle className="text-sm">Map - Context and risk identification</CardTitle>
                 <CardDescription className="text-sm mt-1">Risks R-01 through R-03 (data and privacy), R-13 through R-16 (shadow AI), R-30 through R-31 (organizational factors). Understand where AI is used, what data it touches, who uses it, and what could go wrong. The blast radius calculator supports this function.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
-                <CardTitle className="text-sm">Measure — Assessment and testing</CardTitle>
+                <CardTitle className="text-sm">Measure - Assessment and testing</CardTitle>
                 <CardDescription className="text-sm mt-1">Risks R-04 through R-09 (prompt injection, tool abuse), R-17 through R-22 (hiring compliance), R-26 through R-27 (hallucination, drift). Quantify and track risks through testing, bias audits, and monitoring. The agent matrix and scenario library support this function.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-l-4 border-l-primary/40">
               <CardHeader>
-                <CardTitle className="text-sm">Manage — Mitigation and response</CardTitle>
+                <CardTitle className="text-sm">Manage - Mitigation and response</CardTitle>
                 <CardDescription className="text-sm mt-1">Risks R-10 through R-12 (supply chain, vendor, session state), R-23 through R-25 (vendor changes), R-28 through R-29 (IP, provider outage). Implement controls, monitor effectiveness, and respond to incidents. The vendor checklist and incident evidence checklist support this function.</CardDescription>
               </CardHeader>
             </Card>
@@ -291,11 +291,11 @@ export default function AIRiskRegisterPage() {
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500/10 text-red-600 text-xs font-bold flex items-center justify-center">1</span>
-                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Identify:</strong> R-05 (Indirect injection via poisoned RAG documents) — Likelihood: Medium, Impact: Critical. The firm allows analysts to upload research notes to the RAG corpus. A malicious or compromised analyst could inject instructions into a document that the model retrieves and follows.</div>
+                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Identify:</strong> R-05 (Indirect injection via poisoned RAG documents) - Likelihood: Medium, Impact: Critical. The firm allows analysts to upload research notes to the RAG corpus. A malicious or compromised analyst could inject instructions into a document that the model retrieves and follows.</div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500/10 text-orange-600 text-xs font-bold flex items-center justify-center">2</span>
-                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Assess:</strong> The blast radius is significant — the RAG corpus is shared across 200+ analysts, and the model has action tools (send email, create trade ticket). An injected instruction could cause the model to email restricted research to an external address.</div>
+                <div className="text-sm text-muted-foreground"><strong className="text-foreground">Assess:</strong> The blast radius is significant - the RAG corpus is shared across 200+ analysts, and the model has action tools (send email, create trade ticket). An injected instruction could cause the model to email restricted research to an external address.</div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/10 text-amber-600 text-xs font-bold flex items-center justify-center">3</span>
@@ -368,7 +368,7 @@ export default function AIRiskRegisterPage() {
         <div className="max-w-4xl mx-auto">
           <LeadMagnetCard
             title="Download the AI Risk Register Spreadsheet"
-            description="Get the complete risk register as a structured spreadsheet with formulas, dropdowns, and conditional formatting — ready to import into your governance tool."
+            description="Get the complete risk register as a structured spreadsheet with formulas, dropdowns, and conditional formatting - ready to import into your governance tool."
             resourceName="AI Risk Register Spreadsheet"
           />
         </div>
@@ -393,7 +393,7 @@ export default function AIRiskRegisterPage() {
             },
             {
               q: 'What is the difference between likelihood and impact?',
-              a: 'Likelihood is the probability that the risk will materialize given your current controls and architecture. Impact is the severity of consequences if it does materialize — considering data sensitivity, number of users affected, financial cost, regulatory exposure, and reputational damage. A risk with Low likelihood but Critical impact (e.g., PHI exposure) still demands immediate attention.',
+              a: 'Likelihood is the probability that the risk will materialize given your current controls and architecture. Impact is the severity of consequences if it does materialize - considering data sensitivity, number of users affected, financial cost, regulatory exposure, and reputational damage. A risk with Low likelihood but Critical impact (e.g., PHI exposure) still demands immediate attention.',
             },
           ].map((faq) => (
             <details key={faq.q} className="rounded-lg border border-border p-4 group">
@@ -420,7 +420,7 @@ export default function AIRiskRegisterPage() {
                     </div>
                     <CardTitle className="text-sm">How to Secure and Govern AI</CardTitle>
                   </div>
-                  <CardDescription className="text-sm">Seven layers of AI compliance — NIST AI RMF, ISO 42001, SOC 2, and continuous evidence.</CardDescription>
+                  <CardDescription className="text-sm">Seven layers of AI compliance - NIST AI RMF, ISO 42001, SOC 2, and continuous evidence.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Read guide <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>
@@ -487,7 +487,7 @@ export default function AIRiskRegisterPage() {
 
       <CTA
         title="Need Help Building Your AI Risk Register?"
-        description="Get a tailored AI risk assessment and governance framework — from Subodh KC, founder of the HAIEC AI security and compliance engine."
+        description="Get a tailored AI risk assessment and governance framework - from Subodh KC, founder of the HAIEC AI security and compliance engine."
         primaryButton={{ text: 'Book a Consultation', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

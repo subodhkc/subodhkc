@@ -9,7 +9,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { ArrowRight, Scale, CheckCircle2, ExternalLink, FileText, Clock, Lock, Zap, Upload, Eye, Download } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'CourtCase — AI Legal Evidence Builder & Case Organizer',
+  title: 'CourtCase - AI Legal Evidence Builder & Case Organizer',
   description: 'AI-assisted legal evidence builder. Upload documents, photos, and emails. CourtCase organizes evidence, builds case chronologies, and prepares document packets. Privacy-first, local processing.',
   keywords: [
     'AI legal evidence builder',
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/solutions/courtcase',
   },
   openGraph: {
-    title: 'CourtCase — AI Legal Evidence Builder & Case Organizer',
+    title: 'CourtCase - AI Legal Evidence Builder & Case Organizer',
     description: 'AI-assisted legal evidence builder. Organize evidence, build chronologies, prepare document packets. Privacy-first, local processing.',
     url: 'https://subodhkc.com/solutions/courtcase',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CourtCase — AI Legal Evidence Builder',
+    title: 'CourtCase - AI Legal Evidence Builder',
     description: 'AI-assisted legal evidence builder. Organize evidence, build chronologies, prepare document packets.',
   },
 }
@@ -209,7 +209,7 @@ export default function CourtCasePage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Document Processing Engines</h2>
           <p className="text-center text-muted-foreground mb-8">
-            Powered by cutting-edge AI and specialized processing engines
+            Powered by current AI and specialized processing engines
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             {engines.map((engine, index) => (

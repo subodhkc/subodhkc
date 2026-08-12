@@ -144,7 +144,7 @@ const scenarios: Scenario[] = [
     severity: 'critical',
     vector: 'Application logic',
     description: 'The application trusts the model decision about whether a user is authorized, rather than checking server-side.',
-    example: 'The model says "Yes, this user is a manager and can approve this request" — and the application executes the approval without independently verifying the user role.',
+    example: 'The model says "Yes, this user is a manager and can approve this request" - and the application executes the approval without independently verifying the user role.',
     defenses: ['Server-side authorization independent of model', 'Model output is never an authorization decision', 'Verify user identity and role from the identity provider', 'Log authorization decisions with evidence', 'Separate authorization layer from AI layer'],
   },
   {
@@ -261,7 +261,7 @@ export function PromptInjectionScenarioLibrary() {
           <p className="text-sm text-foreground/90">
             <strong>Automated detection:</strong> The{' '}
             <Link href="/solutions/haiec" className="text-primary font-medium hover:underline">HAIEC platform</Link>{' '}
-            provides deterministic analysis for prompt injection, RAG poisoning, tool abuse, authentication gaps, and tenant-isolation weaknesses — alongside runtime adversarial testing and evidence-grade outputs.
+            provides deterministic analysis for prompt injection, RAG poisoning, tool abuse, authentication gaps, and tenant-isolation weaknesses - alongside runtime adversarial testing and evidence-grade outputs.
           </p>
         </div>
       </CardContent>

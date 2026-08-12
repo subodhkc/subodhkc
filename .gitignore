@@ -86,7 +86,7 @@ backlinks/*.yml
 .vercel
 .env*
 
-# GCP credentials — never commit
+# GCP credentials - never commit
 *gcp-service-account*
 *service-account*.json
 public/magazine/subodhkc-*.json

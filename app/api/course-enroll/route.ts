@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       from: 'KC Course <noreply@subodhkc.com>',
       to: ['subodhkc@subodhkc.com'],
       reply_to: email,
-      subject: `Course Enrollment: AI Governance & Compliance — ${safeName}`,
+      subject: `Course Enrollment: AI Governance & Compliance - ${safeName}`,
       html: `
         <!DOCTYPE html>
         <html>

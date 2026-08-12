@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       from: 'KC Hero CTA <noreply@subodhkc.com>',
       to: ['subodhkc@subodhkc.com'],
       reply_to: email,
-      subject: `Hiring Inquiry: ${safeRoleType} — ${safeName} at ${safeCompany}`,
+      subject: `Hiring Inquiry: ${safeRoleType} - ${safeName} at ${safeCompany}`,
       html: `
         <!DOCTYPE html>
         <html>

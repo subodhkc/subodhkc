@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     const contact = contacts.find((c: { email: string }) => c.email === email)
 
     if (!contact) {
-      // Contact not found — treat as success (already unsubscribed or never subscribed)
+      // Contact not found - treat as success (already unsubscribed or never subscribed)
       return NextResponse.json({ success: true })
     }
 

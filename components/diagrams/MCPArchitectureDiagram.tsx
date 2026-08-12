@@ -31,7 +31,7 @@ export function MCPArchitectureDiagram() {
   return (
     <div className="my-8 w-full overflow-x-auto" style={{ position: 'relative' }}>
       <svg ref={svgRef} viewBox="0 0 820 420" className="w-full min-w-[650px] h-auto" role="img" aria-label="MCP architecture showing Host application containing the model and MCP client, connecting to an MCP server which exposes tools, resources, and prompts to an enterprise API">
-        <title>MCP Architecture — Host, Client, and Server</title>
+        <title>MCP Architecture - Host, Client, and Server</title>
         <defs>
           <linearGradient id="mcp-grad-host" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(var(--primary) / 0.12)" /><stop offset="100%" stopColor="hsl(var(--primary) / 0.03)" /></linearGradient>
           <linearGradient id="mcp-grad-server" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(var(--accent) / 0.12)" /><stop offset="100%" stopColor="hsl(var(--accent) / 0.03)" /></linearGradient>
@@ -65,7 +65,7 @@ export function MCPArchitectureDiagram() {
           </g>
         ))}
 
-        <text x="630" y="380" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10, fontStyle: 'italic' }}>MCP server is model-independent — the host owns the model</text>
+        <text x="630" y="380" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10, fontStyle: 'italic' }}>MCP server is model-independent - the host owns the model</text>
       </svg>
       <DiagramTooltip viewBoxW={820} viewBoxH={420} active={activeNode} svgRef={svgRef} onClose={hideNode} />
     </div>

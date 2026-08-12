@@ -20,7 +20,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'EU AI Act Compliance & Readiness Guide | Subodh KC',
   description:
-    'Complete guide to the EU AI Act — risk classification, high-risk AI requirements, conformity assessment, penalties, and compliance checklist. Learn how the Instruction Stack Audit Framework (ISAF) maps to EU AI Act Article 9. By Subodh KC.',
+    'Complete guide to the EU AI Act - risk classification, high-risk AI requirements, conformity assessment, penalties, and compliance checklist. Learn how the Instruction Stack Audit Framework (ISAF) maps to EU AI Act Article 9. By Subodh KC.',
   alternates: {
     canonical: 'https://subodhkc.com/guides/eu-ai-act',
   },
@@ -56,7 +56,7 @@ const articleSchema = {
   '@type': 'Article',
   headline: 'EU AI Act Compliance & Readiness Guide',
   description:
-    'Complete guide to the EU AI Act — risk classification, high-risk AI requirements, conformity assessment, penalties, and compliance checklist.',
+    'Complete guide to the EU AI Act - risk classification, high-risk AI requirements, conformity assessment, penalties, and compliance checklist.',
   author: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com/person/subodh-kc' },
   publisher: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   datePublished: '2026-07-14',
@@ -78,7 +78,7 @@ const breadcrumbSchema = {
 const faqs = [
   {
     q: 'What is the EU AI Act?',
-    a: 'The EU AI Act (Regulation 2024/1689) is the world\'s first comprehensive AI regulation. It establishes a risk-based framework for all AI systems placed on the EU market, regardless of where the provider is located. The Act classifies AI into four risk levels: unacceptable (banned), high-risk (strict requirements), limited-risk (transparency obligations), and minimal-risk (no obligations).',
+    a: 'The EU AI Act (Regulation 2024/1689) is the world\'s first complete AI regulation. It establishes a risk-based framework for all AI systems placed on the EU market, regardless of where the provider is located. The Act classifies AI into four risk levels: unacceptable (banned), high-risk (strict requirements), limited-risk (transparency obligations), and minimal-risk (no obligations).',
   },
   {
     q: 'When does the EU AI Act take effect?',
@@ -94,7 +94,7 @@ const faqs = [
   },
   {
     q: 'What are the EU AI Act risk levels?',
-    a: 'Four risk levels: (1) Unacceptable — banned entirely (social scoring, real-time biometric ID, manipulation). (2) High-risk — strict requirements including risk management, data governance, human oversight, and conformity assessment. (3) Limited risk — transparency obligations (users must know they interact with AI). (4) Minimal risk — no specific obligations.',
+    a: 'Four risk levels: (1) Unacceptable - banned entirely (social scoring, real-time biometric ID, manipulation). (2) High-risk - strict requirements including risk management, data governance, human oversight, and conformity assessment. (3) Limited risk - transparency obligations (users must know they interact with AI). (4) Minimal risk - no specific obligations.',
   },
   {
     q: 'Does the EU AI Act have a cure period?',
@@ -148,7 +148,7 @@ export default function EUAIActPage() {
             <span className="gradient-text">Readiness Guide</span>
           </>
         }
-        description="The EU AI Act is the world's first comprehensive AI law. If your AI touches the EU, here's what you must do — explained in plain English."
+        description="The EU AI Act is the world's first complete AI law. If your AI touches the EU, here's what you must do - explained in plain English."
       />
 
       {/* ─── What is the EU AI Act ─── */}
@@ -159,13 +159,13 @@ export default function EUAIActPage() {
       >
         <div className="max-w-3xl space-y-4">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            The EU AI Act (<strong>Regulation 2024/1689</strong>) is the world's first comprehensive AI
+            The EU AI Act (<strong>Regulation 2024/1689</strong>) is the world's first complete AI
             regulation. It establishes a risk-based framework for all AI systems placed on the EU market,
             regardless of where the provider is located. The Act classifies AI into four risk levels and
             imposes obligations proportional to the risk level.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Like the GDPR, the EU AI Act has <strong>extraterritorial scope</strong> — US companies offering
+            Like the GDPR, the EU AI Act has <strong>extraterritorial scope</strong> - US companies offering
             AI to EU users must comply. The Act entered into force on August 1, 2024, with phased application
             culminating in full enforcement for high-risk AI systems on <strong>August 2, 2026</strong>.
           </p>
@@ -200,7 +200,7 @@ export default function EUAIActPage() {
                   <AlertTriangle className="h-5 w-5 text-red-500" />
                 </div>
                 <div>
-                  <CardTitle className="text-base mb-1">Unacceptable Risk — Banned</CardTitle>
+                  <CardTitle className="text-base mb-1">Unacceptable Risk - Banned</CardTitle>
                   <CardDescription className="text-sm leading-relaxed">
                     AI systems that pose a clear threat to safety, livelihoods, or rights are prohibited.
                     Includes social scoring by public authorities, real-time remote biometric identification
@@ -220,7 +220,7 @@ export default function EUAIActPage() {
                   <Shield className="h-5 w-5 text-amber-500" />
                 </div>
                 <div>
-                  <CardTitle className="text-base mb-1">High Risk — Strict Requirements</CardTitle>
+                  <CardTitle className="text-base mb-1">High Risk - Strict Requirements</CardTitle>
                   <CardDescription className="text-sm leading-relaxed">
                     AI systems that could negatively affect safety or fundamental rights. Includes AI used
                     in critical infrastructure, education, employment, essential services, law enforcement,
@@ -238,7 +238,7 @@ export default function EUAIActPage() {
                   <Globe className="h-5 w-5 text-blue-500" />
                 </div>
                 <div>
-                  <CardTitle className="text-base mb-1">Limited Risk — Transparency Obligations</CardTitle>
+                  <CardTitle className="text-base mb-1">Limited Risk - Transparency Obligations</CardTitle>
                   <CardDescription className="text-sm leading-relaxed">
                     AI systems that interact with humans, generate content, or are used for emotion
                     recognition or biometric categorization must inform users they are interacting with AI.
@@ -256,7 +256,7 @@ export default function EUAIActPage() {
                   <CheckCircle2 className="h-5 w-5 text-green-500" />
                 </div>
                 <div>
-                  <CardTitle className="text-base mb-1">Minimal Risk — No Obligations</CardTitle>
+                  <CardTitle className="text-base mb-1">Minimal Risk - No Obligations</CardTitle>
                   <CardDescription className="text-sm leading-relaxed">
                     The majority of AI systems (spam filters, inventory optimization, video game AI, etc.)
                     fall into this category. No specific obligations under the Act. Providers may voluntarily
@@ -355,7 +355,7 @@ export default function EUAIActPage() {
       <Section
         subtitle="Practical Implementation"
         title="How ISAF Maps to EU AI Act Requirements"
-        description="The Instruction Stack Audit Framework (ISAF), published by Subodh KC in Zenodo, provides a practical methodology for tracing AI accountability across nine abstraction layers — directly mapping to Article 9 risk management requirements."
+        description="The Instruction Stack Audit Framework (ISAF), published by Subodh KC in Zenodo, provides a practical methodology for tracing AI accountability across nine abstraction layers - directly mapping to Article 9 risk management requirements."
         id="isaf-mapping"
       >
         <div className="max-w-3xl space-y-4">
@@ -444,7 +444,7 @@ export default function EUAIActPage() {
         <div className="max-w-xl mx-auto">
           <LeadMagnetCard
             title="Free EU AI Act Readiness Checklist"
-            description="A practical, printable checklist covering EU AI Act risk classification, high-risk AI requirements, conformity assessment, and post-market monitoring — informed by the ISAF framework published in Zenodo."
+            description="A practical, printable checklist covering EU AI Act risk classification, high-risk AI requirements, conformity assessment, and post-market monitoring - informed by the ISAF framework published in Zenodo."
             resourceName="EU AI Act Readiness Checklist"
           />
         </div>
@@ -497,7 +497,7 @@ export default function EUAIActPage() {
                   <CardTitle className="text-base">Conformity Preparation</CardTitle>
                 </div>
                 <CardDescription className="text-sm leading-relaxed">
-                  Prepare for conformity assessment — internal control or third-party notified body —
+                  Prepare for conformity assessment - internal control or third-party notified body -
                   with complete technical documentation and EU declaration of conformity.
                 </CardDescription>
               </CardHeader>
@@ -584,7 +584,7 @@ export default function EUAIActPage() {
       {/* ─── CTA ─── */}
       <CTA
         title="Prepare for EU AI Act Compliance"
-        description="Full enforcement begins August 2026. Get an EU AI Act risk assessment or compliance roadmap from Subodh KC — author of the ISAF framework published in Zenodo."
+        description="Full enforcement begins August 2026. Get an EU AI Act risk assessment or compliance roadmap from Subodh KC - author of the ISAF framework published in Zenodo."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'View Advisory Services', href: '/advisory' }}
       />

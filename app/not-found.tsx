@@ -19,7 +19,7 @@ export default function NotFound() {
     {
       icon: Compass,
       title: 'Home',
-      description: 'Start here — overview of AI systems, products, and capabilities.',
+      description: 'Start here - overview of AI systems, products, and capabilities.',
       href: '/',
     },
     {

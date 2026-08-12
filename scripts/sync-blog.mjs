@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * sync-blog.mjs — Fetch articles from BabyLoveGrowth API and save as JSON files.
+ * sync-blog.mjs - Fetch articles from BabyLoveGrowth API and save as JSON files.
  *
  * Usage:
  *   node scripts/sync-blog.mjs

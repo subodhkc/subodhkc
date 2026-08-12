@@ -29,7 +29,7 @@ const useCaseOptions: { value: UseCase; label: string; desc: string }[] = [
 
 const volumeOptions: { value: CallVolume; label: string; desc: string }[] = [
   { value: 'low', label: 'Low', desc: 'Fewer than 50 calls per day' },
-  { value: 'medium', label: 'Medium', desc: '50–500 calls per day' },
+  { value: 'medium', label: 'Medium', desc: '50-500 calls per day' },
   { value: 'high', label: 'High', desc: 'More than 500 calls per day' },
 ]
 
@@ -115,7 +115,7 @@ export function VoiceAgentReadinessChecker() {
     if (hasWriteActions) {
       checklist.push({
         name: 'Implement tool-result verification',
-        reason: 'The agent must confirm an action succeeded only after the authoritative system returns success — never because it attempted the action.',
+        reason: 'The agent must confirm an action succeeded only after the authoritative system returns success - never because it attempted the action.',
         priority: 'start-here',
       })
     }
@@ -131,7 +131,7 @@ export function VoiceAgentReadinessChecker() {
     if (useCase === 'emergency-routing') {
       checklist.push({
         name: 'Configure deterministic emergency interrupts',
-        reason: 'Emergency phrases (gas leak, medical distress, fire) must trigger immediate deterministic handling — not conversational model judgment.',
+        reason: 'Emergency phrases (gas leak, medical distress, fire) must trigger immediate deterministic handling - not conversational model judgment.',
         priority: 'start-here',
       })
     }
@@ -161,7 +161,7 @@ export function VoiceAgentReadinessChecker() {
     if (compliance === 'traiga' || isMultiJurisdiction) {
       checklist.push({
         name: 'Map TRAIGA and multi-jurisdiction obligations',
-        reason: 'Document purpose, data, outputs, performance, limitations, monitoring, and safeguards — the evidence TRAIGA may request during an investigation.',
+        reason: 'Document purpose, data, outputs, performance, limitations, monitoring, and safeguards - the evidence TRAIGA may request during an investigation.',
         priority: 'next',
       })
     }
@@ -176,13 +176,13 @@ export function VoiceAgentReadinessChecker() {
 
     checklist.push({
       name: 'Configure degraded mode and fallback',
-      reason: 'When the realtime AI path fails, the call should degrade to Gather, IVR, or human transfer — not disconnect.',
+      reason: 'When the realtime AI path fails, the call should degrade to Gather, IVR, or human transfer - not disconnect.',
       priority: 'ongoing',
     })
 
     checklist.push({
       name: 'Set up outcome-based metrics',
-      reason: 'Track cost per verified completed outcome (appointment, lead, transfer) — not just calls answered or minutes handled.',
+      reason: 'Track cost per verified completed outcome (appointment, lead, transfer) - not just calls answered or minutes handled.',
       priority: 'ongoing',
     })
 

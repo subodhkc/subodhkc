@@ -28,7 +28,7 @@ export function StreamlitArchitectureDiagram() {
   return (
     <div className="my-8 w-full overflow-x-auto" style={{ position: 'relative' }}>
       <svg ref={svgRef} viewBox="0 0 800 620" className="w-full min-w-[600px] h-auto" role="img" aria-label="Six-layer architecture for internal AI applications: User, Interface, Application Logic, AI and Retrieval Services, Enterprise Systems, and Security/Evidence/Monitoring">
-        <title>Internal AI Application Architecture — Six Layers</title>
+        <title>Internal AI Application Architecture - Six Layers</title>
         <defs>
           <linearGradient id="sa-grad-1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(var(--primary) / 0.15)" /><stop offset="100%" stopColor="hsl(var(--primary) / 0.05)" /></linearGradient>
           <linearGradient id="sa-grad-2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(var(--accent) / 0.15)" /><stop offset="100%" stopColor="hsl(var(--accent) / 0.05)" /></linearGradient>

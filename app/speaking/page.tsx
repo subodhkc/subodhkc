@@ -125,7 +125,7 @@ export default function SpeakingPage() {
     {
       type: 'Panel Moderator',
       duration: '45-60 minutes',
-      description: 'Facilitate discussions with industry experts on AI governance and strategy.',
+      description: 'support discussions with industry experts on AI governance and strategy.',
       idealFor: 'Multi-perspective discussions, industry events',
     },
   ]
@@ -335,7 +335,7 @@ export default function SpeakingPage() {
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm text-muted-foreground mb-6 text-center">
-            Comprehensive guides to the AI regulations that matter most — informed by the HAIEC compliance engine and Zenodo-published research.
+            complete guides to the AI regulations that matter most - informed by the HAIEC compliance engine and Zenodo-published research.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link href="/guides/texas-ai-law" className="block">

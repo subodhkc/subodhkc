@@ -535,7 +535,7 @@ export default function LocalAIReviewPage() {
                 {[
                   'I\'ll review your business context and reply within 1 business day to confirm a time.',
                   'You\'ll receive a one-page opportunity snapshot before our conversation.',
-                  'Expect an email from subodhkc@subodhkc.com — check your spam folder if you don\'t see it.',
+                  'Expect an email from subodhkc@subodhkc.com - check your spam folder if you don\'t see it.',
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 text-xs font-bold text-accent">

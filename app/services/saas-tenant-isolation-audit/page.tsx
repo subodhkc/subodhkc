@@ -322,7 +322,7 @@ const faqItems = [
   { question: 'What does the final report include?', answer: 'The report includes the tested scope, architecture observations, confirmed findings, rejected false positives, execution paths, severity, affected code, existing mitigations, recommended fixes and regression tests. Behavioral engagements also include sanitized request and response evidence.' },
   { question: 'Can you fix the vulnerabilities you find?', answer: 'Yes. Remediation can be scoped after the audit or included in the Hardening and Verified Deployment engagement. Fixes may include canonical authorization middleware, role restrictions, tenant-scoped queries, RLS policies, private storage delivery and automated isolation tests.' },
   { question: 'Can you convert a single-user application into a multi-tenant SaaS?', answer: 'Yes. The deployment service can add organizations, memberships, invitations, roles, organization switching, tenant-owned resources, storage isolation and regression testing. Scope depends on the existing data model and application workflows.' },
-  { question: 'Is this a penetration test or compliance certification?', answer: 'No. This is a specialized application-security and architecture review focused on tenant isolation. It does not replace a comprehensive penetration test, independent compliance examination or legal review.' },
+  { question: 'Is this a penetration test or compliance certification?', answer: 'No. This is a specialized application-security and architecture review focused on tenant isolation. It does not replace a complete penetration test, independent compliance examination or legal review.' },
   { question: 'How long does an audit take?', answer: 'A focused review can often be completed within several business days after access and scope are ready. A behavioral audit or remediation engagement may require one to several weeks depending on route count, data models, storage systems and environment readiness.' },
   { question: 'Can agencies use this as a white-label service?', answer: 'Yes. Agencies can request a white-label engagement, repeatable pre-delivery review or agency license when the TenantProof tooling becomes available. Client communication, report branding and remediation responsibilities are defined during scoping.' },
   { question: 'What happens if no serious vulnerability is found?', answer: 'The report documents what was tested, which controls held, remaining limitations and the regression tests needed to preserve that result. The value is evidence about the tenant boundary, not a predetermined vulnerability count.' },
@@ -914,7 +914,7 @@ export default function TenantIsolationAuditPage() {
               fontSize: '0.9rem',
             }}
           >
-            FrontOfAI — Enterprise AI Solutions
+            FrontOfAI - Enterprise AI Solutions
             <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
           </Link>
           <Link
@@ -933,7 +933,7 @@ export default function TenantIsolationAuditPage() {
               fontSize: '0.9rem',
             }}
           >
-            LLMVerify — LLM Output Validation
+            LLMVerify - LLM Output Validation
             <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
           </Link>
           <Link

@@ -2,7 +2,7 @@
 
 /**
  * Generate platform-specific social media content from blog posts using OpenAI.
- * No Twitter/LinkedIn API needed — outputs markdown files for copy-paste posting.
+ * No Twitter/LinkedIn API needed - outputs markdown files for copy-paste posting.
  *
  * Usage:
  *   node scripts/generate-social.mjs                    # Generate for all posts
@@ -94,19 +94,19 @@ Generate the following in a single markdown document:
 
 ## LinkedIn Post
 - Professional, insight-driven tone (not promotional, not engagement-bait)
-- 900-1500 characters — brief and insightful, not a wall of text
+- 900-1500 characters - brief and insightful, not a wall of text
 - Start with a strong hook that states a counterintuitive insight or key finding (not a question)
 - 3-5 key insights as bullet points, each with a specific takeaway
-- No CTA at the end — no "visit my blog", "follow me", "check out", "read more", or any link reference
-- DO NOT include any URL, link, or link placeholder in the post body — no [link here], no [link], no raw URL
+- No CTA at the end - no "visit my blog", "follow me", "check out", "read more", or any link reference
+- DO NOT include any URL, link, or link placeholder in the post body - no [link here], no [link], no raw URL
 - DO NOT use phrases like "Full article linked below", "Link in comments", "Visit my blog at", "Follow me for more"
-- DO NOT use em-dashes (—) anywhere — use regular hyphens (-) or restructure the sentence
+- DO NOT use em-dashes (-) anywhere - use regular hyphens (-) or restructure the sentence
 - DO NOT use AI writing tells: "Here's what I've learned", "After working across", "In my experience", "I've seen firsthand", "Let me share", "Here's the thing", "It's worth noting", "Needless to say", "At the end of the day", "The reality is", "Let's dive in", "Let's explore", "Let's break this down", "Here's a breakdown", "Here's why", "Here's how", "The bottom line is", "It comes down to", "That's where", "This is where", "This isn't just about", "Let's be clear", "One thing is clear", "A key takeaway is", "Picture this", "Imagine", "Fast forward", "Spoiler alert", "Plot twist", "Here's the deal", "But here's the catch", "Which brings us to"
-- DO NOT fabricate personal claims — no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
+- DO NOT fabricate personal claims - no "signed a client", "we deployed", "a company I worked with", "in a recent engagement"
 - DO NOT use engagement bait ("Agree?", "Comment below", "Who else thinks...")
 - DO NOT tag people (@mentions) unless they are directly quoted
-- Content must be factual and based on the article — no hallucinated facts, numbers, or events
-- Write about the topic, the news, the how-to — not about yourself or your experience
+- Content must be factual and based on the article - no hallucinated facts, numbers, or events
+- Write about the topic, the news, the how-to - not about yourself or your experience
 - Include 3-5 relevant hashtags at the very end, each on its own line
 - Hashtags should be specific to AI governance/enterprise AI (e.g., #AIGovernance, not #AI)
 
@@ -291,7 +291,7 @@ async function main() {
     try {
       const content = await generateSocialContent(post)
       if (content) {
-        let fullOutput = `# Social Media Content — ${post.title}
+        let fullOutput = `# Social Media Content - ${post.title}
 
 > Auto-generated on ${new Date().toISOString().split('T')[0]}
 > Article: ${SITE_URL}/blog/${post.slug}
@@ -331,7 +331,7 @@ async function main() {
   console.log(`\nDone: ${success} generated, ${fail} failed`)
   console.log(`Output: data/social/*.md`)
   console.log(`\nNext steps:`)
-  console.log(`  1. Review each file in data/social/ — check AI Review section`)
+  console.log(`  1. Review each file in data/social/ - check AI Review section`)
   console.log(`  2. Post to LinkedIn automatically:`)
   console.log(`     node scripts/post-linkedin.mjs --slug=<slug>`)
   console.log(`  3. Copy-paste remaining platforms: Twitter/X, Reddit, HN, Dev.to`)

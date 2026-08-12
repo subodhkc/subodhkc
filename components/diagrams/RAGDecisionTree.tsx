@@ -23,7 +23,7 @@ const nodes: NodeDef[] = [
   { id: 'dt-vector', x: 443, y: 298, w: 140, h: 50, title: 'Vector Search', subtitle: 'Semantic meaning', details: ['Semantic similarity via embeddings', 'Handles paraphrased or fuzzy queries', 'Requires embedding model and vector index'] },
   { id: 'dt-hybrid', x: 650, y: 298, w: 140, h: 50, title: 'Hybrid / Agentic', subtitle: 'Mixed intent', fill: 'hsl(var(--accent) / 0.1)', stroke: 'hsl(var(--accent) / 0.4)', details: ['Combines SQL, keyword, and vector search', 'Agent decides which method per query', 'Most flexible but most complex to govern'] },
   { id: 'dt-storage', x: 270, y: 398, w: 280, h: 50, title: 'Where should vectors live?', subtitle: 'Existing DB vs dedicated platform', fill: 'url(#dt-grad-q)', stroke: 'hsl(var(--primary) / 0.3)', details: ['Decide: keep vectors in existing DB or add dedicated platform', 'Existing DB: simpler security, joins, backup', 'Dedicated: independent scaling, but sync required'] },
-  { id: 'dt-existing-db', x: 100, y: 492, w: 220, h: 56, title: 'Keep Vectors in Existing DB', subtitle: 'pgvector / MongoDB Vector Search', fill: 'url(#dt-grad-s)', stroke: 'hsl(var(--accent) / 0.3)', details: ['pgvector for PostgreSQL or MongoDB Vector Search', 'Simpler security model — same RLS policies', 'Joins with business data, unified backup', 'Best for moderate scale (< 10M vectors)'] },
+  { id: 'dt-existing-db', x: 100, y: 492, w: 220, h: 56, title: 'Keep Vectors in Existing DB', subtitle: 'pgvector / MongoDB Vector Search', fill: 'url(#dt-grad-s)', stroke: 'hsl(var(--accent) / 0.3)', details: ['pgvector for PostgreSQL or MongoDB Vector Search', 'Simpler security model - same RLS policies', 'Joins with business data, unified backup', 'Best for moderate scale (< 10M vectors)'] },
   { id: 'dt-dedicated', x: 500, y: 492, w: 220, h: 56, title: 'Add Dedicated Vector Platform', subtitle: 'Databricks AI Search / sidecar', fill: 'url(#dt-grad-s)', stroke: 'hsl(var(--accent) / 0.3)', details: ['Databricks AI Search or sidecar vector DB', 'Independent scaling for large vector workloads', 'Requires sync pipeline between DB and vector store', 'Best for > 10M vectors or specialized ANN'] },
   { id: 'dt-security', x: 180, y: 598, w: 460, h: 64, title: 'Apply 4-Layer Security', subtitle: 'Source · Retrieval · App · Generation', fill: 'hsl(var(--primary) / 0.08)', stroke: 'hsl(var(--primary) / 0.35)', details: ['Source: DB permissions + secure views', 'Retrieval: Tenant + classification filters', 'App: Auth + tool authorization', 'Generation: Prompt guardrails and output validation'] },
 ]
@@ -71,8 +71,8 @@ export function RAGDecisionTree() {
         <line x1="210" y1="468" x2="610" y2="468" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
         <line x1="210" y1="468" x2="210" y2="488" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1.5" markerEnd="url(#dt-arrow-yes)" />
         <line x1="610" y1="468" x2="610" y2="488" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" markerEnd="url(#dt-arrow-no)" />
-        <text x="250" y="464" className="fill-muted-foreground" style={{ fontSize: 10, fontWeight: 600 }}>Yes — existing DB works</text>
-        <text x="530" y="464" className="fill-muted-foreground" style={{ fontSize: 10, fontWeight: 600 }}>No — need scale/specialization</text>
+        <text x="250" y="464" className="fill-muted-foreground" style={{ fontSize: 10, fontWeight: 600 }}>Yes - existing DB works</text>
+        <text x="530" y="464" className="fill-muted-foreground" style={{ fontSize: 10, fontWeight: 600 }}>No - need scale/specialization</text>
         <line x1="210" y1="548" x2="210" y2="574" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
         <line x1="610" y1="548" x2="610" y2="574" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />
         <line x1="210" y1="574" x2="610" y2="574" stroke="hsl(var(--muted-foreground) / 0.4)" strokeWidth="1.5" />

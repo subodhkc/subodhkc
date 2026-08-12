@@ -22,7 +22,7 @@ jobs:
       - name: Send weekly newsletter
         run: |
           if [ -z "$RESEND_API_KEY" ]; then
-            echo "::warning::RESEND_API_KEY not set — skipping newsletter broadcast"
+            echo "::warning::RESEND_API_KEY not set - skipping newsletter broadcast"
             exit 0
           fi
 

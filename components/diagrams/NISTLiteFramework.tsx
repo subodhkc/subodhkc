@@ -13,7 +13,7 @@ interface NodeDef extends DiagramNodeData {
 }
 
 const nodes: NodeDef[] = [
-  { id: 'nist-govern', x: 20, y: 20, w: 350, h: 190, title: 'Govern', subtitle: 'Accountability & policy', fill: 'url(#nl-grad-primary)', stroke: 'hsl(var(--primary) / 0.2)', details: ['Assign an AI owner — one person accountable', 'Approve acceptable uses explicitly', 'Define prohibited data and actions', 'Maintain vendor and system records'] },
+  { id: 'nist-govern', x: 20, y: 20, w: 350, h: 190, title: 'Govern', subtitle: 'Accountability & policy', fill: 'url(#nl-grad-primary)', stroke: 'hsl(var(--primary) / 0.2)', details: ['Assign an AI owner - one person accountable', 'Approve acceptable uses explicitly', 'Define prohibited data and actions', 'Maintain vendor and system records'] },
   { id: 'nist-map', x: 400, y: 20, w: 350, h: 190, title: 'Map', subtitle: 'Context & risk identification', fill: 'url(#nl-grad-accent)', stroke: 'hsl(var(--accent) / 0.2)', details: ['Identify users and affected people', 'Understand the business context', 'Classify data by sensitivity', 'Identify possible harm and legal overlap'] },
   { id: 'nist-measure', x: 20, y: 220, w: 350, h: 190, title: 'Measure', subtitle: 'Test & evaluate', fill: 'url(#nl-grad-accent)', stroke: 'hsl(var(--accent) / 0.2)', details: ['Test accuracy on representative data', 'Test harmful prompts and jailbreaks', 'Review discrimination and bias', 'Test security and access controls', 'Record known limitations'] },
   { id: 'nist-manage', x: 400, y: 220, w: 350, h: 190, title: 'Manage', subtitle: 'Controls & response', fill: 'url(#nl-grad-primary)', stroke: 'hsl(var(--primary) / 0.2)', details: ['Add controls based on measured risk', 'Require approval where needed', 'Monitor incidents and respond', 'Correct failures promptly', 'Retire unsafe or obsolete systems'] },
@@ -25,7 +25,7 @@ export function NISTLiteFramework() {
 
   return (
     <div className="my-8 w-full overflow-x-auto" style={{ position: 'relative' }}>
-      <svg ref={svgRef} viewBox="0 0 780 460" className="w-full min-w-[650px] h-auto" role="img" aria-label="NIST AI Risk Management Framework lite approach for small businesses: four functions — Govern, Map, Measure, and Manage — each with practical activities">
+      <svg ref={svgRef} viewBox="0 0 780 460" className="w-full min-w-[650px] h-auto" role="img" aria-label="NIST AI Risk Management Framework lite approach for small businesses: four functions - Govern, Map, Measure, and Manage - each with practical activities">
         <title>NIST-Lite Framework for Small Businesses</title>
         <defs>
           <linearGradient id="nl-grad-primary" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(var(--primary) / 0.12)" /><stop offset="100%" stopColor="hsl(var(--primary) / 0.03)" /></linearGradient>
@@ -47,7 +47,7 @@ export function NISTLiteFramework() {
         ))}
 
         <text x="390" y="445" textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 10, fontStyle: 'italic' }}>
-          A small company does not need to imitate a Fortune 100 governance office — it needs deliberate ownership and reasonable controls.
+          A small company does not need to imitate a Fortune 100 governance office - it needs deliberate ownership and reasonable controls.
         </text>
       </svg>
       <DiagramTooltip viewBoxW={780} viewBoxH={460} active={activeNode} svgRef={svgRef} onClose={hideNode} />

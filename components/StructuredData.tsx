@@ -6,7 +6,7 @@ export default function StructuredData() {
     alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri'],
     jobTitle: 'AI Systems Architect & Governance Expert',
     description:
-      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. 16+ years architecting, deploying, and governing production AI systems — including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
+      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. 16+ years architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
     url: 'https://subodhkc.com',
     email: 'subodhkc@subodhkc.com',
     image: 'https://subodhkc.com/portrait.jpeg',
@@ -152,10 +152,10 @@ export default function StructuredData() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Subodh KC — AI Systems Architect & Governance Expert',
+    name: 'Subodh KC - AI Systems Architect & Governance Expert',
     url: 'https://subodhkc.com',
     description:
-      'AI Systems Architect and Governance Expert. Production AI systems — architecture, deployment, and governance at enterprise scale.',
+      'AI Systems Architect and Governance Expert. Production AI systems - architecture, deployment, and governance at enterprise scale.',
     author: {
       '@type': 'Person',
       name: 'Subodh KC',
@@ -167,7 +167,7 @@ export default function StructuredData() {
     '@type': 'Organization',
     name: 'HAIEC',
     description:
-      'Holistic AI Ethics & Compliance - Enterprise-grade AI compliance and governance platform',
+      'integrated AI Ethics & Compliance - Enterprise-grade AI compliance and governance platform',
     url: 'https://subodhkc.com/solutions/haiec',
     founder: {
       '@type': 'Person',
@@ -227,7 +227,7 @@ export default function StructuredData() {
   const professionalServiceSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Subodh KC — AI Governance & Architecture Advisory',
+    name: 'Subodh KC - AI Governance & Architecture Advisory',
     description:
       'AI governance consulting, compliance architecture, and enterprise AI strategy advisory. Specializing in EU AI Act, NIST AI RMF, ISO 42001, and NYC LL 144 compliance implementation. Former Fortune 50 AI Strategy CTL with 16+ years of production AI systems experience.',
     url: 'https://subodhkc.com/services',
@@ -335,7 +335,7 @@ export default function StructuredData() {
       name: 'KestrelVoice',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      description: 'AI voice operations platform — answers every call, books appointments, runs the front desk 24/7.',
+      description: 'AI voice operations platform - answers every call, books appointments, runs the front desk 24/7.',
       url: 'https://subodhkc.com/solutions/kestrelvoice',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Subscription pricing' },
       author: { '@type': 'Person', name: 'Subodh KC' },
@@ -346,7 +346,7 @@ export default function StructuredData() {
       name: 'llmverify',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Cross-platform',
-      description: 'Open-source npm package for LLM output verification — prompt injection detection, PII redaction, hallucination risk scoring, and runtime health monitoring. 100% local processing, zero telemetry.',
+      description: 'Open-source npm package for LLM output verification - prompt injection detection, PII redaction, hallucination risk scoring, and runtime health monitoring. 100% local processing, zero telemetry.',
       url: 'https://subodhkc.com/products/llmverify',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Free and open source (MIT)' },
       author: { '@type': 'Person', name: 'Subodh KC' },
@@ -357,7 +357,7 @@ export default function StructuredData() {
       name: 'Doc Timeline',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      description: 'AI-powered document timeline extraction — converts thousands of documents into one chronological timeline.',
+      description: 'AI-powered document timeline extraction - converts thousands of documents into one chronological timeline.',
       url: 'https://subodhkc.com/products/doc-timeline',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Enterprise (SOC 2)' },
       author: { '@type': 'Person', name: 'Subodh KC' },
@@ -379,7 +379,7 @@ export default function StructuredData() {
       name: 'SKC Log Analyser',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Web',
-      description: 'AI pattern detection across terabytes of logs — finds anomalies in massive log datasets.',
+      description: 'AI pattern detection across terabytes of logs - finds anomalies in massive log datasets.',
       url: 'https://subodhkc.com/products/skc-log-analyser',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Beta (Early Access)' },
       author: { '@type': 'Person', name: 'Subodh KC' },
@@ -390,7 +390,7 @@ export default function StructuredData() {
       name: 'CourtCase',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      description: 'AI-assisted court evidence builder — case files, deadlines, document packets management.',
+      description: 'AI-assisted court evidence builder - case files, deadlines, document packets management.',
       url: 'https://subodhkc.com/products/courtcase',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Public beta' },
       author: { '@type': 'Person', name: 'Subodh KC' },
@@ -412,7 +412,7 @@ export default function StructuredData() {
       name: 'FrontOfAI Briefing',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      description: 'Daily AI intelligence platform for CTOs — strategic briefings on what shipped, what shifted, what matters.',
+      description: 'Daily AI intelligence platform for CTOs - strategic briefings on what shipped, what shifted, what matters.',
       url: 'https://subodhkc.com/solutions/frontofai',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Subscription' },
       author: { '@type': 'Person', name: 'Subodh KC' },

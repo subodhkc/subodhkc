@@ -22,7 +22,7 @@ const paths: PathData[] = [
     id: 0,
     name: 'Self-Service AI Receptionist',
     icon: Phone,
-    tagline: 'Configure through the dashboard — no coding required',
+    tagline: 'Configure through the dashboard - no coding required',
     bestFor: [
       'Basic answering and FAQs',
       'Lead capture and message taking',
@@ -221,7 +221,7 @@ export function DeploymentPathSelector() {
         {/* Progression note */}
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
           <p className="text-xs text-foreground/80">
-            <strong>Every path starts with the hosted dashboard.</strong> You can begin with self-service and move to supported customization or managed deployment as your needs grow — without rebuilding from scratch.
+            <strong>Every path starts with the hosted dashboard.</strong> You can begin with self-service and move to supported customization or managed deployment as your needs grow - without rebuilding from scratch.
           </p>
         </div>
       </CardContent>

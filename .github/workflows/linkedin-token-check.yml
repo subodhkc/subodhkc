@@ -19,7 +19,7 @@ jobs:
             exit 1
           fi
 
-          # Try to introspect the token — LinkedIn doesn't have a standard introspect endpoint,
+          # Try to introspect the token - LinkedIn doesn't have a standard introspect endpoint,
           # but we can make a lightweight API call and check if it returns 401 (expired) or 200 (valid)
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
@@ -54,14 +54,14 @@ jobs:
 
             // Don't create duplicate issues
             if (issues.data.length > 0) {
-              console.log('Token expiry issue already exists — skipping');
+              console.log('Token expiry issue already exists - skipping');
               return;
             }
 
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: 'LinkedIn access token has expired — auto-posting stopped',
+              title: 'LinkedIn access token has expired - auto-posting stopped',
               body: [
                 '## LinkedIn Token Expired',
                 '',
