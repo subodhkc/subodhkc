@@ -157,6 +157,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
         }}
       >
         <div
+          className="nav-inner"
           style={{
             maxWidth: 1240,
             margin: "0 auto",
@@ -632,6 +633,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
           />
           {/* drawer */}
           <div
+            className="nav-drawer"
             style={{
               position: "relative",
               marginLeft: "auto",
@@ -906,6 +908,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
               ))}
             </div>
 
+            <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid var(--op-border)", position: "sticky", bottom: 0, background: "var(--op-card)" }}>
             <Link
               href="/login"
               onClick={() => setMobileOpen(false)}
@@ -948,6 +951,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
             >
               Schedule Meeting →
             </Link>
+            </div>
           </div>
         </div>
       )}
@@ -963,9 +967,23 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
           .nav-search-label { display: none !important; }
           .nav-search-kbd { display: none !important; }
           .nav-signin { display: none !important; }
+          .nav-cta { display: none !important; }
+          .nav-inner { padding: 10px 16px !important; gap: 8px !important; }
+          .nav-search-btn { padding: 6px 8px !important; }
+          .nav-hamburger { padding: 6px 8px !important; }
         }
         @media (min-width: 861px) {
           .nav-hamburger { display: none !important; }
+        }
+        @media (max-width: 380px) {
+          .nav-search-btn { display: none !important; }
+        }
+        @keyframes nav-drawer-slide {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
+        }
+        .nav-drawer {
+          animation: nav-drawer-slide 0.2s ease-out;
         }
       `}</style>
     </>
