@@ -127,12 +127,12 @@ export default function DemoLoginPage() {
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Signing up...
+                  Signing in...
                 </>
               ) : (
                 <>
                   <Sparkles className="h-4 w-4" />
-                  Sign Up for Demo
+                  Sign In to Demo
                 </>
               )}
             </button>
