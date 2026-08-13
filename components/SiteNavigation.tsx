@@ -4,6 +4,9 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { createBrowserClient } from "@/lib/supabase-browser";
+import type { User } from "@supabase/supabase-js";
 import { SearchDialog } from "./SearchDialog";
 import type { SearchEntry } from "@/lib/search-index";
 
@@ -57,14 +60,29 @@ const navLinks = [
   { label: "services", href: "/services" },
 ];
 
-interface SiteNavigationProps {
-  searchEntries?: SearchEntry[];
-}
-
-export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
-  const [open, setOpen] = React.useState<null | "myBuild" | "interactiveTools" | "about" | "blog">(null);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[] }) {
   const [searchOpen, setSearchOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    const supabase = createBrowserClient();
+    if (!supabase) {
+      setAuthChecked(true);
+      return;
+    }
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      setAuthChecked(true);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const [open, setOpen] = React.useState<null | "myBuild" | "interactiveTools" | "about" | "blog">(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -498,26 +516,49 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <Link
-              href="/login"
-              className="nav-signin"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "7px 13px",
-                border: "1px solid var(--op-border)",
-                background: "transparent",
-                color: "var(--fg)",
-                borderRadius: 999,
-                fontFamily: "var(--font-mono)",
-                fontSize: 11.5,
-                fontWeight: 500,
-                textDecoration: "none",
-                transition: "background .12s",
-              }}
-            >
-              Sign In
-            </Link>
+            {authChecked && user ? (
+              <Link
+                href="/app"
+                className="nav-signin"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "7px 13px",
+                  border: "1px solid var(--op-border)",
+                  background: "transparent",
+                  color: "var(--fg)",
+                  borderRadius: 999,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11.5,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "background .12s",
+                }}
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="nav-signin"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "7px 13px",
+                  border: "1px solid var(--op-border)",
+                  background: "transparent",
+                  color: "var(--fg)",
+                  borderRadius: 999,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11.5,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "background .12s",
+                }}
+              >
+                Sign In
+              </Link>
+            )}
 
             <button
               onClick={() => setSearchOpen(true)}
@@ -554,29 +595,6 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
                 fontFamily: "inherit",
               }}>K</kbd>
             </button>
-
-            <Link
-              href="https://calendly.com/subodhkc/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-cta"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "7px 13px",
-                border: "1px solid var(--fg)",
-                background: "var(--fg)",
-                color: "var(--bg)",
-                borderRadius: 999,
-                fontFamily: "var(--font-mono)",
-                fontSize: 11.5,
-                fontWeight: 500,
-                textDecoration: "none",
-              }}
-            >
-              Schedule Meeting →
-            </Link>
 
             {/* Mobile hamburger */}
             <button
@@ -913,48 +931,49 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
             </div>
 
             <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid var(--op-border)", position: "sticky", bottom: 0, background: "var(--op-card)" }}>
-            <Link
-              href="/login"
-              onClick={() => setMobileOpen(false)}
-              style={{
-                display: "block",
-                textAlign: "center",
-                padding: "10px 16px",
-                border: "1px solid var(--op-border)",
-                background: "transparent",
-                color: "var(--fg)",
-                borderRadius: 999,
-                fontFamily: "var(--font-mono)",
-                fontSize: 12,
-                fontWeight: 500,
-                textDecoration: "none",
-                marginBottom: 10,
-              }}
-            >
-              Sign In
-            </Link>
-
-            <Link
-              href="https://calendly.com/subodhkc/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileOpen(false)}
-              style={{
-                display: "block",
-                textAlign: "center",
-                padding: "10px 16px",
-                border: "1px solid var(--fg)",
-                background: "var(--fg)",
-                color: "var(--bg)",
-                borderRadius: 999,
-                fontFamily: "var(--font-mono)",
-                fontSize: 12,
-                fontWeight: 500,
-                textDecoration: "none",
-              }}
-            >
-              Schedule Meeting →
-            </Link>
+            {authChecked && user ? (
+              <Link
+                href="/app"
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  padding: "10px 16px",
+                  border: "1px solid var(--op-border)",
+                  background: "transparent",
+                  color: "var(--fg)",
+                  borderRadius: 999,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  marginBottom: 10,
+                }}
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  padding: "10px 16px",
+                  border: "1px solid var(--op-border)",
+                  background: "transparent",
+                  color: "var(--fg)",
+                  borderRadius: 999,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  marginBottom: 10,
+                }}
+              >
+                Sign In
+              </Link>
+            )}
             </div>
           </div>
         </div>
@@ -971,7 +990,6 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
           .nav-search-label { display: none !important; }
           .nav-search-kbd { display: none !important; }
           .nav-signin { display: none !important; }
-          .nav-cta { display: none !important; }
           .nav-inner { padding: 10px 16px !important; gap: 8px !important; }
           .nav-search-btn { padding: 6px 8px !important; }
           .nav-hamburger { padding: 6px 8px !important; }
