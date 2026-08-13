@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Users, GraduationCap, QrCode, UserCog, CheckCircle2, Circle, ArrowRight, Zap, ListChecks, Layers, HelpCircle, FlaskConical, RotateCcw, X, ScanLine } from 'lucide-react'
+import Image from 'next/image'
+import { Users, GraduationCap, QrCode, UserCog, CheckCircle2, Circle, ArrowRight, Zap, ListChecks, Layers, HelpCircle, FlaskConical, RotateCcw, X, ScanLine, Car, Clock, ShieldCheck } from 'lucide-react'
 import type { SchoolContext } from '@/lib/auth/school-resolver'
 import type { SiteSetupState } from '@/lib/auth/school-resolver'
 
@@ -26,10 +27,19 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
   const { site, canManageStaff, canManageSettings } = ctx
   const basePath = `/app/${ctx.organization.organization.slug}/school-pickup/${site.slug}`
   const isDemo = ctx.organization.organization.slug.includes('demo') || ctx.organization.organization.name.includes('Demo')
+  const isWilshire = site.name.toLowerCase().includes('wilshire') || ctx.organization.organization.slug.includes('wilshire')
   const [tourOpen, setTourOpen] = useState(true)
   const [tourStep, setTourStep] = useState(0)
   const [resetting, setResetting] = useState(false)
   const [resetMsg, setResetMsg] = useState<string | null>(null)
+
+  // Wilshire brand colors
+  const NAVY = '#1a3a5c'
+  const NAVY_DEEP = '#0f2a44'
+  const NAVY_LIGHT = '#2d5a82'
+  const GOLD = '#d4a017'
+  const GOLD_LIGHT = '#f0c040'
+  const CREAM = '#faf6ee'
 
   async function handleReset() {
     if (!confirm('Reset all demo data to baseline? This will clear and re-seed all synthetic students, groups, sessions, and queue items.')) return
@@ -65,16 +75,28 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">{site.name}</h1>
-          <p className="text-sm text-muted-foreground mt-1">{site.timezone}</p>
+        <div className="flex items-center gap-3">
+          {isWilshire && (
+            <Image
+              src="/wilshire/logo-color.png"
+              alt={site.name}
+              width={48}
+              height={48}
+              className="rounded-lg"
+            />
+          )}
+          <div>
+            <h1 className="text-2xl font-bold" style={isWilshire ? { color: NAVY_DEEP } : undefined}>{site.name}</h1>
+            <p className="text-sm mt-1" style={isWilshire ? { color: NAVY_LIGHT } : undefined}>{site.timezone}</p>
+          </div>
         </div>
         {isDemo && (
           <button
             onClick={handleReset}
             disabled={resetting}
             aria-label="Reset demo data to baseline"
-            className="flex items-center gap-1.5 px-3 py-2 border border-amber-300 bg-amber-50 text-amber-800 rounded-lg text-xs font-medium hover:bg-amber-100 transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-2 border rounded-lg text-xs font-medium transition-colors disabled:opacity-50"
+            style={isWilshire ? { borderColor: `${GOLD}50`, background: `${GOLD}10`, color: '#8a6d10' } : undefined}
           >
             <RotateCcw className={`h-3.5 w-3.5 ${resetting ? 'animate-spin' : ''}`} />
             {resetting ? 'Resetting...' : 'Reset Demo Data'}
@@ -89,15 +111,45 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
         </div>
       )}
 
+      {/* Welcome banner for Wilshire */}
+      {isWilshire && (
+        <div className="rounded-2xl p-6 shadow-sm" style={{ background: `linear-gradient(135deg, ${NAVY}, ${NAVY_DEEP})` }}>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/wilshire/mascot-owl.svg"
+                alt=""
+                width={56}
+                height={56}
+              />
+              <div>
+                <h2 className="text-lg font-bold text-white">Welcome back to Pickup Dashboard</h2>
+                <p className="text-sm" style={{ color: `${GOLD_LIGHT}cc` }}>Manage dismissal sessions, monitor the queue, and coordinate pickup in real time.</p>
+              </div>
+            </div>
+            {isSetupComplete && (
+              <Link
+                href={`${basePath}/dismissal`}
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap"
+                style={{ background: GOLD, color: NAVY_DEEP }}
+              >
+                <Zap className="h-4 w-4" />
+                Start Dismissal
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Demo Tour */}
       {isDemo && tourOpen && (
-        <div className="border-2 border-amber-200 bg-amber-50 rounded-lg p-4 sm:p-6">
+        <div className="border-2 rounded-lg p-4 sm:p-6" style={isWilshire ? { borderColor: `${GOLD}40`, background: `${GOLD}08` } : { borderColor: '#fde68a', background: '#fffbeb' }}>
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2">
-              <FlaskConical className="h-5 w-5 text-amber-700" />
-              <h2 className="font-semibold text-amber-900">Demo Tour</h2>
+              <FlaskConical className="h-5 w-5" style={isWilshire ? { color: GOLD } : { color: '#b45309' }} />
+              <h2 className="font-semibold" style={isWilshire ? { color: NAVY_DEEP } : { color: '#78350f' }}>Demo Tour</h2>
             </div>
-            <button onClick={() => setTourOpen(false)} className="text-amber-700 hover:text-amber-900" aria-label="Close demo tour">
+            <button onClick={() => setTourOpen(false)} style={isWilshire ? { color: GOLD } : { color: '#b45309' }} aria-label="Close demo tour">
               <X className="h-4 w-4" />
             </button>
           </div>
@@ -108,24 +160,30 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
                 <div
                   key={i}
                   className={`h-1.5 rounded-full transition-all ${
-                    i === tourStep ? 'w-6 bg-amber-600' : i < tourStep ? 'w-1.5 bg-amber-400' : 'w-1.5 bg-amber-200'
+                    i === tourStep ? 'w-6' : i < tourStep ? 'w-1.5' : 'w-1.5'
                   }`}
+                  style={isWilshire ? {
+                    background: i === tourStep ? GOLD : i < tourStep ? `${GOLD}80` : `${GOLD}30`,
+                  } : {
+                    background: i === tourStep ? '#d97706' : i < tourStep ? '#fbbf24' : '#fde68a',
+                  }}
                 />
               ))}
             </div>
 
-            <div className="bg-white border border-amber-200 rounded-lg p-4">
+            <div className="bg-white border rounded-lg p-4" style={isWilshire ? { borderColor: `${GOLD}30` } : { borderColor: '#fde68a' }}>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-bold text-amber-700">Step {tourStep + 1} of {DEMO_TOUR_STEPS.length}</span>
-                <span className="text-xs text-amber-600">·</span>
-                <span className="text-sm font-semibold text-amber-900">{DEMO_TOUR_STEPS[tourStep].title}</span>
+                <span className="text-xs font-bold" style={isWilshire ? { color: GOLD } : { color: '#b45309' }}>Step {tourStep + 1} of {DEMO_TOUR_STEPS.length}</span>
+                <span className="text-xs" style={isWilshire ? { color: NAVY_LIGHT } : { color: '#d97706' }}>·</span>
+                <span className="text-sm font-semibold" style={isWilshire ? { color: NAVY_DEEP } : { color: '#78350f' }}>{DEMO_TOUR_STEPS[tourStep].title}</span>
               </div>
-              <p className="text-sm text-amber-800 mb-3">{DEMO_TOUR_STEPS[tourStep].desc}</p>
+              <p className="text-sm mb-3" style={isWilshire ? { color: NAVY } : { color: '#92400e' }}>{DEMO_TOUR_STEPS[tourStep].desc}</p>
               <div className="flex items-center gap-2">
                 {DEMO_TOUR_STEPS[tourStep].href && (
                   <Link
                     href={`${basePath}${DEMO_TOUR_STEPS[tourStep].href}`}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-amber-600 text-white rounded-md text-xs font-medium hover:bg-amber-700"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 text-white rounded-md text-xs font-medium"
+                    style={isWilshire ? { background: NAVY } : { background: '#d97706' }}
                   >
                     Go there <ArrowRight className="h-3 w-3" />
                   </Link>
@@ -133,14 +191,16 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
                 {tourStep < DEMO_TOUR_STEPS.length - 1 ? (
                   <button
                     onClick={() => setTourStep(s => s + 1)}
-                    className="px-3 py-1.5 border border-amber-300 text-amber-800 rounded-md text-xs font-medium hover:bg-amber-100"
+                    className="px-3 py-1.5 border rounded-md text-xs font-medium"
+                    style={isWilshire ? { borderColor: `${NAVY}20`, color: NAVY } : { borderColor: '#fde68a', color: '#92400e' }}
                   >
                     Next
                   </button>
                 ) : (
                   <button
                     onClick={() => setTourOpen(false)}
-                    className="px-3 py-1.5 border border-amber-300 text-amber-800 rounded-md text-xs font-medium hover:bg-amber-100"
+                    className="px-3 py-1.5 border rounded-md text-xs font-medium"
+                    style={isWilshire ? { borderColor: `${NAVY}20`, color: NAVY } : { borderColor: '#fde68a', color: '#92400e' }}
                   >
                     Done
                   </button>
@@ -148,7 +208,8 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
                 {tourStep > 0 && (
                   <button
                     onClick={() => setTourStep(s => s - 1)}
-                    className="px-3 py-1.5 text-amber-700 text-xs hover:text-amber-900"
+                    className="text-xs"
+                    style={isWilshire ? { color: NAVY_LIGHT } : { color: '#b45309' }}
                   >
                     Back
                   </button>
@@ -161,26 +222,27 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
 
       {/* Setup progress */}
       {!isSetupComplete && (
-        <div className="border rounded-lg p-4 sm:p-6 bg-accent/10">
-          <h2 className="font-semibold mb-1">Setup Progress</h2>
-          <p className="text-sm text-muted-foreground mb-4">
+        <div className="border rounded-lg p-4 sm:p-6" style={isWilshire ? { background: `${NAVY}08`, borderColor: `${NAVY}15` } : undefined}>
+          <h2 className="font-semibold mb-1" style={isWilshire ? { color: NAVY_DEEP } : undefined}>Setup Progress</h2>
+          <p className="text-sm mb-4" style={isWilshire ? { color: NAVY_LIGHT } : undefined}>
             Complete these steps to get ready for dismissal.
           </p>
           <div className="space-y-2">
             {setupSteps.map(step => (
               <div key={step.key} className="flex items-center gap-3">
                 {step.done ? (
-                  <CheckCircle2 className="h-5 w-5 text-accent shrink-0" />
+                  <CheckCircle2 className="h-5 w-5 shrink-0" style={isWilshire ? { color: GOLD } : undefined} />
                 ) : (
                   <Circle className="h-5 w-5 text-muted-foreground shrink-0" />
                 )}
-                <span className={`text-sm ${step.done ? 'text-muted-foreground line-through' : 'font-medium'}`}>
+                <span className={`text-sm ${step.done ? 'text-muted-foreground line-through' : 'font-medium'}`} style={isWilshire && !step.done ? { color: NAVY_DEEP } : undefined}>
                   {step.label}
                 </span>
                 {!step.done && step.key !== 'site' && (
                   <Link
                     href={`${basePath}/${step.key === 'credentials' ? 'credentials' : step.key === 'students' ? 'students' : step.key === 'staff' ? 'staff' : 'students'}`}
-                    className="ml-auto text-xs text-primary hover:underline flex items-center gap-1"
+                    className="ml-auto text-xs hover:underline flex items-center gap-1"
+                    style={isWilshire ? { color: GOLD } : undefined}
                   >
                     Set up <ArrowRight className="h-3 w-3" />
                   </Link>
@@ -192,12 +254,12 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
       )}
 
       {isSetupComplete && (
-        <div className="border rounded-lg p-4 sm:p-6 bg-accent/10">
+        <div className="border rounded-lg p-4 sm:p-6" style={isWilshire ? { background: `${NAVY}08`, borderColor: `${NAVY}15` } : undefined}>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-5 w-5 text-accent" />
-            <h2 className="font-semibold">Setup Complete</h2>
+            <CheckCircle2 className="h-5 w-5" style={isWilshire ? { color: GOLD } : undefined} />
+            <h2 className="font-semibold" style={isWilshire ? { color: NAVY_DEEP } : undefined}>Setup Complete</h2>
           </div>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-sm mt-1" style={isWilshire ? { color: NAVY_LIGHT } : undefined}>
             Your school is ready for dismissal sessions.
           </p>
         </div>
@@ -210,18 +272,21 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
           label="Active Students"
           href={`${basePath}/students`}
           hint={setupState.hasStudents ? 'Configured' : 'No students yet'}
+          isWilshire={isWilshire}
         />
         <StatCard
           icon={GraduationCap}
           label="Classrooms"
           href={`${basePath}/students`}
           hint={setupState.hasClassrooms ? 'Configured' : 'No classrooms yet'}
+          isWilshire={isWilshire}
         />
         <StatCard
           icon={QrCode}
           label="Active Credentials"
           href={`${basePath}/credentials`}
           hint={setupState.hasCredentials ? 'Configured' : 'No credentials issued'}
+          isWilshire={isWilshire}
         />
         {canManageStaff && (
           <StatCard
@@ -229,57 +294,59 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
             label="Staff"
             href={`${basePath}/staff`}
             hint={setupState.hasStaff ? 'Configured' : 'No staff assigned'}
+            isWilshire={isWilshire}
           />
         )}
       </div>
 
       {/* Demo quick links */}
       {isDemo && (
-        <div className="border-2 border-blue-100 bg-blue-50/50 rounded-lg p-4 sm:p-6">
-          <h2 className="font-semibold text-sm text-blue-900 mb-3 flex items-center gap-2">
-            <ScanLine className="h-4 w-4 text-blue-600" />
+        <div className="border-2 rounded-lg p-4 sm:p-6" style={isWilshire ? { borderColor: `${NAVY}15`, background: `${NAVY}05` } : { borderColor: '#dbeafe', background: '#eff6ff' }}>
+          <h2 className="font-semibold text-sm mb-3 flex items-center gap-2" style={isWilshire ? { color: NAVY_DEEP } : { color: '#1e3a8a' }}>
+            <ScanLine className="h-4 w-4" style={isWilshire ? { color: NAVY } : { color: '#2563eb' }} />
             Demo Quick Links
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            <Link href={`${basePath}/queue`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Live Queue</span>
-              <ArrowRight className="h-4 w-4 text-blue-400" />
+            <Link href={`${basePath}/queue`} className="flex items-center justify-between p-3 bg-white border rounded-lg transition-colors" style={isWilshire ? { borderColor: `${NAVY}10` } : { borderColor: '#dbeafe' }}>
+              <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : { color: '#1e3a8a' }}>Live Queue</span>
+              <ArrowRight className="h-4 w-4" style={isWilshire ? { color: NAVY_LIGHT } : { color: '#93c5fd' }} />
             </Link>
-            <Link href={`${basePath}/dismissal`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Active Session</span>
-              <ArrowRight className="h-4 w-4 text-blue-400" />
+            <Link href={`${basePath}/dismissal`} className="flex items-center justify-between p-3 bg-white border rounded-lg transition-colors" style={isWilshire ? { borderColor: `${NAVY}10` } : { borderColor: '#dbeafe' }}>
+              <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : { color: '#1e3a8a' }}>Active Session</span>
+              <ArrowRight className="h-4 w-4" style={isWilshire ? { color: NAVY_LIGHT } : { color: '#93c5fd' }} />
             </Link>
-            <Link href={`${basePath}/scanner`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">QR Scanner</span>
-              <ArrowRight className="h-4 w-4 text-blue-400" />
+            <Link href={`${basePath}/scanner`} className="flex items-center justify-between p-3 bg-white border rounded-lg transition-colors" style={isWilshire ? { borderColor: `${NAVY}10` } : { borderColor: '#dbeafe' }}>
+              <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : { color: '#1e3a8a' }}>QR Scanner</span>
+              <ArrowRight className="h-4 w-4" style={isWilshire ? { color: NAVY_LIGHT } : { color: '#93c5fd' }} />
             </Link>
-            <Link href={`${basePath}/students`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Students</span>
-              <ArrowRight className="h-4 w-4 text-blue-400" />
+            <Link href={`${basePath}/students`} className="flex items-center justify-between p-3 bg-white border rounded-lg transition-colors" style={isWilshire ? { borderColor: `${NAVY}10` } : { borderColor: '#dbeafe' }}>
+              <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : { color: '#1e3a8a' }}>Students</span>
+              <ArrowRight className="h-4 w-4" style={isWilshire ? { color: NAVY_LIGHT } : { color: '#93c5fd' }} />
             </Link>
-            <Link href={`${basePath}/family-access`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Family Access</span>
-              <ArrowRight className="h-4 w-4 text-blue-400" />
+            <Link href={`${basePath}/family-access`} className="flex items-center justify-between p-3 bg-white border rounded-lg transition-colors" style={isWilshire ? { borderColor: `${NAVY}10` } : { borderColor: '#dbeafe' }}>
+              <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : { color: '#1e3a8a' }}>Family Access</span>
+              <ArrowRight className="h-4 w-4" style={isWilshire ? { color: NAVY_LIGHT } : { color: '#93c5fd' }} />
             </Link>
-            <Link href={`${basePath}/checkin-qr`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Shared Check-In QR</span>
-              <ArrowRight className="h-4 w-4 text-blue-400" />
+            <Link href={`${basePath}/checkin-qr`} className="flex items-center justify-between p-3 bg-white border rounded-lg transition-colors" style={isWilshire ? { borderColor: `${NAVY}10` } : { borderColor: '#dbeafe' }}>
+              <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : { color: '#1e3a8a' }}>Shared Check-In QR</span>
+              <ArrowRight className="h-4 w-4" style={isWilshire ? { color: NAVY_LIGHT } : { color: '#93c5fd' }} />
             </Link>
           </div>
         </div>
       )}
 
       {/* Quick actions */}
-      <div className="border rounded-lg p-4 sm:p-6">
-        <h2 className="font-semibold mb-3">Quick Actions</h2>
+      <div className="border rounded-lg p-4 sm:p-6" style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}>
+        <h2 className="font-semibold mb-3" style={isWilshire ? { color: NAVY_DEEP } : undefined}>Quick Actions</h2>
         <div className="grid sm:grid-cols-2 gap-2">
           {isSetupComplete && (
             <Link
               href={`${basePath}/dismissal`}
-              className="flex items-center justify-between p-3 border-2 border-accent rounded-lg hover:bg-accent/50 transition-colors bg-accent/5"
+              className="flex items-center justify-between p-3 border-2 rounded-lg transition-colors"
+              style={isWilshire ? { borderColor: GOLD, background: `${GOLD}08` } : undefined}
             >
-              <span className="text-sm font-medium flex items-center gap-2">
-                <Zap className="h-4 w-4 text-accent" />
+              <span className="text-sm font-medium flex items-center gap-2" style={isWilshire ? { color: NAVY_DEEP } : undefined}>
+                <Zap className="h-4 w-4" style={isWilshire ? { color: GOLD } : undefined} />
                 Start Dismissal
               </span>
               <ArrowRight className="h-4 w-4 text-muted-foreground" />
@@ -288,10 +355,11 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
           {isSetupComplete && (
             <Link
               href={`${basePath}/queue`}
-              className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+              className="flex items-center justify-between p-3 border rounded-lg transition-colors"
+              style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}
             >
-              <span className="text-sm font-medium flex items-center gap-2">
-                <ListChecks className="h-4 w-4" />
+              <span className="text-sm font-medium flex items-center gap-2" style={isWilshire ? { color: NAVY_DEEP } : undefined}>
+                <ListChecks className="h-4 w-4" style={isWilshire ? { color: NAVY } : undefined} />
                 View Queue
               </span>
               <ArrowRight className="h-4 w-4 text-muted-foreground" />
@@ -299,41 +367,46 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
           )}
           <Link
             href={`${basePath}/students/new`}
-            className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+            className="flex items-center justify-between p-3 border rounded-lg transition-colors"
+            style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}
           >
-            <span className="text-sm font-medium">Add Student</span>
+            <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : undefined}>Add Student</span>
             <ArrowRight className="h-4 w-4 text-muted-foreground" />
           </Link>
           <Link
             href={`${basePath}/students/import`}
-            className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+            className="flex items-center justify-between p-3 border rounded-lg transition-colors"
+            style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}
           >
-            <span className="text-sm font-medium">Import CSV</span>
+            <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : undefined}>Import CSV</span>
             <ArrowRight className="h-4 w-4 text-muted-foreground" />
           </Link>
           <Link
             href={`${basePath}/credentials`}
-            className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+            className="flex items-center justify-between p-3 border rounded-lg transition-colors"
+            style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}
           >
-            <span className="text-sm font-medium">Manage Credentials</span>
+            <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : undefined}>Manage Credentials</span>
             <ArrowRight className="h-4 w-4 text-muted-foreground" />
           </Link>
           {canManageStaff && (
             <Link
               href={`${basePath}/staff`}
-              className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+              className="flex items-center justify-between p-3 border rounded-lg transition-colors"
+              style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}
             >
-              <span className="text-sm font-medium">Manage Staff</span>
+              <span className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : undefined}>Manage Staff</span>
               <ArrowRight className="h-4 w-4 text-muted-foreground" />
             </Link>
           )}
           {ctx.canEditRoster && (
             <Link
               href={`${basePath}/groups`}
-              className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+              className="flex items-center justify-between p-3 border rounded-lg transition-colors"
+              style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}
             >
-              <span className="text-sm font-medium flex items-center gap-2">
-                <Layers className="h-4 w-4" />
+              <span className="text-sm font-medium flex items-center gap-2" style={isWilshire ? { color: NAVY_DEEP } : undefined}>
+                <Layers className="h-4 w-4" style={isWilshire ? { color: NAVY } : undefined} />
                 Dismissal Groups
               </span>
               <ArrowRight className="h-4 w-4 text-muted-foreground" />
@@ -344,15 +417,15 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
 
       {/* Contextual help */}
       {isSetupComplete && (
-        <div className="border rounded-lg p-4 bg-muted/30">
-          <h2 className="font-semibold text-sm flex items-center gap-2 mb-2">
-            <HelpCircle className="h-4 w-4 text-muted-foreground" />
+        <div className="border rounded-lg p-4" style={isWilshire ? { background: `${NAVY}05`, borderColor: `${NAVY}10` } : undefined}>
+          <h2 className="font-semibold text-sm flex items-center gap-2 mb-2" style={isWilshire ? { color: NAVY_DEEP } : undefined}>
+            <HelpCircle className="h-4 w-4" style={isWilshire ? { color: NAVY_LIGHT } : undefined} />
             How Dismissal Works
           </h2>
-          <ol className="text-sm text-muted-foreground space-y-1.5 ml-4 list-decimal">
-            <li>Go to <strong className="text-foreground">Dismissal</strong> and open a session (or it opens automatically when you scan).</li>
-            <li>Scan a parent&apos;s QR code at <strong className="text-foreground">Scanner</strong> — the student appears in the queue.</li>
-            <li>Monitor live status at <strong className="text-foreground">Queue</strong> — advance students through Preparing to Ready to Completed.</li>
+          <ol className="text-sm space-y-1.5 ml-4 list-decimal" style={isWilshire ? { color: NAVY } : undefined}>
+            <li>Go to <strong style={isWilshire ? { color: NAVY_DEEP } : undefined}>Dismissal</strong> and open a session (or it opens automatically when you scan).</li>
+            <li>Scan a parent&apos;s QR code at <strong style={isWilshire ? { color: NAVY_DEEP } : undefined}>Scanner</strong> — the student appears in the queue.</li>
+            <li>Monitor live status at <strong style={isWilshire ? { color: NAVY_DEEP } : undefined}>Queue</strong> — advance students through Preparing to Ready to Completed.</li>
             <li>Close the session when dismissal is done. Stale sessions auto-close safely.</li>
           </ol>
         </div>
@@ -361,20 +434,26 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
   )
 }
 
-function StatCard({ icon: Icon, label, href, hint }: {
-  icon: React.ComponentType<{ className?: string }>
+function StatCard({ icon: Icon, label, href, hint, isWilshire }: {
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
   label: string
   href: string
   hint?: string
+  isWilshire?: boolean
 }) {
+  const NAVY = '#1a3a5c'
+  const NAVY_DEEP = '#0f2a44'
+  const NAVY_LIGHT = '#2d5a82'
+  const GOLD = '#d4a017'
   return (
     <Link
       href={href}
-      className="border rounded-lg p-4 hover:bg-accent/30 transition-colors"
+      className="border rounded-lg p-4 transition-colors"
+      style={isWilshire ? { borderColor: `${NAVY}15` } : undefined}
     >
-      <Icon className="h-5 w-5 text-muted-foreground mb-2" />
-      <p className="text-sm font-medium">{label}</p>
-      {hint && <p className="text-xs text-muted-foreground mt-0.5">{hint}</p>}
+      <Icon className="h-5 w-5 mb-2" style={isWilshire ? { color: NAVY } : undefined} />
+      <p className="text-sm font-medium" style={isWilshire ? { color: NAVY_DEEP } : undefined}>{label}</p>
+      {hint && <p className="text-xs mt-0.5" style={isWilshire ? { color: NAVY_LIGHT } : undefined}>{hint}</p>}
     </Link>
   )
 }
