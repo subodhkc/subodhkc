@@ -117,7 +117,7 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <Image
-                src="/wilshire/mascot-owl.svg"
+                src="/wilshire/mascot-cat.svg"
                 alt=""
                 width={56}
                 height={56}

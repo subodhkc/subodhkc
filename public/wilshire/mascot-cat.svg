@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" fill="none">
+  <!-- Wilshire Wildcat mascot -->
+  <!-- Body -->
+  <ellipse cx="110" cy="150" rx="55" ry="45" fill="#1a3a5c"/>
+  <!-- Head -->
+  <circle cx="110" cy="95" r="50" fill="#1a3a5c"/>
+  <!-- Ears (pointy cat ears) -->
+  <path d="M72 62 L60 28 L88 52 Z" fill="#1a3a5c"/>
+  <path d="M148 62 L160 28 L132 52 Z" fill="#1a3a5c"/>
+  <!-- Inner ears -->
+  <path d="M74 58 L68 38 L84 52 Z" fill="#d4a017"/>
+  <path d="M146 58 L152 38 L136 52 Z" fill="#d4a017"/>
+  <!-- Face area lighter -->
+  <ellipse cx="110" cy="105" rx="35" ry="28" fill="#2d5a82"/>
+  <!-- Eyes -->
+  <ellipse cx="92" cy="92" rx="8" ry="10" fill="#f0c040"/>
+  <ellipse cx="128" cy="92" rx="8" ry="10" fill="#f0c040"/>
+  <!-- Pupils -->
+  <ellipse cx="92" cy="94" rx="3" ry="6" fill="#0f2a44"/>
+  <ellipse cx="128" cy="94" rx="3" ry="6" fill="#0f2a44"/>
+  <!-- Eye sparkle -->
+  <circle cx="94" cy="89" r="2" fill="#ffffff"/>
+  <circle cx="130" cy="89" r="2" fill="#ffffff"/>
+  <!-- Nose -->
+  <path d="M105 108 L115 108 L110 115 Z" fill="#d4a017"/>
+  <!-- Mouth -->
+  <path d="M110 115 Q105 122 98 119" stroke="#0f2a44" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M110 115 Q115 122 122 119" stroke="#0f2a44" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="78" y1="108" x2="55" y2="105" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="78" y1="113" x2="55" y2="115" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="142" y1="108" x2="165" y2="105" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="142" y1="113" x2="165" y2="115" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <!-- Paws -->
+  <ellipse cx="85" cy="188" rx="14" ry="10" fill="#0f2a44"/>
+  <ellipse cx="135" cy="188" rx="14" ry="10" fill="#0f2a44"/>
+  <!-- Tail -->
+  <path d="M160 145 Q190 130 185 100 Q183 85 175 82" stroke="#1a3a5c" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <!-- Gold accent on tail tip -->
+  <circle cx="175" cy="82" r="6" fill="#d4a017"/>
+  <!-- Cheek blush -->
+  <circle cx="82" cy="108" r="6" fill="#d4a017" opacity="0.3"/>
+  <circle cx="138" cy="108" r="6" fill="#d4a017" opacity="0.3"/>
+</svg>

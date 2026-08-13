@@ -20,6 +20,11 @@ import {
   Car,
   School,
   ScanLine,
+  MapPin,
+  Server,
+  Palette,
+  GraduationCap,
+  GitBranch,
 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -160,15 +165,15 @@ export default function WilshireLandingPage() {
             <div className="flex justify-center sm:justify-end">
               <div className="relative">
                 <Image
-                  src="/wilshire/mascot-owl.svg"
-                  alt="Hooty the Wilshire Owl"
+                  src="/wilshire/mascot-cat.svg"
+                  alt="Wilshire the Wildcat"
                   width={220}
                   height={220}
                   priority
                   className="drop-shadow-xl"
                 />
                 <div className="absolute -bottom-2 -right-2 bg-white rounded-full px-3 py-1 shadow-lg border" style={{ borderColor: `${NAVY}20` }}>
-                  <span className="text-xs font-bold" style={{ color: NAVY }}>Hooty the Owl</span>
+                  <span className="text-xs font-bold" style={{ color: NAVY }}>Wilshire the Wildcat</span>
                 </div>
               </div>
             </div>
@@ -204,12 +209,12 @@ export default function WilshireLandingPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: Car, title: 'Family arrives', desc: 'A family pulls into the Wilshire pickup line.' },
-              { icon: ScanLine, title: 'Quick check-in', desc: 'Family scans the Wilshire QR sign or staff checks them in.' },
-              { icon: ListOrdered, title: 'Student enters queue', desc: 'The student appears in the live dismissal queue instantly.' },
-              { icon: Eye, title: 'Staff see it live', desc: 'Everyone with access sees the same real-time status.' },
-              { icon: Clock, title: 'Status updates', desc: 'Arrived, then Preparing, then Ready, visible to all authorized staff.' },
-              { icon: CheckCircle2, title: 'Pickup complete', desc: 'Student is released and the session records the completed pickup.' },
+              { icon: Car, title: 'Family arrives', desc: 'A family pulls into the Wilshire pickup line and joins the queue of cars.' },
+              { icon: ScanLine, title: 'Quick check-in', desc: 'Family scans the QR sign posted at the pickup entrance, or a staff member scans the family\'s QR code from their phone. Either way, the check-in is instant.' },
+              { icon: ListOrdered, title: 'Live queue builds', desc: 'The student appears in the live dismissal queue instantly. Staff see the full sequence of 20, 30, even 50+ cars down the line and know exactly which child is next.' },
+              { icon: Eye, title: 'Staff see it live', desc: 'Teachers, dismissal staff, and front office all share the same real-time view. No more walkie-talkie relays or guessing who has arrived.' },
+              { icon: Clock, title: 'Status updates', desc: 'Each student moves through Arrived, Preparing, and Ready. Staff advance statuses with one tap, and everyone sees the update immediately.' },
+              { icon: CheckCircle2, title: 'Pickup complete', desc: 'Student is released to the family. The session records the completed pickup with a timestamp for later review if needed.' },
             ].map((step, i) => (
               <div
                 key={i}
@@ -395,6 +400,229 @@ export default function WilshireLandingPage() {
         </div>
       </section>
 
+      {/* QR Generation & Scanning Explained */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3 border"
+              style={{ background: `${GOLD}15`, color: '#8a6d10', borderColor: `${GOLD}40` }}
+            >
+              <QrCode className="h-3 w-3" />
+              QR Codes & Scanning
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: NAVY_DEEP }}>
+              How QR codes work in practice
+            </h2>
+            <p className="max-w-2xl mx-auto" style={{ color: NAVY }}>
+              Two scanning modes. Same live queue. No app downloads for anyone.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 mb-8">
+            {/* Mode 1: Family scans shared QR */}
+            <div className="rounded-2xl p-6 border-2" style={{ borderColor: `${NAVY}15`, background: `${NAVY}05` }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: NAVY }}>
+                  <ScanLine className="h-5 w-5 text-white" />
+                </div>
+                <h3 className="font-bold" style={{ color: NAVY_DEEP }}>Family scans the QR sign</h3>
+              </div>
+              <p className="text-sm mb-3" style={{ color: NAVY }}>
+                A shared QR code sign is posted at the pickup line entrance. When a family reaches the front of the line, they scan it with their phone camera. No app needed, works in any browser.
+              </p>
+              <p className="text-sm" style={{ color: NAVY_LIGHT }}>
+                The QR code contains only a rotating token, no student names or personal data. Staff can rotate or revoke the code at any time.
+              </p>
+            </div>
+
+            {/* Mode 2: Staff scans family QR */}
+            <div className="rounded-2xl p-6 border-2" style={{ borderColor: `${GOLD}30`, background: `${GOLD}08` }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: GOLD }}>
+                  <QrCode className="h-5 w-5 text-white" />
+                </div>
+                <h3 className="font-bold" style={{ color: NAVY_DEEP }}>Staff scans family QR</h3>
+              </div>
+              <p className="text-sm mb-3" style={{ color: NAVY }}>
+                Each family receives a personal QR pickup credential. A staff member with a phone or tablet scans the family\'s QR code as their car approaches. The student instantly appears in the queue.
+              </p>
+              <p className="text-sm" style={{ color: NAVY_LIGHT }}>
+                This mode works well for younger grades where families may not scan themselves, or for staff who prefer to control the check-in process.
+              </p>
+            </div>
+          </div>
+
+          {/* Car sequence explanation */}
+          <div className="rounded-2xl p-6 border-2" style={{ borderColor: `${NAVY}10`, background: `${CREAM}` }}>
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: NAVY }}>
+                <ListOrdered className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-bold mb-2" style={{ color: NAVY_DEEP }}>See 20, 30, even 50+ cars down the line</h3>
+                <p className="text-sm mb-3" style={{ color: NAVY }}>
+                  As each family checks in, the live queue shows the full sequence of arrivals. Staff can see that car 12 has the Smith family, car 15 has the Chen family, and car 23 is next. Teachers inside the building know which students to prepare and in what order.
+                </p>
+                <p className="text-sm" style={{ color: NAVY_LIGHT }}>
+                  No more guessing from walkie-talkie calls. The sequence is recorded as families arrive and stays visible throughout the dismissal session.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Minimal data, maximum value */}
+      <section className="py-16" style={{ background: `linear-gradient(to bottom, #ffffff, ${CREAM})` }}>
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+            style={{ background: `${NAVY}10`, color: NAVY, borderColor: `${NAVY}25` }}
+          >
+            <Users className="h-3 w-3" />
+            Minimal Data
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY_DEEP }}>
+            No detailed student records needed
+          </h2>
+          <p className="leading-relaxed mb-4" style={{ color: NAVY }}>
+            The system works with just a student\'s first name and grade level. No photos, no medical records, no home addresses. Schools can add more detail if they choose, but the core workflow needs only the basics.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-3 max-w-lg mx-auto mt-6">
+            {[
+              { label: 'First name', required: true },
+              { label: 'Grade level', required: true },
+              { label: 'Classroom (optional)', required: false },
+            ].map((field) => (
+              <div
+                key={field.label}
+                className="rounded-lg px-3 py-2 text-sm font-medium border"
+                style={field.required
+                  ? { background: `${NAVY}08`, borderColor: `${NAVY}20`, color: NAVY_DEEP }
+                  : { background: `${GOLD}08`, borderColor: `${GOLD}30`, color: '#8a6d10' }
+                }
+              >
+                {field.label}
+                {field.required
+                  ? <span className="ml-1 text-xs" style={{ color: '#2e7d32' }}>required</span>
+                  : <span className="ml-1 text-xs" style={{ color: NAVY_LIGHT }}>optional</span>
+                }
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hosting options */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3 border"
+              style={{ background: '#e8f5e9', color: '#2e7d32', borderColor: '#a5d6a7' }}
+            >
+              <Server className="h-3 w-3" />
+              Deployment
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: NAVY_DEEP }}>
+              Three ways to host it
+            </h2>
+            <p className="max-w-2xl mx-auto" style={{ color: NAVY }}>
+              Wilshire chooses what works best. The system runs the same regardless of where it lives.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              { icon: Server, title: 'Hosted by me', desc: 'I run it on isolated, tenant-scoped infrastructure I maintain. Zero cost to the school. Fastest to set up.' },
+              { icon: School, title: 'School servers', desc: 'Deploy on Wilshire\'s own infrastructure. Full data sovereignty. I help with setup and configuration.' },
+              { icon: GitBranch, title: 'Local / on-prem', desc: 'Run locally on a staff machine or school network. No external dependencies. Good for pilot testing.' },
+            ].map((option) => (
+              <div
+                key={option.title}
+                className="rounded-2xl p-5 border-2 text-center"
+                style={{ borderColor: `${NAVY}10` }}
+              >
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3"
+                  style={{ background: `${NAVY}08`, color: NAVY }}
+                >
+                  <option.icon className="h-6 w-6" />
+                </div>
+                <h3 className="font-bold text-sm mb-2" style={{ color: NAVY_DEEP }}>{option.title}</h3>
+                <p className="text-sm" style={{ color: NAVY_LIGHT }}>{option.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Future enhancements */}
+      <section className="py-16" style={{ background: `linear-gradient(135deg, ${NAVY_DEEP}, ${NAVY})` }}>
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3 border"
+              style={{ background: `${GOLD}20`, color: GOLD_LIGHT, borderColor: `${GOLD}40` }}
+            >
+              <Sparkles className="h-3 w-3" />
+              Roadmap
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+              Future enhancements
+            </h2>
+            <p className="max-w-2xl mx-auto" style={{ color: `${GOLD_LIGHT}cc` }}>
+              The beta covers the core dismissal workflow. These features are on the roadmap based on feedback from staff and families.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { icon: MapPin, title: 'Geofence auto check-in', desc: 'Families who opt in get automatically checked in when their phone enters the school pickup zone. No scanning needed.' },
+              { icon: Palette, title: 'Full customization', desc: 'Adjust workflows per grade, release group, or teacher recommendation. Different pickup rules for kindergarten vs fifth grade.' },
+              { icon: Clock, title: 'Scheduled dismissals', desc: 'Set recurring dismissal times per day of the week. Sessions auto-start and auto-close on schedule.' },
+              { icon: Smartphone, title: 'Push notifications', desc: 'Families get a notification when their child is ready for pickup. Staff get alerts for exceptions or long waits.' },
+              { icon: Layers, title: 'Multi-lane support', desc: 'Handle multiple pickup lanes or entrances. Each lane has its own queue view and check-in point.' },
+              { icon: History, title: 'Analytics & reporting', desc: 'Average pickup times, peak congestion windows, and session summaries to help optimize dismissal over time.' },
+            ].map((item) => (
+              <div key={item.title} className="flex gap-3 items-start">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${GOLD}30` }}
+                >
+                  <item.icon className="h-5 w-5" style={{ color: GOLD_LIGHT }} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm text-white mb-1">{item.title}</h3>
+                  <p className="text-sm" style={{ color: `${GOLD_LIGHT}bb` }}>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Beta & customization note */}
+      <section className="py-16" style={{ background: `linear-gradient(to bottom, ${CREAM}, #ffffff)` }}>
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+            style={{ background: `${GOLD}15`, color: '#8a6d10', borderColor: `${GOLD}40` }}
+          >
+            <Sparkles className="h-3 w-3" />
+            Beta Phase
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY_DEEP }}>
+            This is a beta. Full customization available.
+          </h2>
+          <p className="leading-relaxed mb-4" style={{ color: NAVY }}>
+            The current version covers the core dismissal workflow. Every school runs pickup differently, so the system is built to adapt. Workflows can be customized per release group, per grade level, or based on individual teacher recommendations.
+          </p>
+          <p className="leading-relaxed" style={{ color: NAVY_LIGHT }}>
+            Have a specific need? The system is designed to flex around Wilshire\'s actual process, not the other way around.
+          </p>
+        </div>
+      </section>
+
       {/* What improves beneath the surface */}
       <section className="py-16" style={{ background: `linear-gradient(135deg, ${NAVY_DEEP}, ${NAVY})` }}>
         <div className="max-w-4xl mx-auto px-4">
@@ -502,7 +730,7 @@ export default function WilshireLandingPage() {
         </div>
       </section>
 
-      {/* Attribution */}
+      {/* Personal story / Attribution */}
       <section className="py-16 text-center" style={{ background: `linear-gradient(to bottom, ${CREAM}, #ffffff)` }}>
         <div className="max-w-3xl mx-auto px-4">
           <Image
@@ -515,8 +743,11 @@ export default function WilshireLandingPage() {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY_DEEP }}>
             Built for Wilshire, with gratitude.
           </h2>
-          <p className="leading-relaxed max-w-xl mx-auto" style={{ color: NAVY }}>
-            This started as a small way to give something useful back to the Wilshire community, built by June KC&apos;s dad with the hope of making one busy part of the school day a little easier for families and staff.
+          <p className="leading-relaxed max-w-xl mx-auto mb-4" style={{ color: NAVY }}>
+            The idea came during Meet the Teacher night. Watching the pickup line swell with cars, seeing staff juggle walkie-talkies and mental lists of who had arrived, I realized there had to be a better way.
+          </p>
+          <p className="leading-relaxed max-w-xl mx-auto mb-4" style={{ color: NAVY }}>
+            Wilshire is where my kid started their foundational years. This is my way of giving something back to the school community, a small tool to make one busy part of the day a little easier for the families and staff who make Wilshire what it is.
           </p>
           <p className="text-xs font-medium mt-4" style={{ color: NAVY_LIGHT }}>
             Independently built for the Wilshire community. Non-commercial, not for sale.
