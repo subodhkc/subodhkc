@@ -4,6 +4,9 @@ import { SchoolPickupLayout } from '@/components/app/SchoolPickupLayout'
 import { CheckInQRClient } from '@/components/app/school-pickup/CheckInQRClient'
 import { redirect } from 'next/navigation'
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export default async function CheckInQRPage({
   params,
 }: {
@@ -11,7 +14,7 @@ export default async function CheckInQRPage({
 }) {
   const { orgSlug, siteSlug } = await params
   const user = await getAuthenticatedUser()
-  if (!user) redirect('/login')
+  if (!user) redirect(`/login?next=/app/${orgSlug}/school-pickup/${siteSlug}/checkin-qr`)
 
   let ctx
   try {

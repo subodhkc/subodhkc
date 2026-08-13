@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { resolveSchoolContext, SchoolAuthError } from '@/lib/auth/school-resolver'
-import { createServiceClient } from '@/lib/supabase'
+import { createServerClient, createServiceClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -112,15 +112,16 @@ export async function POST(
 
   if (!action) return NextResponse.json({ error: 'missing_action' }, { status: 400 })
 
-  const serviceClient = createServiceClient()
-  if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
+  // RPC calls need user JWT context for auth.uid() checks inside the functions
+  const supabase = await createServerClient()
+  if (!supabase) return NextResponse.json({ error: 'config' }, { status: 500 })
 
   if (action === 'transition_item') {
     if (!queue_item_id || !new_status) {
       return NextResponse.json({ error: 'missing_params' }, { status: 400 })
     }
 
-    const { data: result, error } = await serviceClient.rpc('transition_queue_status', {
+    const { data: result, error } = await supabase.rpc('transition_queue_status', {
       p_queue_item_id: queue_item_id,
       p_new_status: new_status,
       p_reason: reason || null,
@@ -149,7 +150,7 @@ export async function POST(
       return NextResponse.json({ error: 'missing_params' }, { status: 400 })
     }
 
-    const { data: result, error } = await serviceClient.rpc('transition_arrival_status', {
+    const { data: result, error } = await supabase.rpc('transition_arrival_status', {
       p_arrival_id: arrival_id,
       p_new_status: new_status,
       p_reason: reason || null,
@@ -168,9 +169,13 @@ export async function POST(
     return NextResponse.json(result)
   }
 
-  if (action === 'flag_exception') {
+  if (action === 'flag_exception' || action === 'resolve_exception') {
     if (!queue_item_id) return NextResponse.json({ error: 'missing_queue_item_id' }, { status: 400 })
 
+    const serviceClient = createServiceClient()
+    if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
+
+    if (action === 'flag_exception') {
     const { error } = await serviceClient
       .from('pickup_queue_items')
       .update({
@@ -185,11 +190,7 @@ export async function POST(
 
     if (error) return NextResponse.json({ error: 'flag_failed' }, { status: 500 })
     return NextResponse.json({ success: true })
-  }
-
-  if (action === 'resolve_exception') {
-    if (!queue_item_id) return NextResponse.json({ error: 'missing_queue_item_id' }, { status: 400 })
-
+    } else {
     const { error } = await serviceClient
       .from('pickup_queue_items')
       .update({
@@ -204,6 +205,7 @@ export async function POST(
 
     if (error) return NextResponse.json({ error: 'resolve_failed' }, { status: 500 })
     return NextResponse.json({ success: true })
+    }
   }
 
   return NextResponse.json({ error: 'invalid_action' }, { status: 400 })

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
-import { getCurrentUser, createServiceClient } from '@/lib/supabase'
+import { getCurrentUser, createServerClient } from '@/lib/supabase'
 import { FamilyPortalClient } from '@/components/family/FamilyPortalClient'
 
 export const metadata: Metadata = {
@@ -26,11 +26,12 @@ export default async function FamilyPortalPage({
 
   const { site, code } = await searchParams
 
-  const serviceClient = createServiceClient()
-  if (!serviceClient) return <div className="p-8 text-center text-muted-foreground">Configuration error.</div>
+  // RPCs need user JWT context for auth.uid() checks
+  const supabase = await createServerClient()
+  if (!supabase) return <div className="p-8 text-center text-muted-foreground">Configuration error.</div>
 
   // Get guardian sites
-  const { data: sites } = await serviceClient.rpc('get_guardian_sites')
+  const { data: sites } = await supabase.rpc('get_guardian_sites')
 
   if (!sites || sites.length === 0) {
     return (
@@ -88,7 +89,7 @@ export default async function FamilyPortalPage({
   }
 
   // Get family data for selected site
-  const { data: familyData } = await serviceClient.rpc('get_guardian_family_data', {
+  const { data: familyData } = await supabase.rpc('get_guardian_family_data', {
     p_site_id: selectedSite.site_id,
   })
 

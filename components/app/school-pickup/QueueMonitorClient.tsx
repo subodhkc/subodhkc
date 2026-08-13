@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { createBrowserClient } from '@supabase/ssr'
 import {
-  Search, Filter, Wifi, WifiOff, RefreshCw, AlertTriangle,
-  CheckCircle2, Clock, Users, ChevronRight, X, Zap,
+  Search, Wifi, WifiOff, RefreshCw, AlertTriangle,
+  CheckCircle2, Clock, Users, X, Zap,
   ListChecks, Monitor, History,
 } from 'lucide-react'
 
@@ -146,7 +146,8 @@ export function QueueMonitorClient({
 
   const fetchSession = useCallback(async () => {
     try {
-      const res = await fetch(`${apiBase}/sessions?date=today`)
+      const today = new Date().toISOString().split('T')[0]
+      const res = await fetch(`${apiBase}/sessions?date=${today}`)
       if (!res.ok) return null
       const data = await res.json()
       const todaySession = data.sessions?.find((s: SessionInfo) => s.status === 'open') || null
@@ -618,6 +619,7 @@ export function QueueMonitorClient({
           canTransition={canTransition}
           getNextStatus={getNextStatus}
           displayMode={displayMode}
+          canManageQueue={canManageQueue}
         />
       ) : (
         <DesktopQueueView
@@ -632,6 +634,7 @@ export function QueueMonitorClient({
           canTransition={canTransition}
           getNextStatus={getNextStatus}
           displayMode={displayMode}
+          canManageQueue={canManageQueue}
         />
       )}
     </div>
@@ -692,6 +695,7 @@ interface QueueViewProps {
   canTransition: (current: string, newStatus: string) => boolean
   getNextStatus: (current: string) => string | null
   displayMode: string
+  canManageQueue: boolean
 }
 
 function getSourceLabel(source: string): string {
@@ -704,7 +708,7 @@ function getSourceLabel(source: string): string {
 function DesktopQueueView({
   groups, now, sessionClosed, transitioning,
   onTransition, onGroupTransition, onException, onResolveException,
-  canTransition, getNextStatus, displayMode,
+  canTransition, getNextStatus, displayMode, canManageQueue,
 }: QueueViewProps) {
   return (
     <div className="border rounded-lg overflow-hidden">
@@ -788,7 +792,7 @@ function DesktopQueueView({
                         {isTransitioning ? '...' : STATUS_LABELS[nextStatus!]}
                       </button>
                     )}
-                    {canManageQueue(group.arrivalStatus, 'exception') && !group.hasException && !sessionClosed && (
+                    {canManageQueue && !group.hasException && !sessionClosed && (
                       <button
                         onClick={() => onException(group.items[0].id)}
                         className="px-1.5 py-1 border rounded text-xs hover:bg-accent"
@@ -815,16 +819,12 @@ function DesktopQueueView({
       </table>
     </div>
   )
-
-  function canManageQueue(current: string, action: string): boolean {
-    return true
-  }
 }
 
 function MobileQueueView({
   groups, now, sessionClosed, transitioning,
   onTransition, onGroupTransition, onException, onResolveException,
-  canTransition, getNextStatus, displayMode,
+  canTransition, getNextStatus, displayMode, canManageQueue,
 }: QueueViewProps) {
   return (
     <div className="space-y-3">
@@ -895,7 +895,7 @@ function MobileQueueView({
                     {isTransitioning ? '...' : STATUS_LABELS[nextStatus!]}
                   </button>
                 )}
-                {!group.hasException && !sessionClosed && (
+                {canManageQueue && !group.hasException && !sessionClosed && (
                   <button
                     onClick={() => onException(group.items[0].id)}
                     className="p-2 border rounded-lg hover:bg-accent"

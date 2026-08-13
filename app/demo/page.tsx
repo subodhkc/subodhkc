@@ -31,7 +31,7 @@ export default function DemoLoginPage() {
         return
       }
 
-      // Redirect to app — user has one org so will auto-redirect to wilshire-demo
+      // Redirect to app — personal dashboard shows their Wilshire Demo org
       router.push('/app')
       router.refresh()
     } catch {

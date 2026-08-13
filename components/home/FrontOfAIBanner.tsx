@@ -272,6 +272,9 @@ export async function FrontOfAIBanner() {
           animation: foa-scroll 60s linear infinite;
           will-change: transform;
         }
+        .foa-ticker-track:hover {
+          animation-play-state: paused;
+        }
         .foa-ticker:hover .foa-ticker-track {
           animation-play-state: paused;
         }
@@ -328,7 +331,11 @@ export async function FrontOfAIBanner() {
         .foa-impact-na   { color: var(--op-muted); }
         @media (max-width: 768px) {
           .foa-news-all { display: none; }
-          .foa-ticker-track { animation-duration: 45s; }
+          .foa-ticker-track { animation-duration: 80s; }
+          .foa-news-label { padding: 0 10px; font-size: 10px; gap: 6px; }
+          .foa-ticker-title { font-size: 12.5px; }
+          .foa-ticker-sep { margin: 0 10px; }
+          .foa-impact { font-size: 9px; padding: 1px 4px; }
         }
         @media (prefers-reduced-motion: reduce) {
           .foa-ticker-track { animation: none; }

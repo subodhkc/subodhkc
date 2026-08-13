@@ -124,9 +124,11 @@ export default async function RootLayout({
   const headersList = await headers()
   const pathname = headersList.get('x-pathname') || headersList.get('x-invoke-path') || ''
   const isResumePage = pathname.startsWith('/resume')
-  const searchEntries = isResumePage ? [] : buildSearchIndex()
+  const isSchoolPickup = pathname.startsWith('/school-pickup')
+  const isChromeless = isResumePage || isSchoolPickup
+  const searchEntries = isChromeless ? [] : buildSearchIndex()
 
-  if (isResumePage) {
+  if (isChromeless) {
     return (
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-white`}>

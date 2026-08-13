@@ -24,6 +24,8 @@ interface CheckInQRClientProps {
   siteName: string
 }
 
+const TOKEN_STORAGE_KEY = (orgSlug: string, siteSlug: string) => `checkin_qr_token_${orgSlug}_${siteSlug}`
+
 export function CheckInQRClient({ orgSlug, siteSlug, siteName }: CheckInQRClientProps) {
   const [codes, setCodes] = useState<CheckInCode[]>([])
   const [activeCode, setActiveCode] = useState<CheckInCode | null>(null)
@@ -44,6 +46,22 @@ export function CheckInQRClient({ orgSlug, siteSlug, siteName }: CheckInQRClient
       const data = await res.json()
       setCodes(data.codes || [])
       setActiveCode(data.activeCode || null)
+
+      // Restore token from sessionStorage if we have an active code
+      if (data.activeCode) {
+        const stored = typeof window !== 'undefined'
+          ? sessionStorage.getItem(TOKEN_STORAGE_KEY(orgSlug, siteSlug))
+          : null
+        if (stored) {
+          setActiveToken(stored)
+        }
+      } else {
+        // No active code — clear any stale token
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem(TOKEN_STORAGE_KEY(orgSlug, siteSlug))
+        }
+        setActiveToken(null)
+      }
     } catch {
       setError('Failed to load check-in QR codes')
     } finally {
@@ -70,6 +88,9 @@ export function CheckInQRClient({ orgSlug, siteSlug, siteName }: CheckInQRClient
       }
       const result = await res.json()
       setActiveToken(result.token)
+      if (typeof window !== 'undefined' && result.token) {
+        sessionStorage.setItem(TOKEN_STORAGE_KEY(orgSlug, siteSlug), result.token)
+      }
       setShowConfirm(false)
       await fetchCodes()
     } catch (e: any) {
@@ -88,6 +109,10 @@ export function CheckInQRClient({ orgSlug, siteSlug, siteName }: CheckInQRClient
         body: JSON.stringify({ action: 'revoke', code_id: codeId }),
       })
       if (!res.ok) throw new Error('Failed to revoke')
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem(TOKEN_STORAGE_KEY(orgSlug, siteSlug))
+      }
+      setActiveToken(null)
       await fetchCodes()
     } catch {
       setError('Failed to revoke code')

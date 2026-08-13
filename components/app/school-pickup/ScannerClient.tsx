@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Camera, CameraOff, ScanLine, CheckCircle2, XCircle, AlertTriangle, Clock, Users, X, RefreshCw, Loader2, WifiOff, Wifi, CloudOff } from 'lucide-react'
+import { Camera, CameraOff, ScanLine, CheckCircle2, XCircle, AlertTriangle, Clock, Users, RefreshCw, Loader2, WifiOff, CloudOff } from 'lucide-react'
 import type { SchoolContext } from '@/lib/auth/school-resolver'
 
 interface ScannerClientProps {
@@ -54,6 +54,7 @@ export function ScannerClient({ ctx }: ScannerClientProps) {
   const lastScanTimeRef = useRef(0)
   const lastTokenRef = useRef<string | null>(null)
   const processingRef = useRef(false)
+  const flushingRef = useRef(false)
 
   // Online/offline detection
   useEffect(() => {
@@ -254,9 +255,10 @@ export function ScannerClient({ ctx }: ScannerClientProps) {
 
   // Retry pending scans when back online
   useEffect(() => {
-    if (!isOnline || pendingScans.length === 0) return
+    if (!isOnline || pendingScans.length === 0 || flushingRef.current) return
 
     async function flushPending() {
+      flushingRef.current = true
       setRetrying(true)
       const scans = [...pendingScans]
       setPendingScans([])
@@ -272,6 +274,7 @@ export function ScannerClient({ ctx }: ScannerClientProps) {
         await new Promise(r => setTimeout(r, 500))
       }
       setRetrying(false)
+      flushingRef.current = false
     }
 
     flushPending()

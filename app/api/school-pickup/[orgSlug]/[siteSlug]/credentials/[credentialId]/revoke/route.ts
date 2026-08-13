@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { resolveSchoolContext, SchoolAuthError } from '@/lib/auth/school-resolver'
-import { createServiceClient } from '@/lib/supabase'
+import { createServerClient, createServiceClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -51,7 +51,10 @@ export async function POST(
     return NextResponse.json({ error: 'credential_not_active' }, { status: 400 })
   }
 
-  const { error } = await serviceClient.rpc('revoke_credential', {
+  const supabase = await createServerClient()
+  if (!supabase) return NextResponse.json({ error: 'config' }, { status: 500 })
+
+  const { error } = await supabase.rpc('revoke_credential', {
     p_credential_id: credentialId,
     p_reason: reason || 'Revoked by admin',
   })

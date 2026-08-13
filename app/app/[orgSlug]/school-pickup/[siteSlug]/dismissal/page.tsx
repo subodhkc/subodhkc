@@ -14,7 +14,7 @@ export default async function DismissalPage({
 }) {
   const { orgSlug, siteSlug } = await params
   const user = await getAuthenticatedUser()
-  if (!user) redirect('/login')
+  if (!user) redirect(`/login?next=/app/${orgSlug}/school-pickup/${siteSlug}/dismissal`)
 
   let ctx
   try {

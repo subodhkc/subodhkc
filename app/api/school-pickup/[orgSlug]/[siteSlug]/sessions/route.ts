@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { resolveSchoolContext, SchoolAuthError } from '@/lib/auth/school-resolver'
-import { createServiceClient } from '@/lib/supabase'
+import { createServerClient, createServiceClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -76,11 +76,11 @@ export async function POST(
   const body = await request.json()
   const { action, service_date, session_id, reason } = body
 
-  const serviceClient = createServiceClient()
-  if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
+  const supabase = await createServerClient()
+  if (!supabase) return NextResponse.json({ error: 'config' }, { status: 500 })
 
   if (action === 'ensure_active') {
-    const { data: sessionId, error } = await serviceClient.rpc('ensure_active_dismissal_session', {
+    const { data: sessionId, error } = await supabase.rpc('ensure_active_dismissal_session', {
       p_site_id: ctx.site.id,
       p_service_date: service_date || null,
     })
@@ -98,7 +98,7 @@ export async function POST(
   }
 
   if (action === 'open') {
-    const { data: sessionId, error } = await serviceClient.rpc('open_pickup_session', {
+    const { data: sessionId, error } = await supabase.rpc('open_pickup_session', {
       p_site_id: ctx.site.id,
       p_service_date: service_date || null,
     })
@@ -118,7 +118,7 @@ export async function POST(
   if (action === 'close') {
     if (!session_id) return NextResponse.json({ error: 'missing_session_id' }, { status: 400 })
 
-    const { error } = await serviceClient.rpc('close_pickup_session', {
+    const { error } = await supabase.rpc('close_pickup_session', {
       p_session_id: session_id,
     })
 
@@ -136,7 +136,7 @@ export async function POST(
   if (action === 'cancel') {
     if (!session_id) return NextResponse.json({ error: 'missing_session_id' }, { status: 400 })
 
-    const { error } = await serviceClient.rpc('cancel_pickup_session', {
+    const { error } = await supabase.rpc('cancel_pickup_session', {
       p_session_id: session_id,
       p_reason: reason || null,
     })

@@ -13,7 +13,7 @@ export function Hero() {
           <h1>I Advise, Architect, Deploy and Govern production AI systems.</h1>
           <p>
             From agentic workflows, voice AI, RAG and MCP integrations to AI compliance certifications and
-            enterprise-scale delivery. Subodh KC, former Fortune 50 AI Strategy CTL, founder of KestrelVoice,
+            enterprise-scale delivery. Subodh Kc, former Fortune 50 AI Strategy CTL, founder of KestrelVoice,
             founder of HAIEC. Dallas-based.
           </p>
           <ul>
@@ -23,7 +23,7 @@ export function Hero() {
             <li>16+ years full-stack experience</li>
           </ul>
           <p>
-            <a href="https://calendly.com/subodhkc/30min">Discuss an AI System</a> | <a href="https://calendly.com/subodhkc/30min">Hire Subodh KC</a>
+            <a href="https://calendly.com/subodhkc/30min">Discuss an AI System</a> | <a href="https://calendly.com/subodhkc/30min">Hire Subodh Kc</a>
           </p>
         </div>
       </noscript>

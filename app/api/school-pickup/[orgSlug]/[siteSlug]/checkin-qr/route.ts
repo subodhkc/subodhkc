@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { resolveSchoolContext, SchoolAuthError } from '@/lib/auth/school-resolver'
-import { createServiceClient } from '@/lib/supabase'
+import { createServerClient, createServiceClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -67,11 +67,11 @@ export async function POST(
   const body = await request.json()
   const { action, code_id, reason } = body
 
-  const serviceClient = createServiceClient()
-  if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
+  const supabase = await createServerClient()
+  if (!supabase) return NextResponse.json({ error: 'config' }, { status: 500 })
 
   if (action === 'generate') {
-    const { data: result, error } = await serviceClient.rpc('rotate_checkin_code', {
+    const { data: result, error } = await supabase.rpc('rotate_checkin_code', {
       p_site_id: ctx.site.id,
       p_purpose: 'pickup_self_checkin',
       p_lane: null,
@@ -93,7 +93,7 @@ export async function POST(
   if (action === 'revoke') {
     if (!code_id) return NextResponse.json({ error: 'missing_code_id' }, { status: 400 })
 
-    const { error } = await serviceClient.rpc('revoke_checkin_code', {
+    const { error } = await supabase.rpc('revoke_checkin_code', {
       p_code_id: code_id,
       p_reason: reason || null,
     })
@@ -112,6 +112,9 @@ export async function POST(
 
   if (action === 'log_print') {
     if (!code_id) return NextResponse.json({ error: 'missing_code_id' }, { status: 400 })
+
+    const serviceClient = createServiceClient()
+    if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
 
     const { error } = await serviceClient
       .from('checkin_code_audit_events')

@@ -5,9 +5,9 @@ import {
   requireOfferingAccess,
   AuthError,
   type OrganizationContext,
-  type AuthenticatedUser,
 } from '@/lib/auth/organization-resolver'
 import { OfferingAccessClient } from '@/components/app/OfferingAccessClient'
+import { getOfferingRoute } from '@/lib/auth/dashboard-resolver'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -21,7 +21,7 @@ export default async function OfferingPage({
   const user = await getAuthenticatedUser()
   if (!user) redirect(`/login?next=/app/${orgSlug}/${offeringKey}`)
 
-  let ctx: OrganizationContext
+  let ctx: OrganizationContext | undefined
   try {
     ctx = await resolveOrganizationContext(user, orgSlug)
     requireOfferingAccess(ctx, offeringKey)
@@ -32,11 +32,8 @@ export default async function OfferingPage({
           <div className="text-center space-y-2 max-w-sm">
             <h1 className="text-xl font-bold">Access Denied</h1>
             <p className="text-sm text-muted-foreground">{err.message}</p>
-            <div className="text-xs text-muted-foreground bg-accent p-2 rounded">
-              Error code: <code>{err.code}</code>
-            </div>
             <a href={`/app/${orgSlug}`} className="text-sm text-primary hover:underline block">
-              Back to {orgSlug}
+              Back to {ctx?.organization.name || orgSlug}
             </a>
           </div>
         </div>
@@ -45,5 +42,12 @@ export default async function OfferingPage({
     throw err
   }
 
+  // Redirect known offerings to their dedicated routes
+  const route = getOfferingRoute(orgSlug, offeringKey)
+  if (route) {
+    redirect(route)
+  }
+
+  // For offerings without dedicated routes, show a purposeful access page
   return <OfferingAccessClient user={user} ctx={ctx} offeringKey={offeringKey} />
 }

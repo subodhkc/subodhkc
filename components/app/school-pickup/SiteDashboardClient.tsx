@@ -14,10 +14,10 @@ interface SiteDashboardClientProps {
 const DEMO_TOUR_STEPS = [
   { title: 'Overview', desc: 'You are here. This dashboard shows setup status and quick actions.', href: '' },
   { title: 'Dismissal', desc: 'Start or manage a pickup session. A live session is already running with demo data.', href: '/dismissal' },
-  { title: 'Queue', desc: 'See the live pickup queue with 28 arrivals in various statuses (arrived, preparing, ready, completed).', href: '/queue' },
+  { title: 'Queue', desc: 'See the live pickup queue with arrivals in various statuses (arrived, preparing, ready, completed).', href: '/queue' },
   { title: 'Scanner', desc: 'Scan QR codes to check in families. Try scanning to see the queue update in real-time.', href: '/scanner' },
-  { title: 'Students', desc: 'Browse 120 synthetic students across 10 classrooms, including sibling groups.', href: '/students' },
-  { title: 'Family Access', desc: 'Manage guardians and family invitations. 20 guardians with various statuses.', href: '/family-access' },
+  { title: 'Students', desc: 'Browse students across classrooms, including sibling groups.', href: '/students' },
+  { title: 'Family Access', desc: 'Manage guardians and family invitations.', href: '/family-access' },
   { title: 'Credentials', desc: 'View and manage QR pickup credentials. One credential is revoked with a replacement issued.', href: '/credentials' },
   { title: 'Check-In QR', desc: 'The shared QR sign families scan at the pickup line entrance.', href: '/checkin-qr' },
 ]
@@ -209,26 +209,26 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
           icon={Users}
           label="Active Students"
           href={`${basePath}/students`}
-          hint={setupState.hasStudents ? '120 students' : 'No students yet'}
+          hint={setupState.hasStudents ? 'Configured' : 'No students yet'}
         />
         <StatCard
           icon={GraduationCap}
           label="Classrooms"
           href={`${basePath}/students`}
-          hint={setupState.hasClassrooms ? '10 classrooms' : 'No classrooms yet'}
+          hint={setupState.hasClassrooms ? 'Configured' : 'No classrooms yet'}
         />
         <StatCard
           icon={QrCode}
           label="Active Credentials"
           href={`${basePath}/credentials`}
-          hint={setupState.hasCredentials ? '96 active' : 'No credentials issued'}
+          hint={setupState.hasCredentials ? 'Configured' : 'No credentials issued'}
         />
         {canManageStaff && (
           <StatCard
             icon={UserCog}
             label="Staff"
             href={`${basePath}/staff`}
-            hint={setupState.hasStaff ? '4 active staff' : 'No staff assigned'}
+            hint={setupState.hasStaff ? 'Configured' : 'No staff assigned'}
           />
         )}
       </div>
@@ -242,7 +242,7 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
             <Link href={`${basePath}/queue`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Live Queue (28 arrivals)</span>
+              <span className="text-sm font-medium text-blue-900">Live Queue</span>
               <ArrowRight className="h-4 w-4 text-blue-400" />
             </Link>
             <Link href={`${basePath}/dismissal`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
@@ -254,11 +254,11 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
               <ArrowRight className="h-4 w-4 text-blue-400" />
             </Link>
             <Link href={`${basePath}/students`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Students (120)</span>
+              <span className="text-sm font-medium text-blue-900">Students</span>
               <ArrowRight className="h-4 w-4 text-blue-400" />
             </Link>
             <Link href={`${basePath}/family-access`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">
-              <span className="text-sm font-medium text-blue-900">Family Access (20 guardians)</span>
+              <span className="text-sm font-medium text-blue-900">Family Access</span>
               <ArrowRight className="h-4 w-4 text-blue-400" />
             </Link>
             <Link href={`${basePath}/checkin-qr`} className="flex items-center justify-between p-3 bg-white border border-blue-100 rounded-lg hover:border-blue-300 transition-colors">

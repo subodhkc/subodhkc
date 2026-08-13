@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServiceClient, getCurrentUser } from '@/lib/supabase'
+import { createServerClient, getCurrentUser } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -14,13 +14,13 @@ export async function POST(request: NextRequest) {
 
   if (!token) return NextResponse.json({ error: 'missing_token' }, { status: 400 })
 
-  const serviceClient = createServiceClient()
-  if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
+  const supabase = await createServerClient()
+  if (!supabase) return NextResponse.json({ error: 'config' }, { status: 500 })
 
   const authEmail = user.email || ''
   if (!authEmail) return NextResponse.json({ error: 'no_email' }, { status: 400 })
 
-  const { data, error } = await serviceClient.rpc('claim_guardian_invitation', {
+  const { data, error } = await supabase.rpc('claim_guardian_invitation', {
     p_token: token,
     p_auth_email: authEmail,
   })

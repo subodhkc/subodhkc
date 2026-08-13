@@ -185,7 +185,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
             >
               <Image
                 src="/portrait.jpeg"
-                alt="Subodh KC"
+                alt="Subodh Kc"
                 width={28}
                 height={28}
                 style={{
@@ -197,19 +197,20 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
                 }}
               />
             </span>
-            <span style={{ fontWeight: 600, fontSize: 14, letterSpacing: "-0.005em", color: "var(--fg)" }}>Subodh KC</span>
-            <span
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                color: "var(--op-muted)",
-                marginLeft: 4,
-                borderLeft: "1px solid var(--op-border)",
-                paddingLeft: 10,
-              }}
-              className="nav-registry-label"
-            >
-              /systems
+            <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+              <span style={{ fontWeight: 600, fontSize: 14, letterSpacing: "-0.005em", color: "var(--fg)" }}>Subodh Kc</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 9.5,
+                  color: "var(--op-muted)",
+                  letterSpacing: "0.04em",
+                  marginTop: 1,
+                }}
+                className="nav-registry-label"
+              >
+                AI Advisor
+              </span>
             </span>
           </Link>
 
@@ -650,7 +651,10 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
               <Link href="/" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", color: "var(--fg)" }}>
-                <span style={{ fontWeight: 600, fontSize: 14 }}>Subodh KC</span>
+                <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+                  <span style={{ fontWeight: 600, fontSize: 14 }}>Subodh Kc</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 9.5, color: "var(--op-muted)", letterSpacing: "0.04em", marginTop: 1 }}>AI Advisor</span>
+                </span>
               </Link>
               <button
                 onClick={() => setMobileOpen(false)}
@@ -963,7 +967,7 @@ export function SiteNavigation({ searchEntries = [] }: SiteNavigationProps) {
         @media (max-width: 860px) {
           .nav-desktop { display: none !important; }
           .nav-hamburger { display: flex !important; }
-          .nav-registry-label { display: none; }
+          .nav-registry-label { display: block; }
           .nav-search-label { display: none !important; }
           .nav-search-kbd { display: none !important; }
           .nav-signin { display: none !important; }

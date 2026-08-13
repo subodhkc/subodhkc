@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServiceClient, getCurrentUser } from '@/lib/supabase'
+import { createServerClient, getCurrentUser } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -9,10 +9,10 @@ export async function GET() {
   const user = await getCurrentUser()
   if (!user) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 })
 
-  const serviceClient = createServiceClient()
-  if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
+  const supabase = await createServerClient()
+  if (!supabase) return NextResponse.json({ error: 'config' }, { status: 500 })
 
-  const { data, error } = await serviceClient.rpc('get_guardian_sites')
+  const { data, error } = await supabase.rpc('get_guardian_sites')
 
   if (error) {
     return NextResponse.json({ error: 'query_failed' }, { status: 500 })

@@ -4,6 +4,9 @@ import { SchoolPickupLayout } from '@/components/app/SchoolPickupLayout'
 import { QueueMonitorClient } from '@/components/app/school-pickup/QueueMonitorClient'
 import { redirect } from 'next/navigation'
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export default async function QueuePage({
   params,
 }: {
@@ -11,7 +14,7 @@ export default async function QueuePage({
 }) {
   const { orgSlug, siteSlug } = await params
   const user = await getAuthenticatedUser()
-  if (!user) redirect('/login')
+  if (!user) redirect(`/login?next=/app/${orgSlug}/school-pickup/${siteSlug}/queue`)
 
   let ctx
   try {

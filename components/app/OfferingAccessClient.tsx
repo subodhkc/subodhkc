@@ -3,7 +3,9 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { ArrowLeft, ExternalLink, Info } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
+import { getOfferingLabel, getOfferingDescription, getOfferingKindLabel } from '@/lib/auth/dashboard-types'
 
 interface OfferingAccessClientProps {
   user: AuthenticatedUser
@@ -22,6 +24,10 @@ export function OfferingAccessClient({ user, ctx, offeringKey }: OfferingAccessC
     }
   }, [offeringKey, entitlement, ctx.organization.slug, router])
 
+  const offeringName = entitlement?.offering_name || getOfferingLabel(offeringKey)
+  const offeringDesc = getOfferingDescription(offeringKey)
+  const isExternal = offeringKey === 'kestrel' || offeringKey === 'haiec'
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
@@ -32,44 +38,67 @@ export function OfferingAccessClient({ user, ctx, offeringKey }: OfferingAccessC
             {ctx.organization.name}
           </Link>
           <span className="text-muted-foreground">/</span>
-          <span className="text-sm font-medium">{entitlement?.offering_name || offeringKey}</span>
+          <span className="text-sm font-medium">{offeringName}</span>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-2">
-          {entitlement?.offering_name || offeringKey}
-        </h1>
-        <p className="text-sm text-muted-foreground mb-6">
-          Offering access verified for {ctx.organization.name}
-        </p>
+      <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">{offeringName}</h1>
+          {offeringDesc && (
+            <p className="text-sm text-muted-foreground mt-1">{offeringDesc}</p>
+          )}
+        </div>
 
-        <div className="border rounded-lg p-4 space-y-2 text-sm">
-          <div className="flex justify-between">
+        <div className="border rounded-lg p-4 space-y-3">
+          <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Organization</span>
             <span>{ctx.organization.name}</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Entitlement Status</span>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Access Status</span>
             <span className={entitlement?.effective_status === 'active' ? 'text-green-600' : 'text-yellow-600'}>
               {entitlement?.effective_status || 'none'}
             </span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Your Role</span>
             <span>{role?.role || 'none'}</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Org Role</span>
-            <span>{ctx.organizationRole || 'admin (platform)'}</span>
-          </div>
         </div>
 
-        <div className="mt-6 border rounded-lg p-4 bg-accent/30">
-          <p className="text-sm text-muted-foreground">
-            This is a placeholder for the <strong>{offeringKey}</strong> offering.
-            Domain-specific functionality will be built here once the control plane is verified.
-          </p>
+        {isExternal ? (
+          <div className="border rounded-lg p-4 bg-accent/30 space-y-2">
+            <div className="flex items-center gap-2">
+              <ExternalLink className="h-4 w-4 text-primary" />
+              <h2 className="font-medium text-sm">External Platform</h2>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {offeringName} is managed as an external engagement. Access is provided through your organization&apos;s
+              subscription. Contact your account manager for platform credentials and onboarding.
+            </p>
+          </div>
+        ) : (
+          <div className="border rounded-lg p-4 bg-accent/30 space-y-2">
+            <div className="flex items-center gap-2">
+              <Info className="h-4 w-4 text-primary" />
+              <h2 className="font-medium text-sm">Access Verified</h2>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              You have verified access to {offeringName} for {ctx.organization.name}.
+              This {getOfferingKindLabel(offeringKey).toLowerCase()} is part of your organization&apos;s active services.
+            </p>
+          </div>
+        )}
+
+        <div>
+          <Link
+            href={`/app/${ctx.organization.slug}`}
+            className="text-sm text-primary hover:underline inline-flex items-center gap-1"
+          >
+            <ArrowLeft className="h-3 w-3" />
+            Back to {ctx.organization.name}
+          </Link>
         </div>
       </main>
     </div>
