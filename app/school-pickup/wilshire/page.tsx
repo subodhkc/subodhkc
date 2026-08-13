@@ -33,9 +33,16 @@ export const metadata: Metadata = {
 
 export default function WilshireLandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-background to-background">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-50">
+      {/* Beta Proposal Banner */}
+      <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-white text-center px-4 py-2.5 text-xs sm:text-sm font-medium">
+        <span className="font-bold">Beta Proposal</span>
+        <span className="hidden sm:inline"> — Built by June KC&apos;s dad for Wilshire Elementary. Non-commercial, not for sale.</span>
+        <span className="sm:hidden"> — Non-commercial. Not for sale.</span>
+      </div>
+
       {/* Header */}
-      <header className="border-b border-sky-100 bg-white/80 backdrop-blur-sm sticky top-0 z-20">
+      <header className="border-b border-sky-200 bg-white/90 backdrop-blur-sm sticky top-0 z-20">
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/school-pickup/wilshire" className="flex items-center gap-2">
             <Image
@@ -46,7 +53,7 @@ export default function WilshireLandingPage() {
               priority
             />
             <span className="font-bold text-sm text-blue-900">
-              Wilshire Elementary
+              Wilshire Elementary <span className="text-blue-500 font-normal">Pickup</span>
             </span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3 text-sm">
@@ -61,6 +68,12 @@ export default function WilshireLandingPage() {
               className="px-3 py-2 text-blue-700 hover:text-blue-900 font-medium hidden sm:inline"
             >
               Family Sign In
+            </a>
+            <a
+              href="/demo"
+              className="px-3 py-2 text-amber-700 hover:text-amber-900 font-medium hidden sm:inline"
+            >
+              Try Demo
             </a>
             <a
               href="/login?next=/app&context=wilshire"
@@ -82,7 +95,7 @@ export default function WilshireLandingPage() {
         <div className="max-w-5xl mx-auto px-4 py-16 sm:py-24 relative">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
             <div className="text-center sm:text-left space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold border border-blue-200">
                 <Sparkles className="h-3 w-3" />
                 Wilshire Elementary School
               </div>
@@ -90,7 +103,7 @@ export default function WilshireLandingPage() {
                 Pickup time,{' '}
                 <span className="text-blue-600">made simple.</span>
               </h1>
-              <p className="text-base sm:text-lg text-blue-800/70 max-w-xl leading-relaxed">
+              <p className="text-base sm:text-lg text-blue-800 max-w-xl leading-relaxed">
                 Families check in with a quick scan, staff get a live view of arrivals and student readiness, and everyone stays on the same page during that busy end-of-day moment.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center sm:justify-start">
@@ -109,7 +122,7 @@ export default function WilshireLandingPage() {
                   Family Sign In
                 </a>
               </div>
-              <p className="text-xs text-blue-700/60">
+              <p className="text-xs text-blue-700 font-medium">
                 Access is limited to invited or approved families and staff.
               </p>
             </div>
@@ -146,13 +159,13 @@ export default function WilshireLandingPage() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="bg-blue-600 py-16 sm:py-20">
+      <section id="how-it-works" className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 py-16 sm:py-20">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
               How Wilshire Pickup Works
             </h2>
-            <p className="text-blue-100 max-w-2xl mx-auto">
+            <p className="text-blue-50 max-w-2xl mx-auto">
               From arrival to completed pickup, here is what happens during a typical dismissal.
             </p>
           </div>
@@ -179,7 +192,7 @@ export default function WilshireLandingPage() {
                   {i + 1}
                 </div>
                 <h3 className="font-bold text-sm text-blue-950 mb-1">{step.title}</h3>
-                <p className="text-sm text-blue-700/70">{step.desc}</p>
+                <p className="text-sm text-blue-800">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -187,7 +200,7 @@ export default function WilshireLandingPage() {
       </section>
 
       {/* For Families */}
-      <section id="for-families" className="py-16 sm:py-20 bg-gradient-to-b from-background to-sky-50">
+      <section id="for-families" className="py-16 sm:py-20 bg-gradient-to-b from-white to-sky-50">
         <div className="max-w-4xl mx-auto px-4">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
             <div className="flex justify-center">
@@ -200,14 +213,14 @@ export default function WilshireLandingPage() {
               />
             </div>
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-xs font-semibold border border-pink-200">
                 <Heart className="h-3 w-3" />
                 For Families
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-blue-950">
                 What families experience
               </h2>
-              <p className="text-blue-800/70 leading-relaxed">
+              <p className="text-blue-800 leading-relaxed">
                 Families continue following Wilshire&apos;s normal pickup and release procedures. The technology works behind the scenes to give staff a clearer shared picture of arrivals and readiness.
               </p>
               <div className="space-y-2">
@@ -230,7 +243,7 @@ export default function WilshireLandingPage() {
                 <Heart className="h-4 w-4" />
                 Family Sign In
               </a>
-              <p className="text-xs text-blue-700/60">
+              <p className="text-xs text-blue-700 font-medium">
                 Family access must be approved by the school office.
               </p>
             </div>
@@ -242,14 +255,14 @@ export default function WilshireLandingPage() {
       <section className="py-16 sm:py-20">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold mb-3 border border-blue-200">
               <School className="h-3 w-3" />
               For Staff
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-blue-950 mb-3">
               What staff see
             </h2>
-            <p className="text-blue-800/70 max-w-2xl mx-auto">
+            <p className="text-blue-800 max-w-2xl mx-auto">
               One shared live view that keeps everyone coordinated during dismissal.
             </p>
           </div>
@@ -267,7 +280,7 @@ export default function WilshireLandingPage() {
                   <item.icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-bold text-sm text-blue-950 mb-1">{item.title}</h3>
-                <p className="text-sm text-blue-700/70">{item.desc}</p>
+                <p className="text-sm text-blue-800">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -279,14 +292,14 @@ export default function WilshireLandingPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
             <div className="space-y-4 order-2 sm:order-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold border border-green-200">
                 <QrCode className="h-3 w-3" />
                 Self Check-In
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-blue-950">
                 A quick scan is all it takes
               </h2>
-              <p className="text-blue-800/70 leading-relaxed">
+              <p className="text-blue-800 leading-relaxed">
                 When families reach the Wilshire pickup line, they scan the QR sign posted at the entrance. This lets staff know they have arrived, without changing any of the school&apos;s existing pickup and release procedures.
               </p>
               <div className="space-y-2">
@@ -317,22 +330,22 @@ export default function WilshireLandingPage() {
       </section>
 
       {/* Designed to stay out of the way */}
-      <section className="py-16 sm:py-20">
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-sky-50 to-white">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-blue-950 mb-4">
             Designed to stay out of the way
           </h2>
-          <p className="text-blue-800/70 leading-relaxed mb-4">
+          <p className="text-blue-800 leading-relaxed mb-4">
             The system automates routine steps where that helps, but does not make automation a dependency.
           </p>
-          <p className="text-blue-800/70 leading-relaxed">
+          <p className="text-blue-800 leading-relaxed">
             Schools can use scheduled dismissal times or start manually. A QR remains active until staff choose to replace it. The goal is fewer required actions, not another workflow staff have to manage.
           </p>
         </div>
       </section>
 
       {/* What improves beneath the surface */}
-      <section className="py-16 bg-blue-950">
+      <section className="py-16 bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-10 text-center">
             What improves beneath the surface
@@ -347,12 +360,12 @@ export default function WilshireLandingPage() {
               { icon: Settings2, title: 'Flexibility without complexity', desc: 'Use simple defaults and introduce groups, schedules or QR scopes only when useful.' },
             ].map((item, i) => (
               <div key={i} className="flex gap-4 items-start">
-                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
                   <item.icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-sm text-white mb-1">{item.title}</h3>
-                  <p className="text-sm text-blue-200/70">{item.desc}</p>
+                  <p className="text-sm text-blue-100">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -364,14 +377,14 @@ export default function WilshireLandingPage() {
       <section className="py-16 sm:py-20">
         <div className="max-w-3xl mx-auto px-4">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold mb-3 border border-green-200">
               <ShieldCheck className="h-3 w-3" />
               Privacy & Security
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-blue-950 mb-4">
               Access stays scoped to the people who need it
             </h2>
-            <p className="text-blue-800/70 leading-relaxed">
+            <p className="text-blue-800 leading-relaxed">
               Access requires an authenticated account and explicit authorization. Organization, school-site and operational permissions are enforced at both the application and database layers.
             </p>
           </div>
@@ -394,42 +407,42 @@ export default function WilshireLandingPage() {
       </section>
 
       {/* Architecture */}
-      <section className="py-16 bg-gradient-to-b from-background to-blue-50">
+      <section className="py-16 bg-gradient-to-b from-white to-blue-50">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-blue-950 mb-6 text-center">
             Architecture
           </h2>
-          <div className="bg-white border-2 border-blue-50 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <div className="bg-white border-2 border-blue-100 rounded-2xl p-6 sm:p-8 shadow-md">
             <div className="space-y-3 text-sm font-mono text-center">
-              <div className="px-4 py-3 bg-blue-50 border border-blue-100 rounded-xl text-blue-900 font-semibold">
+              <div className="px-4 py-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 font-semibold">
                 Google or Magic Link sign-in
               </div>
-              <div className="text-blue-300 text-lg">{'\u2193'}</div>
-              <div className="px-4 py-3 bg-blue-50 border border-blue-100 rounded-xl text-blue-900 font-semibold">
+              <div className="text-blue-400 text-lg">{'\u2193'}</div>
+              <div className="px-4 py-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 font-semibold">
                 Authorized organization (Wilshire)
               </div>
-              <div className="text-blue-300 text-lg">{'\u2193'}</div>
-              <div className="px-4 py-3 bg-blue-50 border border-blue-100 rounded-xl text-blue-900 font-semibold">
+              <div className="text-blue-400 text-lg">{'\u2193'}</div>
+              <div className="px-4 py-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 font-semibold">
                 Wilshire Elementary school site
               </div>
-              <div className="text-blue-300 text-lg">{'\u2193'}</div>
-              <div className="px-4 py-3 bg-blue-100 border border-blue-200 rounded-xl text-blue-900 font-semibold">
+              <div className="text-blue-400 text-lg">{'\u2193'}</div>
+              <div className="px-4 py-3 bg-blue-100 border border-blue-300 rounded-xl text-blue-900 font-semibold">
                 Staff role or Guardian access
               </div>
-              <div className="text-blue-300 text-lg">{'\u2193'}</div>
+              <div className="text-blue-400 text-lg">{'\u2193'}</div>
               <div className="px-4 py-3 bg-blue-600 text-white rounded-xl font-semibold">
                 Students / Credentials / Sessions / Queue
               </div>
             </div>
           </div>
-          <p className="text-blue-800/70 leading-relaxed mt-4 text-center text-sm">
+          <p className="text-blue-800 leading-relaxed mt-4 text-center text-sm">
             Identity, organization membership, school access and operational permissions are separate layers. Each request is checked against the context it actually needs.
           </p>
         </div>
       </section>
 
       {/* Attribution */}
-      <section className="py-16 text-center bg-gradient-to-b from-blue-50 to-background">
+      <section className="py-16 text-center bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-3xl mx-auto px-4">
           <Image
             src="/wilshire/school-building.svg"
@@ -441,22 +454,22 @@ export default function WilshireLandingPage() {
           <h2 className="text-2xl sm:text-3xl font-bold text-blue-950 mb-4">
             Built for Wilshire, with gratitude.
           </h2>
-          <p className="text-blue-800/70 leading-relaxed max-w-xl mx-auto">
+          <p className="text-blue-800 leading-relaxed max-w-xl mx-auto">
             This started as a small way to give something useful back to the Wilshire community, built by June KC&apos;s dad with the hope of making one busy part of the school day a little easier for families and staff.
           </p>
-          <p className="text-xs text-blue-700/50 mt-4">
-            Independently built for the Wilshire community.
+          <p className="text-xs text-blue-700 font-medium mt-4">
+            Independently built for the Wilshire community. Non-commercial, not for sale.
           </p>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 bg-blue-600">
+      <section className="py-16 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700">
         <div className="max-w-3xl mx-auto px-4 text-center space-y-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-white">
             Ready to get started?
           </h2>
-          <p className="text-blue-100">
+          <p className="text-blue-50">
             Staff and families can sign in below. Access is limited to approved users.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -481,7 +494,7 @@ export default function WilshireLandingPage() {
       {/* Terms / Privacy */}
       <section className="border-t border-blue-100 py-6 bg-white">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <p className="text-xs text-blue-700/60">
+          <p className="text-xs text-blue-700 font-medium">
             By using this service, you agree to the{' '}
             <Link href="/terms" className="underline hover:text-blue-900 font-medium">Terms of Service</Link>
             {' '}and{' '}
