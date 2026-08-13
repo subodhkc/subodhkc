@@ -100,6 +100,13 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
               >
                 My SubodhKC
               </Link>
+              <Link
+                href="/app/advisor"
+                className="px-3 py-1.5 rounded-md hover:bg-accent flex items-center gap-1"
+              >
+                <Briefcase className="h-3.5 w-3.5" />
+                Advisor
+              </Link>
               {isPlatformAdmin && (
                 <Link
                   href="/app/admin"
