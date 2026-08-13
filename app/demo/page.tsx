@@ -50,7 +50,7 @@ export default function DemoLoginPage() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4 shadow-lg" role="img" aria-label="Wilshire School Pickup logo">
             <GraduationCap className="h-8 w-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900">
@@ -124,6 +124,7 @@ export default function DemoLoginPage() {
             <button
               onClick={fillCredentials}
               className="w-full text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center justify-center gap-1.5"
+              aria-label="Fill demo username and password fields"
             >
               <Sparkles className="h-3.5 w-3.5" />
               Fill demo credentials

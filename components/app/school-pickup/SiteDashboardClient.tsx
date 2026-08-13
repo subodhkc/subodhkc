@@ -73,6 +73,7 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
           <button
             onClick={handleReset}
             disabled={resetting}
+            aria-label="Reset demo data to baseline"
             className="flex items-center gap-1.5 px-3 py-2 border border-amber-300 bg-amber-50 text-amber-800 rounded-lg text-xs font-medium hover:bg-amber-100 transition-colors disabled:opacity-50"
           >
             <RotateCcw className={`h-3.5 w-3.5 ${resetting ? 'animate-spin' : ''}`} />
@@ -96,7 +97,7 @@ export function SiteDashboardClient({ ctx, setupState }: SiteDashboardClientProp
               <FlaskConical className="h-5 w-5 text-amber-700" />
               <h2 className="font-semibold text-amber-900">Demo Tour</h2>
             </div>
-            <button onClick={() => setTourOpen(false)} className="text-amber-700 hover:text-amber-900">
+            <button onClick={() => setTourOpen(false)} className="text-amber-700 hover:text-amber-900" aria-label="Close demo tour">
               <X className="h-4 w-4" />
             </button>
           </div>
