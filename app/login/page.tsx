@@ -86,8 +86,24 @@ export default async function LoginPage({
           <p className="text-xs text-center text-muted-foreground">
             {isFamilyContext
               ? 'Family access must already be approved by the school.'
-              : 'Access is limited to invited or approved users.'}
+              : 'Sign in with your organization email (.edu, .org) or Google account.'}
           </p>
+
+          {!isFamilyContext && (
+            <div className="bg-muted/50 rounded-lg px-4 py-3 text-xs text-muted-foreground space-y-1.5">
+              <p className="font-medium text-foreground">Demo Access</p>
+              <p>
+                Staff with <span className="font-medium">.edu</span> email addresses are automatically
+                added to the Wilshire demo workspace with synthetic data.
+              </p>
+              <p>
+                Or use the demo account:{' '}
+                <span className="font-mono text-foreground">junekc</span>
+                {' / '}
+                <span className="font-mono text-foreground">pre-k</span>
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="border-t pt-4">

@@ -396,6 +396,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
 function OrganizationCard({ org }: { org: DashboardOrganization }) {
   const activeOfferings = org.offerings.filter(o => getOfferingStatus(o) === 'available')
   const hasSchoolPickup = activeOfferings.some(o => o.offeringKey === 'school_pickup')
+  const isDemoOrg = org.slug === 'wilshire-demo'
 
   return (
     <Link
@@ -404,7 +405,14 @@ function OrganizationCard({ org }: { org: DashboardOrganization }) {
     >
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
-          <h3 className="font-medium text-sm">{org.name}</h3>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="font-medium text-sm">{org.name}</h3>
+            {isDemoOrg && (
+              <span className="text-xs bg-yellow-500/10 text-yellow-700 px-1.5 py-0.5 rounded font-medium">
+                Synthetic Data
+              </span>
+            )}
+          </div>
           <p className="text-xs text-muted-foreground mt-0.5">
             {org.organizationKind} · {org.role}
           </p>
