@@ -1,9 +1,11 @@
 name: LinkedIn Token Expiry Check
 
 on:
-  schedule:
-    # Every Monday at 13:00 UTC (8:00 AM CST)
-    - cron: "0 13 * * 1"
+  # DISABLED - LinkedIn token check paused per user request (2026-08-12)
+  # Re-enable by uncommenting the schedule below
+  # schedule:
+  #   # Every Monday at 13:00 UTC (8:00 AM CST)
+  #   - cron: "0 13 * * 1"
   workflow_dispatch:
 
 jobs:

@@ -184,7 +184,9 @@ jobs:
   post-to-linkedin:
     runs-on: ubuntu-latest
     needs: [commit-and-push, generate-article]
-    if: needs.commit-and-push.result == 'success' && needs.generate-article.outputs.review_only != 'true'
+    # DISABLED - LinkedIn auto-posting paused per user request (2026-08-12)
+    # Re-enable by changing if condition back to: needs.commit-and-push.result == 'success' && needs.generate-article.outputs.review_only != 'true'
+    if: false
     env:
       LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
       LINKEDIN_MEMBER_ID: ${{ secrets.LINKEDIN_MEMBER_ID }}
