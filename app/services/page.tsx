@@ -24,7 +24,7 @@ export const metadata = {
     'voice AI deployment',
     'compliance automation',
     'AI consulting',
-    'fractional AI executive',
+    'fractional AI advisor',
     'enterprise AI',
     'Subodh KC'
   ],
@@ -116,7 +116,7 @@ export default function ServicesPage() {
         {
           icon: Network,
           name: 'Human Escalation',
-          desc: 'smooth AI-to-human handoff architecture, escalation policies, and context preservation.',
+          desc: 'AI-to-human handoff architecture, escalation policies, and context preservation.',
         },
         {
           icon: Activity,
@@ -145,7 +145,7 @@ export default function ServicesPage() {
         {
           icon: Lock,
           name: 'AI Security & Compliance',
-          desc: 'EU AI Act, NIST AI RMF, ISO 42001, NYC LL144 compliance implementation and audit readiness.',
+          desc: 'EU AI Act, NIST AI RMF, ISO 42001, NYC LL144 compliance implementation and evidence readiness.',
         },
         {
           icon: FileCheck,
@@ -179,7 +179,7 @@ export default function ServicesPage() {
       title: 'Retainer',
       description: 'Ongoing advisory and strategic guidance with flexible scope.',
       duration: '6-12 months',
-      ideal: 'Executive advisory, continuous improvement, governance oversight, strategic planning',
+      ideal: 'Direct advisory, continuous improvement, governance oversight, strategic planning',
     },
     {
       icon: Users,
@@ -323,7 +323,7 @@ export default function ServicesPage() {
             <CardHeader>
               <CardTitle>Tested in Production at Enterprise Scale</CardTitle>
               <CardDescription className="text-base">
-                53-application portfolios, $50M+ AI portfolios, 5 patent-pending frameworks. Everything I build
+                53-application portfolios, $50M+ AI portfolios, published frameworks. Everything I build
                 is designed for production environments with real constraints, real users, and real compliance obligations.
               </CardDescription>
             </CardHeader>
@@ -374,7 +374,7 @@ export default function ServicesPage() {
         <div className="max-w-md mx-auto">
           <LeadMagnetCard
             title="Free AI Governance & Compliance Framework Guide"
-            description="A practical guide covering the CSM Framework, 5 patent-pending methodologies, and enterprise implementation strategies for AI governance and compliance."
+            description="A practical guide covering the CSM Framework, published methodologies, and enterprise implementation strategies for AI governance and compliance."
             resourceName="AI Governance & Compliance Framework Guide"
           />
         </div>

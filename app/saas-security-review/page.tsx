@@ -74,11 +74,13 @@ const serviceSchema = {
     '@type': 'BusinessAudience',
     name: 'SaaS founders, AI product teams, B2B startups preparing for enterprise customers',
   },
-  offers: [
-    { '@type': 'Offer', name: 'Focused SaaS Security Review', price: '950', priceCurrency: 'USD', description: 'Small application, limited auth/authorization surface, focused launch/customer-readiness review.' },
-    { '@type': 'Offer', name: 'Multi-Tenant / Tenant Isolation Review', price: '1500', priceCurrency: 'USD', description: 'Organizations, multiple roles, RLS, files, exports, APIs, background jobs, realtime.' },
-    { '@type': 'Offer', name: 'SaaS + AI Application Security Review', price: '2500', priceCurrency: 'USD', description: 'Multi-tenant plus AI/RAG/agent architecture security review.' },
-  ],
+  offers: {
+    '@type': 'Offer',
+    name: 'Focused SaaS Security Review',
+    price: '950',
+    priceCurrency: 'USD',
+    description: 'Focused security review for a single SaaS or AI application. Multi-tenant, AI/RAG, and broader reviews are scoped based on architecture.',
+  },
 }
 
 const faqItems = [
@@ -96,11 +98,11 @@ const faqItems = [
   },
   {
     question: 'Can you review AI/RAG/agent features?',
-    answer: 'Yes. When AI functionality exists, the review covers prompt injection resilience, RAG authorization and cross-tenant retrieval, tool/function authorization, agent privilege boundaries, model/API credential protection, output validation, and AI supply-chain dependencies. This reuses the HAIEC exposure assessment methodology.',
+    answer: 'Yes. When AI functionality exists, the review covers prompt injection resilience, RAG authorization and cross-tenant retrieval, tool/function authorization, agent privilege boundaries, model/API credential protection, output validation, and AI supply-chain dependencies.',
   },
   {
     question: 'What evidence do I receive?',
-    answer: 'Every material finding traces through TEST, FINDING, EVIDENCE, HAIEC RULE, CONTROL/FRAMEWORK REFERENCE, REMEDIATION, and RETEST. Evidence includes finding IDs, rule IDs, run IDs, timestamps, application version, environment, SHA-256 evidence hashes (via ISAF), sanitized test evidence, and control references.',
+    answer: 'Every material finding traces through TEST, FINDING, EVIDENCE, CONTROL/FRAMEWORK REFERENCE, REMEDIATION, and RETEST. Evidence includes finding IDs, rule IDs, run IDs, timestamps, application version, environment, SHA-256 evidence hashes (via ISAF), sanitized test evidence, and control references.',
   },
   {
     question: 'Do you offer retesting after remediation?',
@@ -198,6 +200,7 @@ const aiSecurityAreas = [
 ]
 
 const deliverables = [
+  { icon: FileText, title: 'Scope Manifest', desc: 'Written scope defining routes, roles, storage, AI components, test accounts, environment, methodology version, and review boundaries. Agreed before the review begins.' },
   { icon: FileText, title: 'Executive Security Review', desc: 'Review objective, architecture/scope summary, key assurance observations, priority improvements, tenant-isolation summary, AI-security summary, enterprise-readiness observations, SOC 2 readiness observations, recommended next actions.' },
   { icon: Bug, title: 'Technical Findings', desc: 'Each finding includes: finding ID, title, severity/priority, affected component, description, business/security relevance, testing/reproduction, evidence, control/framework references, recommended remediation, retest status.' },
   { icon: ClipboardCheck, title: 'Coverage Matrix', desc: 'Transparent coverage showing REVIEWED, VERIFIED, IMPROVEMENT IDENTIFIED, ADDITIONAL VALIDATION RECOMMENDED, NOT APPLICABLE, or OUTSIDE CURRENT REVIEW SCOPE for each area.' },
@@ -206,6 +209,7 @@ const deliverables = [
   { icon: Scale, title: 'Control / Framework Crosswalk', desc: 'Findings mapped to OWASP LLM, OWASP AppSec, NIST AI RMF, NIST cybersecurity, ISO 42001, ISO 27001, SOC 2, EU AI Act, and state-level AI regulations where applicable.' },
   { icon: Hash, title: 'Evidence Manifest', desc: 'Finding IDs, rule IDs, run IDs, timestamps, application version/commit, environment, SHA-256 evidence hashes via ISAF, sanitized test evidence, and control references.' },
   { icon: RefreshCw, title: 'Retest Record', desc: 'After remediation: each finding retested with status (Verified, Additional Work Recommended, or Risk Accepted by Client). Final Remediation Verification Summary.' },
+  { icon: FileCheck, title: 'Security Review Record', desc: 'A consolidated record of the review: scope, methodology, findings, coverage, evidence references, remediation status, and verification outcomes. Suitable for internal governance and audit trail.' },
   { icon: FileCheck, title: 'Buyer-Shareable Summary', desc: 'A sanitized executive summary suitable for sharing with prospective customers. Confirms a scoped review occurred without exposing confidential technical findings.' },
 ]
 
@@ -230,60 +234,21 @@ const processSteps = [
   { num: '08', title: 'Final Review + Verification Summary', desc: 'Executive review, coverage matrix, evidence manifest, buyer-shareable summary, and remediation verification.' },
 ]
 
-const pricingTiers = [
-  {
-    name: 'Focused SaaS Security Review',
-    price: 'from $950',
-    description: 'Small application, limited auth/authorization surface, focused launch/customer-readiness review.',
-    includes: [
-      'Architecture and authorization review',
-      'Up to 25 priority API routes',
-      'Membership and role review',
-      'One storage path review',
-      'Written findings and remediation priorities',
-      '45-minute findings walkthrough',
-    ],
-    cta: 'Request Scope Review',
-    badge: null,
-  },
-  {
-    name: 'Multi-Tenant / Tenant Isolation Review',
-    price: 'from $1,500',
-    description: 'When organizations, multiple roles, RLS, files, exports, APIs, background jobs, and realtime are meaningful.',
-    includes: [
-      'Two synthetic organizations',
-      'Cross-tenant read, write, and delete attempts',
-      'IDOR and organization-context testing',
-      'Role-escalation testing',
-      'Storage-isolation testing',
-      'Database or RLS review',
-      'Background job and realtime isolation',
-      'Sanitized evidence report',
-      'Developer remediation plan',
-      'Executive findings walkthrough',
-    ],
-    cta: 'Request Tenant Review',
-    badge: 'Recommended',
-  },
-  {
-    name: 'SaaS + AI Application Security Review',
-    price: 'from $2,500',
-    description: 'Multi-tenant plus AI/RAG/agent architecture. Full scope including AI-specific attack surfaces.',
-    includes: [
-      'Everything in Multi-Tenant Review',
-      'Prompt injection resilience testing',
-      'RAG authorization and cross-tenant retrieval',
-      'Tool/function authorization review',
-      'Agent privilege boundary testing',
-      'AI inventory and supply-chain review',
-      'AI security matrix in deliverables',
-      'Framework crosswalk with AI-specific controls',
-      'Retest after remediation',
-    ],
-    cta: 'Request Full Review',
-    badge: null,
-  },
-]
+const pricingAnchor = {
+  name: 'Focused SaaS Security Review',
+  price: 'from $950',
+  description: 'A focused review for a single application: authorization, API routes, membership, storage, and written findings. The right starting point for most SaaS and AI products.',
+  includes: [
+    'Architecture and authorization review',
+    'Priority API routes and membership review',
+    'Storage and file isolation review',
+    'Written findings and remediation priorities',
+    'Findings walkthrough call',
+  ],
+  cta: 'Request Scope Review',
+}
+
+const pricingScopeNote = 'Multi-tenant, AI/RAG, and broader application reviews are scoped based on architecture and review surface. Remediation and retest are scoped from findings. You will know the scope and price before the review begins.'
 
 const questionsAnswered = [
   { category: 'Tenant Boundaries', questions: [
@@ -739,68 +704,39 @@ export default function SaaSSecurityReviewPage() {
       {/* 10. PRICING */}
       <Section
         subtitle="Pricing"
-        title="Clear starting points, scoped to your architecture"
+        title="Clear starting point, scoped to your architecture"
         sectionNum="§09"
       >
-        <p style={{ fontSize: '0.88rem', color: 'var(--op-muted)', marginBottom: 24, fontStyle: 'italic' }}>
-          Final pricing depends on route count, tenant-owned resource types, storage systems, authentication complexity, AI feature scope, and whether a safe staging environment exists.
-        </p>
-        <div className="grid md:grid-cols-3 gap-6">
-          {pricingTiers.map((pkg, i) => (
-            <div
-              key={i}
-              style={{
-                padding: 28,
-                borderRadius: 16,
-                border: pkg.badge ? '2px solid var(--op-accent)' : '1px solid var(--op-border)',
-                background: 'var(--op-card)',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              {pkg.badge && (
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: -12,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    padding: '4px 14px',
-                    borderRadius: 999,
-                    background: 'var(--op-accent)',
-                    color: 'var(--bg)',
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  {pkg.badge}
-                </span>
-              )}
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--fg)', marginBottom: 8 }}>{pkg.name}</h3>
-              <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--op-accent)', marginBottom: 12 }}>{pkg.price}</p>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 20 }}>{pkg.description}</p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px 0', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
-                {pkg.includes.map((item, j) => (
-                  <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                    <CheckCircle2 style={{ width: 15, height: 15, color: 'var(--op-accent)', flexShrink: 0, marginTop: 2 }} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <a href="#request" data-track-click={`saas_security_pricing_${i}`}>
-                <Button style={{ width: '100%' }} variant={pkg.badge ? 'default' : 'outline'}>
-                  {pkg.cta}
-                </Button>
-              </a>
-            </div>
-          ))}
+        <div style={{ maxWidth: 560, margin: '0 auto' }}>
+          <div
+            style={{
+              padding: 32,
+              borderRadius: 16,
+              border: '2px solid var(--op-accent)',
+              background: 'var(--op-card)',
+            }}
+          >
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--fg)', marginBottom: 8 }}>{pricingAnchor.name}</h3>
+            <p style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--op-accent)', marginBottom: 16 }}>{pricingAnchor.price}</p>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 24 }}>{pricingAnchor.description}</p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {pricingAnchor.includes.map((item, j) => (
+                <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
+                  <CheckCircle2 style={{ width: 16, height: 16, color: 'var(--op-accent)', flexShrink: 0, marginTop: 2 }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <a href="#request" data-track-click="saas_security_pricing_cta">
+              <Button style={{ width: '100%' }}>
+                {pricingAnchor.cta}
+              </Button>
+            </a>
+          </div>
+          <p style={{ marginTop: 20, fontSize: '0.85rem', color: 'var(--op-muted)', lineHeight: 1.5, textAlign: 'center' }}>
+            {pricingScopeNote}
+          </p>
         </div>
-        <p style={{ marginTop: 24, fontSize: '0.85rem', color: 'var(--op-muted)' }}>
-          Focused reviews from $950. Multi-tenant and AI application reviews are scoped to the architecture.
-        </p>
       </Section>
 
       {/* 11. QUESTIONS ANSWERED */}

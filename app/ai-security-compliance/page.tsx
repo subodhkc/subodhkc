@@ -121,11 +121,49 @@ const process = [
   { step: '4', title: 'Evidence & Reporting', description: 'Full evidence package: test results, attack transcripts, control gap documentation, remediation roadmap, and compliance-aligned documentation for auditors.' },
 ]
 
+const faqItems = [
+  {
+    question: 'What is an AI security assessment?',
+    answer: 'An AI security assessment evaluates your AI systems, data flows, vendors, controls, and human oversight. It covers AI-specific attack surfaces like prompt injection, RAG poisoning, tool abuse, and tenant isolation. You receive prioritized findings, remediation guidance, and evidence-grade documentation.',
+  },
+  {
+    question: 'How is this different from a regular security audit?',
+    answer: 'Traditional security audits focus on network, infrastructure, and compliance checklists. This assessment focuses on AI-specific attack surfaces that traditional tools cannot see: prompt injection, RAG authorization, tool/function abuse, agent privilege boundaries, and AI supply-chain dependencies.',
+  },
+  {
+    question: 'Do you review AI vendor risk?',
+    answer: 'Yes. The assessment covers vendor data handling, model provider security, API credential protection, data residency, and contractual considerations. You receive a vendor risk summary with prioritized recommendations.',
+  },
+  {
+    question: 'Can you help with EU AI Act compliance?',
+    answer: 'Yes. The assessment maps your AI systems to EU AI Act risk classifications, transparency obligations, and conformity assessment evidence requirements. This produces documentation that supports your compliance process.',
+  },
+  {
+    question: 'Do you test AI hiring tools for bias?',
+    answer: 'Yes. The assessment covers AI-assisted hiring workflows including resume screening, job description analysis, and automated decision tools. This addresses NYC LL 144 bias audit requirements and similar regulations.',
+  },
+  {
+    question: 'What evidence do I receive?',
+    answer: 'You receive test results, attack transcripts, control gap documentation, remediation roadmap, and compliance-aligned documentation mapped to frameworks like EU AI Act, NIST AI RMF, ISO 42001, and SOC 2.',
+  },
+]
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+}
+
 export default function AISecurityCompliancePage() {
   return (
     <>
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       <Hero
         subtitle="AI Security & Compliance"
@@ -325,6 +363,25 @@ export default function AISecurityCompliancePage() {
               <Button variant="outline" size="sm">All Services <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
           </div>
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section
+        subtitle="FAQ"
+        title="Common questions about AI security assessment"
+        sectionNum="§07"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqItems.map((item, i) => (
+            <Card key={i}>
+              <CardHeader>
+                <CardTitle className="text-base">{item.question}</CardTitle>
+                <CardDescription className="text-sm mt-2">{item.answer}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
         </div>
       </Section>
 

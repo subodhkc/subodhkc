@@ -27,7 +27,6 @@ export const metadata = {
     'AI systems architect',
     'AI strategy advisor',
     'enterprise AI consulting',
-    'AI executive coaching',
     'Subodh KC',
   ],
   alternates: {
@@ -55,7 +54,7 @@ export default function AdvisoryPage() {
         'AI architecture review',
         'Vendor and tool evaluation',
         'Regulatory roadmap',
-        'Priority async access',
+        'Direct async access via agreed channels',
       ],
       engagement: 'Monthly retainer, 3-month minimum',
       ideal: 'Organizations deploying AI at scale that need experienced direct judgment, not email-based guidance',
@@ -123,7 +122,7 @@ export default function AdvisoryPage() {
       structure: 'Monthly retainer',
       commitment: '3-month minimum',
       includes: [
-        'Priority async access',
+        'Direct async access via agreed channels',
         '2 strategy sessions/month',
         'Document and framework review',
         'AI architecture decisions',
@@ -341,7 +340,7 @@ export default function AdvisoryPage() {
               <CardHeader>
                 <CardTitle className="text-xl">Enterprise Organizations</CardTitle>
                 <CardDescription>
-                  Fortune 500 and large enterprises deploying AI at scale, navigating regulatory
+                  Large enterprises deploying AI at scale, navigating regulatory
                   compliance, or building governance frameworks.
                 </CardDescription>
               </CardHeader>
@@ -359,7 +358,7 @@ export default function AdvisoryPage() {
               <CardHeader>
                 <CardTitle className="text-xl">Technical Leaders</CardTitle>
                 <CardDescription>
-                  CTOs, VPs of Engineering, and AI leaders seeking executive coaching on strategy,
+                  CTOs, VPs of Engineering, and AI leaders seeking experienced guidance on strategy,
                   governance, and organizational scaling.
                 </CardDescription>
               </CardHeader>
@@ -383,7 +382,7 @@ export default function AdvisoryPage() {
         <div className="max-w-md mx-auto">
           <LeadMagnetCard
             title="Free AI Governance & Compliance Framework Guide"
-            description="A practical guide to building AI governance frameworks that scale - covering the CSM Framework, risk classification, compliance workflows, and audit-ready documentation patterns."
+            description="A practical guide to building AI governance frameworks that scale - covering the CSM Framework, risk classification, compliance workflows, and evidence-ready documentation patterns."
             resourceName="AI Governance & Compliance Framework Guide"
           />
         </div>
