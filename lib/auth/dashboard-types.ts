@@ -65,6 +65,11 @@ const OFFERING_LABELS: Record<string, { label: string; description: string; kind
   ai_article_generator: { label: 'AI Article Generator', description: 'Create technical content', kind: 'tool' },
   kestrel: { label: 'KestrelVoice', description: 'Voice automation platform', kind: 'external_product' },
   six_stones_ai: { label: 'Six Stones AI', description: 'AI program management', kind: 'program' },
+  ai_advisor_desk: { label: 'AI Advisor Desk', description: 'Monthly AI advisory subscription', kind: 'service' },
+  ai_automation_blueprint: { label: 'AI Automation Blueprint', description: 'Fixed-scope automation analysis', kind: 'service' },
+  managed_voice: { label: 'Managed AI Voice', description: 'Managed voice deployment service', kind: 'service' },
+  ai_security_compliance: { label: 'AI Security & Compliance', description: 'AI security and compliance review', kind: 'service' },
+  saas_security_review: { label: 'SaaS & AI Security Review', description: 'Focused application security review', kind: 'service' },
 }
 
 export function getOfferingLabel(key: string): string {
@@ -127,6 +132,16 @@ export function getOfferingRoute(orgSlug: string, offeringKey: string): string |
       return null
     case 'six_stones_ai':
       return null
+    case 'ai_advisor_desk':
+      return `/app/${orgSlug}/advisor-desk`
+    case 'ai_automation_blueprint':
+      return `/app/${orgSlug}/blueprint`
+    case 'managed_voice':
+      return `/app/${orgSlug}/managed-voice`
+    case 'ai_security_compliance':
+      return `/app/${orgSlug}/security-review`
+    case 'saas_security_review':
+      return `/app/${orgSlug}/security-review`
     default:
       return null
   }

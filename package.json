@@ -34,6 +34,7 @@
     "react-dom": "^19.2.3",
     "react-pageflip": "^2.0.3",
     "resend": "^3.2.0",
+    "stripe": "^17.7.0",
     "tailwind-merge": "^2.2.0"
   },
   "devDependencies": {

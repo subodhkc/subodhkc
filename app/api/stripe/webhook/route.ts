@@ -1,0 +1,405 @@
+import { NextRequest, NextResponse } from 'next/server'
+import Stripe from 'stripe'
+import { getStripe, getStripeWebhookSecret } from '@/lib/stripe/client'
+import {
+  isEventProcessed,
+  markEventProcessed,
+  resolveOrCreateOrganization,
+  activateEntitlement,
+  deactivateEntitlement,
+  recordPayment,
+} from '@/lib/stripe/webhooks'
+import { getOfferByStripePriceId, getOffer, type OfferKey } from '@/lib/commercial/offers'
+import { createServiceClient } from '@/lib/supabase'
+
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
+export async function POST(req: NextRequest) {
+  const stripe = getStripe()
+  if (!stripe) {
+    return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 })
+  }
+
+  const webhookSecret = getStripeWebhookSecret()
+  if (!webhookSecret) {
+    return NextResponse.json({ error: 'Webhook secret not configured' }, { status: 500 })
+  }
+
+  // Get raw body for signature verification
+  const body = await req.text()
+  const signature = req.headers.get('stripe-signature')
+
+  if (!signature) {
+    return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
+  }
+
+  let event: Stripe.Event
+  try {
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+  } catch (err: any) {
+    console.error('Webhook signature verification failed:', err.message)
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+  }
+
+  // Idempotency check
+  const alreadyProcessed = await isEventProcessed(event.id)
+  if (alreadyProcessed) {
+    return NextResponse.json({ received: true, duplicate: true })
+  }
+
+  try {
+    switch (event.type) {
+      case 'checkout.session.completed':
+        await handleCheckoutCompleted(event)
+        break
+      case 'customer.subscription.updated':
+        await handleSubscriptionUpdated(event)
+        break
+      case 'customer.subscription.deleted':
+        await handleSubscriptionDeleted(event)
+        break
+      case 'invoice.payment_failed':
+        await handlePaymentFailed(event)
+        break
+      default:
+        // Unhandled event type - acknowledge but don't process
+        break
+    }
+
+    await markEventProcessed(event.id)
+    return NextResponse.json({ received: true })
+  } catch (err: any) {
+    console.error(`Webhook processing error for ${event.type} (${event.id}):`, err.message)
+    return NextResponse.json({ error: 'Processing failed' }, { status: 500 })
+  }
+}
+
+/**
+ * Handle checkout.session.completed - the primary entitlement activation event.
+ */
+async function handleCheckoutCompleted(event: Stripe.Event) {
+  const session = event.data.object as Stripe.Checkout.Session
+  const offerKey = session.metadata?.offer_key as OfferKey | undefined
+  if (!offerKey) {
+    console.error('No offer_key in session metadata', session.id)
+    return
+  }
+
+  const offer = getOffer(offerKey)
+  if (!offer) {
+    console.error('Unknown offer key:', offerKey)
+    return
+  }
+
+  const customerEmail = session.customer_details?.email
+  const customerName = session.customer_details?.name ?? undefined
+  const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id
+
+  if (!customerEmail || !customerId) {
+    console.error('Missing customer email or ID in session', session.id)
+    return
+  }
+
+  // Resolve or create organization
+  const orgResult = await resolveOrCreateOrganization({
+    customerEmail,
+    customerName,
+    customerId,
+  })
+
+  if ('error' in orgResult) {
+    console.error('Failed to resolve org:', orgResult.error)
+    return
+  }
+
+  const { orgId, orgSlug, created } = orgResult
+
+  // Record payment
+  const amountTotal = session.amount_total ?? 0
+  await recordPayment({
+    orgId,
+    offerKey,
+    stripePaymentIntentId: session.payment_intent as string ?? undefined,
+    amountCents: amountTotal,
+    currency: session.currency || 'usd',
+    status: session.payment_status === 'paid' ? 'succeeded' : 'pending',
+    type: offer.billingMode === 'subscription' ? 'subscription' : 'one_time',
+    metadata: { session_id: session.id, created_org: created },
+  })
+
+  // Activate entitlement
+  let validUntil: string | null = null
+  if (offer.billingMode === 'subscription') {
+    // For subscriptions, valid_until is null (managed by subscription lifecycle)
+    validUntil = null
+  } else {
+    // For one-time purchases, entitlement is permanent
+    validUntil = null
+  }
+
+  const entResult = await activateEntitlement({
+    orgId,
+    offerKey,
+    sourceType: offer.billingMode === 'subscription' ? 'subscription' : 'purchase',
+    validUntil,
+    metadata: { session_id: session.id, stripe_customer_id: customerId },
+  })
+
+  if ('error' in entResult) {
+    console.error('Failed to activate entitlement:', entResult.error)
+    return
+  }
+
+  // Store subscription ID if applicable
+  if (offer.billingMode === 'subscription' && session.subscription) {
+    const sc = createServiceClient()
+    if (sc) {
+      const subId = typeof session.subscription === 'string' ? session.subscription : session.subscription.id
+      await sc
+        .from('external_system_links')
+        .upsert(
+          {
+            organization_id: orgId,
+            system_key: 'stripe_subscription',
+            external_id: subId,
+            status: 'active',
+            metadata: { offer_key: offerKey },
+          },
+          { onConflict: 'organization_id,system_key' }
+        )
+    }
+  }
+
+  // Create engagement if the offer requires it
+  if (offer.createsEngagement && offer.engagementType) {
+    await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail)
+  }
+
+  // Write audit event
+  const sc = createServiceClient()
+  if (sc) {
+    await sc.rpc('write_audit_event', {
+      audit_action: 'commercial.purchase_completed',
+      audit_entity_type: 'payment',
+      audit_org_id: orgId,
+      audit_entity_id: session.id,
+      audit_metadata: {
+        offer_key: offerKey,
+        amount_cents: amountTotal,
+        currency: session.currency,
+        new_org: created,
+      } as any,
+    })
+  }
+}
+
+/**
+ * Handle subscription updates (plan changes, reactivation).
+ */
+async function handleSubscriptionUpdated(event: Stripe.Event) {
+  const subscription = event.data.object as Stripe.Subscription
+  const offerKey = subscription.metadata?.offer_key as OfferKey | undefined
+  if (!offerKey) return
+
+  const customerId = typeof subscription.customer === 'string' ? subscription.customer : subscription.customer.id
+  const sc = createServiceClient()
+  if (!sc) return
+
+  // Find org by Stripe customer ID
+  const { data: link } = await sc
+    .from('external_system_links')
+    .select('organization_id')
+    .eq('system_key', 'stripe_customer')
+    .eq('external_id', customerId)
+    .eq('status', 'active')
+    .single()
+
+  if (!link) return
+
+  const orgId = link.organization_id
+
+  if (subscription.status === 'active' || subscription.status === 'trialing') {
+    await activateEntitlement({
+      orgId,
+      offerKey,
+      sourceType: 'subscription',
+      metadata: { subscription_id: subscription.id, status: subscription.status },
+    })
+  } else if (subscription.status === 'past_due' || subscription.status === 'unpaid') {
+    // Don't deactivate immediately - Stripe will retry
+    await sc.rpc('write_audit_event', {
+      audit_action: 'commercial.subscription_past_due',
+      audit_entity_type: 'subscription',
+      audit_org_id: orgId,
+      audit_entity_id: subscription.id,
+      audit_metadata: { status: subscription.status } as any,
+    })
+  }
+
+  // Update subscription link
+  await sc
+    .from('external_system_links')
+    .upsert(
+      {
+        organization_id: orgId,
+        system_key: 'stripe_subscription',
+        external_id: subscription.id,
+        status: subscription.status === 'canceled' ? 'inactive' : 'active',
+        metadata: { offer_key: offerKey, status: subscription.status },
+      },
+      { onConflict: 'organization_id,system_key' }
+    )
+}
+
+/**
+ * Handle subscription cancellation - deactivate entitlement at period end.
+ */
+async function handleSubscriptionDeleted(event: Stripe.Event) {
+  const subscription = event.data.object as Stripe.Subscription
+  const offerKey = subscription.metadata?.offer_key as OfferKey | undefined
+  if (!offerKey) return
+
+  const customerId = typeof subscription.customer === 'string' ? subscription.customer : subscription.customer.id
+  const sc = createServiceClient()
+  if (!sc) return
+
+  const { data: link } = await sc
+    .from('external_system_links')
+    .select('organization_id')
+    .eq('system_key', 'stripe_customer')
+    .eq('external_id', customerId)
+    .eq('status', 'active')
+    .single()
+
+  if (!link) return
+
+  const orgId = link.organization_id
+
+  // Deactivate entitlement - valid_until = current period end
+  const validUntil = subscription.current_period_end
+    ? new Date(subscription.current_period_end * 1000).toISOString()
+    : new Date().toISOString()
+
+  await deactivateEntitlement({
+    orgId,
+    offerKey,
+    reason: 'subscription_cancelled',
+    validUntil,
+  })
+
+  // Update subscription link status
+  await sc
+    .from('external_system_links')
+    .update({ status: 'inactive' })
+    .eq('organization_id', orgId)
+    .eq('system_key', 'stripe_subscription')
+
+  // Audit event
+  await sc.rpc('write_audit_event', {
+    audit_action: 'commercial.subscription_cancelled',
+    audit_entity_type: 'subscription',
+    audit_org_id: orgId,
+    audit_entity_id: subscription.id,
+    audit_metadata: { valid_until: validUntil } as any,
+  })
+}
+
+/**
+ * Handle failed invoice payment.
+ */
+async function handlePaymentFailed(event: Stripe.Event) {
+  const invoice = event.data.object as Stripe.Invoice
+  const sc = createServiceClient()
+  if (!sc) return
+
+  // Find org by customer ID
+  const customerId = typeof invoice.customer === 'string' ? invoice.customer : invoice.customer?.id
+  if (!customerId) return
+  const { data: link } = await sc
+    .from('external_system_links')
+    .select('organization_id')
+    .eq('system_key', 'stripe_customer')
+    .eq('external_id', customerId)
+    .eq('status', 'active')
+    .single()
+
+  if (!link) return
+
+  await sc.rpc('write_audit_event', {
+    audit_action: 'commercial.payment_failed',
+    audit_entity_type: 'invoice',
+    audit_org_id: link.organization_id,
+    audit_entity_id: invoice.id,
+    audit_metadata: { attempt_count: invoice.attempt_count } as any,
+  })
+}
+
+/**
+ * Create an engagement for offers that require it (Blueprint, Security Review, etc.)
+ */
+async function createEngagementForOffer(
+  orgId: string,
+  offerKey: OfferKey,
+  engagementType: string,
+  customerEmail: string
+): Promise<void> {
+  const sc = createServiceClient()
+  if (!sc) return
+
+  const offer = getOffer(offerKey)
+  if (!offer) return
+
+  // Check if engagement already exists for this org + offer
+  const { data: existing } = await sc
+    .from('engagement_offerings')
+    .select('engagement_id')
+    .eq('organization_id', orgId)
+    .limit(1)
+
+  // Get offering ID
+  const { data: offering } = await sc
+    .from('offerings')
+    .select('id')
+    .eq('offering_key', offerKey)
+    .single()
+
+  if (!offering) return
+
+  // Create engagement
+  const { data: eng, error: engError } = await sc
+    .from('engagements')
+    .insert({
+      organization_id: orgId,
+      engagement_type: engagementType,
+      status: 'active',
+      title: offer.displayName,
+      current_phase: 'discovery',
+      health_status: 'on_track',
+    })
+    .select('id')
+    .single()
+
+  if (engError || !eng) {
+    console.error('Failed to create engagement:', engError?.message)
+    return
+  }
+
+  // Link engagement to offering
+  await sc
+    .from('engagement_offerings')
+    .insert({
+      engagement_id: eng.id,
+      organization_id: orgId,
+      offering_id: offering.id,
+    })
+
+  // Audit event
+  await sc.rpc('write_audit_event', {
+    audit_action: 'engagement.created',
+    audit_entity_type: 'engagement',
+    audit_org_id: orgId,
+    audit_entity_id: eng.id,
+    audit_metadata: { offer_key: offerKey, title: offer.displayName } as any,
+  })
+}

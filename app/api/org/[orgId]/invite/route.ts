@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser, resolveOrganizationContext, AuthError } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { sendInvitationEmail } from '@/lib/email'
+import { checkTeamSeatAvailable } from '@/lib/commercial/seat-limits'
 import crypto from 'crypto'
 
 export const runtime = 'nodejs'
@@ -48,6 +49,17 @@ export async function POST(
 
   const serviceClient = createServiceClient()
   if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
+
+  // Check team seat limit
+  const seatCheck = await checkTeamSeatAvailable(orgId)
+  if (!seatCheck.available && !ctx.isPlatformAdmin) {
+    return NextResponse.json({
+      error: 'team_seat_limit_reached',
+      message: `Your ${seatCheck.offerKey} subscription allows ${seatCheck.limit} team members. You currently have ${seatCheck.currentSeats}. Upgrade or remove a member to invite more.`,
+      currentSeats: seatCheck.currentSeats,
+      limit: seatCheck.limit,
+    }, { status: 402 })
+  }
 
   // Generate secure token
   const token = crypto.randomBytes(32).toString('hex')
