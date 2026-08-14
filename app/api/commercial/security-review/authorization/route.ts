@@ -48,9 +48,11 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 
   const body = await req.json()
-  const { orgSlug, inScopeSystems, outOfScopeSystems, approvedMethods, detailedRules, authorizedAt } = body
+  const { orgSlug, engagementId, scopeDescription, inScopeSystems, outOfScopeSystems, testingMethods, detailedRules, authorizedAt } = body
 
   if (!orgSlug) return NextResponse.json({ error: 'orgSlug required' }, { status: 400 })
+  if (!engagementId) return NextResponse.json({ error: 'engagementId required' }, { status: 400 })
+  if (!scopeDescription) return NextResponse.json({ error: 'scopeDescription required' }, { status: 400 })
 
   let ctx
   try {
@@ -79,13 +81,15 @@ export async function POST(req: NextRequest) {
     .from('security_review_authorizations')
     .insert({
       organization_id: ctx.organization.id,
+      engagement_id: engagementId,
+      scope_description: scopeDescription,
       in_scope_systems: inScopeSystems || [],
       out_of_scope_systems: outOfScopeSystems || [],
-      approved_methods: approvedMethods || [],
+      testing_methods: testingMethods || [],
       detailed_rules: detailedRules || null,
       authorized_at: authorizedAt || new Date().toISOString(),
       authorized_by: user.id,
-      status: 'active',
+      status: 'authorized',
     })
     .select('*')
     .single()
@@ -99,7 +103,7 @@ export async function POST(req: NextRequest) {
     audit_org_id: ctx.organization.id,
     audit_actor_id: user.id,
     audit_entity_id: data.id,
-    audit_metadata: { in_scope_count: inScopeSystems?.length || 0 } as any,
+    audit_metadata: { in_scope_count: inScopeSystems?.length || 0, engagement_id: engagementId } as any,
   })
 
   return NextResponse.json({ authorization: data })

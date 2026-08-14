@@ -391,10 +391,10 @@ async function handlePaymentFailed(event: Stripe.Event) {
       .eq('id', link.organization_id)
       .single()
 
-    if (org?.slug) {
+    if (org?.slug && invoice.customer_email) {
       const { sendSubscriptionIssueEmail } = await import('@/lib/email')
       await sendSubscriptionIssueEmail({
-        to: invoice.customer_email || '',
+        to: invoice.customer_email,
         orgSlug: org.slug,
         issue: `Payment attempt ${invoice.attempt_count} failed. Stripe will retry automatically.`,
       })

@@ -88,8 +88,8 @@ export async function GET(req: NextRequest) {
       coverage: coverage || [],
       coverageStats,
       remediationStats,
-      overallStatus: reviewRecord?.status || 'in_progress',
-      completedAt: reviewRecord?.completed_at || null,
+      overallStatus: reviewRecord?.status || 'draft',
+      completedAt: reviewRecord?.completed_at || reviewRecord?.published_at || null,
     },
   })
 }

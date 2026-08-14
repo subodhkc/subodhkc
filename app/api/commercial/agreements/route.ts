@@ -33,10 +33,7 @@ export async function GET(req: NextRequest) {
 
   let query = sc
     .from('agreements')
-    .select(`
-      *,
-      agreement_templates!inner(template_key, name, body_markdown, version)
-    `)
+    .select('*')
     .eq('organization_id', ctx.organization.id)
 
   if (offerKey) {
@@ -99,13 +96,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'template_not_found' }, { status: 404 })
     }
 
-    // Check if an active agreement already exists for this template
+    // Check if a pending or accepted agreement already exists for this template
     const { data: existing } = await sc
       .from('agreements')
       .select('id, status')
       .eq('organization_id', ctx.organization.id)
       .eq('template_key', templateKey)
-      .eq('status', 'active')
+      .in('status', ['pending', 'accepted'])
       .limit(1)
 
     if (existing && existing.length > 0) {

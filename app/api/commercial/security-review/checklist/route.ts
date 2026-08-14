@@ -47,21 +47,25 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 
   const body = await req.json()
-  const { orgSlug, items } = body as {
+  const { orgSlug, engagementId, items } = body as {
     orgSlug: string
+    engagementId: string
     items: Array<{
       id?: string
-      item_key: string
-      item_label: string
+      item_key?: string
+      item_label?: string
+      checklist_item?: string
+      item_type?: string
       description?: string
       status?: string
       evidence_reference?: string
       notes?: string
+      display_order?: number
     }>
   }
 
-  if (!orgSlug || !items || !Array.isArray(items)) {
-    return NextResponse.json({ error: 'orgSlug and items array required' }, { status: 400 })
+  if (!orgSlug || !engagementId || !items || !Array.isArray(items)) {
+    return NextResponse.json({ error: 'orgSlug, engagementId, and items array required' }, { status: 400 })
   }
 
   let ctx
@@ -111,10 +115,14 @@ export async function POST(req: NextRequest) {
         .from('security_access_checklists')
         .insert({
           organization_id: ctx.organization.id,
-          item_key: item.item_key,
-          item_label: item.item_label,
+          engagement_id: engagementId,
+          item_key: item.item_key || null,
+          item_label: item.item_label || null,
+          checklist_item: item.checklist_item || item.item_label || item.item_key || 'Untitled',
+          item_type: item.item_type || null,
           description: item.description || null,
           status: item.status || 'pending',
+          display_order: item.display_order || 0,
         })
         .select('*')
         .single()
