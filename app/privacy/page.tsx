@@ -9,7 +9,7 @@ const privacySchema = {
   description: 'GDPR and CCPA compliant privacy policy for subodhkc.com covering data collection, use, storage, and user rights.',
   url: 'https://subodhkc.com/privacy',
   datePublished: '2026-07-01',
-  dateModified: '2026-07-29',
+  dateModified: '2026-08-10',
   publisher: {
     '@type': 'Person',
     name: 'Subodh KC',
@@ -63,6 +63,14 @@ const faqSchema = {
         '@type': 'Answer',
         text: 'We use sessionStorage to generate anonymous session IDs for analytics, which is cleared when you close your browser. We do not use third-party tracking cookies, advertising cookies, or social media pixels.'
       }
+    },
+    {
+      '@type': 'Question',
+      name: 'How do you process payments?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Payments are processed by Stripe. We store your Stripe customer ID and subscription ID to manage your account, but we never store your full card number, CVV, or banking details. You can manage your billing through the Stripe Customer Portal.'
+      }
     }
   ]
 }
@@ -113,7 +121,7 @@ export default function PrivacyPage() {
 
       <Hero
         title="Privacy Policy"
-        subtitle="Last updated: July 2026"
+        subtitle="Last updated: August 2026"
       />
 
       <Section>
@@ -133,6 +141,7 @@ export default function PrivacyPage() {
                 <a href="#retention" className="text-primary hover:underline">6. Data Retention</a>
                 <a href="#children" className="text-primary hover:underline">7. Children&apos;s Privacy</a>
                 <a href="#changes" className="text-primary hover:underline">8. Changes to Policy</a>
+                <a href="#payments" className="text-primary hover:underline">9. Payment Processing</a>
                 <a href="#legal-basis" className="text-primary hover:underline">10. Legal Basis</a>
                 <a href="#international" className="text-primary hover:underline">11. International Transfers</a>
                 <a href="#breach" className="text-primary hover:underline">12. Breach Notification</a>
@@ -160,6 +169,7 @@ export default function PrivacyPage() {
               <p><strong className="text-foreground">Newsletter:</strong> When you subscribe, we store your email address with our email provider (Resend) to deliver newsletter content.</p>
               <p><strong className="text-foreground">Product Downloads &amp; Waitlists:</strong> When you request a product download (e.g., Print Later, PDF Redactor) or join a waitlist (e.g., CourtCase, SKC Log Analyser), we collect your email address to deliver the download link or notify you when the product is available. For enterprise pricing requests (e.g., Doc Timeline Generator), we also collect your name, company, use case, and expected volume.</p>
               <p><strong className="text-foreground">Webinar &amp; Course Registration:</strong> When you register for a webinar or course, we collect your name, email, and any questions you submit.</p>
+              <p><strong className="text-foreground">Commercial Services (AI Advisor Desk, AI Automation Blueprint, Security Reviews):</strong> When you purchase a subscription or service, we collect your name, email, company name, and payment metadata. Payment details are processed by Stripe and we never store your full card number or banking details. For security reviews, we collect scope information including product name, tech stack, application type, and staging access details. For the AI Automation Blueprint, we collect qualification responses about your business objective, workflow problem, and systems involved.</p>
               <p><strong className="text-foreground">School Pickup Operations:</strong> For organizations using the School Pickup application, we store school site information, staff assignments, student records (name, grade, classroom, dismissal group), pickup credentials (QR codes), dismissal session data, and queue events. Student data is entered by authorized school staff. We do not collect student data directly from students or parents at this time.</p>
               <p><strong className="text-foreground">Calendly Scheduling:</strong> The contact page includes a Calendly embed for scheduling consultations. Calendly may set its own cookies when you interact with the scheduling widget. See <a href="https://calendly.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Calendly&apos;s privacy policy</a> for details.</p>
             </CardContent>
@@ -178,6 +188,9 @@ export default function PrivacyPage() {
               <ul className="list-disc list-inside space-y-1 ml-2">
                 <li>Respond to your contact form submissions</li>
                 <li>Deliver newsletter emails you have opted into</li>
+                <li>Provide commercial services you have purchased (advisor questions, blueprint deliverables, security review reports)</li>
+                <li>Process subscription payments and manage billing through Stripe</li>
+                <li>Send service notifications (welcome emails, advisor responses, deliverable published notices)</li>
                 <li>Analyze website traffic in aggregate (no individual tracking)</li>
                 <li>Improve our content and user experience</li>
               </ul>
@@ -193,8 +206,9 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p><strong className="text-foreground">Email Service:</strong> We use Resend (resend.com) for email delivery and contact management. Resend is GDPR-compliant and SOC 2 Type II certified.</p>
-              <p><strong className="text-foreground">Analytics:</strong> Analytics data is stored in Supabase (supabase.com) with row-level security. IP addresses are hashed and cannot be reversed.</p>
+              <p><strong className="text-foreground">Analytics &amp; Application Data:</strong> Analytics data, commercial service data (subscriptions, advisor questions, security review findings), and user account information are stored in Supabase (supabase.com) with row-level security policies. IP addresses are hashed and cannot be reversed.</p>
               <p><strong className="text-foreground">Hosting:</strong> This website is hosted on Vercel (vercel.com) with HTTPS encryption.</p>
+              <p><strong className="text-foreground">Payment Processing:</strong> Payment details are processed by Stripe (stripe.com). We store your Stripe customer ID and subscription ID to manage your account, but we never store your full card number, CVV, or banking details. See <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Stripe&apos;s privacy policy</a> for details.</p>
             </CardContent>
           </Card>
 
@@ -236,6 +250,7 @@ export default function PrivacyPage() {
               <p><strong className="text-foreground">Analytics Data:</strong> Retained for up to 90 days, after which it is automatically purged.</p>
               <p><strong className="text-foreground">Email &amp; Newsletter Data:</strong> Retained until you unsubscribe or request deletion. Product download and waitlist emails are retained for the duration of the product&apos;s lifecycle or until you request removal.</p>
               <p><strong className="text-foreground">Contact Form Submissions:</strong> Retained for up to 12 months to respond to inquiries and for record-keeping.</p>
+              <p><strong className="text-foreground">Commercial Service Data:</strong> Subscription records, advisor questions, security review findings, and engagement data are retained for the duration of your active subscription plus 12 months after cancellation for audit and dispute resolution. Blueprint qualification responses are retained for the lifecycle of the engagement.</p>
             </CardContent>
           </Card>
 
@@ -263,6 +278,21 @@ export default function PrivacyPage() {
             </CardContent>
           </Card>
 
+          <Card id="payments">
+            <CardHeader>
+              <CardTitle>9. Payment Processing</CardTitle>
+              <CardDescription>
+                We use Stripe to process subscription and one-time payments securely.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>When you purchase a subscription or one-time service, payment is processed by Stripe. We receive your Stripe customer ID, subscription ID, and billing period information to manage your entitlements. We do not store your full payment card details, CVV, or bank account numbers.</p>
+              <p><strong className="text-foreground">Subscription Data:</strong> For recurring subscriptions (AI Advisor Desk), we store your subscription status, billing period boundaries, and cancellation status to enforce usage allowances and manage your account.</p>
+              <p><strong className="text-foreground">One-Time Purchases:</strong> For one-time purchases (AI Automation Blueprint, Security Reviews), we store the transaction ID and purchase status to grant permanent access to the purchased service.</p>
+              <p><strong className="text-foreground">Billing Management:</strong> You can manage your billing information, update payment methods, and cancel subscriptions through the Stripe Customer Portal linked in your workspace.</p>
+            </CardContent>
+          </Card>
+
           <Card id="legal-basis">
             <CardHeader>
               <CardTitle>10. Legal Basis for Processing</CardTitle>
@@ -287,8 +317,9 @@ export default function PrivacyPage() {
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>We use third-party service providers that may store and process your data in the United States and other countries. These providers include:</p>
               <ul className="list-disc list-inside space-y-1 ml-2">
+                <li><strong>Stripe</strong> - Payment processing (United States)</li>
                 <li><strong>Resend</strong> - Email delivery (United States)</li>
-                <li><strong>Supabase</strong> - Analytics storage (United States)</li>
+                <li><strong>Supabase</strong> - Analytics and application data storage (United States)</li>
                 <li><strong>Vercel</strong> - Website hosting (United States)</li>
                 <li><strong>Calendly</strong> - Scheduling widget (United States)</li>
               </ul>
@@ -373,8 +404,9 @@ export default function PrivacyPage() {
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>We do not sell your personal information to third parties. We only share data with the following service providers as necessary to operate our website and deliver services:</p>
               <ul className="list-disc list-inside space-y-1 ml-2">
+                <li><strong>Stripe</strong> - Payment processing and subscription billing</li>
                 <li><strong>Resend</strong> - Email delivery and newsletter management</li>
-                <li><strong>Supabase</strong> - Analytics data storage</li>
+                <li><strong>Supabase</strong> - Analytics data, application data, and user account storage</li>
                 <li><strong>Vercel</strong> - Website hosting and infrastructure</li>
                 <li><strong>Calendly</strong> - Appointment scheduling (only when you interact with the widget)</li>
               </ul>
@@ -398,37 +430,6 @@ export default function PrivacyPage() {
           </Card>
         </div>
 
-        <div className="max-w-3xl mx-auto mt-12 flex flex-wrap items-center justify-center gap-4">
-          <span className="text-xs uppercase tracking-wider text-muted-foreground mr-2">Listed on</span>
-          <a
-            href="https://startupbase.io/products/ai-advisor-subodh-kc?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-dark"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://statics.startupbase.io/site/badges/featured-on-sb-dark.svg"
-              alt="Featured on StartupBase"
-              style={{ height: 32, width: "auto" }}
-            />
-          </a>
-          <a
-            href="https://postyourstartup.co/startup/subodh-kc?ref=badge"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://postyourstartup.co/api/badge/subodh-kc?theme=dark"
-              alt="Featured on PostYourStartup"
-              width={212}
-              height={55}
-              style={{ height: 55, width: "auto" }}
-            />
-          </a>
-        </div>
       </Section>
     </>
   )

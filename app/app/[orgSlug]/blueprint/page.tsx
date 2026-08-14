@@ -130,12 +130,28 @@ export default async function BlueprintPage({
   }
   const stage = phaseMap[engagement.current_phase] || 'Intake'
 
+  // Fetch engagement artifacts (deliverables)
+  const { data: artifacts } = await sc
+    .from('engagement_artifacts')
+    .select('id, artifact_type, title, description, file_url, status, published_at, created_at')
+    .eq('engagement_id', engagement.id)
+    .order('created_at', { ascending: false })
+
+  // Fetch engagement milestones
+  const { data: milestones } = await sc
+    .from('engagement_milestones')
+    .select('id, title, description, status, due_date, completed_at')
+    .eq('engagement_id', engagement.id)
+    .order('created_at', { ascending: true })
+
   return (
     <BlueprintWorkspaceClient
       user={user}
       ctx={ctx}
       engagement={engagement}
       stage={stage}
+      artifacts={artifacts || []}
+      milestones={milestones || []}
     />
   )
 }

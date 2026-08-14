@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
+import { createServiceClient } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -53,6 +54,31 @@ export async function POST(request: NextRequest) {
         { success: false, error: 'Invalid email format' },
         { status: 400 }
       )
+    }
+
+    // Persist to database
+    const sc = createServiceClient()
+    if (sc) {
+      await sc
+        .from('security_scope_requests')
+        .insert({
+          name,
+          email,
+          company,
+          website: website || null,
+          product_name: company,
+          application_type: stage,
+          tech_stack: stack,
+          multi_tenant: tenantModel === 'multi-tenant',
+          role_count: routeCount ? parseInt(routeCount) || null : null,
+          ai_rag_agent: primaryConcern?.toLowerCase().includes('ai') || false,
+          main_reason: primaryConcern || null,
+          target_timing: desiredEngagement,
+          source_code_access: null,
+          staging_available: stagingAvailable === 'yes' || stagingAvailable === 'true',
+          status: 'submitted',
+          metadata: { message, route_count: routeCount, tenant_model: tenantModel },
+        })
     }
 
     const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')

@@ -6,7 +6,8 @@ import {
   type OrganizationContext,
 } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
-import { getOffer, getCurrentBillingPeriodKey } from '@/lib/commercial/offers'
+import { getOffer } from '@/lib/commercial/offers'
+import { getAdvisorBillingPeriod } from '@/lib/commercial/billing-period'
 import { AdvisorDeskWorkspaceClient } from '@/components/app/AdvisorDeskWorkspaceClient'
 
 export const dynamic = 'force-dynamic'
@@ -80,7 +81,7 @@ export default async function AdvisorDeskPage({
     )
   }
 
-  const currentPeriod = getCurrentBillingPeriodKey()
+  const { periodKey: currentPeriod } = await getAdvisorBillingPeriod(ctx.organization.id)
 
   // Fetch advisor questions
   const { data: questions } = await sc

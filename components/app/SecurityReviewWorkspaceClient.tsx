@@ -71,6 +71,15 @@ interface ReviewRecord {
   informational_count: number
 }
 
+interface CoverageArea {
+  id: string
+  area_key: string
+  area_label: string
+  status: string
+  notes: string | null
+  display_order: number
+}
+
 interface SecurityReviewWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
@@ -88,6 +97,7 @@ interface SecurityReviewWorkspaceClientProps {
   findings: Finding[]
   checklist: ChecklistItem[]
   reviewRecords: ReviewRecord[]
+  coverageAreas?: CoverageArea[]
 }
 
 const severityColors: Record<string, string> = {
@@ -132,7 +142,27 @@ const checklistStatusColors: Record<string, string> = {
   blocked: 'bg-red-500/10 text-red-600 border-red-500/20',
 }
 
-const coverageAreas = [
+const coverageStatusLabels: Record<string, string> = {
+  pending: 'Pending',
+  reviewed: 'Reviewed',
+  verified: 'Verified',
+  improvement_identified: 'Improvement Identified',
+  needs_evidence: 'Needs Additional Evidence',
+  not_applicable: 'Not Applicable',
+  out_of_scope: 'Outside Current Scope',
+}
+
+const coverageStatusColors: Record<string, string> = {
+  pending: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
+  reviewed: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
+  verified: 'bg-green-500/10 text-green-600 border-green-500/20',
+  improvement_identified: 'bg-orange-500/10 text-orange-600 border-orange-500/20',
+  needs_evidence: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
+  not_applicable: 'bg-muted text-muted-foreground border-border',
+  out_of_scope: 'bg-muted text-muted-foreground border-border',
+}
+
+const defaultCoverageAreas = [
   { label: 'Authentication', key: 'auth' },
   { label: 'Authorization', key: 'authz' },
   { label: 'Tenant Isolation', key: 'tenant' },
@@ -144,15 +174,6 @@ const coverageAreas = [
   { label: 'AI Tool Permissions', key: 'ai_tools' },
   { label: 'Data Handling', key: 'data' },
   { label: 'Evidence / Logging', key: 'evidence' },
-]
-
-const coverageStatuses = [
-  'Reviewed',
-  'Verified',
-  'Improvement Identified',
-  'Needs Additional Evidence',
-  'Not Applicable',
-  'Outside Current Scope',
 ]
 
 const tenantBoundaries = [
@@ -187,6 +208,7 @@ export function SecurityReviewWorkspaceClient({
   findings,
   checklist,
   reviewRecords,
+  coverageAreas: coverageAreasProp,
 }: SecurityReviewWorkspaceClientProps) {
   const { organization } = ctx
   const basePath = `/app/${organization.slug}`
@@ -394,10 +416,20 @@ export function SecurityReviewWorkspaceClient({
           </h2>
           <div className="border rounded-lg p-5 bg-card">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {coverageAreas.map(area => (
+              {(coverageAreasProp && coverageAreasProp.length > 0
+                ? coverageAreasProp.map(a => ({ key: a.area_key, label: a.area_label, status: a.status, notes: a.notes }))
+                : defaultCoverageAreas.map(a => ({ ...a, status: 'pending', notes: null }))
+              ).map(area => (
                 <div key={area.key} className="flex items-center justify-between border rounded-lg p-3">
-                  <span className="text-sm font-medium">{area.label}</span>
-                  <span className="text-xs text-muted-foreground">Pending</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="text-sm font-medium">{area.label}</span>
+                    {area.notes && (
+                      <p className="text-xs text-muted-foreground mt-0.5">{area.notes}</p>
+                    )}
+                  </div>
+                  <span className={`text-xs px-2 py-0.5 rounded border flex-shrink-0 ${coverageStatusColors[area.status || 'pending'] || coverageStatusColors.pending}`}>
+                    {coverageStatusLabels[area.status || 'pending'] || area.status || 'Pending'}
+                  </span>
                 </div>
               ))}
             </div>

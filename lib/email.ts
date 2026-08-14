@@ -234,3 +234,407 @@ export async function sendRemovalEmail(opts: {
   if (error) return { success: false, error: error.message }
   return { success: true }
 }
+
+/**
+ * Send a welcome email after AI Advisor Desk subscription activation.
+ */
+export async function sendAdvisorWelcomeEmail(opts: {
+  to: string
+  customerName?: string
+  orgSlug: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, orgSlug } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/advisor-desk`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: 'Welcome to AI Advisor Desk',
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Welcome to AI Advisor Desk</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Your subscription is active</p>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Your AI Advisor Desk subscription is now active. You can submit your first advisor-reviewed question, review AI risk areas, and invite up to 3 team members.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                Go to Your Advisor Desk
+              </a>
+            </div>
+            <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
+              You get one advisor-reviewed question per billing period. Your team has up to 3 seats. Billing is managed through Stripe.
+            </p>
+          </div>
+          <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+            <p>SubodhKC — Practical AI guidance for small business</p>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Notify advisor (Subodh) when a new question is submitted.
+ */
+export async function sendAdvisorQuestionNotification(opts: {
+  to: string
+  customerOrg: string
+  customerName?: string
+  subject: string
+  question: string
+  questionId: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerOrg, customerName, subject, question, questionId } = opts
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: `New Advisor Question: ${subject}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>New Advisor Question</h2>
+          <p><strong>From:</strong> ${customerName || customerOrg}</p>
+          <p><strong>Organization:</strong> ${customerOrg}</p>
+          <p><strong>Subject:</strong> ${subject}</p>
+          <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 0; white-space: pre-wrap;">${question}</p>
+          </div>
+          <p style="font-size: 14px; color: #6b7280;">Question ID: ${questionId}</p>
+          <p>Review and respond in the Advisor Console.</p>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Notify customer when advisor responds to their question.
+ */
+export async function sendAdvisorResponseEmail(opts: {
+  to: string
+  customerName?: string
+  subject: string
+  response: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, subject, response } = opts
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: `Advisor Response: ${subject}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Your Advisor Has Responded</h1>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 10px;">
+              <strong>Question:</strong> ${subject}
+            </p>
+            <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <p style="margin: 0; white-space: pre-wrap; font-size: 15px;">${response}</p>
+            </div>
+            <p style="font-size: 14px; color: #6b7280;">
+              You can view the full response in your AI Advisor Desk workspace.
+            </p>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Send Blueprint purchased notification.
+ */
+export async function sendBlueprintPurchasedEmail(opts: {
+  to: string
+  customerName?: string
+  orgSlug: string
+  businessObjective: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, orgSlug, businessObjective } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/blueprint`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: 'Your AI Automation Blueprint is Starting',
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Blueprint Intake Started</h1>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Your AI Automation Blueprint is underway. We are analyzing your workflow and will deliver your recommendation shortly.
+            </p>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 10px;">
+              <strong>Objective:</strong> ${businessObjective}
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                View Your Blueprint
+              </a>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Send security review activated notification.
+ */
+export async function sendSecurityReviewActivatedEmail(opts: {
+  to: string
+  customerName?: string
+  orgSlug: string
+  scopeSummary: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, orgSlug, scopeSummary } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/security-review`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: 'Your Security Review is Active',
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Security Review Activated</h1>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Your security review is now active. Please complete the access checklist so we can begin the review.
+            </p>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 10px;">
+              <strong>Scope:</strong> ${scopeSummary}
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                Go to Security Review
+              </a>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Send deliverable published notification.
+ */
+export async function sendDeliverablePublishedEmail(opts: {
+  to: string
+  customerName?: string
+  orgSlug: string
+  workspacePath: string
+  deliverableTitle: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, orgSlug, workspacePath, deliverableTitle } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/${workspacePath}`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: `Deliverable Published: ${deliverableTitle}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Deliverable Published</h1>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              <strong>${deliverableTitle}</strong> is now available in your workspace.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                View Deliverable
+              </a>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Send retest completed notification.
+ */
+export async function sendRetestCompletedEmail(opts: {
+  to: string
+  customerName?: string
+  orgSlug: string
+  findingTitle: string
+  result: 'verified' | 'additional_work_recommended'
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, orgSlug, findingTitle, result } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/security-review`
+  const resultText = result === 'verified' ? 'Retest Verified' : 'Additional Work Recommended'
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: `Retest Result: ${findingTitle}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, ${result === 'verified' ? '#16a34a' : '#d97706'} 0%, ${result === 'verified' ? '#15803d' : '#b45309'} 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">${resultText}</h1>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              The retest for <strong>${findingTitle}</strong> is complete. Result: <strong>${resultText}</strong>.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                View in Security Review
+              </a>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Send subscription issue notification (payment failed, etc).
+ */
+export async function sendSubscriptionIssueEmail(opts: {
+  to: string
+  customerName?: string
+  orgSlug: string
+  issue: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, orgSlug, issue } = opts
+  const portalUrl = `${siteUrl}/app/${orgSlug}/advisor-desk`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: 'Subscription Action Needed',
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Action Needed</h1>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              There is an issue with your AI Advisor Desk subscription: ${issue}
+            </p>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">
+              Please update your payment method to avoid service interruption.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${portalUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                Manage Billing
+              </a>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}

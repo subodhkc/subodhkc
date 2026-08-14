@@ -34,11 +34,33 @@ interface BlueprintEngagement {
   completed_reason: string | null
 }
 
+interface BlueprintArtifact {
+  id: string
+  artifact_type: string
+  title: string
+  description: string | null
+  file_url: string | null
+  status: string
+  published_at: string | null
+  created_at: string
+}
+
+interface BlueprintMilestone {
+  id: string
+  title: string
+  description: string | null
+  status: string
+  due_date: string | null
+  completed_at: string | null
+}
+
 interface BlueprintWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
   engagement: BlueprintEngagement
   stage: string
+  artifacts?: BlueprintArtifact[]
+  milestones?: BlueprintMilestone[]
 }
 
 const stages = ['Intake', 'Workflow Analysis', 'Recommendation', 'Delivered']
@@ -55,6 +77,8 @@ export function BlueprintWorkspaceClient({
   ctx,
   engagement,
   stage,
+  artifacts = [],
+  milestones = [],
 }: BlueprintWorkspaceClientProps) {
   const { organization } = ctx
   const basePath = `/app/${organization.slug}`
@@ -254,6 +278,40 @@ export function BlueprintWorkspaceClient({
           </section>
         )}
 
+        {/* Milestones */}
+        {milestones.length > 0 && (
+          <section>
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
+              Milestones
+            </h2>
+            <div className="border rounded-lg p-5 bg-card space-y-3">
+              {milestones.map(m => (
+                <div key={m.id} className="flex items-start gap-3">
+                  {m.status === 'completed' ? (
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                  ) : (
+                    <Circle className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className={`text-sm ${m.status === 'completed' ? 'text-foreground' : 'text-muted-foreground'}`}>
+                      {m.title}
+                    </p>
+                    {m.description && (
+                      <p className="text-xs text-muted-foreground mt-0.5">{m.description}</p>
+                    )}
+                    {m.due_date && (
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Due: {new Date(m.due_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Deliverable */}
         {currentStageIndex >= 3 && (
           <section>
@@ -261,21 +319,55 @@ export function BlueprintWorkspaceClient({
               <FileText className="h-5 w-5 text-muted-foreground" />
               Deliverable
             </h2>
-            <div className="border rounded-lg p-5 bg-card">
-              <div className="flex items-center gap-3">
-                <FileText className="h-8 w-8 text-primary" />
-                <div>
-                  <p className="text-sm font-medium">AI Automation Blueprint</p>
-                  <p className="text-xs text-muted-foreground">
-                    Published {engagement.completed_at
-                      ? new Date(engagement.completed_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-                      : ''}
+            <div className="border rounded-lg p-5 bg-card space-y-4">
+              {artifacts.length > 0 ? (
+                artifacts.map(a => (
+                  <div key={a.id} className="flex items-start gap-3 border-b last:border-0 pb-3 last:pb-0">
+                    <FileText className="h-8 w-8 text-primary flex-shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium">{a.title}</p>
+                      {a.description && (
+                        <p className="text-xs text-muted-foreground mt-0.5">{a.description}</p>
+                      )}
+                      <div className="flex items-center gap-3 mt-2">
+                        {a.published_at && (
+                          <p className="text-xs text-muted-foreground">
+                            Published {new Date(a.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                          </p>
+                        )}
+                        {a.file_url && (
+                          <a
+                            href={a.file_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+                          >
+                            <FileText className="h-3 w-3" />
+                            View deliverable
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className="flex items-center gap-3">
+                    <FileText className="h-8 w-8 text-primary" />
+                    <div>
+                      <p className="text-sm font-medium">AI Automation Blueprint</p>
+                      <p className="text-xs text-muted-foreground">
+                        Published {engagement.completed_at
+                          ? new Date(engagement.completed_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+                          : ''}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-3">
+                    The full Blueprint document with recommendation, rationale, and implementation guidance will be available here.
                   </p>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground mt-3">
-                The full Blueprint document with recommendation, rationale, and implementation guidance will be available here.
-              </p>
+                </>
+              )}
             </div>
           </section>
         )}

@@ -164,6 +164,14 @@ export default async function SecurityReviewPage({
     .eq('engagement_id', engagement.id)
     .order('created_at', { ascending: false })
 
+  // Fetch coverage areas
+  const { data: coverageAreas } = await sc
+    .from('security_coverage_areas')
+    .select('id, area_key, area_label, status, notes, display_order')
+    .eq('organization_id', ctx.organization.id)
+    .eq('engagement_id', engagement.id)
+    .order('display_order', { ascending: true })
+
   return (
     <SecurityReviewWorkspaceClient
       user={user}
@@ -174,6 +182,7 @@ export default async function SecurityReviewPage({
       findings={findings || []}
       checklist={checklist || []}
       reviewRecords={reviewRecords || []}
+      coverageAreas={coverageAreas || []}
     />
   )
 }

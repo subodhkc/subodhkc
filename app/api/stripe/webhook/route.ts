@@ -3,7 +3,6 @@ import Stripe from 'stripe'
 import { getStripe, getStripeWebhookSecret } from '@/lib/stripe/client'
 import {
   isEventProcessed,
-  markEventProcessed,
   resolveOrCreateOrganization,
   activateEntitlement,
   deactivateEntitlement,
@@ -42,9 +41,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
 
-  // Idempotency check
+  // Idempotency check - if already processed, skip
   const alreadyProcessed = await isEventProcessed(event.id)
   if (alreadyProcessed) {
+    return NextResponse.json({ received: true, duplicate: true })
+  }
+
+  // Mark event as processing to prevent concurrent duplicate processing
+  const sc = createServiceClient()
+  if (!sc) {
+    return NextResponse.json({ error: 'Service client unavailable' }, { status: 500 })
+  }
+  const { error: insertError } = await sc
+    .from('webhook_idempotency')
+    .insert({ event_id: event.id, event_type: event.type })
+  if (insertError) {
+    // Another worker may have already inserted it
     return NextResponse.json({ received: true, duplicate: true })
   }
 
@@ -70,10 +82,12 @@ export async function POST(req: NextRequest) {
         break
     }
 
-    await markEventProcessed(event.id)
+    // Event successfully processed - idempotency record already inserted
     return NextResponse.json({ received: true })
   } catch (err: any) {
     console.error(`Webhook processing error for ${event.type} (${event.id}):`, err.message)
+    // Remove idempotency mark so Stripe can retry
+    await sc.from('webhook_idempotency').delete().eq('event_id', event.id)
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 })
   }
 }
@@ -176,7 +190,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
 
   // Create engagement if the offer requires it
   if (offer.createsEngagement && offer.engagementType) {
-    await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail)
+    await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail, session.metadata as Record<string, string | undefined> | undefined)
   }
 
   // Write audit event
@@ -194,6 +208,38 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         new_org: created,
       } as any,
     })
+  }
+
+  // Send welcome/notification email based on offer type
+  try {
+    if (offerKey === 'ai_advisor_desk') {
+      const { sendAdvisorWelcomeEmail } = await import('@/lib/email')
+      await sendAdvisorWelcomeEmail({
+        to: customerEmail,
+        customerName,
+        orgSlug,
+      })
+    } else if (offerKey === 'ai_automation_blueprint') {
+      const { sendBlueprintPurchasedEmail } = await import('@/lib/email')
+      const objective = session.metadata?.business_objective || 'AI automation analysis'
+      await sendBlueprintPurchasedEmail({
+        to: customerEmail,
+        customerName,
+        orgSlug,
+        businessObjective: objective,
+      })
+    } else if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
+      const { sendSecurityReviewActivatedEmail } = await import('@/lib/email')
+      const scope = session.metadata?.scope_summary || 'Application security review'
+      await sendSecurityReviewActivatedEmail({
+        to: customerEmail,
+        customerName,
+        orgSlug,
+        scopeSummary: scope,
+      })
+    }
+  } catch (err) {
+    console.error('Failed to send purchase notification email:', err)
   }
 }
 
@@ -336,6 +382,26 @@ async function handlePaymentFailed(event: Stripe.Event) {
     audit_entity_id: invoice.id,
     audit_metadata: { attempt_count: invoice.attempt_count } as any,
   })
+
+  // Send subscription issue email
+  try {
+    const { data: org } = await sc
+      .from('organizations')
+      .select('slug')
+      .eq('id', link.organization_id)
+      .single()
+
+    if (org?.slug) {
+      const { sendSubscriptionIssueEmail } = await import('@/lib/email')
+      await sendSubscriptionIssueEmail({
+        to: invoice.customer_email || '',
+        orgSlug: org.slug,
+        issue: `Payment attempt ${invoice.attempt_count} failed. Stripe will retry automatically.`,
+      })
+    }
+  } catch (err) {
+    console.error('Failed to send subscription issue email:', err)
+  }
 }
 
 /**
@@ -400,25 +466,21 @@ async function handleInvoicePaid(event: Stripe.Event) {
 
 /**
  * Create an engagement for offers that require it (Blueprint, Security Review, etc.)
+ * Prevents duplicate engagements by checking offering_id, not just org_id.
+ * For Blueprint, populates charter fields from qualification metadata.
  */
 async function createEngagementForOffer(
   orgId: string,
   offerKey: OfferKey,
   engagementType: string,
-  customerEmail: string
+  customerEmail: string,
+  sessionMetadata?: Record<string, string | undefined>
 ): Promise<void> {
   const sc = createServiceClient()
   if (!sc) return
 
   const offer = getOffer(offerKey)
   if (!offer) return
-
-  // Check if engagement already exists for this org + offer
-  const { data: existing } = await sc
-    .from('engagement_offerings')
-    .select('engagement_id')
-    .eq('organization_id', orgId)
-    .limit(1)
 
   // Get offering ID
   const { data: offering } = await sc
@@ -429,17 +491,46 @@ async function createEngagementForOffer(
 
   if (!offering) return
 
+  // Check if engagement already exists for this org + offering (prevent duplicates)
+  const { data: existing } = await sc
+    .from('engagement_offerings')
+    .select('engagement_id')
+    .eq('organization_id', orgId)
+    .eq('offering_id', offering.id)
+
+  if (existing && existing.length > 0) {
+    // Engagement already exists for this offering - don't create a duplicate
+    return
+  }
+
+  // Build engagement fields based on offer type
+  const engagementFields: Record<string, unknown> = {
+    organization_id: orgId,
+    engagement_type: engagementType,
+    status: 'active',
+    title: offer.displayName,
+    current_phase: 'discovery',
+    health_status: 'on_track',
+  }
+
+  // For Blueprint, populate charter from qualification metadata
+  if (offerKey === 'ai_automation_blueprint' && sessionMetadata) {
+    engagementFields.title = sessionMetadata.business_objective || offer.displayName
+    engagementFields.statement = sessionMetadata.workflow_problem || 'AI automation analysis'
+    engagementFields.in_scope = sessionMetadata.systems_involved || null
+    engagementFields.current_phase = 'discovery'
+  }
+
+  // For security reviews, start in scoping phase
+  if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
+    engagementFields.current_phase = 'scoping'
+    engagementFields.statement = 'Security review of application and AI infrastructure'
+  }
+
   // Create engagement
   const { data: eng, error: engError } = await sc
     .from('engagements')
-    .insert({
-      organization_id: orgId,
-      engagement_type: engagementType,
-      status: 'active',
-      title: offer.displayName,
-      current_phase: 'discovery',
-      health_status: 'on_track',
-    })
+    .insert(engagementFields)
     .select('id')
     .single()
 
@@ -457,12 +548,42 @@ async function createEngagementForOffer(
       offering_id: offering.id,
     })
 
+  // For security reviews, seed coverage areas
+  if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
+    const coverageAreas = [
+      { area_key: 'tenant_isolation', area_label: 'Tenant Isolation', display_order: 1 },
+      { area_key: 'authn_authz', area_label: 'Authentication & Authorization', display_order: 2 },
+      { area_key: 'data_encryption', area_label: 'Data Encryption (Rest & Transit)', display_order: 3 },
+      { area_key: 'api_security', area_label: 'API Security', display_order: 4 },
+      { area_key: 'ai_rag_security', area_label: 'AI / RAG / Agent Security', display_order: 5 },
+      { area_key: 'secrets_management', area_label: 'Secrets & Key Management', display_order: 6 },
+      { area_key: 'input_validation', area_label: 'Input Validation & Injection', display_order: 7 },
+      { area_key: 'logging_monitoring', area_label: 'Logging, Monitoring & Detection', display_order: 8 },
+      { area_key: 'dependency_security', area_label: 'Dependency & Supply Chain Security', display_order: 9 },
+      { area_key: 'rate_limiting', area_label: 'Rate Limiting & Abuse Prevention', display_order: 10 },
+      { area_key: 'incident_response', area_label: 'Incident Response Readiness', display_order: 11 },
+    ]
+
+    for (const area of coverageAreas) {
+      await sc
+        .from('security_coverage_areas')
+        .insert({
+          organization_id: orgId,
+          engagement_id: eng.id,
+          area_key: area.area_key,
+          area_label: area.area_label,
+          display_order: area.display_order,
+          status: 'pending',
+        })
+    }
+  }
+
   // Audit event
   await sc.rpc('write_audit_event', {
     audit_action: 'engagement.created',
     audit_entity_type: 'engagement',
     audit_org_id: orgId,
     audit_entity_id: eng.id,
-    audit_metadata: { offer_key: offerKey, title: offer.displayName } as any,
+    audit_metadata: { offer_key: offerKey, title: engagementFields.title } as any,
   })
 }

@@ -66,6 +66,26 @@ export async function resolveOrCreateOrganization(opts: {
     }
   }
 
+  // Check if this Stripe customer ID is already linked to an org
+  const { data: existingLink } = await sc
+    .from('external_system_links')
+    .select('organization_id, organizations!inner(id, slug)')
+    .eq('system_key', 'stripe_customer')
+    .eq('external_id', customerId)
+    .eq('status', 'active')
+    .single() as any
+
+  if (existingLink?.organizations) {
+    const org = Array.isArray(existingLink.organizations) ? existingLink.organizations[0] : existingLink.organizations
+    if (org?.id) {
+      return {
+        orgId: org.id,
+        orgSlug: org.slug,
+        created: false,
+      }
+    }
+  }
+
   // Look up user by email via profiles table
   const { data: profile } = await sc
     .from('profiles')
