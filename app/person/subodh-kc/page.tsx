@@ -328,7 +328,7 @@ export default function PersonPage() {
   const patents = [
     { name: 'Adversarial Project Twin', description: 'Drift and sabotage simulation framework that proactively identifies AI system vulnerabilities before production deployment.' },
     { name: 'AI Compliance Twin', description: 'Real-time regulatory enforcement engine that validates AI systems against EU AI Act, GDPR, and sector-specific compliance requirements.' },
-    { name: 'Modular Audit Engine', description: 'AI fairness and transparency scoring with modular architecture. Provides audit-grade documentation for enterprise deployments.' },
+    { name: 'Modular Audit Engine', description: 'AI fairness and transparency scoring with modular architecture. Provides evidence-grade documentation for enterprise deployments.' },
     { name: 'Precision Drift Detector', description: 'Numerical anomaly detection for AI model performance monitoring. Identifies behavioral drift patterns before they affect business outcomes.' },
     { name: 'Compliance Fingerprint Layer', description: 'Tamper-evident traceability for AI decision-making. Creates immutable audit trails for regulatory compliance and forensic analysis.' },
   ]

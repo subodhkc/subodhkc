@@ -19,14 +19,14 @@ import {
 export const metadata = {
   title: 'HAIEC - AI Compliance & Governance Platform | Subodh KC',
   description:
-    'HAIEC is an evidence-first AI governance platform. EU AI Act compliance, NIST AI RMF, ISO 42001, NYC LL144 bias audits, runtime adversarial testing, and audit-grade evidence generation. Features precision drift detection, Red Audit Kit, and Cognitive Systems Management.',
+    'HAIEC is an evidence-first AI governance platform. EU AI Act compliance, NIST AI RMF, ISO 42001, NYC LL144 bias audits, runtime adversarial testing, and evidence-grade documentation generation. Features precision drift detection, Red Audit Kit, and Cognitive Systems Management.',
   alternates: {
     canonical: 'https://subodhkc.com/solutions/haiec',
   },
   openGraph: {
     title: 'HAIEC - AI Compliance & Governance Platform',
     description:
-      'Evidence-first frameworks for behavioral AI governance. AI Governance Execution Framework, AI readiness assessments, and audit-grade evidence for enterprise compliance.',
+      'Evidence-first frameworks for behavioral AI governance. AI Governance Execution Framework, AI readiness assessments, and evidence-grade documentation for enterprise compliance.',
     url: 'https://subodhkc.com/solutions/haiec',
     type: 'website',
   },
@@ -109,7 +109,7 @@ export default function HAIECPage() {
   const capabilities = [
     'Static AI Security Analysis',
     'Runtime Adversarial Testing',
-    'Audit-Grade Evidence Generation',
+    'Evidence-Grade Documentation Generation',
     'EU AI Act Compliance Reports',
     'NYC LL144 Bias Audit Attestation',
     'Risk Management Framework',
@@ -316,7 +316,7 @@ export default function HAIECPage() {
               <Card className="p-6">
                 <h3 className="text-xl font-semibold mb-3">Evidence-First Approach</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Dashboards are not evidence. HAIEC generates audit-grade documentation that stands up to regulatory scrutiny.
+                  Dashboards are not evidence. HAIEC generates evidence-grade documentation that stands up to regulatory scrutiny.
                   Every claim is backed by deterministic testing and SHA-256 cryptographic hashing - tamper-evident evidence you can verify independently.
                 </p>
               </Card>

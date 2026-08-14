@@ -9,6 +9,16 @@ async function resolveSmartRedirect(userId: string, fallback: string): Promise<s
   const serviceClient = createServiceClient()
   if (!serviceClient) return fallback
 
+  // Check if user is a platform admin - they always land on the main dashboard
+  const { data: adminRole } = await serviceClient
+    .from('platform_user_roles')
+    .select('role')
+    .eq('user_id', userId)
+    .eq('role', 'platform_admin')
+    .single()
+
+  if (adminRole) return '/app'
+
   // Get user's org memberships
   const { data: memberships } = await serviceClient
     .from('organization_memberships')

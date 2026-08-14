@@ -513,7 +513,7 @@ export default function StructuredData() {
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
       name: 'Modular Audit Engine',
-      description: 'AI fairness and transparency scoring system with modular architecture for audit-grade documentation and compliance reporting.',
+      description: 'AI fairness and transparency scoring system with modular architecture for evidence-grade documentation and compliance reporting.',
       author: { '@type': 'Person', name: 'Subodh KC' },
       url: 'https://subodhkc.com/about',
       keywords: 'AI audit, fairness scoring, transparency, compliance reporting',

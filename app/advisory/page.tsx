@@ -8,40 +8,35 @@ import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import {
   Target,
   Shield,
-  TrendingUp,
-  Users,
   CheckCircle2,
   ArrowRight,
-  Briefcase,
-  Lightbulb,
 } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'AI Advisory & Consulting | Subodh KC',
+  title: 'Fractional AI Advisor & Advisory Services | Subodh KC',
   description:
-    'Strategic advisory services for AI architecture, governance, and technical program leadership. Executive coaching, implementation support, and fractional leadership for enterprise AI initiatives.',
+    'Direct human advisory for AI architecture, governance, and technical program leadership. Fractional AI Advisor and Fractional AI Lead engagements for enterprise AI initiatives.',
   keywords: [
+    'fractional AI advisor',
+    'fractional AI lead',
     'AI advisory',
-    'AI consulting',
     'AI architecture consulting',
     'AI governance consulting',
     'AI compliance advisory',
     'AI systems architect',
     'AI strategy advisor',
     'enterprise AI consulting',
-    'AI implementation support',
-    'fractional AI leadership',
     'AI executive coaching',
-    'Subodh KC'
+    'Subodh KC',
   ],
   alternates: {
     canonical: 'https://subodhkc.com/advisory',
   },
   openGraph: {
-    title: 'AI Advisory & Consulting | Subodh KC',
+    title: 'Fractional AI Advisor & Advisory Services | Subodh KC',
     description:
-      'Strategic advisory services for AI architecture, governance, and technical program leadership. Executive coaching, implementation support, and fractional leadership for enterprise AI initiatives.',
+      'Direct human advisory for AI architecture, governance, and technical program leadership. Fractional AI Advisor and Fractional AI Lead engagements for enterprise AI initiatives.',
     url: 'https://subodhkc.com/advisory',
     type: 'website',
   },
@@ -51,86 +46,62 @@ export default function AdvisoryPage() {
   const services = [
     {
       icon: Shield,
-      title: 'AI Compliance & Governance Advisory',
+      title: 'Fractional AI Advisor',
       description:
-        'Strategic counsel on navigating AI regulatory requirements, building governance frameworks, and preparing for compliance audits.',
+        'I provide direct, ongoing AI advisory to leadership teams deploying AI at scale. Governance design, compliance preparation, vendor evaluation, and AI architecture decisions reviewed by someone who has built production systems.',
       deliverables: [
-        'Compliance readiness assessment',
         'Governance framework design',
-        'Risk mitigation strategies',
+        'Compliance readiness assessment',
+        'AI architecture review',
+        'Vendor and tool evaluation',
         'Regulatory roadmap',
+        'Priority async access',
       ],
-      engagement: '3-6 months',
-      ideal: 'Organizations deploying AI at scale, preparing for regulatory compliance',
+      engagement: 'Monthly retainer, 3-month minimum',
+      ideal: 'Organizations deploying AI at scale that need experienced direct judgment, not email-based guidance',
     },
     {
       icon: Target,
-      title: 'Technical Program Leadership',
+      title: 'Fractional AI Lead',
       description:
-        'Fractional TPM services for complex, multi-stakeholder initiatives. Drive execution, manage dependencies, and ensure delivery.',
+        'I embed as a part-time technical program leader for complex, multi-stakeholder AI initiatives. Drive execution, manage dependencies, align engineering and compliance teams, and own delivery.',
       deliverables: [
-        'Program strategy & roadmap',
+        'Program strategy and roadmap',
         'Stakeholder alignment',
-        'Risk & dependency management',
-        'Execution velocity improvement',
+        'Dependency and risk management',
+        'Execution ownership',
+        'Team integration',
+        'Delivery cadence',
       ],
-      engagement: '6-12 months',
-      ideal: 'Enterprises launching critical AI initiatives, scaling technical programs',
-    },
-    {
-      icon: Lightbulb,
-      title: 'Executive Coaching',
-      description:
-        'One-on-one coaching for technical leaders navigating AI strategy, governance, and organizational transformation.',
-      deliverables: [
-        'Strategic thinking development',
-        'Leadership capability building',
-        'Decision framework refinement',
-        'Stakeholder management mastery',
-      ],
-      engagement: '3-12 months',
-      ideal: 'CTOs, VPs of Engineering, AI leaders scaling teams and systems',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Implementation Support',
-      description:
-        'Hands-on support implementing HAIEC frameworks, tools, and methodologies within your organization.',
-      deliverables: [
-        'Framework customization',
-        'Team training & enablement',
-        'Implementation guidance',
-        'Operational playbooks',
-      ],
-      engagement: '3-6 months',
-      ideal: 'Organizations adopting HAIEC platform or CSM methodology - see the Architecture Decision Master Sheet for a practical tool that operationalizes CSM across 25 architecture layers.',
+      engagement: '6-12 months, part-time',
+      ideal: 'Enterprises launching critical AI initiatives that need embedded leadership, not recommendations',
     },
   ]
 
   const approach = [
     {
-      phase: '1. Discovery',
+      phase: '1. Context',
       description:
-        'detailed look into your current state, challenges, and objectives. No generic playbooks-every engagement starts with understanding your specific context.',
+        'I start by understanding your current AI systems, governance posture, and objectives. No generic playbooks. Every engagement begins with your specific context.',
+      duration: '1-2 weeks',
+    },
+    {
+      phase: '2. Plan',
+      description:
+        'I develop a tailored approach based on what I find. Built on methodologies I have used in production, adapted to your constraints and priorities.',
       duration: '2-4 weeks',
     },
     {
-      phase: '2. Strategy',
+      phase: '3. Work',
       description:
-        'Develop tailored frameworks, roadmaps, and approaches. Built on proven methodologies but adapted to your constraints and opportunities.',
-      duration: '4-6 weeks',
-    },
-    {
-      phase: '3. Execution',
-      description:
-        'Hands-on implementation support. He doesn\'t just provide recommendations - he helps you execute them.',
+        'I do the work alongside your team. Architecture decisions, governance design, compliance preparation, program execution. Not recommendations handed over a wall.',
       duration: 'Ongoing',
     },
     {
-      phase: '4. Scale',
+      phase: '4. Handoff',
       description:
-        'Knowledge transfer, team enablement, and operational handoff. Build internal capability to sustain and scale the work.',
-      duration: '4-8 weeks',
+        'When the engagement ends, your team has the frameworks, documentation, and capability to continue without me.',
+      duration: '2-4 weeks',
     },
   ]
 
@@ -147,32 +118,21 @@ export default function AdvisoryPage() {
 
   const pricing = [
     {
-      tier: 'Advisory Retainer',
-      description: 'Ongoing strategic counsel and support',
+      tier: 'Fractional AI Advisor',
+      description: 'Ongoing direct advisory and governance guidance',
       structure: 'Monthly retainer',
       commitment: '3-month minimum',
       includes: [
-        'Unlimited async access',
+        'Priority async access',
         '2 strategy sessions/month',
-        'Document & framework review',
-        'Email/Slack support',
+        'Document and framework review',
+        'AI architecture decisions',
+        'Vendor and tool evaluation',
       ],
     },
     {
-      tier: 'Project Engagement',
-      description: 'Defined scope with specific deliverables',
-      structure: 'Fixed fee or time & materials',
-      commitment: '3-6 months typical',
-      includes: [
-        'complete discovery',
-        'Custom frameworks & roadmaps',
-        'Implementation support',
-        'Team training',
-      ],
-    },
-    {
-      tier: 'Fractional Leadership',
-      description: 'Embedded TPM or governance leadership',
+      tier: 'Fractional AI Lead',
+      description: 'Embedded technical program leadership',
       structure: 'Monthly retainer (part-time)',
       commitment: '6-12 months',
       includes: [
@@ -180,6 +140,7 @@ export default function AdvisoryPage() {
         'Stakeholder management',
         'Execution ownership',
         'Team integration',
+        'Delivery cadence',
       ],
     },
   ]
@@ -190,25 +151,73 @@ export default function AdvisoryPage() {
         subtitle="Advisory & Consulting"
         title={
           <>
-            Strategic Counsel for
+            Direct human advisory for
             <br />
-            <span className="gradient-text">Enterprise AI Leaders</span>
+            <span className="gradient-text">enterprise AI leaders</span>
           </>
         }
-        description="12+ years of experience driving AI compliance, governance, and technical programs at Fortune 50 scale. He helps organizations navigate complexity and execute with precision."
+        description="Fractional AI Advisor and Fractional AI Lead engagements for organizations that need embedded leadership, not email-based guidance. For scalable ongoing AI guidance, see the AI Advisor Desk."
       >
-        <Link href="/contact">
-          <Button size="lg" className="group">
-            Schedule consultation
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </Link>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Link href="/contact">
+            <Button size="lg" className="group">
+              Schedule consultation
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
+          <Link href="/ai-advisor">
+            <Button size="lg" variant="outline">
+              Looking for ongoing guidance? ($99/mo)
+            </Button>
+          </Link>
+        </div>
       </Hero>
 
       <Section
+        subtitle="How This Differs from AI Advisor Desk"
+        title="When to choose direct advisory vs. the Advisor Desk"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">AI Advisor Desk</CardTitle>
+                <CardDescription className="text-sm mt-2">
+                  $99/month. Scalable, email-based ongoing guidance for small businesses.
+                  One advisor-reviewed question per month, AI controls review, regulatory monitoring,
+                  and recommended next actions. Up to 3 team members.
+                </CardDescription>
+                <div className="mt-3">
+                  <Link href="/ai-advisor">
+                    <Button variant="outline" size="sm">Explore AI Advisor Desk <ArrowRight className="ml-2 h-3 w-3" /></Button>
+                  </Link>
+                </div>
+              </CardHeader>
+            </Card>
+            <Card className="border-primary">
+              <CardHeader>
+                <CardTitle className="text-lg">Fractional AI Advisor / Lead</CardTitle>
+                <CardDescription className="text-sm mt-2">
+                  Direct human advisory and embedded leadership for enterprises. Strategy sessions,
+                  stakeholder management, implementation ownership, and team integration.
+                  Custom-scoped engagements with active program leadership.
+                </CardDescription>
+                <div className="mt-3">
+                  <Link href="/contact">
+                    <Button variant="outline" size="sm">Discuss advisory needs <ArrowRight className="ml-2 h-3 w-3" /></Button>
+                  </Link>
+                </div>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      <Section
         subtitle="Services"
-        title="How Subodh Works With Organizations"
-        description="Strategic advisory and hands-on implementation support for enterprises navigating AI compliance, governance, and scale."
+        title="How I Work With Organizations"
+        description="Direct advisory and embedded leadership for enterprises navigating AI compliance, governance, and scale."
       >
         <div className="space-y-8">
           {services.map((service, index) => {
@@ -270,7 +279,7 @@ export default function AdvisoryPage() {
         </Grid>
       </Section>
 
-      <Section subtitle="Expertise" title="What Subodh Brings">
+      <Section subtitle="Expertise" title="What I Bring">
         <div className="max-w-4xl">
           <Grid cols={2} gap="md">
             {expertise.map((item, index) => (
@@ -284,7 +293,7 @@ export default function AdvisoryPage() {
       </Section>
 
       <Section subtitle="Investment" title="Engagement Models">
-        <Grid cols={3}>
+        <Grid cols={2}>
           {pricing.map((item, index) => (
             <Card key={index}>
               <CardHeader>
@@ -325,7 +334,7 @@ export default function AdvisoryPage() {
         </div>
       </Section>
 
-      <Section subtitle="Who He Works With" title="Ideal Clients">
+      <Section subtitle="Who I Work With" title="Ideal Clients">
         <div className="max-w-3xl mx-auto">
           <div className="space-y-6">
             <Card>
@@ -381,8 +390,8 @@ export default function AdvisoryPage() {
       </Section>
 
       <CTA
-        title="Ready to Build AI Systems That Scale?"
-        description="Whether you need strategic counsel, implementation support, or fractional leadership, Subodh brings proven frameworks and hands-on execution to your most critical initiatives."
+        title="Need direct AI advisory or embedded leadership?"
+        description="I work with a small number of organizations at a time. If you need experienced AI governance and architecture leadership, let's talk about whether an engagement makes sense."
         primaryButton={{ text: 'Schedule consultation', href: '/contact' }}
         secondaryButton={{ text: 'View case studies', href: '/research' }}
       />

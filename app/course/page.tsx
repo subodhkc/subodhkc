@@ -103,7 +103,7 @@ const courseSchema = {
   teaches: [
     'Designing production AI systems with agentic workflows and RAG',
     'Implementing EU AI Act, NIST AI RMF, and ISO 42001 compliance',
-    'Building evidence architecture for audit-grade documentation',
+    'Building evidence architecture for evidence-grade documentation',
     'Deploying drift detection and monitoring in CI/CD pipelines',
     'Creating governance operating models that scale across organizations',
   ],
@@ -193,7 +193,7 @@ export default function CoursePage() {
       description:
         'Automating compliance so it doesn\'t slow you down. Evidence architecture, documentation pipelines, and CI/CD quality gates.',
       topics: [
-        'Audit-grade evidence generation and documentation pipelines',
+        'Evidence-grade documentation generation and pipelines',
         'Compliance evidence repositories and audit trails',
         'Automated quality gates in CI/CD (HAIEC Action)',
         'Patent-pending drift detection frameworks in practice',

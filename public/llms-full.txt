@@ -29,9 +29,24 @@ His name, Subodh, comes from Sanskrit: "su" (good or easy) and "bodh" (knowledge
 ### AI Governance & Assurance
 - **Readiness & Applicability Assessments:** Evaluate AI system readiness, regulatory applicability, organizational maturity
 - **AI Security & Compliance:** EU AI Act, NIST AI RMF, ISO 42001, NYC LL144 compliance implementation and audit readiness
-- **Evidence Architecture:** Audit-grade evidence generation, documentation pipelines, compliance evidence repositories
+- **Evidence Architecture:** Evidence-grade documentation generation, documentation pipelines, compliance evidence repositories
 - **Testing & Drift Controls:** Patent-pending drift detection frameworks, bias testing, automated quality gates in CI/CD
 - **Governance Operating Models:** AI governance committees, policy frameworks, operating models that survive contact with real organizations
+
+## Commercial Offers
+
+### Primary Pathways
+- **AI Advisor Desk:** $99/month ($990/year). Ongoing AI guidance, controls review, regulatory monitoring. Up to 3 team members. [subodhkc.com/ai-advisor](https://subodhkc.com/ai-advisor)
+- **AI Automation Blueprint:** $500 fixed. One workflow analyzed with buy/configure/build recommendation, architecture, and implementation roadmap. [subodhkc.com/ai-automation](https://subodhkc.com/ai-automation)
+
+### Specific-Solution Pathways
+- **AI Voice Agent:** Managed AI voice deployment from $499/month. Standard (answering, FAQ, routing, booking) and custom (CRM, dispatch, multi-system workflows). Fit call determines path. [subodhkc.com/ai-voice-agent](https://subodhkc.com/ai-voice-agent)
+- **AI Security & Compliance Review:** AI security assessment, compliance review, vendor risk, hiring bias, evidence-grade documentation. Custom scoped. [subodhkc.com/ai-security-compliance](https://subodhkc.com/ai-security-compliance)
+- **SaaS & AI Security Review:** Specialized for SaaS and AI products. Tenant isolation, AI application security, reproducible evidence, buyer-shareable security records. From $950. [subodhkc.com/saas-security-review](https://subodhkc.com/saas-security-review)
+
+### Enterprise Advisory
+- **Fractional AI Advisor / Lead:** Direct human advisory and embedded leadership for enterprises. Custom-scoped engagements. [subodhkc.com/advisory](https://subodhkc.com/advisory)
+- **Consulting rate:** $300-$500/hour (project minimums apply)
 
 ## Cognitive Systems Management (CSM) 2.0
 
@@ -197,7 +212,7 @@ CSM is a practitioner-developed governance methodology, not a certification, reg
 
 2. **AI Compliance Twin** - Real-time regulatory enforcement engine. Continuously validates AI systems against EU AI Act, GDPR, and sector-specific compliance requirements.
 
-3. **Modular Audit Engine** - AI fairness and transparency scoring system with modular architecture. Provides audit-grade documentation and compliance reporting for enterprise deployments.
+3. **Modular Audit Engine** - AI fairness and transparency scoring system with modular architecture. Provides evidence-grade documentation and compliance reporting for enterprise deployments.
 
 4. **Precision Drift Detector** - Numerical anomaly detection system for AI model performance monitoring. Identifies drift patterns before they impact business outcomes.
 

@@ -963,7 +963,7 @@ export default function WhyAIVoiceAgentsFailPage() {
                   <CardTitle className="text-base">HAIEC</CardTitle>
                 </div>
                 <CardDescription className="text-sm leading-relaxed">
-                  Handles the assurance layer: applicability assessment, control mapping, security testing, compliance evidence, risk management, audit-grade documentation, and continuous monitoring. HAIEC is where the voice deployment is evaluated.
+                  Handles the assurance layer: applicability assessment, control mapping, security testing, compliance evidence, risk management, evidence-grade documentation, and continuous monitoring. HAIEC is where the voice deployment is evaluated.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -1154,7 +1154,7 @@ export default function WhyAIVoiceAgentsFailPage() {
                     </div>
                     <CardTitle className="text-sm">HAIEC Platform</CardTitle>
                   </div>
-                  <CardDescription className="text-xs">AI security, governance, and compliance-readiness platform with exposure assessment and audit-grade evidence.</CardDescription>
+                  <CardDescription className="text-xs">AI security, governance, and compliance-readiness platform with exposure assessment and evidence-grade documentation.</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <span className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1">Explore HAIEC <ArrowRight className="h-3 w-3" /></span>

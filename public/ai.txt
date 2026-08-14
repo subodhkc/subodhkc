@@ -78,27 +78,48 @@
         ]
       }
     ],
-    "engagementModels": [
-      {
-        "type": "Project-Based",
-        "duration": "3-6 months",
-        "pricing": "$25K-$150K",
-        "idealFor": "AI architecture, pilot recovery, compliance implementations"
+    "commercialOffers": {
+      "primaryPathways": [
+        {
+          "name": "AI Advisor Desk",
+          "pricing": "$99/month ($990/year)",
+          "url": "https://subodhkc.com/ai-advisor",
+          "description": "Ongoing AI guidance, controls review, regulatory monitoring. Up to 3 team members."
+        },
+        {
+          "name": "AI Automation Blueprint",
+          "pricing": "$500 fixed",
+          "url": "https://subodhkc.com/ai-automation",
+          "description": "One workflow analyzed with buy/configure/build recommendation, architecture, and implementation roadmap."
+        }
+      ],
+      "specificSolutionPathways": [
+        {
+          "name": "AI Voice Agent",
+          "pricing": "from $499/month",
+          "url": "https://subodhkc.com/ai-voice-agent",
+          "description": "Managed AI voice deployment. Standard (answering, FAQ, routing, booking) and custom (CRM, dispatch, multi-system workflows)."
+        },
+        {
+          "name": "AI Security & Compliance Review",
+          "pricing": "Custom scoped",
+          "url": "https://subodhkc.com/ai-security-compliance",
+          "description": "AI security assessment, compliance review, vendor risk, hiring bias, evidence-grade documentation."
+        },
+        {
+          "name": "SaaS & AI Security Review",
+          "pricing": "from $950",
+          "url": "https://subodhkc.com/saas-security-review",
+          "description": "Specialized for SaaS and AI products. Tenant isolation, AI application security, reproducible evidence."
+        }
+      ],
+      "enterpriseAdvisory": {
+          "name": "Fractional AI Advisor / Lead",
+          "url": "https://subodhkc.com/advisory",
+          "description": "Direct human advisory and embedded leadership for enterprises. Custom-scoped engagements."
       },
-      {
-        "type": "Retainer",
-        "duration": "6-12 months",
-        "idealFor": "Executive advisory, continuous improvement, governance oversight"
-      },
-      {
-        "type": "Fractional Executive",
-        "duration": "12+ months",
-        "pricing": "$10K-$25K/month",
-        "idealFor": "Building AI governance function, team development, long-term transformation"
-      }
-    ],
-    "hourlyRate": "$300-$500/hour",
-    "fullTimeTarget": "$250K-$400K+ (base + equity/bonus)"
+      "hourlyRate": "$300-$500/hour"
+    }
   },
   "platforms": [
     {
@@ -246,7 +267,7 @@
     },
     {
       "name": "Modular Audit Engine",
-      "description": "AI fairness and transparency scoring system with modular architecture. Provides audit-grade documentation and compliance reporting."
+      "description": "AI fairness and transparency scoring system with modular architecture. Provides evidence-grade documentation and compliance reporting."
     },
     {
       "name": "Precision Drift Detector",
@@ -447,6 +468,9 @@
     "AI Governance Execution Framework", "AI governance methodology",
     "deterministic governance", "governance contracts", "AI governance specification",
     "AI governance course", "AI compliance webinar", "AI laws small business",
-    "AI regulation small business", "AI policy small business"
+    "AI regulation small business", "AI policy small business",
+    "SaaS security audit", "SaaS security review", "tenant isolation testing",
+    "AI application security", "multi-tenant SaaS security", "SOC 2 readiness for SaaS",
+    "enterprise security readiness", "RAG tenant isolation", "B2B SaaS security review"
   ]
 }

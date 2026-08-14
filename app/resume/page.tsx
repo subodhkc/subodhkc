@@ -185,7 +185,7 @@ export default function ResumePage() {
               <div className="text-xs space-y-1">
                 <div className="flex gap-3">
                   <span className="font-mono text-zinc-500 shrink-0">19/284,705</span>
-                  <span className="text-zinc-700">Modular Precision Drift Detection & Audit-Grade Compliance Fingerprinting</span>
+                  <span className="text-zinc-700">Modular Precision Drift Detection & Evidence-Grade Compliance Fingerprinting</span>
                 </div>
                 <div className="flex gap-3">
                   <span className="font-mono text-zinc-500 shrink-0">19/283,287</span>
@@ -274,7 +274,7 @@ export default function ResumePage() {
                 <li>• AI governance: EU AI Act, NIST AI RMF, NYC LL 144, Texas AI law</li>
                 <li>• Enterprise compliance: SOC 2, audit trails, evidence preservation</li>
                 <li>• Risk monitoring, transaction scoring, EDD workflow automation</li>
-                <li>• Audit-grade data trails for regulated environments</li>
+                <li>• Evidence-grade data trails for regulated environments</li>
               </ul>
             </section>
 

@@ -102,7 +102,7 @@ const faqs = [
   },
   {
     q: 'How does the ISAF framework map to the EU AI Act?',
-    a: 'The Instruction Stack Audit Framework (ISAF), published by Subodh KC in Zenodo, maps directly to EU AI Act Article 9 (Risk Management System) requirements across nine abstraction layers. ISAF provides a practical methodology for tracing AI accountability and generating audit-grade evidence that satisfies the Act\'s technical documentation requirements.',
+    a: 'The Instruction Stack Audit Framework (ISAF), published by Subodh KC in Zenodo, maps directly to EU AI Act Article 9 (Risk Management System) requirements across nine abstraction layers. ISAF provides a practical methodology for tracing AI accountability and generating evidence-grade documentation that satisfies the Act\'s technical documentation requirements.',
   },
   {
     q: 'Does the EU AI Act apply to US companies?',
@@ -484,7 +484,7 @@ export default function EUAIActPage() {
                 </div>
                 <CardDescription className="text-sm leading-relaxed">
                   Implement the Instruction Stack Audit Framework to satisfy Article 9 risk management
-                  requirements and generate audit-grade technical documentation.
+                  requirements and generate evidence-grade technical documentation.
                 </CardDescription>
               </CardHeader>
             </Card>

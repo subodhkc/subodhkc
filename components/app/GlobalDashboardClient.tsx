@@ -6,7 +6,8 @@ import { useState } from 'react'
 import {
   LogOut, ChevronRight, Building2, Shield, User as UserIcon,
   Briefcase, Wrench, ArrowRight, MailOpen, Clock, CheckCircle2,
-  AlertCircle, Calendar,
+  AlertCircle, Calendar, LayoutDashboard, MessageSquare,
+  Settings, Menu, X, Sparkles, TrendingUp, FileText, Phone,
 } from 'lucide-react'
 import type { DashboardData, DashboardOrganization, DashboardOffering } from '@/lib/auth/dashboard-types'
 import {
@@ -18,6 +19,7 @@ import {
 export function GlobalDashboardClient({ data }: { data: DashboardData }) {
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const { user, organizations, engagements, invitations, joinRequests, isPlatformAdmin } = data
 
@@ -57,11 +59,9 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
     for (const offering of org.offerings) {
       const status = getOfferingStatus(offering)
       if (status === 'available' || status === 'no-role') {
-        const key = `${offering.offeringKey}-${org.id}`
         if (!seenOfferings.has(offering.offeringKey)) {
           seenOfferings.add(offering.offeringKey)
           const route = getOfferingRoute(org.slug, offering.offeringKey)
-          const offeringKindLabel = getOfferingKindLabel(offering.offeringKind)
           let statusLabel = 'Open'
           if (offering.offeringKind === 'external_product') statusLabel = 'External Platform'
           if (!route && offering.offeringKind !== 'external_product') statusLabel = 'Coming to portal'
@@ -84,331 +84,446 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
 
+  // Sidebar navigation items
+  const navSections = [
+    {
+      label: 'Workspace',
+      items: [
+        { label: 'Dashboard', href: '/app', icon: LayoutDashboard, active: true },
+        { label: 'Advisor Desk', href: '/advisor-desk', icon: MessageSquare },
+        { label: 'Account', href: '/app/account', icon: Settings },
+      ],
+    },
+    {
+      label: 'Organizations',
+      items: organizations.map((org) => ({
+        label: org.name,
+        href: `/app/${org.slug}`,
+        icon: Building2,
+      })),
+    },
+    ...(isPlatformAdmin ? [{
+      label: 'Administration',
+      items: [
+        { label: 'Admin Console', href: '/app/admin', icon: Shield },
+      ],
+    }] : []),
+    {
+      label: 'Resources',
+      items: [
+        { label: 'Services', href: '/services', icon: Briefcase },
+        { label: 'AI Advisor Desk', href: '/ai-advisor', icon: Sparkles },
+        { label: 'AI Automation Blueprint', href: '/ai-automation', icon: Wrench },
+        { label: 'AI Voice Agent', href: '/ai-voice-agent', icon: Phone },
+        { label: 'AI Security Review', href: '/ai-security-compliance', icon: Shield },
+        { label: 'SaaS Security Review', href: '/saas-security-review', icon: Shield },
+      ],
+    },
+  ]
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-30">
-        <div className="flex items-center justify-between px-4 h-14">
-          <div className="flex items-center gap-4">
-            <Link href="/app" className="font-semibold text-sm">
+    <div className="min-h-screen glass-gradient-bg">
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`
+        fixed top-0 left-0 h-full w-64 glass-sidebar z-50
+        transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0 lg:z-30
+      `}>
+        <div className="flex flex-col h-full">
+          {/* Logo */}
+          <div className="flex items-center justify-between px-5 h-16 border-b border-border/20">
+            <Link href="/app" className="font-bold text-lg tracking-tight">
               SubodhKC
             </Link>
-            <nav className="hidden sm:flex items-center gap-1 text-sm">
-              <Link
-                href="/app"
-                className="px-3 py-1.5 rounded-md hover:bg-accent bg-accent font-medium"
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden p-1.5 hover:bg-accent/20 rounded-lg"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Admin badge */}
+          {isPlatformAdmin && (
+            <div className="mx-3 mt-3 mb-1">
+              <div className="glass-badge rounded-lg px-3 py-2 flex items-center gap-2">
+                <Shield className="h-3.5 w-3.5 text-accent" />
+                <span className="text-xs font-medium text-accent">Platform Admin</span>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation */}
+          <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
+            {navSections.map((section, si) => (
+              <div key={si}>
+                <p className="text-xs font-medium text-muted-foreground/70 uppercase tracking-wider px-3 mb-1.5">
+                  {section.label}
+                </p>
+                <div className="space-y-0.5">
+                  {section.items.map((item, ii) => {
+                    const Icon = item.icon
+                    return (
+                      <Link
+                        key={ii}
+                        href={item.href}
+                        onClick={() => setSidebarOpen(false)}
+                        className={`
+                          flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm
+                          transition-all duration-200
+                          ${item.active
+                            ? 'glass-badge text-accent font-medium'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-accent/10'
+                          }
+                        `}
+                      >
+                        <Icon className="h-4 w-4 flex-shrink-0" />
+                        <span className="truncate">{item.label}</span>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </nav>
+
+          {/* User card at bottom */}
+          <div className="border-t border-border/20 p-3">
+            <div className="glass rounded-xl p-3">
+              <div className="flex items-center gap-2.5">
+                {user.avatarUrl ? (
+                  <img src={user.avatarUrl} alt="" className="h-8 w-8 rounded-full" />
+                ) : (
+                  <div className="h-8 w-8 rounded-full bg-accent/15 flex items-center justify-center">
+                    <UserIcon className="h-4 w-4 text-accent" />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{user.displayName || firstName}</p>
+                  <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                </div>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="mt-2.5 w-full flex items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
               >
-                My SubodhKC
-              </Link>
-              <Link
-                href="/app/advisor"
-                className="px-3 py-1.5 rounded-md hover:bg-accent flex items-center gap-1"
+                <LogOut className="h-3.5 w-3.5" />
+                Sign out
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main content area */}
+      <div className="lg:ml-64">
+        {/* Top bar */}
+        <header className="glass sticky top-0 z-20 border-b border-border/20">
+          <div className="flex items-center justify-between px-4 sm:px-6 h-16">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="lg:hidden p-2 hover:bg-accent/10 rounded-lg"
               >
-                <Briefcase className="h-3.5 w-3.5" />
-                Advisor
-              </Link>
+                <Menu className="h-5 w-5" />
+              </button>
+              <h1 className="text-lg font-bold tracking-tight">
+                {greeting}, {firstName}
+              </h1>
+            </div>
+            <div className="flex items-center gap-2">
               {isPlatformAdmin && (
                 <Link
                   href="/app/admin"
-                  className="px-3 py-1.5 rounded-md hover:bg-accent flex items-center gap-1"
+                  className="glass-badge rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5 hover:scale-105 transition-transform"
                 >
                   <Shield className="h-3.5 w-3.5" />
-                  Admin
+                  Admin Console
                 </Link>
               )}
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* User menu */}
-            <div className="relative">
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="flex items-center gap-2 text-sm hover:bg-accent rounded-md px-2 py-1.5"
+              <Link
+                href="/advisor-desk"
+                className="glass-badge rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5 hover:scale-105 transition-transform"
               >
-                {user.avatarUrl ? (
-                  <img src={user.avatarUrl} alt="" className="h-6 w-6 rounded-full" />
-                ) : (
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
-                    <UserIcon className="h-3.5 w-3.5 text-primary" />
-                  </div>
-                )}
-                <span className="hidden sm:inline text-muted-foreground">{firstName}</span>
-              </button>
-              {menuOpen && (
-                <div className="absolute right-0 mt-2 w-56 border rounded-lg bg-card shadow-lg z-50">
-                  <div className="p-3 border-b">
-                    <p className="text-sm font-medium truncate">{user.displayName || firstName}</p>
-                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                  </div>
-                  <div className="p-1">
-                    <Link
-                      href="/app/account"
-                      className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent rounded-md"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      <UserIcon className="h-4 w-4" />
-                      Account
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent rounded-md text-left"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Sign out
-                    </button>
-                  </div>
-                </div>
-              )}
+                <MessageSquare className="h-3.5 w-3.5" />
+                Advisor Desk
+              </Link>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main content */}
-      <main className="max-w-5xl mx-auto px-4 py-6 sm:py-8 space-y-8">
-        {/* Welcome */}
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            {greeting}, {firstName}
-          </h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            Your work, tools, and client spaces in one place.
-          </p>
-        </div>
-
-        {/* Continue Working - highest value section */}
-        {continueItems.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3">Continue Working</h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {continueItems.map((item, idx) => (
+        {/* Dashboard content */}
+        <main className="px-4 sm:px-6 py-6 sm:py-8 space-y-8 max-w-5xl">
+          {/* Welcome banner */}
+          <div className="glass-card rounded-2xl p-6 animate-fade-in-up">
+            <div className="flex items-start justify-between flex-wrap gap-4">
+              <div>
+                <h2 className="text-xl font-bold">Your work, tools, and client spaces</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {organizations.length > 0
+                    ? `${organizations.length} organization${organizations.length > 1 ? 's' : ''} · ${activeEngagements.length} active engagement${activeEngagements.length !== 1 ? 's' : ''}`
+                    : isPlatformAdmin
+                      ? 'Platform admin access · No organization memberships'
+                      : 'Awaiting organization access'
+                  }
+                </p>
+              </div>
+              <div className="flex gap-2">
                 <Link
-                  key={idx}
-                  href={item.href}
-                  className="group border rounded-lg p-4 hover:border-primary/30 hover:bg-accent/30 transition-colors"
+                  href="/advisor-desk"
+                  className="glass-badge rounded-lg px-4 py-2 text-sm font-medium text-accent flex items-center gap-2 hover:scale-105 transition-transform"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-sm">{item.label}</h3>
-                      <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
-                    </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                  </div>
+                  <TrendingUp className="h-4 w-4" />
+                  Advisor Desk
                 </Link>
-              ))}
+              </div>
             </div>
-          </section>
-        )}
+          </div>
 
-        {/* My Work - active engagements */}
-        {activeEngagements.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Briefcase className="h-5 w-5" />
-              My Work
-            </h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {activeEngagements.map((eng) => (
-                <Link
-                  key={eng.id}
-                  href={`/app/${eng.organizationSlug}`}
-                  className="group border rounded-lg p-4 hover:border-primary/30 hover:bg-accent/30 transition-colors"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-sm">{getEngagementTypeLabel(eng.engagementType)}</h3>
-                      <p className="text-xs text-muted-foreground mt-0.5">{eng.organizationName}</p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded">
-                          {getEngagementStatusLabel(eng.status)}
-                        </span>
-                        {eng.startsAt && (
-                          <span className="text-xs text-muted-foreground flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            {new Date(eng.startsAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                          </span>
-                        )}
+          {/* Continue Working - highest value section */}
+          {continueItems.length > 0 && (
+            <section className="animate-fade-in-up" style={{ animationDelay: '50ms' }}>
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-accent" />
+                Continue Working
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {continueItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className="glass-card rounded-xl p-4 group"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-sm">{item.label}</h4>
+                        <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
                       </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
                     </div>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
-        {/* Tools & Applications */}
-        {toolItems.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Wrench className="h-5 w-5" />
-              Tools &amp; Applications
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {toolItems.map((tool, idx) => {
-                const content = (
-                  <div className="group border rounded-lg p-4 hover:border-primary/30 hover:bg-accent/30 transition-colors h-full">
-                    <h3 className="font-medium text-sm">{tool.label}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{tool.description}</p>
-                    <span className="text-xs text-muted-foreground mt-2 inline-block">
-                      {tool.href ? (
-                        <span className="text-primary group-hover:underline">Open →</span>
-                      ) : (
-                        <span className="text-muted-foreground">{tool.status}</span>
-                      )}
+          {/* My Work - active engagements */}
+          {activeEngagements.length > 0 && (
+            <section className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <Briefcase className="h-4 w-4 text-accent" />
+                My Work
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {activeEngagements.map((eng) => (
+                  <Link
+                    key={eng.id}
+                    href={`/app/${eng.organizationSlug}`}
+                    className="glass-card rounded-xl p-4 group"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-sm">{getEngagementTypeLabel(eng.engagementType)}</h4>
+                        <p className="text-xs text-muted-foreground mt-0.5">{eng.organizationName}</p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="text-xs glass-badge px-2 py-0.5 rounded-full text-accent">
+                            {getEngagementStatusLabel(eng.status)}
+                          </span>
+                          {eng.startsAt && (
+                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {new Date(eng.startsAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Tools & Applications */}
+          {toolItems.length > 0 && (
+            <section className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <Wrench className="h-4 w-4 text-accent" />
+                Tools &amp; Applications
+              </h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {toolItems.map((tool, idx) => {
+                  const content = (
+                    <div className="glass-card rounded-xl p-4 h-full group">
+                      <h4 className="font-medium text-sm">{tool.label}</h4>
+                      <p className="text-xs text-muted-foreground mt-0.5">{tool.description}</p>
+                      <span className="text-xs text-muted-foreground mt-2 inline-block">
+                        {tool.href ? (
+                          <span className="text-accent group-hover:underline">Open →</span>
+                        ) : (
+                          <span className="text-muted-foreground">{tool.status}</span>
+                        )}
+                      </span>
+                    </div>
+                  )
+                  return tool.href ? (
+                    <Link key={idx} href={tool.href}>{content}</Link>
+                  ) : (
+                    <div key={idx}>{content}</div>
+                  )
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* Organizations */}
+          {organizations.length > 0 && (
+            <section className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <Building2 className="h-4 w-4 text-accent" />
+                Organizations
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {organizations.map((org) => (
+                  <OrganizationCard key={org.id} org={org} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Pending invitations */}
+          {invitations.length > 0 && (
+            <section className="animate-fade-in-up" style={{ animationDelay: '250ms' }}>
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <MailOpen className="h-4 w-4 text-accent" />
+                Invitations
+              </h3>
+              <div className="space-y-2">
+                {invitations.map((inv) => (
+                  <div key={inv.id} className="glass-card rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                      <h4 className="font-medium text-sm">{inv.organizationName}</h4>
+                      <p className="text-xs text-muted-foreground">
+                        Invited as {inv.role} · Expires {new Date(inv.expiresAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <Link
+                      href={`/auth/accept-invitation?token=${inv.id}`}
+                      className="text-sm text-accent hover:underline glass-badge px-3 py-1.5 rounded-lg"
+                    >
+                      Accept
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Pending join requests */}
+          {joinRequests.length > 0 && (
+            <section className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <Clock className="h-4 w-4 text-accent" />
+                Access Requests
+              </h3>
+              <div className="space-y-2">
+                {joinRequests.map((jr) => (
+                  <div key={jr.id} className="glass-card rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                      <h4 className="font-medium text-sm">{jr.organizationName}</h4>
+                      <p className="text-xs text-muted-foreground">
+                        Requested {new Date(jr.createdAt).toLocaleDateString()} · {jr.status}
+                      </p>
+                    </div>
+                    <span className="text-xs glass-badge px-2 py-0.5 rounded-full text-amber-500">
+                      Pending
                     </span>
                   </div>
-                )
-                return tool.href ? (
-                  <Link key={idx} href={tool.href}>{content}</Link>
-                ) : (
-                  <div key={idx}>{content}</div>
-                )
-              })}
-            </div>
-          </section>
-        )}
+                ))}
+              </div>
+            </section>
+          )}
 
-        {/* Organizations */}
-        {organizations.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Building2 className="h-5 w-5" />
-              Organizations
-            </h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {organizations.map((org) => (
-                <OrganizationCard key={org.id} org={org} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Pending invitations */}
-        {invitations.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <MailOpen className="h-5 w-5" />
-              Invitations
-            </h2>
-            <div className="space-y-2">
-              {invitations.map((inv) => (
-                <div key={inv.id} className="border rounded-lg p-4 flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium text-sm">{inv.organizationName}</h3>
-                    <p className="text-xs text-muted-foreground">
-                      Invited as {inv.role} · Expires {new Date(inv.expiresAt).toLocaleDateString()}
-                    </p>
-                  </div>
+          {/* No organizations - onboarding state */}
+          {organizations.length === 0 && !isPlatformAdmin && (
+            <section className="animate-fade-in-up">
+              <div className="glass-card rounded-2xl p-8 text-center">
+                <CheckCircle2 className="h-10 w-10 text-accent mx-auto mb-3" />
+                <h3 className="text-lg font-semibold">Welcome to SubodhKC</h3>
+                <p className="text-sm text-muted-foreground mt-1 mb-4">
+                  Your account is ready. Once you&apos;re invited to an organization or granted access to tools,
+                  they&apos;ll appear here.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2 justify-center">
                   <Link
-                    href={`/auth/accept-invitation?token=${inv.id}`}
-                    className="text-sm text-primary hover:underline"
+                    href="/services"
+                    className="glass-badge rounded-lg px-4 py-2 text-sm text-accent hover:scale-105 transition-transform"
                   >
-                    Accept
+                    Explore services
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="glass-badge rounded-lg px-4 py-2 text-sm text-accent hover:scale-105 transition-transform"
+                  >
+                    Request access
                   </Link>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
+              </div>
+            </section>
+          )}
 
-        {/* Pending join requests */}
-        {joinRequests.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Clock className="h-5 w-5" />
-              Access Requests
-            </h2>
-            <div className="space-y-2">
-              {joinRequests.map((jr) => (
-                <div key={jr.id} className="border rounded-lg p-4 flex items-center justify-between">
+          {/* Platform admin section */}
+          {isPlatformAdmin && (
+            <section className="animate-fade-in-up" style={{ animationDelay: '350ms' }}>
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <Shield className="h-4 w-4 text-accent" />
+                Platform Administration
+              </h3>
+              <Link
+                href="/app/admin"
+                className="glass-card rounded-xl p-4 block group"
+              >
+                <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-sm">{jr.organizationName}</h3>
-                    <p className="text-xs text-muted-foreground">
-                      Requested {new Date(jr.createdAt).toLocaleDateString()} · {jr.status}
-                    </p>
+                    <h4 className="font-medium text-sm">Admin Console</h4>
+                    <p className="text-xs text-muted-foreground">Manage organizations, users, and entitlements</p>
                   </div>
-                  <span className="text-xs bg-yellow-500/10 text-yellow-700 px-2 py-0.5 rounded">
-                    Pending
-                  </span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* No organizations - onboarding state */}
-        {organizations.length === 0 && !isPlatformAdmin && (
-          <section>
-            <div className="border rounded-lg p-8 text-center">
-              <CheckCircle2 className="h-10 w-10 text-primary mx-auto mb-3" />
-              <h2 className="text-lg font-semibold">Welcome to SubodhKC</h2>
-              <p className="text-sm text-muted-foreground mt-1 mb-4">
-                Your account is ready. Once you&apos;re invited to an organization or granted access to tools,
-                they&apos;ll appear here.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                <Link
-                  href="/services"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Explore services
-                </Link>
-                <Link
-                  href="/contact"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Request access
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Platform admin: all organizations */}
-        {isPlatformAdmin && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Shield className="h-5 w-5" />
-              Platform Administration
-            </h2>
-            <Link
-              href="/app/admin"
-              className="block border rounded-lg p-4 hover:bg-accent/30 transition-colors"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-sm">Admin Console</h3>
-                  <p className="text-xs text-muted-foreground">Manage organizations, users, and entitlements</p>
-                </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground" />
-              </div>
-            </Link>
-          </section>
-        )}
-      </main>
+              </Link>
+            </section>
+          )}
+        </main>
+      </div>
     </div>
   )
 }
 
 function OrganizationCard({ org }: { org: DashboardOrganization }) {
   const activeOfferings = org.offerings.filter(o => getOfferingStatus(o) === 'available')
-  const hasSchoolPickup = activeOfferings.some(o => o.offeringKey === 'school_pickup')
   const isDemoOrg = org.slug === 'wilshire-demo'
 
   return (
     <Link
       href={`/app/${org.slug}`}
-      className="group border rounded-lg p-4 hover:border-primary/30 hover:bg-accent/30 transition-colors"
+      className="glass-card rounded-xl p-4 group"
     >
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="font-medium text-sm">{org.name}</h3>
+            <h4 className="font-medium text-sm">{org.name}</h4>
             {isDemoOrg && (
-              <span className="text-xs bg-yellow-500/10 text-yellow-700 px-1.5 py-0.5 rounded font-medium">
+              <span className="text-xs glass-badge px-1.5 py-0.5 rounded-full text-amber-500 font-medium">
                 Synthetic Data
               </span>
             )}
@@ -419,7 +534,7 @@ function OrganizationCard({ org }: { org: DashboardOrganization }) {
           {activeOfferings.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-2">
               {activeOfferings.slice(0, 3).map((o) => (
-                <span key={o.offeringKey} className="text-xs bg-accent px-1.5 py-0.5 rounded">
+                <span key={o.offeringKey} className="text-xs glass-badge px-1.5 py-0.5 rounded text-accent">
                   {getOfferingLabel(o.offeringKey)}
                 </span>
               ))}
@@ -431,7 +546,7 @@ function OrganizationCard({ org }: { org: DashboardOrganization }) {
             </div>
           )}
         </div>
-        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
       </div>
     </Link>
   )

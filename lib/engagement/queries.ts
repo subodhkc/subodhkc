@@ -29,7 +29,7 @@ export async function getEngagementFullData(engagementId: string): Promise<Engag
 
   const { data: charter } = await sc
     .from('engagements')
-    .select('*')
+    .select('id, organization_id, engagement_type, status, title, statement, in_scope, out_of_scope, executive_sponsor, client_lead, advisor_lead, starts_at, ends_at, review_cadence, current_phase, health_status, health_reason, health_updated_at, completed_at, completed_reason, created_at, updated_at')
     .eq('id', engagementId)
     .single()
 
@@ -38,21 +38,21 @@ export async function getEngagementFullData(engagementId: string): Promise<Engag
   const orgId = charter.organization_id
 
   const [outcomes, workstreams, milestones, actions, decisions, updates, artifacts, accelerators, participants, changeRequests, internalNotes, acknowledgments, solutionLinks] = await Promise.all([
-    sc.from('engagement_outcomes').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_workstreams').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_milestones').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_actions').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_decisions').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_updates').select('*').eq('engagement_id', engagementId).order('display_order', { ascending: false }),
-    sc.from('engagement_artifacts').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_accelerators').select('*').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_outcomes').select('id, engagement_id, title, description, baseline_value, target_value, current_value, unit, measurement_source, last_measured_at, status, display_order').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_workstreams').select('id, engagement_id, name, description, owner_label, status, display_order, is_blocked, blocking_reason').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_milestones').select('id, engagement_id, workstream_id, title, description, target_date, completed_at, status, display_order').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_actions').select('id, engagement_id, workstream_id, title, description, assignee_label, assignee_user_id, due_date, completed_at, status, is_client_action, is_blocked, blocking_reason, display_order').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_decisions').select('id, engagement_id, workstream_id, title, description, decision_owner, decision_owner_user_id, needed_by, decided_at, decision_rationale, status, display_order').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_updates').select('id, engagement_id, title, what_changed, in_progress, what_next, needs_attention, risks_blockers, status, authored_by, published_at, display_order, created_at').eq('engagement_id', engagementId).order('display_order', { ascending: false }),
+    sc.from('engagement_artifacts').select('id, engagement_id, workstream_id, title, description, artifact_type, storage_path, external_url, status, requires_acknowledgment, authored_by, published_at, superseded_at, superseded_by, display_order, created_at').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_accelerators').select('id, engagement_id, accelerator_key, accelerator_name, reference_url, notes, display_order').eq('engagement_id', engagementId).order('display_order'),
     sc.from('engagement_participants')
       .select('id, engagement_id, user_id, responsibility, display_name, profiles!inner(email)')
       .eq('engagement_id', engagementId)
       .order('responsibility'),
-    sc.from('engagement_change_requests').select('*').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
-    sc.from('engagement_internal_notes').select('*').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
-    sc.from('engagement_acknowledgments').select('*').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
+    sc.from('engagement_change_requests').select('id, engagement_id, title, description, reason, impact_summary, requested_by, requested_at, status, client_visible, accepted_by, accepted_at, created_at').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
+    sc.from('engagement_internal_notes').select('id, engagement_id, author_id, content, note_category, created_at, updated_at').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
+    sc.from('engagement_acknowledgments').select('id, artifact_id, user_id, response, comment, created_at').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
     sc.from('engagement_solution_links')
       .select('id, engagement_id, external_link_id, solution_label, deployment_label, display_order, external_system_links!inner(system_key, external_id, status, metadata)')
       .eq('engagement_id', engagementId)
@@ -101,27 +101,27 @@ export async function getClientVisibleEngagementData(engagementId: string) {
 
   const { data: charter } = await sc
     .from('engagements')
-    .select('*')
+    .select('id, organization_id, engagement_type, status, title, statement, in_scope, out_of_scope, executive_sponsor, client_lead, advisor_lead, starts_at, ends_at, review_cadence, current_phase, health_status, health_reason, health_updated_at, completed_at, completed_reason, created_at, updated_at')
     .eq('id', engagementId)
     .single()
 
   if (!charter) return null
 
   const [outcomes, workstreams, milestones, actions, decisions, updates, artifacts, accelerators, participants, changeRequests, acknowledgments, solutionLinks] = await Promise.all([
-    sc.from('engagement_outcomes').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_workstreams').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_milestones').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_actions').select('*').eq('engagement_id', engagementId).eq('is_client_action', true).order('display_order'),
-    sc.from('engagement_decisions').select('*').eq('engagement_id', engagementId).order('display_order'),
-    sc.from('engagement_updates').select('*').eq('engagement_id', engagementId).eq('status', 'published').order('display_order', { ascending: false }),
-    sc.from('engagement_artifacts').select('*').eq('engagement_id', engagementId).eq('status', 'published').order('display_order'),
-    sc.from('engagement_accelerators').select('*').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_outcomes').select('id, engagement_id, title, description, baseline_value, target_value, current_value, unit, measurement_source, last_measured_at, status, display_order').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_workstreams').select('id, engagement_id, name, description, owner_label, status, display_order, is_blocked, blocking_reason').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_milestones').select('id, engagement_id, workstream_id, title, description, target_date, completed_at, status, display_order').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_actions').select('id, engagement_id, workstream_id, title, description, assignee_label, assignee_user_id, due_date, completed_at, status, is_client_action, is_blocked, blocking_reason, display_order').eq('engagement_id', engagementId).eq('is_client_action', true).order('display_order'),
+    sc.from('engagement_decisions').select('id, engagement_id, workstream_id, title, description, decision_owner, decision_owner_user_id, needed_by, decided_at, decision_rationale, status, display_order').eq('engagement_id', engagementId).order('display_order'),
+    sc.from('engagement_updates').select('id, engagement_id, title, what_changed, in_progress, what_next, needs_attention, risks_blockers, status, authored_by, published_at, display_order, created_at').eq('engagement_id', engagementId).eq('status', 'published').order('display_order', { ascending: false }),
+    sc.from('engagement_artifacts').select('id, engagement_id, workstream_id, title, description, artifact_type, storage_path, external_url, status, requires_acknowledgment, authored_by, published_at, superseded_at, superseded_by, display_order, created_at').eq('engagement_id', engagementId).eq('status', 'published').order('display_order'),
+    sc.from('engagement_accelerators').select('id, engagement_id, accelerator_key, accelerator_name, reference_url, notes, display_order').eq('engagement_id', engagementId).order('display_order'),
     sc.from('engagement_participants')
       .select('id, engagement_id, user_id, responsibility, display_name, profiles!inner(email)')
       .eq('engagement_id', engagementId)
       .order('responsibility'),
-    sc.from('engagement_change_requests').select('*').eq('engagement_id', engagementId).eq('status', 'accepted').eq('client_visible', true).order('created_at', { ascending: false }),
-    sc.from('engagement_acknowledgments').select('*').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
+    sc.from('engagement_change_requests').select('id, engagement_id, title, description, reason, impact_summary, requested_by, requested_at, status, client_visible, accepted_by, accepted_at, created_at').eq('engagement_id', engagementId).eq('status', 'accepted').eq('client_visible', true).order('created_at', { ascending: false }),
+    sc.from('engagement_acknowledgments').select('id, artifact_id, user_id, response, comment, created_at').eq('engagement_id', engagementId).order('created_at', { ascending: false }),
     sc.from('engagement_solution_links')
       .select('id, engagement_id, external_link_id, solution_label, deployment_label, display_order, external_system_links!inner(system_key, external_id, status, metadata)')
       .eq('engagement_id', engagementId)
@@ -183,7 +183,7 @@ export async function getAdvisorPortfolio(userId: string): Promise<AdvisorPortfo
   // Get all active engagements for these orgs
   const { data: engagements } = await sc
     .from('engagements')
-    .select('*')
+    .select('id, organization_id, engagement_type, status, title, statement, in_scope, out_of_scope, executive_sponsor, client_lead, advisor_lead, starts_at, ends_at, review_cadence, current_phase, health_status, health_reason, health_updated_at, completed_at, completed_reason, created_at, updated_at')
     .in('organization_id', orgIds)
     .neq('status', 'cancelled')
     .order('updated_at', { ascending: false })
@@ -198,26 +198,57 @@ export async function getAdvisorPortfolio(userId: string): Promise<AdvisorPortfo
 
   const orgMap = new Map((orgs || []).map(o => [o.id, o]))
 
-  // For each engagement, get summary counts
-  const portfolio: AdvisorPortfolioItem[] = []
+  const engIds = engagements.map(e => e.id)
+  const today = new Date().toISOString().split('T')[0]
 
-  for (const eng of engagements) {
-    const engId = eng.id
-    const today = new Date().toISOString().split('T')[0]
+  // Batch fetch all summary data in 5 parallel queries (not N*5)
+  const [allDecisions, allMilestones, allActions, allArtifacts, allUpdates] = await Promise.all([
+    sc.from('engagement_decisions').select('engagement_id, status, needed_by').in('engagement_id', engIds),
+    sc.from('engagement_milestones').select('engagement_id, status, target_date').in('engagement_id', engIds).neq('status', 'completed').neq('status', 'cancelled'),
+    sc.from('engagement_actions').select('engagement_id, status, due_date, is_client_action').in('engagement_id', engIds).neq('status', 'completed').neq('status', 'cancelled'),
+    sc.from('engagement_artifacts').select('engagement_id, status').in('engagement_id', engIds),
+    sc.from('engagement_updates').select('engagement_id, title, published_at, status, display_order').in('engagement_id', engIds).order('display_order', { ascending: false }),
+  ])
 
-    const [decisionsRes, milestonesRes, actionsRes, artifactsRes, updatesRes] = await Promise.all([
-      sc.from('engagement_decisions').select('status, needed_by').eq('engagement_id', engId),
-      sc.from('engagement_milestones').select('status, target_date').eq('engagement_id', engId).neq('status', 'completed').neq('status', 'cancelled'),
-      sc.from('engagement_actions').select('status, due_date, is_client_action').eq('engagement_id', engId).neq('status', 'completed').neq('status', 'cancelled'),
-      sc.from('engagement_artifacts').select('status').eq('engagement_id', engId),
-      sc.from('engagement_updates').select('title, published_at, status').eq('engagement_id', engId).order('display_order', { ascending: false }).limit(1),
-    ])
+  // Group by engagement_id
+  const decisionsByEng = new Map<string, any[]>()
+  const milestonesByEng = new Map<string, any[]>()
+  const actionsByEng = new Map<string, any[]>()
+  const artifactsByEng = new Map<string, any[]>()
+  const updatesByEng = new Map<string, any>()
 
-    const decisions = decisionsRes.data || []
-    const milestones = milestonesRes.data || []
-    const actions = actionsRes.data || []
-    const artifacts = artifactsRes.data || []
-    const updates = updatesRes.data || []
+  for (const d of (allDecisions.data || [])) {
+    const arr = decisionsByEng.get(d.engagement_id) || []
+    arr.push(d)
+    decisionsByEng.set(d.engagement_id, arr)
+  }
+  for (const m of (allMilestones.data || [])) {
+    const arr = milestonesByEng.get(m.engagement_id) || []
+    arr.push(m)
+    milestonesByEng.set(m.engagement_id, arr)
+  }
+  for (const a of (allActions.data || [])) {
+    const arr = actionsByEng.get(a.engagement_id) || []
+    arr.push(a)
+    actionsByEng.set(a.engagement_id, arr)
+  }
+  for (const a of (allArtifacts.data || [])) {
+    const arr = artifactsByEng.get(a.engagement_id) || []
+    arr.push(a)
+    artifactsByEng.set(a.engagement_id, arr)
+  }
+  for (const u of (allUpdates.data || [])) {
+    if (!updatesByEng.has(u.engagement_id)) {
+      updatesByEng.set(u.engagement_id, u) // First = latest due to order
+    }
+  }
+
+  const portfolio: AdvisorPortfolioItem[] = engagements.map((eng) => {
+    const decisions = decisionsByEng.get(eng.id) || []
+    const milestones = milestonesByEng.get(eng.id) || []
+    const actions = actionsByEng.get(eng.id) || []
+    const artifacts = artifactsByEng.get(eng.id) || []
+    const latestUpdate = updatesByEng.get(eng.id)
 
     const openDecisions = decisions.filter(d => d.status === 'open').length
     const overdueDecisions = decisions.filter(d => d.status === 'open' && d.needed_by && d.needed_by < today).length
@@ -225,11 +256,11 @@ export async function getAdvisorPortfolio(userId: string): Promise<AdvisorPortfo
     const overdueClientActions = actions.filter(a => a.is_client_action && a.due_date && a.due_date < today).length
     const draftArtifacts = artifacts.filter(a => a.status === 'draft').length
     const readyToPublish = artifacts.filter(a => a.status === 'ready_for_review').length
-    const draftUpdates = updates.filter(u => u.status === 'draft').length
+    const draftUpdates = latestUpdate?.status === 'draft' ? 1 : 0
 
     const org = orgMap.get(eng.organization_id)
 
-    portfolio.push({
+    return {
       engagement: eng as EngagementCharter,
       organization_name: org?.name ?? 'Unknown',
       organization_slug: org?.slug ?? '',
@@ -240,10 +271,10 @@ export async function getAdvisorPortfolio(userId: string): Promise<AdvisorPortfo
       draft_artifacts: draftArtifacts,
       ready_to_publish_artifacts: readyToPublish,
       draft_updates: draftUpdates,
-      latest_update_title: updates[0]?.title ?? null,
-      latest_update_date: updates[0]?.published_at ?? null,
-    })
-  }
+      latest_update_title: latestUpdate?.title ?? null,
+      latest_update_date: latestUpdate?.published_at ?? null,
+    }
+  })
 
   return portfolio
 }

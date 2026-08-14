@@ -516,7 +516,7 @@ export default function AboutPage() {
               </CardTitle>
               <CardDescription>
                 AI fairness and transparency scoring system with modular architecture. 
-                Provides audit-grade documentation and compliance reporting for enterprise deployments.
+                Provides evidence-grade documentation and compliance reporting for enterprise deployments.
               </CardDescription>
             </CardHeader>
           </Card>

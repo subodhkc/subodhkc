@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield, Globe, Phone, Sparkles, FileText, Briefcase, Layers, Grid } from 'lucide-react'
+import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield, Globe, Phone, Sparkles, FileText, Briefcase, Layers, Grid, MessageSquare, Workflow } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ProfileCard from './ProfileCard'
 
@@ -118,9 +118,48 @@ const frameworks = [
   },
 ]
 
+const offers = [
+  {
+    name: 'AI Advisor Desk',
+    href: '/ai-advisor',
+    description: 'Ongoing AI guidance, $99/month',
+    icon: MessageSquare,
+    badge: '$99/mo'
+  },
+  {
+    name: 'AI Automation Blueprint',
+    href: '/ai-automation',
+    description: 'One workflow analyzed, $500 fixed',
+    icon: Workflow,
+    badge: '$500'
+  },
+  {
+    name: 'AI Voice Agent',
+    href: '/ai-voice-agent',
+    description: 'Managed AI voice deployment from $499/month',
+    icon: Phone,
+    badge: 'from $499/mo'
+  },
+  {
+    name: 'AI Security & Compliance',
+    href: '/ai-security-compliance',
+    description: 'AI security assessment and compliance review',
+    icon: Shield,
+    badge: 'Custom'
+  },
+  {
+    name: 'SaaS & AI Security Review',
+    href: '/saas-security-review',
+    description: 'Tenant isolation, AI app security, enterprise readiness',
+    icon: Shield,
+    badge: 'from $950'
+  },
+]
+
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
+  { name: 'Offers', href: '/ai-advisor', hasDropdown: true, dropdownType: 'offers' },
   { name: 'Frameworks', href: '/cognitive-systems-management', hasDropdown: true, dropdownType: 'frameworks' },
   { name: 'Solutions', href: '/solutions', hasDropdown: true, dropdownType: 'solutions' },
   { name: 'Products', href: '/products', hasDropdown: true, dropdownType: 'products' },
@@ -134,9 +173,11 @@ export default function Navigation() {
   const [productsOpen, setProductsOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
   const [frameworksOpen, setFrameworksOpen] = useState(false)
+  const [offersOpen, setOffersOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const solutionsDropdownRef = useRef<HTMLDivElement>(null)
   const frameworksDropdownRef = useRef<HTMLDivElement>(null)
+  const offersDropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -156,6 +197,9 @@ export default function Navigation() {
       }
       if (frameworksDropdownRef.current && !frameworksDropdownRef.current.contains(event.target as Node)) {
         setFrameworksOpen(false)
+      }
+      if (offersDropdownRef.current && !offersDropdownRef.current.contains(event.target as Node)) {
+        setOffersOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -192,23 +236,23 @@ export default function Navigation() {
         <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
           {navigation.map((item) => (
             item.hasDropdown ? (
-              <div key={item.name} className="relative" ref={item.dropdownType === 'solutions' ? solutionsDropdownRef : item.dropdownType === 'frameworks' ? frameworksDropdownRef : dropdownRef}>
+              <div key={item.name} className="relative" ref={item.dropdownType === 'solutions' ? solutionsDropdownRef : item.dropdownType === 'frameworks' ? frameworksDropdownRef : item.dropdownType === 'offers' ? offersDropdownRef : dropdownRef}>
                 <button
-                  onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(!solutionsOpen) : item.dropdownType === 'frameworks' ? setFrameworksOpen(!frameworksOpen) : setProductsOpen(!productsOpen)}
+                  onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(!solutionsOpen) : item.dropdownType === 'frameworks' ? setFrameworksOpen(!frameworksOpen) : item.dropdownType === 'offers' ? setOffersOpen(!offersOpen) : setProductsOpen(!productsOpen)}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
                 >
                   {item.name}
-                  <ChevronDown className={cn("h-4 w-4 transition-transform", (item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : productsOpen) && "rotate-180")} />
+                  <ChevronDown className={cn("h-4 w-4 transition-transform", (item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : item.dropdownType === 'offers' ? offersOpen : productsOpen) && "rotate-180")} />
                 </button>
-                {(item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : productsOpen) && (
+                {(item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : item.dropdownType === 'offers' ? offersOpen : productsOpen) && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-background border border-border rounded-xl shadow-xl p-2 z-50">
-                    {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : products).map((product) => {
+                    {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : item.dropdownType === 'offers' ? offers : products).map((product) => {
                       const Icon = product.icon
                       return (
                         <Link
                           key={product.name}
                           href={product.href}
-                          onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(false) : item.dropdownType === 'frameworks' ? setFrameworksOpen(false) : setProductsOpen(false)}
+                          onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(false) : item.dropdownType === 'frameworks' ? setFrameworksOpen(false) : item.dropdownType === 'offers' ? setOffersOpen(false) : setProductsOpen(false)}
                           className="flex items-start gap-3 p-3 rounded-lg hover:bg-secondary/50 transition-colors"
                         >
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -229,7 +273,12 @@ export default function Navigation() {
                                   product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
                                   product.badge === 'Beta' && "bg-orange-500/10 text-orange-500",
                                   product.badge === 'Published 2025' && "bg-purple-500/10 text-purple-500",
-                                  product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500"
+                                  product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500",
+                                  product.badge === '$99/mo' && "bg-green-500/10 text-green-500",
+                                  product.badge === '$500' && "bg-blue-500/10 text-blue-500",
+                                  product.badge === 'from $499/mo' && "bg-blue-500/10 text-blue-500",
+                                  product.badge === 'from $950' && "bg-blue-500/10 text-blue-500",
+                                  product.badge === 'Custom' && "bg-indigo-500/10 text-indigo-500"
                                 )}>
                                   {product.badge}
                                 </span>
@@ -291,7 +340,7 @@ export default function Navigation() {
                         {item.name}
                       </div>
                       <div className="pl-4 space-y-1">
-                        {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : products).map((product) => {
+                        {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : item.dropdownType === 'offers' ? offers : products).map((product) => {
                           const Icon = product.icon
                           return (
                             <Link
@@ -314,7 +363,12 @@ export default function Navigation() {
                                 product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
                                 product.badge === 'Beta' && "bg-orange-500/10 text-orange-500",
                                 product.badge === 'Published 2025' && "bg-purple-500/10 text-purple-500",
-                                product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500"
+                                product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500",
+                                product.badge === '$99/mo' && "bg-green-500/10 text-green-500",
+                                product.badge === '$500' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'from $499/mo' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'from $950' && "bg-blue-500/10 text-blue-500",
+                                product.badge === 'Custom' && "bg-indigo-500/10 text-indigo-500"
                               )}>
                                 {product.badge}
                               </span>

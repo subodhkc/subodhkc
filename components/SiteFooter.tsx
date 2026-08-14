@@ -66,6 +66,11 @@ const SITEMAP = [
     items: [
       ["/writing", "writing"],
       ["/ai-security-tools", "AI security tools"],
+      ["/ai-advisor", "AI advisor desk"],
+      ["/ai-automation", "AI automation blueprint"],
+      ["/ai-voice-agent", "AI voice agent"],
+      ["/ai-security-compliance", "AI security & compliance"],
+      ["/saas-security-review", "SaaS security review"],
       ["/solutions/haiec/exposure-assessment", "exposure assessment"],
       ["/research", "research"],
       ["/speaking", "speaking"],

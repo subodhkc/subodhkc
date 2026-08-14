@@ -59,7 +59,7 @@ export default function SolutionsPage() {
       features: [
         'EU AI Act Compliance',
         'Risk Management System',
-        'Audit-Grade Evidence',
+        'Evidence-Grade Documentation',
         'Runtime Adversarial Testing'
       ],
       color: 'indigo'

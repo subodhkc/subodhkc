@@ -140,7 +140,7 @@ export const limitations = [
 export const relatedResources = [
   { href: '/why-ai-voice-agents-fail-in-production', title: 'Why AI Voice Agents Fail in Production', desc: 'Ten failure modes, a production architecture, security threat model, compliance mapping, and a six-phase deployment plan.' },
   { href: '/solutions/kestrelvoice', title: 'Kestrel Voice Platform', desc: 'AI-powered voice operations for service businesses. Answer every call, book appointments automatically, recover missed revenue.' },
-  { href: '/solutions/haiec', title: 'HAIEC Platform', desc: 'AI security, governance, and compliance-readiness platform with exposure assessment and audit-grade evidence.' },
+  { href: '/solutions/haiec', title: 'HAIEC Platform', desc: 'AI security, governance, and compliance-readiness platform with exposure assessment and evidence-grade documentation.' },
   { href: '/secure-enterprise-rag-architecture', title: 'Secure Enterprise RAG Architecture', desc: 'Enterprise RAG security covering row-level security, tenant isolation, retrieval governance, and the full RAG lifecycle.' },
   { href: '/how-to-secure-and-govern-ai', title: 'How to Secure and Govern AI', desc: 'NIST AI RMF, ISO/IEC 42001, SOC 2, and the seven layers of AI compliance with an interactive framework decision tool.' },
   { href: '/ai-security-tools', title: 'AI Security Tools', desc: 'Interactive blast radius calculator, agent read/write/action matrix, and prompt-injection scenario library.' },

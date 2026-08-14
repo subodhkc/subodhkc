@@ -579,7 +579,7 @@ export default function ExecutiveBioPage() {
                 Modular Audit Engine
               </CardTitle>
               <CardDescription className="text-base">
-                AI fairness and transparency scoring system with modular architecture. Provides audit-grade documentation for enterprise deployments.
+                AI fairness and transparency scoring system with modular architecture. Provides evidence-grade documentation for enterprise deployments.
               </CardDescription>
             </CardHeader>
           </Card>

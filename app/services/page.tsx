@@ -7,7 +7,7 @@ import Grid from '@/components/Grid'
 import Link from 'next/link'
 import {
   Shield, Briefcase, Users, Zap, CheckCircle2, Target, Award,
-  Network, Database, Workflow, Bot, Phone, Activity, Lock, FileCheck, Gauge, Cpu, Radio, Layers, ArrowRight,
+  Network, Database, Workflow, Bot, Phone, Activity, Lock, FileCheck, Gauge, Cpu, Radio, Layers, ArrowRight, MessageSquare,
 } from 'lucide-react'
 
 export const metadata = {
@@ -150,7 +150,7 @@ export default function ServicesPage() {
         {
           icon: FileCheck,
           name: 'Evidence Architecture',
-          desc: 'Audit-grade evidence generation, documentation pipelines, and compliance evidence repositories.',
+          desc: 'Evidence-grade documentation generation, documentation pipelines, and compliance evidence repositories.',
         },
         {
           icon: Activity,
@@ -310,49 +310,50 @@ export default function ServicesPage() {
 
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle>Full-Stack Translation</CardTitle>
+              <CardTitle>Engineering-to-Compliance Translation</CardTitle>
               <CardDescription className="text-base">
-                I operate at every layer: infrastructure, model, application, governance, legal, and executive.
-                This means I can align engineering teams, compliance officers, and C-suite stakeholders around
-                a single source of truth.
+                I work across infrastructure, model, application, governance, and executive layers.
+                Engineering teams, compliance officers, and C-suite stakeholders get aligned around
+                a shared understanding of what is built, what is controlled, and what remains open.
               </CardDescription>
             </CardHeader>
           </Card>
 
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle>Proven at Fortune 50 Scale</CardTitle>
+              <CardTitle>Tested in Production at Enterprise Scale</CardTitle>
               <CardDescription className="text-base">
-                Everything I build is tested in production at enterprise scale. 53-application portfolios,
-                $50M+ AI portfolios, 5 patent-pending frameworks. If it works at Fortune 50, it works everywhere.
+                53-application portfolios, $50M+ AI portfolios, 5 patent-pending frameworks. Everything I build
+                is designed for production environments with real constraints, real users, and real compliance obligations.
               </CardDescription>
             </CardHeader>
           </Card>
         </div>
       </Section>
 
-      <Section subtitle="Specialized Service" title="SaaS Tenant Isolation Audit" sectionNum="§05">
+      <Section subtitle="Specialized Service" title="SaaS & AI Security Review" sectionNum="§05">
         <div className="max-w-3xl mx-auto">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-primary" />
-                Prove Customer A Cannot Access Customer B&rsquo;s Data
+                Verify tenant isolation and AI application security
               </CardTitle>
               <CardDescription className="text-base">
-                A specialized tenant isolation audit for B2B SaaS, AI-built applications, and teams converting
+                A specialized security review for B2B SaaS, AI-built applications, and teams converting
                 single-user apps into organization-based multi-tenancy. Tests the tenant boundary across
                 authentication, roles, API routes, database queries and storage. Covers Next.js, Supabase RLS,
                 Prisma, PostgreSQL and AI-generated applications from Lovable, Bolt, Replit, Cursor and Windsurf.
+                From $950.
               </CardDescription>
             </CardHeader>
           </Card>
           <div className="mt-4">
             <Link
-              href="/services/saas-tenant-isolation-audit"
+              href="/saas-security-review"
               className="text-sm text-primary hover:underline inline-flex items-center gap-1"
             >
-              Learn about tenant isolation audits <ArrowRight className="h-3 w-3" />
+              Explore the SaaS &amp; AI Security Review <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
         </div>
@@ -379,9 +380,83 @@ export default function ServicesPage() {
         </div>
       </Section>
 
+      <Section subtitle="Direct Offers" title="Not sure where to start?" className="bg-secondary/20">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-base text-muted-foreground mb-6">
+            Two primary ways to begin, two specific-solution pathways. Choose the path that matches your situation.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <Link href="/ai-advisor" className="block">
+              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <MessageSquare className="h-4 w-4 text-primary" />
+                    AI Advisor Desk
+                  </CardTitle>
+                  <CardDescription className="text-sm">
+                    $99/month. Ongoing AI guidance, controls review, regulatory monitoring. Up to 3 team members. Start here if you want ongoing support.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/ai-automation" className="block">
+              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Workflow className="h-4 w-4 text-primary" />
+                    AI Automation Blueprint
+                  </CardTitle>
+                  <CardDescription className="text-sm">
+                    $500 fixed. One workflow analyzed with buy/configure/build recommendation, architecture, and implementation roadmap. Start here if you have a specific workflow question.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+          <p className="text-sm font-semibold text-foreground mb-4">Need something specific?</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link href="/ai-voice-agent" className="block">
+              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-primary" />
+                    AI Voice Agent
+                  </CardTitle>
+                  <CardDescription className="text-sm">
+                    Managed AI voice deployment from $499/month. Standard and custom workflows. Calls, intake, booking.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+            <Link href="/ai-security-compliance" className="block">
+              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-primary" />
+                    AI Security &amp; Compliance
+                  </CardTitle>
+                  <CardDescription className="text-sm">
+                    AI security assessment, compliance review, vendor risk, hiring bias, and evidence-grade documentation.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+          <div className="mt-6 rounded-lg border border-border p-4">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">Building a SaaS or AI product?</strong>{' '}
+              <Link href="/saas-security-review" className="text-primary hover:underline">
+                See the SaaS &amp; AI Security Review <ArrowRight className="inline h-3 w-3" />
+              </Link>
+              {' '}for tenant isolation, AI application security, and buyer-shareable evidence.
+            </p>
+          </div>
+        </div>
+      </Section>
+
       <CTA
         title="Let's Discuss Your AI Challenge"
-        description="Whether you need architecture, deployment, governance, or all three - I bring 16+ years of experience, 5 patent-pending methodologies, and a track record of delivering results in the most demanding environments."
+        description="Whether you need architecture, deployment, governance, or all three, I bring production experience and a track record of delivering results in demanding environments."
         primaryButton={{ text: 'Schedule a Conversation', href: '/contact' }}
         secondaryButton={{ text: 'View Executive Bio', href: '/executive-bio' }}
       />

@@ -812,7 +812,7 @@ export default function TexasAILawPage() {
                   <CardTitle className="text-base">Evidence Architecture</CardTitle>
                 </div>
                 <CardDescription className="text-sm leading-relaxed">
-                  Build audit-grade evidence generation pipelines that produce AG-ready documentation
+                  Build evidence-grade documentation generation pipelines that produce AG-ready documentation
                   covering purpose, intended use, deployment context, data types, and monitoring.
                 </CardDescription>
               </CardHeader>

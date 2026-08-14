@@ -59,7 +59,7 @@ const faqs = [
       },
       {
         q: 'How do I prepare for an AI audit?',
-        a: 'Start by documenting your AI inventory, data lineage, model training processes, and decision-making workflows. Implement evidence architecture that generates audit-grade documentation automatically. Run bias testing and drift detection. Map each system to applicable regulatory requirements. Subodh KC\'s Modular Audit Engine framework automates much of this process, reducing audit preparation time from months to weeks.',
+        a: 'Start by documenting your AI inventory, data lineage, model training processes, and decision-making workflows. Implement evidence architecture that generates evidence-grade documentation automatically. Run bias testing and drift detection. Map each system to applicable regulatory requirements. Subodh KC\'s Modular Audit Engine framework automates much of this process, reducing audit preparation time from months to weeks.',
       },
     ],
   },

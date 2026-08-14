@@ -50,6 +50,8 @@ const nextConfig = {
       // 301 redirect for retired CSM6 name
       { source: '/csm6', destination: '/cognitive-systems-management', statusCode: 301 },
       { source: '/csm6/:path*', destination: '/cognitive-systems-management', statusCode: 301 },
+      // 301 redirect for consolidated tenant isolation page into SaaS & AI Security Review
+      { source: '/services/saas-tenant-isolation-audit', destination: '/saas-security-review', statusCode: 301 },
     ]
   },
 }

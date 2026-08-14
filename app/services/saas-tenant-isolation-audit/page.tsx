@@ -880,6 +880,25 @@ export default function TenantIsolationAuditPage() {
       >
         <div className="grid md:grid-cols-2 gap-4">
           <Link
+            href="/saas-security-review"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px 20px',
+              borderRadius: 12,
+              border: '1px solid var(--op-border)',
+              background: 'var(--op-card)',
+              textDecoration: 'none',
+              color: 'var(--fg)',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+            }}
+          >
+            SaaS Security Review (Tenant Isolation + AI Security)
+            <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
+          </Link>
+          <Link
             href="/services"
             style={{
               display: 'flex',

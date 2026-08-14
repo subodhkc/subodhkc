@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Building2, Plus, Shield } from 'lucide-react'
+import { Building2, Plus, Shield, ArrowLeft, Menu, X, LogOut } from 'lucide-react'
 import type { AuthenticatedUser } from '@/lib/auth/organization-resolver'
 
 interface PlatformAdminClientProps {
@@ -63,36 +63,75 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
     setCreating(false)
   }
 
+  async function handleLogout() {
+    await fetch('/auth/logout', { method: 'POST' })
+    router.push('/login')
+    router.refresh()
+  }
+
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="px-4 h-14 flex items-center gap-4">
-          <Link href="/app" className="font-semibold text-sm">SubodhKC</Link>
-          <span className="text-muted-foreground">/</span>
-          <span className="text-sm font-medium flex items-center gap-1">
-            <Shield className="h-3.5 w-3.5" />
-            Platform Admin
-          </span>
+    <div className="min-h-screen glass-gradient-bg">
+      {/* Top bar */}
+      <header className="glass sticky top-0 z-20 border-b border-border/20">
+        <div className="flex items-center justify-between px-4 sm:px-6 h-16">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/app"
+              className="glass-badge rounded-lg p-2 text-accent hover:scale-105 transition-transform"
+              title="Back to Dashboard"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+            <div className="flex items-center gap-2">
+              <Shield className="h-4 w-4 text-accent" />
+              <h1 className="text-lg font-bold tracking-tight">Platform Admin</h1>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="glass-badge rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5">
+              <Shield className="h-3.5 w-3.5" />
+              {user.email}
+            </div>
+            <button
+              onClick={handleLogout}
+              className="glass-badge rounded-lg p-2 text-muted-foreground hover:text-destructive transition-colors"
+              title="Sign out"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Platform Administration</h1>
-          <button
-            onClick={() => setShowCreate(!showCreate)}
-            className="px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-sm flex items-center gap-1"
-          >
-            <Plus className="h-4 w-4" />
-            New Organization
-          </button>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        {/* Header card */}
+        <div className="glass-card rounded-2xl p-6 animate-fade-in-up">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h2 className="text-xl font-bold">Platform Administration</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                {organizations.length} organizations · {offerings.length} offerings
+              </p>
+            </div>
+            <button
+              onClick={() => setShowCreate(!showCreate)}
+              className="glass-badge rounded-lg px-4 py-2 text-sm font-medium text-accent flex items-center gap-2 hover:scale-105 transition-transform"
+            >
+              <Plus className="h-4 w-4" />
+              New Organization
+            </button>
+          </div>
         </div>
 
-        {error && <div className="bg-red-500/10 text-red-700 text-sm p-3 rounded mb-4">{error}</div>}
+        {error && (
+          <div className="glass-card rounded-xl p-3 text-sm text-destructive border-destructive/20">
+            {error}
+          </div>
+        )}
 
         {showCreate && (
-          <form onSubmit={handleCreateOrg} className="border rounded-lg p-4 mb-6 space-y-3">
-            <h2 className="font-semibold">Create Organization</h2>
+          <form onSubmit={handleCreateOrg} className="glass-card rounded-2xl p-6 space-y-4 animate-fade-in-up">
+            <h3 className="font-semibold">Create Organization</h3>
             <div>
               <label className="text-xs text-muted-foreground">Name</label>
               <input
@@ -100,7 +139,7 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
                 value={orgName}
                 onChange={(e) => setOrgName(e.target.value)}
                 required
-                className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
+                className="w-full px-3 py-2 rounded-lg glass-input text-sm mt-1"
               />
             </div>
             <div>
@@ -110,7 +149,7 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
                 value={orgSlug}
                 onChange={(e) => setOrgSlug(e.target.value)}
                 placeholder="auto-generated from name"
-                className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
+                className="w-full px-3 py-2 rounded-lg glass-input text-sm mt-1"
               />
             </div>
             <div>
@@ -118,7 +157,7 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
               <select
                 value={orgKind}
                 onChange={(e) => setOrgKind(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
+                className="w-full px-3 py-2 rounded-lg glass-input text-sm mt-1"
               >
                 <option value="business">Business</option>
                 <option value="school">School</option>
@@ -131,7 +170,7 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
             <button
               type="submit"
               disabled={creating}
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm disabled:opacity-50"
+              className="glass-badge rounded-lg px-4 py-2 text-sm font-medium text-accent disabled:opacity-50"
             >
               {creating ? 'Creating...' : 'Create'}
             </button>
@@ -139,17 +178,17 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
         )}
 
         {/* Organizations */}
-        <section className="mb-8">
-          <h2 className="font-semibold mb-3 flex items-center gap-2">
-            <Building2 className="h-4 w-4" />
+        <section className="animate-fade-in-up" style={{ animationDelay: '50ms' }}>
+          <h3 className="font-semibold mb-3 flex items-center gap-2">
+            <Building2 className="h-4 w-4 text-accent" />
             Organizations ({organizations.length})
-          </h2>
-          <div className="border rounded-lg divide-y">
+          </h3>
+          <div className="space-y-2">
             {organizations.map((org) => (
               <Link
                 key={org.id}
                 href={`/app/${org.slug}`}
-                className="flex items-center justify-between p-3 hover:bg-accent/50"
+                className="glass-card rounded-xl p-4 flex items-center justify-between group"
               >
                 <div>
                   <span className="text-sm font-medium">{org.name}</span>
@@ -157,10 +196,10 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground">{org.organization_kind}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded ${
-                    org.status === 'active' ? 'bg-green-500/10 text-green-700' :
-                    org.status === 'suspended' ? 'bg-red-500/10 text-red-700' :
-                    'bg-gray-500/10 text-gray-700'
+                  <span className={`text-xs glass-badge px-2 py-0.5 rounded-full ${
+                    org.status === 'active' ? 'text-green-500' :
+                    org.status === 'suspended' ? 'text-destructive' :
+                    'text-muted-foreground'
                   }`}>
                     {org.status}
                   </span>
@@ -168,25 +207,25 @@ export function PlatformAdminClient({ user, organizations, offerings }: Platform
               </Link>
             ))}
             {organizations.length === 0 && (
-              <div className="p-4 text-sm text-muted-foreground">No organizations yet.</div>
+              <div className="glass-card rounded-xl p-4 text-sm text-muted-foreground">No organizations yet.</div>
             )}
           </div>
         </section>
 
         {/* Offerings catalog */}
-        <section>
-          <h2 className="font-semibold mb-3">Offerings Catalog ({offerings.length})</h2>
-          <div className="border rounded-lg divide-y">
+        <section className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+          <h3 className="font-semibold mb-3">Offerings Catalog ({offerings.length})</h3>
+          <div className="space-y-2">
             {offerings.map((o) => (
-              <div key={o.id} className="flex items-center justify-between p-3">
+              <div key={o.id} className="glass-card rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <span className="text-sm font-medium">{o.name}</span>
                   <span className="ml-2 text-xs text-muted-foreground">{o.offering_key}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground">{o.offering_kind}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded ${
-                    o.status === 'active' ? 'bg-green-500/10 text-green-700' : 'bg-gray-500/10 text-gray-700'
+                  <span className={`text-xs glass-badge px-2 py-0.5 rounded-full ${
+                    o.status === 'active' ? 'text-green-500' : 'text-muted-foreground'
                   }`}>
                     {o.status}
                   </span>
