@@ -99,9 +99,13 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
   const session = event.data.object as Stripe.Checkout.Session
   const offerKey = session.metadata?.offer_key as OfferKey | undefined
   if (!offerKey) {
-    console.error('No offer_key in session metadata', session.id)
+    // No offer_key means this event is from another app (HAIEC, Kestrel, etc.)
     return
   }
+
+  // Extra guard: skip events from other apps sharing this Stripe account
+  const appSource = session.metadata?.app_source
+  if (appSource && appSource !== 'subodhkc') return
 
   const offer = getOffer(offerKey)
   if (!offer) {
@@ -251,6 +255,10 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
   const offerKey = subscription.metadata?.offer_key as OfferKey | undefined
   if (!offerKey) return
 
+  // Skip events from other apps sharing this Stripe account
+  const appSource = subscription.metadata?.app_source
+  if (appSource && appSource !== 'subodhkc') return
+
   const customerId = typeof subscription.customer === 'string' ? subscription.customer : subscription.customer.id
   const sc = createServiceClient()
   if (!sc) return
@@ -309,6 +317,10 @@ async function handleSubscriptionDeleted(event: Stripe.Event) {
   const offerKey = subscription.metadata?.offer_key as OfferKey | undefined
   if (!offerKey) return
 
+  // Skip events from other apps sharing this Stripe account
+  const appSource = subscription.metadata?.app_source
+  if (appSource && appSource !== 'subodhkc') return
+
   const customerId = typeof subscription.customer === 'string' ? subscription.customer : subscription.customer.id
   const sc = createServiceClient()
   if (!sc) return
@@ -362,6 +374,10 @@ async function handlePaymentFailed(event: Stripe.Event) {
   const sc = createServiceClient()
   if (!sc) return
 
+  // Skip events from other apps sharing this Stripe account
+  const appSource = invoice.metadata?.app_source
+  if (appSource && appSource !== 'subodhkc') return
+
   // Find org by customer ID
   const customerId = typeof invoice.customer === 'string' ? invoice.customer : invoice.customer?.id
   if (!customerId) return
@@ -413,6 +429,10 @@ async function handleInvoicePaid(event: Stripe.Event) {
   const sc = createServiceClient()
   if (!sc) return
 
+  // Skip events from other apps sharing this Stripe account
+  const appSource = invoice.metadata?.app_source
+  if (appSource && appSource !== 'subodhkc') return
+
   // Find org by customer ID
   const customerId = typeof invoice.customer === 'string' ? invoice.customer : invoice.customer?.id
   if (!customerId) return
@@ -429,10 +449,13 @@ async function handleInvoicePaid(event: Stripe.Event) {
 
   const orgId = link.organization_id
 
+  const invoiceOfferKey = invoice.metadata?.offer_key as OfferKey | undefined
+  if (!invoiceOfferKey) return
+
   // Record the payment
   await recordPayment({
     orgId,
-    offerKey: (invoice.metadata?.offer_key as OfferKey) || 'ai_advisor_desk',
+    offerKey: invoiceOfferKey,
     stripePaymentIntentId: invoice.payment_intent as string ?? undefined,
     amountCents: invoice.amount_paid,
     currency: invoice.currency || 'usd',
@@ -442,7 +465,8 @@ async function handleInvoicePaid(event: Stripe.Event) {
   })
 
   // Ensure entitlement stays active
-  const offerKey = (invoice.metadata?.offer_key as OfferKey) || 'ai_advisor_desk'
+  const offerKey = invoice.metadata?.offer_key as OfferKey | undefined
+  if (!offerKey) return
   await activateEntitlement({
     orgId,
     offerKey,

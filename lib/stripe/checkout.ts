@@ -33,12 +33,14 @@ export async function createSubscriptionCheckout(opts: {
     metadata: {
       offer_key: offerKey,
       billing_period: period,
+      app_source: 'subodhkc',
       ...metadata,
     },
     subscription_data: {
       metadata: {
         offer_key: offerKey,
         billing_period: period,
+        app_source: 'subodhkc',
         ...metadata,
       },
     },
@@ -77,11 +79,13 @@ export async function createOneTimeCheckout(opts: {
     customer_email: customerEmail,
     metadata: {
       offer_key: offerKey,
+      app_source: 'subodhkc',
       ...metadata,
     },
     payment_intent_data: {
       metadata: {
         offer_key: offerKey,
+        app_source: 'subodhkc',
         ...metadata,
       },
     },
