@@ -2,59 +2,52 @@
 
 import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
+import { ArrowRight, Loader2 } from 'lucide-react'
 
-const ENGAGEMENT_OPTIONS = [
-  'Focused tenant boundary review',
-  'Full tenant isolation audit',
-  'Remediation',
-  'Multi-tenant implementation',
-  'Agency or white-label relationship',
-  'Not sure',
+const DEPLOYMENT_TYPES = [
+  'Standard answering, FAQ, and routing',
+  'Appointment booking and calendar integration',
+  'CRM actions and record updates',
+  'Dispatch and work-order integration',
+  'Multi-system workflow automation',
+  'Multiple locations',
+  'Not sure yet',
 ]
 
-const STAGE_OPTIONS = [
-  'Prototype / pre-launch',
-  'Early customers',
-  'Onboarding first enterprise customer',
-  'In production with multiple tenants',
-  'Converting single-user to multi-tenant',
+const CALL_VOLUMES = [
+  'Fewer than 50 calls/day',
+  '50-200 calls/day',
+  '200-500 calls/day',
+  '500+ calls/day',
 ]
 
-const TENANT_MODEL_OPTIONS = [
-  'No tenant model yet',
-  'Organization IDs added but untested',
-  'RLS or row-level filters in place',
-  'Full multi-tenant with roles',
-  'Not sure',
+const TIMELINE_OPTIONS = [
+  'Within 2 weeks',
+  'Within 30 days',
+  'Within 60 days',
+  'Exploring options',
 ]
 
 function trackEvent(type: 'click' | 'form_submit' | 'form_error' | 'conversion', meta?: Record<string, string>) {
   fetch('/api/track', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      type,
-      path: '/services/saas-tenant-isolation-audit',
-      meta,
-    }),
+    body: JSON.stringify({ type, path: '/ai-voice-agent', meta }),
   }).catch(() => {})
 }
 
-export function TenantAuditForm() {
+export function ManagedVoiceIntakeForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
     website: '',
-    stack: '',
-    stage: '',
-    routeCount: '',
-    tenantModel: '',
-    stagingAvailable: '',
-    primaryConcern: '',
-    desiredEngagement: '',
+    industry: '',
+    callVolume: '',
+    deploymentType: '',
+    currentSystem: '',
+    timeline: '',
     message: '',
-    // Honeypot
     website_check: '',
   })
   const [submitted, setSubmitted] = useState(false)
@@ -63,10 +56,10 @@ export function TenantAuditForm() {
   const formStartedRef = useRef(false)
 
   function handleChange(field: string, value: string) {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData(prev => ({ ...prev, [field]: value }))
     if (!formStartedRef.current) {
       formStartedRef.current = true
-      trackEvent('click', { label: 'tenant_audit_form_start' })
+      trackEvent('click', { label: 'managed_voice_intake_start' })
     }
   }
 
@@ -74,14 +67,13 @@ export function TenantAuditForm() {
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
-
-    trackEvent('form_submit', { label: 'tenant_audit_form_submit' })
+    trackEvent('form_submit', { label: 'managed_voice_intake_submit' })
 
     try {
-      const res = await fetch('/api/commercial/security-review/intake', {
+      const res = await fetch('/api/commercial/managed-voice/intake', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, reviewType: 'saas_security_review' }),
+        body: JSON.stringify(formData),
       })
       const data = await res.json()
 
@@ -89,10 +81,10 @@ export function TenantAuditForm() {
         throw new Error(data.error || 'Submission failed')
       }
 
-      trackEvent('conversion', { label: 'tenant_audit_form_success' })
+      trackEvent('conversion', { label: 'managed_voice_intake_success' })
       setSubmitted(true)
     } catch (err) {
-      trackEvent('form_error', { label: 'tenant_audit_form_error' })
+      trackEvent('form_error', { label: 'managed_voice_intake_error' })
       setError(err instanceof Error ? err.message : 'An error occurred. Please email subodhkc@subodhkc.com.')
     } finally {
       setIsSubmitting(false)
@@ -116,8 +108,9 @@ export function TenantAuditForm() {
           Got it. Request received.
         </h3>
         <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-          I will look at your stack and application details, then tell you whether a focused review,
-          behavioral audit, or full multi-tenant deployment makes sense for your situation. Check your email.
+          I will look at your call patterns, business rules, and what systems you need connected. Then I will
+          tell you straight whether standard deployment covers it or you need a custom workflow. Check your
+          email for a response.
         </p>
       </div>
     )
@@ -142,18 +135,15 @@ export function TenantAuditForm() {
     color: 'var(--text-secondary)',
   }
 
-  const fieldStyle: React.CSSProperties = {
-    marginBottom: 18,
-  }
+  const fieldStyle: React.CSSProperties = { marginBottom: 18 }
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 640 }} noValidate>
-      {/* Honeypot */}
       <input
         type="text"
         name="website_check"
         value={formData.website_check}
-        onChange={(e) => handleChange('website_check', e.target.value)}
+        onChange={e => handleChange('website_check', e.target.value)}
         style={{ display: 'none' }}
         tabIndex={-1}
         autoComplete="off"
@@ -162,25 +152,25 @@ export function TenantAuditForm() {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
-          <label htmlFor="ta-name" style={labelStyle}>Name *</label>
+          <label htmlFor="mv-name" style={labelStyle}>Name *</label>
           <input
-            id="ta-name"
+            id="mv-name"
             type="text"
             required
             value={formData.name}
-            onChange={(e) => handleChange('name', e.target.value)}
+            onChange={e => handleChange('name', e.target.value)}
             style={inputStyle}
             autoComplete="name"
           />
         </div>
         <div style={fieldStyle}>
-          <label htmlFor="ta-email" style={labelStyle}>Work email *</label>
+          <label htmlFor="mv-email" style={labelStyle}>Work email *</label>
           <input
-            id="ta-email"
+            id="mv-email"
             type="email"
             required
             value={formData.email}
-            onChange={(e) => handleChange('email', e.target.value)}
+            onChange={e => handleChange('email', e.target.value)}
             style={inputStyle}
             autoComplete="email"
           />
@@ -189,23 +179,23 @@ export function TenantAuditForm() {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
-          <label htmlFor="ta-company" style={labelStyle}>Company or product *</label>
+          <label htmlFor="mv-company" style={labelStyle}>Company *</label>
           <input
-            id="ta-company"
+            id="mv-company"
             type="text"
             required
             value={formData.company}
-            onChange={(e) => handleChange('company', e.target.value)}
+            onChange={e => handleChange('company', e.target.value)}
             style={inputStyle}
           />
         </div>
         <div style={fieldStyle}>
-          <label htmlFor="ta-website" style={labelStyle}>Website or repository URL</label>
+          <label htmlFor="mv-website" style={labelStyle}>Website</label>
           <input
-            id="ta-website"
+            id="mv-website"
             type="url"
             value={formData.website}
-            onChange={(e) => handleChange('website', e.target.value)}
+            onChange={e => handleChange('website', e.target.value)}
             style={inputStyle}
             placeholder="https://..."
           />
@@ -214,29 +204,29 @@ export function TenantAuditForm() {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
-          <label htmlFor="ta-stack" style={labelStyle}>Current stack *</label>
+          <label htmlFor="mv-industry" style={labelStyle}>Industry *</label>
           <input
-            id="ta-stack"
+            id="mv-industry"
             type="text"
             required
-            value={formData.stack}
-            onChange={(e) => handleChange('stack', e.target.value)}
+            value={formData.industry}
+            onChange={e => handleChange('industry', e.target.value)}
             style={inputStyle}
-            placeholder="Next.js, Supabase, Prisma..."
+            placeholder="e.g., healthcare, legal, field services"
           />
         </div>
         <div style={fieldStyle}>
-          <label htmlFor="ta-stage" style={labelStyle}>Application stage *</label>
+          <label htmlFor="mv-callVolume" style={labelStyle}>Approximate daily call volume *</label>
           <select
-            id="ta-stage"
+            id="mv-callVolume"
             required
-            value={formData.stage}
-            onChange={(e) => handleChange('stage', e.target.value)}
+            value={formData.callVolume}
+            onChange={e => handleChange('callVolume', e.target.value)}
             style={inputStyle}
           >
             <option value="">Select...</option>
-            {STAGE_OPTIONS.map((s) => (
-              <option key={s} value={s}>{s}</option>
+            {CALL_VOLUMES.map(v => (
+              <option key={v} value={v}>{v}</option>
             ))}
           </select>
         </div>
@@ -244,87 +234,58 @@ export function TenantAuditForm() {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
-          <label htmlFor="ta-routes" style={labelStyle}>Approximate API-route count</label>
-          <input
-            id="ta-routes"
-            type="text"
-            value={formData.routeCount}
-            onChange={(e) => handleChange('routeCount', e.target.value)}
-            style={inputStyle}
-            placeholder="e.g. 30, 50-100, 200+"
-          />
-        </div>
-        <div style={fieldStyle}>
-          <label htmlFor="ta-tenant" style={labelStyle}>Tenant model status *</label>
+          <label htmlFor="mv-deploymentType" style={labelStyle}>What do you need the voice agent to do? *</label>
           <select
-            id="ta-tenant"
+            id="mv-deploymentType"
             required
-            value={formData.tenantModel}
-            onChange={(e) => handleChange('tenantModel', e.target.value)}
+            value={formData.deploymentType}
+            onChange={e => handleChange('deploymentType', e.target.value)}
             style={inputStyle}
           >
             <option value="">Select...</option>
-            {TENANT_MODEL_OPTIONS.map((s) => (
-              <option key={s} value={s}>{s}</option>
+            {DEPLOYMENT_TYPES.map(d => (
+              <option key={d} value={d}>{d}</option>
             ))}
           </select>
         </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-4">
         <div style={fieldStyle}>
-          <label htmlFor="ta-staging" style={labelStyle}>Staging environment available? *</label>
+          <label htmlFor="mv-timeline" style={labelStyle}>Target timeline *</label>
           <select
-            id="ta-staging"
+            id="mv-timeline"
             required
-            value={formData.stagingAvailable}
-            onChange={(e) => handleChange('stagingAvailable', e.target.value)}
+            value={formData.timeline}
+            onChange={e => handleChange('timeline', e.target.value)}
             style={inputStyle}
           >
             <option value="">Select...</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="can-create">Can create one</option>
-          </select>
-        </div>
-        <div style={fieldStyle}>
-          <label htmlFor="ta-engagement" style={labelStyle}>Desired engagement *</label>
-          <select
-            id="ta-engagement"
-            required
-            value={formData.desiredEngagement}
-            onChange={(e) => handleChange('desiredEngagement', e.target.value)}
-            style={inputStyle}
-          >
-            <option value="">Select...</option>
-            {ENGAGEMENT_OPTIONS.map((s) => (
-              <option key={s} value={s}>{s}</option>
+            {TIMELINE_OPTIONS.map(t => (
+              <option key={t} value={t}>{t}</option>
             ))}
           </select>
         </div>
       </div>
 
       <div style={fieldStyle}>
-        <label htmlFor="ta-concern" style={labelStyle}>Primary concern</label>
+        <label htmlFor="mv-currentSystem" style={labelStyle}>Current phone or answering system</label>
         <input
-          id="ta-concern"
+          id="mv-currentSystem"
           type="text"
-          value={formData.primaryConcern}
-          onChange={(e) => handleChange('primaryConcern', e.target.value)}
+          value={formData.currentSystem}
+          onChange={e => handleChange('currentSystem', e.target.value)}
           style={inputStyle}
-          placeholder="e.g. IDOR, RLS gaps, role escalation, storage leakage..."
+          placeholder="e.g., Google Voice, Vonage, receptionist, forwarding service"
         />
       </div>
 
       <div style={fieldStyle}>
-        <label htmlFor="ta-message" style={labelStyle}>Message</label>
+        <label htmlFor="mv-message" style={labelStyle}>What calls should AI handle, and what should reach a person?</label>
         <textarea
-          id="ta-message"
+          id="mv-message"
           rows={4}
           value={formData.message}
-          onChange={(e) => handleChange('message', e.target.value)}
+          onChange={e => handleChange('message', e.target.value)}
           style={{ ...inputStyle, resize: 'vertical' }}
-          placeholder="Describe your tenant model, concerns or timeline. Do not share credentials or secrets."
+          placeholder="Describe your call patterns, business rules, integrations needed, and any compliance considerations."
         />
       </div>
 
@@ -347,13 +308,18 @@ export function TenantAuditForm() {
       )}
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-        <Button
-          type="submit"
-          size="lg"
-          disabled={isSubmitting}
-          data-track-click="tenant_audit_form_submit"
-        >
-          {isSubmitting ? 'Sending...' : 'Request a Tenant Audit'}
+        <Button type="submit" size="lg" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Sending...
+            </>
+          ) : (
+            <>
+              Request a Fit Call
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </>
+          )}
         </Button>
         <span style={{ fontSize: '0.8rem', color: 'var(--op-muted)' }}>
           No credentials, API keys, or secrets in this form. I use what you share here to assess fit and reply to your inquiry.

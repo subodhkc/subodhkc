@@ -15,6 +15,10 @@ import {
   Clock,
   Zap,
   FileText,
+  Sparkles,
+  Compass,
+  Rocket,
+  Star,
 } from 'lucide-react'
 import { AdvisorCheckoutCTA } from '@/components/commercial/AdvisorCheckoutCTA'
 
@@ -28,14 +32,14 @@ export const metadata = {
   openGraph: {
     title: 'AI Advisor for Small Business | AI Risk, Compliance & Automation',
     description:
-      'Stay informed about AI developments relevant to your company. $99/month with human-reviewed answers, AI controls review, and regulatory monitoring. Up to 3 team members.',
+      'Stay informed about AI developments relevant to your company. $99/month with light-touch advisor access, AI controls review, and regulatory monitoring. Up to 3 team members.',
     url: 'https://subodhkc.com/ai-advisor',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI Advisor for Small Business | AI Risk, Compliance & Automation',
-    description: '$99/month AI Advisor Desk with human-reviewed answers, AI controls review, and regulatory monitoring.',
+    description: '$99/month AI Advisor Desk with light-touch advisor access, AI controls review, and regulatory monitoring.',
   },
   keywords: [
     'AI advisor for small business',
@@ -64,7 +68,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'AI Advisor Desk',
-  description: 'Monthly AI advisory subscription for small businesses. Human-reviewed email questions, AI controls review, regulatory monitoring, and recommended next actions.',
+  description: 'Monthly AI advisory subscription for small businesses. Light-touch advisor access, AI controls review, regulatory monitoring, and recommended next actions.',
   url: 'https://subodhkc.com/ai-advisor',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'AI Advisory',
@@ -154,8 +158,8 @@ const whatYouGet = [
   },
   {
     icon: Mail,
-    title: 'One Advisor-Reviewed Email Question per Month',
-    description: 'Send a detailed question about your AI deployment, tool selection, compliance obligation, or vendor evaluation. Get a written, human-reviewed response with recommended next actions.',
+    title: 'Light-Touch Advisor Access',
+    description: 'Send focused AI questions as decisions come up. Brief guidance and directional recommendations are included under reasonable use. When a question deserves deeper work, I will identify that before additional work begins and offer a clearly scoped next step.',
   },
 ]
 
@@ -163,7 +167,7 @@ const boundaries = [
   'This is not a full consulting engagement. It is email-based guidance for specific questions.',
   'This is not continuous monitoring or managed services. For that, see our advisory engagements.',
   'This is not legal advice. For regulatory compliance obligations, consult a licensed attorney.',
-  'One pooled question per month means your team shares the allocation. Additional questions available as add-ons.',
+  'Deeper research, document review, architecture work, or implementation requires a separately scoped engagement. I will flag that before any additional work begins.',
 ]
 
 const faqs = [
@@ -173,15 +177,15 @@ const faqs = [
   },
   {
     q: 'What happens if my question is complex?',
-    a: 'Complex questions may require a follow-up engagement. We will tell you upfront if your question exceeds the scope of the Advisor Desk and recommend the right next step, whether that is an AI Automation Blueprint ($500) or a full advisory engagement.',
+    a: 'When a question deserves deeper research, document review, architecture work, or implementation, I will identify that before additional work begins and recommend the right next step. Deeper work is billed at a member rate per hour, or as a fixed-price engagement like an AI Automation Blueprint ($500). No automatic charges. No surprise scope. You approve cost before any work begins.',
   },
   {
     q: 'Can I cancel anytime?',
     a: 'Yes. The subscription is month-to-month. Cancel before your next billing date and you will not be charged again. The annual plan ($990) saves you two months.',
   },
   {
-    q: 'What if I need more than one question per month?',
-    a: 'Additional questions are available as add-ons at $49 per question. Or upgrade to a full advisory engagement for continuous access.',
+    q: 'How many questions can we ask?',
+    a: 'The Advisor Desk is designed for a few focused questions as decisions come up rather than a fixed one-question quota. Brief guidance is included under reasonable use. If a request turns into substantive research, analysis, document review, architecture or implementation, I will identify that before doing additional work and offer a scoped option.',
   },
 ]
 
@@ -211,7 +215,7 @@ export default function AIAdvisorPage() {
             <span className="gradient-text">Your business shouldn&rsquo;t have to chase it.</span>
           </>
         }
-        description="$99/month. Stay informed about AI developments relevant to your company, review important AI tools and decisions, and know what deserves action. Up to 3 team members. Cancel anytime."
+        description="AI Advisor Desk gives your team a practical place to bring AI questions as they come up — what to use, what to review, what deserves action, and when something is worth building. $99/month · Up to 3 team members · Light-touch advisor access"
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="/contact?subject=ai-advisor-desk">
@@ -260,12 +264,97 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
+      {/* Ask Before You Buy / Build / Deploy */}
+      <Section
+        subtitle="Ask First"
+        title="Ask before you buy it. Ask before you build it. Ask before you deploy it."
+        description="AI Advisor Desk gives your team an experienced first stop for AI decisions — from tools and vendors to automation, security, governance and implementation."
+        sectionNum="§02"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Shield,
+                title: 'Ask before you buy',
+                desc: 'Should we use this AI vendor? Can employees put customer information into this tool? What should we check before signing?',
+              },
+              {
+                icon: Rocket,
+                title: 'Ask before you build',
+                desc: 'Is this idea worth building? Is this a standard implementation or a custom problem? Should we automate this workflow?',
+              },
+              {
+                icon: Compass,
+                title: 'Ask before you deploy',
+                desc: 'Does this AI regulation matter to us? Should this system receive a security review? What should management do next?',
+              },
+            ].map((item, i) => {
+              const Icon = item.icon
+              return (
+                <Reveal key={i} delay={i * 80} style="up">
+                  <Card className="h-full text-center">
+                    <CardHeader>
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3 mx-auto">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <CardTitle className="text-base">{item.title}</CardTitle>
+                      <CardDescription className="text-sm mt-2">{item.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </div>
+        </div>
+      </Section>
+
+      {/* How It Works */}
+      <Section
+        subtitle="How It Works"
+        title="A simple decision support process"
+        sectionNum="§03"
+      >
+        <div className="max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                step: 'ASK',
+                desc: 'Bring a focused AI question when a decision comes up.',
+              },
+              {
+                step: 'DECIDE',
+                desc: 'Get brief guidance on what matters, what can wait, and what next step makes sense.',
+              },
+              {
+                step: 'MOVE FORWARD',
+                desc: 'If the question deserves deeper work, receive a clear route into a Blueprint, security review, or hourly engagement at a member rate. You approve scope and cost before anything starts.',
+              },
+            ].map((item, i) => (
+              <Reveal key={i} delay={i * 80} style="up">
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold text-sm mb-3">
+                    {i + 1}
+                  </div>
+                  <h3 className="text-base font-semibold mb-2">{item.step}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <p className="text-center text-sm text-muted-foreground mt-8">
+            This is decision support, not an upsell funnel. No automatic charges. No surprise scope.
+          </p>
+        </div>
+      </Section>
+
       {/* Business Situations */}
       <Section
         subtitle="Business Situations"
         title="When the AI Advisor Desk pays for itself"
-        description="Common scenarios where a $99/month subscription saves you from a costly mistake or a month of indecision."
-        sectionNum="§02"
+        description="Common scenarios where a $99/month subscription saves you from a costly mistake or a month of indecision. Light-touch advisor access means you can ask focused questions as decisions come up."
+        sectionNum="§04"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -316,8 +405,8 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="What You Receive"
         title="Everything included for $99/month"
-        description="One subscription. No hidden fees, no per-seat charges, no usage metering."
-        sectionNum="§03"
+        description="One subscription. No hidden fees, no per-seat charges, no usage metering. Light-touch advisor access included under reasonable use."
+        sectionNum="§05"
         className="bg-secondary/20"
       >
         <Grid cols={3}>
@@ -344,7 +433,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Why Trust This"
         title="Built on real AI governance work"
-        sectionNum="§04"
+        sectionNum="§06"
       >
         <div className="max-w-4xl mx-auto space-y-4">
           <Card className="border-l-4 border-l-primary">
@@ -378,11 +467,59 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
+      {/* Member Priority */}
+      <Section
+        subtitle="Member Benefits"
+        title="Advisor Desk Member Priority"
+        sectionNum="§07"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <div className="flex items-center gap-3 mb-2">
+                <Star className="h-5 w-5 text-primary" />
+                <CardTitle className="text-lg">Priority access and preferred pricing</CardTitle>
+              </div>
+              <CardDescription className="text-base">
+                When a question turns into real work, Advisor Desk members receive priority
+                scheduling and a member rate on hourly work for deeper advisory, research,
+                document review, and implementation. Fixed-price engagements like Automation
+                Blueprints and security reviews remain at their published prices.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <div className="grid md:grid-cols-2 gap-4 mt-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                  Priority scheduling
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">
+                  Members go to the front of the queue for scoped engagements.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Star className="h-4 w-4 text-primary" />
+                  Member hourly rate
+                </CardTitle>
+                <CardDescription className="text-sm mt-1">
+                  Deeper work billed per hour at a member rate. You approve scope and cost before work begins.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
       {/* Pricing */}
       <Section
         subtitle="Pricing"
         title="Simple, Transparent, Cancelable"
-        sectionNum="§05"
+        sectionNum="§08"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -397,7 +534,7 @@ export default function AIAdvisorPage() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {['1 human-reviewed email question/month', 'AI Controls Review', 'FrontOfAI industry intelligence', 'Up to 3 team members', 'AI tools and vendor guidance', 'AI hiring and policy support'].map((f, i) => (
+                  {['Light-touch advisor access (reasonable use)', 'AI Controls Review', 'FrontOfAI industry intelligence', 'Up to 3 team members', 'AI tools and vendor guidance', 'AI hiring and policy support'].map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
@@ -440,7 +577,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Boundaries"
         title="What This Is Not"
-        sectionNum="§06"
+        sectionNum="§09"
       >
         <div className="max-w-3xl mx-auto">
           <div className="space-y-3">
@@ -469,7 +606,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="FAQ"
         title="Common Questions"
-        sectionNum="§07"
+        sectionNum="§10"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-4">
@@ -488,7 +625,7 @@ export default function AIAdvisorPage() {
 
       <AdvisorCheckoutCTA
         title="Stop guessing about AI"
-        description="Get a specialist in your corner for $99/month. One question answered, one controls review, one less thing to worry about."
+        description="Get a specialist in your corner for $99/month. Light-touch advisor access, controls review, regulatory monitoring, and a clear next step when deeper work is needed."
       />
     </>
   )

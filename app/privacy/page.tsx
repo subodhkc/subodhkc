@@ -287,7 +287,7 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>When you purchase a subscription or one-time service, payment is processed by Stripe. We receive your Stripe customer ID, subscription ID, and billing period information to manage your entitlements. We do not store your full payment card details, CVV, or bank account numbers.</p>
-              <p><strong className="text-foreground">Subscription Data:</strong> For recurring subscriptions (AI Advisor Desk), we store your subscription status, billing period boundaries, and cancellation status to enforce usage allowances and manage your account.</p>
+              <p><strong className="text-foreground">Subscription Data:</strong> For recurring subscriptions (AI Advisor Desk), we store your subscription status, billing period boundaries, and cancellation status to manage your subscription and track advisor questions.</p>
               <p><strong className="text-foreground">One-Time Purchases:</strong> For one-time purchases (AI Automation Blueprint, Security Reviews), we store the transaction ID and purchase status to grant permanent access to the purchased service.</p>
               <p><strong className="text-foreground">Billing Management:</strong> You can manage your billing information, update payment methods, and cancel subscriptions through the Stripe Customer Portal linked in your workspace.</p>
             </CardContent>

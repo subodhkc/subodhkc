@@ -516,11 +516,21 @@ async function createEngagementForOffer(
   if (!offering) return
 
   // Check if engagement already exists for this org + offering (prevent duplicates)
-  const { data: existing } = await sc
-    .from('engagement_offerings')
-    .select('engagement_id')
+  // engagement_offerings doesn't have organization_id, so we query engagements first
+  const { data: existingEngagements } = await sc
+    .from('engagements')
+    .select('id')
     .eq('organization_id', orgId)
-    .eq('offering_id', offering.id)
+  const existingEngIds = (existingEngagements || []).map(e => e.id)
+  let existing: { engagement_id: string }[] | null = null
+  if (existingEngIds.length > 0) {
+    const { data: existingLinks } = await sc
+      .from('engagement_offerings')
+      .select('engagement_id')
+      .in('engagement_id', existingEngIds)
+      .eq('offering_id', offering.id)
+    existing = existingLinks
+  }
 
   if (existing && existing.length > 0) {
     // Engagement already exists for this offering - don't create a duplicate
@@ -568,7 +578,6 @@ async function createEngagementForOffer(
     .from('engagement_offerings')
     .insert({
       engagement_id: eng.id,
-      organization_id: orgId,
       offering_id: offering.id,
     })
 

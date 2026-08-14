@@ -22,13 +22,17 @@ export async function PATCH(
   const { questionId } = await params
 
   const body = await req.json()
-  const { status, advisorResponse } = body as {
-    status?: 'under_review' | 'answered' | 'closed'
+  const { status, advisorResponse, requestCategory, effortClass, recommendedNextStep, recommendedOfferKey } = body as {
+    status?: 'under_review' | 'answered' | 'deeper_work_recommended' | 'closed'
     advisorResponse?: string
+    requestCategory?: string
+    effortClass?: 'BRIEF' | 'DEEPER_REVIEW' | 'SCOPED_WORK'
+    recommendedNextStep?: string
+    recommendedOfferKey?: string
   }
 
-  if (!status && !advisorResponse) {
-    return NextResponse.json({ error: 'status or advisorResponse required' }, { status: 400 })
+  if (!status && !advisorResponse && !requestCategory && !effortClass && !recommendedNextStep && !recommendedOfferKey) {
+    return NextResponse.json({ error: 'at least one update field is required' }, { status: 400 })
   }
 
   const sc = createServiceClient()
@@ -67,12 +71,16 @@ export async function PATCH(
     update.responded_at = new Date().toISOString()
     update.responded_by = user.id
   }
+  if (requestCategory) update.request_category = requestCategory
+  if (effortClass) update.effort_class = effortClass
+  if (recommendedNextStep) update.recommended_next_step = recommendedNextStep
+  if (recommendedOfferKey) update.recommended_offer_key = recommendedOfferKey
 
   const { data: updated, error: updateError } = await sc
     .from('advisor_questions')
     .update(update)
     .eq('id', questionId)
-    .select('id, subject, question, status, advisor_response, responded_at, created_at')
+    .select('id, subject, question, status, advisor_response, responded_at, created_at, request_category, effort_class, recommended_next_step, recommended_offer_key')
     .single()
 
   if (updateError) {
@@ -97,7 +105,7 @@ export async function PATCH(
     try {
       const { data: profile } = await sc
         .from('profiles')
-        .select('email, full_name')
+        .select('email, display_name')
         .eq('id', question.submitted_by)
         .single()
 
@@ -105,7 +113,7 @@ export async function PATCH(
         const { sendAdvisorResponseEmail } = await import('@/lib/email')
         await sendAdvisorResponseEmail({
           to: profile.email,
-          customerName: profile.full_name || undefined,
+          customerName: profile.display_name || undefined,
           subject: question.subject,
           response: advisorResponse,
         })

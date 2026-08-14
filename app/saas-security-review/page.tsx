@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
-import CTA from '@/components/CTA'
 import { Button } from '@/components/ui/button'
 import { FAQAccordion } from '@/components/tenant-audit/FAQAccordion'
 import { TenantAuditForm } from '@/components/tenant-audit/TenantAuditForm'
@@ -76,10 +75,8 @@ const serviceSchema = {
   },
   offers: {
     '@type': 'Offer',
-    name: 'Focused SaaS Security Review',
-    price: '950',
-    priceCurrency: 'USD',
-    description: 'Focused security review for a single SaaS or AI application. Multi-tenant, AI/RAG, and broader reviews are scoped based on architecture.',
+    name: 'SaaS & AI Security Review',
+    description: 'Evidence-backed security review for SaaS and AI products. Focused, multi-tenant, and AI/RAG reviews scoped based on architecture.',
   },
 }
 

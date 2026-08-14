@@ -267,7 +267,7 @@ export async function sendAdvisorWelcomeEmail(opts: {
               Hi ${customerName || 'there'},
             </p>
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
-              Your AI Advisor Desk subscription is now active. You can submit your first advisor-reviewed question, review AI risk areas, and invite up to 3 team members.
+              Your AI Advisor Desk subscription is now active. You can send focused AI questions as decisions come up, review AI risk areas, and invite up to 3 team members.
             </p>
             <div style="text-align: center; margin: 30px 0;">
               <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
@@ -275,7 +275,7 @@ export async function sendAdvisorWelcomeEmail(opts: {
               </a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
-              You get one advisor-reviewed question per billing period. Your team has up to 3 seats. Billing is managed through Stripe.
+              Light-touch advisor access is included under reasonable use. Your team has up to 3 seats. Billing is managed through Stripe.
             </p>
           </div>
           <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">

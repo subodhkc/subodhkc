@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser, resolveOrganizationContext, AuthError } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
-import { getOffer } from '@/lib/commercial/offers'
 import { getAdvisorBillingPeriod } from '@/lib/commercial/billing-period'
 
 export const runtime = 'nodejs'
@@ -32,30 +31,26 @@ export async function GET(req: NextRequest) {
 
   const { data: questions } = await sc
     .from('advisor_questions')
-    .select('id, subject, question, status, advisor_response, billing_period_key, created_at, responded_at')
+    .select(`
+      id, subject, question, status, advisor_response,
+      billing_period_key, created_at, responded_at,
+      request_category, effort_class, recommended_next_step, recommended_offer_key
+    `)
     .eq('organization_id', ctx.organization.id)
     .order('created_at', { ascending: false })
 
-  // Resolve actual billing period from Stripe subscription
+  // Resolve billing period for tracking (not for enforcement)
   const { periodKey: currentPeriod } = await getAdvisorBillingPeriod(ctx.organization.id)
-  const offer = getOffer('ai_advisor_desk')
-  const allowance = offer?.advisorQuestionsPerPeriod ?? 0
-
-  const currentPeriodQuestions = (questions || []).filter(
-    q => q.billing_period_key === currentPeriod && q.status !== 'closed'
-  )
 
   return NextResponse.json({
     questions: questions || [],
     currentPeriod,
-    allowance,
-    remaining: Math.max(0, allowance - currentPeriodQuestions.length),
   })
 }
 
 /**
  * POST /api/commercial/advisor-desk/questions
- * Submit a new advisor question (enforces monthly allowance).
+ * Submit a new advisor question (light-touch model, no hard quota).
  */
 export async function POST(req: NextRequest) {
   const user = await getAuthenticatedUser()
@@ -92,71 +87,29 @@ export async function POST(req: NextRequest) {
   const sc = createServiceClient()
   if (!sc) return NextResponse.json({ error: 'config' }, { status: 500 })
 
-  // Resolve actual billing period from Stripe subscription
+  // Resolve billing period for tracking
   const { periodKey: currentPeriod } = await getAdvisorBillingPeriod(ctx.organization.id)
-  const offer = getOffer('ai_advisor_desk')
-  const allowance = offer?.advisorQuestionsPerPeriod ?? 0
 
-  // Platform admins bypass allowance check
-  if (ctx.isPlatformAdmin) {
-    const { data: newQuestion, error } = await sc
-      .from('advisor_questions')
-      .insert({
-        organization_id: ctx.organization.id,
-        submitted_by: user.id,
-        billing_period_key: currentPeriod,
-        subject,
-        question,
-        context: context ?? null,
-        status: 'submitted',
-      })
-      .select('id, subject, question, status, billing_period_key, created_at')
-      .single()
-
-    if (error) return NextResponse.json({ error: 'failed_to_submit' }, { status: 500 })
-
-    await sc.rpc('write_audit_event', {
-      audit_action: 'advisor_question.submitted',
-      audit_entity_type: 'advisor_question',
-      audit_org_id: ctx.organization.id,
-      audit_actor_id: user.id,
-      audit_entity_id: newQuestion.id,
-      audit_metadata: { subject, billing_period: currentPeriod, admin_bypass: true } as any,
+  // Direct insert - no allowance enforcement (light-touch / reasonable use model)
+  const { data: newQuestion, error } = await sc
+    .from('advisor_questions')
+    .insert({
+      organization_id: ctx.organization.id,
+      submitted_by: user.id,
+      billing_period_key: currentPeriod,
+      subject,
+      question,
+      context: context ?? null,
+      status: 'submitted',
+      effort_class: 'BRIEF',
     })
+    .select(`
+      id, subject, question, status, billing_period_key, created_at,
+      request_category, effort_class, recommended_next_step, recommended_offer_key
+    `)
+    .single()
 
-    return NextResponse.json({ question: newQuestion, remaining: allowance })
-  }
-
-  // Atomic consumption: Postgres function with advisory lock
-  // This prevents two members from simultaneously consuming the same slot
-  const { data: result, error: rpcError } = await sc
-    .rpc('consume_advisor_question_slot', {
-      p_org_id: ctx.organization.id,
-      p_submitted_by: user.id,
-      p_billing_period_key: currentPeriod,
-      p_allowance: allowance,
-      p_subject: subject,
-      p_question: question,
-      p_context: context ?? null,
-    })
-
-  if (rpcError) {
-    return NextResponse.json({ error: 'failed_to_submit' }, { status: 500 })
-  }
-
-  const row = result?.[0]
-  if (row?.error === 'allowance_exceeded') {
-    return NextResponse.json({
-      error: 'allowance_exceeded',
-      message: `You have used all ${allowance} advisor questions for this billing period.`,
-      currentPeriod,
-      allowance,
-    }, { status: 429 })
-  }
-
-  if (!row?.id) {
-    return NextResponse.json({ error: 'failed_to_submit' }, { status: 500 })
-  }
+  if (error) return NextResponse.json({ error: 'failed_to_submit' }, { status: 500 })
 
   // Audit event
   await sc.rpc('write_audit_event', {
@@ -164,7 +117,7 @@ export async function POST(req: NextRequest) {
     audit_entity_type: 'advisor_question',
     audit_org_id: ctx.organization.id,
     audit_actor_id: user.id,
-    audit_entity_id: row.id,
+    audit_entity_id: newQuestion.id,
     audit_metadata: { subject, billing_period: currentPeriod } as any,
   })
 
@@ -176,21 +129,11 @@ export async function POST(req: NextRequest) {
       customerOrg: ctx.organization.name,
       subject,
       question,
-      questionId: row.id,
+      questionId: newQuestion.id,
     })
   } catch (err) {
     console.error('Failed to send advisor question notification:', err)
   }
 
-  return NextResponse.json({
-    question: {
-      id: row.id,
-      subject: row.subject,
-      question: row.question,
-      status: row.status,
-      billing_period_key: row.billing_period_key,
-      created_at: row.created_at,
-    },
-    remaining: row.remaining,
-  })
+  return NextResponse.json({ question: newQuestion })
 }

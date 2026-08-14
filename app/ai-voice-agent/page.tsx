@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
-import CTA from '@/components/CTA'
 import Grid from '@/components/Grid'
 import { Reveal } from '@/components/Reveal'
+import { ManagedVoiceIntakeForm } from '@/components/commercial/ManagedVoiceIntakeForm'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import {
@@ -20,23 +20,23 @@ import {
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'AI Voice Agent for Small Business | AI Receptionist Dallas–Fort Worth',
+  title: 'AI Voice Agent for Small Business | AI Receptionist Dallas-Fort Worth',
   description:
-    'Turn more incoming calls into completed customer actions. Managed AI voice deployment from $499/month. Standard and custom workflows. Dallas–Fort Worth based.',
+    'Turn more incoming calls into completed customer actions. Managed AI voice deployment. Standard and custom workflows. Dallas-Fort Worth based.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-voice-agent',
   },
   openGraph: {
-    title: 'AI Voice Agent for Small Business | AI Receptionist Dallas–Fort Worth',
+    title: 'AI Voice Agent for Small Business | AI Receptionist Dallas-Fort Worth',
     description:
-      'Turn more incoming calls into completed customer actions. Managed AI voice deployment from $499/month. Standard and custom workflows.',
+      'Managed AI voice deployment. Standard and custom workflows. Dallas-Fort Worth based.',
     url: 'https://subodhkc.com/ai-voice-agent',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Voice Agent for Small Business | AI Receptionist Dallas–Fort Worth',
-    description: 'Managed AI voice deployment from $499/month. Standard and custom workflows. Dallas–Fort Worth based.',
+    title: 'AI Voice Agent for Small Business | AI Receptionist Dallas-Fort Worth',
+    description: 'Managed AI voice deployment. Standard and custom workflows. Dallas-Fort Worth based.',
   },
   keywords: [
     'AI voice agent',
@@ -65,7 +65,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'AI Voice Agent Deployment',
-  description: 'Managed AI voice agent deployment for small business. Standard and custom workflows. From $499/month. Dallas–Fort Worth based.',
+  description: 'Managed AI voice deployment for small business. Standard and custom workflows. Dallas-Fort Worth based.',
   url: 'https://subodhkc.com/ai-voice-agent',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'AI Voice Agent Deployment',
@@ -123,7 +123,7 @@ const capabilities = [
 ]
 
 const deploymentSteps = [
-  { step: '1', title: 'Fit Call (20–30 min)', description: 'A short call to understand your call patterns, business rules, and integration needs. The purpose is to determine whether you need standard deployment or a custom workflow. Standard is sufficient for most businesses.' },
+  { step: '1', title: 'Fit Call (20-30 min)', description: 'A short call to understand your call patterns, business rules, and integration needs. The purpose is to determine whether you need standard deployment or a custom workflow. Standard is sufficient for most businesses.' },
   { step: '2', title: 'Standard or Custom Scoping', description: 'Based on the fit call, we recommend the right path. Standard deployment covers answering, FAQ, routing, and booking. Custom covers CRM actions, dispatch, multi-system workflows, and business-rule automation.' },
   { step: '3', title: 'Build & Configure', description: 'We configure the voice platform for your business: custom prompts, knowledge base, tool connections, scheduling logic, and escalation rules.' },
   { step: '4', title: 'Security Hardening', description: 'Prompt injection defenses, PII handling, call recording policies, and compliance alignment for your industry.' },
@@ -151,18 +151,18 @@ export default function AIVoiceAgentPage() {
             <span className="gradient-text">into completed customer actions.</span>
           </>
         }
-        description="Managed AI voice deployment from $499/month. Standard answering, FAQ, routing, and booking. Custom workflows for CRM, dispatch, and multi-system integration. Dallas–Fort Worth based."
+        description="Managed AI voice deployment. Standard answering, FAQ, routing, and booking. Custom workflows for CRM, dispatch, and multi-system integration. Dallas-Fort Worth based."
       >
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link href="/contact?subject=ai-voice-agent-fit-call">
+          <Link href="#request">
             <Button size="lg" className="group animate-glow">
-              Book a Fit Call
+              Request a Fit Call
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
           <Link href="/ai-automation">
             <Button size="lg" variant="outline">
-              Need a workflow analysis? ($500)
+              Need a workflow analysis?
             </Button>
           </Link>
         </div>
@@ -203,7 +203,7 @@ export default function AIVoiceAgentPage() {
                   <span className="text-xs font-medium text-primary">Standard</span>
                 </div>
                 <CardTitle className="text-xl">Standard Deployment</CardTitle>
-                <CardDescription className="text-base mt-1">from $499/month</CardDescription>
+                <CardDescription className="text-base mt-1">Answering, FAQ, routing, and booking</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
@@ -238,8 +238,8 @@ export default function AIVoiceAgentPage() {
                   ))}
                 </ul>
                 <p className="text-xs text-muted-foreground mt-4">
-                  Starts with a $500 AI Automation Blueprint to map the workflow, followed by a fixed SOW.
-                  Custom workflow engineering may start around $1,500.
+                  Starts with an AI Automation Blueprint to map the workflow, followed by a fixed scope of work.
+                  Custom workflow engineering is scoped based on your integration needs.
                 </p>
                 <Link href="/ai-automation" className="block mt-3">
                   <Button variant="outline" size="sm">Start with a Blueprint <ArrowRight className="ml-2 h-3 w-3" /></Button>
@@ -338,12 +338,18 @@ export default function AIVoiceAgentPage() {
         </div>
       </Section>
 
-      <CTA
-        title="Book a 20-minute fit call"
-        description="Find out whether standard deployment is sufficient or whether you need a custom workflow. The fit call builds buyer confidence, not scope."
-        primaryButton={{ text: 'Check My Fit', href: '/contact?subject=ai-voice-agent-fit-call' }}
-        secondaryButton={{ text: 'Book a 20-Minute Fit Call', href: '/contact?subject=ai-voice-agent-fit-call' }}
-      />
+      <Section
+        subtitle="Request a Fit Call"
+        title="Find out whether standard or custom deployment is right for you"
+        description="Tell me about your call patterns, business rules, and what systems you need connected. I will tell you whether standard deployment or a custom workflow fits. Deployment is limited and depends on availability."
+        sectionNum="§06"
+        className="bg-secondary/20"
+        id="request"
+      >
+        <div style={{ maxWidth: 640 }}>
+          <ManagedVoiceIntakeForm />
+        </div>
+      </Section>
     </>
   )
 }

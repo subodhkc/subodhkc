@@ -7,6 +7,7 @@ import {
 } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { SecurityReviewWorkspaceClient } from '@/components/app/SecurityReviewWorkspaceClient'
+import { SecurityReviewIntakeStatus } from '@/components/app/SecurityReviewIntakeStatus'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -98,14 +99,24 @@ export default async function SecurityReviewPage({
 
   let engagement: any = null
   if (offeringData) {
-    const { data: engOffering } = await sc
-      .from('engagement_offerings')
-      .select('engagement_id')
+    // engagement_offerings doesn't have organization_id, query through engagements
+    const { data: orgEngagements } = await sc
+      .from('engagements')
+      .select('id')
       .eq('organization_id', ctx.organization.id)
-      .eq('offering_id', offeringData.id)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single()
+    const engIds = (orgEngagements || []).map(e => e.id)
+    let engOffering: { engagement_id: string } | null = null
+    if (engIds.length > 0) {
+      const { data: links } = await sc
+        .from('engagement_offerings')
+        .select('engagement_id')
+        .in('engagement_id', engIds)
+        .eq('offering_id', offeringData.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single()
+      engOffering = links
+    }
 
     if (engOffering) {
       const { data: eng } = await sc
@@ -118,15 +129,21 @@ export default async function SecurityReviewPage({
   }
 
   if (!engagement) {
+    // Check for intake request status
+    const { data: intakeRequests } = await sc
+      .from('security_scope_requests')
+      .select('id, status, created_at, advisor_notes, proposed_scope, proposed_price_cents')
+      .or(`email.eq.${user.email},organization_id.eq.${ctx.organization.id}`)
+      .order('created_at', { ascending: false })
+      .limit(1)
+
+    const intakeRequest = intakeRequests?.[0] || null
+
     return (
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="text-center space-y-3 max-w-md">
-          <h1 className="text-xl font-bold">{reviewTitle}</h1>
-          <p className="text-sm text-muted-foreground">
-            Your security review is being set up. Check back shortly.
-          </p>
-        </div>
-      </div>
+      <SecurityReviewIntakeStatus
+        reviewTitle={reviewTitle}
+        intakeRequest={intakeRequest}
+      />
     )
   }
 

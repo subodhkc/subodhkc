@@ -28,7 +28,7 @@ export interface CommercialOffer {
   startingPriceLabel: string | null
   /** Max team seats for subscription offers. */
   teamSeatLimit: number | null
-  /** Advisor questions allowed per billing period (monthly or annual cycle). */
+  /** Advisor questions allowed per billing period. Null = no hard quota (reasonable use model). */
   advisorQuestionsPerPeriod: number | null
   /** Landing page URL. */
   landingPage: string
@@ -57,14 +57,14 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     oneTimePriceCents: null,
     startingPriceLabel: '$99/month',
     teamSeatLimit: 3,
-    advisorQuestionsPerPeriod: 1,
+    advisorQuestionsPerPeriod: null,
     landingPage: '/ai-advisor',
     createsEngagement: false,
     engagementType: null,
     requiresQualification: false,
     requiresAgreement: false,
     requiresSecurityAuthorization: false,
-    checkoutDescription: 'AI Advisor Desk subscription — monthly advisory access',
+    checkoutDescription: 'AI Advisor Desk subscription — light-touch advisor access',
   },
 
   ai_automation_blueprint: {
@@ -91,11 +91,11 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     key: 'managed_voice',
     name: 'Managed AI Voice Deployment',
     displayName: 'Managed AI Voice Deployment',
-    billingMode: 'subscription',
-    monthlyPriceCents: 49900, // from $499/month
+    billingMode: 'custom_scoped',
+    monthlyPriceCents: null,
     annualPriceCents: null,
     oneTimePriceCents: null,
-    startingPriceLabel: 'from $499/month',
+    startingPriceLabel: null,
     teamSeatLimit: null,
     advisorQuestionsPerPeriod: null,
     landingPage: '/ai-voice-agent',
@@ -131,11 +131,11 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     key: 'saas_security_review',
     name: 'SaaS & AI Security Review',
     displayName: 'SaaS & AI Security Review',
-    billingMode: 'one_time',
+    billingMode: 'custom_scoped',
     monthlyPriceCents: null,
     annualPriceCents: null,
-    oneTimePriceCents: 95000, // from $950
-    startingPriceLabel: 'from $950',
+    oneTimePriceCents: null,
+    startingPriceLabel: null,
     teamSeatLimit: null,
     advisorQuestionsPerPeriod: null,
     landingPage: '/saas-security-review',
@@ -168,7 +168,7 @@ export function getOfferByStripePriceId(priceId: string): CommercialOffer | null
     }
     if (
       offer.oneTimePriceCents !== null &&
-      process.env[`STRIPE_PRICE_${offer.key.toUpperCase()}_ONETIME`] === priceId
+      process.env[`STRIPE_PRICE_${offer.key.toUpperCase()}_ONE_TIME`] === priceId
     ) {
       return offer
     }

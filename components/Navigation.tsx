@@ -122,7 +122,7 @@ const offers = [
   {
     name: 'AI Advisor Desk',
     href: '/ai-advisor',
-    description: 'Ongoing AI guidance, $99/month',
+    description: 'Light-touch advisor access, $99/month',
     icon: MessageSquare,
     badge: '$99/mo'
   },

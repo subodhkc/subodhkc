@@ -84,7 +84,7 @@
 ## Commercial Offers
 
 ### Primary Pathways
-- **AI Advisor Desk:** $99/month ($990/year). Ongoing AI guidance, controls review, regulatory monitoring. Up to 3 team members. [subodhkc.com/ai-advisor](https://subodhkc.com/ai-advisor)
+- **AI Advisor Desk:** $99/month ($990/year). Light-touch advisor access, controls review, regulatory monitoring. Up to 3 team members. [subodhkc.com/ai-advisor](https://subodhkc.com/ai-advisor)
 - **AI Automation Blueprint:** $500 fixed. One workflow analyzed with buy/configure/build recommendation, architecture, and implementation roadmap. [subodhkc.com/ai-automation](https://subodhkc.com/ai-automation)
 
 ### Specific-Solution Pathways

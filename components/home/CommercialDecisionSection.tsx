@@ -96,7 +96,7 @@ export function CommercialDecisionSection() {
             </div>
             <div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--fg)', margin: 0 }}>
-                I want ongoing AI guidance
+                I want ongoing advisor access
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
                 AI Advisor Desk &middot; $99/month

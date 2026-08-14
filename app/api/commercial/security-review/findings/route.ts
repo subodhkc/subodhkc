@@ -116,8 +116,9 @@ export async function POST(req: NextRequest) {
     const updateFields: Record<string, unknown> = {}
 
     // Org admins can only update remediation fields (status, retest notes)
+    // but cannot set status to retest_verified (reviewer-only)
     if (!isPlatformAdmin) {
-      if (finding.status !== undefined) updateFields.status = finding.status
+      if (finding.status !== undefined && finding.status !== 'retest_verified') updateFields.status = finding.status
       if (finding.retest_notes !== undefined) updateFields.retest_notes = finding.retest_notes
       if (finding.retest_evidence_reference !== undefined) updateFields.retest_evidence_reference = finding.retest_evidence_reference
       if (finding.remediation !== undefined) updateFields.remediation = finding.remediation

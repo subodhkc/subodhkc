@@ -84,14 +84,24 @@ export default async function BlueprintPage({
 
   let engagement: any = null
   if (offeringData) {
-    const { data: engOffering } = await sc
-      .from('engagement_offerings')
-      .select('engagement_id')
+    // engagement_offerings doesn't have organization_id, query through engagements
+    const { data: orgEngagements } = await sc
+      .from('engagements')
+      .select('id')
       .eq('organization_id', ctx.organization.id)
-      .eq('offering_id', offeringData.id)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single()
+    const engIds = (orgEngagements || []).map(e => e.id)
+    let engOffering: { engagement_id: string } | null = null
+    if (engIds.length > 0) {
+      const { data: links } = await sc
+        .from('engagement_offerings')
+        .select('engagement_id')
+        .in('engagement_id', engIds)
+        .eq('offering_id', offeringData.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single()
+      engOffering = links
+    }
 
     if (engOffering) {
       const { data: eng } = await sc

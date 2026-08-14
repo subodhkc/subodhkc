@@ -394,7 +394,7 @@ export default function ServicesPage() {
                     AI Advisor Desk
                   </CardTitle>
                   <CardDescription className="text-sm">
-                    $99/month. Ongoing AI guidance, controls review, regulatory monitoring. Up to 3 team members. Start here if you want ongoing support.
+                    $99/month. Light-touch advisor access, controls review, regulatory monitoring. Up to 3 team members. Start here if you want ongoing support.
                   </CardDescription>
                 </CardHeader>
               </Card>

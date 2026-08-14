@@ -24,7 +24,7 @@ export const commercialOffers: CommercialOffer[] = [
     pricingLabel: '$99/month',
     annualLabel: '$990/year',
     pricingDetail: 'Up to 3 team members. Cancel anytime.',
-    description: 'Ongoing AI guidance, controls review, regulatory monitoring, and recommended next actions.',
+    description: 'Light-touch advisor access, controls review, regulatory monitoring, and recommended next actions.',
     category: 'primary',
   },
   {

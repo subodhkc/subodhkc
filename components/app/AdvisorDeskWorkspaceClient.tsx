@@ -20,6 +20,7 @@ import {
   FileText,
   ChevronRight,
   ExternalLink,
+  ArrowRight,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 
@@ -33,6 +34,10 @@ interface Question {
   created_at: string
   responded_at: string | null
   context: Record<string, unknown> | null
+  request_category: string | null
+  effort_class: string | null
+  recommended_next_step: string | null
+  recommended_offer_key: string | null
 }
 
 interface TeamMember {
@@ -47,9 +52,6 @@ interface AdvisorDeskWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
   questions: Question[]
-  remaining: number
-  allowance: number
-  currentPeriod: string
   members: TeamMember[]
   teamSeatLimit: number
   subscriptionStatus: string | null
@@ -62,6 +64,7 @@ const statusLabels: Record<string, string> = {
   submitted: 'Received',
   under_review: 'Reviewing',
   answered: 'Answered',
+  deeper_work_recommended: 'Deeper Work Recommended',
   closed: 'Closed',
 }
 
@@ -69,6 +72,7 @@ const statusColors: Record<string, string> = {
   submitted: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
   under_review: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
   answered: 'bg-green-500/10 text-green-600 border-green-500/20',
+  deeper_work_recommended: 'bg-purple-500/10 text-purple-600 border-purple-500/20',
   closed: 'bg-muted text-muted-foreground border-border',
 }
 
@@ -105,9 +109,6 @@ export function AdvisorDeskWorkspaceClient({
   user,
   ctx,
   questions,
-  remaining,
-  allowance,
-  currentPeriod,
   members,
   teamSeatLimit,
   subscriptionStatus,
@@ -124,7 +125,6 @@ export function AdvisorDeskWorkspaceClient({
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [localQuestions, setLocalQuestions] = useState(questions)
-  const [localRemaining, setLocalRemaining] = useState(remaining)
   const [portalLoading, setPortalLoading] = useState(false)
 
   const cancellationScheduled = entitlementStatus === 'active' && entitlementValidUntil
@@ -173,11 +173,7 @@ export function AdvisorDeskWorkspaceClient({
       const data = await res.json()
 
       if (!res.ok) {
-        if (data.error === 'allowance_exceeded') {
-          setSubmitError(data.message || 'Your advisor question has been used for this billing period.')
-        } else {
-          setSubmitError(data.error || 'Failed to submit question')
-        }
+        setSubmitError(data.error || 'Failed to submit question')
         setSubmitting(false)
         return
       }
@@ -194,10 +190,13 @@ export function AdvisorDeskWorkspaceClient({
           created_at: data.question.created_at,
           responded_at: null,
           context: null,
+          request_category: null,
+          effort_class: 'BRIEF',
+          recommended_next_step: null,
+          recommended_offer_key: null,
         },
         ...prev,
       ])
-      setLocalRemaining(data.remaining)
       setSubject('')
       setQuestion('')
       setContext('')
@@ -206,11 +205,6 @@ export function AdvisorDeskWorkspaceClient({
     }
     setSubmitting(false)
   }
-
-  const periodDate = new Date(currentPeriod + '-01')
-  const periodLabel = periodDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-  const nextPeriodDate = new Date(periodDate.getFullYear(), periodDate.getMonth() + 1, 1)
-  const nextPeriodLabel = nextPeriodDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
 
   return (
     <div className="min-h-screen bg-background">
@@ -335,81 +329,70 @@ export function AdvisorDeskWorkspaceClient({
           </h2>
           <div className="border rounded-lg p-5 bg-card space-y-4">
             <p className="text-sm text-muted-foreground">
-              Have a focused AI decision that deserves a human look?
+              Send focused AI questions as decisions come up. Brief guidance and directional
+              recommendations are included under reasonable use.
             </p>
             <p className="text-sm text-muted-foreground">
-              Your plan includes one advisor-reviewed question each billing month.
+              When a question deserves deeper research, document review, architecture work, or
+              implementation, I will identify that before additional work begins and offer a clearly
+              scoped next step.
             </p>
 
-            {localRemaining > 0 ? (
-              <form onSubmit={handleSubmitQuestion} className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium block mb-1.5">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    value={subject}
-                    onChange={e => setSubject(e.target.value)}
-                    placeholder="What decision are you working through?"
-                    className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium block mb-1.5">
-                    Question
-                  </label>
-                  <textarea
-                    value={question}
-                    onChange={e => setQuestion(e.target.value)}
-                    placeholder="Briefly describe the decision, options or concern."
-                    rows={4}
-                    className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium block mb-1.5">
-                    Optional context
-                  </label>
-                  <input
-                    type="text"
-                    value={context}
-                    onChange={e => setContext(e.target.value)}
-                    placeholder="Relevant link or short context"
-                    className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-
-                {submitError && (
-                  <p className="text-sm text-red-600">{submitError}</p>
-                )}
-
-                <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted-foreground">
-                    {localRemaining} advisor question{localRemaining !== 1 ? 's' : ''} available this billing period
-                  </p>
-                  <button
-                    type="submit"
-                    disabled={submitting || !subject.trim() || !question.trim()}
-                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Send className="h-4 w-4" />
-                    {submitting ? 'Sending...' : 'Ask Your Advisor'}
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <div className="border rounded-lg p-4 bg-muted/30">
-                <p className="text-sm text-muted-foreground">
-                  Your included advisor question has been used.
-                </p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  The next one becomes available on {nextPeriodLabel}.
-                </p>
+            <form onSubmit={handleSubmitQuestion} className="space-y-4">
+              <div>
+                <label className="text-sm font-medium block mb-1.5">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  value={subject}
+                  onChange={e => setSubject(e.target.value)}
+                  placeholder="What decision are you working through?"
+                  className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
               </div>
-            )}
+              <div>
+                <label className="text-sm font-medium block mb-1.5">
+                  Question
+                </label>
+                <textarea
+                  value={question}
+                  onChange={e => setQuestion(e.target.value)}
+                  placeholder="Briefly describe the decision, options or concern."
+                  rows={4}
+                  className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                  required
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1.5">
+                  Optional context
+                </label>
+                <input
+                  type="text"
+                  value={context}
+                  onChange={e => setContext(e.target.value)}
+                  placeholder="Relevant link or short context"
+                  className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              {submitError && (
+                <p className="text-sm text-red-600">{submitError}</p>
+              )}
+
+              <div className="flex items-center justify-end">
+                <button
+                  type="submit"
+                  disabled={submitting || !subject.trim() || !question.trim()}
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send className="h-4 w-4" />
+                  {submitting ? 'Sending...' : 'Ask Your Advisor'}
+                </button>
+              </div>
+            </form>
           </div>
         </section>
 
@@ -422,7 +405,7 @@ export function AdvisorDeskWorkspaceClient({
           {localQuestions.length === 0 ? (
             <div className="border rounded-lg p-6 text-center">
               <p className="text-sm text-muted-foreground">
-                No questions yet. Ask your first question above.
+                No questions yet. Send your first question above.
               </p>
             </div>
           ) : (
@@ -455,6 +438,18 @@ export function AdvisorDeskWorkspaceClient({
                           })}
                         </p>
                       )}
+                    </div>
+                  )}
+                  {q.recommended_next_step && (
+                    <div className="mt-3 pt-3 border-t border-purple-500/20">
+                      <div className="flex items-center gap-1.5 mb-1.5">
+                        <ArrowRight className="h-4 w-4 text-purple-600" />
+                        <span className="text-xs font-medium text-purple-600">Recommended Next Step</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{q.recommended_next_step}</p>
+                      <p className="text-xs text-purple-600/70 mt-1.5">
+                        Deeper work is billed at a member rate per hour. No automatic charges. You approve scope and cost before any work begins.
+                      </p>
                     </div>
                   )}
                 </div>

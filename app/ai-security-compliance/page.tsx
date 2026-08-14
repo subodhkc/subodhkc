@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
-import CTA from '@/components/CTA'
 import Grid from '@/components/Grid'
 import { Reveal } from '@/components/Reveal'
+import { SecurityComplianceIntakeForm } from '@/components/commercial/SecurityComplianceIntakeForm'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import {
@@ -177,7 +177,7 @@ export default function AISecurityCompliancePage() {
         description="AI security assessment and compliance review. Evidence-grade documentation, control gap analysis, and clear recommendations for regulators, auditors, and enterprise customers."
       >
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link href="/contact?subject=ai-security-compliance-review">
+          <Link href="#request">
             <Button size="lg" className="group animate-glow">
               Request a Review
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -385,12 +385,18 @@ export default function AISecurityCompliancePage() {
         </div>
       </Section>
 
-      <CTA
-        title="Understand your AI security posture with evidence."
-        description="Get a comprehensive AI security and compliance review with adversarial testing, control gap analysis, and evidence-grade documentation. Custom scoped to your architecture and regulatory environment."
-        primaryButton={{ text: 'Request an AI Security Review', href: '/contact?subject=ai-security-compliance-review' }}
-        secondaryButton={{ text: 'Try free security tools', href: '/ai-security-tools' }}
-      />
+      <Section
+        subtitle="Request a Review"
+        title="Understand your AI security posture with evidence"
+        description="Tell me about your AI systems, regulatory environment, and what evidence your customers or auditors are asking for. I will tell you whether a focused security assessment, compliance review, or combined engagement fits. Reviews are limited and scoped based on architecture."
+        sectionNum="§08"
+        className="bg-secondary/20"
+        id="request"
+      >
+        <div style={{ maxWidth: 640 }}>
+          <SecurityComplianceIntakeForm />
+        </div>
+      </Section>
     </>
   )
 }

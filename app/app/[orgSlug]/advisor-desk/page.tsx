@@ -7,7 +7,6 @@ import {
 } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { getOffer } from '@/lib/commercial/offers'
-import { getAdvisorBillingPeriod } from '@/lib/commercial/billing-period'
 import { AdvisorDeskWorkspaceClient } from '@/components/app/AdvisorDeskWorkspaceClient'
 
 export const dynamic = 'force-dynamic'
@@ -81,25 +80,16 @@ export default async function AdvisorDeskPage({
     )
   }
 
-  const { periodKey: currentPeriod } = await getAdvisorBillingPeriod(ctx.organization.id)
-
   // Fetch advisor questions
   const { data: questions } = await sc
     .from('advisor_questions')
     .select(`
       id, subject, question, status, advisor_response,
-      billing_period_key, created_at, responded_at, context
+      billing_period_key, created_at, responded_at, context,
+      request_category, effort_class, recommended_next_step, recommended_offer_key
     `)
     .eq('organization_id', ctx.organization.id)
     .order('created_at', { ascending: false })
-
-  // Count questions used this billing period (not closed)
-  const usedThisPeriod = (questions || []).filter(
-    q => q.billing_period_key === currentPeriod && q.status !== 'closed'
-  ).length
-
-  const allowance = offer?.advisorQuestionsPerPeriod ?? 1
-  const remaining = Math.max(0, allowance - usedThisPeriod)
 
   // Fetch team members
   const { data: members } = await sc
@@ -114,14 +104,14 @@ export default async function AdvisorDeskPage({
 
   // Fetch profiles for members
   const memberUserIds = (members || []).map(m => m.user_id).filter(Boolean)
-  let memberProfiles: Record<string, { email: string; full_name: string | null }> = {}
+  let memberProfiles: Record<string, { email: string; display_name: string | null }> = {}
   if (memberUserIds.length > 0) {
     const { data: profiles } = await sc
       .from('profiles')
-      .select('id, email, full_name')
+      .select('id, email, display_name')
       .in('id', memberUserIds)
     for (const p of profiles || []) {
-      memberProfiles[p.id] = { email: p.email, full_name: p.full_name }
+      memberProfiles[p.id] = { email: p.email, display_name: p.display_name }
     }
   }
 
@@ -143,15 +133,12 @@ export default async function AdvisorDeskPage({
       user={user}
       ctx={ctx}
       questions={questions || []}
-      remaining={remaining}
-      allowance={allowance}
-      currentPeriod={currentPeriod}
       members={(members || []).map(m => ({
         id: m.id,
         role: m.role,
         userId: m.user_id,
         email: memberProfiles[m.user_id]?.email ?? '',
-        fullName: memberProfiles[m.user_id]?.full_name ?? null,
+        fullName: memberProfiles[m.user_id]?.display_name ?? null,
       }))}
       teamSeatLimit={offer?.teamSeatLimit ?? 3}
       subscriptionStatus={subLink?.status ?? null}
