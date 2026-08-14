@@ -131,15 +131,15 @@ const faqs = [
     items: [
       {
         q: 'Who is Subodh KC?',
-        a: 'Subodh KC is an AI Systems Architect and Governance Expert with 16+ years of experience. He currently serves as Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC - integrated AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.Sc. and B.S. degrees from Louisiana Tech University.',
+        a: 'Subodh KC is an AI Systems Architect and Governance Expert with 12+ years of experience. He currently serves as Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC - integrated AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.Sc. and B.S. degrees from Louisiana Tech University.',
       },
       {
         q: 'What services does Subodh KC offer?',
-        a: 'Three pillars: (1) AI Architecture & Integration - agentic systems, RAG, MCP integrations, workflow architecture; (2) AI Operations & Deployment - voice agents, monitoring, production hardening; (3) AI Governance & Assurance - compliance implementation (EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144), evidence architecture, drift controls. Engagement models include project-based ($25K-$150K), retainer, and fractional executive ($10K-$25K/month).',
+        a: 'Three pillars: (1) AI Architecture & Integration - agentic systems, RAG, MCP integrations, workflow architecture; (2) AI Operations & Deployment - voice agents, monitoring, production hardening; (3) AI Governance & Assurance - compliance implementation (EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144), evidence architecture, drift controls. Commercial offers include AI Advisor Desk ($99/month), AI Automation Blueprint ($500 fixed), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). Enterprise advisory engagements are custom-scoped.',
       },
       {
         q: 'How do I hire Subodh KC?',
-        a: 'Use the contact form at subodhkc.com/contact or email subodhkc@subodhkc.com directly. Subodh offers project-based engagements (3-6 months, $25K-$150K), retainers (6-12 months), and fractional executive roles (12+ months, $10K-$25K/month). Consulting rate is $300-$500/hour with project minimums. He is also open to full-time Director/VP roles at Fortune 500, Series B+ startups, and AI-first companies.',
+        a: 'Use the contact form at subodhkc.com/contact or email subodhkc@subodhkc.com directly. Commercial offers include AI Advisor Desk ($99/month), AI Automation Blueprint ($500 fixed), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). Enterprise fractional advisory engagements are custom-scoped. He is also open to full-time Director/VP roles at enterprise, Series B+ startups, and AI-first companies.',
       },
       {
         q: 'Does Subodh KC offer training or courses?',

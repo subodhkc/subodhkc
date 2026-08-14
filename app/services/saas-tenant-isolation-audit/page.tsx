@@ -40,15 +40,8 @@ export const metadata = {
     images: ['/services/saas-tenant-isolation-audit/opengraph-image'],
   },
   robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
+    index: false,
+    follow: false,
   },
 }
 
@@ -354,9 +347,7 @@ const serviceJsonLd = {
   audience: { '@type': 'BusinessAudience', name: 'B2B SaaS founders, development agencies, and regulated-data application teams' },
   url: 'https://subodhkc.com/services/saas-tenant-isolation-audit',
   offers: [
-    { '@type': 'Offer', name: 'Tenant Boundary Review', price: '950', priceCurrency: 'USD', description: 'A focused, read-only review for a small application or one critical workflow.' },
-    { '@type': 'Offer', name: 'Tenant Isolation Audit', price: '2500', priceCurrency: 'USD', description: 'Behavioral verification across the application\u2019s principal tenant boundary.' },
-    { '@type': 'Offer', name: 'Hardening and Verified Deployment', price: '5000', priceCurrency: 'USD', description: 'Remediation or implementation of a secure organization-based multi-tenant foundation.' },
+    { '@type': 'Offer', name: 'SaaS Security Review', price: '950', priceCurrency: 'USD', description: 'A focused review for a single application: authorization, API routes, membership, storage, and written findings.' },
   ],
 }
 

@@ -108,7 +108,7 @@ export default function AdvisoryPage() {
     'AI regulatory compliance (EU AI Act, GDPR, sector-specific)',
     'Enterprise AI governance frameworks',
     'Technical program management at Fortune 50 scale',
-    'Risk management and audit preparation',
+    'Risk management and evidence preparation',
     'Executive stakeholder management',
     'Team scaling and organizational design',
     'SaaS and platform architecture',

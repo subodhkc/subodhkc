@@ -196,20 +196,20 @@ export default function CoursePage() {
         'Evidence-grade documentation generation and pipelines',
         'Compliance evidence repositories and audit trails',
         'Automated quality gates in CI/CD (HAIEC Action)',
-        'Patent-pending drift detection frameworks in practice',
+        'Drift detection frameworks in practice',
       ],
     },
     {
       icon: Award,
       number: 'Module 05',
-      title: 'Audit Readiness & Governance Operations',
+      title: 'Evidence Readiness & Governance Operations',
       description:
         'Preparing for and passing AI audits. Governance operating models, committee structures, and policies that survive contact with real organizations.',
       topics: [
-        'Audit preparation checklist and documentation requirements',
+        'Evidence preparation checklist and documentation requirements',
         'Governance committee structures and operating models',
         'Policy frameworks that engineers will actually follow',
-        'Case studies: Fortune 50 audit readiness in practice',
+        'Case studies: Fortune 50 evidence readiness in practice',
       ],
     },
   ]
@@ -335,7 +335,7 @@ export default function CoursePage() {
                   frameworks for Fortune 50 scale.
                 </p>
                 <p>
-                  He has developed 5 patent-pending methodologies for AI compliance, drift detection, and
+                  He has developed published methodologies for AI compliance, drift detection, and
                   behavioral verification. He is the founder of Kestrel Voice (AI voice operations) and
                   founder of HAIEC (AI compliance platform). 12+ years from field technician to Fortune 50
                   AI strategy leader.

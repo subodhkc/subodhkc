@@ -8,6 +8,13 @@ const footerLinks = {
     { name: 'Products', href: '/products' },
     { name: 'Contact', href: '/contact' },
   ],
+  offers: [
+    { name: 'AI Advisor Desk', href: '/ai-advisor' },
+    { name: 'AI Automation Blueprint', href: '/ai-automation' },
+    { name: 'AI Voice Agent', href: '/ai-voice-agent' },
+    { name: 'AI Security & Compliance', href: '/ai-security-compliance' },
+    { name: 'SaaS Security Review', href: '/saas-security-review' },
+  ],
   resources: [
     { name: 'Writing', href: '/writing' },
     { name: 'Research', href: '/research' },
@@ -49,7 +56,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
       <div className="section-container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           <div>
             <h3 className="text-xl font-bold gradient-text mb-4">KC</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -63,6 +70,24 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               {footerLinks.main.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
+              Offers
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.offers.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
