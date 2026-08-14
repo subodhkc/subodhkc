@@ -788,17 +788,17 @@ export default function SaaSSecurityReviewPage() {
           <TenantAuditForm />
         </div>
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-          <a href="mailto:subodhkc@subodhkc.com?subject=SaaS%20Security%20Review" data-track-click="saas_security_email_cta">
+          <a href="#request" data-track-click="saas_security_scope_review_cta">
             <Button size="lg" className="group">
-              Email Subodh
+              Request Scope Review
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </a>
-          <Link href="/contact?subject=saas-security-review">
+          <a href="mailto:subodhkc@subodhkc.com?subject=SaaS%20Security%20Review" data-track-click="saas_security_email_cta">
             <Button size="lg" variant="outline">
-              Use Contact Form
+              Email Subodh
             </Button>
-          </Link>
+          </a>
         </div>
       </Section>
 

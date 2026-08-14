@@ -59,6 +59,9 @@ export async function POST(req: NextRequest) {
       case 'customer.subscription.deleted':
         await handleSubscriptionDeleted(event)
         break
+      case 'invoice.paid':
+        await handleInvoicePaid(event)
+        break
       case 'invoice.payment_failed':
         await handlePaymentFailed(event)
         break
@@ -332,6 +335,66 @@ async function handlePaymentFailed(event: Stripe.Event) {
     audit_org_id: link.organization_id,
     audit_entity_id: invoice.id,
     audit_metadata: { attempt_count: invoice.attempt_count } as any,
+  })
+}
+
+/**
+ * Handle invoice.paid - records recurring subscription payments.
+ * This fires on every successful invoice payment, including recurring renewals.
+ */
+async function handleInvoicePaid(event: Stripe.Event) {
+  const invoice = event.data.object as Stripe.Invoice
+  const sc = createServiceClient()
+  if (!sc) return
+
+  // Find org by customer ID
+  const customerId = typeof invoice.customer === 'string' ? invoice.customer : invoice.customer?.id
+  if (!customerId) return
+
+  const { data: link } = await sc
+    .from('external_system_links')
+    .select('organization_id')
+    .eq('system_key', 'stripe_customer')
+    .eq('external_id', customerId)
+    .eq('status', 'active')
+    .single()
+
+  if (!link) return
+
+  const orgId = link.organization_id
+
+  // Record the payment
+  await recordPayment({
+    orgId,
+    offerKey: (invoice.metadata?.offer_key as OfferKey) || 'ai_advisor_desk',
+    stripePaymentIntentId: invoice.payment_intent as string ?? undefined,
+    amountCents: invoice.amount_paid,
+    currency: invoice.currency || 'usd',
+    status: 'succeeded',
+    type: 'subscription',
+    metadata: { invoice_id: invoice.id, billing_reason: invoice.billing_reason },
+  })
+
+  // Ensure entitlement stays active
+  const offerKey = (invoice.metadata?.offer_key as OfferKey) || 'ai_advisor_desk'
+  await activateEntitlement({
+    orgId,
+    offerKey,
+    sourceType: 'subscription',
+    metadata: { invoice_id: invoice.id, billing_reason: invoice.billing_reason },
+  })
+
+  // Audit event
+  await sc.rpc('write_audit_event', {
+    audit_action: 'commercial.invoice_paid',
+    audit_entity_type: 'invoice',
+    audit_org_id: orgId,
+    audit_entity_id: invoice.id,
+    audit_metadata: {
+      amount_cents: invoice.amount_paid,
+      currency: invoice.currency,
+      billing_reason: invoice.billing_reason,
+    } as any,
   })
 }
 

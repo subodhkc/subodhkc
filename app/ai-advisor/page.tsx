@@ -16,6 +16,7 @@ import {
   Zap,
   FileText,
 } from 'lucide-react'
+import { AdvisorCheckoutCTA } from '@/components/commercial/AdvisorCheckoutCTA'
 
 export const metadata = {
   title: 'AI Advisor for Small Business | AI Risk, Compliance & Automation',
@@ -485,11 +486,9 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
-      <CTA
+      <AdvisorCheckoutCTA
         title="Stop guessing about AI"
         description="Get a specialist in your corner for $99/month. One question answered, one controls review, one less thing to worry about."
-        primaryButton={{ text: 'Start AI Advisor Desk', href: '/contact?subject=ai-advisor-desk' }}
-        secondaryButton={{ text: 'See all services', href: '/services' }}
       />
     </>
   )

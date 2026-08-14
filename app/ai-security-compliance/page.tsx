@@ -388,7 +388,7 @@ export default function AISecurityCompliancePage() {
       <CTA
         title="Understand your AI security posture with evidence."
         description="Get a comprehensive AI security and compliance review with adversarial testing, control gap analysis, and evidence-grade documentation. Custom scoped to your architecture and regulatory environment."
-        primaryButton={{ text: 'Request a Review', href: '/contact?subject=ai-security-compliance-review' }}
+        primaryButton={{ text: 'Request an AI Security Review', href: '/contact?subject=ai-security-compliance-review' }}
         secondaryButton={{ text: 'Try free security tools', href: '/ai-security-tools' }}
       />
     </>

@@ -16,6 +16,7 @@ import {
   Zap,
   ClipboardCheck,
 } from 'lucide-react'
+import { BlueprintQualificationCTA } from '@/components/commercial/BlueprintQualificationCTA'
 
 export const metadata = {
   title: 'AI Automation Consultant for Small Business | Dallas–Fort Worth',
@@ -322,11 +323,9 @@ export default function AIAutomationPage() {
         </div>
       </Section>
 
-      <CTA
+      <BlueprintQualificationCTA
         title="One workflow. One Blueprint. $500."
         description="Stop wondering if AI can automate your workflow. Get a specific, actionable Blueprint with a buy/configure/build recommendation, architecture, and implementation roadmap."
-        primaryButton={{ text: 'Start My Blueprint', href: '/contact?subject=ai-automation-blueprint' }}
-        secondaryButton={{ text: 'See all services', href: '/services' }}
       />
     </>
   )

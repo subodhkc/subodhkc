@@ -339,10 +339,10 @@ export default function AIVoiceAgentPage() {
       </Section>
 
       <CTA
-        title="Book a 20–30 minute fit call"
+        title="Book a 20-minute fit call"
         description="Find out whether standard deployment is sufficient or whether you need a custom workflow. The fit call builds buyer confidence, not scope."
-        primaryButton={{ text: 'Book a Fit Call', href: '/contact?subject=ai-voice-agent-fit-call' }}
-        secondaryButton={{ text: 'See all services', href: '/services' }}
+        primaryButton={{ text: 'Check My Fit', href: '/contact?subject=ai-voice-agent-fit-call' }}
+        secondaryButton={{ text: 'Book a 20-Minute Fit Call', href: '/contact?subject=ai-voice-agent-fit-call' }}
       />
     </>
   )
