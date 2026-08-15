@@ -8,16 +8,16 @@ import Grid from '@/components/Grid'
 import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, BookOpen, User, Newspaper, MapPin, Code2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'About Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+  title: 'About Subodh KC | AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and enterprise AI governance leader with 12+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+    'Subodh KC is an AI advisor and AI systems architect with 12+ years across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
     'AI Advisor',
     'AI advisor HEB',
     'AI advisor Dallas Fort Worth',
-    'enterprise AI governance leader',
+    'AI systems architect enterprise',
     'AI program management Fortune 50',
     'HP Inc AI program manager',
     'HAIEC founder',
@@ -37,9 +37,9 @@ export const metadata = {
     canonical: 'https://subodhkc.com/about',
   },
   openGraph: {
-    title: 'About Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    title: 'About Subodh KC | AI Advisor & AI Systems Architect',
     description:
-      '12+ years across program leadership, manufacturing reliability, technology commercialization, and AI governance. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+      '12+ years across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
     images: [
@@ -47,13 +47,13 @@ export const metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    title: 'About Subodh KC | AI Advisor & AI Systems Architect',
     description: '12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
   },
 }
@@ -74,10 +74,10 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
-  description: 'AI advisor and enterprise AI governance leader with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
+  jobTitle: 'AI Advisor | AI Systems Architect',
+  description: 'AI advisor and AI systems architect with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems.',
   url: 'https://subodhkc.com',
-  email: 'admin@subodhkc.com',
+  email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
   sameAs: [
     'https://www.wikidata.org/wiki/Q140546484',
@@ -155,10 +155,10 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
-      name: 'AI Advisor & Enterprise AI Governance Consultant',
+      name: 'AI Advisor & AI Systems Architect',
       occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
       startDate: '2026',
-      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations.',
+      description: 'Advising organizations on AI opportunity discovery, decisions, architecture, and production AI deployment. Helping teams move from possibility to decision and from decision to production.',
     },
     {
       '@type': 'Occupation',
@@ -263,7 +263,7 @@ export default function AboutPage() {
       icon: GraduationCap,
       title: 'Continuous Learning',
       description:
-        'Technology evolves. Regulations shift. Markets transform. Sustained leadership requires relentless learning and adaptation.',
+        'Technology evolves. Regulations shift. Markets move. Sustained leadership requires relentless learning and adaptation.',
     },
     {
       icon: Heart,
@@ -435,10 +435,16 @@ export default function AboutPage() {
           <div className="border-l-2 border-primary/30 pl-6 mt-8">
             <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
               <Award className="h-4 w-4 text-primary" />
-              Education and Credentials
+              What the Credentials Mean in Practice
             </h3>
+            <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
+              He holds a B.S. in Computer Information Systems and an M.S. in Engineering and Technology Management from Louisiana Tech University. The combination matters more than the titles: the work sits where technology, economic value, and organizational execution meet. A technically sound idea that an organization cannot absorb is not a solution, and a strategy that cannot survive contact with applications, APIs, data, and production is not a plan.
+            </p>
+            <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
+              As a Six Sigma Green Belt, he works in baselines, hypotheses, evidence, and uncertainty rather than impressions. Improvement starts by finding the root cause, understanding variation, measuring what changed, and verifying the improvement held. The same discipline applies to AI: establish the baseline before the pilot, define what evidence would prove value, and stay honest about what remains uncertain.
+            </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              He holds a B.S. in Computer Information Systems and an M.S. in Engineering and Technology Management from Louisiana Tech University. He is a Six Sigma Green Belt and has completed additional study in AI ethics and governance.
+              Years of program leadership added the operating layer: named ownership, explicit dependencies, visible risks, documented decisions, and a cadence that keeps all of it moving. He has completed additional study in AI ethics and governance, and his technical background lets him follow a strategy all the way down into the systems that have to run it.
             </p>
           </div>
 
@@ -640,10 +646,10 @@ export default function AboutPage() {
       </Section>
 
       <CTA
-        title="Let's Work Together"
-        description="Whether you need advisory on AI compliance, executive coaching, or help driving a complex technical program, Subodh brings strategic thinking and proven execution to the table."
-        primaryButton={{ text: 'Get in touch', href: '/contact' }}
-        secondaryButton={{ text: 'View services', href: '/advisory' }}
+        title="Discuss AI"
+        description="Weighing an AI decision, exploring what AI could change in your organization, or working through a complex technical program. The conversation starts here."
+        primaryButton={{ text: 'Discuss AI', href: '/contact?subject=discuss-ai' }}
+        secondaryButton={{ text: 'How I help', href: '/services' }}
       />
       <div className="text-center pb-8">
         <Link href="/person/subodh-kc" className="text-sm text-muted-foreground hover:text-primary transition-colors">Person Profile →</Link>

@@ -142,7 +142,7 @@ export default async function RootLayout({
           <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GSC_VERIFICATION} />
         )}
         <meta name="person" content="Subodh KC" />
-        <meta name="person-type" content="AI Advisor & Enterprise AI Governance Leader" />
+        <meta name="person-type" content="AI Advisor & AI Systems Architect" />
         <meta name="profile:first_name" content="Subodh" />
         <meta name="profile:last_name" content="KC" />
         <meta name="profile:username" content="subodhkc" />

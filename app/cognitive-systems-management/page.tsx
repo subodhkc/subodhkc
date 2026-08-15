@@ -356,7 +356,7 @@ export default function CSMPage() {
             id={domain.id}
             subtitle={`Domain ${index + 1} of 4`}
             title={domain.displayName}
-            sectionNum={`§${index + 2}`}
+            sectionNum={`${index + 2}`}
           >
             <div className="max-w-4xl mx-auto space-y-6">
               {/* Tagline and Question */}

@@ -27,22 +27,22 @@ const portfolioSchema = {
   ],
   isPartOf: {
     '@type': 'WebSite',
-    name: 'Subodh KC - AI Systems Architect & Governance Expert',
+    name: 'Subodh KC - AI Advisor & AI Systems Architect',
     url: 'https://subodhkc.com',
   },
 }
 
 export const metadata: Metadata = {
   title: 'AI That Works - Executive Portfolio of Subodh KC',
-  description: 'Executive portfolio for Subodh KC - AI Strategy & Transformation Leader. Strategy, programs, platforms, and governance. 26-page downloadable executive portfolio.',
+  description: 'Selected work from Subodh KC - AI Advisor & AI Systems Architect. Research, decisions, programs, platforms, and production evidence. 26-page downloadable executive portfolio.',
   keywords: [
     'executive portfolio',
+    'AI advisor portfolio',
     'AI strategy portfolio',
     'AI program leadership',
     'AI governance portfolio',
     'AI systems architect portfolio',
     'Subodh KC portfolio',
-    'AI transformation leader',
     'enterprise AI portfolio',
     'AI platforms showcase',
     'AI governance frameworks',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     title: 'AI That Works - Executive Portfolio of Subodh KC',
     description: '26-page executive portfolio: AI strategy, program leadership, platforms (Kestrel, HAIEC, llmverify), governance, and research. Downloadable and viewable.',
     url: 'https://subodhkc.com/portfolio',
-    siteName: 'Subodh KC - AI Systems Architect & Governance Expert',
+    siteName: 'Subodh KC - AI Advisor & AI Systems Architect',
     images: [
       {
         url: '/portrait.jpeg',

@@ -3,28 +3,26 @@ import Section from '@/components/Section'
 import CTA from '@/components/CTA'
 import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import Grid from '@/components/Grid'
 import Link from 'next/link'
 import {
-  Shield, Briefcase, Users, Zap, CheckCircle2, Target, Award,
-  Network, Database, Workflow, Bot, Phone, Activity, Lock, FileCheck, Gauge, Cpu, Radio, Layers, ArrowRight, MessageSquare,
+  Shield, Workflow, Phone, MessageSquare, Users, ArrowRight, ShieldCheck,
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'AI Architecture, Deployment & Governance Services | Subodh KC',
+  title: 'How I Help | AI Advisory, Automation & Security | Subodh KC',
   description:
-    'AI architecture, agentic systems, RAG, MCP integrations, voice AI deployment, compliance automation, and governance frameworks. From pilot to production at enterprise scale.',
+    'Where could AI change the way your organization works? Stay close to AI decisions with the AI Advisor Desk, find the opportunity with an AI Automation Blueprint, work through higher-stakes decisions with direct advisory, or solve a known technical need in voice or security.',
   keywords: [
-    'AI architecture services',
+    'AI advisory services',
+    'AI advisor for business',
+    'AI opportunity assessment',
+    'AI automation blueprint',
+    'fractional AI advisor',
+    'AI architecture review',
     'AI deployment',
     'AI governance',
-    'agentic AI systems',
-    'RAG pipeline architecture',
-    'MCP integrations',
     'voice AI deployment',
-    'compliance automation',
-    'AI consulting',
-    'fractional AI advisor',
+    'AI security review',
     'enterprise AI',
     'Subodh KC'
   ],
@@ -32,16 +30,16 @@ export const metadata = {
     canonical: 'https://subodhkc.com/services',
   },
   openGraph: {
-    title: 'AI Architecture, Deployment & Governance Services | Subodh KC',
+    title: 'How I Help | AI Advisory, Automation & Security | Subodh KC',
     description:
-      'AI architecture, agentic systems, RAG, MCP integrations, voice AI deployment, compliance automation, and governance frameworks. From pilot to production at enterprise scale.',
+      'A decision router, not a catalogue. Ongoing AI advisory, focused opportunity assessment, direct advisory for higher-stakes decisions, and known technical needs in voice and security.',
     url: 'https://subodhkc.com/services',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Architecture, Deployment & Governance | Subodh KC',
-    description: 'AI architecture, agentic systems, RAG, MCP, voice AI, compliance automation. From pilot to production.',
+    title: 'How I Help | Subodh KC',
+    description: 'Stay close to AI decisions, find the opportunity, work through higher-stakes decisions, or solve a known technical need.',
   },
 }
 
@@ -50,146 +48,67 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
-    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://subodhkc.com/services' },
+    { '@type': 'ListItem', position: 2, name: 'How I Help', item: 'https://subodhkc.com/services' },
   ],
 }
 
+const paths = [
+  {
+    icon: MessageSquare,
+    situation: 'I want to stay close to AI decisions',
+    offer: 'AI Advisor Desk',
+    href: '/ai-advisor',
+    price: '$99/month',
+    description:
+      'Ongoing human AI advisory. Weekly signal, monthly point of view, and human advice when it matters. See what is changing, what it could mean for your organization, and what deserves action.',
+    cta: 'Explore the AI Advisor Desk',
+  },
+  {
+    icon: Workflow,
+    situation: 'I want to find the opportunity worth pursuing',
+    offer: 'AI Automation Blueprint',
+    href: '/ai-automation',
+    price: '$500 fixed',
+    description:
+      'A focused AI opportunity assessment: one opportunity, one primary workflow, one decision-ready Blueprint. Yes/no recommendation, buy/configure/build/wait call, architecture, cost-benefit, and roadmap in 5 business days.',
+    cta: 'Start with a Blueprint',
+  },
+  {
+    icon: Users,
+    situation: 'I am navigating higher-stakes AI decisions',
+    offer: 'Direct AI Advisory',
+    href: '/advisory',
+    price: 'Custom scope',
+    description:
+      'A fractional AI advisor in the room. Decision review, strategy, architecture review, vendor and build-vs-buy calls, roadmap and operating decisions, and executive working sessions with context continuity.',
+    cta: 'Explore Direct Advisory',
+  },
+]
+
+const technicalNeeds = [
+  {
+    icon: Phone,
+    name: 'AI Voice',
+    href: '/ai-voice-agent',
+    desc: 'Managed AI voice deployment. Calls, intake, booking, and escalation. From $499/month.',
+  },
+  {
+    icon: Shield,
+    name: 'AI Security & Controls',
+    href: '/ai-security-compliance',
+    desc: 'AI security assessment, controls review, vendor risk, and audit-ready documentation. From $950.',
+  },
+  {
+    icon: ShieldCheck,
+    name: 'SaaS & AI Security Review',
+    href: '/saas-security-review',
+    desc: 'Tenant isolation and AI application security for B2B SaaS and AI-built products. From $950.',
+  },
+]
+
+const method = ['Research', 'Reframe', 'Prove & Decide', 'Architect', 'Mobilize', 'Improve']
+
 export default function ServicesPage() {
-  const pillars = [
-    {
-      icon: Cpu,
-      subtitle: 'Pillar 01',
-      title: 'AI Architecture & Integration',
-      description:
-        'Designing and building production AI systems that integrate with your existing stack - from agentic workflows to enterprise knowledge systems.',
-      services: [
-        {
-          icon: Bot,
-          name: 'Agentic AI Systems',
-          desc: 'Multi-agent orchestration, tool-use pipelines, and autonomous workflow design with guardrails.',
-        },
-        {
-          icon: Database,
-          name: 'RAG & Enterprise Knowledge Systems',
-          desc: 'Retrieval-augmented generation pipelines, vector databases, and enterprise knowledge architectures.',
-        },
-        {
-          icon: Network,
-          name: 'MCP & API Integrations',
-          desc: 'Model Context Protocol servers, API orchestration, and secure data connectors for production AI.',
-        },
-        {
-          icon: Workflow,
-          name: 'Workflow & Data Architecture',
-          desc: 'End-to-end data pipelines, event-driven architectures, and AI workflow orchestration at scale.',
-        },
-        {
-          icon: Zap,
-          name: 'AI Pilot Recovery',
-          desc: 'Rescuing stalled AI pilots - diagnosing architecture failures, rebuilding for production, and getting to deployment.',
-        },
-        {
-          icon: Layers,
-          name: 'Architecture Decision Master Sheet',
-          desc: 'Interactive 25-layer architecture decision sheet with AI development risks, CSM pillar mapping, and Definition of Done.',
-          href: '/architecture-decision-master-sheet',
-        },
-      ],
-    },
-    {
-      icon: Radio,
-      subtitle: 'Pillar 02',
-      title: 'AI Operations & Deployment',
-      description:
-        'Deploying AI systems into production - voice agents, customer intake, monitoring, and the operational hardening that keeps systems running.',
-      services: [
-        {
-          icon: Phone,
-          name: 'Voice & Chat Agents',
-          desc: 'Production voice AI (powered by KestrelVoice) and chat agents for customer-facing operations.',
-        },
-        {
-          icon: Users,
-          name: 'Customer Intake & Booking',
-          desc: 'AI-driven intake flows, appointment scheduling, and automated customer onboarding pipelines.',
-        },
-        {
-          icon: Network,
-          name: 'Human Escalation',
-          desc: 'AI-to-human handoff architecture, escalation policies, and context preservation.',
-        },
-        {
-          icon: Activity,
-          name: 'Monitoring & Observability',
-          desc: 'Real-time AI system monitoring, drift detection, latency tracking, and automated alerting.',
-        },
-        {
-          icon: Gauge,
-          name: 'Production Hardening',
-          desc: 'Performance optimization, failure mode testing, load testing, and operational readiness reviews.',
-        },
-      ],
-    },
-    {
-      icon: Shield,
-      subtitle: 'Pillar 03',
-      title: 'AI Governance & Assurance',
-      description:
-        'Building governance structures that scale - from readiness assessments to evidence architecture and drift controls.',
-      services: [
-        {
-          icon: Target,
-          name: 'Readiness & Applicability Assessments',
-          desc: 'Evaluate AI system readiness, regulatory applicability, and organizational maturity before deployment.',
-        },
-        {
-          icon: Lock,
-          name: 'AI Security & Compliance',
-          desc: 'EU AI Act, NIST AI RMF, ISO 42001, NYC LL144 compliance implementation and evidence readiness.',
-        },
-        {
-          icon: FileCheck,
-          name: 'Evidence Architecture',
-          desc: 'Documentation generation, documentation pipelines, and compliance evidence repositories.',
-        },
-        {
-          icon: Activity,
-          name: 'Testing & Drift Controls',
-          desc: 'Patent-pending drift detection frameworks, bias testing, and automated quality gates in CI/CD.',
-        },
-        {
-          icon: Briefcase,
-          name: 'Governance Operating Models',
-          desc: 'AI governance committees, policy frameworks, and operating models that survive contact with real organizations.',
-        },
-      ],
-    },
-  ]
-
-  const engagementModels = [
-    {
-      icon: CheckCircle2,
-      title: 'Project-Based',
-      description: 'Fixed-scope engagements with clear deliverables and timelines.',
-      duration: '3-6 months',
-      ideal: 'AI architecture, pilot recovery, compliance implementations, framework development',
-    },
-    {
-      icon: Award,
-      title: 'Retainer',
-      description: 'Ongoing advisory and strategic guidance with flexible scope.',
-      duration: '6-12 months',
-      ideal: 'Direct advisory, continuous improvement, governance oversight, strategic planning',
-    },
-    {
-      icon: Users,
-      title: 'Fractional Executive',
-      description: 'Part-time leadership role embedded in your organization.',
-      duration: '12+ months',
-      ideal: 'Building AI governance function, team development, long-term transformation',
-    },
-  ]
-
   return (
     <>
       <script
@@ -198,123 +117,132 @@ export default function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Hero
+        subtitle="How I Help"
         title={
           <>
-            AI Architecture,
+            Where could AI change
             <br />
-            <span className="gradient-text">Deployment & Governance</span>
+            <span className="gradient-text">the way your organization works?</span>
           </>
         }
-        description="From agentic workflows and RAG to compliance automation and enterprise governance. I help organizations architect, deploy, and govern production AI systems."
+        description="Not a catalogue. A decision router. Choose the path that matches your situation, and every path runs on the same method: research, reframe, prove and decide, architect, mobilize, improve."
       />
 
-      {pillars.map((pillar, pIndex) => {
-        const PillarIcon = pillar.icon
-        return (
-          <Section
-            key={pIndex}
-            subtitle={pillar.subtitle}
-            title={pillar.title}
-            description={pillar.description}
-            className={pIndex === 1 ? 'bg-secondary/20' : undefined}
-          >
-            <div className="max-w-6xl mx-auto">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <PillarIcon className="h-6 w-6 text-primary" />
-                </div>
-              </div>
-              <Grid cols={3}>
-                {pillar.services.map((service, sIndex) => {
-                  const Icon = service.icon
-                  const card = (
-                    <Card key={sIndex} className="border-l-4 border-l-primary h-full">
-                      <CardHeader>
-                        <div className="flex items-start gap-3 mb-3">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Icon className="h-5 w-5 text-primary" />
-                          </div>
-                          <CardTitle className="text-lg">{service.name}</CardTitle>
-                        </div>
-                        <CardDescription className="text-sm">
-                          {service.desc}
-                        </CardDescription>
-                        {'href' in service && service.href && (
-                          <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">
-                            Open tool <ArrowRight className="h-3 w-3" />
-                          </span>
-                        )}
-                      </CardHeader>
-                    </Card>
-                  )
-                  return 'href' in service && service.href ? (
-                    <Link key={sIndex} href={service.href} className="block">{card}</Link>
-                  ) : (
-                    <div key={sIndex}>{card}</div>
-                  )
-                })}
-              </Grid>
-            </div>
-          </Section>
-        )
-      })}
-
-      <Section subtitle="How We Work" title="Engagement Models" className="bg-secondary/20">
-        <Grid cols={3}>
-          {engagementModels.map((model, index) => {
-            const Icon = model.icon
-            return (
-              <Card key={index}>
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle>{model.title}</CardTitle>
-                  <CardDescription className="space-y-3">
-                    <p>{model.description}</p>
-                    <div className="pt-2 border-t border-border">
-                      <p className="text-sm"><strong>Duration:</strong> {model.duration}</p>
-                      <p className="text-sm mt-2"><strong>Ideal for:</strong> {model.ideal}</p>
-                    </div>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            )
-          })}
-        </Grid>
+      {/* Decision router */}
+      <Section
+        subtitle="Choose Your Path"
+        title="Three starting points"
+        description="Each path is a different relationship to AI decisions, not a different product tier."
+        sectionNum="01"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            {paths.map((path) => {
+              const Icon = path.icon
+              return (
+                <Link key={path.href} href={path.href} className="block group">
+                  <Card className="h-full border-l-4 border-l-primary hover:shadow-lg transition-all duration-300">
+                    <CardHeader>
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                        <Icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-1">{path.situation}</p>
+                      <CardTitle className="text-xl">{path.offer}</CardTitle>
+                      <p className="text-sm font-medium text-primary mt-1">{path.price}</p>
+                      <CardDescription className="text-sm mt-3">{path.description}</CardDescription>
+                      <span className="text-sm text-primary inline-flex items-center gap-1 mt-4 font-medium">
+                        {path.cta} <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
       </Section>
 
-      <Section subtitle="Why Work With Me" title="What Makes This Different" className="bg-secondary/20">
+      {/* Known technical need */}
+      <Section
+        subtitle="Known Technical Need"
+        title="Already know the system you need?"
+        description="When the decision is made and the need is specific, go straight to the offer."
+        sectionNum="02"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-4">
+            {technicalNeeds.map((need) => {
+              const Icon = need.icon
+              return (
+                <Link key={need.href} href={need.href} className="block">
+                  <Card className="h-full hover:shadow-lg transition-all">
+                    <CardHeader>
+                      <CardTitle className="text-base flex items-center gap-2">
+                        <Icon className="h-4 w-4 text-primary" />
+                        {need.name}
+                      </CardTitle>
+                      <CardDescription className="text-sm">{need.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </Section>
+
+      {/* Method */}
+      <Section
+        subtitle="The Method Behind Every Path"
+        title="The same six disciplines, whatever the engagement"
+        sectionNum="03"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-wrap items-center gap-2 mb-6">
+            {method.map((step, i) => (
+              <span key={step} className="inline-flex items-center gap-2">
+                <span className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground">
+                  {step}
+                </span>
+                {i < method.length - 1 && <span className="text-muted-foreground">→</span>}
+              </span>
+            ))}
+          </div>
+          <p className="text-base text-muted-foreground">
+            Research understands reality. Reframe finds the opportunity behind the request.
+            Prove &amp; Decide produces a recommendation an executive can sign. Architect designs the system,
+            data, human, and control model. Mobilize assigns ownership, dependencies, risks, and cadence.
+            Improve uses production evidence to scale, change, or stop.
+          </p>
+          <div className="mt-4">
+            <Link href="/portfolio" className="text-sm text-primary hover:underline inline-flex items-center gap-1">
+              See the method in shipped systems <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+        </div>
+      </Section>
+
+      {/* Why */}
+      <Section subtitle="Why This Approach" title="What Makes This Different" className="bg-secondary/20">
         <div className="max-w-4xl mx-auto space-y-6">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardTitle>Architecture, Not Slides</CardTitle>
               <CardDescription className="text-base">
-                I deliver working systems, not strategy decks. Every engagement produces deployable artifacts:
-                governance frameworks, evidence pipelines, monitoring dashboards, and operational playbooks your
-                teams can use on day one.
+                I deliver working systems and decision records, not strategy decks. Every engagement produces
+                usable artifacts: architecture, evidence pipelines, roadmaps, and recommendations your
+                teams can act on.
               </CardDescription>
             </CardHeader>
           </Card>
 
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle>Compliance Without Velocity Loss</CardTitle>
+              <CardTitle>The Answer Is Allowed to Be No</CardTitle>
               <CardDescription className="text-base">
-                Governance structures that scale across dozens of teams without breaking delivery cadence.
-                CI/CD quality gates, automated evidence generation, and drift detection built into your
-                existing pipelines.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle>Engineering-to-Compliance Translation</CardTitle>
-              <CardDescription className="text-base">
-                I work across infrastructure, model, application, governance, and executive layers.
-                Engineering teams, compliance officers, and C-suite stakeholders get aligned around
-                a shared understanding of what is built, what is controlled, and what remains open.
+                Recommendations include buy, configure, integrate, wait, keep current, and do not use AI.
+                Independence of recommendation is an advantage, not a limitation.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -331,45 +259,6 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      <Section subtitle="Specialized Service" title="SaaS & AI Security Review" sectionNum="05">
-        <div className="max-w-3xl mx-auto">
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-primary" />
-                Verify tenant isolation and AI application security
-              </CardTitle>
-              <CardDescription className="text-base">
-                A specialized security review for B2B SaaS, AI-built applications, and teams converting
-                single-user apps into organization-based multi-tenancy. Tests the tenant boundary across
-                authentication, roles, API routes, database queries and storage. Covers Next.js, Supabase RLS,
-                Prisma, PostgreSQL and AI-generated applications from Lovable, Bolt, Replit, Cursor and Windsurf.
-                From $950.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <div className="mt-4">
-            <Link
-              href="/saas-security-review"
-              className="text-sm text-primary hover:underline inline-flex items-center gap-1"
-            >
-              Explore the SaaS &amp; AI Security Review <ArrowRight className="h-3 w-3" />
-            </Link>
-          </div>
-        </div>
-      </Section>
-
-      <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-sm text-muted-foreground mb-4">
-            Deep-dive guides to the AI regulations that matter most - informed by the HAIEC compliance engine and Zenodo-published research.
-          </p>
-          <Link href="/guides" className="text-sm text-primary hover:underline">
-            View all compliance guides →
-          </Link>
-        </div>
-      </Section>
-
       <Section subtitle="Free Resource" title="AI Governance & Compliance Framework Guide" className="bg-secondary/20">
         <div className="max-w-md mx-auto">
           <LeadMagnetCard
@@ -380,84 +269,10 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      <Section subtitle="Direct Offers" title="Not sure where to start?" className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-base text-muted-foreground mb-6">
-            Two primary ways to begin, two specific-solution pathways. Choose the path that matches your situation.
-          </p>
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <Link href="/ai-advisor" className="block">
-              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4 text-primary" />
-                    AI Advisor Desk
-                  </CardTitle>
-                  <CardDescription className="text-sm">
-                    $99/month. AI intelligence, opportunity discovery, human advisory access, controls review, regulatory monitoring. Up to 3 team members. Start here if you want ongoing support.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/ai-automation" className="block">
-              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Workflow className="h-4 w-4 text-primary" />
-                    AI Automation Blueprint
-                  </CardTitle>
-                  <CardDescription className="text-sm">
-                    $500 fixed. One workflow analyzed with buy/configure/build recommendation, architecture, and implementation roadmap. Start here if you have a specific workflow question.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-          <p className="text-sm font-semibold text-foreground mb-4">Need something specific?</p>
-          <div className="grid md:grid-cols-2 gap-4">
-            <Link href="/ai-voice-agent" className="block">
-              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-primary" />
-                    AI Voice Agent
-                  </CardTitle>
-                  <CardDescription className="text-sm">
-                    Managed AI voice deployment from $499/month. Standard and custom workflows. Calls, intake, booking.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/ai-security-compliance" className="block">
-              <Card className="border-l-4 border-l-primary hover:shadow-lg transition-all">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-primary" />
-                    AI Security &amp; Compliance
-                  </CardTitle>
-                  <CardDescription className="text-sm">
-                    AI security assessment, compliance review, vendor risk, hiring bias, and documentation suitable for audits.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-          <div className="mt-6 rounded-lg border border-border p-4">
-            <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Building a SaaS or AI product?</strong>{' '}
-              <Link href="/saas-security-review" className="text-primary hover:underline">
-                See the SaaS &amp; AI Security Review <ArrowRight className="inline h-3 w-3" />
-              </Link>
-              {' '}for tenant isolation, AI application security, and buyer-shareable evidence.
-            </p>
-          </div>
-        </div>
-      </Section>
-
       <CTA
-        title="Let's Discuss Your AI Challenge"
-        description="Whether you need architecture, deployment, governance, or all three, I bring production experience and a track record of delivering results in demanding environments."
-        primaryButton={{ text: 'Schedule a Conversation', href: '/contact' }}
+        title="Not sure which path fits?"
+        description="Describe the decision in front of you. I will tell you which path makes sense, or whether none of them do."
+        primaryButton={{ text: 'Discuss AI', href: '/contact?subject=discuss-ai' }}
         secondaryButton={{ text: 'View Executive Bio', href: '/executive-bio' }}
       />
     </>

@@ -376,7 +376,7 @@ const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Subodh KC',
-  jobTitle: 'AI Systems Architect & Governance Expert',
+  jobTitle: 'AI Advisor & AI Systems Architect',
   url: 'https://subodhkc.com',
   knowsAbout: [
     'Multi-tenant SaaS architecture',

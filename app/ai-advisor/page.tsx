@@ -44,23 +44,19 @@ export const metadata = {
   },
   keywords: [
     'AI advisor',
+    'AI advisor for business',
     'human AI advisor',
+    'ongoing AI advisory',
+    'AI advisory subscription',
     'AI business advisor',
-    'AI strategy advisor',
     'AI implementation advisor',
     'AI advisor for founders',
     'AI advisor for SaaS',
     'AI advisor for startups',
     'AI technology advisor',
     'AI decision support',
-    'AI opportunity assessment',
-    'AI use case assessment',
+    'AI vendor guidance',
     'AI executive briefing',
-    'AI automation advisor',
-    'Dallas AI advisor',
-    'DFW AI consultant',
-    'Texas AI advisor',
-    'AI advisor for small business',
     'AI advisor desk',
     'Subodh KC',
   ],
@@ -145,7 +141,7 @@ const whatYouGet = [
   {
     icon: TrendingUp,
     title: 'Weekly AI Intelligence Brief',
-    description: 'What changed. Why it matters. What may deserve action. Curated across models, tools, research, security, regulation, and real-world adoption — with executive, management, and technical lenses.',
+    description: 'What changed. Why it matters. What may deserve action. Curated across models, tools, research, security, regulation, and real-world adoption, with executive, management, and technical lenses.',
   },
   {
     icon: Shield,
@@ -249,7 +245,7 @@ export default function AIAdvisorPage() {
             <span className="gradient-text">in your corner.</span>
           </>
         }
-        description="Stay focused on your organization while I keep watch on AI. I monitor new models, tools, research, security developments, regulation, and real-world adoption, then curate what deserves your attention and help you understand what it could mean for your organization. $99/month · Up to 3 team members · Human advisory access"
+        description="Ongoing AI advisory for leaders, founders and technical teams who want to understand what is changing, what it could mean for their organization, and what deserves action. Weekly signal. Monthly point of view. Human advice when it matters. $99/month · Up to 3 team members"
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="/contact?subject=ai-advisor-desk">
@@ -298,6 +294,42 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
+      {/* What the Desk is not */}
+      <Section
+        subtitle="Clear Positioning"
+        title="Not a chatbot. Not a newsletter. Not a fractional retainer."
+        sectionNum="02"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                title: 'Not a chatbot',
+                desc: 'A chatbot answers prompts. The Desk holds ongoing context about your organization and applies judgment from production AI deployments. You get a reviewed position, not a generated paragraph.',
+              },
+              {
+                title: 'Not a newsletter',
+                desc: 'Newsletters inform everyone about everything. The Desk curates against your tools, your risk tolerance, and your priorities, then tells you what deserves action and what does not.',
+              },
+              {
+                title: 'Not a fractional retainer',
+                desc: 'No embedded executive, no program ownership, no five-figure monthly commitment. Ongoing advisory access and independent judgment at a price below one hour of consulting. If you need a closer relationship, see Direct Advisory.',
+              },
+            ].map((item, i) => (
+              <Reveal key={i} delay={i * 60} style="up">
+                <Card className="h-full">
+                  <CardHeader>
+                    <CardTitle className="text-base">{item.title}</CardTitle>
+                    <CardDescription className="text-sm mt-2">{item.desc}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Section>
+
       {/* Capability Stack */}
       <Section
         subtitle="Capability Stack"
@@ -332,7 +364,7 @@ export default function AIAdvisorPage() {
 
       {/* Business Situations */}
       <Section
-        subtitle="Where better AI decisions create leverage"
+        subtitle="Where better AI decisions compound"
         title="Common scenarios where the Desk earns its place"
         description="A $99/month subscription can save you from a costly mistake, a month of indecision, or a missed opportunity. Human advisory access means you can ask focused questions as decisions come up."
         sectionNum="02"
@@ -412,7 +444,7 @@ export default function AIAdvisorPage() {
       {/* How Signals Become Value */}
       <Section
         subtitle="How Signals Become Value"
-        title="See what is changing. Understand what it means. Discover what it could unlock. Decide what deserves action."
+        title="See what is changing. Understand what it means. Discover what it makes possible. Decide what deserves action."
         sectionNum="05"
         className="bg-secondary/20"
       >
@@ -421,7 +453,7 @@ export default function AIAdvisorPage() {
             {[
               { icon: Eye, step: 'SEE', desc: 'Curated signals across models, tools, research, security, regulation, and real-world adoption.' },
               { icon: Brain, step: 'UNDERSTAND', desc: 'I interpret what each development means and why it matters for your context.' },
-              { icon: Lightbulb, step: 'DISCOVER', desc: 'Surface possibilities and opportunities the signal could unlock for your organization.' },
+              { icon: Lightbulb, step: 'DISCOVER', desc: 'Surface possibilities and opportunities the signal opens for your organization.' },
               { icon: Compass, step: 'DECIDE', desc: 'When a decision deserves action, you already have an advisor who understands the context.' },
             ].map((item, i) => {
               const Icon = item.icon
@@ -517,7 +549,7 @@ export default function AIAdvisorPage() {
               'What information do you already have but struggle to use?',
               'What could become a better product, service, or new source of revenue?',
               'What could you build today that was not practical twelve months ago?',
-              'Which AI investment deserves your budget — and which should wait?',
+              'Which AI investment deserves your budget, and which should wait?',
               'What should AI handle, and where should people remain in control?',
               'What would you test first before committing serious budget?',
             ].map((q, i) => (
@@ -543,17 +575,17 @@ export default function AIAdvisorPage() {
             {[
               {
                 icon: TrendingUp,
-                title: 'Weekly',
+                title: 'Weekly signal',
                 desc: 'AI intelligence brief arrives in your inbox. Curated signals across models, tools, research, security, regulation, and real-world adoption.',
               },
               {
                 icon: Shield,
-                title: 'Monthly',
+                title: 'Monthly point of view',
                 desc: 'Controls review check-in. I review your current AI tools, vendor agreements, and internal practices. Gaps get flagged before they become incidents.',
               },
               {
                 icon: Mail,
-                title: 'On-Demand',
+                title: 'Human advice when it matters',
                 desc: 'When a decision comes up, bring it to the Desk. Most focused questions receive a reviewed response within 72 hours.',
               },
             ].map((item, i) => {
@@ -693,7 +725,7 @@ export default function AIAdvisorPage() {
       {/* Boundaries & FAQ */}
       <Section
         subtitle="Boundaries & FAQ"
-        title="What This Is Not — and Common Questions"
+        title="What This Is Not, and Common Questions"
         sectionNum="11"
         className="bg-secondary/20"
       >

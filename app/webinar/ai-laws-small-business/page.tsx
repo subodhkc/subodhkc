@@ -56,7 +56,7 @@ const eventSchema = {
   performer: {
     '@type': 'Person',
     name: 'Subodh KC',
-    jobTitle: 'AI Systems Architect & Governance Expert',
+    jobTitle: 'AI Advisor & AI Systems Architect',
   },
   eventSchedule: {
     '@type': 'Schedule',
@@ -251,7 +251,7 @@ export default function WebinarPage() {
             <CardHeader>
               <CardTitle className="text-xl mb-2">Subodh KC</CardTitle>
               <p className="text-sm font-medium text-primary mb-3">
-                AI Systems Architect & Governance Expert · Sr. Program Manager, HP Inc. (Fortune 50)
+                AI Advisor & AI Systems Architect · Sr. Program Manager, HP Inc. (Fortune 50)
               </p>
               <CardDescription className="text-base space-y-3">
                 <p>

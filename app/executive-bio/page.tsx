@@ -16,15 +16,15 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
-  description: 'Subodh KC is an AI advisor and enterprise AI governance leader with 12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+  title: 'Subodh KC | AI Advisor & AI Systems Architect',
+  description: 'Subodh KC is an AI advisor and AI systems architect with 12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
     'AI Advisor',
     'AI advisor HEB',
     'AI advisor Dallas Fort Worth',
-    'enterprise AI governance leader',
+    'AI systems architect enterprise',
     'AI program management Fortune 50',
     'AI governance program manager',
     'patent-pending AI compliance frameworks',
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/executive-bio',
   },
   openGraph: {
-    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
-    description: '12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+    title: 'Subodh KC | AI Advisor & AI Systems Architect',
+    description: '12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
     url: 'https://subodhkc.com/executive-bio',
     type: 'profile',
     images: [
@@ -53,14 +53,14 @@ export const metadata: Metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
-    description: '12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
+    title: 'Subodh KC | AI Advisor & AI Systems Architect',
+    description: '12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization.',
   },
 }
 
@@ -71,10 +71,10 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
-  description: 'AI advisor and enterprise AI governance leader with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
+  jobTitle: 'AI Advisor | AI Systems Architect',
+  description: 'AI advisor and AI systems architect with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems.',
   url: 'https://subodhkc.com',
-  email: 'admin@subodhkc.com',
+  email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
   sameAs: [
     'https://www.wikidata.org/wiki/Q140546484',
@@ -152,10 +152,10 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
-      name: 'AI Advisor & Enterprise AI Governance Consultant',
+      name: 'AI Advisor & AI Systems Architect',
       occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
       startDate: '2026',
-      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations.',
+      description: 'Advising organizations on AI opportunity discovery, decisions, architecture, and production AI deployment. From possibility to decision, from decision to production.',
     },
     {
       '@type': 'Occupation',
@@ -273,18 +273,18 @@ export default function ExecutiveBioPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-foreground font-semibold mb-2">
-            AI Advisor & Enterprise AI Governance Leader
+            AI Advisor & AI Systems Architect
           </p>
-          
+
           <p className="text-lg md:text-xl text-muted-foreground mb-8">
-            12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization
+            12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization
           </p>
-          
+
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <a href="mailto:admin@subodhkc.com">
+            <a href="mailto:subodhkc@subodhkc.com">
               <Button variant="outline" className="gap-2">
                 <Mail className="h-4 w-4" />
-                admin@subodhkc.com
+                subodhkc@subodhkc.com
               </Button>
             </a>
             <a href="https://linkedin.com/in/subodhkc" target="_blank" rel="noopener noreferrer">
@@ -316,7 +316,7 @@ export default function ExecutiveBioPage() {
           <h2 className="text-3xl font-bold mb-8">Professional Background</h2>
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Subodh KC is an AI advisor and enterprise AI governance leader with more than 12 years of experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.
+              Subodh KC is an AI advisor and AI systems architect with more than 12 years of experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems. He turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               His career has been built from the operational level up. He has worked across public-sector technology, manufacturing systems, production reliability, small-business transformation, enterprise software, and artificial intelligence. That range gives him a practical understanding of transformation from both sides: what leadership expects from an investment and what engineering and operations must do to make it work.
@@ -337,7 +337,7 @@ export default function ExecutiveBioPage() {
               Subodh holds a B.S. in Computer Information Systems and an M.S. in Engineering and Technology Management from Louisiana Tech University. He is a Six Sigma Green Belt with additional education in AI ethics and governance.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Based in Dallas-Fort Worth, Subodh advises enterprises on AI governance and compliance while building tools that make AI systems more observable, testable, and defensible. He is most effective in complex environments where strategy must become execution, multiple teams must move together, and new technology has to deliver measurable business value without losing operational discipline.
+              Based in Dallas-Fort Worth, Subodh advises leaders, founders, and technical teams on AI opportunity discovery, decisions, and architecture while building tools that make AI systems more observable, testable, and defensible. He is most effective in complex environments where strategy must become execution, multiple teams must move together, and new technology has to deliver measurable business value without losing operational discipline.
             </p>
           </div>
         </div>
@@ -415,7 +415,7 @@ export default function ExecutiveBioPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="text-xl">HP Inc. (Fortune 50) — Technical Program Manager → Sr. Program Manager (Promoted)</CardTitle>
+              <CardTitle className="text-xl">HP Inc. (Fortune 50) - Technical Program Manager → Sr. Program Manager (Promoted)</CardTitle>
               <CardDescription className="text-sm text-muted-foreground mb-4">2022 - 2026</CardDescription>
               <CardDescription className="text-base space-y-3">
                 <p>
@@ -600,14 +600,14 @@ export default function ExecutiveBioPage() {
       {/* Education & Credentials */}
       <Section>
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Education & Credentials</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Education & Credentials, Translated</h2>
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardDescription className="text-base space-y-3">
-                <p><strong className="text-foreground">M.S. Engineering and Technology Management</strong> — Louisiana Tech University</p>
-                <p><strong className="text-foreground">B.S. Computer Information Systems</strong> — Louisiana Tech University</p>
-                <p><strong className="text-foreground">Six Sigma Green Belt</strong> — Certified</p>
-                <p>Additional education in AI ethics and governance</p>
+                <p><strong className="text-foreground">M.S. Engineering and Technology Management</strong> (Louisiana Tech University): the discipline of connecting technology, economic value, and organizational execution. A system that an organization cannot absorb is not a solution.</p>
+                <p><strong className="text-foreground">B.S. Computer Information Systems</strong> (Louisiana Tech University): the technical foundation to follow a strategy down into applications, APIs, data, and production, not just talk about it.</p>
+                <p><strong className="text-foreground">Six Sigma Green Belt</strong>: root cause over symptoms, variation over anecdotes, measurement over impressions. Baselines, hypotheses, evidence, and honest uncertainty applied to AI decisions.</p>
+                <p>Additional education in AI ethics and governance.</p>
               </CardDescription>
             </CardHeader>
           </Card>

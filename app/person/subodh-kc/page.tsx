@@ -7,14 +7,14 @@ import Link from 'next/link'
 import { CheckCircle2, GraduationCap, Briefcase, Award, Building2, Shield, Code2, Cpu } from 'lucide-react'
 
 export const metadata = {
-  title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+  title: 'Subodh KC | AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and enterprise AI governance leader with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. $50M+ portfolio oversight. 53 enterprise applications governed.',
+    'Subodh KC is an AI advisor and AI systems architect with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. $50M+ portfolio oversight. 53 enterprise applications governed.',
   alternates: {
     canonical: 'https://subodhkc.com/person/subodh-kc',
   },
   openGraph: {
-    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    title: 'Subodh KC | AI Advisor & AI Systems Architect',
     description:
       'Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight.',
     url: 'https://subodhkc.com/person/subodh-kc',
@@ -24,13 +24,13 @@ export const metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    title: 'Subodh KC | AI Advisor & AI Systems Architect',
     description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems. 5 patent-pending frameworks. $50M+ portfolio oversight.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
@@ -43,7 +43,7 @@ export const metadata = {
     'AI Advisor',
     'AI advisor HEB',
     'AI advisor Dallas Fort Worth',
-    'enterprise AI governance leader',
+    'AI systems architect enterprise',
     'Director of AI Programs',
     'Head of AI',
     'VP of AI Strategy',
@@ -81,11 +81,11 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
+  jobTitle: 'AI Advisor & AI Systems Architect',
   description:
-    'AI advisor and enterprise AI governance leader with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. $50M+ portfolio oversight across 53 enterprise applications.',
+    'AI advisor and AI systems architect with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. $50M+ portfolio oversight across 53 enterprise applications.',
   url: 'https://subodhkc.com',
-  email: 'admin@subodhkc.com',
+  email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
   sameAs: [
     'https://www.wikidata.org/wiki/Q140546484',
@@ -398,7 +398,7 @@ export default function PersonPage() {
           <>
             Subodh KC
             <br />
-            <span className="gradient-text">AI Advisor | Enterprise AI Governance Leader</span>
+            <span className="gradient-text">AI Advisor & AI Systems Architect</span>
           </>
         }
         description="Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight across 53 enterprise applications."
@@ -410,7 +410,7 @@ export default function PersonPage() {
             <CardHeader>
               <CardDescription className="text-base leading-relaxed space-y-4">
                 <p>
-                  Subodh KC is an AI advisor and enterprise AI governance leader. He recently served as
+                  Subodh KC is an AI advisor and AI systems architect. He recently served as
                   Sr. Program Manager - AI Implementation & Governance at HP Inc., a Fortune 50 company,
                   where he drove strategic AI transformation across enterprise systems and architected
                   governance frameworks that enable innovation without regulatory risk.
@@ -647,7 +647,7 @@ export default function PersonPage() {
               <div className="flex items-start gap-3">
                 <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <CardTitle className="text-base mb-2">CSM 2.0 — Governance Methodology</CardTitle>
+                  <CardTitle className="text-base mb-2">CSM 2.0 - Governance Methodology</CardTitle>
                   <CardDescription className="text-sm space-y-2">
                     <p>
                       Subodh developed Cognitive Systems Management (CSM), a governance methodology with four

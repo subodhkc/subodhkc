@@ -422,9 +422,9 @@ export default function PrivacyPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground">
-              <p>Subodh KC - AI Systems Architect &amp; Governance Expert</p>
+              <p>Subodh KC - AI Advisor &amp; AI Systems Architect</p>
               <p>Dallas, Texas, USA</p>
-              <p>Email: <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a></p>
+              <p>Email: <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a></p>
               <p>Website: <a href="https://subodhkc.com" className="text-primary hover:underline">subodhkc.com</a></p>
             </CardContent>
           </Card>

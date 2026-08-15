@@ -43,7 +43,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
 
   const fields = formType === "discuss" ? DISCUSS_FIELDS : HIRE_FIELDS;
   const endpoint = formType === "discuss" ? "/api/discuss" : "/api/hire";
-  const title = formType === "discuss" ? "Discuss an AI System" : "Work With Me";
+  const title = formType === "discuss" ? "Discuss an AI System" : "Discuss an Engagement";
   const subtitle =
     formType === "discuss"
       ? "Tell me about your AI system - I'll review and reply within 24-48 hours."
@@ -196,7 +196,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
                   marginBottom: 8,
                 }}
               >
-                {formType === "discuss" ? "§ Contact / Discuss" : "§ Contact / Hire"}
+                {formType === "discuss" ? "Contact / Discuss" : "Contact / Engagement"}
               </div>
               <h3
                 style={{

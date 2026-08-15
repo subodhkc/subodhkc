@@ -14,18 +14,20 @@ import {
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Fractional AI Advisor & Advisory Services | Subodh KC',
+  title: 'Fractional AI Advisor | Executive AI Advisory | Subodh KC',
   description:
-    'Direct human advisory for AI architecture, governance, and technical program leadership. Fractional AI Advisor and Fractional AI Lead engagements for enterprise AI initiatives.',
+    'A fractional AI advisor for teams navigating multiple or higher-stakes AI decisions. Decision review, strategy, architecture review, vendor and build-vs-buy calls, roadmap and operating decisions.',
   keywords: [
     'fractional AI advisor',
-    'fractional AI lead',
-    'AI advisory',
-    'AI architecture consulting',
-    'AI governance consulting',
-    'AI compliance advisory',
-    'AI systems architect',
+    'executive AI advisory',
     'AI strategy advisor',
+    'AI advisory',
+    'AI decision review',
+    'AI architecture review',
+    'AI vendor evaluation',
+    'AI build vs buy',
+    'AI roadmap advisor',
+    'AI systems architect',
     'enterprise AI consulting',
     'Subodh KC',
   ],
@@ -33,9 +35,9 @@ export const metadata = {
     canonical: 'https://subodhkc.com/advisory',
   },
   openGraph: {
-    title: 'Fractional AI Advisor & Advisory Services | Subodh KC',
+    title: 'Fractional AI Advisor | Executive AI Advisory | Subodh KC',
     description:
-      'Direct human advisory for AI architecture, governance, and technical program leadership. Fractional AI Advisor and Fractional AI Lead engagements for enterprise AI initiatives.',
+      'A closer advisory relationship for teams navigating multiple or higher-stakes AI decisions. Decision review, strategy, architecture review, vendor and build-vs-buy, roadmap and operating decisions.',
     url: 'https://subodhkc.com/advisory',
     type: 'website',
   },
@@ -47,33 +49,33 @@ export default function AdvisoryPage() {
       icon: Shield,
       title: 'Fractional AI Advisor',
       description:
-        'I provide direct, ongoing AI advisory to leadership teams deploying AI at scale. Governance design, compliance preparation, vendor evaluation, and AI architecture decisions reviewed by someone who has built production systems.',
+        'A closer advisory relationship for teams navigating multiple or higher-stakes AI decisions. I review the decisions in front of you, pressure-test the options, and give you a recommendation backed by production experience. Your team keeps ownership and execution.',
       deliverables: [
-        'Governance framework design',
-        'Compliance readiness assessment',
-        'AI architecture review',
-        'Vendor and tool evaluation',
-        'Regulatory roadmap',
-        'Direct async access via agreed channels',
+        'Decision review with written rationale',
+        'AI strategy and roadmap decisions',
+        'Architecture review of proposed systems',
+        'Vendor, tool, and build-vs-buy evaluation',
+        'Operating model and governance decisions',
+        'Executive working sessions',
       ],
       engagement: 'Monthly retainer, 3-month minimum',
-      ideal: 'Organizations deploying AI at scale that need experienced direct judgment, not periodic guidance',
+      ideal: 'Leadership teams facing a sequence of AI decisions who want independent judgment and context continuity, not another stakeholder to manage',
     },
     {
       icon: Target,
-      title: 'Fractional AI Lead',
+      title: 'Focused Decision Engagement',
       description:
-        'I embed as a part-time technical program leader for complex, multi-stakeholder AI initiatives. Drive execution, manage dependencies, align engineering and compliance teams, and own delivery.',
+        'A scoped engagement around one decision cluster: a platform choice, an architecture under review, a vendor contract on the table, or a roadmap that needs an honest sequence. Defined deliverable, defined timeline.',
       deliverables: [
-        'Program strategy and roadmap',
-        'Stakeholder alignment',
-        'Dependency and risk management',
-        'Execution ownership',
-        'Team integration',
-        'Delivery cadence',
+        'Structured review of the decision and constraints',
+        'Evidence and trade-off analysis',
+        'Written recommendation with decision record',
+        'Executive walkthrough session',
+        'Risk and fallback considerations',
+        'Follow-up review after 30 days',
       ],
-      engagement: '6-12 months, part-time',
-      ideal: 'Enterprises launching critical AI initiatives that need embedded leadership, not recommendations',
+      engagement: 'Fixed scope, 2-6 weeks',
+      ideal: 'Teams with one high-stakes AI decision that deserves more rigor than a meeting and less commitment than a retainer',
     },
   ]
 
@@ -81,65 +83,65 @@ export default function AdvisoryPage() {
     {
       phase: '1. Context',
       description:
-        'I start by understanding your current AI systems, governance posture, and objectives. No generic playbooks. Every engagement begins with your specific context.',
+        'I start by understanding your current AI systems, the decisions in flight, and your constraints. No generic playbooks. Every engagement begins with your specific context.',
       duration: '1-2 weeks',
     },
     {
-      phase: '2. Plan',
+      phase: '2. Working sessions',
       description:
-        'I develop a tailored approach based on what I find. Built on methodologies I have used in production, adapted to your constraints and priorities.',
-      duration: '2-4 weeks',
-    },
-    {
-      phase: '3. Work',
-      description:
-        'I do the work alongside your team. Architecture decisions, governance design, compliance preparation, program execution. Not recommendations handed over a wall.',
+        'Structured sessions with your leadership and technical teams. We work the actual decisions: options, evidence, trade-offs, and what each path costs.',
       duration: 'Ongoing',
     },
     {
-      phase: '4. Handoff',
+      phase: '3. Decision records',
       description:
-        'When the engagement ends, your team has the frameworks, documentation, and capability to continue without me.',
-      duration: '2-4 weeks',
+        'Every material decision leaves with a written record: the options considered, the evidence, the trade-offs, and the recommendation. Your executives can defend it without me in the room.',
+      duration: 'Per decision',
+    },
+    {
+      phase: '4. Continuity',
+      description:
+        'Context compounds. Each decision builds on the last, and the advisory relationship carries the history so you never restart from zero.',
+      duration: 'Ongoing',
     },
   ]
 
   const expertise = [
-    'AI regulatory compliance (EU AI Act, GDPR, sector-specific)',
-    'Enterprise AI governance frameworks',
     'Technical program management at Fortune 50 scale',
+    'AI systems architecture (RAG, agents, voice, integrations)',
+    'Enterprise AI governance frameworks',
+    'AI regulatory compliance (EU AI Act, GDPR, sector-specific)',
+    'Vendor and build-vs-buy evaluation',
     'Risk management and evidence preparation',
     'Executive stakeholder management',
-    'Team scaling and organizational design',
     'SaaS and platform architecture',
-    'Information security and IT law',
   ]
 
   const pricing = [
     {
       tier: 'Fractional AI Advisor',
-      description: 'Ongoing direct advisory and governance guidance',
+      description: 'Ongoing decision partnership with context continuity',
       structure: 'Monthly retainer',
       commitment: '3-month minimum',
       includes: [
         'Direct async access via agreed channels',
-        '2 strategy sessions/month',
-        'Document and framework review',
-        'AI architecture decisions',
-        'Vendor and tool evaluation',
+        '2 executive working sessions/month',
+        'Decision review with written rationale',
+        'Architecture and roadmap review',
+        'Vendor and build-vs-buy evaluation',
       ],
     },
     {
-      tier: 'Fractional AI Lead',
-      description: 'Embedded technical program leadership',
-      structure: 'Monthly retainer (part-time)',
-      commitment: '6-12 months',
+      tier: 'Focused Decision Engagement',
+      description: 'One decision cluster, scoped and scheduled',
+      structure: 'Fixed price, scoped up front',
+      commitment: '2-6 weeks',
       includes: [
-        'Active program leadership',
-        'Stakeholder management',
-        'Execution ownership',
-        'Team integration',
-        'Delivery cadence',
+        'Structured decision review',
+        'Evidence and trade-off analysis',
+        'Written recommendation and decision record',
+        'Executive walkthrough',
+        '30-day follow-up review',
       ],
     },
   ]
@@ -155,7 +157,7 @@ export default function AdvisoryPage() {
             <span className="gradient-text">in the room.</span>
           </>
         }
-        description="Fractional AI Advisor and Fractional AI Lead engagements for organizations that need embedded leadership, not periodic guidance. For ongoing AI intelligence and advisory access, see the AI Advisor Desk."
+        description="A closer advisory relationship for teams facing multiple or higher-stakes AI decisions. Decision review, strategy, architecture review, vendor and build-vs-buy calls, roadmap and operating decisions, and executive working sessions, with context that carries forward. For ongoing AI intelligence and lighter advisory access, see the AI Advisor Desk."
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="/contact">
@@ -196,11 +198,11 @@ export default function AdvisoryPage() {
             </Card>
             <Card className="border-primary">
               <CardHeader>
-                <CardTitle className="text-lg">Fractional AI Advisor / Lead</CardTitle>
+                <CardTitle className="text-lg">Fractional AI Advisor / Focused Engagement</CardTitle>
                 <CardDescription className="text-sm mt-2">
-                  Direct human advisory and embedded leadership for enterprises. Strategy sessions,
-                  stakeholder management, implementation ownership, and team integration.
-                  Custom-scoped engagements with active program leadership.
+                  A closer advisory relationship for multiple or higher-stakes AI decisions. Executive working sessions,
+                  decision review with written rationale, architecture and vendor evaluation, and context continuity.
+                  Your team keeps ownership and execution.
                 </CardDescription>
                 <div className="mt-3">
                   <Link href="/contact">
@@ -215,8 +217,8 @@ export default function AdvisoryPage() {
 
       <Section
         subtitle="Services"
-        title="How I Work With Organizations"
-        description="Direct advisory and embedded leadership for enterprises navigating AI compliance, governance, and scale."
+        title="Two Ways to Work Together"
+        description="Both are advisory relationships. I review, pressure-test, and recommend. Your organization decides and executes."
       >
         <div className="space-y-8">
           {services.map((service, index) => {
@@ -389,8 +391,8 @@ export default function AdvisoryPage() {
       </Section>
 
       <CTA
-        title="Need direct AI advisory or embedded leadership?"
-        description="I work with a small number of organizations at a time. If you need experienced AI governance and architecture leadership, let's talk about whether an engagement makes sense."
+        title="Facing higher-stakes AI decisions?"
+        description="I work with a small number of organizations at a time. If you want an experienced AI advisor in the room for the decisions that matter, we should discuss whether an engagement makes sense."
         primaryButton={{ text: 'Schedule consultation', href: '/contact' }}
         secondaryButton={{ text: 'View case studies', href: '/research' }}
       />

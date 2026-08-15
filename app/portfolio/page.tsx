@@ -72,9 +72,9 @@ const BOOK_HTML = `
 <section class="page cover" id="cover"><div class="page-grid"></div><div class="cover-inner">
   <div class="cover-copy"><div class="edition">Executive portfolio / 2026 edition</div>
     <h1>AI THAT <span>WORKS</span></h1>
-    <div class="sub">Strategy. Programs. Platforms. Governance.<br/>Turning AI ambition into operating systems, measurable value, and evidence that survives scrutiny.</div>
-    <div class="cover-tags"><span>AI Strategy</span><span>Program &amp; Portfolio Leadership</span><span>Production AI</span><span>Governance &amp; Reliability</span><span>Dallas-Fort Worth</span></div>
-    <div class="name">Subodh KC</div><div class="role">AI Strategy &amp; Transformation Leader<br/>Enterprise Portfolio Operator · AI Systems Architect · Product &amp; Governance Builder</div>
+    <div class="sub">Decisions. Systems. Evidence.<br/>From possibility to decision. From decision to production.</div>
+    <div class="cover-tags"><span>AI Advisory</span><span>Program &amp; Portfolio Leadership</span><span>Production AI</span><span>Governance &amp; Reliability</span><span>Dallas-Fort Worth</span></div>
+    <div class="name">Subodh KC</div><div class="role">AI Advisor &amp; AI Systems Architect<br/>Enterprise Operator · Program Leader · Builder · Researcher</div>
   </div>
   <div class="cover-photo"><img src="/portrait.jpeg" alt="Subodh KC portrait"/></div>
 </div></section>
@@ -89,7 +89,7 @@ const BOOK_HTML = `
     <div><p class="lead">My work sits at the intersection of strategy, program execution, systems architecture, product development, and governance.</p><p style="margin-top:14px">I have led complex enterprise application portfolios, delivered AI and technology initiatives, built customer-facing and governance platforms, developed open-source controls, and created original frameworks for drift, assurance, and auditability.</p><p style="margin-top:12px">The discipline stays the same at any scale: choose the right opportunity, build an executable program around it, ship a system that survives real operations, and keep enough evidence to defend or improve the decision later.</p></div>
   </div>
   <div class="diagram" style="margin-top:24px">
-    <div class="flow"><div class="step"><div class="num">1</div><b>Opportunity</b><span>business result</span></div><div class="step"><div class="num">2</div><b>Strategy</b><span>priority and case</span></div><div class="step"><div class="num">3</div><b>Program</b><span>owners and sequence</span></div><div class="step"><div class="num">4</div><b>Platform</b><span>working system</span></div><div class="step"><div class="num">5</div><b>Governance</b><span>limits and control</span></div><div class="step"><div class="num">6</div><b>Evidence</b><span>measure and adapt</span></div></div>
+    <div class="flow"><div class="step"><div class="num">1</div><b>Research</b><span>understand reality</span></div><div class="step"><div class="num">2</div><b>Reframe</b><span>the real opportunity</span></div><div class="step"><div class="num">3</div><b>Prove &amp; Decide</b><span>evidence, trade-offs</span></div><div class="step"><div class="num">4</div><b>Architect</b><span>system, data, human, control</span></div><div class="step"><div class="num">5</div><b>Mobilize</b><span>owners, risks, cadence</span></div><div class="step"><div class="num">6</div><b>Improve</b><span>production evidence</span></div></div>
   </div>
   <div class="columns-3" style="margin-top:18px">
     <div class="mini"><div class="icon">1</div><h3 style="font-size:12.5px">One capability per page</h3><p>Strategy, program leadership, product systems, or operational governance - never blended into a vague claim.</p></div>
@@ -128,7 +128,7 @@ const BOOK_HTML = `
   <div class="caseband">
     <div class="case-label"><div><p class="kicker" style="color:#9edbe1">Executive position</p><h2>Portfolio leader.<br/>Systems architect.<br/>Operator.</h2></div><p>I turn AI strategy into selected investments, accountable programs, deployed systems, and defensible evidence.</p></div>
     <div class="case-content">
-      <p class="lead">AI Strategy &amp; Transformation Leader with a ground-up career spanning field operations, manufacturing technology, reliability engineering, enterprise portfolio leadership, cross-border AI strategy, product development, and governance.</p>
+      <p class="lead">AI Advisor &amp; AI Systems Architect with a ground-up career spanning field operations, manufacturing technology, reliability engineering, enterprise portfolio leadership, cross-border AI strategy, product development, and governance.</p>
       <div class="columns-2">
         <div class="card"><h3>Strategy &amp; investment</h3><p>Opportunity selection, business cases, build-buy-partner decisions, roadmaps, portfolio balance, cost discipline, and executive decision support.</p></div>
         <div class="card"><h3>Programs &amp; execution</h3><p>Senior Technical Program Manager and Core Team Lead directing portfolio execution through multiple program managers, with responsibility for dependencies, release readiness, risk escalation, and decision cadence.</p></div>
@@ -239,7 +239,7 @@ const BOOK_HTML = `
 
 <!-- 9 -->
 <section class="page" id="enterprise-case"><div class="page-grid"></div><div class="page-inner">
-  <div class="running"><b>ENTERPRISE CASE</b><span>53-application portfolio</span></div>
+  <div class="running"><b>ENTERPRISE CASE</b><span>Mobilize / Scale · 53-application portfolio</span></div>
   <div class="caseband">
     <div class="case-label"><div><p class="kicker" style="color:#9edbe1">Scale</p><div class="big">53</div><h3>enterprise applications</h3></div><p>Cross-functional execution across applications used within a global, millions-user environment.</p></div>
     <div class="case-content">
@@ -279,12 +279,12 @@ const BOOK_HTML = `
   </div>
   <div class="quote" style="margin-top:20px">The goal is not more meetings. It is fewer unresolved decisions and less hidden work between teams.</div>
   <div class="card" style="margin-top:14px;background:linear-gradient(145deg,var(--softteal),#fff)"><h3>Where this ran</h3><p>This is the operating rhythm behind the 53-application enterprise case on page 9 - the same signal-to-release loop, just described as a system instead of a story.</p></div>
-  <div class="source">Core strength: transforming fragmented signals and competing priorities into an accountable operating cadence.</div><div class="pg">10</div>
+  <div class="source">Core strength: turning fragmented signals and competing priorities into an accountable operating cadence.</div><div class="pg">10</div>
 </div></section>
 
 <!-- 11 -->
 <section class="page" id="kestrel-origin"><div class="page-grid"></div><div class="page-inner">
-  <div class="running"><b>KESTREL VOICE</b><span>Origin story</span></div>
+  <div class="running"><b>KESTREL VOICE</b><span>Architect / Operate · Origin story</span></div>
   <p class="kicker">Why Kestrel Voice exists</p><h2>Voice AI becomes real when the call survives the edge cases.</h2>
   <p class="lead" style="margin-top:12px">Every AI voice platform on the market looked ready. Workflow tools had Twilio integrations out of the box. Specialized voice AI platforms had raised funding and shipped SDKs. The assumption was that the infrastructure layer was solved and the logic could be built on top of it. That assumption held for about three weeks of production testing.</p>
   <div class="diagram" style="margin-top:18px">
@@ -346,7 +346,7 @@ const BOOK_HTML = `
 </div></section>
 <!-- 14 -->
 <section class="page" id="haiec-product"><div class="page-grid"></div><div class="page-inner">
-  <div class="running"><b>HAIEC</b><span>Product strategy</span></div>
+  <div class="running"><b>HAIEC</b><span>Prove / Govern · Product strategy</span></div>
   <p class="kicker">integrated AI Ethics &amp; Compliance · Evidence layer for operational AI</p><h2>AI adoption moves fast. Defensible evidence usually arrives late.</h2>
   <div class="columns-2" style="margin-top:18px">
     <div class="case-content">
@@ -387,7 +387,7 @@ const BOOK_HTML = `
 
 <!-- 16 -->
 <section class="page" id="llmverify"><div class="page-grid"></div><div class="page-inner">
-  <div class="running"><b>LLMVERIFY</b><span>Developer controls</span></div>
+  <div class="running"><b>LLMVERIFY</b><span>Prove / Evaluate · Developer controls</span></div>
   <p class="kicker">Turning governance principles into code</p><h2>Local, inspectable guardrails for the failure modes teams keep rebuilding.</h2>
   <div class="columns-2" style="margin-top:18px;grid-template-columns:1.05fr .95fr">
     <div>
@@ -448,10 +448,10 @@ const BOOK_HTML = `
 
 <!-- 19 -->
 <section class="page" id="research"><div class="page-grid"></div><div class="page-inner">
-  <div class="running"><b>RESEARCH &amp; IP</b><span>Methods behind the systems</span></div>
+  <div class="running"><b>RESEARCH &amp; IP</b><span>Research / Reframe · Methods behind the systems</span></div>
   <p class="kicker">Original frameworks and selected writing</p><h2>Research is useful when it exposes the method behind the system.</h2>
   <div class="article-list" style="margin-top:20px">
-    <div class="article"><div class="type">Framework</div><h3>Cognitive Systems Management</h3><p>A management model for treating AI as a socio-technical operating system rather than a standalone model or automation feature.</p></div>
+    <div class="article"><div class="type">Framework · Mobilize / Operating model</div><h3>Cognitive Systems Management</h3><p>A management model for treating AI as a socio-technical operating system rather than a standalone model or automation feature.</p></div>
     <div class="article"><div class="type">Audit method</div><h3>Instruction Stack Audit Framework</h3><p>A structured way to examine competing system, policy, developer, context, and user instructions that influence AI behavior.</p></div>
     <div class="article"><div class="type">Reliability / invention filing</div><h3>Precision Drift Detector</h3><p>Methods for detecting behavioral changes, hidden degradation, and risk paths before they become visible failures.</p></div>
     <div class="article"><div class="type">Governance / invention filings</div><h3>Compliance Twin &amp; Fingerprint</h3><p>A system-level record connecting requirements, controls, technical state, evidence, change, and traceability.</p></div>
@@ -596,10 +596,10 @@ const BOOK_HTML = `
 
 <!-- 26 -->
 <section class="page back" id="back-cover"><div class="page-grid"></div><div class="page-inner">
-  <p class="kicker" style="color:#8fd3da">Subodh KC / AI Strategy &amp; Transformation / Dallas-Fort Worth</p>
+  <p class="kicker" style="color:#8fd3da">Subodh KC / AI Advisor &amp; AI Systems Architect / Dallas-Fort Worth</p>
   <h1>Turn the right AI opportunity into an operating advantage.</h1>
   <div class="closing">Choose the right opportunity.<br/>Align the program.<br/>Build the system.<br/>Measure the outcome.<br/>Preserve the evidence.</div>
-  <div class="footerline"><p><b>Subodh KC</b><br/>Euless · Dallas-Fort Worth<br/>subodhkc.com · admin@subodhkc.com</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https://subodhkc.com" alt="QR code"/></div>
+  <div class="footerline"><p><b>Subodh KC</b><br/>Euless · Dallas-Fort Worth<br/>subodhkc.com · subodhkc@subodhkc.com</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https://subodhkc.com" alt="QR code"/></div>
 </div></section>
 `;
 

@@ -10,19 +10,26 @@ import type { User } from "@supabase/supabase-js";
 import { SearchDialog } from "./SearchDialog";
 import type { SearchEntry } from "@/lib/search-index";
 
-const solutionsLinks = [
-  { name: "AI Advisor Desk", href: "/ai-advisor", desc: "An AI advisor in your corner" },
-  { name: "AI Automation Blueprint", href: "/ai-automation", desc: "Find the workflow worth improving" },
-  { name: "Direct Advisory", href: "/advisory", desc: "An AI advisor in the room" },
-  { name: "AI Voice Agent", href: "/ai-voice-agent", desc: "Turn more calls into completed actions" },
-  { name: "AI Security & Compliance", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
-  { name: "SaaS Security Review", href: "/saas-security-review", desc: "Tenant isolation audit" },
+const howIHelpLinks = [
+  { name: "AI Automation Blueprint", href: "/ai-automation", desc: "One workflow, one decision-ready Blueprint" },
+  { name: "Direct AI Advisory", href: "/advisory", desc: "An AI advisor in the room" },
+  { name: "AI Voice", href: "/ai-voice-agent", desc: "Turn more calls into completed actions" },
+  { name: "AI Security & Controls", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
+  { name: "SaaS & AI Security Review", href: "/saas-security-review", desc: "Tenant isolation audit" },
+  { name: "View all", href: "/services", desc: "How I help → /services" },
+];
+
+const workLinks = [
+  { name: "HAIEC", href: "/solutions/haiec", desc: "AI assurance and governance platform" },
+  { name: "KestrelVoice", href: "/solutions/kestrelvoice", desc: "Voice AI operating layer" },
+  { name: "Open Source & Tools", href: "/products", desc: "Packages, tools, and utilities" },
+  { name: "Cognitive Systems Management", href: "/cognitive-systems-management", desc: "Operating model for AI" },
+  { name: "Selected Work / Portfolio", href: "/portfolio", desc: "Execution proof" },
 ];
 
 const insightsLinks = [
   { name: "Blog", href: "/blog", desc: "Articles on AI governance and architecture" },
   { name: "Research", href: "/research", desc: "Research papers and publications" },
-  { name: "CSM Framework", href: "/cognitive-systems-management", desc: "Cognitive Systems Management" },
   { name: "Architecture Decisions", href: "/architecture-decision-master-sheet", desc: "Interactive decision master sheet" },
   { name: "AI Security Tools", href: "/ai-security-tools", desc: "Blast radius, agent matrix, scenarios" },
   { name: "Guides", href: "/guides", desc: "AI compliance guides" },
@@ -57,7 +64,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
     return () => subscription.unsubscribe();
   }, []);
 
-  const [open, setOpen] = React.useState<null | "solutions" | "insights" | "about">(null);
+  const [open, setOpen] = React.useState<null | "help" | "work" | "insights" | "about">(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -234,7 +241,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
 
             <div style={{ position: "relative" }}>
               <button
-                onClick={() => setOpen(open === "solutions" ? null : "solutions")}
+                onClick={() => setOpen(open === "help" ? null : "help")}
                 style={{
                   appearance: "none",
                   border: "none",
@@ -246,15 +253,40 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  color: open === "solutions" ? "var(--fg)" : "var(--op-muted)",
+                  color: open === "help" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
-                Solutions
-                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "solutions" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                How I Help
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "help" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
                   <path d="M2 4 L5 7 L8 4" />
                 </svg>
               </button>
-              {open === "solutions" && dropdown(solutionsLinks)}
+              {open === "help" && dropdown(howIHelpLinks)}
+            </div>
+
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setOpen(open === "work" ? null : "work")}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: "transparent",
+                  fontFamily: "inherit",
+                  fontSize: "inherit",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  color: open === "work" ? "var(--fg)" : "var(--op-muted)",
+                }}
+              >
+                Work
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "work" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                  <path d="M2 4 L5 7 L8 4" />
+                </svg>
+              </button>
+              {open === "work" && dropdown(workLinks)}
             </div>
 
             <div style={{ position: "relative" }}>
@@ -559,10 +591,36 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               </Link>
             </div>
 
-            {/* Solutions section */}
+            {/* How I Help section */}
             <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>Solutions</div>
-              {solutionsLinks.map((l) => (
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>How I Help</div>
+              {howIHelpLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    padding: "9px 12px",
+                    borderRadius: 6,
+                    textDecoration: "none",
+                    color: "var(--fg)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 600 }}>{l.name}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)" }}>{l.desc}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Work section */}
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>Work</div>
+              {workLinks.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}

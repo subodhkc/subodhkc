@@ -74,7 +74,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-              Work With Me
+              How I Help
             </h4>
             <ul className="space-y-2">
               {footerLinks.workWithMe.map((item) => (

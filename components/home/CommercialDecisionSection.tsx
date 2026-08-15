@@ -29,7 +29,7 @@ export function CommercialDecisionSection() {
             color: 'var(--op-accent)',
           }}
         >
-          §02
+          03
         </span>
         <h2
           style={{
@@ -53,8 +53,8 @@ export function CommercialDecisionSection() {
           marginBottom: 32,
         }}
       >
-        I help organizations see where AI can create advantage, turn the right opportunities into working
-        systems, and put appropriate controls around them. Choose the path that matches your situation.
+        What could you be missing? What is actually worth pursuing? What decision should you make,
+        and how would you make it real? Choose the path that matches your situation.
       </p>
 
       {/* PRIMARY: Three main starting points */}
@@ -118,7 +118,7 @@ export function CommercialDecisionSection() {
               color: 'var(--op-accent)',
             }}
           >
-            Start AI Advisor Desk
+            Explore AI Advisor Desk
             <ArrowRight style={{ width: 14, height: 14 }} />
           </div>
         </Link>

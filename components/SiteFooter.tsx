@@ -255,7 +255,7 @@ export function SiteFooter() {
               marginBottom: 16,
             }}
           >
-            §03 / about
+            03 / about
           </div>
           <h3
             style={{

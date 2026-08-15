@@ -131,7 +131,7 @@ const faqs = [
     items: [
       {
         q: 'Who is Subodh KC?',
-        a: 'Subodh KC is an AI Systems Architect and Governance Expert with 12+ years of experience. He currently serves as Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC - integrated AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.Sc. and B.S. degrees from Louisiana Tech University.',
+        a: 'Subodh KC is an AI Advisor and AI Systems Architect with 12+ years of experience. He currently serves as Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC - integrated AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.S. and B.S. degrees from Louisiana Tech University.',
       },
       {
         q: 'What services does Subodh KC offer?',

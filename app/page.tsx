@@ -8,30 +8,33 @@ import { ComplianceGuidesSection } from "@/components/home/ComplianceGuidesSecti
 import { MagazineBadge } from "@/components/home/MagazineBadge";
 import { CSMFrameworkSection } from "@/components/home/CSMFrameworkSection";
 import { CommercialDecisionSection } from "@/components/home/CommercialDecisionSection";
+import { PossibilitySection } from "@/components/home/PossibilitySection";
+import { OperatingMethodSection } from "@/components/home/OperatingMethodSection";
 
 export const metadata = {
-  title: "Subodh KC | AI Systems Architect & Governance Expert",
+  title: "AI Advisor & AI Systems Architect | Subodh KC",
   description:
-    "Subodh KC architects, deploys and governs production AI systems - including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.",
+    "Subodh KC turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate. Research, architecture, program leadership, continuous improvement.",
   keywords: [
     'Subodh KC',
+    'AI advisor',
     'AI systems architect',
-    'AI governance',
-    'AI compliance',
     'enterprise AI',
+    'AI strategy',
+    'AI opportunity discovery',
+    'AI decision support',
     'RAG architecture',
     'voice AI',
     'agentic AI',
-    'AI strategy',
     'technical program management',
   ],
   alternates: {
     canonical: 'https://subodhkc.com',
   },
   openGraph: {
-    title: 'Subodh KC | AI Systems Architect & Governance Expert',
+    title: 'AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'Subodh KC architects, deploys and governs production AI systems - including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.',
+      'Subodh KC turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate.',
     url: 'https://subodhkc.com',
     type: 'website',
     images: [
@@ -39,15 +42,15 @@ export const metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC - AI Systems Architect & Governance Expert',
+        alt: 'Subodh KC - AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC | AI Systems Architect & Governance Expert',
+    title: 'AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'Architects, deploys and governs production AI systems - agentic workflows, RAG, voice AI, compliance automation.',
+      'AI ambiguity turned into possibilities, evidence-backed decisions, and systems organizations can actually operate.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
 };
@@ -57,6 +60,8 @@ export default function HomePage() {
     <AccessProvider>
       <Hero />
       <FrontOfAIBanner />
+      <PossibilitySection />
+      <OperatingMethodSection />
       <CommercialDecisionSection />
       <MagazineBadge />
       <CSMFrameworkSection />

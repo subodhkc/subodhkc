@@ -47,7 +47,7 @@ export function WritingSection() {
             color: "var(--op-accent)",
           }}
         >
-          §02
+          02
         </span>
         <h2 style={{ margin: 0, fontSize: 22, fontWeight: 600, letterSpacing: "-0.015em", color: "var(--fg)" }}>
           Writing & research

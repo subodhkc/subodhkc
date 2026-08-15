@@ -10,11 +10,12 @@ export function Hero() {
       {/* SEO fallback: server-rendered text for crawlers */}
       <noscript>
         <div style={{ padding: "56px 28px", maxWidth: 1240, margin: "0 auto" }}>
-          <h1>I Advise, Architect, Deploy and Govern production AI systems.</h1>
+          <h1>Subodh KC - AI Advisor & AI Systems Architect</h1>
+          <p>From possibility to decision. From decision to production.</p>
           <p>
-            I help organizations see where AI can create advantage, turn the right opportunities into working
-            systems, and put the right controls around them to operate with confidence. From agentic workflows,
-            voice AI, RAG and MCP integrations to security, governance, and enterprise-scale delivery.
+            I turn AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can
+            actually operate. Research and critical inquiry, evidence over hype, architecture that survives
+            production, program leadership that ships, and continuous improvement after launch.
             Subodh KC, founder of KestrelVoice, founder of HAIEC. Dallas-based.
           </p>
           <ul>
@@ -23,7 +24,7 @@ export function Hero() {
             <li>12+ years full-stack experience</li>
           </ul>
           <p>
-            <a href="https://calendly.com/subodhkc/30min">Discuss an AI System</a> | <a href="https://calendly.com/subodhkc/30min">Work With Me</a>
+            <a href="/contact?subject=discuss-ai">Discuss AI</a> | <a href="/portfolio">Selected Work</a>
           </p>
         </div>
       </noscript>

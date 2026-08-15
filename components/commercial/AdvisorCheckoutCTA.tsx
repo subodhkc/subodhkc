@@ -73,7 +73,7 @@ export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAPro
                     className="group"
                   >
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Start AI Advisor Desk — $99/month
+                    Start AI Advisor Desk: $99/month
                     {!loading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
                   </Button>
                   <Button

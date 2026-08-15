@@ -49,7 +49,7 @@ const courseSchema = {
   instructor: {
     '@type': 'Person',
     name: 'Subodh KC',
-    jobTitle: 'AI Systems Architect & Governance Expert',
+    jobTitle: 'AI Advisor & AI Systems Architect',
     worksFor: {
       '@type': 'Organization',
       name: 'HP Inc.',
@@ -130,7 +130,7 @@ const eventSchema = {
   performer: {
     '@type': 'Person',
     name: 'Subodh KC',
-    jobTitle: 'AI Systems Architect & Governance Expert',
+    jobTitle: 'AI Advisor & AI Systems Architect',
   },
   eventSchedule: {
     '@type': 'Schedule',
@@ -325,11 +325,11 @@ export default function CoursePage() {
             <CardHeader>
               <CardTitle className="text-xl mb-2">Subodh KC</CardTitle>
               <p className="text-sm font-medium text-primary mb-3">
-                AI Advisor & Enterprise AI Governance Leader · Former Sr. Program Manager, HP Inc. (Fortune 50)
+                AI Advisor & AI Systems Architect · Former Sr. Program Manager, HP Inc. (Fortune 50)
               </p>
               <CardDescription className="text-base space-y-3">
                 <p>
-                  Subodh KC is an AI Advisor and Enterprise AI Governance Leader. He recently served as
+                  Subodh KC is an AI Advisor and AI Systems Architect. He recently served as
                   Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50), where he
                   drove strategic AI transformation across enterprise systems and architected governance
                   frameworks for Fortune 50 scale.

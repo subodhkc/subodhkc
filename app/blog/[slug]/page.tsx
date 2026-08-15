@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         name: 'Subodh KC',
         url: 'https://subodhkc.com/about',
         image: 'https://subodhkc.com/portrait.jpeg',
-        jobTitle: 'AI Systems Architect & Governance Expert',
+        jobTitle: 'AI Advisor & AI Systems Architect',
         worksFor: { '@type': 'Organization', name: 'SubodhKC.com', url: 'https://subodhkc.com' },
         sameAs: [
           'https://www.linkedin.com/in/subodhkc',

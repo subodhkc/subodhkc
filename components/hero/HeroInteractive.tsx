@@ -1,13 +1,10 @@
 "use client";
 
-import * as React from "react";
 import { Aurora } from "./Aurora";
 import { Constellation } from "./Constellation";
 import { Counter } from "./Counter";
 import { DotGrid } from "./DotGrid";
 import { ShipLog } from "./ShipLog";
-import { WordCycle } from "./WordCycle";
-import { HeroCTAModal } from "../HeroCTAModal";
 import { PRODUCTS } from "@/data/products";
 
 const KPIS = [
@@ -17,19 +14,6 @@ const KPIS = [
 ];
 
 export function HeroInteractive() {
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const [modalType, setModalType] = React.useState<"discuss" | "hire">("discuss");
-
-  const openDiscuss = () => {
-    setModalType("discuss");
-    setModalOpen(true);
-  };
-
-  const openHire = () => {
-    setModalType("hire");
-    setModalOpen(true);
-  };
-
   return (
     <>
       <DotGrid />
@@ -52,27 +36,26 @@ export function HeroInteractive() {
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
             <span style={{ width: 18, height: 1, background: "var(--op-accent)", display: "inline-block" }} />
-            §00 / AI systems architect · since 2009
+            00 / Subodh KC · since 2009
           </span>
-          <span>v3.2.0 - Jul 2026</span>
+          <span>v3.3.0 - Aug 2026</span>
         </div>
 
         <h1
           style={{
             margin: 0,
-            fontSize: "clamp(44px, 7.2vw, 96px)",
-            lineHeight: 0.96,
+            fontSize: "clamp(40px, 6.4vw, 84px)",
+            lineHeight: 0.98,
             letterSpacing: "-0.04em",
             fontWeight: 600,
             textWrap: "balance",
             color: "var(--fg)",
           }}
         >
-          I&nbsp;
-          <WordCycle words={["Advise", "Architect", "Deploy", "Govern"]} />
+          AI Advisor &amp;
           <br />
-          production AI systems.
           <span style={{ position: "relative", display: "inline-block" }}>
+            AI Systems Architect.
             <svg
               aria-hidden
               viewBox="0 0 400 16"
@@ -106,23 +89,38 @@ export function HeroInteractive() {
         <p
           style={{
             maxWidth: 720,
-            marginTop: 26,
+            marginTop: 24,
+            fontFamily: "var(--font-serif)",
+            fontSize: "clamp(19px, 2.4vw, 26px)",
+            lineHeight: 1.4,
+            color: "var(--fg)",
+            textWrap: "balance",
+          }}
+        >
+          From possibility to decision.
+          <br />
+          From decision to production.
+        </p>
+
+        <p
+          style={{
+            maxWidth: 720,
+            marginTop: 18,
             fontSize: 17,
             lineHeight: 1.55,
             color: "var(--text-secondary)",
             textWrap: "pretty",
           }}
         >
-          From agentic workflows, voice AI, RAG and MCP integrations to security, governance, and
-          enterprise-scale delivery. Subodh KC, founder of KestrelVoice, founder of HAIEC. Dallas-based.
+          I turn AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can
+          actually operate. Research and critical inquiry, evidence over hype, architecture that survives
+          production, program leadership that ships, and continuous improvement after launch.
         </p>
 
         {/* CTA buttons */}
         <div style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap" }}>
           <a
-            href="https://calendly.com/subodhkc/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact?subject=discuss-ai"
             style={{
               appearance: "none",
               background: "var(--fg)",
@@ -142,10 +140,10 @@ export function HeroInteractive() {
               alignItems: "center",
             }}
           >
-            Book a Call →
+            Discuss AI →
           </a>
-          <button
-            onClick={openHire}
+          <a
+            href="#method"
             style={{
               appearance: "none",
               background: "transparent",
@@ -160,10 +158,13 @@ export function HeroInteractive() {
               fontWeight: 500,
               cursor: "pointer",
               transition: "border-color .15s, color .15s",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
             }}
           >
-            Work With Me
-          </button>
+            See how I work ↓
+          </a>
         </div>
 
         {/* KPI bar */}
@@ -253,12 +254,6 @@ export function HeroInteractive() {
       </div>
 
       <ShipLog />
-
-      <HeroCTAModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        formType={modalType}
-      />
 
       <style>{`
         @media (max-width: 640px) {

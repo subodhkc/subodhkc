@@ -19,26 +19,27 @@ import {
 import { BlueprintQualificationCTA } from '@/components/commercial/BlueprintQualificationCTA'
 
 export const metadata = {
-  title: 'AI Automation Blueprint | Should You Automate This Workflow? | Subodh KC',
+  title: 'AI Opportunity Assessment | AI Automation Blueprint | Subodh KC',
   description:
-    'A $500 fixed-scope assessment of one business workflow. You get a yes/no answer on automation, a buy/configure/build recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days.',
+    'A focused AI opportunity assessment of one workflow: $500 fixed scope. You get a decision-ready Blueprint with a yes/no answer, a buy/configure/build/wait recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-automation',
   },
   openGraph: {
-    title: 'AI Automation Blueprint | Should You Automate This Workflow?',
+    title: 'AI Opportunity Assessment | AI Automation Blueprint',
     description:
-      'A $500 fixed-scope assessment. You get a yes/no answer on automation, architecture, cost-benefit, and a clear buy/configure/build recommendation. 5 business days.',
+      'A $500 fixed-scope assessment of one workflow. You get a decision-ready Blueprint: yes/no answer, architecture, cost-benefit, and a clear buy/configure/build/wait recommendation. 5 business days.',
     url: 'https://subodhkc.com/ai-automation',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Automation Blueprint | $500 Fixed-Scope Workflow Assessment',
-    description: 'Should you automate this workflow? Get a clear answer for $500. 5 business days.',
+    title: 'AI Opportunity Assessment | $500 Fixed-Scope Blueprint',
+    description: 'One workflow, one decision-ready Blueprint. $500 fixed. 5 business days.',
   },
   keywords: [
-    'AI automation consultant',
+    'AI opportunity assessment',
+    'AI opportunity assessment framework',
     'AI automation blueprint',
     'AI workflow analysis',
     'should I automate this workflow',
@@ -65,10 +66,10 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'AI Automation Blueprint',
-  description: 'Fixed-scope $500 assessment of one business workflow. AI automation recommendations, architecture, cost-benefit analysis, and buy/configure/build recommendation.',
+  description: 'Fixed-scope $500 AI opportunity assessment of one business workflow. Decision-ready Blueprint with yes/no recommendation, architecture, cost-benefit analysis, and buy/configure/build/wait recommendation.',
   url: 'https://subodhkc.com/ai-automation',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
-  serviceType: 'AI Automation Assessment',
+  serviceType: 'AI Opportunity Assessment',
   areaServed: 'Global',
   offers: {
     '@type': 'Offer',
@@ -173,6 +174,7 @@ const process = [
 ]
 
 const boundaries = [
+  'This is a focused assessment: one opportunity, one primary workflow, one decision-ready Blueprint. It is not an enterprise-wide AI maturity audit, a multi-week organizational diagnostic, or a portfolio prioritization.',
   'This covers one workflow. If you need multiple workflows analyzed, contact us for custom scoping.',
   'This is an assessment and roadmap, not implementation. Building the automation is a separate engagement.',
   'The 45-minute call and 5-business-day turnaround assume you submit the intake form within 3 business days of payment.',
@@ -186,15 +188,15 @@ export default function AIAutomationPage() {
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
 
       <Hero
-        subtitle="AI Automation Blueprint"
+        subtitle="AI Opportunity Assessment · AI Automation Blueprint"
         title={
           <>
-            Should you automate
+            You don't need to know what to automate.
             <br />
-            <span className="gradient-text">this workflow?</span>
+            <span className="gradient-text">Start with what you want to improve.</span>
           </>
         }
-        description="Before you spend on development, get a clear answer. One workflow analyzed for $500. You receive a written Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days."
+        description="A focused assessment of one opportunity and one primary workflow. See what you may be missing, test whether it matters, decide, then map the execution. You receive a written, decision-ready Blueprint with a yes/no recommendation, architecture, cost-benefit, and implementation roadmap. $500 fixed, delivered in 5 business days."
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="#start">
@@ -210,6 +212,29 @@ export default function AIAutomationPage() {
           </Link>
         </div>
       </Hero>
+
+      {/* Valid Outcomes */}
+      <Section
+        subtitle="Valid Outcomes"
+        title="The honest answer might not be build."
+        sectionNum="00"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <p className="text-base text-muted-foreground mb-6">
+            A Blueprint can end in any of these recommendations. All of them are valid outcomes.
+            The answer is allowed to be no.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {['Build', 'Buy', 'Configure', 'Integrate', 'Automate', 'Simplify', 'Wait', 'Keep current', 'Do not use AI'].map((outcome, i) => (
+              <span key={i} className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                {outcome}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Section>
 
       {/* Starting Points */}
       <Section
