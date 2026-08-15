@@ -6,6 +6,9 @@ import {
   LogOut, ArrowLeft, Briefcase, Calendar, FileText, Lightbulb, Users,
   Plus, CheckCircle2, Clock, AlertCircle, ChevronRight, Target,
   Boxes, ExternalLink, Loader2,
+  Compass, ClipboardList, Building2, FlaskConical, TrendingUp,
+  AlertTriangle, Handshake, Layers, History, Award, ListChecks,
+  Download, Send, Zap, MessageSquare,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 import { getEngagementTypeLabel, getEngagementStatusLabel } from '@/lib/auth/dashboard-types'
@@ -87,6 +90,18 @@ const AI_STAGES = [
   'Several of the above',
 ]
 
+// Bring Something to the Desk — 8 intake types
+const intakeTypes = [
+  { icon: MessageSquare, label: 'Ask a Question', description: 'Get a point of view on an AI decision.' },
+  { icon: Compass, label: 'Explore an Opportunity', description: 'Something worth investigating.' },
+  { icon: Target, label: 'Make/Review a Decision', description: 'A decision is on the table.' },
+  { icon: Building2, label: 'Review a Vendor', description: 'Evaluating an AI tool or vendor.' },
+  { icon: Layers, label: 'Review a System or Architecture', description: 'Pressure-test a design or system.' },
+  { icon: Handshake, label: 'Explore a Partnership', description: 'A partnership or external opportunity.' },
+  { icon: FileText, label: 'Share a Report/Evidence', description: 'Send context or research.' },
+  { icon: AlertCircle, label: 'Something Changed', description: 'A shift that affects priorities.' },
+]
+
 export function AdvisoryWorkspaceClient({
   user,
   ctx,
@@ -106,7 +121,9 @@ export function AdvisoryWorkspaceClient({
   const [showAddDecision, setShowAddDecision] = useState(false)
   const [newDecisionTitle, setNewDecisionTitle] = useState('')
   const [newDecisionDescription, setNewDecisionDescription] = useState('')
+  const [intakeType, setIntakeType] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [exporting, setExporting] = useState(false)
   const [onboardingComplete, setOnboardingComplete] = useState(
     onboarding?.status === 'completed'
   )
@@ -172,6 +189,27 @@ export function AdvisoryWorkspaceClient({
     } catch (err) {
       console.error('Failed to update decision:', err)
     }
+  }
+
+  async function handleExport() {
+    setExporting(true)
+    try {
+      const res = await fetch(`/api/fractional/export?orgSlug=${encodeURIComponent(organization.slug)}`)
+      if (res.ok) {
+        const blob = await res.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = window.document.createElement('a')
+        a.href = url
+        a.download = `advisory-workspace-${organization.slug}-${new Date().toISOString().split('T')[0]}.json`
+        window.document.body.appendChild(a)
+        a.click()
+        window.document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
+      }
+    } catch (err) {
+      console.error('Export failed:', err)
+    }
+    setExporting(false)
   }
 
   return (
@@ -447,6 +485,217 @@ export function AdvisoryWorkspaceClient({
             </div>
           </section>
         </div>
+
+        {/* Bring Something to the Desk */}
+        <section className="border border-primary/30 rounded-lg p-6 bg-primary/5">
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-2">
+            <Zap className="h-5 w-5 text-primary" />
+            Bring Something to the Desk
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            What do you want to work on? Pick the intake type that fits. I will review and prepare before our next session or async response.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {intakeTypes.map((item, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setIntakeType(item.label)
+                  setShowAddDecision(true)
+                }}
+                className="border rounded-lg p-3 text-left hover:bg-accent transition-colors group"
+              >
+                <item.icon className="h-4 w-4 text-primary mb-2" />
+                <h3 className="text-xs font-medium">{item.label}</h3>
+                <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {/* Operating Records */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold">Operating Records</h2>
+
+          {/* Opportunity Registry */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Compass className="h-4 w-4 text-muted-foreground" />
+                Opportunity Registry
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  AI possibilities and improvement opportunities identified during the engagement. Tracked with status, owner, and evidence.
+                </p>
+              </div>
+            </section>
+
+            {/* AI Systems & Vendor Inventory */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Building2 className="h-4 w-4 text-muted-foreground" />
+                AI Systems & Vendor Inventory
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Current AI tools, vendors, models, and systems in use or under evaluation. Tracked with status, cost, and risk notes.
+                </p>
+              </div>
+            </section>
+
+            {/* Evidence & Inputs */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <FlaskConical className="h-4 w-4 text-muted-foreground" />
+                Evidence & Inputs
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Research, benchmarks, test results, and client-provided evidence used to inform decisions.
+                </p>
+              </div>
+            </section>
+
+            {/* Assumptions & Risks */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+                Assumptions & Risks
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Key assumptions and risks tracked across active decisions and opportunities. Updated as evidence comes in.
+                </p>
+              </div>
+            </section>
+
+            {/* Partnership / External Opportunity Record */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Handshake className="h-4 w-4 text-muted-foreground" />
+                Partnership / External Opportunity
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Strategic partnerships, technology partnerships, vendors, programs, and external opportunities identified for exploration or evaluation.
+                </p>
+              </div>
+            </section>
+
+            {/* Initiative Portfolio */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Layers className="h-4 w-4 text-muted-foreground" />
+                Initiative Portfolio
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Active and planned AI initiatives tracked with status, dependencies, and sequencing recommendations.
+                </p>
+              </div>
+            </section>
+
+            {/* Working Session Records */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <ClipboardList className="h-4 w-4 text-muted-foreground" />
+                Working Session Records
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Notes, decisions, and action items from each working session. Persistent record of what was discussed and agreed.
+                </p>
+              </div>
+            </section>
+
+            {/* Actions & Commitments */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <ListChecks className="h-4 w-4 text-muted-foreground" />
+                Actions & Commitments
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Open actions, owners, and deadlines tracked across the engagement. Updated after each session and async exchange.
+                </p>
+              </div>
+            </section>
+
+            {/* Decision History */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <History className="h-4 w-4 text-muted-foreground" />
+                Decision History
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Full chronological record of decisions made, deferred, or superseded. Includes context and rationale.
+                </p>
+              </div>
+            </section>
+
+            {/* Outcome / Learning */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                Outcome / Learning
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Tracked outcomes of past decisions. What worked, what did not, and what was learned.
+                </p>
+              </div>
+            </section>
+
+            {/* Value Record */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Award className="h-4 w-4 text-muted-foreground" />
+                Value Record
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Client-verified value evidence: time saved, cost avoided, risk reduced, revenue enabled. Updated as outcomes are confirmed.
+                </p>
+              </div>
+            </section>
+
+            {/* Open Loops */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Clock className="h-4 w-4 text-muted-foreground" />
+                Open Loops
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Unresolved questions, pending follow-ups, and items awaiting client input or external response.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        {/* Workspace Export */}
+        <section className="border rounded-lg p-4 bg-secondary/20">
+          <div className="flex items-start gap-3">
+            <Download className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold">Export Your Workspace</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                Download your decision records, opportunity records, client-provided inputs, advisor artifacts, and action/history records. Available anytime during your subscription and for 30 days after cancellation.
+              </p>
+              <button
+                onClick={handleExport}
+                disabled={exporting}
+                className="mt-3 inline-flex items-center gap-2 text-sm text-primary hover:underline disabled:opacity-50"
+              >
+                {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                {exporting ? 'Preparing export...' : 'Export Workspace Data'}
+              </button>
+            </div>
+          </div>
+        </section>
 
         {/* Products & Platforms */}
         {products.length > 0 && (

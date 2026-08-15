@@ -94,8 +94,8 @@ export default function FractionalAdvisorServiceTermsPage() {
             <CardHeader>
               <CardTitle>5. Included Product Access</CardTitle>
               <CardContent className="pt-0 space-y-3 text-sm text-muted-foreground">
-                <p><strong className="text-foreground">HAIEC SCAN Access:</strong> One HAIEC SCAN-level entitlement seat, aligned to the current HAIEC SCAN product. Higher HAIEC tiers, additional seats, runtime testing, CI/CD, enterprise evidence bundles, implementation, and managed compliance remain separately purchased or scoped.</p>
-                <p><strong className="text-foreground">Kestrel Standard:</strong> One AI phone number with AI answering, 150 included monthly credits, self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.</p>
+                <p><strong className="text-foreground">HAIEC DEFEND:</strong> One HAIEC DEFEND-level entitlement seat. Includes PDF exports, CI integration, and 15 repos. Higher HAIEC tiers (CERTIFY, FIRM), additional seats, runtime testing, signed enterprise evidence bundles, implementation, and managed compliance remain separately purchased or scoped.</p>
+                <p><strong className="text-foreground">Kestrel Personal AI ($29 plan):</strong> One AI phone number with full AI answering, 70,000 monthly credits, self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.</p>
                 <p><strong className="text-foreground">Member Tool Library:</strong> Production-ready internal decision, architecture, research, and technical utilities available to advisory clients.</p>
                 <p>HAIEC and Kestrel maintain their own product limits, acceptable-use terms, and upgrade paths. This advisory subscription does not create additional uptime or SLA guarantees for those products.</p>
               </CardContent>

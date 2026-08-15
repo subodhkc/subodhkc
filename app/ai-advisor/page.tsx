@@ -462,7 +462,7 @@ export default function AIAdvisorPage() {
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                     <Shield className="h-5 w-5 text-primary" />
                   </div>
-                  <CardTitle className="text-base">HAIEC Advisor Essentials</CardTitle>
+                  <CardTitle className="text-base">HAIEC SCAN</CardTitle>
                   <CardDescription className="text-sm mt-1">
                     AI Law Finder, Check AI Apps vendor review, AI Readiness Assessment, CSM6 Governance Scorecard, Self-Audit, selected compliance assessments, limited static AI security scanning, one saved AI system context, web results and history. Excludes CI/CD, runtime adversarial testing, Compliance Twin, Evidence Vault, signed enterprise evidence bundles, unlimited scans, and managed compliance services.
                   </CardDescription>
@@ -475,9 +475,9 @@ export default function AIAdvisorPage() {
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                     <Zap className="h-5 w-5 text-primary" />
                   </div>
-                  <CardTitle className="text-base">Kestrel AI Number Basic</CardTitle>
+                  <CardTitle className="text-base">Kestrel Starter Phone</CardTitle>
                   <CardDescription className="text-sm mt-1">
-                    One AI phone number with basic AI answering. 20 included monthly credits. Self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.
+                    One AI phone number with basic AI answering. $5/month plan with 20 included monthly credits. Self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -818,7 +818,7 @@ export default function AIAdvisorPage() {
                 <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-foreground">Included product limits</p>
-                  <p className="text-sm text-muted-foreground mt-1">HAIEC Advisor Essentials and Kestrel AI Number Basic maintain their own product limits and acceptable-use terms. Additional usage or upgrades are purchased separately within each product.</p>
+                  <p className="text-sm text-muted-foreground mt-1">HAIEC SCAN and Kestrel Starter Phone maintain their own product limits and acceptable-use terms. Additional usage or upgrades are purchased separately within each product.</p>
                 </div>
               </div>
             </CardContent>

@@ -173,12 +173,8 @@ export async function PATCH(req: NextRequest) {
               if (request.offering_key === 'haiec' && included.haiecTier) {
                 planTier = included.haiecTier
               } else if (request.offering_key === 'kestrel' && included.kestrelPlan) {
-                // Map SubodhKC plan keys to Kestrel's plan tier names
-                if (included.kestrelPlan === 'ai_number_basic') {
-                  planTier = 'phone_number'
-                } else if (included.kestrelPlan === 'kestrel_standard') {
-                  planTier = 'personal'
-                }
+                // Kestrel plan keys already match Kestrel's tier names: phone_number, personal
+                planTier = included.kestrelPlan
               }
             }
           }
