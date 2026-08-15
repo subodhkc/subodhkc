@@ -81,7 +81,7 @@ export class KestrelProvisioningAdapter implements ProductProvisioningAdapter {
           customerEmail: ctx.customerEmail,
           customerName: ctx.customerName,
           organizationName: ctx.organizationName,
-          planTier: 'personal',
+          planTier: ctx.planTier || 'phone_number',
         }),
       })
 

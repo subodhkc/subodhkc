@@ -26,7 +26,7 @@ export interface IncludedProductAccess {
   /** HAIEC seat count. */
   haiecSeats: number
   /** Kestrel plan key, or null if no Kestrel access. */
-  kestrelPlan: 'ai_number_basic' | null
+  kestrelPlan: 'ai_number_basic' | 'kestrel_standard' | null
   /** Kestrel monthly credits. */
   kestrelCredits: number
   /** Whether SubodhKC Member Tools are included. */
@@ -165,8 +165,8 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     includedProducts: {
       haiecTier: 'scan',
       haiecSeats: 1,
-      kestrelPlan: 'ai_number_basic',
-      kestrelCredits: 20,
+      kestrelPlan: 'kestrel_standard',
+      kestrelCredits: 150,
       memberTools: true,
     },
     serviceTerms: {
@@ -181,7 +181,7 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
       'Vendor, roadmap + architecture review',
       'Selected decision artifacts',
       'HAIEC SCAN access',
-      'Kestrel AI Number Basic',
+      'Kestrel Standard (150 credits/mo)',
       'Member Tool Library',
     ],
   },

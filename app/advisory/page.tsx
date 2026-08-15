@@ -425,9 +425,9 @@ export default function AdvisoryPage() {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                   <Zap className="h-5 w-5 text-primary" />
                 </div>
-                <CardTitle className="text-base">Kestrel AI Number Basic</CardTitle>
+                <CardTitle className="text-base">Kestrel Standard</CardTitle>
                 <CardDescription className="text-sm mt-1">
-                  One AI phone number with basic AI answering. 20 included monthly credits. Self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.
+                  One AI phone number with AI answering. 150 included monthly credits. Self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -647,7 +647,7 @@ export default function AdvisoryPage() {
       <div id="start">
         <FractionalAdvisorCheckoutCTA
           title="Start Fractional AI Advisor"
-          description="Core engagement at $1,250/month. Two 60-minute working sessions, priority async advisory, Decision and Opportunity Workspace, Monthly Brief, vendor/roadmap/architecture review, selected decision artifacts, HAIEC SCAN access, Kestrel AI Number Basic, and Member Tool Library. Monthly: continue month to month, cancel before your next renewal. Annual: $12,500/year for twelve months of the core advisory relationship (equivalent of ten monthly payments)."
+          description="Core engagement at $1,250/month. Two 60-minute working sessions, priority async advisory, Decision and Opportunity Workspace, Monthly Brief, vendor/roadmap/architecture review, selected decision artifacts, HAIEC SCAN access, Kestrel Standard (150 credits/mo), and Member Tool Library. Monthly: continue month to month, cancel before your next renewal. Annual: $12,500/year for twelve months of the core advisory relationship (equivalent of ten monthly payments)."
           bullets={getCheckoutBullets('fractional_ai_advisor')}
         />
       </div>

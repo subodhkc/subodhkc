@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requirePlatformAdmin } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
+import { getIncludedProducts, type OfferKey } from '@/lib/commercial/offers'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -136,12 +137,60 @@ export async function PATCH(req: NextRequest) {
         const adapter = await getProvisioningAdapter(request.offering_key)
 
         if (adapter) {
+          // Look up the org's active advisory entitlement to determine the correct plan tier
+          let sourceOfferKey: string | undefined
+          let planTier: string | undefined
+
+          // Check for active fractional_ai_advisor first (higher tier), then ai_advisor_desk
+          const { data: fractionalEnt } = await sc
+            .from('organization_entitlements')
+            .select('offering_id, offerings(offering_key)')
+            .eq('organization_id', request.organization_id)
+            .eq('status', 'active')
+            .eq('offerings.offering_key', 'fractional_ai_advisor')
+            .single()
+
+          if (fractionalEnt) {
+            sourceOfferKey = 'fractional_ai_advisor'
+          } else {
+            const { data: advisorEnt } = await sc
+              .from('organization_entitlements')
+              .select('offering_id, offerings(offering_key)')
+              .eq('organization_id', request.organization_id)
+              .eq('status', 'active')
+              .eq('offerings.offering_key', 'ai_advisor_desk')
+              .single()
+
+            if (advisorEnt) {
+              sourceOfferKey = 'ai_advisor_desk'
+            }
+          }
+
+          // Get the included products spec for the active advisory subscription
+          if (sourceOfferKey) {
+            const included = getIncludedProducts(sourceOfferKey as OfferKey)
+            if (included) {
+              if (request.offering_key === 'haiec' && included.haiecTier) {
+                planTier = included.haiecTier
+              } else if (request.offering_key === 'kestrel' && included.kestrelPlan) {
+                // Map SubodhKC plan keys to Kestrel's plan tier names
+                if (included.kestrelPlan === 'ai_number_basic') {
+                  planTier = 'phone_number'
+                } else if (included.kestrelPlan === 'kestrel_standard') {
+                  planTier = 'personal'
+                }
+              }
+            }
+          }
+
           const result = await adapter.provision({
             customerEmail,
             customerName,
             organizationName: orgName,
             organizationSlug: orgSlug,
             adminNote,
+            sourceOfferKey,
+            planTier,
           })
 
           if (result.success) {

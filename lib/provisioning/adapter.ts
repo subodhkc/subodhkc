@@ -41,6 +41,10 @@ export interface ProvisioningContext {
   organizationSlug: string
   /** Admin note (optional instructions from Subodh) */
   adminNote?: string
+  /** Source advisory offer key (e.g., 'ai_advisor_desk', 'fractional_ai_advisor') */
+  sourceOfferKey?: string
+  /** Plan tier to provision on the external system (from includedProducts spec) */
+  planTier?: string
 }
 
 /**

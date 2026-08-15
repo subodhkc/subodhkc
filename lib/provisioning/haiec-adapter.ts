@@ -81,7 +81,7 @@ export class HaiecProvisioningAdapter implements ProductProvisioningAdapter {
           customerEmail: ctx.customerEmail,
           customerName: ctx.customerName,
           organizationName: ctx.organizationName,
-          planTier: 'scan', // Default to scan tier (14-day trial)
+          planTier: ctx.planTier || 'scan',
         }),
       })
 
