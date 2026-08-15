@@ -105,6 +105,14 @@ export function PlatformAdminClient({
   const [newsletterLoading, setNewsletterLoading] = useState(false)
   const [broadcastSending, setBroadcastSending] = useState(false)
   const [broadcastResult, setBroadcastResult] = useState<string | null>(null)
+  const [provisioningStatus, setProvisioningStatus] = useState<{
+    success: boolean
+    launchUrl: string
+    message: string
+    provisioningMethod: string
+    requiresManualAction?: boolean
+    manualInstructions?: string
+  } | null>(null)
 
   const pendingRequests = productRequests.filter(r => r.status === 'requested')
   const otherRequests = productRequests.filter(r => r.status !== 'requested')
@@ -146,13 +154,18 @@ export function PlatformAdminClient({
 
   async function handleProductRequest(requestId: string, status: 'approved' | 'activated' | 'declined', createEntitlement: boolean) {
     setProcessingRequestId(requestId)
+    setProvisioningStatus(null)
     try {
       const res = await fetch('/api/admin/product-requests', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ requestId, status, createEntitlement }),
       })
+      const data = await res.json()
       if (res.ok) {
+        if (data.provisioning) {
+          setProvisioningStatus(data.provisioning)
+        }
         router.refresh()
       }
     } catch (err) {
@@ -323,6 +336,30 @@ export function PlatformAdminClient({
                   <Clock className="h-4 w-4 text-amber-600" />
                   Pending Requests ({pendingRequests.length})
                 </h3>
+                {provisioningStatus && (
+                  <div className={`rounded-lg border p-3 text-sm mb-3 ${
+                    provisioningStatus.success
+                      ? 'border-green-500/30 bg-green-500/5 text-green-700'
+                      : 'border-amber-500/30 bg-amber-500/5 text-amber-700'
+                  }`}>
+                    <p className="font-medium">
+                      {provisioningStatus.success ? 'Provisioned via API' : 'Manual Activation Required'}
+                    </p>
+                    <p className="text-xs mt-1">{provisioningStatus.message}</p>
+                    {provisioningStatus.manualInstructions && (
+                      <p className="text-xs mt-1 italic">{provisioningStatus.manualInstructions}</p>
+                    )}
+                    {provisioningStatus.launchUrl && (
+                      <a
+                        href={provisioningStatus.launchUrl}
+                        target="_blank"
+                        className="text-xs underline mt-1 inline-block"
+                      >
+                        Open platform →
+                      </a>
+                    )}
+                  </div>
+                )}
                 <div className="space-y-2">
                   {pendingRequests.map(req => (
                     <div key={req.id} className="border rounded-lg p-4">

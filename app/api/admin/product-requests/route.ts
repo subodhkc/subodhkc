@@ -97,9 +97,89 @@ export async function PATCH(req: NextRequest) {
 
   if (updateError) return NextResponse.json({ error: updateError.message }, { status: 500 })
 
-  // If activating and createEntitlement is true, create the entitlement
+  // If activating and createEntitlement is true, provision the external account
+  // and create the entitlement in SubodhKC DB
   if (status === 'activated' && createEntitlement) {
-    // Check if entitlement already exists
+    // Fetch org and user data needed for provisioning
+    const { data: orgData } = await sc
+      .from('organizations')
+      .select('name, slug')
+      .eq('id', request.organization_id)
+      .single()
+    const { data: userData } = await sc
+      .from('profiles')
+      .select('email, display_name')
+      .eq('id', request.user_id)
+      .single()
+
+    const customerEmail = userData?.email || ''
+    const customerName = userData?.display_name || null
+    const orgName = orgData?.name || ''
+    const orgSlug = orgData?.slug || ''
+
+    // Step 1: Attempt external provisioning via adapter
+    let provisioningResult: {
+      success: boolean
+      externalUserId?: string
+      externalTenantId?: string
+      launchUrl: string
+      message: string
+      provisioningMethod: string
+      error?: string
+      requiresManualAction?: boolean
+      manualInstructions?: string
+    } | null = null
+
+    if (customerEmail) {
+      try {
+        const { getProvisioningAdapter, getDefaultLaunchUrl } = await import('@/lib/provisioning/adapter')
+        const adapter = await getProvisioningAdapter(request.offering_key)
+
+        if (adapter) {
+          const result = await adapter.provision({
+            customerEmail,
+            customerName,
+            organizationName: orgName,
+            organizationSlug: orgSlug,
+            adminNote,
+          })
+
+          if (result.success) {
+            provisioningResult = {
+              success: true,
+              externalUserId: result.externalUserId,
+              externalTenantId: result.externalTenantId,
+              launchUrl: result.launchUrl,
+              message: result.message,
+              provisioningMethod: result.provisioningMethod,
+            }
+          } else {
+            provisioningResult = {
+              success: false,
+              launchUrl: getDefaultLaunchUrl(request.offering_key),
+              message: result.error,
+              provisioningMethod: 'manual',
+              requiresManualAction: result.requiresManualAction,
+              manualInstructions: result.manualInstructions,
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Provisioning adapter error:', err)
+        const { getDefaultLaunchUrl } = await import('@/lib/provisioning/adapter')
+        provisioningResult = {
+          success: false,
+          launchUrl: getDefaultLaunchUrl(request.offering_key),
+          message: 'Provisioning adapter failed unexpectedly',
+          provisioningMethod: 'manual',
+          requiresManualAction: true,
+        }
+      }
+    }
+
+    // Step 2: Create the entitlement in SubodhKC DB regardless of external
+    // provisioning result — the entitlement tracks that SubodhKC approved access.
+    // External provisioning status is stored separately.
     const { data: existingEnt } = await sc
       .from('organization_entitlements')
       .select('id')
@@ -109,7 +189,6 @@ export async function PATCH(req: NextRequest) {
       .single()
 
     if (!existingEnt) {
-      // Get the offering ID
       const { data: offering } = await sc
         .from('offerings')
         .select('id')
@@ -124,45 +203,67 @@ export async function PATCH(req: NextRequest) {
             offering_id: offering.id,
             offering_key: request.offering_key,
             effective_status: 'active',
-            source: 'manual_activation',
+            source: provisioningResult?.success ? 'api_provisioning' : 'manual_activation',
             granted_at: new Date().toISOString(),
           })
       }
     }
 
-    // Send activation email to customer
+    // Step 3: Store external provisioning result in external_system_links
+    if (provisioningResult && provisioningResult.success) {
+      const metadata: Record<string, unknown> = {
+        provisioning_method: provisioningResult.provisioningMethod,
+        provisioned_at: new Date().toISOString(),
+      }
+      if (provisioningResult.externalTenantId) {
+        metadata.external_tenant_id = provisioningResult.externalTenantId
+      }
+
+      await sc
+        .from('external_system_links')
+        .upsert({
+          organization_id: request.organization_id,
+          system_key: `${request.offering_key}_user`,
+          external_id: provisioningResult.externalUserId || 'linked',
+          status: 'active',
+          metadata,
+        }, { onConflict: 'organization_id,system_key' })
+    }
+
+    // Step 4: Send activation email to customer
     try {
       const { sendProductActivatedEmail } = await import('@/lib/email')
-      const { data: orgData } = await sc
-        .from('organizations')
-        .select('name, slug')
-        .eq('id', request.organization_id)
-        .single()
-      const { data: userData } = await sc
-        .from('profiles')
-        .select('email, display_name')
-        .eq('id', request.user_id)
-        .single()
 
       const productNames: Record<string, { name: string; url: string }> = {
         haiec: { name: 'HAIEC', url: 'https://www.haiec.com' },
         kestrel: { name: 'KestrelVoice', url: 'https://www.kestrelvoice.com' },
       }
       const product = productNames[request.offering_key]
+      const launchUrl = provisioningResult?.launchUrl || product?.url || ''
 
-      if (product && userData?.email && orgData?.slug) {
+      const nextSteps = provisioningResult?.success
+        ? provisioningResult.message
+        : provisioningResult?.manualInstructions || adminNote || undefined
+
+      if (product && customerEmail && orgSlug) {
         await sendProductActivatedEmail({
-          to: userData.email,
-          customerName: userData.display_name || undefined,
+          to: customerEmail,
+          customerName: customerName || undefined,
           productName: product.name,
-          productUrl: product.url,
-          orgSlug: orgData.slug,
-          nextSteps: adminNote || undefined,
+          productUrl: launchUrl,
+          orgSlug,
+          nextSteps,
         })
       }
     } catch (err) {
       console.error('Failed to send product activation email:', err)
     }
+
+    // Step 5: Return provisioning result to admin
+    return NextResponse.json({
+      success: true,
+      provisioning: provisioningResult,
+    })
   }
 
   // Audit event
