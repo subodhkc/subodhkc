@@ -195,7 +195,7 @@ export default function AISecurityCompliancePage() {
       <Section
         subtitle="Questions We Help Answer"
         title="Your AI security and compliance questions, answered with evidence."
-        sectionNum="§01"
+        sectionNum="01"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-3">
@@ -215,7 +215,7 @@ export default function AISecurityCompliancePage() {
       <Section
         subtitle="Building a SaaS or AI Product?"
         title="A specialized pathway for SaaS and AI product security."
-        sectionNum="§02"
+        sectionNum="02"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -245,7 +245,7 @@ export default function AISecurityCompliancePage() {
         subtitle="What We Review"
         title="AI-specific attack surfaces and control gaps."
         description="Generic security scans check for known vulnerabilities. We analyze the AI-specific attack surface that standard security tools do not typically cover."
-        sectionNum="§03"
+        sectionNum="03"
       >
         <Grid cols={3}>
           {assessmentAreas.map((item, i) => {
@@ -271,7 +271,7 @@ export default function AISecurityCompliancePage() {
       <Section
         subtitle="Compliance Alignment"
         title="Evidence for the frameworks that matter"
-        sectionNum="§04"
+        sectionNum="04"
       >
         <div className="max-w-4xl mx-auto">
           <Grid cols={3}>
@@ -296,7 +296,7 @@ export default function AISecurityCompliancePage() {
       <Section
         subtitle="How It Works"
         title="Four-phase assessment process"
-        sectionNum="§05"
+        sectionNum="05"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
@@ -318,7 +318,7 @@ export default function AISecurityCompliancePage() {
       <Section
         subtitle="Why Trust This"
         title="Evidence-grade methodology, not checklists."
-        sectionNum="§06"
+        sectionNum="06"
       >
         <div className="max-w-4xl mx-auto space-y-4">
           <Card className="border-l-4 border-l-primary">
@@ -370,7 +370,7 @@ export default function AISecurityCompliancePage() {
       <Section
         subtitle="FAQ"
         title="Common questions about AI security assessment"
-        sectionNum="§07"
+        sectionNum="07"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-4">
@@ -389,7 +389,7 @@ export default function AISecurityCompliancePage() {
         subtitle="Request a Review"
         title="Understand your AI security posture with evidence"
         description="Tell me about your AI systems, regulatory environment, and what evidence your customers or auditors are asking for. I will tell you whether a focused security assessment, compliance review, or combined engagement fits. Reviews are limited and scoped based on architecture."
-        sectionNum="§08"
+        sectionNum="08"
         className="bg-secondary/20"
         id="request"
       >

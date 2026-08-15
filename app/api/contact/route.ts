@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: 'KC Contact Form <noreply@subodhkc.com>',
-      to: ['subodhkc@subodhkc.com'],
+      to: ['admin@subodhkc.com'],
       reply_to: email,
       subject: `New Contact Form Submission: ${interest}`,
       html: `
@@ -134,13 +134,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Log successful submission
-    console.log('Contact form submission successful:', { 
-      name, 
-      email, 
-      interest, 
+    // Log successful submission (no PII)
+    console.log('Contact form submission successful:', {
+      interest,
       emailId: data?.id,
-      timestamp: new Date().toISOString() 
+      timestamp: new Date().toISOString()
     })
 
     return NextResponse.json(

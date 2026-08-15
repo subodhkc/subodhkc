@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
-import CTA from '@/components/CTA'
 import Grid from '@/components/Grid'
 import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
@@ -15,10 +14,7 @@ import {
   Clock,
   Zap,
   FileText,
-  Sparkles,
   Compass,
-  Rocket,
-  Star,
   Eye,
   Lightbulb,
   Brain,
@@ -204,6 +200,29 @@ const faqs = [
   },
 ]
 
+const capabilityStack = [
+  {
+    icon: TrendingUp,
+    title: 'AI Intelligence Engine',
+    description: 'I monitor developments across models, tools, research, security, regulation, and real-world adoption. You receive curated signals without having to track the landscape yourself.',
+  },
+  {
+    icon: Shield,
+    title: 'Governance Methodology',
+    description: 'The AI Controls Review is grounded in a published governance methodology covering Enterprise, Project, Code, and UX domains. Applied in production AI deployments.',
+  },
+  {
+    icon: Zap,
+    title: 'Production AI Experience',
+    description: 'Not a researcher. Not a blogger. I have architected and deployed production AI systems including voice agents, compliance platforms, and enterprise governance tools.',
+  },
+  {
+    icon: Mail,
+    title: 'Human Advisory Access',
+    description: 'When an AI decision matters, bring it to the Desk. I review the context, pressure-test the options, and give you a practical point of view on what deserves action.',
+  },
+]
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -251,7 +270,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Questions We Help Answer"
         title="Your team has AI questions. You should not need a full-time AI specialist to answer them."
-        sectionNum="§01"
+        sectionNum="01"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
@@ -279,89 +298,36 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
-      {/* Ask Before You Buy / Build / Deploy */}
+      {/* Capability Stack */}
       <Section
-        subtitle="Ask First"
-        title="Ask before you buy it. Ask before you build it. Ask before you deploy it."
-        description="AI Advisor Desk gives your team an experienced first stop for AI decisions — from tools and vendors to automation, security, governance and implementation."
-        sectionNum="§02"
+        subtitle="Capability Stack"
+        title="What the Desk brings to your team"
+        description="Four capabilities working together: intelligence monitoring, governance methodology, production experience, and human advisory access."
+        sectionNum="04"
         className="bg-secondary/20"
       >
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Shield,
-                title: 'Ask before you buy',
-                desc: 'Should we use this AI vendor? Can employees put customer information into this tool? What should we check before signing?',
-              },
-              {
-                icon: Rocket,
-                title: 'Ask before you build',
-                desc: 'Is this idea worth building? Is this a standard implementation or a custom problem? Should we automate this workflow?',
-              },
-              {
-                icon: Compass,
-                title: 'Ask before you deploy',
-                desc: 'Does this AI regulation matter to us? Should this system receive a security review? What should management do next?',
-              },
-            ].map((item, i) => {
-              const Icon = item.icon
-              return (
-                <Reveal key={i} delay={i * 80} style="up">
-                  <Card className="h-full text-center">
-                    <CardHeader>
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3 mx-auto">
-                        <Icon className="h-6 w-6 text-primary" />
+        <Grid cols={2}>
+          {capabilityStack.map((item, i) => {
+            const Icon = item.icon
+            return (
+              <Reveal key={i} delay={i * 60} style="up">
+                <Card className="h-full">
+                  <CardHeader>
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="h-5 w-5 text-primary" />
                       </div>
-                      <CardTitle className="text-base">{item.title}</CardTitle>
-                      <CardDescription className="text-sm mt-2">{item.desc}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Reveal>
-              )
-            })}
-          </div>
-        </div>
-      </Section>
-
-      {/* How It Works */}
-      <Section
-        subtitle="How It Works"
-        title="A simple decision support process"
-        sectionNum="§03"
-      >
-        <div className="max-w-3xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                step: 'ASK',
-                desc: 'Bring a focused AI question when a decision comes up.',
-              },
-              {
-                step: 'DECIDE',
-                desc: 'Get clear guidance on what matters, what can wait, and what next step makes sense.',
-              },
-              {
-                step: 'MOVE FORWARD',
-                desc: 'If the question deserves deeper work, receive a clear route into a Blueprint, security review, or hourly engagement at a member rate. You approve scope and cost before anything starts.',
-              },
-            ].map((item, i) => (
-              <Reveal key={i} delay={i * 80} style="up">
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold text-sm mb-3">
-                    {i + 1}
-                  </div>
-                  <h3 className="text-base font-semibold mb-2">{item.step}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
-                </div>
+                      <div>
+                        <CardTitle className="text-base">{item.title}</CardTitle>
+                        <CardDescription className="text-sm mt-1">{item.description}</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
               </Reveal>
-            ))}
-          </div>
-          <p className="text-center text-sm text-muted-foreground mt-8">
-            Sometimes the answer is simply an answer. If something deserves more, I will explain the options before anything additional begins.
-          </p>
-        </div>
+            )
+          })}
+        </Grid>
       </Section>
 
       {/* Business Situations */}
@@ -369,8 +335,7 @@ export default function AIAdvisorPage() {
         subtitle="Where better AI decisions create leverage"
         title="Common scenarios where the Desk earns its place"
         description="A $99/month subscription can save you from a costly mistake, a month of indecision, or a missed opportunity. Human advisory access means you can ask focused questions as decisions come up."
-        sectionNum="§04"
-        className="bg-secondary/20"
+        sectionNum="02"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
@@ -421,7 +386,7 @@ export default function AIAdvisorPage() {
         subtitle="What You Receive"
         title="What is included for $99/month"
         description="One subscription. No hidden fees, no per-seat charges, no usage metering. Human advisory access included under reasonable use."
-        sectionNum="§05"
+        sectionNum="03"
         className="bg-secondary/20"
       >
         <Grid cols={3}>
@@ -444,103 +409,11 @@ export default function AIAdvisorPage() {
         </Grid>
       </Section>
 
-      {/* Continuity */}
-      <Section
-        subtitle="Continuity"
-        title="The value compounds when you stay"
-        description="The Desk is not a one-time consultation. The longer you subscribe, the more context I build about your organization, your tools, your risks, and your goals. That context makes every answer more useful."
-        sectionNum="§06"
-      >
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: TrendingUp,
-                title: 'Weekly',
-                desc: 'AI intelligence brief arrives in your inbox. Curated signals across models, tools, research, security, regulation, and real-world adoption. You see what changed and why it matters.',
-              },
-              {
-                icon: Shield,
-                title: 'Monthly',
-                desc: 'Controls review check-in. I review your current AI tools, vendor agreements, and internal practices. Gaps get flagged before they become incidents.',
-              },
-              {
-                icon: Mail,
-                title: 'On-Demand',
-                desc: 'When a decision comes up, bring it to the Desk. Vendor evaluation, automation questions, regulatory developments, hiring concerns. Considering a new AI vendor? Bring the contract before you sign. Most focused questions receive a reviewed response within 72 hours.',
-              },
-            ].map((item, i) => {
-              const Icon = item.icon
-              return (
-                <Reveal key={i} delay={i * 80} style="up">
-                  <Card className="h-full">
-                    <CardHeader>
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                        <Icon className="h-5 w-5 text-primary" />
-                      </div>
-                      <CardTitle className="text-base">{item.title}</CardTitle>
-                      <CardDescription className="text-sm mt-1">{item.desc}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Reveal>
-              )
-            })}
-          </div>
-          <div className="mt-8 max-w-2xl mx-auto text-center">
-            <p className="text-sm text-muted-foreground">
-              Over time, I learn your existing tools, your risk tolerance, and your priorities.
-              When a new AI vendor appears, I can flag whether it fits. When a regulation shifts,
-              I can tell you if it applies. That continuity is the difference between an advisor
-              and a search engine.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* Evidence */}
-      <Section
-        subtitle="Why Trust This"
-        title="Built on real AI governance work"
-        sectionNum="§07"
-      >
-        <div className="max-w-4xl mx-auto space-y-4">
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle className="text-lg">Published Governance Methodology</CardTitle>
-              <CardDescription className="text-base">
-                The AI Controls Review is grounded in a published AI governance methodology covering
-                Enterprise, Project, Code, and UX domains. Applied in production AI deployments.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle className="text-lg">AI Intelligence Engine</CardTitle>
-              <CardDescription className="text-base">
-                I use an AI intelligence engine to monitor developments across models, tools, research,
-                security, regulation, and real-world adoption. You receive curated signals without
-                having to track the landscape yourself.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card className="border-l-4 border-l-primary">
-            <CardHeader>
-              <CardTitle className="text-lg">Production AI Experience</CardTitle>
-              <CardDescription className="text-base">
-                Not a researcher. Not a blogger. I have architected and deployed production AI systems
-                including voice agents, compliance platforms, and enterprise governance tools. Every answer
-                is grounded in real implementation experience.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </Section>
-
-      {/* See -> Understand -> Discover -> Decide */}
+      {/* How Signals Become Value */}
       <Section
         subtitle="How Signals Become Value"
         title="See what is changing. Understand what it means. Discover what it could unlock. Decide what deserves action."
-        sectionNum="§08"
+        sectionNum="05"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -570,12 +443,12 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
-      {/* Same Signal. Different Decision. */}
+      {/* Role-Based Intelligence */}
       <Section
         subtitle="Role-Based Intelligence"
         title="Same signal. Different decision."
         description="The same AI development can mean different things depending on who is asking. The Desk provides lenses for each role."
-        sectionNum="§09"
+        sectionNum="06"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
@@ -633,7 +506,8 @@ export default function AIAdvisorPage() {
         subtitle="Opportunity Discovery"
         title="What could AI make possible?"
         description="Opportunity discovery is a core benefit of the Desk. These are the kinds of questions worth exploring together."
-        sectionNum="§10"
+        sectionNum="07"
+        className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
           <div className="grid md:grid-cols-2 gap-4">
@@ -658,20 +532,54 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
-      {/* Organizational Context / Personalization */}
+      {/* The Advisor Relationship */}
       <Section
-        subtitle="Organizational Context"
+        subtitle="The Advisor Relationship"
         title="The more I understand your organization, the more useful the Desk becomes."
-        sectionNum="§11"
+        sectionNum="08"
       >
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            {[
+              {
+                icon: TrendingUp,
+                title: 'Weekly',
+                desc: 'AI intelligence brief arrives in your inbox. Curated signals across models, tools, research, security, regulation, and real-world adoption.',
+              },
+              {
+                icon: Shield,
+                title: 'Monthly',
+                desc: 'Controls review check-in. I review your current AI tools, vendor agreements, and internal practices. Gaps get flagged before they become incidents.',
+              },
+              {
+                icon: Mail,
+                title: 'On-Demand',
+                desc: 'When a decision comes up, bring it to the Desk. Most focused questions receive a reviewed response within 72 hours.',
+              },
+            ].map((item, i) => {
+              const Icon = item.icon
+              return (
+                <Reveal key={i} delay={i * 80} style="up">
+                  <Card className="h-full">
+                    <CardHeader>
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                        <Icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <CardTitle className="text-base">{item.title}</CardTitle>
+                      <CardDescription className="text-sm mt-1">{item.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </div>
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardDescription className="text-base">
-                As I learn more about your organization, I can use that context to make
-                future guidance and recommendations increasingly relevant. Organizational
-                context may include your goals, industry, customers, products and services,
-                technology, current AI tools, initiatives, constraints, and areas of interest.
+                Over time, I learn your existing tools, your risk tolerance, and your priorities.
+                When a new AI vendor appears, I can flag whether it fits. When a regulation shifts,
+                I can tell you if it applies. That continuity is the difference between an advisor
+                and a search engine.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -682,76 +590,43 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
-      {/* Human Advisory */}
+      {/* Why Trust This */}
       <Section
-        subtitle="Human Advisory Access"
-        title="When an AI decision matters, bring it to the Desk."
-        sectionNum="§12"
+        subtitle="Why Trust This"
+        title="Built on real AI governance work"
+        sectionNum="09"
         className="bg-secondary/20"
       >
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-4">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
+              <CardTitle className="text-lg">Published Governance Methodology</CardTitle>
               <CardDescription className="text-base">
-                I review the context, pressure-test the options, and give you a practical
-                point of view on what deserves action. Most focused questions receive a
-                thoughtfully reviewed human response within 72 hours. Timing may vary with
-                complexity and current volume.
+                The AI Controls Review is grounded in a published AI governance methodology covering
+                Enterprise, Project, Code, and UX domains. Applied in production AI deployments.
               </CardDescription>
             </CardHeader>
           </Card>
-          <p className="text-sm text-muted-foreground mt-4 text-center">
-            Rigorous thinking before you commit budget, time, or reputation. Not every important
-            AI decision needs a consulting project. It does deserve good thinking.
-          </p>
-        </div>
-      </Section>
-
-      {/* Member Priority */}
-      <Section
-        subtitle="Member Benefits"
-        title="Advisor Desk Member Priority"
-        sectionNum="§13"
-      >
-        <div className="max-w-3xl mx-auto">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <div className="flex items-center gap-3 mb-2">
-                <Star className="h-5 w-5 text-primary" />
-                <CardTitle className="text-lg">Priority access and preferred pricing</CardTitle>
-              </div>
+              <CardTitle className="text-lg">AI Intelligence Engine</CardTitle>
               <CardDescription className="text-base">
-                When a question turns into real work, Advisor Desk members receive priority
-                scheduling and a member rate on hourly work for deeper advisory, research,
-                document review, and implementation. Fixed-price engagements like Automation
-                Blueprints and security reviews remain at their published prices.
+                I use an AI intelligence engine to monitor developments across models, tools, research,
+                security, regulation, and real-world adoption. You receive curated signals without
+                having to track the landscape yourself.
               </CardDescription>
             </CardHeader>
           </Card>
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" />
-                  Priority scheduling
-                </CardTitle>
-                <CardDescription className="text-sm mt-1">
-                  Members go to the front of the queue for scoped engagements.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Star className="h-4 w-4 text-primary" />
-                  Member hourly rate
-                </CardTitle>
-                <CardDescription className="text-sm mt-1">
-                  Deeper work billed per hour at a member rate. You approve scope and cost before work begins.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-lg">Production AI Experience</CardTitle>
+              <CardDescription className="text-base">
+                Not a researcher. Not a blogger. I have architected and deployed production AI systems
+                including voice agents, compliance platforms, and enterprise governance tools. Every answer
+                is grounded in real implementation experience.
+              </CardDescription>
+            </CardHeader>
+          </Card>
         </div>
       </Section>
 
@@ -759,8 +634,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Pricing"
         title="Simple, Transparent, Cancelable"
-        sectionNum="§14"
-        className="bg-secondary/20"
+        sectionNum="10"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
@@ -810,14 +684,18 @@ export default function AIAdvisorPage() {
               </CardContent>
             </Card>
           </div>
+          <p className="text-sm text-muted-foreground mt-6 text-center max-w-2xl mx-auto">
+            When a question turns into deeper work, members receive priority scheduling and a member rate on hourly engagements. Fixed-price engagements like Automation Blueprints ($500) and security reviews remain at their published prices. You approve scope and cost before any additional work begins.
+          </p>
         </div>
       </Section>
 
-      {/* Boundary */}
+      {/* Boundaries & FAQ */}
       <Section
-        subtitle="Boundaries"
-        title="What This Is Not"
-        sectionNum="§15"
+        subtitle="Boundaries & FAQ"
+        title="What This Is Not — and Common Questions"
+        sectionNum="11"
+        className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
           <div className="space-y-3">
@@ -839,27 +717,20 @@ export default function AIAdvisorPage() {
               <Button variant="outline" size="sm">AI Security & Compliance Review <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
           </div>
-        </div>
-      </Section>
 
-      {/* FAQs */}
-      <Section
-        subtitle="FAQ"
-        title="Common Questions"
-        sectionNum="§16"
-        className="bg-secondary/20"
-      >
-        <div className="max-w-3xl mx-auto space-y-4">
-          {faqs.map((faq, i) => (
-            <Reveal key={i} delay={i * 40} style="up">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">{faq.q}</CardTitle>
-                  <CardDescription className="text-sm mt-2">{faq.a}</CardDescription>
-                </CardHeader>
-              </Card>
-            </Reveal>
-          ))}
+          <div className="mt-8 space-y-4">
+            <h3 className="text-lg font-semibold text-foreground">Common Questions</h3>
+            {faqs.map((faq, i) => (
+              <Reveal key={i} delay={i * 40} style="up">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">{faq.q}</CardTitle>
+                    <CardDescription className="text-sm mt-2">{faq.a}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </Section>
 

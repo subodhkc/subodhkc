@@ -11,6 +11,7 @@ import Link from 'next/link'
 
 export default function WritingPage() {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [subscribed, setSubscribed] = useState(false)
   const [isSubscribing, setIsSubscribing] = useState(false)
   const [subscribeError, setSubscribeError] = useState<string | null>(null)
@@ -24,7 +25,7 @@ export default function WritingPage() {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, website }),
       })
 
       const data = await response.json()
@@ -308,6 +309,16 @@ export default function WritingPage() {
                   </div>
                 )}
                 <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                  <input
+                    type="text"
+                    name="website"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                  />
                   <input
                     type="email"
                     placeholder="your@email.com"

@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
     // Notify admin
     await resend.emails.send({
       from: 'Newsletter Notification <noreply@subodhkc.com>',
-      to: ['subodhkc@subodhkc.com'],
+      to: ['admin@subodhkc.com'],
       subject: `📤 Unsubscribe: ${email}`,
       html: `
         <h2>Newsletter Unsubscribe</h2>

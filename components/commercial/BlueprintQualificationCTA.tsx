@@ -2,20 +2,16 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Loader2 } from 'lucide-react'
+import { ArrowRight, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
 import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
+import { QUALIFICATION_FIELDS, REQUIRED_FIELDS, MIN_REQUIRED_FILLED } from '@/lib/commercial/blueprint-schema'
 
 interface BlueprintQualificationCTAProps {
   title: string
   description: string
 }
 
-const qualificationQuestions = [
-  { key: 'workflow', label: 'What workflow do you want evaluated?', placeholder: 'e.g., customer onboarding, invoice processing, content review' },
-  { key: 'current_tools', label: 'What tools or systems are involved?', placeholder: 'e.g., HubSpot, QuickBooks, Google Sheets, internal app' },
-  { key: 'team_size', label: 'How many people touch this workflow?', placeholder: 'e.g., 2-5, 6-10, 10+' },
-  { key: 'goal', label: 'What outcome would make this Blueprint valuable?', placeholder: 'e.g., reduce manual hours, eliminate errors, scale without hiring' },
-]
+type Step = 'org' | 'qualification' | 'agreement' | 'checkout'
 
 export function BlueprintQualificationCTA({ title, description }: BlueprintQualificationCTAProps) {
   const [responses, setResponses] = useState<Record<string, string>>({})
@@ -23,8 +19,13 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
   const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
-  const [agreementError, setAgreementError] = useState<{ agreementId: string; message: string } | null>(null)
+  const [step, setStep] = useState<Step>('org')
+  const [agreementText, setAgreementText] = useState<string | null>(null)
   const [agreementAccepted, setAgreementAccepted] = useState(false)
+  const [showAllQuestions, setShowAllQuestions] = useState(false)
+
+  const primaryFields = QUALIFICATION_FIELDS.slice(0, 4)
+  const secondaryFields = QUALIFICATION_FIELDS.slice(4)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -32,15 +33,16 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
       setError('Please select an organization first.')
       return
     }
-    const filled = Object.entries(responses).filter(([, v]) => v.trim())
-    if (filled.length < 3) {
-      setError('Please answer at least 3 of the 4 questions.')
+    const requiredFilled = REQUIRED_FIELDS.filter(
+      key => (responses[key] || '').trim().length >= 3
+    )
+    if (requiredFilled.length < MIN_REQUIRED_FILLED) {
+      setError('Please answer both required questions with at least a few words.')
       return
     }
 
     setLoading(true)
     setError(null)
-    setAgreementError(null)
     try {
       const res = await fetch('/api/commercial/blueprint/checkout', {
         method: 'POST',
@@ -48,15 +50,18 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
         body: JSON.stringify({
           qualificationResponses: responses,
           organizationId: selectedOrg.id,
-          agreementAccepted,
+          agreementAccepted: step === 'agreement' ? agreementAccepted : false,
         }),
       })
       const data = await res.json()
       if (data.url) {
         window.location.href = data.url
       } else if (data.error === 'agreement_required') {
-        setAgreementError({ agreementId: data.agreementId, message: data.message })
+        setAgreementText(data.agreementBody || null)
+        setStep('agreement')
         setAgreementAccepted(false)
+      } else if (data.error === 'not_a_fit') {
+        setError(data.message || 'Based on your responses, the Blueprint may not be the right fit.')
       } else {
         setError(data.message || data.error || 'Failed to start checkout')
       }
@@ -67,16 +72,14 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
   }
 
   function handleAgreementAccept() {
-    setAgreementAccepted(true)
+    if (!agreementAccepted) return
+    setStep('checkout')
     // Re-submit with agreementAccepted = true
-    setTimeout(() => {
-      const form = document.getElementById('blueprint-form') as HTMLFormElement | null
-      form?.requestSubmit()
-    }, 100)
+    handleSubmit(new Event('submit') as unknown as React.FormEvent)
   }
 
   return (
-    <section className="page-padding">
+    <section id="start" className="page-padding scroll-mt-20">
       <div className="section-container">
         <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-accent/5 to-background p-8 md:p-12 lg:p-16">
           <div className="relative z-10 max-w-3xl">
@@ -86,33 +89,86 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">{description}</p>
 
             {!showForm ? (
-              <Button size="lg" className="group" onClick={() => setShowForm(true)}>
+              <Button size="lg" className="group" onClick={() => { setShowForm(true); setStep('org') }}>
                 Start My Blueprint — $500
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
-            ) : !selectedOrg ? (
+            ) : step === 'org' && !selectedOrg ? (
               <div className="space-y-4">
-                <p className="text-sm font-medium">First, select which organization this is for:</p>
-                <OrganizationSelectionStep onOrganizationSelected={setSelectedOrg} />
+                <p className="text-sm font-medium">Select which workspace this is for:</p>
+                <OrganizationSelectionStep onOrganizationSelected={(org) => { setSelectedOrg(org); setStep('qualification') }} />
                 <Button type="button" size="lg" variant="outline" onClick={() => setShowForm(false)}>
                   Cancel
                 </Button>
               </div>
-            ) : (
-              <form id="blueprint-form" onSubmit={handleSubmit} className="space-y-4">
+            ) : step === 'agreement' ? (
+              <div className="space-y-4">
                 <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
-                  For <strong>{selectedOrg.name}</strong>{' '}
+                  For <strong>{selectedOrg?.name}</strong>{' '}
                   <button
                     type="button"
-                    onClick={() => setSelectedOrg(null)}
+                    onClick={() => { setSelectedOrg(null); setStep('org') }}
                     className="text-xs text-muted-foreground hover:text-foreground underline ml-2"
                   >
                     Change
                   </button>
                 </div>
-                {qualificationQuestions.map(q => (
+                <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
+                  <p className="text-sm font-semibold">Agreement Required</p>
+                  {agreementText && (
+                    <div className="max-h-64 overflow-y-auto rounded border border-border bg-background p-3 text-xs text-muted-foreground whitespace-pre-wrap">
+                      {agreementText}
+                    </div>
+                  )}
+                  <label className="flex items-start gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={agreementAccepted}
+                      onChange={e => setAgreementAccepted(e.target.checked)}
+                      className="rounded border-primary mt-0.5"
+                    />
+                    <span>I have read and accept the agreement</span>
+                  </label>
+                  <div className="flex gap-3">
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={handleAgreementAccept}
+                      disabled={!agreementAccepted || loading}
+                    >
+                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Accept &amp; Continue to Checkout
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => { setStep('qualification'); setAgreementAccepted(false) }}
+                    >
+                      Back
+                    </Button>
+                  </div>
+                </div>
+                {error && <p className="text-sm text-red-600">{error}</p>}
+              </div>
+            ) : (
+              <form id="blueprint-form" onSubmit={handleSubmit} className="space-y-4">
+                <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
+                  For <strong>{selectedOrg?.name}</strong>{' '}
+                  <button
+                    type="button"
+                    onClick={() => { setSelectedOrg(null); setStep('org') }}
+                    className="text-xs text-muted-foreground hover:text-foreground underline ml-2"
+                  >
+                    Change
+                  </button>
+                </div>
+                {primaryFields.map(q => (
                   <div key={q.key}>
-                    <label className="text-sm font-medium block mb-1.5">{q.label}</label>
+                    <label className="text-sm font-medium block mb-1.5">
+                      {q.label}
+                      {q.required && <span className="text-red-500 ml-1">*</span>}
+                    </label>
                     <input
                       type="text"
                       value={responses[q.key] || ''}
@@ -123,30 +179,33 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                   </div>
                 ))}
 
-                {agreementError && (
-                  <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
-                    <p className="text-sm font-medium">Agreement Required</p>
-                    <p className="text-xs text-muted-foreground">{agreementError.message}</p>
-                    <label className="flex items-center gap-2 text-sm">
-                      <input
-                        type="checkbox"
-                        checked={agreementAccepted}
-                        onChange={e => setAgreementAccepted(e.target.checked)}
-                        className="rounded border-primary"
-                      />
-                      I have read and accept the agreement
+                {showAllQuestions && secondaryFields.map(q => (
+                  <div key={q.key}>
+                    <label className="text-sm font-medium block mb-1.5">
+                      {q.label}
+                      {q.required && <span className="text-red-500 ml-1">*</span>}
                     </label>
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={handleAgreementAccept}
-                      disabled={!agreementAccepted || loading}
-                    >
-                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Accept &amp; Continue to Checkout
-                    </Button>
+                    <input
+                      type="text"
+                      value={responses[q.key] || ''}
+                      onChange={e => setResponses(prev => ({ ...prev, [q.key]: e.target.value }))}
+                      placeholder={q.placeholder}
+                      className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
                   </div>
-                )}
+                ))}
+
+                <button
+                  type="button"
+                  onClick={() => setShowAllQuestions(!showAllQuestions)}
+                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+                >
+                  {showAllQuestions ? (
+                    <><ChevronUp className="h-3 w-3" /> Show fewer questions</>
+                  ) : (
+                    <><ChevronDown className="h-3 w-3" /> Answer more questions for a richer Blueprint</>
+                  )}
+                </button>
 
                 {error && <p className="text-sm text-red-600">{error}</p>}
                 <div className="flex gap-3">
@@ -160,7 +219,7 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Qualification helps ensure your workflow fits the fixed-scope Blueprint before payment.
+                  Qualification helps ensure your opportunity fits the fixed-scope Blueprint before payment.
                 </p>
               </form>
             )}

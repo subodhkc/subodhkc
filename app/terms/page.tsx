@@ -194,7 +194,7 @@ export default function TermsPage() {
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>We may suspend or terminate your access to the services at any time, with or without cause, and with or without notice.</p>
               <p>Upon termination, your right to use the services ceases immediately. Organization data may be retained according to our <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>.</p>
-              <p>You may stop using the services at any time. If you wish to delete your account and data, contact us at <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a>.</p>
+              <p>You may stop using the services at any time. If you wish to delete your account and data, contact us at <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a>.</p>
             </CardContent>
           </Card>
 
@@ -220,7 +220,7 @@ export default function TermsPage() {
             <CardContent className="text-sm text-muted-foreground">
               <p>Subodh KC - AI Systems Architect &amp; Governance Expert</p>
               <p>Dallas, Texas, USA</p>
-              <p>Email: <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a></p>
+              <p>Email: <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a></p>
               <p>Website: <a href="https://subodhkc.com" className="text-primary hover:underline">subodhkc.com</a></p>
             </CardContent>
           </Card>

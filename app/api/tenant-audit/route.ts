@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     if (!apiKey) {
       console.error('RESEND_API_KEY is not set')
       return NextResponse.json(
-        { success: false, error: 'Email service not configured. Please email subodhkc@subodhkc.com.' },
+        { success: false, error: 'Email service not configured. Please email admin@subodhkc.com.' },
         { status: 500 }
       )
     }
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: 'Tenant Audit <noreply@subodhkc.com>',
-      to: ['subodhkc@subodhkc.com'],
+      to: ['admin@subodhkc.com'],
       reply_to: email,
       subject: `Tenant Audit Request: ${safe(company)} \u2014 ${safe(desiredEngagement)}`,
       html: `
@@ -183,7 +183,7 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('Resend API error:', error.message)
       return NextResponse.json(
-        { success: false, error: 'Failed to send email. Please email subodhkc@subodhkc.com directly.' },
+        { success: false, error: 'Failed to send email. Please email admin@subodhkc.com directly.' },
         { status: 500 }
       )
     }

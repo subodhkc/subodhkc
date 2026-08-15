@@ -8,6 +8,7 @@ import { MAGAZINE_CSS, MAGAZINE_HTML } from './magazine-data'
 export default function MagazinePage() {
   const [mode, setMode] = useState<'flip' | 'scroll'>('flip')
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [subscribed, setSubscribed] = useState(false)
   const [isSubscribing, setIsSubscribing] = useState(false)
   const [error, setSubscribeError] = useState<string | null>(null)
@@ -27,7 +28,7 @@ export default function MagazinePage() {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'magazine' }),
+        body: JSON.stringify({ email, source: 'magazine', website }),
       })
 
       const data = await response.json()
@@ -260,6 +261,16 @@ export default function MagazinePage() {
             <p>Get notified when Issue 02 arrives. No spam, no fluff - just field-tested AI strategy, systems, and governance. One issue at a time.</p>
             {error && <div className="error-msg" role="alert" aria-live="assertive">{error}</div>}
             <form onSubmit={handleSubscribe}>
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+              />
               <input
                 type="email"
                 name="email"

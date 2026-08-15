@@ -42,7 +42,7 @@ const footerLinks = {
     },
     {
       name: 'Email',
-      href: 'mailto:subodhkc@subodhkc.com',
+      href: 'mailto:admin@subodhkc.com',
       icon: Mail,
     },
   ],

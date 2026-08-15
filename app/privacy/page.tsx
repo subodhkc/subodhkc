@@ -13,7 +13,7 @@ const privacySchema = {
   publisher: {
     '@type': 'Person',
     name: 'Subodh KC',
-    email: 'subodhkc@subodhkc.com',
+    email: 'admin@subodhkc.com',
     url: 'https://subodhkc.com'
   },
   jurisdiction: ['GDPR', 'CCPA'],
@@ -45,7 +45,7 @@ const faqSchema = {
       name: 'How can I delete my data?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'You can request deletion of your data by contacting us at subodhkc@subodhkc.com. We will respond to your request within 30 days for GDPR/CCPA compliance.'
+        text: 'You can request deletion of your data by contacting us at admin@subodhkc.com. We will respond to your request within 30 days for GDPR/CCPA compliance.'
       }
     },
     {
@@ -234,7 +234,7 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p><strong className="text-foreground">Unsubscribe:</strong> You can unsubscribe from our newsletter at any time using the unsubscribe link in any email or by visiting our <a href="/unsubscribe" className="text-primary hover:underline">unsubscribe page</a>.</p>
-              <p><strong className="text-foreground">Data Deletion:</strong> To request deletion of your data, contact us at <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a>.</p>
+              <p><strong className="text-foreground">Data Deletion:</strong> To request deletion of your data, contact us at <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a>.</p>
               <p><strong className="text-foreground">GDPR/CCPA:</strong> If you are located in the EU or California, you have additional rights under GDPR or CCPA. We will respond to your request within 30 days.</p>
             </CardContent>
           </Card>
@@ -349,7 +349,7 @@ export default function PrivacyPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground">
-              <p>Upon request, we will provide you with a machine-readable copy of the personal data we hold about you, including contact form submissions, newsletter subscription status, and product waitlist information. To request your data, contact us at <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a>.</p>
+              <p>Upon request, we will provide you with a machine-readable copy of the personal data we hold about you, including contact form submissions, newsletter subscription status, and product waitlist information. To request your data, contact us at <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a>.</p>
             </CardContent>
           </Card>
 
@@ -362,7 +362,7 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>You may object to processing based on legitimate interest at any time. We will stop processing your data unless we can demonstrate compelling legitimate grounds for the processing that override your interests, rights, and freedoms, or for the establishment, exercise, or defense of legal claims.</p>
-              <p>To exercise your right to object, contact us at <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a>.</p>
+              <p>To exercise your right to object, contact us at <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a>.</p>
             </CardContent>
           </Card>
 
@@ -378,7 +378,7 @@ export default function PrivacyPage() {
               <p><strong className="text-foreground">Right to Delete:</strong> You have the right to request deletion of your personal information, subject to certain exceptions.</p>
               <p><strong className="text-foreground">Right to Opt-Out:</strong> We do not sell your personal information. If we were to sell personal information in the future, you would have the right to opt-out.</p>
               <p><strong className="text-foreground">Non-Discrimination:</strong> We will not discriminate against you for exercising your CCPA rights.</p>
-              <p>To exercise your CCPA rights, contact us at <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a>.</p>
+              <p>To exercise your CCPA rights, contact us at <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a>.</p>
             </CardContent>
           </Card>
 
@@ -424,7 +424,7 @@ export default function PrivacyPage() {
             <CardContent className="text-sm text-muted-foreground">
               <p>Subodh KC - AI Systems Architect &amp; Governance Expert</p>
               <p>Dallas, Texas, USA</p>
-              <p>Email: <a href="mailto:subodhkc@subodhkc.com" className="text-primary hover:underline">subodhkc@subodhkc.com</a></p>
+              <p>Email: <a href="mailto:admin@subodhkc.com" className="text-primary hover:underline">admin@subodhkc.com</a></p>
               <p>Website: <a href="https://subodhkc.com" className="text-primary hover:underline">subodhkc.com</a></p>
             </CardContent>
           </Card>

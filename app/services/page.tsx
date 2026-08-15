@@ -331,7 +331,7 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      <Section subtitle="Specialized Service" title="SaaS & AI Security Review" sectionNum="§05">
+      <Section subtitle="Specialized Service" title="SaaS & AI Security Review" sectionNum="05">
         <div className="max-w-3xl mx-auto">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>

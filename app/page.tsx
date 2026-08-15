@@ -10,7 +10,7 @@ import { CSMFrameworkSection } from "@/components/home/CSMFrameworkSection";
 import { CommercialDecisionSection } from "@/components/home/CommercialDecisionSection";
 
 export const metadata = {
-  title: "Subodh KC | AI Advisor and Systems Architect | Governance Expert",
+  title: "Subodh KC | AI Systems Architect & Governance Expert",
   description:
     "Subodh KC architects, deploys and governs production AI systems - including agentic workflows, RAG, voice AI, compliance automation and enterprise-scale delivery.",
   keywords: [
@@ -55,8 +55,8 @@ export const metadata = {
 export default function HomePage() {
   return (
     <AccessProvider>
-      <FrontOfAIBanner />
       <Hero />
+      <FrontOfAIBanner />
       <CommercialDecisionSection />
       <MagazineBadge />
       <CSMFrameworkSection />

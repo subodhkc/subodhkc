@@ -31,10 +31,10 @@ export default function Section({
               </div>
             )}
             {title && (
-              <h2
-                className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4"
-                data-section-num={sectionNum || ''}
-              >
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+                {sectionNum && (
+                  <span className="section-index" aria-hidden="true">{sectionNum} / </span>
+                )}
                 {title}
               </h2>
             )}

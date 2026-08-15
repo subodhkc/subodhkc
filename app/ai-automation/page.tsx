@@ -19,28 +19,29 @@ import {
 import { BlueprintQualificationCTA } from '@/components/commercial/BlueprintQualificationCTA'
 
 export const metadata = {
-  title: 'AI Automation Blueprint | Find the Workflow Worth Improving | Subodh KC',
+  title: 'AI Automation Blueprint | Should You Automate This Workflow? | Subodh KC',
   description:
-    'A $500 fixed-scope assessment of one business workflow. AI automation recommendations, architecture, cost-benefit, and a clear buy/configure/build recommendation. Delivered in 5 business days.',
+    'A $500 fixed-scope assessment of one business workflow. You get a yes/no answer on automation, a buy/configure/build recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-automation',
   },
   openGraph: {
-    title: 'AI Automation Blueprint | Find the Workflow Worth Improving',
+    title: 'AI Automation Blueprint | Should You Automate This Workflow?',
     description:
-      'A $500 fixed-scope assessment of one business workflow. AI automation recommendations, architecture, cost-benefit, and a clear buy/configure/build recommendation.',
+      'A $500 fixed-scope assessment. You get a yes/no answer on automation, architecture, cost-benefit, and a clear buy/configure/build recommendation. 5 business days.',
     url: 'https://subodhkc.com/ai-automation',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI Automation Blueprint | $500 Fixed-Scope Workflow Assessment',
-    description: 'One workflow analyzed, one roadmap delivered. $500 fixed, 5 business days.',
+    description: 'Should you automate this workflow? Get a clear answer for $500. 5 business days.',
   },
   keywords: [
     'AI automation consultant',
     'AI automation blueprint',
     'AI workflow analysis',
+    'should I automate this workflow',
     'AI automation strategy',
     'AI process optimization',
     'buy configure build recommendation',
@@ -76,7 +77,16 @@ const serviceSchema = {
   },
 }
 
-const blueprintQuestions = [
+const primaryQuestions = [
+  'Should you automate this at all?',
+  'Is AI the right tool, or would simpler software work?',
+  'What should remain human?',
+  'What will it cost to build and run?',
+  'What happens when AI is wrong or unavailable?',
+  'What should you build first?',
+]
+
+const fullQuestions = [
   'What business outcome are we actually trying to improve?',
   'What exactly are we automating?',
   'Is AI appropriate for this workflow?',
@@ -109,6 +119,17 @@ const blueprintQuestions = [
   'Should we buy, configure, automate, custom build, or keep the current process?',
   'What is the realistic implementation cost range?',
   'What should happen first?',
+]
+
+const startingPoints = [
+  'Customer onboarding or intake',
+  'Manual data entry or reconciliation',
+  'Document review or classification',
+  'Scheduling or dispatch',
+  'Report generation',
+  'Quality checks or compliance review',
+  'Invoice or order processing',
+  'Email or call triage',
 ]
 
 const deliverables = [
@@ -145,7 +166,7 @@ const deliverables = [
 ]
 
 const process = [
-  { step: '1', title: 'Submit Your Workflow', description: 'After starting, you receive a structured intake form. Describe the workflow you want automated: what it does, who runs it, how often, and what tools you currently use.' },
+  { step: '1', title: 'Describe Your Opportunity', description: 'After starting, you receive a structured intake form. Describe the workflow you want assessed: what outcome you are trying to improve, what happens today, who is involved, and what tools you currently use.' },
   { step: '2', title: 'Analysis Call (45 min)', description: 'A 45-minute call to walk through your workflow in detail, ask clarifying questions, and understand constraints. Recorded for reference.' },
   { step: '3', title: 'Blueprint Delivery (5 business days)', description: 'You receive a written Blueprint document with all deliverables. Includes a review and walkthrough call to discuss findings and answer questions.' },
   { step: '4', title: 'Optional Implementation', description: 'If you want help implementing the Blueprint, we can scope a separate engagement. The Blueprint is yours to keep and implement independently.' },
@@ -168,15 +189,15 @@ export default function AIAutomationPage() {
         subtitle="AI Automation Blueprint"
         title={
           <>
-            Find the workflow
+            Should you automate
             <br />
-            <span className="gradient-text">worth improving.</span>
+            <span className="gradient-text">this workflow?</span>
           </>
         }
-        description="$500 fixed. One workflow analyzed. A complete Blueprint with buy/configure/build recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days."
+        description="Before you spend on development, get a clear answer. One workflow analyzed for $500. You receive a written Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days."
       >
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link href="/contact?subject=ai-automation-blueprint">
+          <Link href="#start">
             <Button size="lg" className="group animate-glow">
               Start My Blueprint
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -190,11 +211,33 @@ export default function AIAutomationPage() {
         </div>
       </Hero>
 
+      {/* Starting Points */}
+      <Section
+        subtitle="Starting Points"
+        title="Common workflows worth assessing."
+        sectionNum="01"
+      >
+        <div className="max-w-4xl mx-auto">
+          <p className="text-base text-muted-foreground mb-6">
+            Not sure if your workflow is a good fit? These are common starting points. If yours is not on the list, describe it in the intake form.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {startingPoints.map((s, i) => (
+              <span key={i} className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Section>
+
       {/* What Your Blueprint Answers */}
       <Section
         subtitle="What Your Blueprint Answers"
-        title="Clarity before implementation."
-        sectionNum="§01"
+        title="Six questions. One clear answer."
+        sectionNum="02"
+        className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
           <p className="text-base text-muted-foreground mb-6">
@@ -202,7 +245,7 @@ export default function AIAutomationPage() {
             It sells a clear answer: should you automate this, and if so, how?
           </p>
           <div className="grid md:grid-cols-2 gap-3">
-            {blueprintQuestions.map((q, i) => (
+            {primaryQuestions.map((q, i) => (
               <div key={i} className="flex items-start gap-3 rounded-lg border border-border p-3">
                 <span className="text-primary mt-0.5 flex-shrink-0">
                   <CheckCircle2 className="h-4 w-4" />
@@ -211,6 +254,21 @@ export default function AIAutomationPage() {
               </div>
             ))}
           </div>
+          <details className="mt-6">
+            <summary className="cursor-pointer text-sm font-medium text-primary hover:underline">
+              See the full set of 30+ questions the Blueprint covers
+            </summary>
+            <div className="grid md:grid-cols-2 gap-3 mt-4">
+              {fullQuestions.map((q, i) => (
+                <div key={i} className="flex items-start gap-3 rounded-lg border border-border p-3">
+                  <span className="text-primary mt-0.5 flex-shrink-0">
+                    <CheckCircle2 className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm text-foreground">{q}</span>
+                </div>
+              ))}
+            </div>
+          </details>
         </div>
       </Section>
 
@@ -219,8 +277,7 @@ export default function AIAutomationPage() {
         subtitle="Your Deliverable"
         title="A written Blueprint you can act on."
         description="You receive a written document with everything you need to automate your workflow or hand it to your team for implementation."
-        sectionNum="§02"
-        className="bg-secondary/20"
+        sectionNum="03"
       >
         <Grid cols={3}>
           {deliverables.map((item, i) => {
@@ -246,7 +303,8 @@ export default function AIAutomationPage() {
       <Section
         subtitle="How It Works"
         title="Four Steps. Five Business Days."
-        sectionNum="§03"
+        sectionNum="04"
+        className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
           <div className="space-y-3">
@@ -267,8 +325,7 @@ export default function AIAutomationPage() {
       <Section
         subtitle="Why Trust This"
         title="Independent recommendations. Real implementation experience."
-        sectionNum="§04"
-        className="bg-secondary/20"
+        sectionNum="05"
       >
         <div className="max-w-4xl mx-auto space-y-4">
           <Card className="border-l-4 border-l-primary">
@@ -309,7 +366,8 @@ export default function AIAutomationPage() {
       <Section
         subtitle="Boundaries"
         title="What This Is Not"
-        sectionNum="§05"
+        sectionNum="06"
+        className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
           <div className="space-y-3">
@@ -324,8 +382,8 @@ export default function AIAutomationPage() {
       </Section>
 
       <BlueprintQualificationCTA
-        title="One workflow. One Blueprint. $500."
-        description="Get a specific, actionable Blueprint with a buy/configure/build recommendation, architecture, and implementation roadmap. Know what to build first and whether you should build at all."
+        title="Should you automate this workflow? Get a clear answer for $500."
+        description="One workflow analyzed. You receive a written Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Know what to build first and whether you should build at all."
       />
     </>
   )

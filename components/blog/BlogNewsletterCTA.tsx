@@ -4,20 +4,34 @@ import { useState } from "react"
 
 export function BlogNewsletterCTA() {
   const [email, setEmail] = useState("")
+  const [website, setWebsite] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email) return
     setSubmitting(true)
+    setError(null)
     try {
-      await fetch("/api/newsletter", {
+      const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "blog-article" }),
+        body: JSON.stringify({ email, source: "blog-article", website }),
       })
-      setDone(true)
+      if (res.ok) {
+        const data = await res.json()
+        if (data.success) {
+          setDone(true)
+        } else {
+          setError(data.error || "Something went wrong. Please try again.")
+        }
+      } else {
+        setError("Failed to subscribe. Please try again.")
+      }
+    } catch {
+      setError("Network error. Please try again.")
     } finally {
       setSubmitting(false)
     }
@@ -75,7 +89,7 @@ export function BlogNewsletterCTA() {
           lineHeight: 1.5,
         }}
       >
-        One email when something ships. No drips. No funnels.
+        Occasional emails when I publish something worth reading. Unsubscribe anytime.
       </p>
       <form
         onSubmit={onSubmit}
@@ -85,6 +99,16 @@ export function BlogNewsletterCTA() {
           alignItems: "center",
         }}
       >
+        <input
+          type="text"
+          name="website"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+        />
         <input
           type="email"
           value={email}
@@ -125,6 +149,11 @@ export function BlogNewsletterCTA() {
           {submitting ? "…" : "subscribe →"}
         </button>
       </form>
+      {error && (
+        <p style={{ fontSize: 12, color: "#dc2626", margin: "8px 0 0" }}>
+          {error}
+        </p>
+      )}
     </div>
   )
 }

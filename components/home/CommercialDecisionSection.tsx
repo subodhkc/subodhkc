@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MessageSquare, Workflow, Phone, Shield, ShieldCheck, ArrowRight } from 'lucide-react'
+import { MessageSquare, Workflow, Phone, Shield, ShieldCheck, ArrowRight, Users } from 'lucide-react'
 
 export function CommercialDecisionSection() {
   return (
@@ -57,11 +57,11 @@ export function CommercialDecisionSection() {
         systems, and put appropriate controls around them. Choose the path that matches your situation.
       </p>
 
-      {/* PRIMARY: Two main starting points */}
+      {/* PRIMARY: Three main starting points */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: 20,
           marginBottom: 32,
         }}
@@ -106,7 +106,6 @@ export function CommercialDecisionSection() {
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
             Ongoing AI intelligence, opportunity discovery, and human advisory access.
             See what is changing, what it could mean for you, and what deserves action.
-            For $99/month.
           </p>
           <div
             style={{
@@ -177,6 +176,63 @@ export function CommercialDecisionSection() {
             }}
           >
             Start My Blueprint
+            <ArrowRight style={{ width: 14, height: 14 }} />
+          </div>
+        </Link>
+
+        {/* Direct Advisory */}
+        <Link
+          href="/advisory"
+          data-track-click="homepage_advisory"
+          style={{
+            display: 'block',
+            padding: 28,
+            borderRadius: 16,
+            border: '1px solid var(--op-border)',
+            background: 'var(--op-card)',
+            textDecoration: 'none',
+            transition: 'border-color .2s, transform .2s',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                background: 'rgba(59, 130, 246, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Users style={{ width: 22, height: 22, color: 'var(--op-accent)' }} />
+            </div>
+            <div>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--fg)', margin: 0 }}>
+                I want an AI advisor in the room
+              </h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
+                Direct Advisory &middot; Custom
+              </p>
+            </div>
+          </div>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+            Direct access for specific projects, board advisory, or embedded engagement.
+            Scoped to your timeline and objectives.
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              marginTop: 16,
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              color: 'var(--op-accent)',
+            }}
+          >
+            Explore Direct Advisory
             <ArrowRight style={{ width: 14, height: 14 }} />
           </div>
         </Link>

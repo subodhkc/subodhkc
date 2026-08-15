@@ -312,7 +312,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="The Four Domains"
         title="Where Governance Responsibilities Operate"
-        sectionNum="§01"
+        sectionNum="01"
       >
         <Grid cols={2} className="gap-4">
           {csmDomains.map((domain) => {
@@ -499,7 +499,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="System View"
         title="How CSM Works as a System"
-        sectionNum="§06"
+        sectionNum="06"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-base text-foreground/90">
@@ -605,7 +605,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Handoff Model"
         title="Governance Handoffs"
-        sectionNum="§07"
+        sectionNum="07"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90">
@@ -631,7 +631,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Getting Started"
         title="Implementation Guidance"
-        sectionNum="§08"
+        sectionNum="08"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-xs text-muted-foreground italic">
@@ -667,7 +667,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Right-Sizing"
         title={csmProportionality.title}
-        sectionNum="§09"
+        sectionNum="09"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
@@ -692,7 +692,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Boundaries"
         title="What CSM Is Not"
-        sectionNum="§10"
+        sectionNum="10"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <div className="grid gap-2 sm:grid-cols-3">
@@ -718,7 +718,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Current Architecture"
         title="CSM and the AI Governance Execution Framework"
-        sectionNum="§11"
+        sectionNum="11"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -771,7 +771,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Layered Architecture"
         title="CSM, Execution Framework, and HAIEC"
-        sectionNum="§12"
+        sectionNum="12"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           {csmToHaiec.layers.map((layer, i, arr) => (
@@ -798,7 +798,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Honest Assessment"
         title="Limitations"
-        sectionNum="§13"
+        sectionNum="13"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           <div className="border-l-4 border-amber-500/40 pl-4 py-2 bg-amber-500/5 rounded-r-lg">
@@ -817,7 +817,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Resources"
         title="CSM 2.0 Framework Resources"
-        sectionNum="§14"
+        sectionNum="14"
       >
         <div className="max-w-3xl mx-auto">
           <Grid cols={2} className="gap-4">
@@ -944,7 +944,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Related Reading"
         title="Compliance Guides and Field Articles"
-        sectionNum="§15"
+        sectionNum="15"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-sm text-muted-foreground">
@@ -1024,7 +1024,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="FAQ"
         title="Frequently Asked Questions"
-        sectionNum="§16"
+        sectionNum="16"
       >
         <div className="max-w-3xl mx-auto space-y-4">
           {[
@@ -1070,7 +1070,7 @@ export default function CSMPage() {
         className="pt-8"
         subtitle="Provenance"
         title="Source and References"
-        sectionNum="§17"
+        sectionNum="17"
       >
         <div className="max-w-3xl mx-auto space-y-3">
           <Card>

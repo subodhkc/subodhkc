@@ -23,6 +23,7 @@ import {
 
 export default function CourtCasePage() {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
@@ -73,7 +74,8 @@ export default function CourtCasePage() {
           email, 
           source: 'courtcase-waitlist',
           product: 'CourtCase',
-          waitlist: true
+          waitlist: true,
+          website
         })
       })
 
@@ -134,6 +136,16 @@ export default function CourtCasePage() {
                 Be the first to know when CourtCase launches. Early supporters get exclusive benefits.
               </p>
               <form onSubmit={handleSubmit} className="space-y-3">
+                <input
+                  type="text"
+                  name="website"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                />
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <input

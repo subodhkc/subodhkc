@@ -85,7 +85,7 @@ export function ManagedVoiceIntakeForm() {
       setSubmitted(true)
     } catch (err) {
       trackEvent('form_error', { label: 'managed_voice_intake_error' })
-      setError(err instanceof Error ? err.message : 'An error occurred. Please email subodhkc@subodhkc.com.')
+      setError(err instanceof Error ? err.message : 'An error occurred. Please email admin@subodhkc.com.')
     } finally {
       setIsSubmitting(false)
     }

@@ -10,7 +10,7 @@
  * 4. Generates specific backlink targets with real URLs and contact info
  * 5. Creates personalized outreach email templates with article-specific talking points
  * 6. Produces a distribution checklist with priority ordering
- * 7. Sends the report to subodhkc@subodhkc.com via Resend for daily review
+ * 7. Sends the report to admin@subodhkc.com via Resend for daily review
  *
  * Usage:
  *   node scripts/outreach-generator.mjs --slug=<slug>   # Generate for specific article
@@ -32,7 +32,7 @@ const OUTPUT_DIR = path.join(PROJECT_ROOT, 'data', 'outreach')
 const TRACKER_PATH = path.join(PROJECT_ROOT, 'data', 'outreach', 'sent-tracker.json')
 const DAILY_SEND_LIMIT = 5
 const SITE_URL = 'https://subodhkc.com'
-const ADMIN_EMAIL = 'subodhkc@subodhkc.com'
+const ADMIN_EMAIL = 'admin@subodhkc.com'
 
 function loadEnvLocal() {
   const envPath = path.join(PROJECT_ROOT, '.env.local')

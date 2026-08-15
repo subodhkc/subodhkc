@@ -153,7 +153,7 @@ export default function AIBriefingPage() {
         </div>
       </Hero>
 
-      <Section className="bg-secondary/20" sectionNum="§01">
+      <Section className="bg-secondary/20" sectionNum="01">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">The Problem</h2>
           <p className="text-xl text-muted-foreground mb-8">
@@ -172,7 +172,7 @@ export default function AIBriefingPage() {
         subtitle="Key Features"
         title="What You Get"
         description="complete AI intelligence delivered weekly"
-        sectionNum="§02"
+        sectionNum="02"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
@@ -197,7 +197,7 @@ export default function AIBriefingPage() {
         </div>
       </Section>
 
-      <Section sectionNum="§03">
+      <Section sectionNum="03">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Why AI Briefing?</h2>
           <div className="grid md:grid-cols-2 gap-4">
@@ -218,7 +218,7 @@ export default function AIBriefingPage() {
         title="Role-Based Views"
         description="Get the information that matters for your role"
         className="bg-secondary/20"
-        sectionNum="§04"
+        sectionNum="04"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {roles.map((role, index) => {
@@ -238,7 +238,7 @@ export default function AIBriefingPage() {
         </div>
       </Section>
 
-      <Section sectionNum="§05">
+      <Section sectionNum="05">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Intelligence Sources</h2>
           <p className="text-center text-muted-foreground mb-8">
@@ -261,7 +261,7 @@ export default function AIBriefingPage() {
         </div>
       </Section>
 
-      <Section className="bg-secondary/20" sectionNum="§06">
+      <Section className="bg-secondary/20" sectionNum="06">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Example Brief Items</h2>
           <div className="space-y-4">

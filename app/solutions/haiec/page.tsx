@@ -203,7 +203,7 @@ export default function HAIECPage() {
         subtitle="Core Modules"
         title="Enterprise-Grade AI Governance"
         description="Built from real-world experience implementing AI compliance at Fortune 50 scale. Each module addresses critical gaps in traditional governance approaches."
-        sectionNum="§01"
+        sectionNum="01"
       >
         <Grid cols={2}>
           {modules.map((module, index) => {
@@ -235,7 +235,7 @@ export default function HAIECPage() {
         </Grid>
       </Section>
 
-      <Section className="bg-secondary/20" sectionNum="§02">
+      <Section className="bg-secondary/20" sectionNum="02">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Platform Capabilities</h2>
           <p className="text-center text-muted-foreground mb-8">
@@ -271,7 +271,7 @@ export default function HAIECPage() {
         subtitle="Methodology"
         title="Cognitive Systems Management (CSM)"
         description={csm.description}
-        sectionNum="§03"
+        sectionNum="03"
       >
         <Grid cols={2}>
           {csm.domains.map((domain, index) => (
@@ -308,7 +308,7 @@ export default function HAIECPage() {
         </div>
       </Section>
 
-      <Section sectionNum="§04">
+      <Section sectionNum="04">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Why HAIEC?</h2>
           <div className="grid md:grid-cols-2 gap-8 items-start mb-12">
@@ -353,7 +353,7 @@ export default function HAIECPage() {
       <Section
         subtitle="Proven Results"
         title="Real-World Impact"
-        sectionNum="§05"
+        sectionNum="05"
       >
         <div className="space-y-8">
           {useCases.map((useCase, index) => (
@@ -389,7 +389,7 @@ export default function HAIECPage() {
       <Section
         subtitle="Platform Access"
         title="Choose Your Engagement"
-        sectionNum="§06"
+        sectionNum="06"
       >
         <Grid cols={3}>
           <Card>

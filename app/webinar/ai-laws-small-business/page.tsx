@@ -51,7 +51,7 @@ const eventSchema = {
     '@type': 'Person',
     name: 'Subodh KC',
     url: 'https://subodhkc.com',
-    email: 'subodhkc@subodhkc.com',
+    email: 'admin@subodhkc.com',
   },
   performer: {
     '@type': 'Person',

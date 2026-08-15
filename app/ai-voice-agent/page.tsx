@@ -172,7 +172,7 @@ export default function AIVoiceAgentPage() {
       <Section
         subtitle="What the Deployment Answers"
         title="The right voice deployment starts with the right questions."
-        sectionNum="§01"
+        sectionNum="01"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-3">
@@ -192,7 +192,7 @@ export default function AIVoiceAgentPage() {
       <Section
         subtitle="Standard or Custom?"
         title="Two paths. One fit call determines which."
-        sectionNum="§02"
+        sectionNum="02"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -254,7 +254,7 @@ export default function AIVoiceAgentPage() {
       <Section
         subtitle="How It Works"
         title="From fit call to go-live"
-        sectionNum="§03"
+        sectionNum="03"
       >
         <div className="max-w-3xl mx-auto">
           <div className="space-y-3">
@@ -275,7 +275,7 @@ export default function AIVoiceAgentPage() {
       <Section
         subtitle="Industries"
         title="Deployed where it matters"
-        sectionNum="§04"
+        sectionNum="04"
         className="bg-secondary/20"
       >
         <Grid cols={3}>
@@ -302,7 +302,7 @@ export default function AIVoiceAgentPage() {
       <Section
         subtitle="Why Trust This"
         title="Production voice platform, not a demo"
-        sectionNum="§05"
+        sectionNum="05"
       >
         <div className="max-w-4xl mx-auto space-y-4">
           <Card className="border-l-4 border-l-primary">
@@ -342,7 +342,7 @@ export default function AIVoiceAgentPage() {
         subtitle="Request a Fit Call"
         title="Find out whether standard or custom deployment is right for you"
         description="Tell me about your call patterns, business rules, and what systems you need connected. I will tell you whether standard deployment or a custom workflow fits. Deployment is limited and depends on availability."
-        sectionNum="§06"
+        sectionNum="06"
         className="bg-secondary/20"
         id="request"
       >

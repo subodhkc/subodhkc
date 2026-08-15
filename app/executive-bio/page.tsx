@@ -74,7 +74,7 @@ const personSchema = {
   jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
   description: 'AI advisor and enterprise AI governance leader with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
   url: 'https://subodhkc.com',
-  email: 'subodhkc@subodhkc.com',
+  email: 'admin@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
   sameAs: [
     'https://www.wikidata.org/wiki/Q140546484',
@@ -281,10 +281,10 @@ export default function ExecutiveBioPage() {
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <a href="mailto:subodhkc@subodhkc.com">
+            <a href="mailto:admin@subodhkc.com">
               <Button variant="outline" className="gap-2">
                 <Mail className="h-4 w-4" />
-                subodhkc@subodhkc.com
+                admin@subodhkc.com
               </Button>
             </a>
             <a href="https://linkedin.com/in/subodhkc" target="_blank" rel="noopener noreferrer">

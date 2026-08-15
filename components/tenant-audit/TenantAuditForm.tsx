@@ -93,7 +93,7 @@ export function TenantAuditForm() {
       setSubmitted(true)
     } catch (err) {
       trackEvent('form_error', { label: 'tenant_audit_form_error' })
-      setError(err instanceof Error ? err.message : 'An error occurred. Please email subodhkc@subodhkc.com.')
+      setError(err instanceof Error ? err.message : 'An error occurred. Please email admin@subodhkc.com.')
     } finally {
       setIsSubmitting(false)
     }

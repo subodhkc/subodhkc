@@ -87,7 +87,7 @@ async function sendImportReminder(post, slug) {
 
   const { data, error } = await resend.emails.send({
     from: 'Cross-Post Reminder <noreply@subodhkc.com>',
-    to: ['subodhkc@subodhkc.com'],
+    to: ['admin@subodhkc.com'],
     subject: `📝 Medium cross-post reminder: ${post.title}`,
     html: `
       <h2>Medium Cross-Post Reminder</h2>

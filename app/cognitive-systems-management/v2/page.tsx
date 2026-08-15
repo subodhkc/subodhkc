@@ -120,7 +120,7 @@ export default function CSMV2SpecPage() {
       />
 
       {/* 1. Why V2 Exists */}
-      <Section className="pt-8" subtitle="Context" title="Why CSM 2.0 Exists" sectionNum="§01">
+      <Section className="pt-8" subtitle="Context" title="Why CSM 2.0 Exists" sectionNum="01">
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
             The original 2025 CSM publication defined four governance domains and sixteen components. It described what governance responsibilities exist but did not formalize how those responsibilities are evaluated, evidenced, transferred between teams or reopened when conditions change.
@@ -132,7 +132,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 2. What Remained from V1 */}
-      <Section className="pt-8" subtitle="Continuity" title="What Remained from V1" sectionNum="§02">
+      <Section className="pt-8" subtitle="Continuity" title="What Remained from V1" sectionNum="02">
         <div className="max-w-3xl mx-auto space-y-4">
           <div className="grid gap-2 sm:grid-cols-2">
             {[
@@ -168,7 +168,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 3. Four-Domain Model */}
-      <Section className="pt-8" subtitle="WHERE" title="Four Governance Domains" sectionNum="§03">
+      <Section className="pt-8" subtitle="WHERE" title="Four Governance Domains" sectionNum="03">
         <div className="max-w-4xl mx-auto space-y-4">
           <div className="grid gap-3 sm:grid-cols-2">
             {csmDomains.map((domain) => (
@@ -195,7 +195,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 4. Six Execution Functions */}
-      <Section className="pt-8" subtitle="WHAT" title="Six Execution Functions" sectionNum="§04">
+      <Section className="pt-8" subtitle="WHAT" title="Six Execution Functions" sectionNum="04">
         <div className="max-w-4xl mx-auto space-y-3">
           {executionFunctions.map((ef) => (
             <Card key={ef.id}>
@@ -215,7 +215,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 5. Governance Contract Model */}
-      <Section className="pt-8" subtitle="HOW" title="Governance Contract Model" sectionNum="§05">
+      <Section className="pt-8" subtitle="HOW" title="Governance Contract Model" sectionNum="05">
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
             Every CSM component has a governance contract that formalizes its purpose, applicability, objective rules, human judgment points, evidence requirements, handoffs and reassessment behavior.
@@ -255,7 +255,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 6. State Model */}
-      <Section className="pt-8" subtitle="States" title="State Model" sectionNum="§06">
+      <Section className="pt-8" subtitle="States" title="State Model" sectionNum="06">
         <div className="max-w-4xl mx-auto space-y-6">
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-2">Requirement States (10)</h3>
@@ -294,7 +294,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 7. Determinism Boundary */}
-      <Section className="pt-8" subtitle="Determinism" title="Determinism Boundary" sectionNum="§07">
+      <Section className="pt-8" subtitle="Determinism" title="Determinism Boundary" sectionNum="07">
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
             For a fixed CSM specification version, organizational policy configuration, explicit assessment date and normalized input record, objective CSM evaluation must produce the same computed requirement set and statuses.
@@ -325,7 +325,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 8. Human Review Boundary */}
-      <Section className="pt-8" subtitle="Human Review" title="Human Review Boundary" sectionNum="§08">
+      <Section className="pt-8" subtitle="Human Review" title="Human Review Boundary" sectionNum="08">
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
             When a rule cannot be resolved objectively, the evaluator returns <code className="text-xs bg-muted px-1.5 py-0.5 rounded">HUMAN_REVIEW_REQUIRED</code> and provides: the question requiring review, the responsible role, the evidence needed and the affected components.
@@ -337,7 +337,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 9. Evidence Model */}
-      <Section className="pt-8" subtitle="Evidence" title="Evidence Model" sectionNum="§09">
+      <Section className="pt-8" subtitle="Evidence" title="Evidence Model" sectionNum="09">
         <div className="max-w-3xl mx-auto space-y-3">
           <p className="text-base text-foreground/90 leading-relaxed">
             Evidence records are versioned, have explicit effective and expiry dates, and link to specific requirement IDs.
@@ -359,7 +359,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 10. Decision Records */}
-      <Section className="pt-8" subtitle="Decisions" title="Decision Records" sectionNum="§10">
+      <Section className="pt-8" subtitle="Decisions" title="Decision Records" sectionNum="10">
         <div className="max-w-3xl mx-auto space-y-3">
           <div className="p-4 rounded-lg border border-border bg-muted/20 font-mono text-xs space-y-1">
             <p className="text-primary">DecisionRecord {`{`}</p>
@@ -378,7 +378,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 11. Exceptions */}
-      <Section className="pt-8" subtitle="Exceptions" title="Exceptions" sectionNum="§11">
+      <Section className="pt-8" subtitle="Exceptions" title="Exceptions" sectionNum="11">
         <div className="max-w-3xl mx-auto space-y-3">
           <div className="p-4 rounded-lg border border-border bg-muted/20 font-mono text-xs space-y-1">
             <p className="text-primary">ExceptionRecord {`{`}</p>
@@ -396,7 +396,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 12. Handoffs */}
-      <Section className="pt-8" subtitle="Handoffs" title="Handoff Contracts" sectionNum="§12">
+      <Section className="pt-8" subtitle="Handoffs" title="Handoff Contracts" sectionNum="12">
         <div className="max-w-4xl mx-auto space-y-3">
           <p className="text-sm text-muted-foreground">Handoffs are bidirectional feedback loops, not a waterfall.</p>
           {handoffContracts.map((hc) => (
@@ -426,7 +426,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 13. Reassessment */}
-      <Section className="pt-8" subtitle="Reassessment" title="Reassessment Triggers" sectionNum="§13">
+      <Section className="pt-8" subtitle="Reassessment" title="Reassessment Triggers" sectionNum="13">
         <div className="max-w-4xl mx-auto space-y-2">
           <p className="text-sm text-muted-foreground mb-3">
             18 triggers. Each specifies which domains and components reopen. Triggers do not automatically reopen all 16 components unless necessary.
@@ -447,7 +447,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 14. Proportionality */}
-      <Section className="pt-8" subtitle="Proportionality" title="Governance Depth & Proportionality" sectionNum="§14">
+      <Section className="pt-8" subtitle="Proportionality" title="Governance Depth & Proportionality" sectionNum="14">
         <div className="max-w-3xl mx-auto space-y-4">
           <div className="grid gap-3 sm:grid-cols-3">
             {Object.entries(GOVERNANCE_DEPTH_DEFINITIONS).map(([key, def]) => (
@@ -476,7 +476,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 15. Machine-Readable Specification */}
-      <Section className="pt-8" subtitle="Machine-Readable" title="Machine-Readable Specification" sectionNum="§15">
+      <Section className="pt-8" subtitle="Machine-Readable" title="Machine-Readable Specification" sectionNum="15">
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
             The CSM 2.0 specification is generated from canonical TypeScript source. No manually maintained duplicate JSON.
@@ -515,7 +515,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 16. Reference Evaluator */}
-      <Section className="pt-8" subtitle="Evaluator" title="Reference Evaluator" sectionNum="§16">
+      <Section className="pt-8" subtitle="Evaluator" title="Reference Evaluator" sectionNum="16">
         <div className="max-w-3xl mx-auto space-y-4">
           <p className="text-base text-foreground/90 leading-relaxed">
             A pure deterministic reference evaluator implements the CSM 2.0 rules. It uses no LLM calls, no randomness, no external API and no implicit clock.
@@ -544,7 +544,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 17. Example Test Scenarios */}
-      <Section className="pt-8" subtitle="Test Fixtures" title="Example Test Scenarios" sectionNum="§17">
+      <Section className="pt-8" subtitle="Test Fixtures" title="Example Test Scenarios" sectionNum="17">
         <div className="max-w-3xl mx-auto space-y-3">
           <p className="text-sm text-muted-foreground">8 golden test fixtures covering representative scenarios. All are test fixtures, not real customers.</p>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -568,7 +568,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 18. Limitations */}
-      <Section className="pt-8" subtitle="Limitations" title="Limitations" sectionNum="§18">
+      <Section className="pt-8" subtitle="Limitations" title="Limitations" sectionNum="18">
         <div className="max-w-3xl mx-auto space-y-3">
           <div className="border-l-4 border-amber-500/40 pl-4 py-2 bg-amber-500/5 rounded-r-lg">
             <p className="text-sm text-foreground leading-relaxed">
@@ -594,7 +594,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 19. Version History */}
-      <Section className="pt-8" subtitle="Versioning" title="Version History" sectionNum="§19">
+      <Section className="pt-8" subtitle="Versioning" title="Version History" sectionNum="19">
         <div className="max-w-3xl mx-auto space-y-3">
           {csmChangelog.map((entry) => (
             <Card key={entry.version}>
@@ -622,7 +622,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* 20. Original Publication Source */}
-      <Section className="pt-8" subtitle="Provenance" title="Original Publication Source" sectionNum="§20">
+      <Section className="pt-8" subtitle="Provenance" title="Original Publication Source" sectionNum="20">
         <div className="max-w-3xl mx-auto">
           <Card>
             <CardHeader>
@@ -652,7 +652,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* Forbidden Output States */}
-      <Section className="pt-8" subtitle="Forbidden" title="Forbidden Output States" sectionNum="§21">
+      <Section className="pt-8" subtitle="Forbidden" title="Forbidden Output States" sectionNum="21">
         <div className="max-w-3xl mx-auto space-y-3">
           <p className="text-sm text-muted-foreground">The evaluator must never produce these states:</p>
           <div className="flex flex-wrap gap-2">
@@ -674,7 +674,7 @@ export default function CSMV2SpecPage() {
       </Section>
 
       {/* NIST/ISO Crosswalk */}
-      <Section className="pt-8" subtitle="Informative Mapping" title="NIST AI RMF & ISO/IEC 42001 Crosswalk" sectionNum="§22">
+      <Section className="pt-8" subtitle="Informative Mapping" title="NIST AI RMF & ISO/IEC 42001 Crosswalk" sectionNum="22">
         <div className="max-w-4xl mx-auto space-y-3">
           <div className="border-l-4 border-blue-500/40 pl-4 py-2 bg-blue-500/5 rounded-r-lg">
             <p className="text-xs text-muted-foreground">

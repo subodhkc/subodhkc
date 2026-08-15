@@ -723,14 +723,14 @@ section[id], [id] {
 }
 
 /* ===== Terminal section headers ===== */
-.terminal-section h2[data-section-num]:not([data-section-num=""])::before {
-  content: attr(data-section-num) " / ";
+.terminal-section .section-index {
   font-family: var(--font-mono);
   font-size: 0.55em;
   color: var(--op-accent);
   letter-spacing: 0.06em;
   margin-right: 0.4em;
   opacity: 0.8;
+  display: inline-block;
 }
 
 /* ===== Blog Sticky Notes Board ===== */

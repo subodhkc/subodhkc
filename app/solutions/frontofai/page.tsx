@@ -134,7 +134,7 @@ export default function FrontOfAIPage() {
         </div>
       </Hero>
 
-      <Section className="bg-secondary/20" sectionNum="§01">
+      <Section className="bg-secondary/20" sectionNum="01">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">The Problem</h2>
           <p className="text-xl text-muted-foreground mb-8">
@@ -148,7 +148,7 @@ export default function FrontOfAIPage() {
         subtitle="Products & Tools"
         title="Developer & Enterprise Tools"
         description="AI infrastructure trusted by legal, engineering, and DevOps teams at scale"
-        sectionNum="§02"
+        sectionNum="02"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {products.map((product, index) => {
@@ -193,7 +193,7 @@ export default function FrontOfAIPage() {
         subtitle="Our Principles"
         title="Built for Enterprise Reality"
         description="No prompt toys. No experiments. Just production-ready AI that works within your constraints."
-        sectionNum="§03"
+        sectionNum="03"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {principles.map((principle, index) => {
@@ -213,7 +213,7 @@ export default function FrontOfAIPage() {
         </div>
       </Section>
 
-      <Section className="bg-secondary/20" sectionNum="§04">
+      <Section className="bg-secondary/20" sectionNum="04">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Why FrontOfAI?</h2>
           <div className="grid md:grid-cols-2 gap-4">
@@ -229,7 +229,7 @@ export default function FrontOfAIPage() {
         </div>
       </Section>
 
-      <Section sectionNum="§05">
+      <Section sectionNum="05">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Intelligence Sources</h2>
           <Card className="p-8">

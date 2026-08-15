@@ -6,6 +6,7 @@
 
 import * as React from "react";
 import { Glyph } from "./Glyph";
+import { SafeEmail } from "./SafeEmail";
 import type { Product } from "@/data/products";
 
 interface Props {
@@ -165,9 +166,9 @@ export function RequestAccessModal({ product, onClose }: Props) {
             <p style={{ marginTop: 8, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.55, maxWidth: 440 }}>
               I review every request personally. You'll hear back within 2 business days with next steps or
               scheduling a short call. If it's urgent, you can also reach me at{" "}
-              <a href="mailto:subodhkc@subodhkc.com" style={{ color: "var(--op-accent)" }}>
-                subodhkc@subodhkc.com
-              </a>
+              <SafeEmail style={{ color: "var(--op-accent)" }}>
+                admin@subodhkc.com
+              </SafeEmail>
               .
             </p>
             <div style={{ marginTop: 22 }}>
@@ -323,7 +324,7 @@ export function RequestAccessModal({ product, onClose }: Props) {
                   {submitting ? "sending…" : "send request →"}
                 </button>
                 <a
-                  href={`mailto:subodhkc@subodhkc.com?subject=Access%20request%3A%20${encodeURIComponent(
+                  href={`mailto:admin@subodhkc.com?subject=Access%20request%3A%20${encodeURIComponent(
                     product.name
                   )}`}
                   style={{

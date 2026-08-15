@@ -452,7 +452,7 @@ export default function TenantIsolationAuditPage() {
         subtitle="Risk Recognition"
         title="Multi-tenancy usually fails in the gaps between systems"
         description="Authentication only proves who the user is. It does not prove which organization they may access. Cross-tenant exposure often appears when the application trusts a request parameter, checks a resource ID without its organization, accepts an inactive membership or protects the database but not file storage."
-        sectionNum="§01"
+        sectionNum="01"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {riskCards.map((risk, i) => {
@@ -497,7 +497,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Who This Is For"
         title="Built for teams crossing the line from prototype to real customer data"
-        sectionNum="§02"
+        sectionNum="02"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 gap-6">
@@ -533,7 +533,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="What Gets Tested"
         title="The tenant boundary is tested as a system"
-        sectionNum="§03"
+        sectionNum="03"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testCategories.map((cat, i) => (
@@ -566,7 +566,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Technology Coverage"
         title="Focused on modern SaaS stacks"
-        sectionNum="§04"
+        sectionNum="04"
         className="bg-secondary/20"
       >
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
@@ -596,7 +596,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Audit Process"
         title="A narrow process designed to produce actionable evidence"
-        sectionNum="§05"
+        sectionNum="05"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {processSteps.map((step, i) => (
@@ -635,7 +635,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Deliverables"
         title="What you receive"
-        sectionNum="§06"
+        sectionNum="06"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -665,7 +665,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Audit Versus Deployment"
         title="Choose verification, remediation or a complete tenant foundation"
-        sectionNum="§07"
+        sectionNum="07"
       >
         <div style={{ overflowX: 'auto' }}>
           <table
@@ -704,7 +704,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Pricing"
         title="Clear starting points"
-        sectionNum="§08"
+        sectionNum="08"
         className="bg-secondary/20"
       >
         <p style={{ fontSize: '0.88rem', color: 'var(--op-muted)', marginBottom: 24, fontStyle: 'italic' }}>
@@ -772,7 +772,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Why Subodh"
         title="Built from implementation experience, not a generic checklist"
-        sectionNum="§09"
+        sectionNum="09"
       >
         <div style={{ maxWidth: 760 }}>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 16 }}>
@@ -799,7 +799,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Engagement Boundaries"
         title="Safe testing boundaries"
-        sectionNum="§10"
+        sectionNum="10"
         className="bg-secondary/20"
       >
         <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 20, maxWidth: 760 }}>
@@ -829,7 +829,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="FAQ"
         title="Tenant isolation audit FAQ"
-        sectionNum="§11"
+        sectionNum="11"
       >
         <div style={{ maxWidth: 800 }}>
           <FAQAccordion items={faqItems} />
@@ -841,7 +841,7 @@ export default function TenantIsolationAuditPage() {
         subtitle="Request an Audit"
         title="Before onboarding the next customer, test the boundary between them"
         description="Send the stack, approximate API-route count, authentication system and whether a staging environment exists. I will confirm whether the application fits a focused review, behavioral audit or full multi-tenant deployment."
-        sectionNum="§12"
+        sectionNum="12"
         className="bg-secondary/20"
         id="request"
       >
@@ -849,13 +849,13 @@ export default function TenantIsolationAuditPage() {
           <TenantAuditForm />
         </div>
         <div id="deployment-cta" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-          <a href="mailto:subodhkc@subodhkc.com?subject=Tenant%20Isolation%20Audit" data-track-click="tenant_audit_primary_cta">
+          <a href="mailto:admin@subodhkc.com?subject=Tenant%20Isolation%20Audit" data-track-click="tenant_audit_primary_cta">
             <Button size="lg" className="group">
               Request a Tenant Audit
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </a>
-          <a href="mailto:subodhkc@subodhkc.com?subject=Multi-Tenant%20Deployment">
+          <a href="mailto:admin@subodhkc.com?subject=Multi-Tenant%20Deployment">
             <Button size="lg" variant="outline">
               Email Subodh
             </Button>
@@ -867,7 +867,7 @@ export default function TenantIsolationAuditPage() {
       <Section
         subtitle="Related Resources"
         title="Related technical guidance"
-        sectionNum="§13"
+        sectionNum="13"
       >
         <div className="grid md:grid-cols-2 gap-4">
           <Link

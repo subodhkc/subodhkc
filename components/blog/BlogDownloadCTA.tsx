@@ -9,6 +9,7 @@ interface BlogDownloadCTAProps {
 
 export function BlogDownloadCTA({ downloadableUrl, downloadableLabel }: BlogDownloadCTAProps) {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -26,7 +27,7 @@ export function BlogDownloadCTA({ downloadableUrl, downloadableLabel }: BlogDown
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'blog-download-cta' }),
+        body: JSON.stringify({ email, source: 'blog-download-cta', website }),
       })
 
       if (response.ok) {
@@ -163,6 +164,16 @@ export function BlogDownloadCTA({ downloadableUrl, downloadableLabel }: BlogDown
       </div>
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <input
+          type="text"
+          name="website"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+        />
         <input
           type="email"
           value={email}

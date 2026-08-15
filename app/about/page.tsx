@@ -77,7 +77,7 @@ const personSchema = {
   jobTitle: 'AI Advisor | Enterprise AI Strategy & Governance Leader',
   description: 'AI advisor and enterprise AI governance leader with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and AI governance.',
   url: 'https://subodhkc.com',
-  email: 'subodhkc@subodhkc.com',
+  email: 'admin@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
   sameAs: [
     'https://www.wikidata.org/wiki/Q140546484',

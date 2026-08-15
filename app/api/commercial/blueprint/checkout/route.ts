@@ -5,6 +5,7 @@ import { getOffer, type OfferKey } from '@/lib/commercial/offers'
 import { validateOrganizationForPurchase } from '@/lib/commercial/purchase-auth'
 import { createServiceClient } from '@/lib/supabase'
 import { rateLimit } from '@/lib/rate-limit'
+import { parseQualification, evaluateFit, toDbColumns } from '@/lib/commercial/blueprint-schema'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -37,9 +38,17 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  // Qualification is required for Blueprint
+  // Qualification is required for Blueprint — parse and validate using canonical schema
   if (!qualificationResponses || Object.keys(qualificationResponses).length === 0) {
     return NextResponse.json({ error: 'Qualification responses required' }, { status: 400 })
+  }
+
+  const qualification = parseQualification(qualificationResponses)
+  if (!qualification) {
+    return NextResponse.json({
+      error: 'qualification_insufficient',
+      message: 'Please answer both required questions with at least a few words.',
+    }, { status: 422 })
   }
 
   const offerKey: OfferKey = 'ai_automation_blueprint'
@@ -59,28 +68,14 @@ export async function POST(req: NextRequest) {
 
   const { organization } = orgValidation
 
-  // Determine fit decision based on qualification responses
-  const businessObjective = (qualificationResponses.business_objective || '').toLowerCase()
-  const workflowProblem = (qualificationResponses.workflow_problem || '').toLowerCase()
-  const sensitiveData = qualificationResponses.sensitive_data === 'true' || qualificationResponses.sensitive_data === 'yes'
-  const systemsInvolved = qualificationResponses.systems_involved || ''
-
-  let fitDecision: 'standard_blueprint' | 'expanded_scope_review' | 'not_a_fit' = 'standard_blueprint'
-
-  // Expanded scope if sensitive data or complex integrations
-  if (sensitiveData || systemsInvolved.split(',').length > 5) {
-    fitDecision = 'expanded_scope_review'
-  }
-
-  // Not a fit if no clear workflow problem
-  if (!workflowProblem || workflowProblem.length < 10) {
-    fitDecision = 'not_a_fit'
-  }
+  // Determine fit decision using canonical schema (opportunity-first model)
+  const fitResult = evaluateFit(qualification)
+  const fitDecision = fitResult.decision
 
   if (fitDecision === 'not_a_fit') {
     return NextResponse.json({
       error: 'not_a_fit',
-      message: 'Based on your responses, the AI Automation Blueprint may not be the right fit. Consider booking a fit call first.',
+      message: fitResult.reason,
     }, { status: 422 })
   }
 
@@ -112,7 +107,7 @@ export async function POST(req: NextRequest) {
       // No accepted agreement - check for pending
       const { data: pendingAgreement } = await sc
         .from('agreements')
-        .select('id, status')
+        .select('id, status, body_text')
         .eq('organization_id', organization.id)
         .eq('template_key', `${offerKey}_agreement`)
         .eq('status', 'pending')
@@ -125,6 +120,7 @@ export async function POST(req: NextRequest) {
             error: 'agreement_required',
             message: 'Please review and accept the agreement before proceeding to checkout.',
             agreementId: pendingAgreement[0].id,
+            agreementBody: pendingAgreement[0].body_text || null,
           }, { status: 403 })
         }
 
@@ -185,6 +181,7 @@ export async function POST(req: NextRequest) {
             error: 'agreement_required',
             message: 'Please review and accept the agreement before proceeding to checkout.',
             agreementId: newAgreement.id,
+            agreementBody: template.body_markdown || null,
           }, { status: 403 })
         }
 
@@ -216,15 +213,7 @@ export async function POST(req: NextRequest) {
       organization_id: organization.id,
       user_email: user.email ?? '',
       user_id: user.id,
-      business_objective: qualificationResponses.business_objective || '',
-      workflow_problem: qualificationResponses.workflow_problem || '',
-      current_process: qualificationResponses.current_process || null,
-      systems_involved: qualificationResponses.systems_involved || null,
-      known_integrations: qualificationResponses.known_integrations || null,
-      team_functions: qualificationResponses.team_functions || null,
-      sensitive_data: sensitiveData,
-      desired_outcome: qualificationResponses.desired_outcome || null,
-      timeline: qualificationResponses.timeline || null,
+      ...toDbColumns(qualification),
       fit_decision: fitDecision,
       status: 'checkout_started',
     })

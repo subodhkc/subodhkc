@@ -13,13 +13,13 @@
  *   SUPABASE_URL / NEXT_PUBLIC_SUPABASE_URL
  *   SUPABASE_SERVICE_ROLE_KEY
  *   RESEND_API_KEY
- *   ADMIN_EMAIL (optional, defaults to subodhkc@subodhkc.com)
+ *   ADMIN_EMAIL (optional, defaults to admin@subodhkc.com)
  */
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const RESEND_API_KEY = process.env.RESEND_API_KEY
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'subodhkc@subodhkc.com'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@subodhkc.com'
 const DASHBOARD_URL = 'https://subodhkc.com/dashboard/analytics'
 
 async function fetchOutreachData() {

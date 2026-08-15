@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
+import { checkSignupSpam } from '@/lib/spam-filter'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY)
     const body = await request.json()
-    const { email, source } = body
+    const { email, source, website } = body
 
     if (!email) {
       return NextResponse.json(
@@ -33,6 +34,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { success: false, error: 'Invalid email format' },
         { status: 400 }
+      )
+    }
+
+    // Spam check: honeypot + disposable email domains
+    const spamCheck = checkSignupSpam(email, website)
+    if (spamCheck.isSpam) {
+      console.log('Blocked spam signup:', { reason: spamCheck.reason, timestamp: new Date().toISOString() })
+      return NextResponse.json(
+        { success: true, data: { id: 'spam-blocked' } },
+        { status: 200 }
       )
     }
 
@@ -127,35 +138,35 @@ export async function POST(request: NextRequest) {
               </p>
 
               <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
-                You've joined 500+ practitioners navigating AI compliance at scale.
+                You'll receive occasional emails when I publish something worth reading on AI governance, architecture, and compliance.
               </p>
 
               <div style="background: #f0fdf4; border-left: 4px solid #10B981; padding: 20px; margin-bottom: 30px; border-radius: 8px;">
                 <h3 style="color: #065f46; margin-top: 0; font-size: 18px;">What You'll Receive:</h3>
                 <ul style="margin: 0; padding-left: 20px; color: #065f46;">
-                  <li style="margin-bottom: 10px;"><strong>Weekly AI Insights</strong> - Practical guidance on AI governance and compliance</li>
+                  <li style="margin-bottom: 10px;"><strong>AI Insights</strong> - Practical guidance on AI governance and compliance</li>
                   <li style="margin-bottom: 10px;"><strong>Regulatory Updates</strong> - EU AI Act, GDPR, and sector-specific regulations</li>
-                  <li style="margin-bottom: 10px;"><strong>Enterprise Case Studies</strong> - Real-world implementation strategies</li>
-                  <li style="margin-bottom: 10px;"><strong>Exclusive Frameworks</strong> - Methodologies from Fortune 50 programs</li>
-                  <li style="margin-bottom: 10px;"><strong>Technical Deep-Dives</strong> - Program management at scale</li>
+                  <li style="margin-bottom: 10px;"><strong>Case Studies</strong> - Real-world implementation strategies</li>
+                  <li style="margin-bottom: 10px;"><strong>Frameworks</strong> - CSM and other methodologies</li>
+                  <li style="margin-bottom: 10px;"><strong>Technical Deep-Dives</strong> - Architecture and program management</li>
                 </ul>
               </div>
 
               <div style="background: #eff6ff; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-                <h3 style="color: #1e40af; margin-top: 0; font-size: 18px;">🎁 Bonus: Free Resources</h3>
+                <h3 style="color: #1e40af; margin-top: 0; font-size: 18px;">Explore the Site</h3>
                 <p style="color: #1e3a8a; font-size: 14px; margin-bottom: 15px;">
-                  As a subscriber, you get exclusive access to:
+                  While you wait for the next email, check out:
                 </p>
                 <ul style="color: #1e3a8a; font-size: 14px; margin: 0; padding-left: 20px;">
-                  <li style="margin-bottom: 8px;">AI Governance & Compliance Framework Guide (PDF)</li>
-                  <li style="margin-bottom: 8px;">CSM Framework Templates</li>
-                  <li style="margin-bottom: 8px;">Audit Readiness Checklists</li>
-                  <li style="margin-bottom: 8px;">Monthly Office Hours (Q&A)</li>
+                  <li style="margin-bottom: 8px;">CSM Framework - Cognitive Systems Management methodology</li>
+                  <li style="margin-bottom: 8px;">AI Security Tools - blast radius, agent matrix, scenarios</li>
+                  <li style="margin-bottom: 8px;">Architecture Decision Master Sheet</li>
+                  <li style="margin-bottom: 8px;">AI Compliance Guides (Texas AI Law, EU AI Act, NYC 144)</li>
                 </ul>
                 <div style="text-align: center; margin-top: 20px;">
-                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/services" 
+                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/blog" 
                      style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 12px 30px; border-radius: 6px; font-weight: 600; font-size: 14px;">
-                    Access Resources →
+                    Read the Blog →
                   </a>
                 </div>
               </div>
@@ -163,19 +174,18 @@ export async function POST(request: NextRequest) {
               <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
                 <h3 style="color: #1f2937; margin-top: 0; font-size: 18px;">About Subodh</h3>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
-                  Subodh KC is an AI Advisor and Enterprise AI Governance Leader. Former Sr. Program Manager
-                  at HP Inc. (Fortune 50), founder of Kestrel Voice, founder of HAIEC. With 12+ years
-                  architecting and deploying production AI systems, he helps organizations navigate the
+                  Subodh KC is an AI Systems Architect and Governance Expert. Former Sr. Program Manager
+                  at HP Inc., founder of KestrelVoice, founder of HAIEC. He helps organizations navigate the
                   intersection of AI innovation, regulatory compliance, and ethical governance.
                 </p>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
-                  <strong>Key Achievements:</strong>
+                  <strong>Focus Areas:</strong>
                 </p>
                 <ul style="color: #6b7280; font-size: 14px; margin: 0 0 15px 0; padding-left: 20px;">
-                  <li style="margin-bottom: 6px;">Led 50+ enterprise AI programs ($50M+ portfolios)</li>
-                  <li style="margin-bottom: 6px;">5 patent-pending AI compliance frameworks</li>
-                  <li style="margin-bottom: 6px;">Managed 100+ stakeholder teams globally</li>
-                  <li style="margin-bottom: 6px;">Created CSM Framework & SKC ResetFrame</li>
+                  <li style="margin-bottom: 6px;">Architecting and deploying production AI systems</li>
+                  <li style="margin-bottom: 6px;">AI governance, risk, and compliance frameworks</li>
+                  <li style="margin-bottom: 6px;">Created the CSM Framework for Cognitive Systems Management</li>
+                  <li style="margin-bottom: 6px;">Voice AI and agentic workflow architecture</li>
                 </ul>
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/about" 
                    style="display: inline-block; color: #10B981; text-decoration: none; font-weight: 600; font-size: 14px;">
@@ -185,7 +195,7 @@ export async function POST(request: NextRequest) {
 
               <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 20px; margin-top: 30px; border-radius: 8px;">
                 <p style="color: #92400e; font-size: 14px; margin: 0;">
-                  <strong>💡 Pro Tip:</strong> Add <strong>subodhkc@subodhkc.com</strong> to your contacts to ensure you never miss an update!
+                  <strong>💡 Pro Tip:</strong> Add <strong>admin@subodhkc.com</strong> to your contacts to ensure you never miss an update!
                 </p>
               </div>
 
@@ -245,7 +255,7 @@ export async function POST(request: NextRequest) {
     // Notify you about new subscriber
     await resend.emails.send({
       from: 'Newsletter Notification <noreply@subodhkc.com>',
-      to: ['subodhkc@subodhkc.com'],
+      to: ['admin@subodhkc.com'],
       subject: `📧 New Newsletter Subscriber: ${safeEmail}`,
       html: `
         <h2>New Newsletter Subscription</h2>

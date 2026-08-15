@@ -599,7 +599,7 @@ const BOOK_HTML = `
   <p class="kicker" style="color:#8fd3da">Subodh KC / AI Strategy &amp; Transformation / Dallas-Fort Worth</p>
   <h1>Turn the right AI opportunity into an operating advantage.</h1>
   <div class="closing">Choose the right opportunity.<br/>Align the program.<br/>Build the system.<br/>Measure the outcome.<br/>Preserve the evidence.</div>
-  <div class="footerline"><p><b>Subodh KC</b><br/>Euless · Dallas-Fort Worth<br/>subodhkc.com · subodhkc@subodhkc.com</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https://subodhkc.com" alt="QR code"/></div>
+  <div class="footerline"><p><b>Subodh KC</b><br/>Euless · Dallas-Fort Worth<br/>subodhkc.com · admin@subodhkc.com</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https://subodhkc.com" alt="QR code"/></div>
 </div></section>
 `;
 

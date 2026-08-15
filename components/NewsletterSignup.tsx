@@ -12,6 +12,7 @@ interface NewsletterSignupProps {
 
 export default function NewsletterSignup({ variant = 'default', className = '' }: NewsletterSignupProps) {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [message, setMessage] = useState('')
 
@@ -25,7 +26,7 @@ export default function NewsletterSignup({ variant = 'default', className = '' }
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, website }),
       })
 
       if (!response.ok) {
@@ -33,7 +34,7 @@ export default function NewsletterSignup({ variant = 'default', className = '' }
       }
       
       setStatus('success')
-      setMessage('Success! Check your email for a welcome message and exclusive resources.')
+      setMessage('Subscribed. See you in your inbox.')
       setEmail('')
       
       setTimeout(() => {
@@ -55,6 +56,16 @@ export default function NewsletterSignup({ variant = 'default', className = '' }
     return (
       <div className={`${className}`}>
         <form onSubmit={handleSubmit} className="flex gap-2">
+          <input
+            type="text"
+            name="website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+          />
           <Input
             type="email"
             placeholder="Enter your email"
@@ -90,13 +101,22 @@ export default function NewsletterSignup({ variant = 'default', className = '' }
         <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
           <Mail className="h-6 w-6 text-primary" />
         </div>
-        <h3 className="text-2xl font-bold mb-2">AI Insights & Compliance Updates</h3>
+        <h3 className="text-2xl font-bold mb-2">AI Insights</h3>
         <p className="text-muted-foreground mb-6">
-          Get weekly insights on AI governance, compliance frameworks, and enterprise implementation strategies. 
-          Join 1,000+ technical leaders staying ahead of AI regulations.
+          Occasional emails when I publish something worth reading. Unsubscribe anytime.
         </p>
         
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="text"
+            name="website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+          />
           <Input
             type="email"
             placeholder="Enter your email address"
@@ -125,7 +145,7 @@ export default function NewsletterSignup({ variant = 'default', className = '' }
         )}
         
         <p className="text-xs text-muted-foreground mt-4">
-          No spam. Unsubscribe anytime. Your email is safe with us.
+          No spam. Unsubscribe anytime.
         </p>
       </div>
     </div>

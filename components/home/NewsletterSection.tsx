@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 
 export function NewsletterSection() {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [subscribed, setSubscribed] = useState(false)
   const [isSubscribing, setIsSubscribing] = useState(false)
   const [error, setSubscribeError] = useState<string | null>(null)
@@ -19,7 +20,7 @@ export function NewsletterSection() {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'homepage' }),
+        body: JSON.stringify({ email, source: 'homepage', website }),
       })
 
       const data = await response.json()
@@ -38,19 +39,19 @@ export function NewsletterSection() {
   }
 
   return (
-    <Section subtitle="Newsletter" title="Stay Ahead on AI Governance" className="bg-primary/5">
+    <Section subtitle="Newsletter" title="Stay Ahead on AI" className="bg-primary/5">
       <div className="max-w-2xl mx-auto text-center">
         {subscribed ? (
           <>
             <h3 className="text-2xl font-semibold mb-4">You&apos;re In!</h3>
             <p className="text-muted-foreground">
-              Join 500+ practitioners navigating AI compliance at scale. Watch your inbox for insights on AI governance, compliance, and enterprise AI implementation.
+              Subscribed. See you in your inbox.
             </p>
           </>
         ) : (
           <>
             <p className="text-lg text-muted-foreground mb-6">
-              Irregular updates on AI governance, compliance frameworks, and what&apos;s actually working in enterprise AI implementation. No spam. No fluff.
+              Occasional emails when I publish something worth reading. Unsubscribe anytime.
             </p>
             {error && (
               <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg max-w-md mx-auto" role="alert" aria-live="assertive">
@@ -58,6 +59,16 @@ export function NewsletterSection() {
               </div>
             )}
             <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+              />
               <input
                 type="email"
                 name="email"
@@ -74,7 +85,7 @@ export function NewsletterSection() {
               </Button>
             </form>
             <p className="text-xs text-muted-foreground mt-4">
-              Join 500+ practitioners navigating AI compliance at scale
+              No spam. Unsubscribe anytime.
             </p>
           </>
         )}

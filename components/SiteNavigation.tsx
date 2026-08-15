@@ -11,11 +11,11 @@ import { SearchDialog } from "./SearchDialog";
 import type { SearchEntry } from "@/lib/search-index";
 
 const solutionsLinks = [
+  { name: "AI Advisor Desk", href: "/ai-advisor", desc: "An AI advisor in your corner" },
   { name: "AI Automation Blueprint", href: "/ai-automation", desc: "Find the workflow worth improving" },
+  { name: "Direct Advisory", href: "/advisory", desc: "An AI advisor in the room" },
   { name: "AI Voice Agent", href: "/ai-voice-agent", desc: "Turn more calls into completed actions" },
   { name: "AI Security & Compliance", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
-  { name: "Local AI Review", href: "/local-ai-review", desc: "AI opportunities for local business" },
-  { name: "Direct Advisory", href: "/advisory", desc: "An AI advisor in the room" },
   { name: "SaaS Security Review", href: "/saas-security-review", desc: "Tenant isolation audit" },
 ];
 
@@ -403,7 +403,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
             </button>
 
             <Link
-              href="/contact?subject=ai-advisor"
+              href="/contact?subject=discuss-ai"
               className="nav-cta"
               style={{
                 display: "inline-flex",
@@ -419,7 +419,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 transition: "opacity .12s",
               }}
             >
-              Start AI Advisor
+              Discuss AI
             </Link>
 
             {/* Mobile hamburger */}
@@ -661,7 +661,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
 
             <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid var(--op-border)", position: "sticky", bottom: 0, background: "var(--op-card)" }}>
             <Link
-              href="/contact?subject=ai-advisor"
+              href="/contact?subject=discuss-ai"
               onClick={() => setMobileOpen(false)}
               style={{
                 display: "block",
@@ -677,7 +677,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 marginBottom: 10,
               }}
             >
-              Start AI Advisor
+              Discuss AI
             </Link>
             {authChecked && user ? (
               <Link

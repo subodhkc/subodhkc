@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { Building2, Plus, ArrowRight, Loader2, Check } from 'lucide-react'
+import { createBrowserClient } from '@/lib/supabase-browser'
 
 interface EligibleOrg {
   id: string
@@ -21,30 +22,51 @@ export function OrganizationSelectionStep({
   loading = false,
 }: OrganizationSelectionStepProps) {
   const [orgs, setOrgs] = useState<EligibleOrg[]>([])
-  const [fetching, setFetching] = useState(true)
+  const [fetching, setFetching] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [showCreate, setShowCreate] = useState(false)
   const [newOrgName, setNewOrgName] = useState('')
   const [creating, setCreating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [unauthenticated, setUnauthenticated] = useState(false)
 
   const fetchOrgs = useCallback(async () => {
+    // Check auth state via browser client first to avoid 401 console errors
+    const browserClient = createBrowserClient()
+    if (!browserClient) {
+      setUnauthenticated(true)
+      setFetching(false)
+      return
+    }
+    const { data: { session } } = await browserClient.auth.getSession()
+    if (!session) {
+      setUnauthenticated(true)
+      setFetching(false)
+      return
+    }
+
     setFetching(true)
     try {
       const res = await fetch('/api/commercial/organizations')
+      if (res.status === 401) {
+        setUnauthenticated(true)
+        setFetching(false)
+        return
+      }
       const data = await res.json()
       if (data.organizations) {
         setOrgs(data.organizations)
-        // If exactly one org, auto-select it
+        // If exactly one org, auto-select and notify parent
         if (data.organizations.length === 1) {
           setSelectedId(data.organizations[0].id)
+          onOrganizationSelected(data.organizations[0])
         }
       }
     } catch {
-      setError('Failed to load organizations')
+      setError('Failed to load workspaces')
     }
     setFetching(false)
-  }, [])
+  }, [onOrganizationSelected])
 
   useEffect(() => {
     fetchOrgs()
@@ -95,6 +117,28 @@ export function OrganizationSelectionStep({
     )
   }
 
+  // Unauthenticated - show sign-in prompt
+  if (unauthenticated) {
+    return (
+      <div className="space-y-4">
+        <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+          <p className="text-sm font-medium mb-1">Sign in required.</p>
+          <p className="text-xs text-muted-foreground mb-3">
+            You need an account to proceed. This keeps your workspace and purchases secure.
+          </p>
+          <a
+            href={`/auth/signin?redirect=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.hash : '/')}`}
+            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+          >
+            <ArrowRight className="h-4 w-4" />
+            Sign In
+          </a>
+        </div>
+        {error && <p className="text-xs text-red-600">{error}</p>}
+      </div>
+    )
+  }
+
   // No organizations - show workspace creation
   if (orgs.length === 0 && !showCreate) {
     return (
@@ -102,7 +146,7 @@ export function OrganizationSelectionStep({
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
           <p className="text-sm font-medium mb-1">Let&apos;s set up your workspace.</p>
           <p className="text-xs text-muted-foreground mb-3">
-            You need a workspace to manage your subscription and access the Advisor Desk.
+            You need a workspace to manage your purchases and access your tools.
           </p>
           <button
             onClick={() => setShowCreate(true)}
@@ -166,13 +210,13 @@ export function OrganizationSelectionStep({
           <div className="flex items-center gap-2">
             <Check className="h-4 w-4 text-primary" />
             <p className="text-sm font-medium">
-              This purchase is for <strong>{orgs[0].name}</strong>.
+              Workspace: <strong>{orgs[0].name}</strong>
             </p>
           </div>
         </div>
       ) : (
         <>
-          <p className="text-sm font-medium">Which organization is this for?</p>
+          <p className="text-sm font-medium">Which workspace is this for?</p>
           <div className="space-y-2">
             {orgs.map(org => (
               <label

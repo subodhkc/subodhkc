@@ -149,7 +149,7 @@ export default function CourtCasePage() {
         </div>
       </Hero>
 
-      <Section className="bg-secondary/20" sectionNum="§01">
+      <Section className="bg-secondary/20" sectionNum="01">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Not Sure If You Have a Case?</h2>
           <p className="text-xl text-muted-foreground mb-6">
@@ -180,7 +180,7 @@ export default function CourtCasePage() {
         subtitle="How It Works"
         title="Four Simple Steps"
         description="From evidence chaos to court-ready packets in minutes"
-        sectionNum="§02"
+        sectionNum="02"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
@@ -205,7 +205,7 @@ export default function CourtCasePage() {
         </div>
       </Section>
 
-      <Section sectionNum="§03">
+      <Section sectionNum="03">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Document Processing Engines</h2>
           <p className="text-center text-muted-foreground mb-8">
@@ -229,7 +229,7 @@ export default function CourtCasePage() {
         title="Example Use Cases"
         description="Built for various legal scenarios"
         className="bg-secondary/20"
-        sectionNum="§04"
+        sectionNum="04"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {useCases.map((useCase, index) => {
@@ -249,7 +249,7 @@ export default function CourtCasePage() {
         </div>
       </Section>
 
-      <Section sectionNum="§05">
+      <Section sectionNum="05">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <Lock className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -271,7 +271,7 @@ export default function CourtCasePage() {
         </div>
       </Section>
 
-      <Section className="bg-secondary/20" sectionNum="§06">
+      <Section className="bg-secondary/20" sectionNum="06">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
           <Card className="p-8">

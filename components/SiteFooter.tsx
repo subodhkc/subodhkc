@@ -5,6 +5,7 @@ import * as React from "react";
 import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
+import { SafeEmail } from "./SafeEmail";
 
 function Arrow({ kind = "right" }: { kind?: "right" | "ext" }) {
   if (kind === "ext") {
@@ -29,10 +30,10 @@ const SITEMAP = [
     items: [
       ["/ai-advisor", "AI Advisor Desk"],
       ["/ai-automation", "AI Automation Blueprint"],
+      ["/advisory", "Direct Advisory"],
       ["/ai-voice-agent", "AI Voice Agent"],
       ["/ai-security-compliance", "AI Security & Compliance"],
       ["/local-ai-review", "Local AI Review"],
-      ["/advisory", "Direct Advisory"],
       ["/saas-security-review", "SaaS Security Review"],
     ],
   },
@@ -88,6 +89,7 @@ let chamberWidgetInit = false;
 export function SiteFooter() {
   const [submitting, setSubmitting] = React.useState(false);
   const [done, setDone] = React.useState(false);
+  const [subscribeError, setSubscribeError] = React.useState<string | null>(null);
   const [chamberError, setChamberError] = React.useState(false);
 
   const initChamberWidget = React.useCallback(() => {
@@ -129,20 +131,32 @@ export function SiteFooter() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     setSubmitting(true);
+    setSubscribeError(null);
     try {
       fetch("/api/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: "form_submit", path: window.location.pathname, meta: { form: "newsletter" } }),
       }).catch(() => {});
-      await fetch("/api/newsletter", {
+      const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: String(fd.get("email") || "") }),
+        body: JSON.stringify({ email: String(fd.get("email") || ""), website: String(fd.get("website") || "") }),
       });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          setDone(true);
+        } else {
+          setSubscribeError(data.error || "Something went wrong. Please try again.");
+        }
+      } else {
+        setSubscribeError("Failed to subscribe. Please try again.");
+      }
+    } catch {
+      setSubscribeError("Network error. Please try again.");
     } finally {
       setSubmitting(false);
-      setDone(true);
     }
   };
 
@@ -325,7 +339,7 @@ export function SiteFooter() {
             Newsletter
           </h4>
           <p style={{ fontSize: 14, color: "var(--text-secondary)", margin: "0 0 14px", maxWidth: 460 }}>
-            One email when something ships. No drips. No funnels.
+            Occasional emails when I publish something worth reading. Unsubscribe anytime.
           </p>
           {done ? (
             <p style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--op-accent)" }}>
@@ -346,6 +360,14 @@ export function SiteFooter() {
                 maxWidth: 420,
               }}
             >
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+              />
               <input
                 type="email"
                 name="email"
@@ -384,6 +406,11 @@ export function SiteFooter() {
               </button>
             </form>
           )}
+          {subscribeError && (
+            <p style={{ fontSize: 12, color: "#dc2626", margin: "6px 0 0" }}>
+              {subscribeError}
+            </p>
+          )}
         </div>
 
         <div>
@@ -401,9 +428,9 @@ export function SiteFooter() {
           </h4>
           <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14 }}>
             <li>
-              <a href="mailto:subodhkc@subodhkc.com" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--fg)", textDecoration: "none" }}>
-                subodhkc@subodhkc.com <Arrow kind="ext" />
-              </a>
+              <SafeEmail style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--fg)", textDecoration: "none" }}>
+                admin@subodhkc.com <Arrow kind="ext" />
+              </SafeEmail>
             </li>
             <li>
               <a href="https://linkedin.com/in/subodhkc" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--text-secondary)", textDecoration: "none" }}>

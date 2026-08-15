@@ -231,7 +231,7 @@ export default function AdvisorDeskDashboard() {
         subtitle="Dashboard"
         title="Nine Areas. Zero Guesswork."
         description="Each card links directly to the canonical tool or resource. No mirrored databases, no sync issues. The source of truth is always one click away."
-        sectionNum="§01"
+        sectionNum="01"
       >
         <Grid cols={3}>
           {cards.map((card, i) => {
@@ -280,7 +280,7 @@ export default function AdvisorDeskDashboard() {
       <Section
         subtitle="How It Works"
         title="Deep Links, Not Data Mirrors"
-        sectionNum="§02"
+        sectionNum="02"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-4">
@@ -330,7 +330,7 @@ export default function AdvisorDeskDashboard() {
       <Section
         subtitle="Subscription Benefits"
         title="What the $99/month Subscription Adds"
-        sectionNum="§03"
+        sectionNum="03"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-4">

@@ -350,7 +350,7 @@ export default function SaaSSecurityReviewPage() {
       <Section
         subtitle="Why Founders Choose This"
         title="Know what your next serious customer will want to understand"
-        sectionNum="§01"
+        sectionNum="01"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {buyingTriggers.map((trigger, i) => {
@@ -384,7 +384,7 @@ export default function SaaSSecurityReviewPage() {
         subtitle="What We Review"
         title="The security boundary is tested as a connected system"
         description="Authentication, authorization, API routes, database queries, storage, background jobs, realtime, exports, and AI-specific controls are reviewed together, not in isolation."
-        sectionNum="§02"
+        sectionNum="02"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -416,7 +416,7 @@ export default function SaaSSecurityReviewPage() {
         subtitle="Tenant Isolation"
         title="A major differentiator in the review"
         description="Tenant isolation is tested as a system. Each boundary is documented with a constructive status so you and your customers immediately understand what was reviewed."
-        sectionNum="§03"
+        sectionNum="03"
       >
         <div className="grid md:grid-cols-2 gap-8">
           {/* What is tested */}
@@ -477,7 +477,7 @@ export default function SaaSSecurityReviewPage() {
         subtitle="AI Application Security"
         title="When AI features exist, the attack surface expands"
         description="Static AI security analysis, runtime adversarial testing, and documentation suitable for audits. Covers prompt injection, RAG authorization, tool abuse, agent privilege boundaries, and AI supply-chain review."
-        sectionNum="§04"
+        sectionNum="04"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -518,7 +518,7 @@ export default function SaaSSecurityReviewPage() {
       <Section
         subtitle="Deliverables"
         title="A professional package you can use with customers"
-        sectionNum="§05"
+        sectionNum="05"
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {deliverables.map((item, i) => {
@@ -551,7 +551,7 @@ export default function SaaSSecurityReviewPage() {
         subtitle="Evidence & Verification"
         title="TEST to VERIFICATION: every finding traces through the full chain"
         description="Every finding traces through the full chain from test to verification. You can see what was evaluated, why a finding matters, what control it relates to, how it was addressed, and what evidence supports the record."
-        sectionNum="§06"
+        sectionNum="06"
         className="bg-secondary/20"
       >
         {/* Evidence flow */}
@@ -611,7 +611,7 @@ export default function SaaSSecurityReviewPage() {
         subtitle="SOC 2 Readiness & Enterprise Readiness"
         title="Ready for the next security conversation"
         description="Prepare technical evidence for SOC 2 readiness and customer security reviews. The deliverable helps you answer security questionnaires, buyer technical diligence, and enterprise procurement."
-        sectionNum="§07"
+        sectionNum="07"
       >
         <div className="grid md:grid-cols-2 gap-8">
           <div>
@@ -662,7 +662,7 @@ export default function SaaSSecurityReviewPage() {
       <Section
         subtitle="How It Works"
         title="A structured process from scope to verification"
-        sectionNum="§08"
+        sectionNum="08"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 gap-6">
@@ -702,7 +702,7 @@ export default function SaaSSecurityReviewPage() {
       <Section
         subtitle="Pricing"
         title="Clear starting point, scoped to your architecture"
-        sectionNum="§09"
+        sectionNum="09"
       >
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div
@@ -741,7 +741,7 @@ export default function SaaSSecurityReviewPage() {
         subtitle="Questions Answered"
         title="What your next serious customer will want to understand"
         description="The review helps answer these questions where applicable. Not every question applies to every architecture."
-        sectionNum="§10"
+        sectionNum="10"
         className="bg-secondary/20"
       >
         <div className="grid md:grid-cols-2 gap-8">
@@ -765,7 +765,7 @@ export default function SaaSSecurityReviewPage() {
       <Section
         subtitle="FAQ"
         title="SaaS security review FAQ"
-        sectionNum="§11"
+        sectionNum="11"
       >
         <div style={{ maxWidth: 800 }}>
           <FAQAccordion items={faqItems} />
@@ -777,7 +777,7 @@ export default function SaaSSecurityReviewPage() {
         subtitle="Request a Review"
         title="Before your next customer asks, know where your security stands"
         description="Send the stack, approximate API-route count, authentication system, tenant model, AI features, and whether a staging environment exists. I will confirm whether the application fits a focused review, multi-tenant review, or full SaaS + AI security review."
-        sectionNum="§12"
+        sectionNum="12"
         className="bg-secondary/20"
         id="request"
       >
@@ -791,7 +791,7 @@ export default function SaaSSecurityReviewPage() {
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </a>
-          <a href="mailto:subodhkc@subodhkc.com?subject=SaaS%20Security%20Review" data-track-click="saas_security_email_cta">
+          <a href="mailto:admin@subodhkc.com?subject=SaaS%20Security%20Review" data-track-click="saas_security_email_cta">
             <Button size="lg" variant="outline">
               Email Subodh
             </Button>
@@ -803,7 +803,7 @@ export default function SaaSSecurityReviewPage() {
       <Section
         subtitle="Related Resources"
         title="Related security guidance and tools"
-        sectionNum="§13"
+        sectionNum="13"
       >
         <div className="grid md:grid-cols-2 gap-4">
           <Link

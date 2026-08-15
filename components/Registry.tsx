@@ -95,7 +95,8 @@ export function Registry({
             borderRadius: 999,
             padding: "5px 12px",
             background: "var(--op-card)",
-            minWidth: 220,
+            minWidth: 0,
+            flex: '1 1 180px',
           }}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--op-muted)" strokeWidth="1.4">

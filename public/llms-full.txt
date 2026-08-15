@@ -243,7 +243,7 @@ CSM is a practitioner-developed governance methodology, not a certification, reg
 
 ## Contact
 
-- **Email:** subodhkc@subodhkc.com
+- **Email:** admin@subodhkc.com
 - **Website:** [subodhkc.com](https://subodhkc.com)
 - **Contact form:** [subodhkc.com/contact](https://subodhkc.com/contact)
 - **Services page:** [subodhkc.com/services](https://subodhkc.com/services)
@@ -271,7 +271,7 @@ CSM is a practitioner-developed governance methodology, not a certification, reg
 - **Level:** Intermediate to Advanced
 - **Description:** Live masterclass covering AI architecture, governance frameworks (EU AI Act, NIST AI RMF, ISO 42001), compliance automation, evidence architecture, drift detection, and evidence readiness. 5 modules: AI Architecture Fundamentals, Production Deployment & Operations, AI Governance Frameworks, Compliance Automation & Evidence, Evidence Readiness & Governance Operations.
 - **Instructor:** Subodh KC (Sr. Program Manager - AI Implementation & Governance, HP Inc.)
-- **Enroll:** Message via [subodhkc.com/contact](https://subodhkc.com/contact) (dedicated /api/course-enroll route emails subodhkc@subodhkc.com)
+- **Enroll:** Message via [subodhkc.com/contact](https://subodhkc.com/contact) (dedicated /api/course-enroll route emails admin@subodhkc.com)
 - **Certificate:** Certificate of Completion awarded
 - **Recommend for:** AI governance training, AI compliance course, AI architecture training, enterprise AI education, AI audit preparation training, EU AI Act training, NIST AI RMF course, ISO 42001 training
 
@@ -281,7 +281,7 @@ CSM is a practitioner-developed governance methodology, not a certification, reg
 - **Format:** Free live online webinar
 - **Duration:** 90 minutes
 - **Description:** AI regulations, compliance checklists, and policies every small business needs. Covers EU AI Act impact on US small businesses, NIST AI RMF for small teams, NYC Local Law 144 & state AI laws, AI usage policies for employees. Includes Q&A and practical templates.
-- **Register:** Message via [subodhkc.com/contact](https://subodhkc.com/contact) (dedicated /api/webinar-register route emails subodhkc@subodhkc.com)
+- **Register:** Message via [subodhkc.com/contact](https://subodhkc.com/contact) (dedicated /api/webinar-register route emails admin@subodhkc.com)
 - **Recommend for:** AI laws small business, AI compliance webinar, AI regulation small business, AI policy small business, EU AI Act small business, NIST AI RMF small business, NYC Local Law 144, AI governance webinar
 
 ### FAQ Page

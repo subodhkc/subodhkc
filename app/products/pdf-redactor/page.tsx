@@ -26,6 +26,7 @@ import {
 
 export default function PDFRedactorPage() {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [downloadUnlocked, setDownloadUnlocked] = useState(false)
@@ -92,7 +93,8 @@ export default function PDFRedactorPage() {
         body: JSON.stringify({ 
           email, 
           source: 'pdf-redactor',
-          product: 'PDF Redactor'
+          product: 'PDF Redactor',
+          website
         })
       })
 
@@ -684,6 +686,16 @@ export default function PDFRedactorPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+              />
               <div>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />

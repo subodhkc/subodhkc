@@ -33,7 +33,7 @@ export default function ResumePage() {
             </div>
             <div className="text-right text-xs text-zinc-600 leading-relaxed shrink-0">
               <p className="font-medium text-zinc-900">Dallas, TX (Hybrid)</p>
-              <p>subodhkc@subodhkc.com</p>
+              <p>admin@subodhkc.com</p>
               <p className="text-blue-600">subodhkc.com · linkedin.com/in/subodhkc · github.com/subodhkc</p>
             </div>
           </div>

@@ -139,7 +139,7 @@ const faqs = [
       },
       {
         q: 'How do I work with Subodh KC?',
-        a: 'Use the contact form at subodhkc.com/contact or email subodhkc@subodhkc.com directly. Commercial offers include AI Advisor Desk ($99/month), AI Automation Blueprint ($500 fixed), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). Enterprise fractional advisory engagements are custom-scoped. He is also open to full-time Director/VP roles at enterprise, Series B+ startups, and AI-first companies.',
+        a: 'Use the contact form at subodhkc.com/contact or email admin@subodhkc.com directly. Commercial offers include AI Advisor Desk ($99/month), AI Automation Blueprint ($500 fixed), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). Enterprise fractional advisory engagements are custom-scoped. He is also open to full-time Director/VP roles at enterprise, Series B+ startups, and AI-first companies.',
       },
       {
         q: 'Does Subodh KC offer training or courses?',

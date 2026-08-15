@@ -126,7 +126,7 @@ stats: 'Missed calls mean lost revenue'
         </div>
       </Hero>
 
-      <Section className="bg-secondary/20" sectionNum="§01">
+      <Section className="bg-secondary/20" sectionNum="01">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">The Problem</h2>
           <p className="text-xl text-muted-foreground">
@@ -147,7 +147,7 @@ stats: 'Missed calls mean lost revenue'
         subtitle="Key Features"
         title="What Callers Experience"
         description="Professional, intelligent call handling that feels natural"
-        sectionNum="§02"
+        sectionNum="02"
       >
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
@@ -169,7 +169,7 @@ stats: 'Missed calls mean lost revenue'
         </div>
       </Section>
 
-      <Section sectionNum="§03">
+      <Section sectionNum="03">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Everything You Need</h2>
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -203,7 +203,7 @@ stats: 'Missed calls mean lost revenue'
         title="Who Uses KestrelVoice?"
         description="Built for professionals who can't afford to miss calls"
         className="bg-secondary/20"
-        sectionNum="§04"
+        sectionNum="04"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {useCases.map((useCase, index) => {

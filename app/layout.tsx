@@ -10,52 +10,39 @@ import { ScrollProgress } from '@/components/ScrollProgress'
 import { headers } from 'next/headers'
 import { buildSearchIndex } from '@/lib/search-index'
 
-const geistSans = Geist({ subsets: ['latin'], variable: '--font-sans' })
-const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' })
+const geistSans = Geist({ subsets: ['latin'], variable: '--font-sans', preload: true })
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono', preload: false })
 const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-serif',
+  preload: false,
 })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    default: 'AI Advisor & AI Systems Architect | Subodh KC',
     template: '%s | Subodh KC',
   },
   description:
-    'Subodh KC - AI Advisor and Enterprise AI Governance Leader. Former Sr. Program Manager at HP Inc. (Fortune 50) with 12+ years building production AI systems. Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. EU AI Act, NIST AI RMF, ISO 42001 compliance expertise.',
+    'AI advisor helping leaders, founders and technical teams discover high-value AI opportunities, pressure-test important decisions, architect production systems and govern AI from strategy through continuous improvement.',
   keywords: [
     'AI Advisor',
-    'AI advisor Dallas Fort Worth',
-    'AI advisor HEB',
     'AI Systems Architect',
-    'AI Developer',
-    'AI Governance Architect',
     'AI Strategy Consultant',
-    'Enterprise AI Architect',
-    'Full-Stack AI Developer',
-    'AI Platform Engineer',
-    'AI Governance Expert',
+    'Enterprise AI Advisor',
+    'AI Decision Support',
+    'AI Governance',
     'AI Regulatory Compliance',
     'EU AI Act Compliance',
     'NIST AI RMF',
     'ISO 42001',
-    'NYC Local Law 144',
     'AI Risk Management',
-    'AI Governance Frameworks',
-    'Fortune 50 AI Leadership',
     'AI Production Systems',
-    'Responsible AI Development',
-    'AI Ethics and Compliance',
-    'HAIEC Platform',
-    'AI Technical Leadership',
-    'AI System Architecture',
-    'Bias Detection',
-    'AI Audit Framework',
-    'Model Governance',
+    'AI Automation Blueprint',
+    'AI Security Review',
+    'AI Vendor Evaluation',
     'Cognitive Systems Management',
-    'Subodh Kumar Kc',
     'Subodh KC',
   ],
   authors: [{ name: 'Subodh KC', url: 'https://subodhkc.com' }],
@@ -80,24 +67,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://subodhkc.com',
-    siteName: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
-    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    siteName: 'Subodh KC | AI Advisor & AI Systems Architect',
+    title: 'AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'AI Advisor and Enterprise AI Governance Leader. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. 12+ years building production AI systems at enterprise scale.',
+      'AI advisor helping leaders, founders and technical teams discover high-value AI opportunities, pressure-test important decisions, architect production systems and govern AI from strategy through continuous improvement.',
     images: [
       {
         url: '/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC | AI Advisor & Enterprise AI Governance Leader',
+    title: 'AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'Former Sr. Program Manager at HP Inc. (Fortune 50) | Founder of Kestrel Voice | Founder of HAIEC | 12+ Years Production AI Systems | EU AI Act, NIST AI RMF, ISO 42001 Expert',
+      'AI advisor helping leaders, founders and technical teams discover high-value AI opportunities, pressure-test important decisions, architect production systems and govern AI.',
     creator: '@subodhkc',
     images: ['/portrait.jpeg'],
   },

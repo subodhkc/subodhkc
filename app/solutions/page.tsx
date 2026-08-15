@@ -150,7 +150,7 @@ export default function SolutionsPage() {
         subtitle="Solutions Portfolio"
         title="Enterprise AI Applications"
         description="Production-ready applications serving thousands of users across compliance, voice operations, and AI intelligence."
-        sectionNum="§01"
+        sectionNum="01"
       >
         <div className="space-y-8">
           {solutions.map((solution, index) => {
@@ -221,7 +221,7 @@ export default function SolutionsPage() {
         </div>
       </Section>
 
-      <Section className="bg-secondary/20" sectionNum="§02">
+      <Section className="bg-secondary/20" sectionNum="02">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Need a Custom Solution?</h2>
           <p className="text-lg text-muted-foreground mb-8">

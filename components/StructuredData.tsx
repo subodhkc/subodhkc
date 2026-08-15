@@ -4,11 +4,11 @@ export default function StructuredData() {
     '@type': 'Person',
     name: 'Subodh KC',
     alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri'],
-    jobTitle: 'AI Systems Architect & Governance Expert',
+    jobTitle: 'AI Systems Architect & AI Advisor',
     description:
-      'AI Systems Architect and Governance Expert. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC. 12+ years architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
+      'AI Systems Architect and AI Advisor. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC. Architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation.',
     url: 'https://subodhkc.com',
-    email: 'subodhkc@subodhkc.com',
+    email: 'admin@subodhkc.com',
     image: 'https://subodhkc.com/portrait.jpeg',
     sameAs: [
       'https://www.wikidata.org/wiki/Q140546484',
@@ -53,40 +53,8 @@ export default function StructuredData() {
       'AI Drift Detection',
       'AI Bias Detection',
       'AI Evidence Architecture',
-      'Fortune 50 AI Leadership',
     ],
-    hasCredential: [
-      {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: 'Patent-Pending Framework',
-        name: 'Adversarial Project Twin',
-        url: 'https://subodhkc.com/about',
-      },
-      {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: 'Patent-Pending Framework',
-        name: 'AI Compliance Twin',
-        url: 'https://subodhkc.com/about',
-      },
-      {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: 'Patent-Pending Framework',
-        name: 'Modular Audit Engine',
-        url: 'https://subodhkc.com/about',
-      },
-      {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: 'Patent-Pending Framework',
-        name: 'Precision Drift Detector',
-        url: 'https://subodhkc.com/about',
-      },
-      {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: 'Patent-Pending Framework',
-        name: 'Compliance Fingerprint Layer',
-        url: 'https://subodhkc.com/about',
-      },
-    ],
+    hasCredential: [],
     hasOccupation: {
       '@type': 'Occupation',
       name: 'AI Systems Architect',
@@ -112,7 +80,7 @@ export default function StructuredData() {
     },
     worksFor: {
       '@type': 'Organization',
-      name: 'Fortune 50 Company',
+      name: 'HP Inc.',
     },
     founder: {
       '@type': 'Organization',
@@ -142,9 +110,9 @@ export default function StructuredData() {
       '@type': 'Person',
       name: 'Subodh KC',
       url: 'https://subodhkc.com',
-      jobTitle: 'AI Systems Architect & Governance Expert',
+      jobTitle: 'AI Systems Architect & AI Advisor',
       description:
-        'AI Systems Architect and Governance Expert. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC.',
+        'AI Systems Architect and AI Advisor. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC.',
     },
     dateCreated: '2024-01-01',
   }
@@ -152,10 +120,10 @@ export default function StructuredData() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Subodh KC - AI Systems Architect & Governance Expert',
+    name: 'Subodh KC - AI Systems Architect & AI Advisor',
     url: 'https://subodhkc.com',
     description:
-      'AI Systems Architect and Governance Expert. Production AI systems - architecture, deployment, and governance at enterprise scale.',
+      'AI Systems Architect and AI Advisor. Production AI systems - architecture, deployment, and governance.',
     author: {
       '@type': 'Person',
       name: 'Subodh KC',
@@ -176,7 +144,7 @@ export default function StructuredData() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'subodhkc@subodhkc.com',
+      email: 'admin@subodhkc.com',
       contactType: 'Customer Service',
     },
   }
@@ -205,7 +173,7 @@ export default function StructuredData() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'subodhkc@subodhkc.com',
+      email: 'admin@subodhkc.com',
       contactType: 'Editorial',
       url: 'https://subodhkc.com/contact',
     },
@@ -229,13 +197,13 @@ export default function StructuredData() {
     '@type': 'ProfessionalService',
     name: 'Subodh KC - AI Governance & Architecture Advisory',
     description:
-      'AI governance consulting, compliance architecture, and enterprise AI strategy advisory. Specializing in EU AI Act, NIST AI RMF, ISO 42001, and NYC LL 144 compliance implementation. Former Sr. Program Manager, HP Inc. with 12+ years of production AI systems experience.',
+      'AI governance consulting, compliance architecture, and enterprise AI strategy advisory. Specializing in EU AI Act, NIST AI RMF, ISO 42001, and NYC LL 144 compliance implementation. Former Sr. Program Manager, HP Inc. with production AI systems experience.',
     url: 'https://subodhkc.com/services',
     provider: {
       '@type': 'Person',
       name: 'Subodh KC',
       url: 'https://subodhkc.com',
-      jobTitle: 'AI Systems Architect & Governance Expert',
+      jobTitle: 'AI Systems Architect & AI Advisor',
       sameAs: [
         'https://www.linkedin.com/in/subodhkc',
         'https://www.wikidata.org/wiki/Q140546484',
@@ -256,7 +224,7 @@ export default function StructuredData() {
     ],
     audience: {
       '@type': 'BusinessAudience',
-      audienceType: 'Enterprise Organizations, Fortune 500, Series B+ Startups, Government Contractors',
+      audienceType: 'Enterprise Organizations, Series B+ Startups, Government Contractors',
     },
     offers: {
       '@type': 'Offer',
@@ -419,48 +387,7 @@ export default function StructuredData() {
     },
   ]
 
-  const reviewSchemas = [
-    {
-      itemReviewed: { '@type': 'SoftwareApplication', name: 'HAIEC', applicationCategory: 'BusinessApplication', url: 'https://subodhkc.com/solutions/haiec' },
-      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'James Mullins, Director of Engineering' },
-      datePublished: '2025-03-20',
-      reviewBody:
-        'Subodh\'s governance framework transformed how we approach AI compliance. We went from no formal process to passing our first audit in 90 days.',
-    },
-    {
-      itemReviewed: { '@type': 'SoftwareApplication', name: 'KestrelVoice', applicationCategory: 'BusinessApplication', url: 'https://subodhkc.com/solutions/kestrelvoice' },
-      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'David Park, CTO' },
-      datePublished: '2025-04-10',
-      reviewBody:
-        'The AI architecture Subodh designed for our RAG pipeline cut hallucinations by 80% and made our system production-ready in weeks, not months.',
-    },
-    {
-      itemReviewed: { '@type': 'SoftwareApplication', name: 'Fractional AI Advisor', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', url: 'https://subodhkc.com/advisory' },
-      reviewRating: { '@type': 'Rating', ratingValue: '4', bestRating: '5' },
-      author: { '@type': 'Person', name: 'Patricia Alvarez, VP Engineering' },
-      datePublished: '2025-06-15',
-      reviewBody:
-        'Subodh bridges engineering, legal, and executive stakeholders like nobody I\'ve worked with. His CSM framework is now our standard for AI programs.',
-    },
-    {
-      itemReviewed: { '@type': 'SoftwareApplication', name: 'HAIEC Modular Audit Engine', applicationCategory: 'BusinessApplication', url: 'https://subodhkc.com/solutions/haiec' },
-      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'Rachel Boudreaux, Compliance Director' },
-      datePublished: '2025-05-08',
-      reviewBody:
-        'HAIEC and the Modular Audit Engine saved us months of documentation work. The evidence architecture alone is worth the investment.',
-    },
-    {
-      itemReviewed: { '@type': 'SoftwareApplication', name: 'llmverify', applicationCategory: 'DeveloperApplication', url: 'https://subodhkc.com/products/llmverify' },
-      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      author: { '@type': 'Person', name: 'Marcus Lee, Product Manager' },
-      datePublished: '2025-06-22',
-      reviewBody:
-        'llmverify caught a drift issue in our production LLM that we would have missed for weeks. Subodh\'s tools are practical, not theoretical.',
-    },
-  ]
+  const reviewSchemas: Record<string, unknown>[] = []
 
   const itemListSchema = {
     '@context': 'https://schema.org',

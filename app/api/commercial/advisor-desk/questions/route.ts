@@ -125,7 +125,7 @@ export async function POST(req: NextRequest) {
   try {
     const { sendAdvisorQuestionNotification } = await import('@/lib/email')
     await sendAdvisorQuestionNotification({
-      to: 'subodhkc@subodhkc.com',
+      to: 'admin@subodhkc.com',
       customerOrg: ctx.organization.name,
       subject,
       question,

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
+import { checkSignupSpam } from '@/lib/spam-filter'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY)
     const body = await request.json()
-    const { email, source, product, waitlist } = body
+    const { email, source, product, waitlist, website } = body
 
     if (!email) {
       return NextResponse.json(
@@ -34,6 +35,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { success: false, error: 'Invalid email format' },
         { status: 400 }
+      )
+    }
+
+    // Spam check: honeypot + disposable email domains
+    const spamCheck = checkSignupSpam(email, website)
+    if (spamCheck.isSpam) {
+      console.log('Blocked spam signup:', { reason: spamCheck.reason, timestamp: new Date().toISOString() })
+      return NextResponse.json(
+        { success: true },
+        { status: 200 }
       )
     }
 
@@ -258,7 +269,7 @@ export async function POST(request: NextRequest) {
       // Send detailed notification to admin for pricing requests
       await resend.emails.send({
         from: 'Product Notification <noreply@subodhkc.com>',
-        to: ['subodhkc@subodhkc.com'],
+        to: ['admin@subodhkc.com'],
         subject: `💰 PRICING REQUEST: Doc Timeline Generator - ${company || 'Unknown Company'}`,
         html: `
           <h2>New Enterprise Pricing Request</h2>
@@ -417,7 +428,7 @@ export async function POST(request: NextRequest) {
     // Notify admin about new subscriber
     await resend.emails.send({
       from: 'Product Notification <noreply@subodhkc.com>',
-      to: ['subodhkc@subodhkc.com'],
+      to: ['admin@subodhkc.com'],
       subject: `📦 New ${product || 'Product'} ${waitlist ? 'Waitlist' : 'Download'}: ${email}`,
       html: `
         <h2>New ${waitlist ? 'Waitlist Signup' : 'Product Download'}</h2>

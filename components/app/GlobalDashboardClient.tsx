@@ -84,7 +84,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
       o.effectiveStatus === 'active' &&
       o.hasRole
     )
-  ) ?? organizations[0] ?? null
+  ) ?? null
   const advisorDeskHref = advisorDeskOrg
     ? `/app/${advisorDeskOrg.slug}/advisor-desk`
     : '/ai-advisor'
