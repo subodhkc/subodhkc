@@ -130,6 +130,16 @@ export async function POST(req: NextRequest) {
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
+    // Audit event
+    await sc.rpc('write_audit_event', {
+      audit_action: 'fractional.onboarding_completed',
+      audit_entity_type: 'fractional_onboarding',
+      audit_org_id: ctx.organization.id,
+      audit_entity_id: updated.id,
+      audit_actor_id: user.id,
+      audit_metadata: { ai_stage: aiStage || null } as any,
+    })
+
     // Send internal notification email
     try {
       const { sendFractionalOnboardingCompleteEmail } = await import('@/lib/email')
@@ -156,6 +166,16 @@ export async function POST(req: NextRequest) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  // Audit event
+  await sc.rpc('write_audit_event', {
+    audit_action: 'fractional.onboarding_completed',
+    audit_entity_type: 'fractional_onboarding',
+    audit_org_id: ctx.organization.id,
+    audit_entity_id: created.id,
+    audit_actor_id: user.id,
+    audit_metadata: { ai_stage: aiStage || null } as any,
+  })
 
   // Send internal notification email
   try {

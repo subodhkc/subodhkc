@@ -125,6 +125,16 @@ export async function POST(req: NextRequest) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
+  // Audit event
+  await sc.rpc('write_audit_event', {
+    audit_action: 'fractional.decision_added',
+    audit_entity_type: 'engagement_decision',
+    audit_org_id: ctx.organization.id,
+    audit_entity_id: decision.id,
+    audit_actor_id: user.id,
+    audit_metadata: { title: title.trim() } as any,
+  })
+
   return NextResponse.json({ success: true, decision })
 }
 

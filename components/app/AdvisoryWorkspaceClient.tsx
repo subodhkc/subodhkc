@@ -5,6 +5,7 @@ import Link from 'next/link'
 import {
   LogOut, ArrowLeft, Briefcase, Calendar, FileText, Lightbulb, Users,
   Plus, CheckCircle2, Clock, AlertCircle, ChevronRight, Target,
+  Boxes, ExternalLink, Loader2,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 import { getEngagementTypeLabel, getEngagementStatusLabel } from '@/lib/auth/dashboard-types'
@@ -40,6 +41,17 @@ interface Decision {
   created_at: string
 }
 
+interface ProductInfo {
+  offeringKey: string
+  name: string
+  description: string
+  externalUrl: string
+  learnMoreHref: string
+  hasEntitlement: boolean
+  requestStatus: string | null
+  requestId: string | null
+}
+
 interface AdvisoryWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
@@ -49,6 +61,7 @@ interface AdvisoryWorkspaceClientProps {
   subscriptionStatus: string | null
   billingPeriodStart: string | null
   billingPeriodEnd: string | null
+  products?: ProductInfo[]
 }
 
 const DECISION_STATUS_LABELS: Record<string, { label: string; color: string }> = {
@@ -83,6 +96,7 @@ export function AdvisoryWorkspaceClient({
   subscriptionStatus,
   billingPeriodStart,
   billingPeriodEnd,
+  products = [],
 }: AdvisoryWorkspaceClientProps) {
   const { organization, organizationRole, isPlatformAdmin } = ctx
   const basePath = `/app/${organization.slug}`
@@ -433,6 +447,69 @@ export function AdvisoryWorkspaceClient({
             </div>
           </section>
         </div>
+
+        {/* Products & Platforms */}
+        {products.length > 0 && (
+          <section>
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <Boxes className="h-5 w-5 text-primary" />
+              Products & Platforms
+            </h2>
+            <div className="space-y-3">
+              {products.map(product => (
+                <div key={product.offeringKey} className="border rounded-lg p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-medium">{product.name}</h3>
+                      <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
+                      <div className="flex items-center gap-3 mt-2">
+                        <Link
+                          href={product.learnMoreHref}
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                        >
+                          Learn More
+                          <ExternalLink className="h-3 w-3" />
+                        </Link>
+                        {product.hasEntitlement && (
+                          <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded font-medium">
+                            Active
+                          </span>
+                        )}
+                        {product.requestStatus === 'requested' && (
+                          <span className="text-xs bg-amber-500/10 text-amber-700 px-2 py-0.5 rounded font-medium">
+                            Access Requested
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0">
+                      {product.hasEntitlement ? (
+                        <a
+                          href={product.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                        >
+                          Open Platform
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      ) : product.requestStatus === 'requested' || product.requestStatus === 'approved' ? (
+                        <span className="text-xs text-muted-foreground">Pending</span>
+                      ) : (
+                        <Link
+                          href="/contact?subject=product-access"
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                        >
+                          Request Access
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Past engagements */}
         {pastEngagements.length > 0 && (

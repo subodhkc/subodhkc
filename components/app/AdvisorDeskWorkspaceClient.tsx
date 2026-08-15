@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import {
   LogOut,
@@ -21,6 +21,10 @@ import {
   ChevronRight,
   ExternalLink,
   ArrowRight,
+  Lightbulb,
+  Boxes,
+  Sparkles,
+  Loader2,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 
@@ -48,6 +52,17 @@ interface TeamMember {
   fullName: string | null
 }
 
+interface ProductInfo {
+  offeringKey: string
+  name: string
+  description: string
+  externalUrl: string
+  learnMoreHref: string
+  hasEntitlement: boolean
+  requestStatus: string | null
+  requestId: string | null
+}
+
 interface AdvisorDeskWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
@@ -58,6 +73,7 @@ interface AdvisorDeskWorkspaceClientProps {
   subscriptionMetadata: Record<string, unknown>
   entitlementValidUntil: string | null
   entitlementStatus: string
+  products: ProductInfo[]
 }
 
 const statusLabels: Record<string, string> = {
@@ -76,7 +92,50 @@ const statusColors: Record<string, string> = {
   closed: 'bg-muted text-muted-foreground border-border',
 }
 
-const attentionItems = [
+// Worth Knowing — intelligence and advisory items
+const worthKnowingItems = [
+  {
+    icon: Lightbulb,
+    title: 'New AI Possibilities',
+    description: 'Capabilities that may be newly practical for your organization. Ask your advisor whether any of these fit your current priorities.',
+  },
+  {
+    icon: Eye,
+    title: 'Market Signals',
+    description: 'Vendor moves, regulatory shifts, and adoption patterns worth tracking. Bring anything relevant to your next advisory question.',
+  },
+  {
+    icon: Gauge,
+    title: 'AI Readiness Check',
+    description: 'Quick self-assessment to see where your organization stands on AI adoption maturity.',
+    action: { label: 'Take Assessment', href: '/cognitive-systems-management/assessment' },
+  },
+]
+
+// Possibilities Worth Considering
+const possibilitiesItems = [
+  {
+    icon: Sparkles,
+    title: 'Workflow Automation Opportunity',
+    description: 'If a repetitive decision or process is consuming team time, an AI Opportunity & Workflow Assessment can identify whether automation is worth it.',
+    action: { label: 'Explore Assessment', href: '/ai-automation' },
+  },
+  {
+    icon: Users,
+    title: 'Fractional AI Advisor',
+    description: 'When decisions get bigger and more frequent, upgrading to a fractional advisory relationship gives you dedicated working sessions and decision artifacts.',
+    action: { label: 'Learn More', href: '/advisory' },
+  },
+  {
+    icon: Shield,
+    title: 'AI Security & Controls Review',
+    description: 'If you are moving AI toward production, a focused security review can identify gaps before they become incidents.',
+    action: { label: 'Explore Review', href: '/ai-security-compliance' },
+  },
+]
+
+// Governance & Controls — separated, NOT removed
+const governanceItems = [
   {
     icon: Shield,
     title: 'AI Vendor Consideration',
@@ -97,7 +156,9 @@ const attentionItems = [
   },
 ]
 
-const recommendedActions = [
+const governanceTools = [
+  { icon: AlertTriangle, label: 'AI Risk Register', href: '/ai-risk-register' },
+  { icon: FileText, label: 'Incident Evidence Checklist', href: '/ai-incident-evidence-checklist' },
   { icon: Gauge, label: 'AI Readiness Assessment', href: '/cognitive-systems-management/assessment' },
   { icon: Shield, label: 'Vendor / Tool Check', href: '/ai-vendor-due-diligence-checklist' },
   { icon: Lock, label: 'AI Controls Review', href: '/how-to-secure-and-govern-ai' },
@@ -115,6 +176,7 @@ export function AdvisorDeskWorkspaceClient({
   subscriptionMetadata,
   entitlementValidUntil,
   entitlementStatus,
+  products,
 }: AdvisorDeskWorkspaceClientProps) {
   const { organization } = ctx
   const basePath = `/app/${organization.slug}`
@@ -126,6 +188,8 @@ export function AdvisorDeskWorkspaceClient({
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [localQuestions, setLocalQuestions] = useState(questions)
   const [portalLoading, setPortalLoading] = useState(false)
+  const [productList, setProductList] = useState<ProductInfo[]>(products)
+  const [requestingProduct, setRequestingProduct] = useState<string | null>(null)
 
   const cancellationScheduled = entitlementStatus === 'active' && entitlementValidUntil
 
@@ -140,7 +204,7 @@ export function AdvisorDeskWorkspaceClient({
       const res = await fetch('/api/stripe/portal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orgSlug: organization.slug }),
+        body: JSON.stringify({ orgSlug: organization.slug, returnTo: 'advisor-desk' }),
       })
       const data = await res.json()
       if (data.url) {
@@ -178,7 +242,6 @@ export function AdvisorDeskWorkspaceClient({
         return
       }
 
-      // Prepend new question to local state
       setLocalQuestions(prev => [
         {
           id: data.question.id,
@@ -206,6 +269,28 @@ export function AdvisorDeskWorkspaceClient({
     setSubmitting(false)
   }
 
+  async function handleRequestProduct(offeringKey: string) {
+    setRequestingProduct(offeringKey)
+    try {
+      const res = await fetch('/api/products/access-requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orgSlug: organization.slug, offeringKey }),
+      })
+      if (res.ok) {
+        // Update product list to show requested status
+        setProductList(prev => prev.map(p =>
+          p.offeringKey === offeringKey
+            ? { ...p, requestStatus: 'requested' }
+            : p
+        ))
+      }
+    } catch (err) {
+      console.error('Failed to request product:', err)
+    }
+    setRequestingProduct(null)
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -216,7 +301,7 @@ export function AdvisorDeskWorkspaceClient({
             <span className="text-muted-foreground text-sm">/</span>
             <Link href={basePath} className="text-sm truncate">{organization.name}</Link>
             <span className="text-muted-foreground text-sm">/</span>
-            <span className="text-sm font-medium">AI Advisor Desk</span>
+            <span className="text-sm font-medium">AI Advisor for Business</span>
           </div>
           <button
             onClick={handleLogout}
@@ -231,68 +316,35 @@ export function AdvisorDeskWorkspaceClient({
       <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8 space-y-10">
         {/* Title */}
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">AI Advisor Desk</h1>
+          <h1 className="text-2xl font-bold tracking-tight">AI Advisor for Business</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            AI intelligence and human advisory for {organization.name}
+            Your Advisor Desk — ongoing AI intelligence and human advisory for {organization.name}
           </p>
         </div>
 
-        {/* Start Here */}
+        {/* Worth Knowing */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-muted-foreground" />
-            Start Here
-          </h2>
-          <div className="border rounded-lg p-5 bg-card space-y-3">
-            <p className="text-sm text-muted-foreground">
-              Review areas that may need your attention. Use the tools below to check your posture.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link
-                href="/ai-risk-register"
-                className="flex items-center justify-between border rounded-lg p-3 hover:bg-accent transition-colors"
-              >
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-amber-600" />
-                  <span className="text-sm font-medium">AI Risk Register</span>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </Link>
-              <Link
-                href="/ai-incident-evidence-checklist"
-                className="flex items-center justify-between border rounded-lg p-3 hover:bg-accent transition-colors"
-              >
-                <div className="flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-blue-600" />
-                  <span className="text-sm font-medium">Incident Evidence Checklist</span>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Worth Your Attention */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-amber-600" />
-            Worth Your Attention
+            <Lightbulb className="h-5 w-5 text-primary" />
+            Worth Knowing
           </h2>
           <div className="space-y-3">
-            {attentionItems.map((item, i) => (
+            {worthKnowingItems.map((item, i) => (
               <div key={i} className="border rounded-lg p-4">
                 <div className="flex items-start gap-3">
                   <item.icon className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-medium">{item.title}</h3>
                     <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
-                    <Link
-                      href={item.action.href}
-                      className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-2"
-                    >
-                      {item.action.label}
-                      <ExternalLink className="h-3 w-3" />
-                    </Link>
+                    {item.action && (
+                      <Link
+                        href={item.action.href}
+                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-2"
+                      >
+                        {item.action.label}
+                        <ExternalLink className="h-3 w-3" />
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -300,23 +352,26 @@ export function AdvisorDeskWorkspaceClient({
           </div>
         </section>
 
-        {/* Recommended Actions */}
+        {/* Possibilities Worth Considering */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <ChevronRight className="h-5 w-5 text-muted-foreground" />
-            Recommended Actions
+            <Sparkles className="h-5 w-5 text-primary" />
+            Possibilities Worth Considering
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {recommendedActions.map((action, i) => (
-              <Link
-                key={i}
-                href={action.href}
-                className="flex items-center gap-3 border rounded-lg p-3 hover:bg-accent transition-colors"
-              >
-                <action.icon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                <span className="text-sm font-medium">{action.label}</span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground ml-auto" />
-              </Link>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {possibilitiesItems.map((item, i) => (
+              <div key={i} className="border rounded-lg p-4 flex flex-col">
+                <item.icon className="h-5 w-5 text-primary mb-2" />
+                <h3 className="text-sm font-medium">{item.title}</h3>
+                <p className="text-xs text-muted-foreground mt-1 flex-1">{item.description}</p>
+                <Link
+                  href={item.action.href}
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3"
+                >
+                  {item.action.label}
+                  <ChevronRight className="h-3 w-3" />
+                </Link>
+              </div>
             ))}
           </div>
         </section>
@@ -341,9 +396,7 @@ export function AdvisorDeskWorkspaceClient({
 
             <form onSubmit={handleSubmitQuestion} className="space-y-4">
               <div>
-                <label className="text-sm font-medium block mb-1.5">
-                  Subject
-                </label>
+                <label className="text-sm font-medium block mb-1.5">Subject</label>
                 <input
                   type="text"
                   value={subject}
@@ -354,9 +407,7 @@ export function AdvisorDeskWorkspaceClient({
                 />
               </div>
               <div>
-                <label className="text-sm font-medium block mb-1.5">
-                  Question
-                </label>
+                <label className="text-sm font-medium block mb-1.5">Question</label>
                 <textarea
                   value={question}
                   onChange={e => setQuestion(e.target.value)}
@@ -367,9 +418,7 @@ export function AdvisorDeskWorkspaceClient({
                 />
               </div>
               <div>
-                <label className="text-sm font-medium block mb-1.5">
-                  Optional context
-                </label>
+                <label className="text-sm font-medium block mb-1.5">Optional context</label>
                 <input
                   type="text"
                   value={context}
@@ -379,9 +428,7 @@ export function AdvisorDeskWorkspaceClient({
                 />
               </div>
 
-              {submitError && (
-                <p className="text-sm text-red-600">{submitError}</p>
-              )}
+              {submitError && <p className="text-sm text-red-600">{submitError}</p>}
 
               <div className="flex items-center justify-end">
                 <button
@@ -421,9 +468,7 @@ export function AdvisorDeskWorkspaceClient({
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">{q.question}</p>
                   <p className="text-xs text-muted-foreground">
-                    {new Date(q.created_at).toLocaleDateString('en-US', {
-                      month: 'short', day: 'numeric', year: 'numeric',
-                    })}
+                    {new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </p>
                   {q.advisor_response && (
                     <div className="mt-3 pt-3 border-t">
@@ -434,9 +479,7 @@ export function AdvisorDeskWorkspaceClient({
                       <p className="text-sm text-muted-foreground whitespace-pre-wrap">{q.advisor_response}</p>
                       {q.responded_at && (
                         <p className="text-xs text-muted-foreground mt-1.5">
-                          {new Date(q.responded_at).toLocaleDateString('en-US', {
-                            month: 'short', day: 'numeric', year: 'numeric',
-                          })}
+                          {new Date(q.responded_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </p>
                       )}
                     </div>
@@ -459,6 +502,133 @@ export function AdvisorDeskWorkspaceClient({
           )}
         </section>
 
+        {/* Products & Platforms */}
+        <section>
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Boxes className="h-5 w-5 text-primary" />
+            Products & Platforms
+          </h2>
+          <div className="space-y-3">
+            {productList.map(product => (
+              <div key={product.offeringKey} className="border rounded-lg p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-medium">{product.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
+                    <div className="flex items-center gap-3 mt-2">
+                      <Link
+                        href={product.learnMoreHref}
+                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                      >
+                        Learn More
+                        <ExternalLink className="h-3 w-3" />
+                      </Link>
+                      {product.hasEntitlement && (
+                        <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded font-medium">
+                          Active
+                        </span>
+                      )}
+                      {product.requestStatus === 'requested' && (
+                        <span className="text-xs bg-amber-500/10 text-amber-700 px-2 py-0.5 rounded font-medium">
+                          Access Requested
+                        </span>
+                      )}
+                      {product.requestStatus === 'approved' && (
+                        <span className="text-xs bg-blue-500/10 text-blue-700 px-2 py-0.5 rounded font-medium">
+                          Approved — Activation Pending
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    {product.hasEntitlement ? (
+                      <a
+                        href={product.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                      >
+                        Open Platform
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    ) : product.requestStatus === 'requested' || product.requestStatus === 'approved' ? (
+                      <span className="text-xs text-muted-foreground">Pending</span>
+                    ) : (
+                      <button
+                        onClick={() => handleRequestProduct(product.offeringKey)}
+                        disabled={requestingProduct === product.offeringKey}
+                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline disabled:opacity-50"
+                      >
+                        {requestingProduct === product.offeringKey ? (
+                          <><Loader2 className="h-3 w-3 animate-spin" /> Requesting...</>
+                        ) : (
+                          <>Request Access</>
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+                {product.requestStatus === 'requested' && (
+                  <p className="text-xs text-muted-foreground mt-2 pt-2 border-t">
+                    Your request has been submitted. Subodh will review and activate access. You will be notified when it is ready.
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Governance & Controls — separated, NOT removed */}
+        <section>
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Shield className="h-5 w-5 text-muted-foreground" />
+            Governance & Controls
+          </h2>
+          <div className="border rounded-lg p-5 bg-card space-y-4">
+            <p className="text-sm text-muted-foreground">
+              AI governance, compliance, and risk management resources. These are available as additional features alongside your advisory subscription.
+            </p>
+
+            {/* Governance attention items */}
+            <div className="space-y-3">
+              {governanceItems.map((item, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <item.icon className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-medium">{item.title}</h3>
+                    <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
+                    <Link
+                      href={item.action.href}
+                      className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-1.5"
+                    >
+                      {item.action.label}
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Governance tools grid */}
+            <div className="pt-3 border-t">
+              <h3 className="text-xs font-medium text-muted-foreground mb-3">Governance Tools</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {governanceTools.map((tool, i) => (
+                  <Link
+                    key={i}
+                    href={tool.href}
+                    className="flex items-center gap-2 border rounded-lg p-2.5 hover:bg-accent transition-colors"
+                  >
+                    <tool.icon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span className="text-xs font-medium">{tool.label}</span>
+                    <ChevronRight className="h-3 w-3 text-muted-foreground ml-auto" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Team */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -473,9 +643,7 @@ export function AdvisorDeskWorkspaceClient({
               {members.map(m => (
                 <div key={m.id} className="flex items-center justify-between py-2 border-b last:border-0">
                   <div className="min-w-0">
-                    <p className="text-sm font-medium truncate">
-                      {m.fullName || m.email}
-                    </p>
+                    <p className="text-sm font-medium truncate">{m.fullName || m.email}</p>
                     {m.fullName && m.email && (
                       <p className="text-xs text-muted-foreground truncate">{m.email}</p>
                     )}

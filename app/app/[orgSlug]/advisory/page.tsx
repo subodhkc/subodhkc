@@ -70,6 +70,9 @@ export default async function AdvisoryPage({
   let billingPeriodStart: string | null = null
   let billingPeriodEnd: string | null = null
 
+  // Products & platforms
+  let products: any[] = []
+
   if (serviceClient) {
     // Engagements
     const { data: engData } = await serviceClient
@@ -148,6 +151,40 @@ export default async function AdvisoryPage({
         // Stripe not configured or subscription not found
       }
     }
+
+    // Fetch product access requests for HAIEC, KestrelVoice, etc.
+    const { data: productRequests } = await serviceClient
+      .from('product_access_requests')
+      .select('id, offering_key, status, created_at')
+      .eq('organization_id', ctx.organization.id)
+      .order('created_at', { ascending: false })
+
+    const activeOfferingKeys = ctx.entitlements
+      .filter(e => e.effective_status === 'active')
+      .map(e => e.offering_key)
+
+    products = [
+      {
+        offeringKey: 'haiec',
+        name: 'HAIEC',
+        description: 'AI compliance and governance platform — evidence-first frameworks for behavioral AI governance.',
+        externalUrl: 'https://www.haiec.com',
+        learnMoreHref: '/solutions/haiec',
+        hasEntitlement: activeOfferingKeys.includes('haiec'),
+        requestStatus: productRequests?.find(r => r.offering_key === 'haiec')?.status || null,
+        requestId: productRequests?.find(r => r.offering_key === 'haiec')?.id || null,
+      },
+      {
+        offeringKey: 'kestrel',
+        name: 'KestrelVoice',
+        description: 'AI voice receptionist platform — answers every call, books appointments, runs your front desk 24/7.',
+        externalUrl: 'https://www.kestrelvoice.com',
+        learnMoreHref: '/solutions/kestrelvoice',
+        hasEntitlement: activeOfferingKeys.includes('kestrel'),
+        requestStatus: productRequests?.find(r => r.offering_key === 'kestrel')?.status || null,
+        requestId: productRequests?.find(r => r.offering_key === 'kestrel')?.id || null,
+      },
+    ]
   }
 
   return (
@@ -160,6 +197,7 @@ export default async function AdvisoryPage({
       subscriptionStatus={subscriptionStatus}
       billingPeriodStart={billingPeriodStart}
       billingPeriodEnd={billingPeriodEnd}
+      products={products || []}
     />
   )
 }
