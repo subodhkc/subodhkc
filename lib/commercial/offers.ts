@@ -14,6 +14,32 @@ export type OfferKey =
 
 export type BillingMode = 'subscription' | 'one_time' | 'custom_scoped'
 
+/**
+ * Included product entitlement spec for advisory offers.
+ * This is the canonical source of truth for what HAIEC/Kestrel access
+ * each advisory subscription grants. Do not duplicate in marketing copy
+ * or checkout metadata without referencing this.
+ */
+export interface IncludedProductAccess {
+  /** HAIEC entitlement tier key, or null if no HAIEC access. */
+  haiecTier: 'advisor_essentials' | 'scan' | null
+  /** HAIEC seat count. */
+  haiecSeats: number
+  /** Kestrel plan key, or null if no Kestrel access. */
+  kestrelPlan: 'ai_number_basic' | null
+  /** Kestrel monthly credits. */
+  kestrelCredits: number
+  /** Whether SubodhKC Member Tools are included. */
+  memberTools: boolean
+}
+
+export interface ServiceTermsRef {
+  /** Service schedule slug (e.g., 'ai-advisor-for-business', 'fractional-ai-advisor'). */
+  scheduleSlug: string
+  /** Current version label of the service schedule. */
+  version: string
+}
+
 export interface CommercialOffer {
   key: OfferKey
   name: string
@@ -45,6 +71,12 @@ export interface CommercialOffer {
   requiresSecurityAuthorization: boolean
   /** Description for checkout session line item. */
   checkoutDescription: string
+  /** Included product access (HAIEC, Kestrel, Member Tools). Null for non-advisory offers. */
+  includedProducts: IncludedProductAccess | null
+  /** Service terms schedule reference. Null for non-advisory offers. */
+  serviceTerms: ServiceTermsRef | null
+  /** Concise checkout bullet list (canonical — use in checkout UI and pricing cards). */
+  checkoutBullets: string[]
 }
 
 export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
@@ -66,6 +98,27 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresAgreement: false,
     requiresSecurityAuthorization: false,
     checkoutDescription: 'AI Advisor for Business subscription — ongoing human AI advisory, weekly intelligence, and human advisory access',
+    includedProducts: {
+      haiecTier: 'advisor_essentials',
+      haiecSeats: 1,
+      kestrelPlan: 'ai_number_basic',
+      kestrelCredits: 20,
+      memberTools: true,
+    },
+    serviceTerms: {
+      scheduleSlug: 'ai-advisor-for-business',
+      version: '2026-08',
+    },
+    checkoutBullets: [
+      'Human AI advisory access',
+      'Weekly AI intelligence brief',
+      'AI Controls + regulatory monitoring',
+      'Opportunity and vendor guidance',
+      'HAIEC Advisor Essentials',
+      'Kestrel AI Number Basic',
+      'Selected Member Tools',
+      'Up to 3 team members',
+    ],
   },
 
   ai_automation_blueprint: {
@@ -86,6 +139,9 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresAgreement: true,
     requiresSecurityAuthorization: false,
     checkoutDescription: 'AI Opportunity & Workflow Assessment — fixed-scope assessment with AI Automation Blueprint deliverable',
+    includedProducts: null,
+    serviceTerms: null,
+    checkoutBullets: [],
   },
 
   fractional_ai_advisor: {
@@ -97,7 +153,7 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     annualPriceCents: 1250000, // $12,500/year
     oneTimePriceCents: null,
     startingPriceLabel: '$1,250/month',
-    teamSeatLimit: null,
+    teamSeatLimit: 5,
     advisorQuestionsPerPeriod: null,
     landingPage: '/advisory',
     createsEngagement: true,
@@ -106,6 +162,28 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresAgreement: false,
     requiresSecurityAuthorization: false,
     checkoutDescription: 'Fractional AI Advisor — executive AI advisory subscription',
+    includedProducts: {
+      haiecTier: 'scan',
+      haiecSeats: 1,
+      kestrelPlan: 'ai_number_basic',
+      kestrelCredits: 20,
+      memberTools: true,
+    },
+    serviceTerms: {
+      scheduleSlug: 'fractional-ai-advisor',
+      version: '2026-08',
+    },
+    checkoutBullets: [
+      'Two 60-minute working sessions/month',
+      'Priority async advisory',
+      'Decision + Opportunity Workspace',
+      'Monthly Decision & Opportunity Brief',
+      'Vendor, roadmap + architecture review',
+      'Selected decision artifacts',
+      'HAIEC SCAN access',
+      'Kestrel AI Number Basic',
+      'Member Tool Library',
+    ],
   },
 
   managed_voice: {
@@ -126,6 +204,9 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresAgreement: true,
     requiresSecurityAuthorization: false,
     checkoutDescription: 'Managed AI Voice Deployment — monthly voice automation service',
+    includedProducts: null,
+    serviceTerms: null,
+    checkoutBullets: [],
   },
 
   ai_security_compliance: {
@@ -146,6 +227,9 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresAgreement: true,
     requiresSecurityAuthorization: true,
     checkoutDescription: 'AI Security & Compliance Review — scoped security assessment',
+    includedProducts: null,
+    serviceTerms: null,
+    checkoutBullets: [],
   },
 
   saas_security_review: {
@@ -166,6 +250,9 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresAgreement: true,
     requiresSecurityAuthorization: true,
     checkoutDescription: 'SaaS & AI Security Review — focused application security review',
+    includedProducts: null,
+    serviceTerms: null,
+    checkoutBullets: [],
   },
 }
 
@@ -216,4 +303,27 @@ export function getStripePriceId(
 export function getCurrentBillingPeriodKey(): string {
   const now = new Date()
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+}
+
+/**
+ * Get the included product access spec for an offer.
+ * Returns null for offers that do not include HAIEC/Kestrel/Member Tools.
+ */
+export function getIncludedProducts(offerKey: OfferKey): IncludedProductAccess | null {
+  return COMMERCIAL_OFFERS[offerKey]?.includedProducts ?? null
+}
+
+/**
+ * Get the service terms schedule reference for an offer.
+ * Returns null for offers that do not have a service schedule.
+ */
+export function getServiceTerms(offerKey: OfferKey): ServiceTermsRef | null {
+  return COMMERCIAL_OFFERS[offerKey]?.serviceTerms ?? null
+}
+
+/**
+ * Get the canonical checkout bullet list for an offer.
+ */
+export function getCheckoutBullets(offerKey: OfferKey): string[] {
+  return COMMERCIAL_OFFERS[offerKey]?.checkoutBullets ?? []
 }

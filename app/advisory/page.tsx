@@ -11,8 +11,14 @@ import {
   Compass,
   FileText,
   Shield,
+  Zap,
+  Clock,
+  Users,
+  Handshake,
+  Wrench,
 } from 'lucide-react'
 import { FractionalAdvisorCheckoutCTA } from '@/components/commercial/FractionalAdvisorCheckoutCTA'
+import { getCheckoutBullets } from '@/lib/commercial/offers'
 
 export const metadata = {
   title: 'Fractional AI Advisor | Executive AI Strategy Advisor | Subodh KC',
@@ -114,13 +120,20 @@ const whatWeWorkThrough = [
 ]
 
 const coreEngagement = [
-  'Two executive or technical working sessions each month',
+  'Two 60-minute executive or technical working sessions each month',
   'Priority async advisory through agreed channels',
-  'Ongoing organizational and decision context',
-  'AI strategy and roadmap review',
+  'Persistent organizational and decision context',
+  'Decision Registry and Opportunity Registry',
+  'Evidence and context intake',
   'Vendor, tool, and build-vs-buy evaluation',
   'Architecture and implementation review',
-  'Focused written decision analysis or decision records when appropriate to the month priorities',
+  'Roadmap and operating-model review',
+  'Implementation sequencing',
+  'Selected written decision artifacts tied to monthly priorities',
+  'Monthly Decision and Opportunity Brief',
+  'Actions, commitments, and decision history',
+  'Outcome and learning records',
+  'Value record where supported by client-verified evidence',
 ]
 
 const methodSteps = [
@@ -140,6 +153,39 @@ const decisionArtifacts = [
   { name: 'Decision Record', desc: 'A written record your executives can defend without me in the room.' },
   { name: 'Risk / Assumption Register', desc: 'What could go wrong, what we are assuming, and what would change the recommendation.' },
   { name: 'Operating Recommendation', desc: 'Who owns what, how decisions get made, and how the system gets stopped if it fails.' },
+]
+
+const activationCallSteps = [
+  'Current priorities',
+  '1-3 decisions in play',
+  '1-3 opportunities worth investigating',
+  'Current AI systems and vendors',
+  'Important stakeholders',
+  'Immediate deadlines',
+  'Communication expectations',
+]
+
+const affiliationUses = [
+  'Team pages',
+  'Proposals',
+  'Partner discussions',
+  'Investor materials',
+  'Customer materials',
+  'Internal leadership materials',
+]
+
+const serviceExpectations = [
+  { label: 'Acknowledgment', value: 'Priority asynchronous requests are normally acknowledged within one business day.' },
+  { label: 'Substantive response', value: 'Substantive response normally within two business days when reasonably within Fractional advisory scope.' },
+  { label: 'Not 24/7 support', value: 'Fractional AI Advisor is not 24/7 support, managed incident response, or emergency technical support.' },
+  { label: 'System of record', value: 'The workspace remains the system of record. Working sessions are scheduled calls.' },
+]
+
+const sessionPolicy = [
+  'One unused working session may carry into the immediately following month.',
+  'A carried session expires after that month. Sessions do not accumulate indefinitely.',
+  'Rescheduling requires reasonable advance notice.',
+  'The complimentary 20-minute Activation Call does not count against the two monthly sessions.',
 ]
 
 const comparison = [
@@ -327,12 +373,88 @@ export default function AdvisoryPage() {
         </div>
       </Section>
 
+      {/* COMPLIMENTARY ACTIVATION */}
+      <Section
+        subtitle="Complimentary Activation"
+        title="How the relationship starts"
+        description="After payment: digital context setup, a complimentary 20-minute Activation Call, then your first real working session. The Activation Call does not count against your two monthly sessions."
+        sectionNum="04"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardContent className="pt-6">
+              <p className="text-sm text-muted-foreground mb-4">
+                The Activation Call establishes the working foundation. It is not a consulting session.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {activationCallSteps.map((step, i) => (
+                  <div key={i} className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
+      {/* INCLUDED AI CAPABILITY ACCESS */}
+      <Section
+        subtitle="Included AI Capability Access"
+        title="Member tools included with your subscription"
+        description="Human judgment comes first. These supporting tools extend what the advisory relationship can do. Product limits apply to each included tool."
+        sectionNum="05"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="h-full">
+              <CardHeader>
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <Shield className="h-5 w-5 text-primary" />
+                </div>
+                <CardTitle className="text-base">HAIEC SCAN Access</CardTitle>
+                <CardDescription className="text-sm mt-1">
+                  One HAIEC SCAN-level entitlement seat. Aligned to the current HAIEC SCAN product. Higher HAIEC tiers, additional seats, runtime testing, CI/CD, enterprise evidence bundles, implementation, and managed compliance remain separately purchased or scoped.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="h-full">
+              <CardHeader>
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <Zap className="h-5 w-5 text-primary" />
+                </div>
+                <CardTitle className="text-base">Kestrel AI Number Basic</CardTitle>
+                <CardDescription className="text-sm mt-1">
+                  One AI phone number with basic AI answering. 20 included monthly credits. Self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="h-full">
+              <CardHeader>
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <Wrench className="h-5 w-5 text-primary" />
+                </div>
+                <CardTitle className="text-base">Member Tool Library</CardTitle>
+                <CardDescription className="text-sm mt-1">
+                  Production-ready internal decision, architecture, research, and technical utilities available to advisory clients. Additional tools are added as they become available.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+          <p className="text-xs text-muted-foreground mt-4 text-center max-w-2xl mx-auto">
+            Included product access is a supporting capability, not the reason to upgrade. HAIEC and Kestrel maintain their own product limits, acceptable-use terms, and upgrade paths. Advisory subscription does not create additional uptime or SLA guarantees for those products.
+          </p>
+        </div>
+      </Section>
+
       {/* HOW THE WORK HAPPENS */}
       <Section
         subtitle="How the Work Happens"
         title="The method behind every decision"
         description="The same six disciplines, adapted to an ongoing advisory relationship."
-        sectionNum="04"
+        sectionNum="06"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -357,7 +479,7 @@ export default function AdvisoryPage() {
         subtitle="Decision Artifacts"
         title="What the work produces"
         description="Not every artifact every month. The artifacts that match the priorities we are working through."
-        sectionNum="05"
+        sectionNum="07"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-4">
@@ -379,7 +501,7 @@ export default function AdvisoryPage() {
         subtitle="Choose the Level of Help"
         title="Four ways to work together"
         description="Each is a different relationship to AI decisions, not a different product tier."
-        sectionNum="06"
+        sectionNum="08"
         className="bg-secondary/20"
       >
         <div className="max-w-6xl mx-auto">
@@ -407,11 +529,104 @@ export default function AdvisoryPage() {
         </div>
       </Section>
 
+      {/* ADVISOR AFFILIATION */}
+      <Section
+        subtitle="Advisor Affiliation"
+        title="Identify your Fractional AI Advisor where appropriate"
+        description="An active Fractional client may, with approval, identify Subodh KC as Fractional AI Advisor or External AI Advisor in appropriate materials."
+        sectionNum="09"
+      >
+        <div className="max-w-3xl mx-auto space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-start gap-3">
+                <Handshake className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <CardTitle className="text-base">Where you may identify the relationship</CardTitle>
+                  <div className="grid sm:grid-cols-2 gap-2 mt-3">
+                    {affiliationUses.map((use, i) => (
+                      <div key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{use}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <div className="flex items-start gap-3">
+                <Compass className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <CardTitle className="text-base">Partnership and opportunity exploration</CardTitle>
+                  <CardDescription className="text-sm mt-2">
+                    The relationship can include identifying and evaluating strategic partnerships, technology partnerships, vendors, programs, external opportunities, and introductions where appropriate. This is exploration and evaluation support, not a promise of introductions or partnerships.
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+          <Card className="bg-secondary/20">
+            <CardContent className="pt-6">
+              <p className="text-xs text-muted-foreground">
+                This does not create employment, officer status, agency, fiduciary authority, or authority to bind either party. Public quotes, press releases, logos, or alternative titles require approval. Full terms are in the Fractional AI Advisor Service Terms.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
+      {/* SERVICE EXPECTATIONS */}
+      <Section
+        subtitle="Advisory Service Expectations"
+        title="How async advisory works"
+        sectionNum="10"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-3xl mx-auto">
+          <div className="space-y-3">
+            {serviceExpectations.map((exp, i) => (
+              <div key={i} className="flex items-start gap-3 rounded-lg border border-border p-4">
+                <Clock className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">{exp.label}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{exp.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* SESSION POLICY */}
+      <Section
+        subtitle="Session Policy"
+        title="How working sessions work"
+        sectionNum="11"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardContent className="pt-6">
+              <div className="space-y-3">
+                {sessionPolicy.map((policy, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-foreground">{policy}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
       {/* FAQ */}
       <Section
         subtitle="FAQ"
         title="Common questions about fractional AI advisory"
-        sectionNum="07"
+        sectionNum="12"
       >
         <div className="max-w-3xl mx-auto">
           <div className="space-y-4">
@@ -432,7 +647,8 @@ export default function AdvisoryPage() {
       <div id="start">
         <FractionalAdvisorCheckoutCTA
           title="Start Fractional AI Advisor"
-          description="Core engagement at $1,250/month. Two executive working sessions, ongoing async advisory, and selected decision artifacts. Monthly: continue month to month, cancel before your next renewal. Annual: $12,500/year for twelve months of the core advisory relationship (equivalent of ten monthly payments)."
+          description="Core engagement at $1,250/month. Two 60-minute working sessions, priority async advisory, Decision and Opportunity Workspace, Monthly Brief, vendor/roadmap/architecture review, selected decision artifacts, HAIEC SCAN access, Kestrel AI Number Basic, and Member Tool Library. Monthly: continue month to month, cancel before your next renewal. Annual: $12,500/year for twelve months of the core advisory relationship (equivalent of ten monthly payments)."
+          bullets={getCheckoutBullets('fractional_ai_advisor')}
         />
       </div>
 

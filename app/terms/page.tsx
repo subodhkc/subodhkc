@@ -73,8 +73,9 @@ export default function TermsPage() {
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p><strong className="text-foreground">Website:</strong> Public content including articles, guides, research, and contact forms.</p>
               <p><strong className="text-foreground">Application Platform:</strong> Authenticated workspace providing tools including but not limited to School Pickup management, compliance frameworks, and analytics.</p>
-              <p><strong className="text-foreground">Advisory & Consulting:</strong> AI governance, compliance, and strategy services delivered under separate engagement agreements.</p>
-              <p>Specific product terms may supplement these Terms. In case of conflict, the specific product terms govern for that product.</p>
+              <p><strong className="text-foreground">Advisory Subscriptions:</strong> AI advisory services delivered under self-service subscriptions with applicable Service Schedules. The <a href="/service-terms/ai-advisor-for-business" className="text-primary hover:underline">AI Advisor for Business Service Terms</a> apply to $99/month subscriptions. The <a href="/service-terms/fractional-ai-advisor" className="text-primary hover:underline">Fractional AI Advisor Service Terms</a> apply to $1,250/month subscriptions. Checkout captures acceptance of the applicable Service Schedule version.</p>
+              <p><strong className="text-foreground">Custom-Scoped Engagements:</strong> Implementation, architecture, security review, and managed services delivered under separate engagement agreements with their own scope and terms.</p>
+              <p>Specific product terms and Service Schedules supplement these Terms. In case of conflict, the specific Service Schedule or product terms govern for that product.</p>
             </CardContent>
           </Card>
 

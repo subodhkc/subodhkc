@@ -1,16 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, Loader2 } from 'lucide-react'
+import { ArrowRight, Loader2, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
 
 interface AdvisorCheckoutCTAProps {
   title: string
   description: string
+  bullets?: string[]
 }
 
-export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAProps) {
+export function AdvisorCheckoutCTA({ title, description, bullets }: AdvisorCheckoutCTAProps) {
   const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -50,7 +51,20 @@ export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAPro
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
               {title}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">{description}</p>
+            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">{description}</p>
+
+            {bullets && bullets.length > 0 && (
+              <div className="mb-8">
+                <div className="grid sm:grid-cols-2 gap-2 max-w-2xl">
+                  {bullets.map((bullet, i) => (
+                    <div key={i} className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{bullet}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {!selectedOrg ? (
               <OrganizationSelectionStep onOrganizationSelected={setSelectedOrg} />

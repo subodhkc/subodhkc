@@ -20,8 +20,10 @@ import {
   Brain,
   Building2,
   Users,
+  Wrench,
 } from 'lucide-react'
 import { AdvisorCheckoutCTA } from '@/components/commercial/AdvisorCheckoutCTA'
+import { getCheckoutBullets } from '@/lib/commercial/offers'
 
 export const metadata = {
   title: 'AI Advisor for Business | Human AI Advisory & Decision Support | Subodh KC',
@@ -420,7 +422,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="What You Receive"
         title="What is included for $99/month"
-        description="One subscription. No hidden fees, no per-seat charges, no usage metering. Human advisory access included under reasonable use."
+        description="No per-question metering for advisory access. Human advisory is included under reasonable use. Included software products may have their own stated usage limits."
         sectionNum="05"
         className="bg-secondary/20"
       >
@@ -444,13 +446,70 @@ export default function AIAdvisorPage() {
         </Grid>
       </Section>
 
+      {/* Included AI Capability Access */}
+      <Section
+        subtitle="Included AI Capability Access"
+        title="Member tools included with your subscription"
+        description="Human judgment comes first. These supporting tools extend what you can do between advisory conversations. Product limits apply to each included tool."
+        sectionNum="06"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            <Reveal delay={0} style="up">
+              <Card className="h-full">
+                <CardHeader>
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <Shield className="h-5 w-5 text-primary" />
+                  </div>
+                  <CardTitle className="text-base">HAIEC Advisor Essentials</CardTitle>
+                  <CardDescription className="text-sm mt-1">
+                    AI Law Finder, Check AI Apps vendor review, AI Readiness Assessment, CSM6 Governance Scorecard, Self-Audit, selected compliance assessments, limited static AI security scanning, one saved AI system context, web results and history. Excludes CI/CD, runtime adversarial testing, Compliance Twin, Evidence Vault, signed enterprise evidence bundles, unlimited scans, and managed compliance services.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Reveal>
+            <Reveal delay={60} style="up">
+              <Card className="h-full">
+                <CardHeader>
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <Zap className="h-5 w-5 text-primary" />
+                  </div>
+                  <CardTitle className="text-base">Kestrel AI Number Basic</CardTitle>
+                  <CardDescription className="text-sm mt-1">
+                    One AI phone number with basic AI answering. 20 included monthly credits. Self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Reveal>
+            <Reveal delay={120} style="up">
+              <Card className="h-full">
+                <CardHeader>
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <Wrench className="h-5 w-5 text-primary" />
+                  </div>
+                  <CardTitle className="text-base">Selected Member Tools</CardTitle>
+                  <CardDescription className="text-sm mt-1">
+                    Selected SubodhKC production-ready internal tools and utilities useful to business, technical, and executive users. Additional tools are added as they become available.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Reveal>
+          </div>
+          <p className="text-xs text-muted-foreground mt-4 text-center max-w-2xl mx-auto">
+            Included product access is a supporting capability, not the primary product. HAIEC and Kestrel maintain their own product limits, acceptable-use terms, and upgrade paths. Advisory subscription does not create additional uptime or SLA guarantees for those products.
+          </p>
+        </div>
+      </Section>
+
       {/* How Signals Become Value */}
       <Section
         subtitle="How Signals Become Value"
         title="See what is changing. Understand what it means. Discover what it makes possible. Decide what deserves action."
-        sectionNum="06"
+        sectionNum="07"
         className="bg-secondary/20"
       >
+
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-4 gap-6">
             {[
@@ -483,7 +542,7 @@ export default function AIAdvisorPage() {
         subtitle="Role-Based Intelligence"
         title="Same signal. Different decision."
         description="The same AI development can mean different things depending on who is asking. AI Advisor for Business provides lenses for each role."
-        sectionNum="07"
+        sectionNum="08"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
@@ -541,7 +600,7 @@ export default function AIAdvisorPage() {
         subtitle="Opportunity Discovery"
         title="What could AI make possible?"
         description="Opportunity discovery is a core benefit of AI Advisor for Business. These are the kinds of questions worth exploring together."
-        sectionNum="08"
+        sectionNum="09"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
@@ -571,7 +630,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="The Advisor Relationship"
         title="The more I understand your organization, the more useful AI Advisor for Business becomes."
-        sectionNum="09"
+        sectionNum="10"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6 mb-6">
@@ -629,7 +688,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Why Trust This"
         title="Built on real AI governance work"
-        sectionNum="10"
+        sectionNum="11"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto space-y-4">
@@ -669,7 +728,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Pricing"
         title="Simple, Transparent, Cancelable"
-        sectionNum="11"
+        sectionNum="12"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
@@ -683,7 +742,7 @@ export default function AIAdvisorPage() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {['Human advisory access (reasonable use)', 'Weekly AI intelligence brief', 'AI Controls Review', 'AI regulatory monitoring', 'Up to 3 team members', 'AI tools and vendor guidance', 'AI hiring and policy support'].map((f, i) => (
+                  {getCheckoutBullets('ai_advisor_desk').map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
@@ -706,7 +765,7 @@ export default function AIAdvisorPage() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {['Everything in Monthly', '2 months free', 'Priority response queue', 'Annual AI Controls Review report', 'Quarterly trend briefing', 'Up to 3 team members'].map((f, i) => (
+                  {['Everything in Monthly', 'Equivalent of two months free', 'Priority response queue', 'Annual AI Controls summary report', 'Up to 3 team members'].map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
@@ -725,11 +784,53 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
+      {/* Service Expectations */}
+      <Section
+        subtitle="Service Expectations"
+        title="How advisory access works"
+        sectionNum="13"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardContent className="pt-6 space-y-3">
+              <div className="flex items-start gap-3">
+                <Clock className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Response time</p>
+                  <p className="text-sm text-muted-foreground mt-1">Most focused advisory questions are reviewed within 72 hours. No guaranteed emergency support.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Primary interaction</p>
+                  <p className="text-sm text-muted-foreground mt-1">The Advisory Desk workspace. No dedicated Slack, Teams, text, or phone channel for $99 advisory.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Reasonable use</p>
+                  <p className="text-sm text-muted-foreground mt-1">No per-question metering for advisory access. Brief guidance is included under reasonable use. If a request turns into substantive research, document review, architecture, or implementation, I will identify that before doing additional work and offer a scoped option.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Included product limits</p>
+                  <p className="text-sm text-muted-foreground mt-1">HAIEC Advisor Essentials and Kestrel AI Number Basic maintain their own product limits and acceptable-use terms. Additional usage or upgrades are purchased separately within each product.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
       {/* Boundaries & FAQ */}
       <Section
         subtitle="Boundaries & FAQ"
         title="What This Is Not, and Common Questions"
-        sectionNum="12"
+        sectionNum="14"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
@@ -773,6 +874,7 @@ export default function AIAdvisorPage() {
         <AdvisorCheckoutCTA
           title="Get a specialist in your corner."
           description="$99/month. Human advisory access, curated intelligence, opportunity discovery, and a clear next step when deeper work is needed. Cancel anytime."
+          bullets={getCheckoutBullets('ai_advisor_desk')}
         />
       </div>
     </>

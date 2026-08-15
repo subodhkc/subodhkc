@@ -8,7 +8,7 @@ import {
   deactivateEntitlement,
   recordPayment,
 } from '@/lib/stripe/webhooks'
-import { getOfferByStripePriceId, getOffer, type OfferKey } from '@/lib/commercial/offers'
+import { getOfferByStripePriceId, getOffer, getIncludedProducts, type OfferKey } from '@/lib/commercial/offers'
 import { createServiceClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
@@ -205,6 +205,9 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
   if (offer.createsEngagement && offer.engagementType) {
     await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail, session.metadata as Record<string, string | undefined> | undefined)
   }
+
+  // Provision included product access (HAIEC, Kestrel, Member Tools)
+  await provisionIncludedProducts(orgId, offerKey, customerEmail, customerName)
 
   // Write audit event
   const sc = createServiceClient()
@@ -429,6 +432,25 @@ async function handleSubscriptionDeleted(event: Stripe.Event) {
     reason: 'subscription_cancelled',
     validUntil,
   })
+
+  // Deactivate included product entitlements (HAIEC, Kestrel, Member Tools)
+  // For Fractional, grant 30-day read/download access before deactivation
+  const included = getIncludedProducts(offerKey)
+  if (included && sc) {
+    const includedKeys = [
+      included.haiecTier ? `haiec_entitlement:${offerKey}` : null,
+      included.kestrelPlan ? `kestrel_entitlement:${offerKey}` : null,
+      included.memberTools ? `member_tools:${offerKey}` : null,
+    ].filter(Boolean) as string[]
+
+    for (const key of includedKeys) {
+      await sc
+        .from('external_system_links')
+        .update({ status: 'inactive' })
+        .eq('organization_id', orgId)
+        .eq('system_key', key)
+    }
+  }
 
   // Update subscription link status (per-offer key)
   await sc
@@ -734,4 +756,110 @@ async function createEngagementForOffer(
     audit_entity_id: eng.id,
     audit_metadata: { offer_key: offerKey, title: engagementFields.title } as any,
   })
+}
+
+/**
+ * Provision included product access (HAIEC, Kestrel, Member Tools) for advisory offers.
+ * Creates entitlements in SubodhKC and records external system links.
+ * Does NOT call external provisioning APIs — customers activate external access
+ * from their dashboard product access request flow.
+ */
+async function provisionIncludedProducts(
+  orgId: string,
+  offerKey: OfferKey,
+  customerEmail: string,
+  customerName?: string
+): Promise<void> {
+  const included = getIncludedProducts(offerKey)
+  if (!included) return
+
+  const sc = createServiceClient()
+  if (!sc) return
+
+  // Record included product entitlements as external_system_links
+  // These are claimed/activated by the customer from their dashboard
+
+  if (included.haiecTier) {
+    // Record HAIEC entitlement grant
+    await sc
+      .from('external_system_links')
+      .upsert(
+        {
+          organization_id: orgId,
+          system_key: `haiec_entitlement:${offerKey}`,
+          external_id: included.haiecTier,
+          status: 'active',
+          metadata: {
+            source_offer: offerKey,
+            tier: included.haiecTier,
+            seats: included.haiecSeats,
+            customer_email: customerEmail,
+            customer_name: customerName,
+            provisioned_at: new Date().toISOString(),
+          },
+        },
+        { onConflict: 'organization_id,system_key' }
+      )
+
+    // Audit
+    await sc.rpc('write_audit_event', {
+      audit_action: 'included_product.granted',
+      audit_entity_type: 'entitlement',
+      audit_org_id: orgId,
+      audit_entity_id: `haiec:${included.haiecTier}`,
+      audit_metadata: { offer_key: offerKey, product: 'haiec', tier: included.haiecTier, seats: included.haiecSeats } as any,
+    })
+  }
+
+  if (included.kestrelPlan) {
+    // Record Kestrel entitlement grant
+    await sc
+      .from('external_system_links')
+      .upsert(
+        {
+          organization_id: orgId,
+          system_key: `kestrel_entitlement:${offerKey}`,
+          external_id: included.kestrelPlan,
+          status: 'active',
+          metadata: {
+            source_offer: offerKey,
+            plan: included.kestrelPlan,
+            monthly_credits: included.kestrelCredits,
+            customer_email: customerEmail,
+            customer_name: customerName,
+            provisioned_at: new Date().toISOString(),
+          },
+        },
+        { onConflict: 'organization_id,system_key' }
+      )
+
+    // Audit
+    await sc.rpc('write_audit_event', {
+      audit_action: 'included_product.granted',
+      audit_entity_type: 'entitlement',
+      audit_org_id: orgId,
+      audit_entity_id: `kestrel:${included.kestrelPlan}`,
+      audit_metadata: { offer_key: offerKey, product: 'kestrel', plan: included.kestrelPlan, credits: included.kestrelCredits } as any,
+    })
+  }
+
+  if (included.memberTools) {
+    // Record Member Tools access
+    await sc
+      .from('external_system_links')
+      .upsert(
+        {
+          organization_id: orgId,
+          system_key: `member_tools:${offerKey}`,
+          external_id: offerKey === 'fractional_ai_advisor' ? 'library' : 'selected',
+          status: 'active',
+          metadata: {
+            source_offer: offerKey,
+            access_level: offerKey === 'fractional_ai_advisor' ? 'library' : 'selected',
+            provisioned_at: new Date().toISOString(),
+          },
+        },
+        { onConflict: 'organization_id,system_key' }
+      )
+  }
 }

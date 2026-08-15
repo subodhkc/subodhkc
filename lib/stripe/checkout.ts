@@ -1,5 +1,5 @@
 import { createServiceClient } from '@/lib/supabase'
-import { getOffer, type OfferKey } from '@/lib/commercial/offers'
+import { getOffer, getServiceTerms, type OfferKey } from '@/lib/commercial/offers'
 
 /**
  * Create a Stripe Checkout Session for a subscription offer.
@@ -34,6 +34,11 @@ export async function createSubscriptionCheckout(opts: {
       offer_key: offerKey,
       billing_period: period,
       app_source: 'subodhkc',
+      // Terms acceptance metadata
+      terms_version: '2026-08',
+      service_schedule_slug: getServiceTerms(offerKey)?.scheduleSlug ?? '',
+      service_schedule_version: getServiceTerms(offerKey)?.version ?? '',
+      terms_accepted_at: new Date().toISOString(),
       ...metadata,
     },
     subscription_data: {
@@ -44,7 +49,24 @@ export async function createSubscriptionCheckout(opts: {
         ...metadata,
       },
     },
+    consent_collection: {
+      terms_of_service: 'required',
+    },
   })
+
+  // Record terms acceptance in database
+  const serviceTerms = getServiceTerms(offerKey)
+  if (serviceTerms) {
+    await recordTermsAcceptance({
+      offerKey,
+      termsVersion: '2026-08',
+      serviceScheduleSlug: serviceTerms.scheduleSlug,
+      serviceScheduleVersion: serviceTerms.version,
+      checkoutSessionId: session.id,
+      userId: metadata?.user_id,
+      organizationId: metadata?.organization_id,
+    })
+  }
 
   return { sessionId: session.id, url: session.url! }
 }
@@ -216,4 +238,50 @@ export async function getStripeSubscriptionId(
     .single()
 
   return legacy?.external_id ?? null
+}
+
+/**
+ * Record terms acceptance at checkout time.
+ * Stores the terms version, service schedule version, and checkout session ID
+ * for compliance and audit purposes.
+ */
+export async function recordTermsAcceptance(opts: {
+  offerKey: OfferKey
+  termsVersion: string
+  serviceScheduleSlug: string
+  serviceScheduleVersion: string
+  checkoutSessionId: string
+  userId?: string
+  organizationId?: string
+}): Promise<void> {
+  const sc = createServiceClient()
+  if (!sc) return
+
+  const {
+    offerKey,
+    termsVersion,
+    serviceScheduleSlug,
+    serviceScheduleVersion,
+    checkoutSessionId,
+    userId,
+    organizationId,
+  } = opts
+
+  try {
+    await sc
+      .from('terms_acceptance_records')
+      .insert({
+        offer_key: offerKey,
+        terms_version: termsVersion,
+        service_schedule_slug: serviceScheduleSlug,
+        service_schedule_version: serviceScheduleVersion,
+        checkout_session_id: checkoutSessionId,
+        user_id: userId || null,
+        organization_id: organizationId || null,
+        accepted_at: new Date().toISOString(),
+      })
+  } catch (err) {
+    // Non-fatal — table may not exist yet in some environments
+    console.error('[terms_acceptance] Failed to record acceptance:', err)
+  }
 }
