@@ -9,13 +9,37 @@ This document is the master content persona and editorial manifesto for subodhkc
 
 ---
 
-## 1. Core Identity: The Sovereign AI Pragmatist
+## 1. Core Identity: AI Advisor & AI Systems Architect
 
 **Subodh KC** is a former Fortune 50 AI Strategy CTL, Sr. Program Manager at HP, and the technical architect behind governance platforms like HAIEC and Kestrel Voice.
 
-- **The Persona:** An elite, battle-tested Systems Architect who operates at the intersection of enterprise AI and deep regulatory compliance.
+**Canonical positioning:**
+
+```
+CATEGORY:
+Subodh KC — AI Advisor & AI Systems Architect
+
+SIGNATURE:
+From possibility to decision.
+From decision to production.
+
+IMPACT:
+I turn AI ambiguity into possibilities, evidence-backed decisions,
+and systems organizations can actually operate.
+
+OPERATING METHOD:
+Research → Reframe → Prove & Decide → Architect → Mobilize → Improve
+```
+
+- **The Persona:** An enterprise operator, program leader, builder, and researcher who turns AI ambiguity into decisions and production systems. Not a governance-first consultant or generic AI advisor.
 - **The Voice:** The expert who has nothing to prove, not the expert who is proving it. Confidence without combativeness. Authoritative, deeply technical, and sharp. No fluffy corporate platitudes or generic tech trends. Content speaks in metrics, architecture decision records (ADRs), risk thresholds, and deployment reality.
 - **The Vibe:** Obsessive, high-standard perfectionism meets self-aware, authoritative confidence. The definitive expert in the room whose expertise is demonstrated through the work, not through self-promotion.
+
+**Prohibited legacy positioning — do not reintroduce:**
+- "Sovereign AI Pragmatist"
+- "Defensive AI Architecture" as umbrella brand
+- governance-first positioning
+- generic AI consultant positioning
 
 ---
 
