@@ -126,8 +126,8 @@ async function testFractionalCheckoutRoute() {
   )
 
   assert(
-    routeFile.includes('/advisory?checkout=success'),
-    'Checkout route should redirect to /advisory success URL'
+    routeFile.includes('/checkout/success?session_id={CHECKOUT_SESSION_ID}'),
+    'Checkout route should redirect to /checkout/success with CHECKOUT_SESSION_ID'
   )
 
   assert(
@@ -181,7 +181,7 @@ async function testFractionalWelcomeEmail() {
   )
 
   assert(
-    emailFile.includes('Welcome to Fractional AI Advisor'),
+    emailFile.includes('Your Fractional AI Advisor relationship is active'),
     'Welcome email should have correct subject'
   )
 }

@@ -307,15 +307,15 @@ export async function sendFractionalAdvisorWelcomeEmail(opts: {
   const { error } = await resend.emails.send({
     from: FROM,
     to: [to],
-    subject: 'Welcome to Fractional AI Advisor',
+    subject: 'Your Fractional AI Advisor relationship is active',
     html: `
       <!DOCTYPE html>
       <html>
         <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
           <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">Welcome to Fractional AI Advisor</h1>
-            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Your executive AI advisory engagement is active</p>
+            <h1 style="color: white; margin: 0; font-size: 24px;">You are in.</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Your Fractional AI Advisor relationship is active</p>
           </div>
           <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
@@ -324,17 +324,114 @@ export async function sendFractionalAdvisorWelcomeEmail(opts: {
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
               Your Fractional AI Advisor subscription is now active. The core engagement includes two executive working sessions each month, priority async advisory, ongoing organizational context, and selected decision artifacts tied to the priorities we work through.
             </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              <strong>What happens next:</strong> Complete your advisory setup so our first working session starts with the decisions, not introductions. It takes about five minutes.
+            </p>
             <div style="text-align: center; margin: 30px 0;">
               <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
-                Go to Your Advisory Workspace
+                Set Up My Advisory Workspace
               </a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
-              I will reach out shortly to schedule our first working session and confirm your current priorities. Billing is managed through Stripe.
+              You can also go directly to your workspace without completing setup. Billing is managed through Stripe.
             </p>
           </div>
           <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
             <p>SubodhKC — Executive AI advisory, strategy, architecture, and decision support</p>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Notify Subodh when a new Fractional AI Advisor client subscribes.
+ */
+export async function sendFractionalClientNotificationEmail(opts: {
+  customerName: string
+  customerEmail: string
+  orgName: string
+  orgSlug: string
+  plan: 'monthly' | 'annual'
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { customerName, customerEmail, orgName, orgSlug, plan } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/advisory`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: ['subodhkc@subodhkc.com'],
+    subject: `New Fractional AI Advisor Client: ${orgName}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>New Fractional AI Advisor Client</h2>
+          <p><strong>Client:</strong> ${customerName}</p>
+          <p><strong>Email:</strong> ${customerEmail}</p>
+          <p><strong>Organization:</strong> ${orgName}</p>
+          <p><strong>Plan:</strong> ${plan === 'annual' ? 'Annual ($12,500/year)' : 'Monthly ($1,250/month)'}</p>
+          <p><strong>Onboarding status:</strong> Not started</p>
+          <div style="margin: 30px 0;">
+            <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600;">
+              Open Client Workspace
+            </a>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Notify Subodh when a Fractional client completes onboarding.
+ */
+export async function sendFractionalOnboardingCompleteEmail(opts: {
+  orgName: string
+  orgSlug: string
+  customerEmail: string
+  customerName: string
+  topOutcomes: string
+  decisionsText: string
+  preferredSessionTimes: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { orgName, orgSlug, customerName, customerEmail, topOutcomes, decisionsText, preferredSessionTimes } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/advisory`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: ['subodhkc@subodhkc.com'],
+    subject: `${orgName} completed Fractional onboarding`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>${orgName} completed Fractional onboarding</h2>
+          <p><strong>Client:</strong> ${customerName} (${customerEmail})</p>
+          <h3>Top outcomes:</h3>
+          <p style="white-space: pre-wrap;">${topOutcomes || 'Not provided'}</p>
+          <h3>Decisions in play:</h3>
+          <p style="white-space: pre-wrap;">${decisionsText || 'Not provided'}</p>
+          <h3>Requested meeting windows:</h3>
+          <p style="white-space: pre-wrap;">${preferredSessionTimes || 'Not provided'}</p>
+          <div style="margin: 30px 0;">
+            <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600;">
+              Open Client Workspace
+            </a>
           </div>
         </body>
       </html>

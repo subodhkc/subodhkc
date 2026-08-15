@@ -128,7 +128,7 @@ const methodSteps = [
   { phase: 'Reframe', desc: 'I find the real question behind the request. The stated problem is often not the problem worth solving.' },
   { phase: 'Prove & Decide', desc: 'We work the options, the evidence, and the trade-offs. You leave with a recommendation an executive can sign.' },
   { phase: 'Architect', desc: 'I design the system, data, human, and control model behind the decision. Not just what to do, but how it operates.' },
-  { phase: 'Mobilize', desc: 'I assign ownership, dependencies, risks, and cadence. The decision becomes someone job with a deadline.' },
+  { phase: 'Mobilize', desc: 'We clarify ownership, dependencies, risks and cadence so the decision has named owners, visible next steps and a path into execution.' },
   { phase: 'Improve', desc: 'I use production evidence to scale, change, or stop. The loop closes when the decision meets reality.' },
 ]
 
@@ -432,7 +432,7 @@ export default function AdvisoryPage() {
       <div id="start">
         <FractionalAdvisorCheckoutCTA
           title="Start Fractional AI Advisor"
-          description="Core engagement at $1,250/month. Two executive working sessions, ongoing async advisory, and selected decision artifacts. Continued monthly as needed. Cancel anytime."
+          description="Core engagement at $1,250/month. Two executive working sessions, ongoing async advisory, and selected decision artifacts. Monthly: continue month to month, cancel before your next renewal. Annual: $12,500/year for twelve months of the core advisory relationship (equivalent of ten monthly payments)."
         />
       </div>
 

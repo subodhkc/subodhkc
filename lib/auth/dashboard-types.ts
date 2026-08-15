@@ -59,14 +59,15 @@ export interface DashboardData {
 const OFFERING_LABELS: Record<string, { label: string; description: string; kind: string }> = {
   advisory: { label: 'Advisory', description: 'Strategic counsel and governance advisory', kind: 'service' },
   fractional_ai: { label: 'Fractional AI', description: 'Embedded fractional AI leadership', kind: 'service' },
+  fractional_ai_advisor: { label: 'Fractional AI Advisor', description: 'Executive AI advisory, strategy, architecture and decision support', kind: 'service' },
   school_pickup: { label: 'School Pickup', description: 'Dismissal queue management system', kind: 'product' },
   haiec: { label: 'HAIEC', description: 'AI assurance and compliance engine', kind: 'product' },
   rca_tool: { label: 'RCA Analyzer', description: 'Root cause analysis for technical issues', kind: 'tool' },
   ai_article_generator: { label: 'AI Article Generator', description: 'Create technical content', kind: 'tool' },
   kestrel: { label: 'KestrelVoice', description: 'Voice automation platform', kind: 'external_product' },
   six_stones_ai: { label: 'Six Stones AI', description: 'AI program management', kind: 'program' },
-  ai_advisor_desk: { label: 'AI Advisor Desk', description: 'Monthly AI advisory subscription', kind: 'service' },
-  ai_automation_blueprint: { label: 'AI Automation Blueprint', description: 'Fixed-scope automation analysis', kind: 'service' },
+  ai_advisor_desk: { label: 'AI Advisor for Business', description: 'Ongoing human AI advisory subscription', kind: 'service' },
+  ai_automation_blueprint: { label: 'AI Opportunity & Workflow Assessment', description: 'Fixed-scope assessment with AI Automation Blueprint deliverable', kind: 'service' },
   managed_voice: { label: 'Managed AI Voice', description: 'Managed voice deployment service', kind: 'service' },
   ai_security_compliance: { label: 'AI Security & Compliance', description: 'AI security and compliance review', kind: 'service' },
   saas_security_review: { label: 'SaaS & AI Security Review', description: 'Focused application security review', kind: 'service' },
@@ -119,6 +120,7 @@ export function getOfferingRoute(orgSlug: string, offeringKey: string): string |
     case 'school_pickup':
       return `/app/${orgSlug}/school-pickup`
     case 'advisory':
+    case 'fractional_ai_advisor':
       return `/app/${orgSlug}/advisory`
     case 'fractional_ai':
       return `/app/${orgSlug}/fractional-ai`

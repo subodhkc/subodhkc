@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
   }
 
-  const subscriptionId = await getStripeSubscriptionId(ctx.organization.id)
+  const subscriptionId = await getStripeSubscriptionId(ctx.organization.id, 'ai_advisor_desk')
   if (!subscriptionId) {
     return NextResponse.json({ error: 'no_active_subscription' }, { status: 404 })
   }

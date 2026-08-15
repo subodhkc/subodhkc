@@ -24,7 +24,13 @@ export default async function AdvisoryPage({
   let ctx: OrganizationContext | undefined
   try {
     ctx = await resolveOrganizationContext(user, orgSlug)
-    requireOfferingAccess(ctx, 'advisory')
+    // Accept the canonical fractional_ai_advisor key, with backward compat
+    // for legacy 'advisory' and 'fractional_ai' entitlements
+    try {
+      requireOfferingAccess(ctx, 'fractional_ai_advisor')
+    } catch {
+      requireOfferingAccess(ctx, 'advisory')
+    }
   } catch (err) {
     if (err instanceof AuthError) {
       return (
@@ -42,8 +48,9 @@ export default async function AdvisoryPage({
     throw err
   }
 
-  // Fetch engagements for this org filtered to advisory type
   const serviceClient = createServiceClient()
+
+  // Fetch engagements for this org
   let engagements: Array<{
     id: string
     engagement_type: string
@@ -52,7 +59,19 @@ export default async function AdvisoryPage({
     ends_at: string | null
   }> = []
 
+  // Fetch onboarding data
+  let onboarding: any = null
+
+  // Fetch decisions
+  let decisions: any[] = []
+
+  // Fetch subscription status
+  let subscriptionStatus: string | null = null
+  let billingPeriodStart: string | null = null
+  let billingPeriodEnd: string | null = null
+
   if (serviceClient) {
+    // Engagements
     const { data: engData } = await serviceClient
       .from('engagements')
       .select('id, engagement_type, status, starts_at, ends_at')
@@ -66,7 +85,81 @@ export default async function AdvisoryPage({
       starts_at: e.starts_at,
       ends_at: e.ends_at,
     }))
+
+    // Onboarding
+    const { data: onboardingData } = await serviceClient
+      .from('fractional_onboarding')
+      .select('*')
+      .eq('organization_id', ctx.organization.id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single()
+
+    onboarding = onboardingData || null
+
+    // Decisions - find the active retainer engagement
+    const activeEngagement = engagements.find(
+      e => e.engagement_type === 'retainer' && e.status === 'active'
+    )
+
+    if (activeEngagement) {
+      const { data: decisionData } = await serviceClient
+        .from('engagement_decisions')
+        .select('id, title, description, status, decision_owner, needed_by, decided_at, created_at')
+        .eq('engagement_id', activeEngagement.id)
+        .order('created_at', { ascending: false })
+
+      decisions = decisionData || []
+    }
+
+    // Subscription status (per-offer key with legacy fallback)
+    const { data: subLink } = await serviceClient
+      .from('external_system_links')
+      .select('external_id, status, metadata')
+      .eq('organization_id', ctx.organization.id)
+      .eq('system_key', 'stripe_subscription:fractional_ai_advisor')
+      .single()
+
+    if (subLink) {
+      subscriptionStatus = subLink.status
+    } else {
+      const { data: legacySub } = await serviceClient
+        .from('external_system_links')
+        .select('external_id, status')
+        .eq('organization_id', ctx.organization.id)
+        .eq('system_key', 'stripe_subscription')
+        .single()
+      if (legacySub) {
+        subscriptionStatus = legacySub.status
+      }
+    }
+
+    // Billing period from Stripe subscription
+    if (subLink?.external_id) {
+      try {
+        const { getStripe } = await import('@/lib/stripe/client')
+        const stripe = getStripe()
+        if (stripe) {
+          const subscription = await stripe.subscriptions.retrieve(subLink.external_id)
+          billingPeriodStart = new Date(subscription.current_period_start * 1000).toISOString()
+          billingPeriodEnd = new Date(subscription.current_period_end * 1000).toISOString()
+        }
+      } catch {
+        // Stripe not configured or subscription not found
+      }
+    }
   }
 
-  return <AdvisoryWorkspaceClient user={user} ctx={ctx} engagements={engagements} />
+  return (
+    <AdvisoryWorkspaceClient
+      user={user}
+      ctx={ctx}
+      engagements={engagements}
+      onboarding={onboarding}
+      decisions={decisions}
+      subscriptionStatus={subscriptionStatus}
+      billingPeriodStart={billingPeriodStart}
+      billingPeriodEnd={billingPeriodEnd}
+    />
+  )
 }

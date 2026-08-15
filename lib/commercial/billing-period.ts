@@ -22,20 +22,41 @@ export async function getAdvisorBillingPeriod(orgId: string): Promise<{
     return { periodKey: getCurrentBillingPeriodKey(), periodStart: null, periodEnd: null }
   }
 
-  // Get the Stripe subscription ID for this org
+  // Get the Stripe subscription ID for this org's advisor desk subscription
+  // Uses per-offer key to support multiple subscriptions per organization
   const { data: link } = await sc
     .from('external_system_links')
     .select('external_id, metadata')
     .eq('organization_id', orgId)
-    .eq('system_key', 'stripe_subscription')
+    .eq('system_key', 'stripe_subscription:ai_advisor_desk')
     .eq('status', 'active')
     .single()
 
+  // Fall back to legacy key for backward compatibility
   if (!link?.external_id) {
-    return { periodKey: getCurrentBillingPeriodKey(), periodStart: null, periodEnd: null }
+    const { data: legacyLink } = await sc
+      .from('external_system_links')
+      .select('external_id, metadata')
+      .eq('organization_id', orgId)
+      .eq('system_key', 'stripe_subscription')
+      .eq('status', 'active')
+      .single()
+
+    if (!legacyLink?.external_id) {
+      return { periodKey: getCurrentBillingPeriodKey(), periodStart: null, periodEnd: null }
+    }
+
+    return resolvePeriodFromSubscription(legacyLink.external_id)
   }
 
-  // Fetch subscription from Stripe to get actual period boundaries
+  return resolvePeriodFromSubscription(link.external_id)
+}
+
+async function resolvePeriodFromSubscription(subscriptionId: string): Promise<{
+  periodKey: string
+  periodStart: string | null
+  periodEnd: string | null
+}> {
   try {
     const { getStripe } = await import('@/lib/stripe/client')
     const stripe = getStripe()
@@ -43,7 +64,7 @@ export async function getAdvisorBillingPeriod(orgId: string): Promise<{
       return { periodKey: getCurrentBillingPeriodKey(), periodStart: null, periodEnd: null }
     }
 
-    const subscription = await stripe.subscriptions.retrieve(link.external_id)
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId)
     const periodStart = subscription.current_period_start
     const periodEnd = subscription.current_period_end
 

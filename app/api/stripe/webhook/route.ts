@@ -180,7 +180,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
     return
   }
 
-  // Store subscription ID if applicable
+  // Store subscription ID if applicable (per-offer to support multiple subscriptions)
   if (offer.billingMode === 'subscription' && session.subscription) {
     const sc = createServiceClient()
     if (sc) {
@@ -190,7 +190,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         .upsert(
           {
             organization_id: orgId,
-            system_key: 'stripe_subscription',
+            system_key: `stripe_subscription:${offerKey}`,
             external_id: subId,
             status: 'active',
             metadata: { offer_key: offerKey },
@@ -253,11 +253,29 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         businessObjective: objective,
       })
     } else if (offerKey === 'fractional_ai_advisor') {
-      const { sendFractionalAdvisorWelcomeEmail } = await import('@/lib/email')
+      const { sendFractionalAdvisorWelcomeEmail, sendFractionalClientNotificationEmail } = await import('@/lib/email')
       await sendFractionalAdvisorWelcomeEmail({
         to: customerEmail,
         customerName,
         orgSlug,
+      })
+      // Internal notification to Subodh
+      const billingPeriod = session.metadata?.billing_period as 'monthly' | 'annual' | undefined
+      let orgName = orgSlug
+      if (sc) {
+        const { data: orgData } = await sc
+          .from('organizations')
+          .select('name')
+          .eq('id', orgId)
+          .single()
+        if (orgData?.name) orgName = orgData.name
+      }
+      await sendFractionalClientNotificationEmail({
+        customerName: customerName || customerEmail,
+        customerEmail,
+        orgName,
+        orgSlug,
+        plan: billingPeriod === 'annual' ? 'annual' : 'monthly',
       })
     } else if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
       const { sendSecurityReviewActivatedEmail } = await import('@/lib/email')
@@ -323,13 +341,13 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
     })
   }
 
-  // Update subscription link
+  // Update subscription link (per-offer key to support multiple subscriptions)
   await sc
     .from('external_system_links')
     .upsert(
       {
         organization_id: orgId,
-        system_key: 'stripe_subscription',
+        system_key: `stripe_subscription:${offerKey}`,
         external_id: subscription.id,
         status: subscription.status === 'canceled' ? 'inactive' : 'active',
         metadata: { offer_key: offerKey, status: subscription.status },
@@ -378,12 +396,12 @@ async function handleSubscriptionDeleted(event: Stripe.Event) {
     validUntil,
   })
 
-  // Update subscription link status
+  // Update subscription link status (per-offer key)
   await sc
     .from('external_system_links')
     .update({ status: 'inactive' })
     .eq('organization_id', orgId)
-    .eq('system_key', 'stripe_subscription')
+    .eq('system_key', `stripe_subscription:${offerKey}`)
 
   // Audit event
   await sc.rpc('write_audit_event', {
@@ -478,7 +496,26 @@ async function handleInvoicePaid(event: Stripe.Event) {
 
   const orgId = link.organization_id
 
-  const invoiceOfferKey = invoice.metadata?.offer_key as OfferKey | undefined
+  // For recurring invoices, invoice.metadata may not contain offer_key directly.
+  // Stripe puts subscription metadata on the subscription object, not automatically
+  // on the invoice. Fall back to retrieving the subscription's metadata.
+  let invoiceOfferKey = invoice.metadata?.offer_key as OfferKey | undefined
+
+  if (!invoiceOfferKey && invoice.subscription) {
+    // Retrieve the subscription to get its metadata
+    const subId = typeof invoice.subscription === 'string' ? invoice.subscription : invoice.subscription.id
+    try {
+      const { getStripe } = await import('@/lib/stripe/client')
+      const stripe = getStripe()
+      if (stripe) {
+        const subscription = await stripe.subscriptions.retrieve(subId)
+        invoiceOfferKey = subscription.metadata?.offer_key as OfferKey | undefined
+      }
+    } catch (err) {
+      console.error('Failed to retrieve subscription for invoice metadata fallback:', err)
+    }
+  }
+
   if (!invoiceOfferKey) return
 
   // Record the payment
@@ -494,11 +531,9 @@ async function handleInvoicePaid(event: Stripe.Event) {
   })
 
   // Ensure entitlement stays active
-  const offerKey = invoice.metadata?.offer_key as OfferKey | undefined
-  if (!offerKey) return
   await activateEntitlement({
     orgId,
-    offerKey,
+    offerKey: invoiceOfferKey,
     sourceType: 'subscription',
     metadata: { invoice_id: invoice.id, billing_reason: invoice.billing_reason },
   })

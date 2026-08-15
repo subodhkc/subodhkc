@@ -115,13 +115,25 @@ export default async function AdvisorDeskPage({
     }
   }
 
-  // Fetch subscription status for billing section
-  const { data: subLink } = await sc
+  // Fetch subscription status for billing section (per-offer key with legacy fallback)
+  let subLink = null
+  const { data: perOfferSub } = await sc
     .from('external_system_links')
     .select('external_id, metadata, status')
     .eq('organization_id', ctx.organization.id)
-    .eq('system_key', 'stripe_subscription')
+    .eq('system_key', 'stripe_subscription:ai_advisor_desk')
     .single()
+  if (perOfferSub) {
+    subLink = perOfferSub
+  } else {
+    const { data: legacySub } = await sc
+      .from('external_system_links')
+      .select('external_id, metadata, status')
+      .eq('organization_id', ctx.organization.id)
+      .eq('system_key', 'stripe_subscription')
+      .single()
+    subLink = legacySub
+  }
 
   // Fetch entitlement for valid_until info
   const advisorEntitlement = ctx.entitlements.find(

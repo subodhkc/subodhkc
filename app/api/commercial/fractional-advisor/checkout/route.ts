@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
-  const successUrl = `${siteUrl}/app/${organization.slug}/advisory?checkout=success&offer=${offerKey}`
+  const successUrl = `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`
   const cancelUrl = `${siteUrl}${offer.landingPage}?checkout=cancelled`
 
   const result = await createSubscriptionCheckout({

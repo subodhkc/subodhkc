@@ -15,8 +15,18 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 
   const body = await req.json()
-  const { orgSlug } = body as { orgSlug: string }
+  const { orgSlug, returnTo } = body as { orgSlug: string; returnTo?: string }
   if (!orgSlug) return NextResponse.json({ error: 'orgSlug required' }, { status: 400 })
+
+  // Validate returnTo against a safe allowlist
+  const SAFE_RETURN_PATHS: Record<string, string> = {
+    'advisor-desk': 'advisor-desk',
+    'advisory': 'advisory',
+    'organization-settings': '',
+  }
+  const returnPath = returnTo && SAFE_RETURN_PATHS[returnTo] !== undefined
+    ? SAFE_RETURN_PATHS[returnTo]
+    : 'advisor-desk'
 
   let ctx
   try {
@@ -51,7 +61,9 @@ export async function POST(req: NextRequest) {
   try {
     const session = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: `${siteUrl}/app/${orgSlug}/advisor-desk`,
+      return_url: returnPath
+        ? `${siteUrl}/app/${orgSlug}/${returnPath}`
+        : `${siteUrl}/app/${orgSlug}`,
     })
 
     return NextResponse.json({ url: session.url })
