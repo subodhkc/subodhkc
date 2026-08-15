@@ -34,11 +34,10 @@ export async function createSubscriptionCheckout(opts: {
       offer_key: offerKey,
       billing_period: period,
       app_source: 'subodhkc',
-      // Terms acceptance metadata
+      // Terms identification metadata (NOT acceptance — acceptance is recorded at checkout.session.completed)
       terms_version: '2026-08',
       service_schedule_slug: getServiceTerms(offerKey)?.scheduleSlug ?? '',
       service_schedule_version: getServiceTerms(offerKey)?.version ?? '',
-      terms_accepted_at: new Date().toISOString(),
       ...metadata,
     },
     subscription_data: {
@@ -54,19 +53,10 @@ export async function createSubscriptionCheckout(opts: {
     },
   })
 
-  // Record terms acceptance in database
-  const serviceTerms = getServiceTerms(offerKey)
-  if (serviceTerms) {
-    await recordTermsAcceptance({
-      offerKey,
-      termsVersion: '2026-08',
-      serviceScheduleSlug: serviceTerms.scheduleSlug,
-      serviceScheduleVersion: serviceTerms.version,
-      checkoutSessionId: session.id,
-      userId: metadata?.user_id,
-      organizationId: metadata?.organization_id,
-    })
-  }
+  // NOTE: Terms acceptance is NOT recorded here.
+  // A created or abandoned checkout must never be recorded as accepted terms.
+  // Acceptance is recorded in the webhook handler at checkout.session.completed
+  // only after verifying session.consent.terms_of_service === 'accepted'.
 
   return { sessionId: session.id, url: session.url! }
 }
@@ -241,9 +231,14 @@ export async function getStripeSubscriptionId(
 }
 
 /**
- * Record terms acceptance at checkout time.
- * Stores the terms version, service schedule version, and checkout session ID
- * for compliance and audit purposes.
+ * Record terms acceptance at checkout completion.
+ * Called ONLY from the webhook handler at checkout.session.completed
+ * after verifying session.consent.terms_of_service === 'accepted'.
+ *
+ * Stores the terms version, service schedule version, checkout session ID,
+ * Stripe customer/subscription IDs, and actual acceptance timestamp.
+ * Idempotent — duplicate webhook deliveries will not create duplicate records
+ * due to the unique constraint on checkout_session_id.
  */
 export async function recordTermsAcceptance(opts: {
   offerKey: OfferKey
@@ -253,6 +248,10 @@ export async function recordTermsAcceptance(opts: {
   checkoutSessionId: string
   userId?: string
   organizationId?: string
+  stripeCustomerId?: string
+  stripeSubscriptionId?: string
+  billingPeriod?: string
+  consentSource?: string
 }): Promise<void> {
   const sc = createServiceClient()
   if (!sc) return
@@ -265,6 +264,10 @@ export async function recordTermsAcceptance(opts: {
     checkoutSessionId,
     userId,
     organizationId,
+    stripeCustomerId,
+    stripeSubscriptionId,
+    billingPeriod,
+    consentSource = 'stripe_checkout',
   } = opts
 
   try {
@@ -278,10 +281,19 @@ export async function recordTermsAcceptance(opts: {
         checkout_session_id: checkoutSessionId,
         user_id: userId || null,
         organization_id: organizationId || null,
+        stripe_customer_id: stripeCustomerId || null,
+        stripe_subscription_id: stripeSubscriptionId || null,
+        billing_period: billingPeriod || null,
+        consent_source: consentSource,
         accepted_at: new Date().toISOString(),
       })
   } catch (err) {
-    // Non-fatal — table may not exist yet in some environments
+    // Unique constraint violation on checkout_session_id means duplicate webhook — safe to ignore
+    const errMsg = (err as Error).message || ''
+    if (errMsg.includes('duplicate') || errMsg.includes('unique')) {
+      console.log('[terms_acceptance] Duplicate webhook delivery for session', checkoutSessionId, '— ignoring')
+      return
+    }
     console.error('[terms_acceptance] Failed to record acceptance:', err)
   }
 }

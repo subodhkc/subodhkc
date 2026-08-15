@@ -22,11 +22,11 @@ export type BillingMode = 'subscription' | 'one_time' | 'custom_scoped'
  */
 export interface IncludedProductAccess {
   /** HAIEC entitlement tier key, or null if no HAIEC access. */
-  haiecTier: 'scan' | 'defend' | null
+  haiecTier: 'advisor_essentials' | 'scan' | null
   /** HAIEC seat count. */
   haiecSeats: number
   /** Kestrel plan key, or null if no Kestrel access. */
-  kestrelPlan: 'phone_number' | 'personal' | null
+  kestrelPlan: 'ai_number_basic' | null
   /** Kestrel monthly credits. */
   kestrelCredits: number
   /** Whether SubodhKC Member Tools are included. */
@@ -99,9 +99,9 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresSecurityAuthorization: false,
     checkoutDescription: 'AI Advisor for Business subscription — ongoing human AI advisory, weekly intelligence, and human advisory access',
     includedProducts: {
-      haiecTier: 'scan',
+      haiecTier: 'advisor_essentials',
       haiecSeats: 1,
-      kestrelPlan: 'phone_number',
+      kestrelPlan: 'ai_number_basic',
       kestrelCredits: 20,
       memberTools: true,
     },
@@ -114,8 +114,8 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
       'Weekly AI intelligence brief',
       'AI Controls + regulatory monitoring',
       'Opportunity and vendor guidance',
-      'HAIEC SCAN access',
-      'Kestrel Starter Phone ($5 plan)',
+      'HAIEC Advisor Essentials',
+      'Kestrel AI Number Basic',
       'Selected Member Tools',
       'Up to 3 team members',
     ],
@@ -163,10 +163,10 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresSecurityAuthorization: false,
     checkoutDescription: 'Fractional AI Advisor — executive AI advisory subscription',
     includedProducts: {
-      haiecTier: 'defend',
+      haiecTier: 'scan',
       haiecSeats: 1,
-      kestrelPlan: 'personal',
-      kestrelCredits: 70000,
+      kestrelPlan: 'ai_number_basic',
+      kestrelCredits: 20,
       memberTools: true,
     },
     serviceTerms: {
@@ -180,8 +180,8 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
       'Monthly Decision & Opportunity Brief',
       'Vendor, roadmap + architecture review',
       'Selected decision artifacts',
-      'HAIEC DEFEND access',
-      'Kestrel Personal AI ($29 plan)',
+      'HAIEC SCAN access (1 seat)',
+      'Kestrel AI Number Basic',
       'Member Tool Library',
     ],
   },

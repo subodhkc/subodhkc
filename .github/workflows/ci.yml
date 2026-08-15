@@ -103,6 +103,9 @@ jobs:
     needs: build-and-verify
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'schedule')
     runs-on: ubuntu-latest
+    # Search engine notifications are non-blocking — a notification failure
+    # must never make a successful build appear broken.
+    continue-on-error: true
     env:
       GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
     steps:
@@ -166,6 +169,7 @@ jobs:
 
       - name: Ping IndexNow with all sitemap URLs
         if: steps.content-check.outputs.should_ping == 'true'
+        continue-on-error: true
         run: |
           URLS='${{ steps.sitemap.outputs.urls }}'
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
@@ -179,98 +183,15 @@ jobs:
             echo "::warning::IndexNow returned $RESPONSE (non-fatal)"
           fi
 
-      - name: Submit URLs to Google Indexing API
-        if: steps.content-check.outputs.should_ping == 'true' && env.GCP_SERVICE_ACCOUNT_JSON != ''
-        run: |
-          echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
-
-          ACCESS_TOKEN=$(python3 -c "
-          import json, urllib.request, urllib.parse, base64, time
-          from cryptography.hazmat.primitives import hashes, serialization
-          from cryptography.hazmat.primitives.asymmetric import padding
-
-          with open('/tmp/gcp-service-account.json') as f:
-              key = json.load(f)
-
-          header = {'alg': 'RS256', 'typ': 'JWT'}
-          payload = {
-              'iss': key['client_email'],
-              'scope': 'https://www.googleapis.com/auth/indexing',
-              'aud': 'https://oauth2.googleapis.com/token',
-              'exp': int(time.time()) + 3600,
-              'iat': int(time.time())
-          }
-
-          def b64encode(data):
-              return base64.urlsafe_b64encode(data).rstrip(b'=').decode()
-
-          header_b64 = b64encode(json.dumps(header, separators=(',', ':')).encode())
-          payload_b64 = b64encode(json.dumps(payload, separators=(',', ':')).encode())
-
-          private_key = serialization.load_pem_private_key(key['private_key'].encode(), password=None)
-          signature = private_key.sign(f'{header_b64}.{payload_b64}'.encode(), padding.PKCS1v15(), hashes.SHA256())
-          jwt = f'{header_b64}.{payload_b64}.{b64encode(signature)}'
-
-          data = urllib.parse.urlencode({'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer', 'assertion': jwt}).encode()
-          req = urllib.request.Request('https://oauth2.googleapis.com/token', data=data)
-          resp = urllib.request.urlopen(req)
-          print(json.loads(resp.read())['access_token'])
-          ")
-
-          if [ -z "$ACCESS_TOKEN" ]; then
-            echo "::warning::Could not get Google access token - skipping Indexing API"
-            exit 0
-          fi
-
-          echo "Got Google OAuth2 access token"
-
-          URLS='${{ steps.sitemap.outputs.urls }}'
-          echo "$URLS" | python3 -c "
-          import json, sys, urllib.request, time, urllib.error
-
-          token = '$ACCESS_TOKEN'
-          urls = json.load(sys.stdin)
-          success = 0
-          fail = 0
-          permission_error = False
-
-          for url in urls[:200]:
-              try:
-                  data = json.dumps({'url': url, 'type': 'URL_UPDATED'}).encode()
-                  req = urllib.request.Request(
-                      'https://indexing.googleapis.com/v3/urlNotifications:publish',
-                      data=data,
-                      headers={'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'}
-                  )
-                  resp = urllib.request.urlopen(req)
-                  success += 1
-                  print(f'  OK: {url}')
-                  time.sleep(0.5)
-              except urllib.error.HTTPError as e:
-                  if e.code == 403:
-                      print(f'  FAIL: {url} - HTTP 403: Permission denied. Service account not verified as site owner in Search Console.')
-                      permission_error = True
-                      fail += 1
-                  else:
-                      print(f'  FAIL: {url} - HTTP {e.code}: {e.reason}')
-                      fail += 1
-                  time.sleep(0.5)
-              except Exception as e:
-                  print(f'  FAIL: {url} - {e}')
-                  fail += 1
-                  time.sleep(0.5)
-
-          print(f'Google Indexing API: {success} submitted, {fail} failed')
-          if permission_error:
-              print('::error::Google Indexing API returned 403. Add the service account as Owner in Google Search Console > Settings > Users and permissions.')
-              sys.exit(1)
-          if fail > 0:
-              print(f'::error::{fail} URL(s) failed to submit to Google Indexing API')
-              sys.exit(1)
-          "
+      # NOTE: Google Indexing API is NOT used for ordinary site URLs.
+      # The Indexing API only supports JobPosting and BroadcastEvent content types.
+      # Ordinary pages are discovered via sitemap, IndexNow, and normal crawling.
+      # If the site ever publishes JobPosting or BroadcastEvent content, this
+      # step can be re-enabled for those specific URLs only.
 
       - name: Submit sitemap to Google Search Console API
         if: steps.content-check.outputs.should_ping == 'true' && env.GCP_SERVICE_ACCOUNT_JSON != ''
+        continue-on-error: true
         run: |
           echo "$GCP_SERVICE_ACCOUNT_JSON" > /tmp/gcp-service-account.json
 
@@ -319,6 +240,7 @@ jobs:
 
       - name: Verify live site is up
         if: steps.content-check.outputs.should_ping == 'true'
+        continue-on-error: true
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://subodhkc.com")
           echo "Live site status: $STATUS"
@@ -330,6 +252,7 @@ jobs:
 
       - name: Verify IndexNow key is accessible
         if: steps.content-check.outputs.should_ping == 'true'
+        continue-on-error: true
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://subodhkc.com/subodhkcindexnowkey2026.txt")
           echo "IndexNow key file status: $STATUS"
@@ -354,7 +277,7 @@ jobs:
             echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
             echo "| Content change detected | Yes |" >> $GITHUB_STEP_SUMMARY
             echo "| IndexNow ping | ${{ steps.content-check.outputs.should_ping == 'true' && 'Sent' || 'Skipped' }} |" >> $GITHUB_STEP_SUMMARY
-            echo "| Google Indexing API | ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' && 'Submitted' || 'Skipped (no credentials)' }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Google Indexing API | Disabled (not for ordinary pages) |" >> $GITHUB_STEP_SUMMARY
             echo "| GSC sitemap submission | ${{ env.GCP_SERVICE_ACCOUNT_JSON != '' && 'Submitted' || 'Skipped (no credentials)' }} |" >> $GITHUB_STEP_SUMMARY
             echo "| Live site check | Completed |" >> $GITHUB_STEP_SUMMARY
             echo "| IndexNow key check | Completed |" >> $GITHUB_STEP_SUMMARY

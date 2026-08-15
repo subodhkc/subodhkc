@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://subodhkc.com/service-terms/fractional-ai-advisor',
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 }
 
 export default function FractionalAdvisorServiceTermsPage() {
@@ -94,8 +94,8 @@ export default function FractionalAdvisorServiceTermsPage() {
             <CardHeader>
               <CardTitle>5. Included Product Access</CardTitle>
               <CardContent className="pt-0 space-y-3 text-sm text-muted-foreground">
-                <p><strong className="text-foreground">HAIEC DEFEND:</strong> One HAIEC DEFEND-level entitlement seat. Includes PDF exports, CI integration, and 15 repos. Higher HAIEC tiers (CERTIFY, FIRM), additional seats, runtime testing, signed enterprise evidence bundles, implementation, and managed compliance remain separately purchased or scoped.</p>
-                <p><strong className="text-foreground">Kestrel Personal AI ($29 plan):</strong> One AI phone number with full AI answering, 70,000 monthly credits, self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.</p>
+                <p><strong className="text-foreground">HAIEC SCAN:</strong> One HAIEC SCAN-level entitlement seat, aligned to the current HAIEC SCAN product. Higher HAIEC tiers, additional seats, runtime testing, CI/CD, enterprise evidence bundles, implementation, and managed compliance remain separately purchased or scoped.</p>
+                <p><strong className="text-foreground">Kestrel AI Number Basic:</strong> One AI phone number with basic AI answering, 20 included monthly credits, self-service configuration. Additional usage or upgrades are governed by Kestrel plan limits and are purchased separately within Kestrel.</p>
                 <p><strong className="text-foreground">Member Tool Library:</strong> Production-ready internal decision, architecture, research, and technical utilities available to advisory clients.</p>
                 <p>HAIEC and Kestrel maintain their own product limits, acceptable-use terms, and upgrade paths. This advisory subscription does not create additional uptime or SLA guarantees for those products.</p>
               </CardContent>
@@ -147,7 +147,8 @@ export default function FractionalAdvisorServiceTermsPage() {
             <CardHeader>
               <CardTitle>9. Confidentiality and Client Material</CardTitle>
               <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
-                <p>Client-provided materials are treated as confidential. They are not shared with third parties without consent.</p>
+                <p>Client-provided materials are confidential and are not disclosed to unrelated third parties except as necessary to provide the service through disclosed service providers/subprocessors, as authorized by the client, or as required by law.</p>
+                <p><strong className="text-foreground">Sensitive data warning:</strong> Do not submit passwords, API keys, payment card data, medical information, or regulated/specially protected data through the workspace unless a secure handling arrangement has been explicitly agreed.</p>
                 <p>You control what context is shared in the workspace and can edit it at any time.</p>
                 <p>See the Privacy Policy for details on data handling.</p>
               </CardContent>
@@ -157,9 +158,11 @@ export default function FractionalAdvisorServiceTermsPage() {
           <Card id="ip">
             <CardHeader>
               <CardTitle>10. Intellectual Property</CardTitle>
-              <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
-                <p>Advisor methodologies, frameworks, decision artifacts, and tools remain the intellectual property of Subodh KC. You retain ownership of all client-provided materials and your organizational context.</p>
-                <p>Decision artifacts provided to you may be used internally within your organization. Redistribution or resale of advisor methodologies, frameworks, or tools is not permitted without separate agreement.</p>
+              <CardContent className="pt-0 space-y-3 text-sm text-muted-foreground">
+                <p><strong className="text-foreground">Background IP:</strong> Subodh KC methodologies, frameworks, templates, software, tools, and general know-how remain the intellectual property of Subodh KC or the appropriate entity.</p>
+                <p><strong className="text-foreground">Client Materials:</strong> All materials you provide remain your property.</p>
+                <p><strong className="text-foreground">Client-Specific Deliverables:</strong> You receive a perpetual right to use and share client-specific deliverables (such as customized Decision Briefs, vendor comparisons, architecture reviews, or analyses) internally and with relevant professional advisors, investors, partners, or stakeholders for your business purposes. Resale or redistribution of underlying proprietary frameworks, templates, and software is not permitted without separate agreement.</p>
+                <p className="text-xs italic">This IP section is draft language marked for attorney review before final legal use.</p>
               </CardContent>
             </CardHeader>
           </Card>

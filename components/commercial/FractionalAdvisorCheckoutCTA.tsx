@@ -99,6 +99,13 @@ export function FractionalAdvisorCheckoutCTA({ title, description, bullets }: Fr
                     $12,500/year (save 2 months)
                   </Button>
                 </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  By proceeding to checkout, you agree to the{' '}
+                  <a href="/terms" className="text-primary hover:underline" target="_blank" rel="noopener">Terms of Service</a>
+                  {' '}and{' '}
+                  <a href="/service-terms/fractional-ai-advisor" className="text-primary hover:underline" target="_blank" rel="noopener">Fractional AI Advisor Service Terms</a>.
+                  {' '}Stripe checkout will require explicit terms acceptance.
+                </p>
                 {error && <p className="text-sm text-red-600">{error}</p>}
               </div>
             )}

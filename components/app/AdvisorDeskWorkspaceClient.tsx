@@ -52,6 +52,18 @@ interface TeamMember {
   fullName: string | null
 }
 
+interface IncludedEntitlement {
+  id: string
+  tierOrPlan: string
+  seats: number
+  credits: number | null
+  entitlementStatus: string  // included, ready_to_activate, provisioning, active, provisioning_failed, suspended, ended
+  provisioningStatus: string  // pending, in_progress, provisioned, failed, not_applicable
+  externalUserId: string | null
+  provisioningError: string | null
+  sourceOfferKey: string
+}
+
 interface ProductInfo {
   offeringKey: string
   name: string
@@ -61,6 +73,12 @@ interface ProductInfo {
   hasEntitlement: boolean
   requestStatus: string | null
   requestId: string | null
+  includedEntitlement: IncludedEntitlement | null
+}
+
+interface MemberToolsIncluded {
+  accessLevel: string
+  entitlementStatus: string
 }
 
 interface AdvisorDeskWorkspaceClientProps {
@@ -74,6 +92,7 @@ interface AdvisorDeskWorkspaceClientProps {
   entitlementValidUntil: string | null
   entitlementStatus: string
   products: ProductInfo[]
+  memberToolsIncluded?: MemberToolsIncluded | null
 }
 
 const statusLabels: Record<string, string> = {
@@ -177,6 +196,7 @@ export function AdvisorDeskWorkspaceClient({
   entitlementValidUntil,
   entitlementStatus,
   products,
+  memberToolsIncluded,
 }: AdvisorDeskWorkspaceClientProps) {
   const { organization } = ctx
   const basePath = `/app/${organization.slug}`
@@ -190,6 +210,7 @@ export function AdvisorDeskWorkspaceClient({
   const [portalLoading, setPortalLoading] = useState(false)
   const [productList, setProductList] = useState<ProductInfo[]>(products)
   const [requestingProduct, setRequestingProduct] = useState<string | null>(null)
+  const [activatingProduct, setActivatingProduct] = useState<string | null>(null)
 
   const cancellationScheduled = entitlementStatus === 'active' && entitlementValidUntil
 
@@ -289,6 +310,52 @@ export function AdvisorDeskWorkspaceClient({
       console.error('Failed to request product:', err)
     }
     setRequestingProduct(null)
+  }
+
+  async function handleActivateProduct(offeringKey: string) {
+    setActivatingProduct(offeringKey)
+    try {
+      const res = await fetch('/api/included-products/activate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orgSlug: organization.slug, productKey: offeringKey }),
+      })
+      const data = await res.json()
+      if (res.ok && data.success) {
+        // Update product to show as active/provisioned
+        setProductList(prev => prev.map(p =>
+          p.offeringKey === offeringKey && p.includedEntitlement
+            ? {
+                ...p,
+                includedEntitlement: {
+                  ...p.includedEntitlement,
+                  entitlementStatus: 'active',
+                  provisioningStatus: 'provisioned',
+                  externalUserId: data.externalUserId || p.includedEntitlement.externalUserId,
+                }
+              }
+            : p
+        ))
+      } else if (data.requiresManualAction) {
+        // Mark as provisioning_failed but keep entitlement
+        setProductList(prev => prev.map(p =>
+          p.offeringKey === offeringKey && p.includedEntitlement
+            ? {
+                ...p,
+                includedEntitlement: {
+                  ...p.includedEntitlement,
+                  entitlementStatus: 'provisioning_failed',
+                  provisioningStatus: 'failed',
+                  provisioningError: data.message || 'Manual activation required',
+                }
+              }
+            : p
+        ))
+      }
+    } catch (err) {
+      console.error('Failed to activate product:', err)
+    }
+    setActivatingProduct(null)
   }
 
   return (
@@ -502,80 +569,129 @@ export function AdvisorDeskWorkspaceClient({
           )}
         </section>
 
-        {/* Products & Platforms */}
+        {/* Included Capabilities */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Boxes className="h-5 w-5 text-primary" />
-            Products & Platforms
+            Included Capabilities
           </h2>
           <div className="space-y-3">
-            {productList.map(product => (
-              <div key={product.offeringKey} className="border rounded-lg p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium">{product.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
-                    <div className="flex items-center gap-3 mt-2">
-                      <Link
-                        href={product.learnMoreHref}
-                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                      >
-                        Learn More
-                        <ExternalLink className="h-3 w-3" />
-                      </Link>
-                      {product.hasEntitlement && (
-                        <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded font-medium">
-                          Active
-                        </span>
+            {productList.map(product => {
+              const ent = product.includedEntitlement
+              const isIncluded = ent && ent.entitlementStatus !== 'ended'
+              const isActive = ent?.entitlementStatus === 'active' && ent?.provisioningStatus === 'provisioned'
+              const isProvisioning = ent?.entitlementStatus === 'provisioning'
+              const isFailed = ent?.entitlementStatus === 'provisioning_failed'
+              const isReadyToActivate = ent?.entitlementStatus === 'ready_to_activate'
+
+              return (
+                <div key={product.offeringKey} className="border rounded-lg p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-medium">{product.name}</h3>
+                      <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
+                      {isIncluded && (
+                        <p className="text-xs text-primary mt-1 font-medium">
+                          Included with AI Advisor for Business
+                          {ent?.seats && ent.seats > 1 ? ` · ${ent.seats} seats` : ' · 1 seat'}
+                          {ent?.credits != null && ` · ${ent.credits} monthly credits`}
+                        </p>
                       )}
-                      {product.requestStatus === 'requested' && (
-                        <span className="text-xs bg-amber-500/10 text-amber-700 px-2 py-0.5 rounded font-medium">
-                          Access Requested
+                      <div className="flex items-center gap-3 mt-2">
+                        <Link
+                          href={product.learnMoreHref}
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                        >
+                          Learn More
+                          <ExternalLink className="h-3 w-3" />
+                        </Link>
+                        {isActive && (
+                          <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded font-medium">
+                            Active
+                          </span>
+                        )}
+                        {isProvisioning && (
+                          <span className="text-xs bg-blue-500/10 text-blue-700 px-2 py-0.5 rounded font-medium">
+                            Provisioning...
+                          </span>
+                        )}
+                        {isFailed && (
+                          <span className="text-xs bg-red-500/10 text-red-700 px-2 py-0.5 rounded font-medium">
+                            Needs Attention
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0">
+                      {isActive ? (
+                        <a
+                          href={product.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                        >
+                          Open
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      ) : isProvisioning ? (
+                        <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                          Provisioning
                         </span>
-                      )}
-                      {product.requestStatus === 'approved' && (
-                        <span className="text-xs bg-blue-500/10 text-blue-700 px-2 py-0.5 rounded font-medium">
-                          Approved — Activation Pending
-                        </span>
-                      )}
+                      ) : isFailed ? (
+                        <button
+                          onClick={() => handleActivateProduct(product.offeringKey)}
+                          disabled={activatingProduct === product.offeringKey}
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline disabled:opacity-50"
+                        >
+                          {activatingProduct === product.offeringKey ? (
+                            <><Loader2 className="h-3 w-3 animate-spin" /> Retrying...</>
+                          ) : (
+                            <>Retry</>
+                          )}
+                        </button>
+                      ) : isReadyToActivate || (isIncluded && !isActive) ? (
+                        <button
+                          onClick={() => handleActivateProduct(product.offeringKey)}
+                          disabled={activatingProduct === product.offeringKey}
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline disabled:opacity-50"
+                        >
+                          {activatingProduct === product.offeringKey ? (
+                            <><Loader2 className="h-3 w-3 animate-spin" /> Activating...</>
+                          ) : (
+                            <>Activate</>
+                          )}
+                        </button>
+                      ) : null}
                     </div>
                   </div>
-                  <div className="flex-shrink-0">
-                    {product.hasEntitlement ? (
-                      <a
-                        href={product.externalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                      >
-                        Open Platform
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    ) : product.requestStatus === 'requested' || product.requestStatus === 'approved' ? (
-                      <span className="text-xs text-muted-foreground">Pending</span>
-                    ) : (
-                      <button
-                        onClick={() => handleRequestProduct(product.offeringKey)}
-                        disabled={requestingProduct === product.offeringKey}
-                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline disabled:opacity-50"
-                      >
-                        {requestingProduct === product.offeringKey ? (
-                          <><Loader2 className="h-3 w-3 animate-spin" /> Requesting...</>
-                        ) : (
-                          <>Request Access</>
-                        )}
-                      </button>
-                    )}
-                  </div>
+                  {isFailed && ent?.provisioningError && (
+                    <p className="text-xs text-muted-foreground mt-2 pt-2 border-t">
+                      {ent.provisioningError}
+                    </p>
+                  )}
                 </div>
-                {product.requestStatus === 'requested' && (
-                  <p className="text-xs text-muted-foreground mt-2 pt-2 border-t">
-                    Your request has been submitted. Subodh will review and activate access. You will be notified when it is ready.
-                  </p>
-                )}
-              </div>
-            ))}
+              )
+            })}
           </div>
+          {memberToolsIncluded && memberToolsIncluded.entitlementStatus !== 'ended' && (
+            <div className="border rounded-lg p-4 mt-3">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium">Selected Member Tools</h3>
+                  <p className="text-xs text-primary mt-1 font-medium">
+                    Included with AI Advisor for Business
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Selected SubodhKC production-ready internal tools and utilities. Additional tools are added as they become available.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Governance & Controls — separated, NOT removed */}

@@ -4,6 +4,7 @@ import {
   resolveOrganizationContext,
   AuthError,
 } from '@/lib/auth/organization-resolver'
+import { checkMutationAllowed } from '@/lib/auth/fractional-access'
 import { createServiceClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
@@ -80,6 +81,15 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     if (err instanceof AuthError) return NextResponse.json({ error: err.code }, { status: 403 })
     return NextResponse.json({ error: 'internal' }, { status: 500 })
+  }
+
+  // Enforce read-only state — no mutations during 30-day post-cancellation window
+  const mutationCheck = checkMutationAllowed(ctx)
+  if (!mutationCheck.allowed) {
+    return NextResponse.json(
+      { error: mutationCheck.error, message: mutationCheck.message },
+      { status: mutationCheck.status }
+    )
   }
 
   const sc = createServiceClient()

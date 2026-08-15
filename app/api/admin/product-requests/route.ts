@@ -171,10 +171,14 @@ export async function PATCH(req: NextRequest) {
             const included = getIncludedProducts(sourceOfferKey as OfferKey)
             if (included) {
               if (request.offering_key === 'haiec' && included.haiecTier) {
-                planTier = included.haiecTier
+                // Map SubodhKC entitlement labels to HAIEC's real tier names
+                // advisor_essentials → scan (with feature restrictions enforced on HAIEC side)
+                // scan → scan
+                planTier = included.haiecTier === 'advisor_essentials' ? 'scan' : included.haiecTier
               } else if (request.offering_key === 'kestrel' && included.kestrelPlan) {
-                // Kestrel plan keys already match Kestrel's tier names: phone_number, personal
-                planTier = included.kestrelPlan
+                // Map SubodhKC plan labels to Kestrel's real tier names
+                // ai_number_basic → phone_number ($5 Starter Phone plan)
+                planTier = included.kestrelPlan === 'ai_number_basic' ? 'phone_number' : included.kestrelPlan
               }
             }
           }

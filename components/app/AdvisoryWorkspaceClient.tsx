@@ -44,6 +44,18 @@ interface Decision {
   created_at: string
 }
 
+interface IncludedEntitlement {
+  id: string
+  tierOrPlan: string
+  seats: number
+  credits: number | null
+  entitlementStatus: string
+  provisioningStatus: string
+  externalUserId: string | null
+  provisioningError: string | null
+  sourceOfferKey: string
+}
+
 interface ProductInfo {
   offeringKey: string
   name: string
@@ -53,6 +65,12 @@ interface ProductInfo {
   hasEntitlement: boolean
   requestStatus: string | null
   requestId: string | null
+  includedEntitlement: IncludedEntitlement | null
+}
+
+interface MemberToolsIncluded {
+  accessLevel: string
+  entitlementStatus: string
 }
 
 interface AdvisoryWorkspaceClientProps {
@@ -65,6 +83,7 @@ interface AdvisoryWorkspaceClientProps {
   billingPeriodStart: string | null
   billingPeriodEnd: string | null
   products?: ProductInfo[]
+  memberToolsIncluded?: MemberToolsIncluded | null
 }
 
 const DECISION_STATUS_LABELS: Record<string, { label: string; color: string }> = {
@@ -112,6 +131,7 @@ export function AdvisoryWorkspaceClient({
   billingPeriodStart,
   billingPeriodEnd,
   products = [],
+  memberToolsIncluded,
 }: AdvisoryWorkspaceClientProps) {
   const { organization, organizationRole, isPlatformAdmin } = ctx
   const basePath = `/app/${organization.slug}`
@@ -124,6 +144,18 @@ export function AdvisoryWorkspaceClient({
   const [intakeType, setIntakeType] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [exporting, setExporting] = useState(false)
+  const [activatingProduct, setActivatingProduct] = useState<string | null>(null)
+  const [productList, setProductList] = useState<ProductInfo[]>(products)
+
+  // Determine Fractional access state from entitlements
+  const fractionalEnt = ctx.entitlements.find(
+    e => e.offering_key === 'fractional_ai_advisor' || e.offering_key === 'advisory'
+  )
+  const isReadOnly = fractionalEnt?.effective_status === 'expired' && fractionalEnt?.valid_until
+  const readonlyUntilDate = isReadOnly && fractionalEnt?.valid_until
+    ? new Date(new Date(fractionalEnt.valid_until).getTime() + 30 * 24 * 60 * 60 * 1000)
+    : null
+  const showReadOnlyBanner = isReadOnly && readonlyUntilDate && new Date() <= readonlyUntilDate
   const [onboardingComplete, setOnboardingComplete] = useState(
     onboarding?.status === 'completed'
   )
@@ -212,6 +244,50 @@ export function AdvisoryWorkspaceClient({
     setExporting(false)
   }
 
+  async function handleActivateProduct(offeringKey: string) {
+    setActivatingProduct(offeringKey)
+    try {
+      const res = await fetch('/api/included-products/activate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orgSlug: organization.slug, productKey: offeringKey }),
+      })
+      const data = await res.json()
+      if (res.ok && data.success) {
+        setProductList(prev => prev.map(p =>
+          p.offeringKey === offeringKey && p.includedEntitlement
+            ? {
+                ...p,
+                includedEntitlement: {
+                  ...p.includedEntitlement,
+                  entitlementStatus: 'active',
+                  provisioningStatus: 'provisioned',
+                  externalUserId: data.externalUserId || p.includedEntitlement.externalUserId,
+                }
+              }
+            : p
+        ))
+      } else if (data.requiresManualAction) {
+        setProductList(prev => prev.map(p =>
+          p.offeringKey === offeringKey && p.includedEntitlement
+            ? {
+                ...p,
+                includedEntitlement: {
+                  ...p.includedEntitlement,
+                  entitlementStatus: 'provisioning_failed',
+                  provisioningStatus: 'failed',
+                  provisioningError: data.message || 'Manual activation required',
+                }
+              }
+            : p
+        ))
+      }
+    } catch (err) {
+      console.error('Failed to activate product:', err)
+    }
+    setActivatingProduct(null)
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card sticky top-0 z-30">
@@ -234,6 +310,23 @@ export function AdvisoryWorkspaceClient({
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8 space-y-8">
+        {/* Read-only banner for post-cancellation 30-day window */}
+        {showReadOnlyBanner && (
+          <div className="border border-amber-500/30 bg-amber-500/5 rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 className="text-sm font-semibold text-amber-700">Fractional Engagement Ended — Read-Only Access</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Your Fractional engagement has ended. Your workspace remains available for read/download access until{' '}
+                  <strong>{readonlyUntilDate?.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>.
+                  New advisor requests, decisions, and edits are disabled. Export is available below.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Fractional AI Advisor</h1>
@@ -487,23 +580,27 @@ export function AdvisoryWorkspaceClient({
         </div>
 
         {/* Bring Something to the Desk */}
-        <section className="border border-primary/30 rounded-lg p-6 bg-primary/5">
+        <section className={`border rounded-lg p-6 ${showReadOnlyBanner ? 'border-muted bg-muted/10 opacity-60' : 'border-primary/30 bg-primary/5'}`}>
           <h2 className="text-lg font-semibold flex items-center gap-2 mb-2">
             <Zap className="h-5 w-5 text-primary" />
             Bring Something to the Desk
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
-            What do you want to work on? Pick the intake type that fits. I will review and prepare before our next session or async response.
+            {showReadOnlyBanner
+              ? 'Workspace is in read-only mode. New intake is disabled.'
+              : 'What do you want to work on? Pick the intake type that fits. I will review and prepare before our next session or async response.'}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {intakeTypes.map((item, i) => (
               <button
                 key={i}
                 onClick={() => {
+                  if (showReadOnlyBanner) return
                   setIntakeType(item.label)
                   setShowAddDecision(true)
                 }}
-                className="border rounded-lg p-3 text-left hover:bg-accent transition-colors group"
+                disabled={!!showReadOnlyBanner}
+                className="border rounded-lg p-3 text-left hover:bg-accent transition-colors group disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <item.icon className="h-4 w-4 text-primary mb-2" />
                 <h3 className="text-xs font-medium">{item.label}</h3>
@@ -554,6 +651,12 @@ export function AdvisoryWorkspaceClient({
                 <p className="text-sm text-muted-foreground">
                   Research, benchmarks, test results, and client-provided evidence used to inform decisions.
                 </p>
+                <div className="mt-3 rounded-md bg-amber-500/5 border border-amber-500/20 p-3">
+                  <p className="text-xs text-amber-700 font-medium mb-1">Sensitive data warning</p>
+                  <p className="text-xs text-muted-foreground">
+                    Do not submit passwords, API keys, payment card data, medical information, or regulated/specially protected data unless a secure handling arrangement has been explicitly agreed.
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -697,66 +800,134 @@ export function AdvisoryWorkspaceClient({
           </div>
         </section>
 
-        {/* Products & Platforms */}
-        {products.length > 0 && (
+        {/* Included Capabilities */}
+        {productList.length > 0 && (
           <section>
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Boxes className="h-5 w-5 text-primary" />
-              Products & Platforms
+              Included Capabilities
             </h2>
             <div className="space-y-3">
-              {products.map(product => (
-                <div key={product.offeringKey} className="border rounded-lg p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-medium">{product.name}</h3>
-                      <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
-                      <div className="flex items-center gap-3 mt-2">
-                        <Link
-                          href={product.learnMoreHref}
-                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                        >
-                          Learn More
-                          <ExternalLink className="h-3 w-3" />
-                        </Link>
-                        {product.hasEntitlement && (
-                          <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded font-medium">
-                            Active
-                          </span>
+              {productList.map(product => {
+                const ent = product.includedEntitlement
+                const isIncluded = ent && ent.entitlementStatus !== 'ended'
+                const isActive = ent?.entitlementStatus === 'active' && ent?.provisioningStatus === 'provisioned'
+                const isProvisioning = ent?.entitlementStatus === 'provisioning'
+                const isFailed = ent?.entitlementStatus === 'provisioning_failed'
+                const isReadyToActivate = ent?.entitlementStatus === 'ready_to_activate'
+
+                return (
+                  <div key={product.offeringKey} className="border rounded-lg p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-medium">{product.name}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
+                        {isIncluded && (
+                          <p className="text-xs text-primary mt-1 font-medium">
+                            Included with Fractional AI Advisor
+                            {ent?.seats && ent.seats > 1 ? ` · ${ent.seats} seats` : ' · 1 seat'}
+                            {ent?.credits != null && ` · ${ent.credits} monthly credits`}
+                          </p>
                         )}
-                        {product.requestStatus === 'requested' && (
-                          <span className="text-xs bg-amber-500/10 text-amber-700 px-2 py-0.5 rounded font-medium">
-                            Access Requested
+                        <div className="flex items-center gap-3 mt-2">
+                          <Link
+                            href={product.learnMoreHref}
+                            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                          >
+                            Learn More
+                            <ExternalLink className="h-3 w-3" />
+                          </Link>
+                          {isActive && (
+                            <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded font-medium">
+                              Active
+                            </span>
+                          )}
+                          {isProvisioning && (
+                            <span className="text-xs bg-blue-500/10 text-blue-700 px-2 py-0.5 rounded font-medium">
+                              Provisioning...
+                            </span>
+                          )}
+                          {isFailed && (
+                            <span className="text-xs bg-red-500/10 text-red-700 px-2 py-0.5 rounded font-medium">
+                              Needs Attention
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex-shrink-0">
+                        {isActive ? (
+                          <a
+                            href={product.externalUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                          >
+                            Open
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        ) : isProvisioning ? (
+                          <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                            Provisioning
                           </span>
-                        )}
+                        ) : isFailed ? (
+                          <button
+                            onClick={() => handleActivateProduct(product.offeringKey)}
+                            disabled={activatingProduct === product.offeringKey}
+                            className="inline-flex items-center gap-1 text-sm text-primary hover:underline disabled:opacity-50"
+                          >
+                            {activatingProduct === product.offeringKey ? (
+                              <><Loader2 className="h-3 w-3 animate-spin" /> Retrying...</>
+                            ) : (
+                              <>Retry</>
+                            )}
+                          </button>
+                        ) : isReadyToActivate || (isIncluded && !isActive) ? (
+                          <button
+                            onClick={() => handleActivateProduct(product.offeringKey)}
+                            disabled={activatingProduct === product.offeringKey}
+                            className="inline-flex items-center gap-1 text-sm text-primary hover:underline disabled:opacity-50"
+                          >
+                            {activatingProduct === product.offeringKey ? (
+                              <><Loader2 className="h-3 w-3 animate-spin" /> Activating...</>
+                            ) : (
+                              <>Activate</>
+                            )}
+                          </button>
+                        ) : null}
                       </div>
                     </div>
-                    <div className="flex-shrink-0">
-                      {product.hasEntitlement ? (
-                        <a
-                          href={product.externalUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                        >
-                          Open Platform
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      ) : product.requestStatus === 'requested' || product.requestStatus === 'approved' ? (
-                        <span className="text-xs text-muted-foreground">Pending</span>
-                      ) : (
-                        <Link
-                          href="/contact?subject=product-access"
-                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                        >
-                          Request Access
-                        </Link>
-                      )}
-                    </div>
+                    {isFailed && ent?.provisioningError && (
+                      <p className="text-xs text-muted-foreground mt-2 pt-2 border-t">
+                        {ent.provisioningError}
+                      </p>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+            {memberToolsIncluded && memberToolsIncluded.entitlementStatus !== 'ended' && (
+              <div className="border rounded-lg p-4 mt-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Lightbulb className="h-4 w-4 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium">
+                      {memberToolsIncluded.accessLevel === 'library' ? 'Member Tool Library' : 'Selected Member Tools'}
+                    </h3>
+                    <p className="text-xs text-primary mt-1 font-medium">
+                      Included with Fractional AI Advisor
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {memberToolsIncluded.accessLevel === 'library'
+                        ? 'Full library of production-ready internal decision, architecture, research, and technical utilities.'
+                        : 'Selected SubodhKC production-ready internal tools and utilities.'}
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </section>
         )}
 

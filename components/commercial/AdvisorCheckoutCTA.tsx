@@ -99,6 +99,13 @@ export function AdvisorCheckoutCTA({ title, description, bullets }: AdvisorCheck
                     $990/year (save 2 months)
                   </Button>
                 </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  By proceeding to checkout, you agree to the{' '}
+                  <a href="/terms" className="text-primary hover:underline" target="_blank" rel="noopener">Terms of Service</a>
+                  {' '}and{' '}
+                  <a href="/service-terms/ai-advisor-for-business" className="text-primary hover:underline" target="_blank" rel="noopener">AI Advisor for Business Service Terms</a>.
+                  {' '}Stripe checkout will require explicit terms acceptance.
+                </p>
                 {error && <p className="text-sm text-red-600">{error}</p>}
               </div>
             )}

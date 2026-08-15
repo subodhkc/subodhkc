@@ -140,39 +140,71 @@ export default async function AdvisorDeskPage({
     e => e.offering_key === 'ai_advisor_desk'
   )
 
-  // Fetch product access requests for HAIEC, KestrelVoice, etc.
-  const { data: productRequests } = await sc
-    .from('product_access_requests')
-    .select('id, offering_key, status, created_at')
+  // Fetch included product entitlements (canonical model)
+  const { data: includedEntitlements } = await sc
+    .from('included_product_entitlements')
+    .select('*')
     .eq('organization_id', ctx.organization.id)
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: true })
 
-  const activeOfferingKeys = ctx.entitlements
-    .filter(e => e.effective_status === 'active')
-    .map(e => e.offering_key)
+  // Build product display from included entitlements
+  const haiecEnt = includedEntitlements?.find(e => e.product_key === 'haiec')
+  const kestrelEnt = includedEntitlements?.find(e => e.product_key === 'kestrel')
+  const memberToolsEnt = includedEntitlements?.find(e => e.product_key === 'member_tools')
 
   const products = [
     {
       offeringKey: 'haiec',
       name: 'HAIEC',
-      description: 'AI compliance and governance platform — evidence-first frameworks for behavioral AI governance.',
+      description: haiecEnt?.tier_or_plan === 'advisor_essentials'
+        ? 'HAIEC Advisor Essentials — AI Law Finder, vendor review, governance scorecard, self-audit, and selected compliance assessments.'
+        : 'AI compliance and governance platform.',
       externalUrl: 'https://www.haiec.com',
       learnMoreHref: '/solutions/haiec',
-      hasEntitlement: activeOfferingKeys.includes('haiec'),
-      requestStatus: productRequests?.find(r => r.offering_key === 'haiec')?.status || null,
-      requestId: productRequests?.find(r => r.offering_key === 'haiec')?.id || null,
+      hasEntitlement: !!haiecEnt && haiecEnt.entitlement_status !== 'ended',
+      requestStatus: null,
+      requestId: null,
+      // New fields for included product model
+      includedEntitlement: haiecEnt ? {
+        id: haiecEnt.id,
+        tierOrPlan: haiecEnt.tier_or_plan,
+        seats: haiecEnt.seats,
+        credits: haiecEnt.credits,
+        entitlementStatus: haiecEnt.entitlement_status,
+        provisioningStatus: haiecEnt.provisioning_status,
+        externalUserId: haiecEnt.external_user_id,
+        provisioningError: haiecEnt.provisioning_error,
+        sourceOfferKey: haiecEnt.source_offer_key,
+      } : null,
     },
     {
       offeringKey: 'kestrel',
       name: 'KestrelVoice',
-      description: 'AI voice receptionist platform — answers every call, books appointments, runs your front desk 24/7.',
+      description: 'Kestrel AI Number Basic — one AI phone number with basic AI answering. 20 monthly credits included.',
       externalUrl: 'https://www.kestrelvoice.com',
       learnMoreHref: '/solutions/kestrelvoice',
-      hasEntitlement: activeOfferingKeys.includes('kestrel'),
-      requestStatus: productRequests?.find(r => r.offering_key === 'kestrel')?.status || null,
-      requestId: productRequests?.find(r => r.offering_key === 'kestrel')?.id || null,
+      hasEntitlement: !!kestrelEnt && kestrelEnt.entitlement_status !== 'ended',
+      requestStatus: null,
+      requestId: null,
+      includedEntitlement: kestrelEnt ? {
+        id: kestrelEnt.id,
+        tierOrPlan: kestrelEnt.tier_or_plan,
+        seats: kestrelEnt.seats,
+        credits: kestrelEnt.credits,
+        entitlementStatus: kestrelEnt.entitlement_status,
+        provisioningStatus: kestrelEnt.provisioning_status,
+        externalUserId: kestrelEnt.external_user_id,
+        provisioningError: kestrelEnt.provisioning_error,
+        sourceOfferKey: kestrelEnt.source_offer_key,
+      } : null,
     },
   ]
+
+  // Member Tools is shown separately
+  const memberToolsIncluded = memberToolsEnt ? {
+    accessLevel: memberToolsEnt.tier_or_plan,
+    entitlementStatus: memberToolsEnt.entitlement_status,
+  } : null
 
   return (
     <AdvisorDeskWorkspaceClient
@@ -192,6 +224,7 @@ export default async function AdvisorDeskPage({
       entitlementValidUntil={advisorEntitlement?.valid_until ?? null}
       entitlementStatus={advisorEntitlement?.effective_status ?? 'active'}
       products={products}
+      memberToolsIncluded={memberToolsIncluded}
     />
   )
 }
