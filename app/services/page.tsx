@@ -5,13 +5,13 @@ import { LeadMagnetCard } from '@/components/LeadMagnetCard'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import Link from 'next/link'
 import {
-  Shield, Workflow, Phone, MessageSquare, Users, ArrowRight, ShieldCheck,
+  Shield, Workflow, Phone, MessageSquare, Users, ArrowRight, ShieldCheck, Compass,
 } from 'lucide-react'
 
 export const metadata = {
   title: 'How I Help | AI Advisory, Automation & Security | Subodh KC',
   description:
-    'Where could AI change the way your organization works? Stay close to AI decisions with the AI Advisor Desk, find the opportunity with an AI Automation Blueprint, work through higher-stakes decisions with direct advisory, or solve a known technical need in voice or security.',
+    'Where could AI change the way your organization works? Stay close to AI decisions with AI Advisor for Business, find the opportunity with an AI Opportunity & Workflow Assessment, work through higher-stakes decisions with a Fractional AI Advisor, or solve a known technical need in voice or security.',
   keywords: [
     'AI advisory services',
     'AI advisor for business',
@@ -32,7 +32,7 @@ export const metadata = {
   openGraph: {
     title: 'How I Help | AI Advisory, Automation & Security | Subodh KC',
     description:
-      'A decision router, not a catalogue. Ongoing AI advisory, focused opportunity assessment, direct advisory for higher-stakes decisions, and known technical needs in voice and security.',
+      'A decision router, not a catalogue. Ongoing AI advisory, focused opportunity assessment, fractional AI advisor for higher-stakes decisions, and known technical needs in voice and security.',
     url: 'https://subodhkc.com/services',
     type: 'website',
   },
@@ -56,32 +56,42 @@ const paths = [
   {
     icon: MessageSquare,
     situation: 'I want to stay close to AI decisions',
-    offer: 'AI Advisor Desk',
+    offer: 'AI Advisor for Business',
     href: '/ai-advisor',
     price: '$99/month',
     description:
       'Ongoing human AI advisory. Weekly signal, monthly point of view, and human advice when it matters. See what is changing, what it could mean for your organization, and what deserves action.',
-    cta: 'Explore the AI Advisor Desk',
+    cta: 'Explore AI Advisor for Business',
   },
   {
     icon: Workflow,
     situation: 'I want to find the opportunity worth pursuing',
-    offer: 'AI Automation Blueprint',
+    offer: 'AI Opportunity & Workflow Assessment',
     href: '/ai-automation',
     price: '$500 fixed',
     description:
-      'A focused AI opportunity assessment: one opportunity, one primary workflow, one decision-ready Blueprint. Yes/no recommendation, buy/configure/build/wait call, architecture, cost-benefit, and roadmap in 5 business days.',
-    cta: 'Start with a Blueprint',
+      'A focused assessment of one opportunity and one primary workflow. You receive an AI Automation Blueprint with yes/no recommendation, buy/configure/build/wait call, architecture, cost-benefit, and roadmap in 5 business days.',
+    cta: 'Start with an Assessment',
   },
   {
     icon: Users,
     situation: 'I am navigating higher-stakes AI decisions',
-    offer: 'Direct AI Advisory',
+    offer: 'Fractional AI Advisor',
     href: '/advisory',
-    price: 'Custom scope',
+    price: '$1,250/month',
     description:
-      'A fractional AI advisor in the room. Decision review, strategy, architecture review, vendor and build-vs-buy calls, roadmap and operating decisions, and executive working sessions with context continuity.',
-    cta: 'Explore Direct Advisory',
+      'Executive AI advisory for higher-stakes decisions. Strategy, architecture review, vendor and build-vs-buy calls, roadmap and operating decisions, and executive working sessions with context continuity.',
+    cta: 'Explore Fractional AI Advisor',
+  },
+  {
+    icon: Compass,
+    situation: 'I know what to build and need it implemented',
+    offer: 'AI Implementation & Systems Architecture',
+    href: '/contact?subject=ai-implementation',
+    price: 'Custom scoped',
+    description:
+      'For buyers who already know what needs to be implemented. Custom-scoped architecture, integration, and production deployment work. Separately scoped from advisory.',
+    cta: 'Scope an Implementation',
   },
 ]
 
@@ -131,12 +141,12 @@ export default function ServicesPage() {
       {/* Decision router */}
       <Section
         subtitle="Choose Your Path"
-        title="Three starting points"
+        title="Four starting points"
         description="Each path is a different relationship to AI decisions, not a different product tier."
         sectionNum="01"
       >
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {paths.map((path) => {
               const Icon = path.icon
               return (

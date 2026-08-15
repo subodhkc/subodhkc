@@ -291,6 +291,61 @@ export async function sendAdvisorWelcomeEmail(opts: {
 }
 
 /**
+ * Welcome email for Fractional AI Advisor subscription purchase.
+ */
+export async function sendFractionalAdvisorWelcomeEmail(opts: {
+  to: string
+  customerName?: string
+  orgSlug: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, orgSlug } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}/advisory`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: 'Welcome to Fractional AI Advisor',
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Welcome to Fractional AI Advisor</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Your executive AI advisory engagement is active</p>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Your Fractional AI Advisor subscription is now active. The core engagement includes two executive working sessions each month, priority async advisory, ongoing organizational context, and selected decision artifacts tied to the priorities we work through.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                Go to Your Advisory Workspace
+              </a>
+            </div>
+            <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
+              I will reach out shortly to schedule our first working session and confirm your current priorities. Billing is managed through Stripe.
+            </p>
+          </div>
+          <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+            <p>SubodhKC — Executive AI advisory, strategy, architecture, and decision support</p>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
  * Notify advisor (Subodh) when a new question is submitted.
  */
 export async function sendAdvisorQuestionNotification(opts: {

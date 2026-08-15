@@ -19,34 +19,34 @@ import {
 import { BlueprintQualificationCTA } from '@/components/commercial/BlueprintQualificationCTA'
 
 export const metadata = {
-  title: 'AI Opportunity Assessment | AI Automation Blueprint | Subodh KC',
+  title: 'AI Opportunity & Workflow Assessment | AI Automation Blueprint | Subodh KC',
   description:
-    'A focused AI opportunity assessment of one workflow: $500 fixed scope. You get a decision-ready Blueprint with a yes/no answer, a buy/configure/build/wait recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days.',
+    'AI Opportunity & Workflow Assessment: a focused $500 fixed-scope assessment of one opportunity and one primary workflow. You receive an AI Automation Blueprint with a yes/no answer, a buy/configure/build/wait recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-automation',
   },
   openGraph: {
-    title: 'AI Opportunity Assessment | AI Automation Blueprint',
+    title: 'AI Opportunity & Workflow Assessment | AI Automation Blueprint',
     description:
-      'A $500 fixed-scope assessment of one workflow. You get a decision-ready Blueprint: yes/no answer, architecture, cost-benefit, and a clear buy/configure/build/wait recommendation. 5 business days.',
+      'A $500 fixed-scope assessment of one opportunity and one workflow. You receive an AI Automation Blueprint: yes/no answer, architecture, cost-benefit, and a clear buy/configure/build/wait recommendation. 5 business days.',
     url: 'https://subodhkc.com/ai-automation',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Opportunity Assessment | $500 Fixed-Scope Blueprint',
-    description: 'One workflow, one decision-ready Blueprint. $500 fixed. 5 business days.',
+    title: 'AI Opportunity & Workflow Assessment | $500 Fixed-Scope',
+    description: 'One opportunity, one workflow, one AI Automation Blueprint. $500 fixed. 5 business days.',
   },
   keywords: [
     'AI opportunity assessment',
     'AI opportunity assessment framework',
-    'AI automation blueprint',
+    'AI workflow assessment',
     'AI workflow analysis',
+    'AI automation blueprint',
     'should I automate this workflow',
     'AI automation strategy',
     'AI process optimization',
     'buy configure build recommendation',
-    'AI workflow assessment',
     'AI automation roadmap',
     'business process automation',
     'Subodh KC',
@@ -58,15 +58,15 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
-    { '@type': 'ListItem', position: 2, name: 'AI Automation Blueprint', item: 'https://subodhkc.com/ai-automation' },
+    { '@type': 'ListItem', position: 2, name: 'AI Opportunity & Workflow Assessment', item: 'https://subodhkc.com/ai-automation' },
   ],
 }
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'AI Automation Blueprint',
-  description: 'Fixed-scope $500 AI opportunity assessment of one business workflow. Decision-ready Blueprint with yes/no recommendation, architecture, cost-benefit analysis, and buy/configure/build/wait recommendation.',
+  name: 'AI Opportunity & Workflow Assessment',
+  description: 'Fixed-scope $500 assessment of one opportunity and one primary workflow. Delivers an AI Automation Blueprint with yes/no recommendation, architecture, cost-benefit analysis, and buy/configure/build/wait recommendation.',
   url: 'https://subodhkc.com/ai-automation',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'AI Opportunity Assessment',
@@ -188,7 +188,7 @@ export default function AIAutomationPage() {
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
 
       <Hero
-        subtitle="AI Opportunity Assessment · AI Automation Blueprint"
+        subtitle="AI Opportunity & Workflow Assessment · AI Automation Blueprint"
         title={
           <>
             You don't need to know what to automate.
@@ -196,12 +196,12 @@ export default function AIAutomationPage() {
             <span className="gradient-text">Start with what you want to improve.</span>
           </>
         }
-        description="A focused assessment of one opportunity and one primary workflow. See what you may be missing, test whether it matters, decide, then map the execution. You receive a written, decision-ready Blueprint with a yes/no recommendation, architecture, cost-benefit, and implementation roadmap. $500 fixed, delivered in 5 business days."
+        description="The AI Opportunity & Workflow Assessment is a focused assessment of one opportunity and one primary workflow. See what you may be missing, test whether it matters, decide, then map the execution. You receive an AI Automation Blueprint: a written, decision-ready document with a yes/no recommendation, architecture, cost-benefit, and implementation roadmap. $500 fixed, delivered in 5 business days."
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="#start">
             <Button size="lg" className="group animate-glow">
-              Start My Blueprint
+              Start My Assessment
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
@@ -300,8 +300,8 @@ export default function AIAutomationPage() {
       {/* What You Get */}
       <Section
         subtitle="Your Deliverable"
-        title="A written Blueprint you can act on."
-        description="You receive a written document with everything you need to automate your workflow or hand it to your team for implementation."
+        title="The AI Automation Blueprint"
+        description="The Assessment produces an AI Automation Blueprint: a written document with everything you need to automate your workflow or hand it to your team for implementation."
         sectionNum="03"
       >
         <Grid cols={3}>
@@ -408,7 +408,7 @@ export default function AIAutomationPage() {
 
       <BlueprintQualificationCTA
         title="Should you automate this workflow? Get a clear answer for $500."
-        description="One workflow analyzed. You receive a written Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Know what to build first and whether you should build at all."
+        description="The AI Opportunity & Workflow Assessment analyzes one opportunity and one primary workflow. You receive an AI Automation Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Know what to build first and whether you should build at all."
       />
     </>
   )

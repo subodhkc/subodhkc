@@ -24,23 +24,23 @@ import {
 import { AdvisorCheckoutCTA } from '@/components/commercial/AdvisorCheckoutCTA'
 
 export const metadata = {
-  title: 'AI Advisor Desk | AI Intelligence, Opportunity Discovery & Human Advisory',
+  title: 'AI Advisor for Business | Human AI Advisory & Decision Support | Subodh KC',
   description:
-    'An AI advisor in your corner. Ongoing AI intelligence, opportunity discovery, and human advisory access. See what is changing, what it could mean for you, and what deserves action. $99/month, up to 3 team members.',
+    'AI Advisor for Business. Ongoing human AI advisory for leaders, founders and technical teams. Weekly signal, monthly point of view, and human advice when a decision matters. $99/month, up to 3 team members.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-advisor',
   },
   openGraph: {
-    title: 'AI Advisor Desk | AI Intelligence, Opportunity Discovery & Human Advisory',
+    title: 'AI Advisor for Business | Human AI Advisory & Decision Support | Subodh KC',
     description:
-      'An AI advisor in your corner. Ongoing AI intelligence, curated signals, and human advisory access. $99/month, up to 3 team members.',
+      'AI Advisor for Business. Ongoing human AI advisory for leaders, founders and technical teams. $99/month, up to 3 team members.',
     url: 'https://subodhkc.com/ai-advisor',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Advisor Desk | AI Intelligence & Human Advisory',
-    description: 'An AI advisor in your corner. Ongoing AI intelligence, curated signals, and human advisory access. $99/month, up to 3 team members.',
+    title: 'AI Advisor for Business | Human AI Advisory',
+    description: 'Ongoing human AI advisory for leaders, founders and technical teams. $99/month, up to 3 team members.',
   },
   keywords: [
     'AI advisor',
@@ -57,7 +57,6 @@ export const metadata = {
     'AI decision support',
     'AI vendor guidance',
     'AI executive briefing',
-    'AI advisor desk',
     'Subodh KC',
   ],
 }
@@ -67,15 +66,15 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
-    { '@type': 'ListItem', position: 2, name: 'AI Advisor Desk', item: 'https://subodhkc.com/ai-advisor' },
+    { '@type': 'ListItem', position: 2, name: 'AI Advisor for Business', item: 'https://subodhkc.com/ai-advisor' },
   ],
 }
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'AI Advisor Desk',
-  description: 'Ongoing AI intelligence, opportunity discovery, and human advisory access. Curated signals across models, tools, research, security, regulation, and real-world adoption. $99/month, up to 3 team members.',
+  name: 'AI Advisor for Business',
+  description: 'Ongoing human AI advisory for leaders, founders, and technical teams. Weekly AI intelligence brief, monthly point of view, and human advisory access for focused questions as decisions come up. $99/month, up to 3 team members.',
   url: 'https://subodhkc.com/ai-advisor',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'AI Advisory',
@@ -172,7 +171,7 @@ const whatYouGet = [
 
 const boundaries = [
   'This is not a full consulting engagement. It is focused human guidance for specific AI decisions as they come up.',
-  'This is not continuous monitoring or managed services. For that, see our advisory engagements.',
+  'This is not continuous monitoring or managed services. For deeper, ongoing executive advisory, see Fractional AI Advisor.',
   'This is not legal advice. For regulatory compliance obligations, consult a licensed attorney.',
   'Deeper research, document review, architecture work, or implementation requires a separately scoped engagement. I will flag that before any additional work begins.',
 ]
@@ -180,11 +179,11 @@ const boundaries = [
 const faqs = [
   {
     q: 'How is this different from asking ChatGPT?',
-    a: 'ChatGPT gives you generic answers. The AI Advisor Desk gives you specific, contextual guidance reviewed by a human specialist who has deployed AI systems in production and built compliance frameworks used by enterprises. Every answer is grounded in your actual business context, not a generic prompt.',
+    a: 'ChatGPT gives you generic answers. AI Advisor for Business gives you specific, contextual guidance reviewed by a human specialist who has deployed AI systems in production and built compliance frameworks used by enterprises. Every answer is grounded in your actual business context, not a generic prompt.',
   },
   {
     q: 'What happens if my question is complex?',
-    a: 'When a question deserves deeper research, document review, architecture work, or implementation, I will identify that before additional work begins and recommend the right next step. Deeper work is billed at a member rate per hour, or as a fixed-price engagement like an AI Automation Blueprint ($500). No automatic charges. No surprise scope. You approve cost before any work begins.',
+    a: 'When a question deserves deeper research, document review, architecture work, or implementation, I will identify that before additional work begins and recommend the right next step. Deeper work is billed at a member rate per hour, or as a fixed-price engagement like an AI Opportunity & Workflow Assessment ($500). No automatic charges. No surprise scope. You approve cost before any work begins.',
   },
   {
     q: 'Can I cancel anytime?',
@@ -192,7 +191,11 @@ const faqs = [
   },
   {
     q: 'How many questions can we ask?',
-    a: 'The Advisor Desk is designed for a few focused questions as decisions come up rather than a fixed one-question quota. Brief guidance is included under reasonable use. If a request turns into substantive research, analysis, document review, architecture or implementation, I will identify that before doing additional work and offer a scoped option.',
+    a: 'AI Advisor for Business is designed for a few focused questions as decisions come up rather than a fixed one-question quota. Brief guidance is included under reasonable use. If a request turns into substantive research, analysis, document review, architecture or implementation, I will identify that before doing additional work and offer a scoped option.',
+  },
+  {
+    q: 'What is the difference between AI Advisor for Business and Fractional AI Advisor?',
+    a: 'AI Advisor for Business ($99/month) is ongoing advisory access for focused questions as decisions come up. Fractional AI Advisor ($1,250/month) is a closer executive advisory relationship with two monthly working sessions, ongoing async decision support, and selected decision artifacts tied to your priorities. If you need an AI advisor in your corner for ongoing signal, start here. If you need an AI advisor in the room for higher-stakes decisions, see Fractional AI Advisor.',
   },
 ]
 
@@ -210,7 +213,7 @@ const capabilityStack = [
   {
     icon: Zap,
     title: 'Production AI Experience',
-    description: 'Not a researcher. Not a blogger. I have architected and deployed production AI systems including voice agents, compliance platforms, and enterprise governance tools.',
+    description: 'I have architected and deployed production AI systems including voice agents, compliance platforms, and enterprise governance tools. Every answer is grounded in real implementation experience.',
   },
   {
     icon: Mail,
@@ -237,7 +240,7 @@ export default function AIAdvisorPage() {
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Hero
-        subtitle="AI Advisor Desk"
+        subtitle="AI Advisor for Business · Ongoing Human AI Advisory"
         title={
           <>
             An AI advisor
@@ -245,12 +248,12 @@ export default function AIAdvisorPage() {
             <span className="gradient-text">in your corner.</span>
           </>
         }
-        description="Ongoing AI advisory for leaders, founders and technical teams who want to understand what is changing, what it could mean for their organization, and what deserves action. Weekly signal. Monthly point of view. Human advice when it matters. $99/month · Up to 3 team members"
+        description="Ongoing human AI advisory for leaders, founders and technical teams who want to understand what is changing, what it could mean for their organization, and what deserves action. Weekly signal. Monthly point of view. Human advice when it matters. $99/month · Up to 3 team members"
       >
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link href="/contact?subject=ai-advisor-desk">
+          <Link href="#start">
             <Button size="lg" className="group animate-glow">
-              Start AI Advisor Desk
+              Start AI Advisor for Business
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
@@ -306,15 +309,15 @@ export default function AIAdvisorPage() {
             {[
               {
                 title: 'Not a chatbot',
-                desc: 'A chatbot answers prompts. The Desk holds ongoing context about your organization and applies judgment from production AI deployments. You get a reviewed position, not a generated paragraph.',
+                desc: 'A chatbot answers prompts. AI Advisor for Business holds ongoing context about your organization and applies judgment from production AI deployments. You get a reviewed position, not a generated paragraph.',
               },
               {
                 title: 'Not a newsletter',
-                desc: 'Newsletters inform everyone about everything. The Desk curates against your tools, your risk tolerance, and your priorities, then tells you what deserves action and what does not.',
+                desc: 'Newsletters inform everyone about everything. AI Advisor for Business curates against your tools, your risk tolerance, and your priorities, then tells you what deserves action and what does not.',
               },
               {
                 title: 'Not a fractional retainer',
-                desc: 'No embedded executive, no program ownership, no five-figure monthly commitment. Ongoing advisory access and independent judgment at a price below one hour of consulting. If you need a closer relationship, see Direct Advisory.',
+                desc: 'No embedded executive, no program ownership, no five-figure monthly commitment. Ongoing advisory access and independent judgment at a price below one hour of consulting. If you need a closer relationship, see Fractional AI Advisor.',
               },
             ].map((item, i) => (
               <Reveal key={i} delay={i * 60} style="up">
@@ -333,9 +336,9 @@ export default function AIAdvisorPage() {
       {/* Capability Stack */}
       <Section
         subtitle="Capability Stack"
-        title="What the Desk brings to your team"
+        title="What AI Advisor for Business brings to your team"
         description="Four capabilities working together: intelligence monitoring, governance methodology, production experience, and human advisory access."
-        sectionNum="04"
+        sectionNum="03"
         className="bg-secondary/20"
       >
         <Grid cols={2}>
@@ -365,9 +368,9 @@ export default function AIAdvisorPage() {
       {/* Business Situations */}
       <Section
         subtitle="Where better AI decisions compound"
-        title="Common scenarios where the Desk earns its place"
+        title="Common scenarios where AI Advisor for Business earns its place"
         description="A $99/month subscription can save you from a costly mistake, a month of indecision, or a missed opportunity. Human advisory access means you can ask focused questions as decisions come up."
-        sectionNum="02"
+        sectionNum="04"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
@@ -418,7 +421,7 @@ export default function AIAdvisorPage() {
         subtitle="What You Receive"
         title="What is included for $99/month"
         description="One subscription. No hidden fees, no per-seat charges, no usage metering. Human advisory access included under reasonable use."
-        sectionNum="03"
+        sectionNum="05"
         className="bg-secondary/20"
       >
         <Grid cols={3}>
@@ -445,7 +448,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="How Signals Become Value"
         title="See what is changing. Understand what it means. Discover what it makes possible. Decide what deserves action."
-        sectionNum="05"
+        sectionNum="06"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -479,8 +482,8 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Role-Based Intelligence"
         title="Same signal. Different decision."
-        description="The same AI development can mean different things depending on who is asking. The Desk provides lenses for each role."
-        sectionNum="06"
+        description="The same AI development can mean different things depending on who is asking. AI Advisor for Business provides lenses for each role."
+        sectionNum="07"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
@@ -537,8 +540,8 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Opportunity Discovery"
         title="What could AI make possible?"
-        description="Opportunity discovery is a core benefit of the Desk. These are the kinds of questions worth exploring together."
-        sectionNum="07"
+        description="Opportunity discovery is a core benefit of AI Advisor for Business. These are the kinds of questions worth exploring together."
+        sectionNum="08"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
@@ -567,8 +570,8 @@ export default function AIAdvisorPage() {
       {/* The Advisor Relationship */}
       <Section
         subtitle="The Advisor Relationship"
-        title="The more I understand your organization, the more useful the Desk becomes."
-        sectionNum="08"
+        title="The more I understand your organization, the more useful AI Advisor for Business becomes."
+        sectionNum="09"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6 mb-6">
@@ -616,7 +619,7 @@ export default function AIAdvisorPage() {
             </CardHeader>
           </Card>
           <p className="text-sm text-muted-foreground mt-4 text-center">
-            Generic AI advice starts from zero. The Desk does not have to. You remain in control
+            Generic AI advice starts from zero. AI Advisor for Business does not have to. You remain in control
             of what context is shared, and it is always editable.
           </p>
         </div>
@@ -626,7 +629,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Why Trust This"
         title="Built on real AI governance work"
-        sectionNum="09"
+        sectionNum="10"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto space-y-4">
@@ -653,9 +656,9 @@ export default function AIAdvisorPage() {
             <CardHeader>
               <CardTitle className="text-lg">Production AI Experience</CardTitle>
               <CardDescription className="text-base">
-                Not a researcher. Not a blogger. I have architected and deployed production AI systems
-                including voice agents, compliance platforms, and enterprise governance tools. Every answer
-                is grounded in real implementation experience.
+                I have architected and deployed production AI systems including voice agents, compliance
+                platforms, and enterprise governance tools. Every answer is grounded in real implementation
+                experience.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -666,7 +669,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Pricing"
         title="Simple, Transparent, Cancelable"
-        sectionNum="10"
+        sectionNum="11"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
@@ -687,7 +690,7 @@ export default function AIAdvisorPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact?subject=ai-advisor-desk-monthly" className="block mt-4">
+                <Link href="#start" className="block mt-4">
                   <Button className="w-full">Start Monthly</Button>
                 </Link>
               </CardContent>
@@ -710,14 +713,14 @@ export default function AIAdvisorPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact?subject=ai-advisor-desk-annual" className="block mt-4">
+                <Link href="#start" className="block mt-4">
                   <Button className="w-full">Start Annual</Button>
                 </Link>
               </CardContent>
             </Card>
           </div>
           <p className="text-sm text-muted-foreground mt-6 text-center max-w-2xl mx-auto">
-            When a question turns into deeper work, members receive priority scheduling and a member rate on hourly engagements. Fixed-price engagements like Automation Blueprints ($500) and security reviews remain at their published prices. You approve scope and cost before any additional work begins.
+            When a question turns into deeper work, members receive priority scheduling and a member rate on hourly engagements. Fixed-price engagements like the AI Opportunity & Workflow Assessment ($500) and security reviews remain at their published prices. You approve scope and cost before any additional work begins.
           </p>
         </div>
       </Section>
@@ -726,7 +729,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Boundaries & FAQ"
         title="What This Is Not, and Common Questions"
-        sectionNum="11"
+        sectionNum="12"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto">
@@ -740,10 +743,10 @@ export default function AIAdvisorPage() {
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/advisory">
-              <Button variant="outline" size="sm">Full Advisory Engagements <ArrowRight className="ml-2 h-3 w-3" /></Button>
+              <Button variant="outline" size="sm">Fractional AI Advisor ($1,250/mo) <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
             <Link href="/ai-automation">
-              <Button variant="outline" size="sm">AI Automation Blueprint ($500) <ArrowRight className="ml-2 h-3 w-3" /></Button>
+              <Button variant="outline" size="sm">AI Opportunity & Workflow Assessment ($500) <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
             <Link href="/ai-security-compliance">
               <Button variant="outline" size="sm">AI Security & Compliance Review <ArrowRight className="ml-2 h-3 w-3" /></Button>
@@ -766,10 +769,12 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
-      <AdvisorCheckoutCTA
-        title="Get a specialist in your corner."
-        description="$99/month. Human advisory access, curated intelligence, opportunity discovery, and a clear next step when deeper work is needed. Cancel anytime."
-      />
+      <div id="start">
+        <AdvisorCheckoutCTA
+          title="Get a specialist in your corner."
+          description="$99/month. Human advisory access, curated intelligence, opportunity discovery, and a clear next step when deeper work is needed. Cancel anytime."
+        />
+      </div>
     </>
   )
 }

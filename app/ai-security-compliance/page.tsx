@@ -357,7 +357,7 @@ export default function AISecurityCompliancePage() {
               <Button variant="outline" size="sm">Free Security Tools <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
             <Link href="/ai-advisor">
-              <Button variant="outline" size="sm">AI Advisor Desk <ArrowRight className="ml-2 h-3 w-3" /></Button>
+              <Button variant="outline" size="sm">AI Advisor for Business <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
             <Link href="/services">
               <Button variant="outline" size="sm">All Services <ArrowRight className="ml-2 h-3 w-3" /></Button>

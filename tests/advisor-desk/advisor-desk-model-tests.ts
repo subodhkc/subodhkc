@@ -106,7 +106,7 @@ for (const key of otherOffers) {
 console.log('\n--- Offer Registry ---')
 
 const allKeys = Object.keys(COMMERCIAL_OFFERS)
-assert(allKeys.length === 5, 'exactly 5 commercial offers exist')
+assert(allKeys.length === 6, 'exactly 6 commercial offers exist (including fractional_ai_advisor)')
 assert(
   allKeys.includes('ai_advisor_desk'),
   'ai_advisor_desk is in the registry'

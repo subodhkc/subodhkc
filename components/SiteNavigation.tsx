@@ -11,8 +11,9 @@ import { SearchDialog } from "./SearchDialog";
 import type { SearchEntry } from "@/lib/search-index";
 
 const howIHelpLinks = [
-  { name: "AI Automation Blueprint", href: "/ai-automation", desc: "One workflow, one decision-ready Blueprint" },
-  { name: "Direct AI Advisory", href: "/advisory", desc: "An AI advisor in the room" },
+  { name: "AI Advisor for Business", href: "/ai-advisor", desc: "Ongoing human AI advisory, $99/month" },
+  { name: "AI Opportunity & Workflow Assessment", href: "/ai-automation", desc: "One opportunity, one workflow, one Blueprint" },
+  { name: "Fractional AI Advisor", href: "/advisory", desc: "Executive AI advisory, $1,250/month" },
   { name: "AI Voice", href: "/ai-voice-agent", desc: "Turn more calls into completed actions" },
   { name: "AI Security & Controls", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
   { name: "SaaS & AI Security Review", href: "/saas-security-review", desc: "Tenant isolation audit" },

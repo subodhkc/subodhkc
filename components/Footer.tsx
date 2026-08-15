@@ -3,12 +3,12 @@ import { Linkedin, Github, Mail, BookOpen, FileText, Rss } from 'lucide-react'
 
 const footerLinks = {
   workWithMe: [
-    { name: 'AI Advisor Desk', href: '/ai-advisor' },
-    { name: 'AI Automation Blueprint', href: '/ai-automation' },
+    { name: 'AI Advisor for Business', href: '/ai-advisor' },
+    { name: 'AI Opportunity & Workflow Assessment', href: '/ai-automation' },
+    { name: 'Fractional AI Advisor', href: '/advisory' },
     { name: 'AI Voice Agent', href: '/ai-voice-agent' },
     { name: 'AI Security & Compliance', href: '/ai-security-compliance' },
     { name: 'SaaS Security Review', href: '/saas-security-review' },
-    { name: 'Direct AI Advisory', href: '/advisory' },
     { name: 'Local AI Review', href: '/local-ai-review' },
   ],
   builtBySubodh: [

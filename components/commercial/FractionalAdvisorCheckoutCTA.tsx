@@ -5,12 +5,12 @@ import { ArrowRight, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
 
-interface AdvisorCheckoutCTAProps {
+interface FractionalAdvisorCheckoutCTAProps {
   title: string
   description: string
 }
 
-export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAProps) {
+export function FractionalAdvisorCheckoutCTA({ title, description }: FractionalAdvisorCheckoutCTAProps) {
   const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -20,7 +20,7 @@ export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAPro
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch('/api/commercial/advisor-desk/checkout', {
+      const res = await fetch('/api/commercial/fractional-advisor/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ period, organizationId: selectedOrg.id }),
@@ -73,7 +73,7 @@ export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAPro
                     className="group"
                   >
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Start AI Advisor for Business: $99/month
+                    Start Fractional AI Advisor: $1,250/month
                     {!loading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
                   </Button>
                   <Button
@@ -82,7 +82,7 @@ export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAPro
                     size="lg"
                     variant="outline"
                   >
-                    $990/year (save 2 months)
+                    $12,500/year (save 2 months)
                   </Button>
                 </div>
                 {error && <p className="text-sm text-red-600">{error}</p>}

@@ -19,21 +19,31 @@ export interface CommercialOffer {
 export const commercialOffers: CommercialOffer[] = [
   {
     id: 'advisor-desk',
-    name: 'AI Advisor Desk',
+    name: 'AI Advisor for Business',
     route: '/ai-advisor',
     pricingLabel: '$99/month',
     annualLabel: '$990/year',
     pricingDetail: 'Up to 3 team members. Cancel anytime.',
-    description: 'AI intelligence, opportunity discovery, human advisory access, controls review, and regulatory monitoring.',
+    description: 'Ongoing human AI advisory. Weekly signal, monthly point of view, and human advice when a decision matters.',
     category: 'primary',
   },
   {
     id: 'automation-blueprint',
-    name: 'AI Automation Blueprint',
+    name: 'AI Opportunity & Workflow Assessment',
     route: '/ai-automation',
     pricingLabel: '$500 fixed',
-    pricingDetail: 'One workflow analyzed. Written Blueprint with buy/configure/build recommendation.',
-    description: 'A fixed-scope assessment of one business workflow with automation recommendations, architecture, and implementation roadmap.',
+    pricingDetail: 'One opportunity, one primary workflow. Includes AI Automation Blueprint.',
+    description: 'A focused assessment of one opportunity and one primary workflow. Decision-ready Blueprint with buy/configure/build recommendation.',
+    category: 'primary',
+  },
+  {
+    id: 'fractional-advisor',
+    name: 'Fractional AI Advisor',
+    route: '/advisory',
+    pricingLabel: '$1,250/month',
+    annualLabel: '$12,500/year',
+    pricingDetail: 'Executive AI advisory. Core engagement, continued monthly as needed.',
+    description: 'Executive AI advisory for higher-stakes decisions. Strategy, architecture, vendor evaluation, build-vs-buy, and roadmap review with context that carries forward.',
     category: 'primary',
   },
   {
@@ -62,15 +72,6 @@ export const commercialOffers: CommercialOffer[] = [
     pricingDetail: 'Multi-tenant, AI/RAG and broader reviews scoped to architecture. Remediation & Retest scoped from findings.',
     description: 'Tenant isolation, AI application security, reproducible evidence, and buyer-shareable security records.',
     category: 'specific',
-  },
-  {
-    id: 'fractional-advisor',
-    name: 'Fractional AI Advisor / Lead',
-    route: '/advisory',
-    pricingLabel: 'Custom scoped',
-    pricingDetail: 'Direct human advisory and embedded leadership for enterprises.',
-    description: 'Fractional AI Advisor for ongoing direct judgment. Fractional AI Lead for embedded ownership and leadership.',
-    category: 'enterprise',
   },
 ]
 

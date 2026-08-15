@@ -252,6 +252,13 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         orgSlug,
         businessObjective: objective,
       })
+    } else if (offerKey === 'fractional_ai_advisor') {
+      const { sendFractionalAdvisorWelcomeEmail } = await import('@/lib/email')
+      await sendFractionalAdvisorWelcomeEmail({
+        to: customerEmail,
+        customerName,
+        orgSlug,
+      })
     } else if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
       const { sendSecurityReviewActivatedEmail } = await import('@/lib/email')
       const scope = session.metadata?.scope_summary || 'Application security review'
@@ -592,6 +599,12 @@ async function createEngagementForOffer(
   if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
     engagementFields.current_phase = 'scoping'
     engagementFields.statement = 'Security review of application and AI infrastructure'
+  }
+
+  // For Fractional AI Advisor, start in discovery with advisory context
+  if (offerKey === 'fractional_ai_advisor') {
+    engagementFields.current_phase = 'discovery'
+    engagementFields.statement = 'Fractional AI Advisor — executive AI advisory engagement'
   }
 
   // Create engagement

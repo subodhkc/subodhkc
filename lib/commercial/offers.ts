@@ -7,6 +7,7 @@
 export type OfferKey =
   | 'ai_advisor_desk'
   | 'ai_automation_blueprint'
+  | 'fractional_ai_advisor'
   | 'managed_voice'
   | 'ai_security_compliance'
   | 'saas_security_review'
@@ -50,7 +51,7 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
   ai_advisor_desk: {
     key: 'ai_advisor_desk',
     name: 'AI Advisor Desk',
-    displayName: 'AI Advisor Desk',
+    displayName: 'AI Advisor for Business',
     billingMode: 'subscription',
     monthlyPriceCents: 9900, // $99/month
     annualPriceCents: 99000, // $990/year
@@ -64,13 +65,13 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresQualification: false,
     requiresAgreement: false,
     requiresSecurityAuthorization: false,
-    checkoutDescription: 'AI Advisor Desk subscription — AI intelligence, opportunity discovery, and human advisory access',
+    checkoutDescription: 'AI Advisor for Business subscription — ongoing human AI advisory, weekly intelligence, and human advisory access',
   },
 
   ai_automation_blueprint: {
     key: 'ai_automation_blueprint',
     name: 'AI Automation Blueprint',
-    displayName: 'AI Automation Blueprint',
+    displayName: 'AI Opportunity & Workflow Assessment',
     billingMode: 'one_time',
     monthlyPriceCents: null,
     annualPriceCents: null,
@@ -84,7 +85,27 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresQualification: true,
     requiresAgreement: true,
     requiresSecurityAuthorization: false,
-    checkoutDescription: 'AI Automation Blueprint — fixed-scope automation analysis',
+    checkoutDescription: 'AI Opportunity & Workflow Assessment — fixed-scope assessment with AI Automation Blueprint deliverable',
+  },
+
+  fractional_ai_advisor: {
+    key: 'fractional_ai_advisor',
+    name: 'Fractional AI Advisor',
+    displayName: 'Fractional AI Advisor',
+    billingMode: 'subscription',
+    monthlyPriceCents: 125000, // $1,250/month
+    annualPriceCents: 1250000, // $12,500/year
+    oneTimePriceCents: null,
+    startingPriceLabel: '$1,250/month',
+    teamSeatLimit: null,
+    advisorQuestionsPerPeriod: null,
+    landingPage: '/advisory',
+    createsEngagement: true,
+    engagementType: 'retainer',
+    requiresQualification: false,
+    requiresAgreement: false,
+    requiresSecurityAuthorization: false,
+    checkoutDescription: 'Fractional AI Advisor — executive AI advisory subscription',
   },
 
   managed_voice: {

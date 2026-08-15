@@ -28,9 +28,9 @@ const SITEMAP = [
   {
     head: "Solutions",
     items: [
-      ["/ai-advisor", "AI Advisor Desk"],
-      ["/ai-automation", "AI Automation Blueprint"],
-      ["/advisory", "Direct Advisory"],
+      ["/ai-advisor", "AI Advisor for Business"],
+      ["/ai-automation", "AI Opportunity & Workflow Assessment"],
+      ["/advisory", "Fractional AI Advisor"],
       ["/ai-voice-agent", "AI Voice Agent"],
       ["/ai-security-compliance", "AI Security & Compliance"],
       ["/local-ai-review", "Local AI Review"],

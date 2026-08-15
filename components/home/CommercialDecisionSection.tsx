@@ -67,10 +67,10 @@ export function CommercialDecisionSection() {
           marginBottom: 32,
         }}
       >
-        {/* AI Advisor Desk */}
+        {/* AI Advisor for Business */}
         <Link
           href="/ai-advisor"
-          data-track-click="homepage_advisor_desk"
+          data-track-click="homepage_advisor_for_business"
           style={{
             display: 'block',
             padding: 28,
@@ -100,13 +100,14 @@ export function CommercialDecisionSection() {
                 I want an AI advisor in my corner
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
-                AI Advisor Desk &middot; $99/month
+                AI Advisor for Business &middot; $99/month
               </p>
             </div>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-            Ongoing AI intelligence, opportunity discovery, and human advisory access.
-            See what is changing, what it could mean for you, and what deserves action.
+            Ongoing human AI advisory. Weekly signal, monthly point of view, and human advice
+            when a decision matters. See what is changing, what it could mean for you, and what
+            deserves action.
           </p>
           <div
             style={{
@@ -119,15 +120,15 @@ export function CommercialDecisionSection() {
               color: 'var(--op-accent)',
             }}
           >
-            Explore AI Advisor Desk
+            Explore AI Advisor for Business
             <ArrowRight style={{ width: 14, height: 14 }} />
           </div>
         </Link>
 
-        {/* AI Automation Blueprint */}
+        {/* AI Opportunity & Workflow Assessment */}
         <Link
           href="/ai-automation"
-          data-track-click="homepage_blueprint"
+          data-track-click="homepage_assessment"
           style={{
             display: 'block',
             padding: 28,
@@ -157,13 +158,14 @@ export function CommercialDecisionSection() {
                 I want to find where AI could improve a workflow
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
-                AI Automation Blueprint &middot; $500 fixed
+                AI Opportunity & Workflow Assessment &middot; $500 fixed
               </p>
             </div>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-            One workflow analyzed with tool selection, architecture, cost-benefit, and
-            a clear buy/configure/build recommendation. $500 fixed, delivered in 5 business days.
+            One opportunity, one primary workflow. You receive an AI Automation Blueprint with
+            tool selection, architecture, cost-benefit, and a clear buy/configure/build
+            recommendation. $500 fixed, delivered in 5 business days.
           </p>
           <div
             style={{
@@ -176,15 +178,15 @@ export function CommercialDecisionSection() {
               color: 'var(--op-accent)',
             }}
           >
-            Start My Blueprint
+            Start My Assessment
             <ArrowRight style={{ width: 14, height: 14 }} />
           </div>
         </Link>
 
-        {/* Direct Advisory */}
+        {/* Fractional AI Advisor */}
         <Link
           href="/advisory"
-          data-track-click="homepage_advisory"
+          data-track-click="homepage_fractional_advisor"
           style={{
             display: 'block',
             padding: 28,
@@ -214,13 +216,13 @@ export function CommercialDecisionSection() {
                 I want an AI advisor in the room
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
-                Direct Advisory &middot; Custom
+                Fractional AI Advisor &middot; $1,250/month
               </p>
             </div>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-            Direct access for specific projects, board advisory, or embedded engagement.
-            Scoped to your timeline and objectives.
+            Executive AI advisory for higher-stakes decisions. Strategy, architecture, vendor
+            evaluation, build-vs-buy, and roadmap review with context that carries forward.
           </p>
           <div
             style={{
@@ -233,7 +235,7 @@ export function CommercialDecisionSection() {
               color: 'var(--op-accent)',
             }}
           >
-            Explore Direct Advisory
+            Explore Fractional AI Advisor
             <ArrowRight style={{ width: 14, height: 14 }} />
           </div>
         </Link>
