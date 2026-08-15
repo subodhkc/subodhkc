@@ -25,7 +25,7 @@ const guides = [
 
 export function ComplianceGuidesSection() {
   return (
-    <section style={{ maxWidth: 1240, margin: '0 auto', padding: '48px 28px' }}>
+    <section id="compliance" style={{ maxWidth: 1240, margin: '0 auto', padding: '48px 28px' }}>
       <div style={{ textAlign: 'center', marginBottom: 32 }}>
         <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8 }}>
           AI Compliance Law Guides

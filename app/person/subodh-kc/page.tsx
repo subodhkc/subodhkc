@@ -9,14 +9,14 @@ import { CheckCircle2, GraduationCap, Briefcase, Award, Building2, Shield, Code2
 export const metadata = {
   title: 'Subodh KC | AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and AI systems architect with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. $50M+ portfolio oversight. 53 enterprise applications governed.',
+    'Subodh KC is an AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. $50M+ portfolio oversight. 53 enterprise applications governed.',
   alternates: {
     canonical: 'https://subodhkc.com/person/subodh-kc',
   },
   openGraph: {
     title: 'Subodh KC | AI Advisor & AI Systems Architect',
     description:
-      'Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight.',
+      'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight.',
     url: 'https://subodhkc.com/person/subodh-kc',
     type: 'profile',
     images: [
@@ -31,7 +31,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Subodh KC | AI Advisor & AI Systems Architect',
-    description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems. 5 patent-pending frameworks. $50M+ portfolio oversight.',
+    description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. 5 patent-pending frameworks. $50M+ portfolio oversight.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
   keywords: [
@@ -83,7 +83,7 @@ const personSchema = {
   familyName: 'KC',
   jobTitle: 'AI Advisor & AI Systems Architect',
   description:
-    'AI advisor and AI systems architect with 12+ years building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. $50M+ portfolio oversight across 53 enterprise applications.',
+    'AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. $50M+ portfolio oversight across 53 enterprise applications.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -313,7 +313,7 @@ export default function PersonPage() {
       period: '2010 - 2022',
       role: 'Engineer to Program Manager',
       org: 'ACTIVE Network, Cummins (TCS), Centaurus, Louisiana Tech, Dallas ISD',
-      description: '12+ years from field technician to system engineer to program manager. System Engineer II at ACTIVE Network (release automation, QA, incident workflows). System Analyst at Cummins via TCS ($10M MES implementation, 400+ stations). Business Systems Analyst at Centaurus (Red Hat and AWS platform delivery). IP Strategist at Louisiana Tech (invention assessment and commercialization). Field Ops Lead at Dallas ISD (technology modernization in education).',
+      description: 'From field technician to system engineer to program manager. System Engineer II at ACTIVE Network (release automation, QA, incident workflows). System Analyst at Cummins via TCS ($10M MES implementation, 400+ stations). Business Systems Analyst at Centaurus (Red Hat and AWS platform delivery). IP Strategist at Louisiana Tech (invention assessment and commercialization). Field Ops Lead at Dallas ISD (technology modernization in education).',
       achievements: ['$10M MES implementation', '400+ production stations deployed', 'Global business strategy competition top 3'],
     },
   ]
@@ -347,7 +347,7 @@ export default function PersonPage() {
     { value: '100+', label: 'Stakeholders Aligned' },
     { value: '5', label: 'Patent-Pending Frameworks' },
     { value: '400+', label: 'MES Stations Deployed' },
-    { value: '12+', label: 'Years of Experience' },
+    { value: '50+', label: 'AI Programs Delivered' },
     { value: '2', label: 'Companies Founded' },
   ]
 
@@ -401,7 +401,7 @@ export default function PersonPage() {
             <span className="gradient-text">AI Advisor & AI Systems Architect</span>
           </>
         }
-        description="Former Sr. Program Manager at HP Inc. (Fortune 50). 12+ years building production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight across 53 enterprise applications."
+        description="Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight across 53 enterprise applications."
       />
 
       <Section subtitle="Biography" title="About Subodh KC">
@@ -424,7 +424,7 @@ export default function PersonPage() {
                   behavioral verification.
                 </p>
                 <p>
-                  His career spans 12+ years from field technician to Fortune 50 AI strategy leader, with
+                  His career spans from field technician to Fortune 50 AI strategy leader, with
                   experience across public-sector technology, manufacturing systems (Cummins, 400+ MES
                   stations), production reliability (ACTIVE Network), technology commercialization
                   (Louisiana Tech IP Office), and enterprise program leadership (HP Inc.). Born in

@@ -10,7 +10,7 @@ import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingU
 export const metadata = {
   title: 'About Subodh KC | AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and AI systems architect with 12+ years across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+    'Subodh KC is an AI advisor and AI systems architect with experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
@@ -39,7 +39,7 @@ export const metadata = {
   openGraph: {
     title: 'About Subodh KC | AI Advisor & AI Systems Architect',
     description:
-      '12+ years across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+      'Experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
     images: [
@@ -54,7 +54,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'About Subodh KC | AI Advisor & AI Systems Architect',
-    description: '12+ years across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
+    description: 'Experience across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
   },
 }
 
@@ -75,7 +75,7 @@ const personSchema = {
   givenName: 'Subodh',
   familyName: 'KC',
   jobTitle: 'AI Advisor | AI Systems Architect',
-  description: 'AI advisor and AI systems architect with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems.',
+  description: 'AI advisor and AI systems architect with experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -294,7 +294,7 @@ export default function AboutPage() {
             <span className="gradient-text">Improve what can be improved.</span>
           </>
         }
-        description="12+ years across public-sector technology, manufacturing reliability, small-business transformation, enterprise program leadership, and AI governance. The scale changes. The work does not."
+        description="Experience across public-sector technology, manufacturing reliability, small-business transformation, enterprise program leadership, and AI governance. The scale changes. The work does not."
       />
 
       <Section

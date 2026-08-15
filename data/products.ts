@@ -49,7 +49,7 @@ export const PRODUCTS: Product[] = [
     id: "haiec",
     name: "HAIEC",
     tagline:
-      "integrated AI Ethics & Compliance. Deterministic governance engine for EU AI Act, NIST AI RMF, ISO 42001, NYC LL144.",
+      "Holistic AI Ethics & Compliance. Deterministic governance engine for EU AI Act, NIST AI RMF, ISO 42001, NYC LL144.",
     kind: "platform",
     status: "live",
     glyph: "shield",
@@ -138,7 +138,7 @@ export const PRODUCTS: Product[] = [
     status: "live",
     glyph: "timeline",
     meta: "Enterprise · SOC 2",
-    primary: { label: "Request access", href: "/products/doc-timeline", type: "launch" },
+    primary: { label: "Deploy", href: "/products/doc-timeline", type: "launch" },
   },
   {
     id: "pdf-redactor",
@@ -171,7 +171,8 @@ export const PRODUCTS: Product[] = [
     status: "beta",
     glyph: "bars",
     meta: "Streamlit · Python 3.9+ · Beta",
-    primary: { label: "Early access", href: "/products/skc-log-analyser", type: "waitlist" },
+    primary: { label: "Deploy", href: "/products/skc-log-analyser", type: "launch" },
+    secondary: { label: "GitHub", href: "https://github.com/subodhkc/skc_log_Analyzer", type: "github" },
   },
   {
     id: "print-later",
@@ -227,9 +228,9 @@ export const PRODUCTS: Product[] = [
     kind: "oss",
     status: "beta",
     glyph: "radar",
-    meta: "Private beta",
-    gated: true,
-    primary: { label: "Request access", href: "#contact", type: "waitlist" },
+    meta: "OSS · Beta",
+    primary: { label: "Launch", href: "https://github.com/subodhkc/HAIEC-OSINT-MVP", type: "github" },
+    secondary: { label: "Product page", href: "/solutions/haiec", type: "launch" },
   },
   {
     id: "skc-meeting",
@@ -254,6 +255,39 @@ export const PRODUCTS: Product[] = [
     meta: "Private beta",
     gated: true,
     primary: { label: "Request access", href: "#contact", type: "waitlist" },
+  },
+  {
+    id: "isaf-logger",
+    name: "ISAF Logger",
+    tagline:
+      "Automatic compliance logging for AI training pipelines. 3 lines of code, cryptographic hash chains, EU AI Act Article 10 & 11 ready.",
+    kind: "package",
+    status: "stable",
+    glyph: "brackets-py",
+    meta: "PyPI · MIT",
+    primary: {
+      label: "pip install haiec-isaf-logger",
+      href: "https://pypi.org/project/haiec-isaf-logger/",
+      type: "install",
+      copyText: "pip install haiec-isaf-logger",
+    },
+    secondary: { label: "Learn more", href: "/packages/isaf", type: "launch" },
+  },
+  {
+    id: "mcp-tenant-isolation",
+    name: "MCP Tenant Isolation",
+    tagline:
+      "Static analysis scanner for multi-tenant SaaS and MCP server code. 57 deterministic rules for cross-tenant data leakage, IDOR, RLS, and MCP-specific risks.",
+    kind: "oss",
+    status: "stable",
+    glyph: "shield",
+    meta: "OSS · MIT",
+    primary: {
+      label: "Request audit",
+      href: "https://www.haiec.com/mcp-tenant-isolation",
+      type: "launch",
+    },
+    secondary: { label: "GitHub", href: "https://github.com/subodhkc/mcp-tenant-isolation", type: "github" },
   },
 ];
 

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contact Subodh KC | AI Advisor & Governance Consultant',
+  title: 'Contact Subodh KC | AI Advisor & AI Systems Architect',
   description:
     'Contact Subodh KC for AI advisory, architecture, deployment, governance, or local business AI reviews. Text, email, or schedule a consultation. Response within 24-48 hours.',
   keywords: [
     'contact Subodh KC',
     'AI advisor',
-    'AI consultant',
+    'AI systems advisor',
     'AI governance consulting',
     'AI compliance consulting',
     'AI architecture consulting',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/contact',
   },
   openGraph: {
-    title: 'Contact Subodh KC | AI Advisor & Governance Consultant',
+    title: 'Contact Subodh KC | AI Advisor & AI Systems Architect',
     description:
       'Get in touch about AI advisory, architecture, deployment, governance, or local business AI reviews. Text, email, or schedule a consultation.',
     url: 'https://subodhkc.com/contact',

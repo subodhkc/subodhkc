@@ -40,7 +40,7 @@ export default function ResumePage() {
           
           {/* Summary */}
           <p className="mt-3 text-xs text-zinc-700 leading-relaxed">
-            <span className="font-semibold text-zinc-900">12+ years</span> building AI and compliance systems at <span className="font-semibold text-zinc-900">HP Inc.</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
+            <span className="font-semibold text-zinc-900">Production AI</span> and compliance systems at <span className="font-semibold text-zinc-900">HP Inc.</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows.
             Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">$50M+</span> AI portfolios, reducing manual review by <span className="font-semibold text-zinc-900">40-60%</span>. 
             Shipped AI-native products for drift detection, autonomous RCA, and compliance mapping. 
             <span className="font-semibold text-zinc-900">5 patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.
@@ -129,7 +129,7 @@ export default function ResumePage() {
                   </div>
                   <span className="text-xs text-zinc-500 shrink-0">2020 - Present</span>
                 </div>
-                <p className="text-xs text-zinc-600 mb-1">integrated AI Ethics & Compliance (HAIEC)</p>
+                <p className="text-xs text-zinc-600 mb-1">Holistic AI Ethics & Compliance (HAIEC)</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Launched <strong>LLMVerify</strong>-npm package for real-time AI behavior verification, drift detection, PII exposure</li>
                   <li className="flex gap-1.5"><span className="text-blue-600">▸</span>Created <strong>AI Compliance Twin</strong> (patent 63/808,089)-modular engine mapping AI behaviors to regulatory rules</li>

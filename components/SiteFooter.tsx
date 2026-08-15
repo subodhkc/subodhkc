@@ -279,9 +279,9 @@ export function SiteFooter() {
               maxWidth: 560,
             }}
           >
-            Former Sr. Program Manager, HP Inc. Founder of HAIEC - integrated AI Ethics & Compliance. M.Sc.
-            Engineering & Technology Management, Louisiana Tech. 12+ years of full-stack engineering from
-            startups to global enterprise. Open for consulting, advisory boards, and research partnerships.
+            Former Sr. Program Manager, HP Inc. Founder of HAIEC - Holistic AI Ethics & Compliance. M.Sc.
+            Engineering & Technology Management, Louisiana Tech. Full-stack engineering from startups to
+            global enterprise. Open for consulting, advisory boards, and research partnerships.
           </p>
           <div style={{ marginTop: 24, display: "flex", gap: 8, flexWrap: "wrap" }}>
             {[

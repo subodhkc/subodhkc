@@ -185,7 +185,7 @@ export default function SpeakingPage() {
             <span className="gradient-text">AI Governance & Strategy</span>
           </>
         }
-        description="No buzzwords. No fluff. Strategic insights from 12+ years building AI systems and driving programs at Fortune 50 scale."
+        description="No buzzwords. No fluff. Strategic insights from building AI systems and driving programs at Fortune 50 scale."
       >
         <Link href="/contact">
           <Button size="lg" className="group">

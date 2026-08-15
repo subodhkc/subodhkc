@@ -141,36 +141,9 @@ export async function FrontOfAIBanner() {
           alignItems: 'stretch',
         }}
       >
-        {/* Label */}
-        <a
-          href={BRIEFING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="foa-news-label"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '0 16px',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: 'var(--bg)',
-            background: 'var(--op-accent)',
-            textDecoration: 'none',
-            whiteSpace: 'nowrap',
-            flexShrink: 0,
-          }}
-        >
-          <span className="foa-live-dot" aria-hidden="true" />
-          AI News
-        </a>
-
         {/* Ticker */}
         {visible.length > 0 ? (
-          <div className="foa-ticker" role="marquee" aria-label="Latest AI news headlines">
+          <div className="foa-ticker" role="marquee" aria-label="Latest AI news headlines" style={{ paddingLeft: 16 }}>
             <div className="foa-ticker-track">
               {loop.map((item, i) => (
                 <a
@@ -219,31 +192,6 @@ export async function FrontOfAIBanner() {
             </a>
           </div>
         )}
-
-        {/* View all */}
-        <a
-          href={BRIEFING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="foa-news-all"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            padding: '0 16px',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            fontWeight: 600,
-            letterSpacing: '0.04em',
-            color: 'var(--op-accent)',
-            textDecoration: 'none',
-            whiteSpace: 'nowrap',
-            flexShrink: 0,
-            borderLeft: '1px solid var(--op-border)',
-          }}
-        >
-          View all →
-        </a>
       </div>
 
       <style>{`

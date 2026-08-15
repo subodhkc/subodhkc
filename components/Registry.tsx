@@ -22,7 +22,7 @@ export function Registry({
   glyphStyle = "outline",
   density = "regular",
 }: Props) {
-  const [filter, setFilter] = React.useState<FilterKey>("all");
+  const [filter, setFilter] = React.useState<FilterKey>("enterprise");
   const [query, setQuery] = React.useState("");
 
   const counts = React.useMemo(() => {

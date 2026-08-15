@@ -1,5 +1,6 @@
 // components/home/OperatingMethodSection.tsx - six-stage operating method (02)
 import Link from "next/link";
+import { MobileCollapsible } from "./MobileCollapsible";
 
 const STAGES = [
   {
@@ -89,59 +90,61 @@ export function OperatingMethodSection() {
         runs on the same operating method. Each stage exists because it creates a specific kind of value.
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: 14,
-        }}
-      >
-        {STAGES.map((s) => (
-          <div
-            key={s.num}
-            style={{
-              padding: "24px 24px 22px",
-              borderRadius: 12,
-              border: "1px solid var(--op-border)",
-              background: "var(--op-card)",
-            }}
-          >
+      <MobileCollapsible label="Six disciplines" num="02">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 14,
+          }}
+        >
+          {STAGES.map((s) => (
             <div
+              key={s.num}
               style={{
-                display: "flex",
-                alignItems: "baseline",
-                gap: 12,
-                marginBottom: 12,
+                padding: "24px 24px 22px",
+                borderRadius: 12,
+                border: "1px solid var(--op-border)",
+                background: "var(--op-card)",
               }}
             >
-              <span
+              <div
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--op-accent)",
-                  letterSpacing: "0.04em",
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: 12,
+                  marginBottom: 12,
                 }}
               >
-                {s.num}
-              </span>
-              <h3
-                style={{
-                  margin: 0,
-                  fontSize: 18,
-                  fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                  color: "var(--fg)",
-                }}
-              >
-                {s.name}
-              </h3>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    color: "var(--op-accent)",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {s.num}
+                </span>
+                <h3
+                  style={{
+                    margin: 0,
+                    fontSize: 18,
+                    fontWeight: 600,
+                    letterSpacing: "-0.01em",
+                    color: "var(--fg)",
+                  }}
+                >
+                  {s.name}
+                </h3>
+              </div>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "var(--text-secondary)" }}>
+                {s.value}
+              </p>
             </div>
-            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "var(--text-secondary)" }}>
-              {s.value}
-            </p>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </MobileCollapsible>
 
       <div
         style={{

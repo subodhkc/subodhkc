@@ -337,7 +337,7 @@ export default function CoursePage() {
                 <p>
                   He has developed published methodologies for AI compliance, drift detection, and
                   behavioral verification. He is the founder of Kestrel Voice (AI voice operations) and
-                  founder of HAIEC (AI compliance platform). 12+ years from field technician to Fortune 50
+                  founder of HAIEC (AI compliance platform). From field technician to Fortune 50
                   AI strategy leader.
                 </p>
                 <p>

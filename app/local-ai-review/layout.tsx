@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       'Complimentary 20-minute AI review for DFW local businesses. Find one practical use case, one measure of success, and the most useful next step.',
   },
   keywords: [
-    'DFW AI consultant',
+    'DFW AI advisor',
     'local business AI',
     'Dallas AI advisor',
     'HEB Chamber',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     'Texas AI compliance',
     'AI voice receptionist',
     'workflow automation Dallas',
-    'Fort Worth AI consultant',
+    'Fort Worth AI advisor',
     'Arlington Texas AI',
     'Bedford Texas AI',
     'Euless Texas AI',

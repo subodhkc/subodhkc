@@ -10,6 +10,8 @@ import { CSMFrameworkSection } from "@/components/home/CSMFrameworkSection";
 import { CommercialDecisionSection } from "@/components/home/CommercialDecisionSection";
 import { PossibilitySection } from "@/components/home/PossibilitySection";
 import { OperatingMethodSection } from "@/components/home/OperatingMethodSection";
+import { NamePronunciationSection } from "@/components/home/NamePronunciationSection";
+import { FloatingNav } from "@/components/home/FloatingNav";
 
 export const metadata = {
   title: "AI Advisor & AI Systems Architect | Subodh KC",
@@ -60,6 +62,7 @@ export default function HomePage() {
     <AccessProvider>
       <Hero />
       <FrontOfAIBanner />
+      <NamePronunciationSection />
       <PossibilitySection />
       <OperatingMethodSection />
       <CommercialDecisionSection />
@@ -68,6 +71,7 @@ export default function HomePage() {
       <Registry />
       <ComplianceGuidesSection />
       <WritingSection />
+      <FloatingNav />
     </AccessProvider>
   );
 }

@@ -4,9 +4,9 @@ export default function StructuredData() {
     '@type': 'Person',
     name: 'Subodh KC',
     alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri'],
-    jobTitle: 'AI Systems Architect & AI Advisor',
+    jobTitle: 'AI Advisor & AI Systems Architect',
     description:
-      'AI Systems Architect and AI Advisor. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC. Architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation.',
+      'AI Advisor and AI Systems Architect. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC. Architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation.',
     url: 'https://subodhkc.com',
     email: 'admin@subodhkc.com',
     image: 'https://subodhkc.com/portrait.jpeg',
@@ -57,7 +57,7 @@ export default function StructuredData() {
     hasCredential: [],
     hasOccupation: {
       '@type': 'Occupation',
-      name: 'AI Systems Architect',
+      name: 'AI Advisor & AI Systems Architect',
       occupationLocation: {
         '@type': 'Country',
         name: 'United States',
@@ -77,10 +77,6 @@ export default function StructuredData() {
     alumniOf: {
       '@type': 'CollegeOrUniversity',
       name: 'Louisiana Tech University',
-    },
-    worksFor: {
-      '@type': 'Organization',
-      name: 'HP Inc.',
     },
     founder: {
       '@type': 'Organization',
@@ -110,9 +106,9 @@ export default function StructuredData() {
       '@type': 'Person',
       name: 'Subodh KC',
       url: 'https://subodhkc.com',
-      jobTitle: 'AI Systems Architect & AI Advisor',
+      jobTitle: 'AI Advisor & AI Systems Architect',
       description:
-        'AI Systems Architect and AI Advisor. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC.',
+        'AI Advisor and AI Systems Architect. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC.',
     },
     dateCreated: '2024-01-01',
   }
@@ -120,10 +116,10 @@ export default function StructuredData() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Subodh KC - AI Systems Architect & AI Advisor',
+    name: 'Subodh KC - AI Advisor & AI Systems Architect',
     url: 'https://subodhkc.com',
     description:
-      'AI Systems Architect and AI Advisor. Production AI systems - architecture, deployment, and governance.',
+      'AI Advisor and AI Systems Architect. Production AI systems - architecture, deployment, and governance.',
     author: {
       '@type': 'Person',
       name: 'Subodh KC',
@@ -135,7 +131,7 @@ export default function StructuredData() {
     '@type': 'Organization',
     name: 'HAIEC',
     description:
-      'integrated AI Ethics & Compliance - Enterprise-grade AI compliance and governance platform',
+      'Holistic AI Ethics & Compliance - Enterprise-grade AI compliance and governance platform',
     url: 'https://subodhkc.com/solutions/haiec',
     founder: {
       '@type': 'Person',
@@ -155,7 +151,7 @@ export default function StructuredData() {
     '@type': 'Organization',
     name: 'SubodhKC.com',
     description:
-      'Defensive AI Architecture and Production Governance content platform by Subodh KC. Practical, authoritative content about production AI architecture, governance, and operations for technical leaders.',
+      'AI Advisor and AI Systems Architect content platform by Subodh KC. Practical, authoritative content about production AI architecture, governance, and operations for technical leaders.',
     url: 'https://subodhkc.com',
     logo: {
       '@type': 'ImageObject',
@@ -203,7 +199,7 @@ export default function StructuredData() {
       '@type': 'Person',
       name: 'Subodh KC',
       url: 'https://subodhkc.com',
-      jobTitle: 'AI Systems Architect & AI Advisor',
+      jobTitle: 'AI Advisor & AI Systems Architect',
       sameAs: [
         'https://www.linkedin.com/in/subodhkc',
         'https://www.wikidata.org/wiki/Q140546484',

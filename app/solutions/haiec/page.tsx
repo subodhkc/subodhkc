@@ -351,8 +351,8 @@ export default function HAIECPage() {
       </Section>
 
       <Section
-        subtitle="Proven Results"
-        title="Real-World Impact"
+        subtitle="Illustrative Scenarios"
+        title="How HAIEC Applies"
         sectionNum="05"
       >
         <div className="space-y-8">
@@ -383,6 +383,10 @@ export default function HAIECPage() {
               </Card>
             </Reveal>
           ))}
+          <p className="text-xs text-muted-foreground text-center max-w-2xl mx-auto pt-4">
+            Illustrative scenarios showing how HAIEC capabilities map to common enterprise compliance challenges.
+            These are representative use cases, not customer deployment records.
+          </p>
         </div>
       </Section>
 

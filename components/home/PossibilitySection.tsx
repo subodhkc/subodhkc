@@ -1,5 +1,6 @@
 // components/home/PossibilitySection.tsx - imagination-trigger section (01)
 import Link from "next/link";
+import { MobileCollapsible } from "./MobileCollapsible";
 
 const QUESTIONS = [
   "What could your customers stop waiting for?",
@@ -59,42 +60,44 @@ export function PossibilitySection() {
         examined. Six questions worth asking before the next budget cycle:
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: 14,
-        }}
-      >
-        {QUESTIONS.map((q, i) => (
-          <div
-            key={i}
-            style={{
-              padding: "20px 22px",
-              borderRadius: 12,
-              border: "1px solid var(--op-border)",
-              background: "var(--op-card)",
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 14,
-            }}
-          >
-            <span
+      <MobileCollapsible label="Six questions" num="01">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: 14,
+          }}
+        >
+          {QUESTIONS.map((q, i) => (
+            <div
+              key={i}
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                color: "var(--op-accent)",
-                letterSpacing: "0.04em",
-                paddingTop: 3,
-                flexShrink: 0,
+                padding: "20px 22px",
+                borderRadius: 12,
+                border: "1px solid var(--op-border)",
+                background: "var(--op-card)",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 14,
               }}
             >
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.5, color: "var(--fg)" }}>{q}</p>
-          </div>
-        ))}
-      </div>
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--op-accent)",
+                  letterSpacing: "0.04em",
+                  paddingTop: 3,
+                  flexShrink: 0,
+                }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.5, color: "var(--fg)" }}>{q}</p>
+            </div>
+          ))}
+        </div>
+      </MobileCollapsible>
 
       <div
         style={{

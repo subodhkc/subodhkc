@@ -44,26 +44,34 @@ Future agents must NOT reintroduce:
 - Do NOT globally replace one address with another. Audit each usage by PURPOSE.
 
 ## Editorial Rules
+- **Canonical voice canon:** `docs/CONTENT_VOICE_CANON.md`
+- **Durable voice rule:** `.windsurf/rules/editorial-voice.md`
+- **Editorial identity:** THE EXECUTIVE OPERATOR-RESEARCHER
 - See `.devin/skills/subodhkc-editorial-manifesto/SKILL.md` for the full editorial persona and rules
 - See `.devin/skills/subodhkc-seo-theme/SKILL.md` for the SEO content strategy and topic clusters
 - CI-generated articles use author "Yeti AI Writer"
 - Hand-written articles by Subodh KC use author "Subodh KC"
+- AI-assisted research or drafting must never turn into unattended auto-publication under Subodh's name
 - All articles must pass hallucination validation (URL checks) before publishing
 - All articles must pass AI tell-tale detection (no em-dashes, emojis, AI phrases)
 - SEO theme: "AI THAT WORKS" with 4 topic clusters
 - Article length: 1500-2500 words (information density over length)
 - Content authority model: EARNED TOPICAL AUTHORITY — every page must add information the current SERP does not already have
+- **Originality gate:** Every authority article must contain at least one original artifact (framework, matrix, diagram, benchmark, experiment, code, failure analysis, template, dataset, scorecard, firsthand evidence). No information gain: no publication.
+- **Four editorial modes:** Executive Decision Brief, Production Failure File, Research Note, Firsthand Field Essay. Do not force one template.
+- **Prohibited legacy positioning:** "Sovereign AI Pragmatist", "Us vs Them", "The Enemy", "The Tribe", "regulatory ruin", "elite", "battle-tested", "world-class", "visionary", "guru", "thought leader", "Status-Quo-Shattering"
 
 ## CI Article Generation
 - Script: `scripts/generate-article.mjs`
 - Workflow: `.github/workflows/daily-article.yml`
-- Schedule: 1 article every other day at 14:00 UTC (09:00 CST) — **NOW IN DRAFT/MANUAL APPROVAL MODE**
+- Schedule: Weekly (every Monday at 14:00 UTC / 09:00 CST) — **DRAFT/MANUAL APPROVAL MODE**
 - Model: `gpt-4o-2024-11-20`
 - Authority articles: 1500-2500 words
 - Max output tokens: 16384 for authority articles
 - Continuation mechanism handles truncated responses
 - Validation: hallucination URL checks, AI tell-tale detection, citation density, title specificity, paragraph independence, transition word frequency, CSM stale terminology detection
-- **Publish gate (NEW):** clear target audience, unique search intent, information gain, original artifact, factual verification, primary-source citations, no keyword cannibalization, internal link plan, clear conversion path, human/editorial approval
+- **Publish gate:** clear target audience, unique search intent, information gain, original artifact, factual verification, primary-source citations, no keyword cannibalization, internal link plan, clear conversion path, human/editorial approval
+- **Automation policy:** Automated systems may research, collect sources, prepare briefs, draft sections, run factual checks, and find internal links. They may NOT publish authority content under Subodh KC without material human review, argument approval, claim verification, voice review, and originality approval.
 
 ## CSM Canonical Terminology
 - **Canonical name:** Cognitive Systems Management (CSM)

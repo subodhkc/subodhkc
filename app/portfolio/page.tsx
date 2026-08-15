@@ -347,7 +347,7 @@ const BOOK_HTML = `
 <!-- 14 -->
 <section class="page" id="haiec-product"><div class="page-grid"></div><div class="page-inner">
   <div class="running"><b>HAIEC</b><span>Prove / Govern · Product strategy</span></div>
-  <p class="kicker">integrated AI Ethics &amp; Compliance · Evidence layer for operational AI</p><h2>AI adoption moves fast. Defensible evidence usually arrives late.</h2>
+  <p class="kicker">Holistic AI Ethics &amp; Compliance · Evidence layer for operational AI</p><h2>AI adoption moves fast. Defensible evidence usually arrives late.</h2>
   <div class="columns-2" style="margin-top:18px">
     <div class="case-content">
       <div class="card"><span class="status">Problem</span><h3 style="margin-top:6px">Policy is not proof</h3><p>AI systems may not be inventoried. Vendor claims substitute for internal evidence. Testing happens late. Ownership, authority, and human review are unclear. Artifacts remain scattered across teams.</p></div>

@@ -4,13 +4,12 @@ import { Aurora } from "./Aurora";
 import { Constellation } from "./Constellation";
 import { Counter } from "./Counter";
 import { DotGrid } from "./DotGrid";
-import { ShipLog } from "./ShipLog";
 import { PRODUCTS } from "@/data/products";
 
 const KPIS = [
-  { k: "products", v: 15, fmt: { suffix: "" }, sub: "shipped", live: false },
+  { k: "products", v: 18, fmt: { suffix: "" }, sub: "shipped", live: false },
   { k: "installs", v: 10000, fmt: { formatK: true, suffix: "+" }, sub: "npm + pypi", live: true },
-  { k: "experience", v: 12, fmt: { suffix: "y" }, sub: "full-stack", live: false },
+  { k: "programs", v: 50, fmt: { suffix: "+" }, sub: "AI delivered", live: false },
 ];
 
 export function HeroInteractive() {
@@ -36,7 +35,7 @@ export function HeroInteractive() {
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
             <span style={{ width: 18, height: 1, background: "var(--op-accent)", display: "inline-block" }} />
-            00 / Subodh KC · since 2009
+            00 / soo-BOHD KAY-see
           </span>
           <span>v3.3.0 - Aug 2026</span>
         </div>
@@ -252,8 +251,6 @@ export function HeroInteractive() {
           <Constellation products={PRODUCTS} />
         </div>
       </div>
-
-      <ShipLog />
 
       <style>{`
         @media (max-width: 640px) {

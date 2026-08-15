@@ -19,9 +19,9 @@ export function Hero() {
             Subodh KC, founder of KestrelVoice, founder of HAIEC. Dallas-based.
           </p>
           <ul>
-            <li>15 products shipped</li>
+            <li>18 products shipped</li>
             <li>10,000+ npm + pypi installs</li>
-            <li>12+ years full-stack experience</li>
+            <li>50+ AI programs delivered</li>
           </ul>
           <p>
             <a href="/contact?subject=discuss-ai">Discuss AI</a> | <a href="/portfolio">Selected Work</a>

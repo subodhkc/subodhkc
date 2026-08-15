@@ -16,8 +16,8 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Subodh KC | AI Advisor & AI Systems Architect',
-  description: 'Subodh KC is an AI advisor and AI systems architect with 12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+  title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
+  description: 'Subodh KC is an AI advisor and AI systems architect with experience across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/executive-bio',
   },
   openGraph: {
-    title: 'Subodh KC | AI Advisor & AI Systems Architect',
-    description: '12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+    title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
+    description: 'Experience across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI compliance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
     url: 'https://subodhkc.com/executive-bio',
     type: 'profile',
     images: [
@@ -59,8 +59,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC | AI Advisor & AI Systems Architect',
-    description: '12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization.',
+    title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
+    description: 'Experience across program leadership, production AI systems, manufacturing reliability, and technology commercialization.',
   },
 }
 
@@ -72,7 +72,7 @@ const personSchema = {
   givenName: 'Subodh',
   familyName: 'KC',
   jobTitle: 'AI Advisor | AI Systems Architect',
-  description: 'AI advisor and AI systems architect with 12+ years across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems.',
+  description: 'AI advisor and AI systems architect with experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -277,7 +277,7 @@ export default function ExecutiveBioPage() {
           </p>
 
           <p className="text-lg md:text-xl text-muted-foreground mb-8">
-            12+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization
+            Program leadership, production AI systems, manufacturing reliability, and technology commercialization
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -316,7 +316,7 @@ export default function ExecutiveBioPage() {
           <h2 className="text-3xl font-bold mb-8">Professional Background</h2>
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Subodh KC is an AI advisor and AI systems architect with more than 12 years of experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems. He turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate.
+              Subodh KC is an AI advisor and AI systems architect with experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems. He turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               His career has been built from the operational level up. He has worked across public-sector technology, manufacturing systems, production reliability, small-business transformation, enterprise software, and artificial intelligence. That range gives him a practical understanding of transformation from both sides: what leadership expects from an investment and what engineering and operations must do to make it work.
@@ -521,8 +521,8 @@ export default function ExecutiveBioPage() {
 
           <Card className="text-center border-2 border-primary/20">
             <CardHeader>
-              <div className="text-5xl font-bold text-primary mb-2">12+</div>
-              <CardTitle className="text-lg">Years of Experience</CardTitle>
+              <div className="text-5xl font-bold text-primary mb-2">50+</div>
+              <CardTitle className="text-lg">AI Programs Delivered</CardTitle>
             </CardHeader>
           </Card>
 

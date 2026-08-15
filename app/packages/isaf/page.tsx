@@ -61,26 +61,26 @@ export default function ISAFPage() {
       <Hero
         title="ISAF Logger"
         subtitle="Instruction Stack Audit Framework"
-        description="Automatic compliance logging for AI systems. Add 3 lines of code, get EU AI Act-ready documentation with cryptographic verification. Works with PyTorch, TensorFlow, JAX, and scikit-learn."
+        description="Automatic compliance logging for AI systems. Add 3 lines of code, get EU AI Act-ready documentation with deterministic SHA-256 hash chain verification. Works with PyTorch, TensorFlow, JAX, and scikit-learn."
       >
         <div className="flex flex-wrap gap-3 mt-6">
-          <Link
-            href="https://github.com/haiec/isaf-logger"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
-          >
-            <ExternalLink className="h-4 w-4" />
-            View on GitHub
-          </Link>
           <Link
             href="https://pypi.org/project/haiec-isaf-logger/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 border border-foreground/20 rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
           >
             <Download className="h-4 w-4" />
             pip install haiec-isaf-logger
+          </Link>
+          <Link
+            href="https://zenodo.org/records/18080355"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 border border-foreground/20 rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Read the Whitepaper
           </Link>
         </div>
       </Hero>
@@ -248,20 +248,77 @@ isaf.export("compliance_report.json")`}</code></pre>
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {[
-              { icon: Terminal, title: 'Inspect', desc: 'View formatted report of lineage file with audit ID, timestamp, and logged layers.' },
-              { icon: Hash, title: 'Verify', desc: 'Verify cryptographic integrity of hash chain. Confirms data hasn\'t been tampered with.' },
-              { icon: Download, title: 'Export', desc: 'Export lineage from SQLite database to ISAF-compliant JSON format.' },
+              { icon: Terminal, title: 'isaf inspect', desc: 'View formatted report of lineage file with audit ID, timestamp, and logged layers.' },
+              { icon: Hash, title: 'isaf verify', desc: 'Deterministic SHA-256 hash chain verification. Recomputes the chain and compares root hashes. Confirms data has not been tampered with.' },
+              { icon: Download, title: 'isaf export-from-db', desc: 'Export lineage from SQLite database to ISAF-compliant JSON format.' },
             ].map((tool) => (
               <Card key={tool.title}>
                 <CardHeader>
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                     <tool.icon className="h-5 w-5 text-primary" />
                   </div>
-                  <CardTitle className="text-base">{tool.title}</CardTitle>
+                  <CardTitle className="text-base font-mono">{tool.title}</CardTitle>
                   <CardDescription className="text-sm">{tool.desc}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Deterministic Verification */}
+      <Section>
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold tracking-tight mb-2">Deterministic Verification</h2>
+            <p className="text-muted-foreground">How the hash chain works and why it is reproducible</p>
+          </div>
+          <div className="space-y-4">
+            <Card>
+              <CardContent className="pt-6 space-y-4">
+                <div>
+                  <p className="text-sm font-semibold">SHA-256 Hash Chain</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Each layer is serialized with canonical JSON (sorted keys, compact separators). The previous layer hash is prepended to the canonical payload, then SHA-256 is computed. This makes the chain deterministic: the same input always produces the same root hash.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Verification Process</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    <code className="text-xs bg-muted px-1.5 py-0.5 rounded">isaf.verify_lineage()</code> reloads the exported JSON, rebuilds the hash chain from the stack trace, and compares the computed root hash to the stored root hash. If any layer was modified after export, the root hashes will not match.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">API Surface</p>
+                  <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">isaf.init()</span> - start session
+                    </div>
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">@isaf.log_data</span> - Layer 7
+                    </div>
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">@isaf.log_objective</span> - Layer 8
+                    </div>
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">@isaf.log_framework</span> - Layer 6
+                    </div>
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">@isaf.log_all</span> - all layers
+                    </div>
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">isaf.export()</span> - JSON + hash chain
+                    </div>
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">isaf.verify_lineage()</span> - verify chain
+                    </div>
+                    <div className="text-xs font-mono bg-muted rounded p-2">
+                      <span className="text-primary">isaf.get_lineage()</span> - retrieve data
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </Section>
@@ -316,7 +373,7 @@ isaf.export("compliance_report.json")`}</code></pre>
       <CTA
         title="Ready to Add Compliance Logging?"
         description="ISAF Logger is open source and free to use. Get started in minutes."
-        primaryButton={{ text: 'GitHub Repository', href: 'https://github.com/haiec/isaf-logger' }}
+        primaryButton={{ text: 'pip install haiec-isaf-logger', href: 'https://pypi.org/project/haiec-isaf-logger/' }}
         secondaryButton={{ text: 'Enterprise Support', href: 'https://www.haiec.com/contact' }}
       />
 
@@ -326,7 +383,7 @@ isaf.export("compliance_report.json")`}</code></pre>
           <Link href="/solutions/haiec" className="underline hover:text-foreground font-medium">
             HAIEC
           </Link>
-          {' '} - Holistic AI Ethics & Compliance
+          {' - Holistic AI Ethics & Compliance'}
         </p>
       </div>
     </>

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Resume - Subodh KC | AI Advisor & AI Systems Architect',
-  description: 'Executive resume for Subodh KC - AI Advisor & AI Systems Architect, former Sr. Program Manager at HP Inc., founder of KestrelVoice, founder of HAIEC. 12+ years building production AI systems.',
+  description: 'Executive resume for Subodh KC - AI Advisor & AI Systems Architect, former Sr. Program Manager at HP Inc., founder of KestrelVoice, founder of HAIEC. Production AI systems from startups to global enterprise.',
   keywords: [
     'AI program manager resume',
     'AI advisor CV',

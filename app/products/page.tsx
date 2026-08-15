@@ -3,6 +3,7 @@ import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import { Button } from '@/components/ui/button'
 import ProductsGrid from './products-grid'
+import { ShipLog } from '@/components/hero/ShipLog'
 
 import { 
   Printer, 
@@ -148,6 +149,8 @@ export default function ProductsPage() {
         }
         description="Every product we build follows the same principle: your data stays on your computer. No cloud uploads. No tracking. No compromises."
       />
+
+      <ShipLog />
 
       <Section
         subtitle="Principles"

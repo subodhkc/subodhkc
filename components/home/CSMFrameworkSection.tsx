@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { Building2, Briefcase, Code2, Users, ArrowRight, ArrowDown, RefreshCw, ExternalLink } from 'lucide-react'
+import { Building2, Briefcase, Code2, Users, ArrowRight, RefreshCw, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { csmDomains, csmProvenance } from '@/data/csm'
 
@@ -32,6 +32,13 @@ const domainValues: Record<string, string> = {
     'Connects governance to real human use and creates feedback for improving the wider system.',
 }
 
+const domainAccents: Record<string, string> = {
+  'csm-enterprise': '#2563eb',
+  'csm-project': '#7c3aed',
+  'csm-code': '#0891b2',
+  'csm-ux': '#db2777',
+}
+
 const flowSteps = [
   { name: 'Enterprise', desc: 'Defines purpose, ownership and boundaries.' },
   { name: 'Project', desc: 'Turns those decisions into business criteria, testing and a scale decision.' },
@@ -44,12 +51,13 @@ const handoffLines = [
   'Enterprise decisions inform Project criteria.',
   'Project criteria inform Code.',
   'Implementation reality shapes UX.',
-  'Operational/user feedback flows back into Project and Enterprise governance.',
+  'Operational and user feedback flows back into Project and Enterprise governance.',
 ]
 
 export function CSMFrameworkSection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [isInView, setIsInView] = useState(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const [reducedMotion, setReducedMotion] = useState(false)
@@ -62,25 +70,36 @@ export function CSMFrameworkSection() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
+  // Only auto-advance when the section is actually on screen
   useEffect(() => {
-    if (reducedMotion || isPaused) {
+    if (!sectionRef.current) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.3 }
+    )
+    observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (reducedMotion || isPaused || !isInView) {
       if (intervalRef.current) clearInterval(intervalRef.current)
       return
     }
     intervalRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % csmDomains.length)
-    }, 4500)
+    }, 5000)
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [reducedMotion, isPaused])
+  }, [reducedMotion, isPaused, isInView])
 
   return (
-    <section ref={sectionRef} className="py-20 px-4">
+    <section ref={sectionRef} id="csm" className="py-20 px-4">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 space-y-3">
-          <p className="text-sm font-semibold text-primary uppercase tracking-wide">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary/80">
             CSM 2.0 · Based on the Original 2025 Framework
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -95,17 +114,19 @@ export function CSMFrameworkSection() {
         </div>
 
         {/* Domain Cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
           {csmDomains.map((domain, index) => {
             const Icon = domainIcons[domain.id] || Building2
             const isActive = index === activeIndex
+            const accent = domainAccents[domain.id] || '#2563eb'
             return (
               <Card
                 key={domain.id}
                 className={cn(
-                  'h-full transition-all duration-300 cursor-pointer',
-                  isActive ? 'ring-2 ring-primary scale-[1.02]' : 'opacity-70 hover:opacity-100'
+                  'h-full transition-all duration-300 cursor-pointer relative overflow-hidden',
+                  isActive ? 'ring-2 scale-[1.02]' : 'opacity-70 hover:opacity-100'
                 )}
+                style={isActive ? { boxShadow: `0 0 0 2px ${accent}`, borderColor: accent } : undefined}
                 onMouseEnter={() => {
                   setActiveIndex(index)
                   setIsPaused(true)
@@ -121,9 +142,18 @@ export function CSMFrameworkSection() {
                 role="button"
                 aria-label={`${domain.displayName}: ${domainHeadlines[domain.id]}`}
               >
+                {isActive && (
+                  <div
+                    className="absolute top-0 left-0 right-0 h-1"
+                    style={{ background: accent }}
+                  />
+                )}
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2 mb-1">
-                    <Icon className="h-4 w-4 text-primary" />
+                    <Icon
+                      className="h-4 w-4"
+                      style={{ color: accent }}
+                    />
                     <CardTitle className="text-sm">{domain.displayName}</CardTitle>
                   </div>
                   <p className="text-xs font-medium text-foreground">
@@ -140,7 +170,7 @@ export function CSMFrameworkSection() {
                   <div className="space-y-0.5 mb-2">
                     {domain.originalComponents.map((comp) => (
                       <p key={comp.name} className="text-xs text-muted-foreground flex items-start gap-1">
-                        <span className="text-primary/60 mt-0.5">&bull;</span>
+                        <span className="mt-0.5" style={{ color: accent }}>&bull;</span>
                         {comp.name}
                       </p>
                     ))}
@@ -155,15 +185,15 @@ export function CSMFrameworkSection() {
         </div>
 
         {/* Flow Diagram */}
-        <div className="max-w-3xl mx-auto mb-8">
+        <div className="max-w-3xl mx-auto mb-8 rounded-lg border border-border/60 bg-muted/20 p-6">
           <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
             {flowSteps.map((step, i, arr) => (
               <div key={step.name} className="flex items-center gap-2">
                 <span className={cn(
-                  'px-3 py-1.5 rounded-full border',
+                  'px-3 py-1.5 rounded-full border text-xs font-medium',
                   step.name === 'Feedback'
                     ? 'border-primary/30 bg-primary/5 text-primary'
-                    : 'border-border bg-muted/30 text-foreground'
+                    : 'border-border bg-background text-foreground'
                 )}>
                   {step.name}
                 </span>

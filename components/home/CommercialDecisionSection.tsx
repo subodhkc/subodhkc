@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { MessageSquare, Workflow, Phone, Shield, ShieldCheck, ArrowRight, Users } from 'lucide-react'
+import { MobileCollapsible } from './MobileCollapsible'
 
 export function CommercialDecisionSection() {
   return (
@@ -257,86 +258,88 @@ export function CommercialDecisionSection() {
         >
           Need something specific?
         </p>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 16,
-          }}
-        >
-          <Link
-            href="/ai-voice-agent"
-            data-track-click="homepage_voice"
+        <MobileCollapsible label="Specific solutions">
+          <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              padding: '18px 20px',
-              borderRadius: 12,
-              border: '1px solid var(--op-border)',
-              background: 'var(--op-card)',
-              textDecoration: 'none',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: 16,
             }}
           >
-            <Phone style={{ width: 20, height: 20, color: 'var(--op-accent)', flexShrink: 0 }} />
-            <div>
-              <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--fg)', margin: 0 }}>
-                AI Voice Agent
-              </p>
-              <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
-                Missing calls while busy or after hours &middot; from $499/month
-              </p>
-            </div>
-          </Link>
-          <Link
-            href="/ai-security-compliance"
-            data-track-click="homepage_security"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              padding: '18px 20px',
-              borderRadius: 12,
-              border: '1px solid var(--op-border)',
-              background: 'var(--op-card)',
-              textDecoration: 'none',
-            }}
-          >
-            <Shield style={{ width: 20, height: 20, color: 'var(--op-accent)', flexShrink: 0 }} />
-            <div>
-              <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--fg)', margin: 0 }}>
-                AI Security &amp; Compliance
-              </p>
-              <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
-                Worried about AI security or compliance gaps? &middot; from $950
-              </p>
-            </div>
-          </Link>
-          <Link
-            href="/saas-security-review"
-            data-track-click="homepage_saas_security"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              padding: '18px 20px',
-              borderRadius: 12,
-              border: '1px solid var(--op-border)',
-              background: 'var(--op-card)',
-              textDecoration: 'none',
-            }}
-          >
-            <ShieldCheck style={{ width: 20, height: 20, color: 'var(--op-accent)', flexShrink: 0 }} />
-            <div>
-              <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--fg)', margin: 0 }}>
-                SaaS &amp; AI Security Review
-              </p>
-              <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
-                Tenant isolation &amp; AI app security &middot; from $950
-              </p>
-            </div>
-          </Link>
-        </div>
+            <Link
+              href="/ai-voice-agent"
+              data-track-click="homepage_voice"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                padding: '18px 20px',
+                borderRadius: 12,
+                border: '1px solid var(--op-border)',
+                background: 'var(--op-card)',
+                textDecoration: 'none',
+              }}
+            >
+              <Phone style={{ width: 20, height: 20, color: 'var(--op-accent)', flexShrink: 0 }} />
+              <div>
+                <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--fg)', margin: 0 }}>
+                  AI Voice Agent
+                </p>
+                <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
+                  Missing calls while busy or after hours &middot; from $499/month
+                </p>
+              </div>
+            </Link>
+            <Link
+              href="/ai-security-compliance"
+              data-track-click="homepage_security"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                padding: '18px 20px',
+                borderRadius: 12,
+                border: '1px solid var(--op-border)',
+                background: 'var(--op-card)',
+                textDecoration: 'none',
+              }}
+            >
+              <Shield style={{ width: 20, height: 20, color: 'var(--op-accent)', flexShrink: 0 }} />
+              <div>
+                <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--fg)', margin: 0 }}>
+                  AI Security &amp; Compliance
+                </p>
+                <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
+                  Worried about AI security or compliance gaps? &middot; from $950
+                </p>
+              </div>
+            </Link>
+            <Link
+              href="/saas-security-review"
+              data-track-click="homepage_saas_security"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                padding: '18px 20px',
+                borderRadius: 12,
+                border: '1px solid var(--op-border)',
+                background: 'var(--op-card)',
+                textDecoration: 'none',
+              }}
+            >
+              <ShieldCheck style={{ width: 20, height: 20, color: 'var(--op-accent)', flexShrink: 0 }} />
+              <div>
+                <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--fg)', margin: 0 }}>
+                  SaaS &amp; AI Security Review
+                </p>
+                <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
+                  Tenant isolation &amp; AI app security &middot; from $950
+                </p>
+              </div>
+            </Link>
+          </div>
+        </MobileCollapsible>
       </div>
     </section>
   )
