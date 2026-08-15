@@ -4,6 +4,8 @@ on:
   schedule:
     # Every other day at 14:00 UTC (09:00 CST) - optimal LinkedIn posting time
     # Runs on odd days (1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31)
+    # NOTE: Scheduled runs now default to --review-only (draft/manual approval mode)
+    # To auto-publish, manually dispatch with review_only=false
     - cron: "0 14 1-31/2 * *"
   workflow_dispatch:
     inputs:
@@ -15,7 +17,7 @@ on:
         description: 'Generate for manual review only (do not auto-publish)'
         required: false
         type: boolean
-        default: false
+        default: true
 
 concurrency:
   group: daily-article
@@ -52,9 +54,16 @@ jobs:
 
           TOPIC="${{ github.event.inputs.topic }}"
           REVIEW_ONLY="${{ github.event.inputs.review_only }}"
-          EXTRA_ARGS=""
-          if [ "$REVIEW_ONLY" = "true" ]; then
+
+          # Scheduled runs default to review-only (draft/manual approval mode)
+          # Manual dispatch can override by setting review_only=false
+          if [ -z "$REVIEW_ONLY" ] || [ "$REVIEW_ONLY" = "true" ]; then
+            REVIEW_ONLY="true"
             EXTRA_ARGS="--review-only"
+            echo "::notice::Article pipeline is in DRAFT/MANUAL APPROVAL mode. Articles will be generated but NOT auto-published."
+          else
+            EXTRA_ARGS=""
+            echo "::notice::Manual dispatch with review_only=false — article will be auto-published."
           fi
           if [ -n "$TOPIC" ]; then
             echo "Generating article with custom topic: $TOPIC"
