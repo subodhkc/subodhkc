@@ -12,6 +12,8 @@ import {
   getOfferingRoute, getOfferingStatus,
   getEngagementTypeLabel, getEngagementStatusLabel,
 } from '@/lib/auth/dashboard-types'
+import { NewsCardGrid } from './NewsCardGrid'
+import { ExecutiveBriefs } from './ExecutiveBriefs'
 
 interface OrgEngagement {
   id: string
@@ -235,6 +237,12 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members }: Clien
             </div>
           </section>
         )}
+
+        {/* Executive Briefs */}
+        <ExecutiveBriefs />
+
+        {/* AI Intelligence News Card Grid */}
+        <NewsCardGrid initialLimit={12} />
 
         {/* Team */}
         {members.length > 0 && (
