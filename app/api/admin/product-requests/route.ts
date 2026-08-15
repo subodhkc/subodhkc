@@ -99,6 +99,18 @@ export async function PATCH(req: NextRequest) {
 
   // If activating and createEntitlement is true, provision the external account
   // and create the entitlement in SubodhKC DB
+  let provisioningResult: {
+    success: boolean
+    externalUserId?: string
+    externalTenantId?: string
+    launchUrl: string
+    message: string
+    provisioningMethod: string
+    error?: string
+    requiresManualAction?: boolean
+    manualInstructions?: string
+  } | null = null
+
   if (status === 'activated' && createEntitlement) {
     // Fetch org and user data needed for provisioning
     const { data: orgData } = await sc
@@ -118,18 +130,6 @@ export async function PATCH(req: NextRequest) {
     const orgSlug = orgData?.slug || ''
 
     // Step 1: Attempt external provisioning via adapter
-    let provisioningResult: {
-      success: boolean
-      externalUserId?: string
-      externalTenantId?: string
-      launchUrl: string
-      message: string
-      provisioningMethod: string
-      error?: string
-      requiresManualAction?: boolean
-      manualInstructions?: string
-    } | null = null
-
     if (customerEmail) {
       try {
         const { getProvisioningAdapter, getDefaultLaunchUrl } = await import('@/lib/provisioning/adapter')
@@ -260,20 +260,24 @@ export async function PATCH(req: NextRequest) {
     }
 
     // Step 5: Return provisioning result to admin
-    return NextResponse.json({
-      success: true,
-      provisioning: provisioningResult,
-    })
+    // (audit event is written below, after this block)
   }
 
-  // Audit event
+  // Audit event — written for ALL status changes (approved, activated, declined)
   await sc.rpc('write_audit_event', {
     audit_action: `admin.product_request_${status}`,
     audit_entity_type: 'product_access_request',
     audit_org_id: request.organization_id,
     audit_entity_id: requestId,
-    audit_metadata: { offering_key: request.offering_key, admin_note: adminNote || null } as any,
+    audit_metadata: {
+      offering_key: request.offering_key,
+      admin_note: adminNote || null,
+      provisioning_result: status === 'activated' ? provisioningResult?.success : undefined,
+    } as any,
   })
 
-  return NextResponse.json({ success: true })
+  return NextResponse.json({
+    success: true,
+    ...(provisioningResult ? { provisioning: provisioningResult } : {}),
+  })
 }
