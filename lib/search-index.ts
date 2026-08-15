@@ -45,6 +45,7 @@ const staticPages: StaticPage[] = [
   { title: 'CourtCase', description: 'Legal document organization and evidence builder', href: '/products/courtcase', category: 'Product', keywords: 'courtcase legal document evidence builder coming soon' },
   { title: 'AI Article Generator', description: 'AI-powered article generation tool for content teams', href: '/products/ai-article-generator', category: 'Product', keywords: 'ai article generator content generation writing tool' },
 
+  { title: 'AI Advisor Desk', description: 'AI intelligence, opportunity discovery, human advisory access, controls review, and regulatory monitoring. $99/month.', href: '/ai-advisor', category: 'Service', keywords: 'ai advisor desk ai intelligence opportunity discovery human advisory controls review regulatory monitoring subscription' },
   { title: 'HAIEC', description: 'AI compliance and governance platform', href: '/solutions/haiec', category: 'Solution', keywords: 'haiec ai compliance governance platform enterprise eu ai act nist iso 42001 nyc ll 144 holistic ai ethics compliance high-eck hi-yek hi ai high tech pronunciation' },
   { title: 'KestrelVoice', description: 'AI voice operations platform for front desk automation', href: '/solutions/kestrelvoice', category: 'Solution', keywords: 'kestrelvoice ai voice operations front desk receptionist phone calls appointments' },
   { title: 'FrontOfAI', description: 'Enterprise AI solutions platform', href: '/solutions/frontofai', category: 'Solution', keywords: 'frontofai enterprise ai solutions platform' },

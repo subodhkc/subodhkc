@@ -179,7 +179,7 @@ const cards: DashboardCard[] = [
     title: 'Ask an Advisor',
     statusLabel: '$99/month',
     statusColor: 'green',
-    description: 'Send a detailed question about your AI deployment, tool selection, compliance obligation, or vendor evaluation. Get a human-reviewed response within 48 hours.',
+    description: 'Send a detailed question about your AI deployment, tool selection, compliance obligation, or vendor evaluation. Get a human-reviewed response within 72 hours.',
     links: [
       { label: 'Start AI Advisor Desk', href: '/contact?subject=ai-advisor-desk' },
       { label: 'AI Advisor Details', href: '/ai-advisor' },
@@ -341,7 +341,7 @@ export default function AdvisorDeskDashboard() {
                   <CardTitle className="text-sm">Human-Reviewed Answers</CardTitle>
                 </div>
                 <CardDescription className="text-sm">
-                  One email question per month, reviewed by a specialist. Not a chatbot response. Real
+                  Bring focused AI questions as decisions come up. Not a chatbot response. Real
                   guidance grounded in your business context.
                 </CardDescription>
               </CardHeader>
@@ -365,8 +365,8 @@ export default function AdvisorDeskDashboard() {
                   <CardTitle className="text-sm">FrontOfAI Intelligence</CardTitle>
                 </div>
                 <CardDescription className="text-sm">
-                  Weekly AI signals filtered for your business. Know which developments matter and
-                  which to ignore.
+                  Weekly AI signals curated across models, tools, research, security, regulation,
+                  and real-world adoption. Know which developments matter and which to ignore.
                 </CardDescription>
               </CardHeader>
             </Card>

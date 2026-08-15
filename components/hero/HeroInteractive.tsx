@@ -162,7 +162,7 @@ export function HeroInteractive() {
               transition: "border-color .15s, color .15s",
             }}
           >
-            Hire Subodh Kc
+            Work With Me
           </button>
         </div>
 

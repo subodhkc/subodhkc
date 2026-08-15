@@ -90,7 +90,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
       label: 'Workspace',
       items: [
         { label: 'Dashboard', href: '/app', icon: LayoutDashboard, active: true },
-        { label: 'Advisor Desk', href: '/advisor-desk', icon: MessageSquare },
+        { label: 'Advisor Desk', href: organizations[0] ? `/app/${organizations[0].slug}/advisor-desk` : '/ai-advisor', icon: MessageSquare },
         { label: 'Account', href: '/app/account', icon: Settings },
       ],
     },
@@ -251,7 +251,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
                 </Link>
               )}
               <Link
-                href="/advisor-desk"
+                href={organizations[0] ? `/app/${organizations[0].slug}/advisor-desk` : '/ai-advisor'}
                 className="glass-badge rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5 hover:scale-105 transition-transform"
               >
                 <MessageSquare className="h-3.5 w-3.5" />
@@ -279,7 +279,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
               </div>
               <div className="flex gap-2">
                 <Link
-                  href="/advisor-desk"
+                  href={organizations[0] ? `/app/${organizations[0].slug}/advisor-desk` : '/ai-advisor'}
                   className="glass-badge rounded-lg px-4 py-2 text-sm font-medium text-accent flex items-center gap-2 hover:scale-105 transition-transform"
                 >
                   <TrendingUp className="h-4 w-4" />
