@@ -1,6 +1,9 @@
 'use client'
 
-import { CheckoutButton } from '@/components/commercial/CheckoutButton'
+import { useState } from 'react'
+import { ArrowRight, Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
 
 interface AdvisorCheckoutCTAProps {
   title: string
@@ -8,6 +11,37 @@ interface AdvisorCheckoutCTAProps {
 }
 
 export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAProps) {
+  const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleCheckout(period: 'monthly' | 'annual') {
+    if (!selectedOrg) return
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/commercial/advisor-desk/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ period, organizationId: selectedOrg.id }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else if (data.error === 'already_active') {
+        setError(data.message || 'Already subscribed')
+        if (data.workspaceUrl) {
+          setTimeout(() => { window.location.href = data.workspaceUrl }, 2000)
+        }
+      } else {
+        setError(data.message || data.error || 'Failed to start checkout')
+      }
+    } catch {
+      setError('Network error. Please try again.')
+    }
+    setLoading(false)
+  }
+
   return (
     <section className="page-padding">
       <div className="section-container">
@@ -17,21 +51,43 @@ export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAPro
               {title}
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">{description}</p>
-            <div className="flex flex-wrap gap-4">
-              <CheckoutButton
-                apiEndpoint="/api/commercial/advisor-desk/checkout"
-                body={{ period: 'monthly' }}
-                text="Start AI Advisor Desk — $99/month"
-                className="group"
-              />
-              <CheckoutButton
-                apiEndpoint="/api/commercial/advisor-desk/checkout"
-                body={{ period: 'annual' }}
-                text="$990/year (save 2 months)"
-                variant="outline"
-                showArrow={false}
-              />
-            </div>
+
+            {!selectedOrg ? (
+              <OrganizationSelectionStep onOrganizationSelected={setSelectedOrg} />
+            ) : (
+              <div className="space-y-4">
+                <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
+                  Purchasing for <strong>{selectedOrg.name}</strong>{' '}
+                  <button
+                    onClick={() => setSelectedOrg(null)}
+                    className="text-xs text-muted-foreground hover:text-foreground underline ml-2"
+                  >
+                    Change
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <Button
+                    onClick={() => handleCheckout('monthly')}
+                    disabled={loading}
+                    size="lg"
+                    className="group"
+                  >
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Start AI Advisor Desk — $99/month
+                    {!loading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
+                  </Button>
+                  <Button
+                    onClick={() => handleCheckout('annual')}
+                    disabled={loading}
+                    size="lg"
+                    variant="outline"
+                  >
+                    $990/year (save 2 months)
+                  </Button>
+                </div>
+                {error && <p className="text-sm text-red-600">{error}</p>}
+              </div>
+            )}
           </div>
           <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
           <div className="absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />

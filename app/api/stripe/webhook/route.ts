@@ -122,8 +122,10 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
     return
   }
 
-  // Extract user_id from session metadata to link purchase to existing user's org
+  // Extract user_id and organization_id from session metadata
+  // organization_id is the canonical binding from checkout (P0 commercial identity)
   const userId = session.metadata?.user_id as string | undefined
+  const organizationId = session.metadata?.organization_id as string | undefined
 
   // Resolve or create organization
   const orgResult = await resolveOrCreateOrganization({
@@ -131,6 +133,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
     customerName,
     customerId,
     userId,
+    organizationId,
   })
 
   if ('error' in orgResult) {
@@ -230,7 +233,19 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
       })
     } else if (offerKey === 'ai_automation_blueprint') {
       const { sendBlueprintPurchasedEmail } = await import('@/lib/email')
-      const objective = session.metadata?.business_objective || 'AI automation analysis'
+      // Fetch business_objective from qualification record, not Stripe metadata
+      let objective = 'AI automation analysis'
+      const qualRecordId = session.metadata?.qualification_record_id as string | undefined
+      if (qualRecordId && sc) {
+        const { data: qualRecord } = await sc
+          .from('blueprint_qualifications')
+          .select('business_objective')
+          .eq('id', qualRecordId)
+          .single()
+        if (qualRecord?.business_objective) {
+          objective = qualRecord.business_objective
+        }
+      }
       await sendBlueprintPurchasedEmail({
         to: customerEmail,
         customerName,
@@ -554,11 +569,22 @@ async function createEngagementForOffer(
     health_status: 'on_track',
   }
 
-  // For Blueprint, populate charter from qualification metadata
-  if (offerKey === 'ai_automation_blueprint' && sessionMetadata) {
-    engagementFields.title = sessionMetadata.business_objective || offer.displayName
-    engagementFields.statement = sessionMetadata.workflow_problem || 'AI automation analysis'
-    engagementFields.in_scope = sessionMetadata.systems_involved || null
+  // For Blueprint, populate charter from qualification record (not Stripe metadata)
+  if (offerKey === 'ai_automation_blueprint') {
+    const qualRecordId = sessionMetadata?.qualification_record_id
+    if (qualRecordId) {
+      const { data: qualRecord } = await sc
+        .from('blueprint_qualifications')
+        .select('business_objective, workflow_problem, systems_involved')
+        .eq('id', qualRecordId)
+        .single()
+
+      if (qualRecord) {
+        engagementFields.title = qualRecord.business_objective || offer.displayName
+        engagementFields.statement = qualRecord.workflow_problem || 'AI automation analysis'
+        engagementFields.in_scope = qualRecord.systems_involved || null
+      }
+    }
     engagementFields.current_phase = 'discovery'
   }
 

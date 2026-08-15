@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { createOneTimeCheckout } from '@/lib/stripe/checkout'
 import { getOffer, type OfferKey } from '@/lib/commercial/offers'
+import { validateOrganizationForPurchase } from '@/lib/commercial/purchase-auth'
 import { createServiceClient } from '@/lib/supabase'
 import { rateLimit } from '@/lib/rate-limit'
 
@@ -18,7 +19,23 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const { qualificationResponses } = body as { qualificationResponses?: Record<string, string> }
+  const {
+    qualificationResponses,
+    organizationId,
+    agreementAccepted,
+  } = body as {
+    qualificationResponses?: Record<string, string>
+    organizationId?: string
+    agreementAccepted?: boolean
+  }
+
+  // Organization selection is required
+  if (!organizationId || typeof organizationId !== 'string') {
+    return NextResponse.json(
+      { error: 'organization_required', message: 'Organization selection is required' },
+      { status: 400 }
+    )
+  }
 
   // Qualification is required for Blueprint
   if (!qualificationResponses || Object.keys(qualificationResponses).length === 0) {
@@ -30,6 +47,17 @@ export async function POST(req: NextRequest) {
   if (!offer) {
     return NextResponse.json({ error: 'Offer not found' }, { status: 404 })
   }
+
+  // Validate organization membership and authority
+  const orgValidation = await validateOrganizationForPurchase(user, organizationId)
+  if ('code' in orgValidation) {
+    return NextResponse.json(
+      { error: orgValidation.code, message: orgValidation.message },
+      { status: orgValidation.status }
+    )
+  }
+
+  const { organization } = orgValidation
 
   // Determine fit decision based on qualification responses
   const businessObjective = (qualificationResponses.business_objective || '').toLowerCase()
@@ -57,109 +85,159 @@ export async function POST(req: NextRequest) {
   }
 
   const sc = createServiceClient()
+  if (!sc) {
+    return NextResponse.json({ error: 'service_unavailable' }, { status: 500 })
+  }
 
-  // If the offer requires an agreement, verify an accepted agreement exists
-  if (offer.requiresAgreement && sc) {
-    // Find user's org
-    const { data: membership } = await sc
-      .from('organization_memberships')
-      .select('organization_id')
-      .eq('user_id', user.id)
-      .eq('status', 'active')
-      .order('created_at', { ascending: false })
+  // ============================================
+  // AGREEMENT ENFORCEMENT (fail-closed)
+  // ============================================
+  // Blueprint requires an agreement. This check is fail-closed:
+  // - Service client must be available (checked above)
+  // - Organization must be validated (checked above)
+  // - Active template must exist
+  // - Agreement must be in 'accepted' or 'signed' status
+  // - If no accepted agreement, create a pending one and require acceptance
+  if (offer.requiresAgreement) {
+    // Check for existing accepted/signed agreement for this org + offer
+    const { data: acceptedAgreement } = await sc
+      .from('agreements')
+      .select('id, status, template_version')
+      .eq('organization_id', organization.id)
+      .eq('template_key', `${offerKey}_agreement`)
+      .in('status', ['accepted', 'signed'])
       .limit(1)
-      .single() as any
 
-    const orgId = membership?.organization_id
-
-    if (orgId) {
-      const { data: acceptedAgreement } = await sc
+    if (!acceptedAgreement || acceptedAgreement.length === 0) {
+      // No accepted agreement - check for pending
+      const { data: pendingAgreement } = await sc
         .from('agreements')
         .select('id, status')
-        .eq('organization_id', orgId)
+        .eq('organization_id', organization.id)
         .eq('template_key', `${offerKey}_agreement`)
-        .eq('status', 'accepted')
+        .eq('status', 'pending')
         .limit(1)
 
-      if (!acceptedAgreement || acceptedAgreement.length === 0) {
-        // Check if a pending agreement exists
-        const { data: pendingAgreement } = await sc
-          .from('agreements')
-          .select('id, status')
-          .eq('organization_id', orgId)
-          .eq('template_key', `${offerKey}_agreement`)
-          .eq('status', 'pending')
-          .limit(1)
-
-        if (pendingAgreement && pendingAgreement.length > 0) {
+      if (pendingAgreement && pendingAgreement.length > 0) {
+        // Pending agreement exists - require acceptance
+        if (!agreementAccepted) {
           return NextResponse.json({
             error: 'agreement_required',
-            message: 'Please accept the agreement before proceeding to checkout.',
+            message: 'Please review and accept the agreement before proceeding to checkout.',
             agreementId: pendingAgreement[0].id,
           }, { status: 403 })
         }
 
-        // No agreement exists yet - create one from template
+        // Mark agreement as accepted
+        const { error: acceptError } = await sc
+          .from('agreements')
+          .update({
+            status: 'accepted',
+            signed_at: new Date().toISOString(),
+            signed_by: user.id,
+          })
+          .eq('id', pendingAgreement[0].id)
+
+        if (acceptError) {
+          console.error('Failed to accept agreement:', acceptError.message)
+          return NextResponse.json({ error: 'agreement_accept_failed' }, { status: 500 })
+        }
+      } else {
+        // No agreement exists at all - create from template, then require acceptance
         const { data: template } = await sc
           .from('agreement_templates')
-          .select('id, name, body_markdown, version, document_type')
+          .select('id, name, body_markdown, version, document_type, status')
           .eq('template_key', `${offerKey}_agreement`)
-          .eq('is_active', true)
+          .or('is_active.eq.true,status.eq.active')
           .single()
 
-        if (template) {
-          const { data: newAgreement } = await sc
-            .from('agreements')
-            .insert({
-              organization_id: orgId,
-              template_key: `${offerKey}_agreement`,
-              document_type: template.document_type,
-              template_version: template.version,
-              title: template.name,
-              body_text: template.body_markdown,
-              status: 'pending',
-            })
-            .select('id')
-            .single()
+        if (!template) {
+          // Fail-closed: no template means checkout cannot proceed
+          console.error(`Agreement template not found: ${offerKey}_agreement`)
+          return NextResponse.json({
+            error: 'agreement_template_missing',
+            message: 'Required agreement template is not configured. Please contact support.',
+          }, { status: 500 })
+        }
 
-          if (newAgreement) {
-            return NextResponse.json({
-              error: 'agreement_required',
-              message: 'Please review and accept the agreement before proceeding to checkout.',
-              agreementId: newAgreement.id,
-            }, { status: 403 })
-          }
+        const { data: newAgreement, error: createError } = await sc
+          .from('agreements')
+          .insert({
+            organization_id: organization.id,
+            template_key: `${offerKey}_agreement`,
+            document_type: template.document_type,
+            template_version: template.version,
+            title: template.name,
+            body_text: template.body_markdown,
+            status: 'pending',
+          })
+          .select('id')
+          .single()
+
+        if (createError || !newAgreement) {
+          console.error('Failed to create agreement:', createError?.message)
+          return NextResponse.json({ error: 'agreement_creation_failed' }, { status: 500 })
+        }
+
+        // Require acceptance of the newly created agreement
+        if (!agreementAccepted) {
+          return NextResponse.json({
+            error: 'agreement_required',
+            message: 'Please review and accept the agreement before proceeding to checkout.',
+            agreementId: newAgreement.id,
+          }, { status: 403 })
+        }
+
+        // Mark agreement as accepted
+        const { error: acceptError } = await sc
+          .from('agreements')
+          .update({
+            status: 'accepted',
+            signed_at: new Date().toISOString(),
+            signed_by: user.id,
+          })
+          .eq('id', newAgreement.id)
+
+        if (acceptError) {
+          console.error('Failed to accept agreement:', acceptError.message)
+          return NextResponse.json({ error: 'agreement_accept_failed' }, { status: 500 })
         }
       }
     }
   }
+
+  // ============================================
+  // QUALIFICATION RECORD (with organization_id)
+  // ============================================
   let qualificationRecordId: string | null = null
-  if (sc) {
-    const { data: qualRecord } = await sc
-      .from('blueprint_qualifications')
-      .insert({
-        user_email: user.email ?? '',
-        user_id: user.id,
-        business_objective: qualificationResponses.business_objective || '',
-        workflow_problem: qualificationResponses.workflow_problem || '',
-        current_process: qualificationResponses.current_process || null,
-        systems_involved: qualificationResponses.systems_involved || null,
-        known_integrations: qualificationResponses.known_integrations || null,
-        team_functions: qualificationResponses.team_functions || null,
-        sensitive_data: sensitiveData,
-        desired_outcome: qualificationResponses.desired_outcome || null,
-        timeline: qualificationResponses.timeline || null,
-        fit_decision: fitDecision,
-        status: 'checkout_started',
-      })
-      .select('id')
-      .single()
+  const { data: qualRecord } = await sc
+    .from('blueprint_qualifications')
+    .insert({
+      organization_id: organization.id,
+      user_email: user.email ?? '',
+      user_id: user.id,
+      business_objective: qualificationResponses.business_objective || '',
+      workflow_problem: qualificationResponses.workflow_problem || '',
+      current_process: qualificationResponses.current_process || null,
+      systems_involved: qualificationResponses.systems_involved || null,
+      known_integrations: qualificationResponses.known_integrations || null,
+      team_functions: qualificationResponses.team_functions || null,
+      sensitive_data: sensitiveData,
+      desired_outcome: qualificationResponses.desired_outcome || null,
+      timeline: qualificationResponses.timeline || null,
+      fit_decision: fitDecision,
+      status: 'checkout_started',
+    })
+    .select('id')
+    .single()
 
-    qualificationRecordId = qualRecord?.id ?? null
-  }
+  qualificationRecordId = qualRecord?.id ?? null
 
+  // ============================================
+  // STRIPE CHECKOUT (metadata contains only identifiers, no free-text)
+  // ============================================
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
-  const successUrl = `${siteUrl}/app?checkout=success&offer=${offerKey}`
+  const successUrl = `${siteUrl}/app/${organization.slug}/blueprint?checkout=success&offer=${offerKey}`
   const cancelUrl = `${siteUrl}${offer.landingPage}?checkout=cancelled`
 
   const result = await createOneTimeCheckout({
@@ -169,11 +247,9 @@ export async function POST(req: NextRequest) {
     customerEmail: user.email ?? undefined,
     metadata: {
       user_id: user.id,
+      organization_id: organization.id,
       offer_key: offerKey,
       qualification_record_id: qualificationRecordId ?? '',
-      business_objective: qualificationResponses.business_objective?.slice(0, 200) || '',
-      workflow_problem: qualificationResponses.workflow_problem?.slice(0, 200) || '',
-      systems_involved: qualificationResponses.systems_involved?.slice(0, 200) || '',
       fit_decision: fitDecision,
     },
   })

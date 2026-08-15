@@ -39,11 +39,58 @@ export async function resolveOrCreateOrganization(opts: {
   customerName?: string
   customerId: string
   userId?: string
+  organizationId?: string
 }): Promise<{ orgId: string; orgSlug: string; created: boolean } | { error: string }> {
   const sc = createServiceClient()
   if (!sc) return { error: 'Service client unavailable' }
 
-  const { customerEmail, customerName, customerId, userId } = opts
+  const { customerEmail, customerName, customerId, userId, organizationId } = opts
+
+  // ============================================
+  // PRIORITY 1: Explicit organization_id from Stripe metadata
+  // ============================================
+  // This is the canonical path for all new checkouts.
+  // The checkout route validated membership before creating the session,
+  // so we trust the organization_id here.
+  if (organizationId) {
+    const { data: org, error: orgError } = await sc
+      .from('organizations')
+      .select('id, slug, status')
+      .eq('id', organizationId)
+      .single()
+
+    if (orgError || !org) {
+      return { error: `Organization ${organizationId} not found` }
+    }
+
+    // Store/update Stripe customer link for this org
+    await sc
+      .from('external_system_links')
+      .upsert(
+        {
+          organization_id: org.id,
+          system_key: 'stripe_customer',
+          external_id: customerId,
+          status: 'active',
+          metadata: {},
+        },
+        { onConflict: 'organization_id,system_key' }
+      )
+
+    return {
+      orgId: org.id,
+      orgSlug: org.slug,
+      created: false,
+    }
+  }
+
+  // ============================================
+  // LEGACY FALLBACK: No organization_id in metadata
+  // ============================================
+  // This path handles old checkout sessions created before
+  // the commercial identity binding changes.
+  // Logs an audit event for traceability.
+  console.warn(`[webhook] Legacy checkout session without organization_id metadata. userId=${userId}, customer=${customerId}. Falling back to membership lookup.`)
 
   // If userId provided, find their org
   if (userId) {

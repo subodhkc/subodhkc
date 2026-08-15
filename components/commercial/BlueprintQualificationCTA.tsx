@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Loader2 } from 'lucide-react'
+import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
 
 interface BlueprintQualificationCTAProps {
   title: string
@@ -21,9 +22,16 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
+  const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
+  const [agreementError, setAgreementError] = useState<{ agreementId: string; message: string } | null>(null)
+  const [agreementAccepted, setAgreementAccepted] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!selectedOrg) {
+      setError('Please select an organization first.')
+      return
+    }
     const filled = Object.entries(responses).filter(([, v]) => v.trim())
     if (filled.length < 3) {
       setError('Please answer at least 3 of the 4 questions.')
@@ -32,22 +40,39 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
 
     setLoading(true)
     setError(null)
+    setAgreementError(null)
     try {
       const res = await fetch('/api/commercial/blueprint/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ qualificationResponses: responses }),
+        body: JSON.stringify({
+          qualificationResponses: responses,
+          organizationId: selectedOrg.id,
+          agreementAccepted,
+        }),
       })
       const data = await res.json()
       if (data.url) {
         window.location.href = data.url
+      } else if (data.error === 'agreement_required') {
+        setAgreementError({ agreementId: data.agreementId, message: data.message })
+        setAgreementAccepted(false)
       } else {
-        setError(data.error || 'Failed to start checkout')
+        setError(data.message || data.error || 'Failed to start checkout')
       }
     } catch {
       setError('Network error. Please try again.')
     }
     setLoading(false)
+  }
+
+  function handleAgreementAccept() {
+    setAgreementAccepted(true)
+    // Re-submit with agreementAccepted = true
+    setTimeout(() => {
+      const form = document.getElementById('blueprint-form') as HTMLFormElement | null
+      form?.requestSubmit()
+    }, 100)
   }
 
   return (
@@ -65,8 +90,26 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                 Start My Blueprint — $500
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
+            ) : !selectedOrg ? (
+              <div className="space-y-4">
+                <p className="text-sm font-medium">First, select which organization this is for:</p>
+                <OrganizationSelectionStep onOrganizationSelected={setSelectedOrg} />
+                <Button type="button" size="lg" variant="outline" onClick={() => setShowForm(false)}>
+                  Cancel
+                </Button>
+              </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form id="blueprint-form" onSubmit={handleSubmit} className="space-y-4">
+                <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
+                  For <strong>{selectedOrg.name}</strong>{' '}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedOrg(null)}
+                    className="text-xs text-muted-foreground hover:text-foreground underline ml-2"
+                  >
+                    Change
+                  </button>
+                </div>
                 {qualificationQuestions.map(q => (
                   <div key={q.key}>
                     <label className="text-sm font-medium block mb-1.5">{q.label}</label>
@@ -79,6 +122,32 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                     />
                   </div>
                 ))}
+
+                {agreementError && (
+                  <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
+                    <p className="text-sm font-medium">Agreement Required</p>
+                    <p className="text-xs text-muted-foreground">{agreementError.message}</p>
+                    <label className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={agreementAccepted}
+                        onChange={e => setAgreementAccepted(e.target.checked)}
+                        className="rounded border-primary"
+                      />
+                      I have read and accept the agreement
+                    </label>
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={handleAgreementAccept}
+                      disabled={!agreementAccepted || loading}
+                    >
+                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Accept &amp; Continue to Checkout
+                    </Button>
+                  </div>
+                )}
+
                 {error && <p className="text-sm text-red-600">{error}</p>}
                 <div className="flex gap-3">
                   <Button type="submit" size="lg" disabled={loading} className="group">

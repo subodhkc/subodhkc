@@ -26,6 +26,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'internal' }, { status: 500 })
   }
 
+  // Restrict billing portal to owners and admins (platform admins bypass)
+  if (!ctx.isPlatformAdmin) {
+    const role = ctx.organizationRole
+    if (role !== 'owner' && role !== 'admin') {
+      return NextResponse.json(
+        { error: 'insufficient_role', message: 'Only organization owners or admins can access billing' },
+        { status: 403 }
+      )
+    }
+  }
+
   const customerId = await getStripeCustomerId(ctx.organization.id)
   if (!customerId) {
     return NextResponse.json({ error: 'no_stripe_customer' }, { status: 404 })
