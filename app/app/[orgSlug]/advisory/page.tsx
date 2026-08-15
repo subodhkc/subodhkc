@@ -74,6 +74,17 @@ export default async function AdvisoryPage({
   let products: any[] = []
   let memberToolsEntData: { accessLevel: string; entitlementStatus: string } | null = null
 
+  // Fractional operating records
+  let intakeRecords: any[] = []
+  let opportunities: any[] = []
+  let evidence: any[] = []
+  let workingSessions: any[] = []
+  let monthlyBriefs: any[] = []
+  let priorities: any[] = []
+  let actions: any[] = []
+  let artifacts: any[] = []
+  let outcomes: any[] = []
+
   if (serviceClient) {
     // Engagements
     const { data: engData } = await serviceClient
@@ -215,6 +226,43 @@ export default async function AdvisoryPage({
       accessLevel: memberToolsEnt.tier_or_plan,
       entitlementStatus: memberToolsEnt.entitlement_status,
     } : null
+
+    // Fetch all Fractional operating records in parallel
+    const activeEng = engagements.find(
+      e => e.engagement_type === 'retainer' && e.status === 'active'
+    )
+    const engagementId = activeEng?.id || null
+
+    const [
+      intakeRes, oppRes, evidenceRes, sessionsRes, briefsRes,
+      prioritiesRes, actionsRes, artifactsRes, outcomesRes,
+    ] = await Promise.all([
+      serviceClient.from('fractional_intake_records').select('*').eq('organization_id', ctx.organization.id).order('created_at', { ascending: false }),
+      serviceClient.from('fractional_opportunities').select('*').eq('organization_id', ctx.organization.id).order('created_at', { ascending: false }),
+      serviceClient.from('fractional_evidence').select('*').eq('organization_id', ctx.organization.id).order('created_at', { ascending: false }),
+      serviceClient.from('fractional_working_sessions').select('*').eq('organization_id', ctx.organization.id).order('scheduled_at', { ascending: false }),
+      serviceClient.from('fractional_monthly_briefs').select('*').eq('organization_id', ctx.organization.id).order('brief_month', { ascending: false }),
+      serviceClient.from('fractional_priorities').select('*').eq('organization_id', ctx.organization.id).order('priority_order', { ascending: true }),
+      engagementId
+        ? serviceClient.from('engagement_actions').select('*').eq('organization_id', ctx.organization.id).eq('engagement_id', engagementId).order('created_at', { ascending: false })
+        : Promise.resolve({ data: null, error: null }),
+      engagementId
+        ? serviceClient.from('engagement_artifacts').select('*').eq('organization_id', ctx.organization.id).eq('engagement_id', engagementId).order('created_at', { ascending: false })
+        : Promise.resolve({ data: null, error: null }),
+      engagementId
+        ? serviceClient.from('engagement_outcomes').select('*').eq('organization_id', ctx.organization.id).eq('engagement_id', engagementId).order('created_at', { ascending: false })
+        : Promise.resolve({ data: null, error: null }),
+    ])
+
+    intakeRecords = intakeRes.data || []
+    opportunities = oppRes.data || []
+    evidence = evidenceRes.data || []
+    workingSessions = sessionsRes.data || []
+    monthlyBriefs = briefsRes.data || []
+    priorities = prioritiesRes.data || []
+    actions = actionsRes.data || []
+    artifacts = artifactsRes.data || []
+    outcomes = outcomesRes.data || []
   }
 
   return (
@@ -229,6 +277,15 @@ export default async function AdvisoryPage({
       billingPeriodEnd={billingPeriodEnd}
       products={products || []}
       memberToolsIncluded={memberToolsEntData}
+      intakeRecords={intakeRecords}
+      opportunities={opportunities}
+      evidence={evidence}
+      workingSessions={workingSessions}
+      monthlyBriefs={monthlyBriefs}
+      priorities={priorities}
+      actions={actions}
+      artifacts={artifacts}
+      outcomes={outcomes}
     />
   )
 }

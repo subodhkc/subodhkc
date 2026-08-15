@@ -84,6 +84,15 @@ interface AdvisoryWorkspaceClientProps {
   billingPeriodEnd: string | null
   products?: ProductInfo[]
   memberToolsIncluded?: MemberToolsIncluded | null
+  intakeRecords?: any[]
+  opportunities?: any[]
+  evidence?: any[]
+  workingSessions?: any[]
+  monthlyBriefs?: any[]
+  priorities?: any[]
+  actions?: any[]
+  artifacts?: any[]
+  outcomes?: any[]
 }
 
 const DECISION_STATUS_LABELS: Record<string, { label: string; color: string }> = {
@@ -111,14 +120,14 @@ const AI_STAGES = [
 
 // Bring Something to the Desk — 8 intake types
 const intakeTypes = [
-  { icon: MessageSquare, label: 'Ask a Question', description: 'Get a point of view on an AI decision.' },
-  { icon: Compass, label: 'Explore an Opportunity', description: 'Something worth investigating.' },
-  { icon: Target, label: 'Make/Review a Decision', description: 'A decision is on the table.' },
-  { icon: Building2, label: 'Review a Vendor', description: 'Evaluating an AI tool or vendor.' },
-  { icon: Layers, label: 'Review a System or Architecture', description: 'Pressure-test a design or system.' },
-  { icon: Handshake, label: 'Explore a Partnership', description: 'A partnership or external opportunity.' },
-  { icon: FileText, label: 'Share a Report/Evidence', description: 'Send context or research.' },
-  { icon: AlertCircle, label: 'Something Changed', description: 'A shift that affects priorities.' },
+  { icon: MessageSquare, label: 'Ask a Question', value: 'ask_question', description: 'Get a point of view on an AI decision.' },
+  { icon: Compass, label: 'Explore an Opportunity', value: 'explore_opportunity', description: 'Something worth investigating.' },
+  { icon: Target, label: 'Make/Review a Decision', value: 'review_decision', description: 'A decision is on the table.' },
+  { icon: Building2, label: 'Review a Vendor', value: 'review_vendor', description: 'Evaluating an AI tool or vendor.' },
+  { icon: Layers, label: 'Review a System or Architecture', value: 'review_system', description: 'Pressure-test a design or system.' },
+  { icon: Handshake, label: 'Explore a Partnership', value: 'explore_partnership', description: 'A partnership or external opportunity.' },
+  { icon: FileText, label: 'Share a Report/Evidence', value: 'share_report', description: 'Send context or research.' },
+  { icon: AlertCircle, label: 'Something Changed', value: 'something_changed', description: 'A shift that affects priorities.' },
 ]
 
 export function AdvisoryWorkspaceClient({
@@ -132,6 +141,15 @@ export function AdvisoryWorkspaceClient({
   billingPeriodEnd,
   products = [],
   memberToolsIncluded,
+  intakeRecords = [],
+  opportunities = [],
+  evidence = [],
+  workingSessions = [],
+  monthlyBriefs = [],
+  priorities = [],
+  actions = [],
+  artifacts = [],
+  outcomes = [],
 }: AdvisoryWorkspaceClientProps) {
   const { organization, organizationRole, isPlatformAdmin } = ctx
   const basePath = `/app/${organization.slug}`
@@ -146,6 +164,19 @@ export function AdvisoryWorkspaceClient({
   const [exporting, setExporting] = useState(false)
   const [activatingProduct, setActivatingProduct] = useState<string | null>(null)
   const [productList, setProductList] = useState<ProductInfo[]>(products)
+
+  // Operating records state
+  const [intakeList, setIntakeList] = useState(intakeRecords)
+  const [opportunityList, setOpportunityList] = useState(opportunities)
+  const [evidenceList, setEvidenceList] = useState(evidence)
+  const [sessionList, setSessionList] = useState(workingSessions)
+  const [briefList, setBriefList] = useState(monthlyBriefs)
+  const [priorityList, setPriorityList] = useState(priorities)
+  const [actionList, setActionList] = useState(actions)
+  const [artifactList, setArtifactList] = useState(artifacts)
+  const [outcomeList, setOutcomeList] = useState(outcomes)
+  const [recordSubmitting, setRecordSubmitting] = useState(false)
+  const [showAddRecord, setShowAddRecord] = useState<string | null>(null)
 
   // Determine Fractional access state from entitlements
   const fractionalEnt = ctx.entitlements.find(
@@ -286,6 +317,45 @@ export function AdvisoryWorkspaceClient({
       console.error('Failed to activate product:', err)
     }
     setActivatingProduct(null)
+  }
+
+  async function handleCreateRecord(
+    type: string,
+    data: Record<string, unknown>,
+    onSuccess?: (record: any) => void
+  ) {
+    setRecordSubmitting(true)
+    try {
+      const res = await fetch('/api/fractional/records', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orgSlug: organization.slug,
+          type,
+          action: 'create',
+          data,
+        }),
+      })
+      const result = await res.json()
+      if (res.ok && result.success && result.record) {
+        // Update the appropriate list
+        switch (type) {
+          case 'intake': setIntakeList(prev => [result.record, ...prev]); break
+          case 'opportunities': setOpportunityList(prev => [result.record, ...prev]); break
+          case 'evidence': setEvidenceList(prev => [result.record, ...prev]); break
+          case 'sessions': setSessionList(prev => [result.record, ...prev]); break
+          case 'briefs': setBriefList(prev => [result.record, ...prev]); break
+          case 'priorities': setPriorityList(prev => [...prev, result.record]); break
+          case 'actions': setActionList(prev => [result.record, ...prev]); break
+          case 'artifacts': setArtifactList(prev => [result.record, ...prev]); break
+          case 'outcomes': setOutcomeList(prev => [result.record, ...prev]); break
+        }
+        onSuccess?.(result.record)
+      }
+    } catch (err) {
+      console.error('Failed to create record:', err)
+    }
+    setRecordSubmitting(false)
   }
 
   return (
@@ -520,11 +590,36 @@ export function AdvisoryWorkspaceClient({
         <div className="grid sm:grid-cols-2 gap-4">
           {/* Current Priorities */}
           <section>
-            <h2 className="text-base font-semibold mb-3">Current Priorities</h2>
+            <h2 className="text-base font-semibold mb-3 flex items-center justify-between">
+              Current Priorities
+              {!showReadOnlyBanner && (
+                <button
+                  onClick={() => setShowAddRecord('priorities')}
+                  className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  <Plus className="h-3 w-3" /> Add
+                </button>
+              )}
+            </h2>
             <div className="border rounded-lg p-4">
-              <p className="text-sm text-muted-foreground">
-                The 2-4 matters that deserve attention will be tracked here as the engagement progresses.
-              </p>
+              {priorityList.length > 0 ? (
+                <div className="space-y-2">
+                  {priorityList.map((p: any) => (
+                    <div key={p.id} className="flex items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">{p.title}</p>
+                        {p.description && <p className="text-xs text-muted-foreground mt-0.5">{p.description}</p>}
+                        {p.owner && <p className="text-xs text-muted-foreground mt-0.5">Owner: {p.owner}</p>}
+                      </div>
+                      <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{p.status}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  The 2-4 matters that deserve attention will be tracked here as the engagement progresses.
+                </p>
+              )}
             </div>
           </section>
 
@@ -596,8 +691,8 @@ export function AdvisoryWorkspaceClient({
                 key={i}
                 onClick={() => {
                   if (showReadOnlyBanner) return
-                  setIntakeType(item.label)
-                  setShowAddDecision(true)
+                  setIntakeType(item.value)
+                  setShowAddRecord('intake')
                 }}
                 disabled={!!showReadOnlyBanner}
                 className="border rounded-lg p-3 text-left hover:bg-accent transition-colors group disabled:cursor-not-allowed disabled:opacity-50"
@@ -608,6 +703,22 @@ export function AdvisoryWorkspaceClient({
               </button>
             ))}
           </div>
+          {intakeList.length > 0 && (
+            <div className="mt-4 space-y-2">
+              <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Recent Intake</h3>
+              {intakeList.slice(0, 5).map((rec: any) => (
+                <div key={rec.id} className="border rounded-lg p-3 flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium">{rec.title}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {intakeTypes.find(t => t.value === rec.intake_type)?.label || rec.intake_type}
+                    </p>
+                  </div>
+                  <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{rec.status}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Operating Records */}
@@ -617,14 +728,35 @@ export function AdvisoryWorkspaceClient({
           {/* Opportunity Registry */}
           <div className="grid sm:grid-cols-2 gap-4">
             <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <Compass className="h-4 w-4 text-muted-foreground" />
-                Opportunity Registry
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
+                <span className="flex items-center gap-2">
+                  <Compass className="h-4 w-4 text-muted-foreground" />
+                  Opportunity Registry
+                </span>
+                {!showReadOnlyBanner && (
+                  <button onClick={() => setShowAddRecord('opportunities')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                    <Plus className="h-3 w-3" /> Add
+                  </button>
+                )}
               </h3>
               <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  AI possibilities and improvement opportunities identified during the engagement. Tracked with status, owner, and evidence.
-                </p>
+                {opportunityList.length > 0 ? (
+                  <div className="space-y-2">
+                    {opportunityList.slice(0, 5).map((o: any) => (
+                      <div key={o.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{o.opportunity}</p>
+                          {o.why_it_matters && <p className="text-xs text-muted-foreground mt-0.5">{o.why_it_matters}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{o.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    AI possibilities and improvement opportunities identified during the engagement. Tracked with status, owner, and evidence.
+                  </p>
+                )}
               </div>
             </section>
 
@@ -643,14 +775,35 @@ export function AdvisoryWorkspaceClient({
 
             {/* Evidence & Inputs */}
             <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <FlaskConical className="h-4 w-4 text-muted-foreground" />
-                Evidence & Inputs
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
+                <span className="flex items-center gap-2">
+                  <FlaskConical className="h-4 w-4 text-muted-foreground" />
+                  Evidence & Inputs
+                </span>
+                {!showReadOnlyBanner && (
+                  <button onClick={() => setShowAddRecord('evidence')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                    <Plus className="h-3 w-3" /> Add
+                  </button>
+                )}
               </h3>
               <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Research, benchmarks, test results, and client-provided evidence used to inform decisions.
-                </p>
+                {evidenceList.length > 0 ? (
+                  <div className="space-y-2">
+                    {evidenceList.slice(0, 5).map((e: any) => (
+                      <div key={e.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{e.title}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{e.evidence_type} · {e.provenance}</p>
+                          {e.link_url && <a href={e.link_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-0.5 inline-block">Open link</a>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Research, benchmarks, test results, and client-provided evidence used to inform decisions.
+                  </p>
+                )}
                 <div className="mt-3 rounded-md bg-amber-500/5 border border-amber-500/20 p-3">
                   <p className="text-xs text-amber-700 font-medium mb-1">Sensitive data warning</p>
                   <p className="text-xs text-muted-foreground">
@@ -706,22 +859,62 @@ export function AdvisoryWorkspaceClient({
                 Working Session Records
               </h3>
               <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Notes, decisions, and action items from each working session. Persistent record of what was discussed and agreed.
-                </p>
+                {sessionList.length > 0 ? (
+                  <div className="space-y-2">
+                    {sessionList.slice(0, 5).map((s: any) => (
+                      <div key={s.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">
+                            {s.session_type === 'activation_call' ? 'Activation Call' : 'Working Session'}
+                            {s.scheduled_at && ` — ${new Date(s.scheduled_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`}
+                          </p>
+                          {s.agenda && <p className="text-xs text-muted-foreground mt-0.5">{s.agenda}</p>}
+                          {s.rolled_over_from_month && <p className="text-xs text-muted-foreground mt-0.5">Rolled over from {s.rolled_over_from_month}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{s.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Notes, decisions, and action items from each working session. Persistent record of what was discussed and agreed.
+                  </p>
+                )}
               </div>
             </section>
 
             {/* Actions & Commitments */}
             <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <ListChecks className="h-4 w-4 text-muted-foreground" />
-                Actions & Commitments
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
+                <span className="flex items-center gap-2">
+                  <ListChecks className="h-4 w-4 text-muted-foreground" />
+                  Actions & Commitments
+                </span>
+                {!showReadOnlyBanner && (
+                  <button onClick={() => setShowAddRecord('actions')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                    <Plus className="h-3 w-3" /> Add
+                  </button>
+                )}
               </h3>
               <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Open actions, owners, and deadlines tracked across the engagement. Updated after each session and async exchange.
-                </p>
+                {actionList.length > 0 ? (
+                  <div className="space-y-2">
+                    {actionList.slice(0, 5).map((a: any) => (
+                      <div key={a.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{a.title}</p>
+                          {a.assignee_label && <p className="text-xs text-muted-foreground mt-0.5">Owner: {a.assignee_label}</p>}
+                          {a.due_date && <p className="text-xs text-muted-foreground mt-0.5">Due: {a.due_date}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{a.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Open actions, owners, and deadlines tracked across the engagement. Updated after each session and async exchange.
+                  </p>
+                )}
               </div>
             </section>
 
@@ -732,22 +925,57 @@ export function AdvisoryWorkspaceClient({
                 Decision History
               </h3>
               <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Full chronological record of decisions made, deferred, or superseded. Includes context and rationale.
-                </p>
+                {decisionList.length > 0 ? (
+                  <div className="space-y-2">
+                    {decisionList.slice(0, 5).map((d) => (
+                      <div key={d.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{d.title}</p>
+                          {d.decided_at && <p className="text-xs text-muted-foreground mt-0.5">Decided: {new Date(d.decided_at).toLocaleDateString()}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{d.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Full chronological record of decisions made, deferred, or superseded. Includes context and rationale.
+                  </p>
+                )}
               </div>
             </section>
 
             {/* Outcome / Learning */}
             <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                Outcome / Learning
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
+                <span className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                  Outcome / Learning
+                </span>
+                {!showReadOnlyBanner && (
+                  <button onClick={() => setShowAddRecord('outcomes')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                    <Plus className="h-3 w-3" /> Add
+                  </button>
+                )}
               </h3>
               <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Tracked outcomes of past decisions. What worked, what did not, and what was learned.
-                </p>
+                {outcomeList.length > 0 ? (
+                  <div className="space-y-2">
+                    {outcomeList.slice(0, 5).map((o: any) => (
+                      <div key={o.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{o.title}</p>
+                          {o.description && <p className="text-xs text-muted-foreground mt-0.5">{o.description}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{o.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Tracked outcomes of past decisions. What worked, what did not, and what was learned.
+                  </p>
+                )}
               </div>
             </section>
 
@@ -961,7 +1189,146 @@ export function AdvisoryWorkspaceClient({
             Back to {organization.name}
           </Link>
         </div>
+
+        {/* Record Creation Modal */}
+        {showAddRecord && (
+          <RecordCreationModal
+            recordType={showAddRecord}
+            intakeType={intakeType}
+            onClose={() => {
+              setShowAddRecord(null)
+              setIntakeType(null)
+            }}
+            onSubmit={async (data) => {
+              await handleCreateRecord(showAddRecord, data, () => {
+                setShowAddRecord(null)
+                setIntakeType(null)
+              })
+            }}
+            submitting={recordSubmitting}
+          />
+        )}
       </main>
+    </div>
+  )
+}
+
+// ============================================
+// Record Creation Modal
+// ============================================
+function RecordCreationModal({
+  recordType,
+  intakeType,
+  onClose,
+  onSubmit,
+  submitting,
+}: {
+  recordType: string
+  intakeType: string | null
+  onClose: () => void
+  onSubmit: (data: Record<string, unknown>) => void
+  submitting: boolean
+}) {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [whyItMatters, setWhyItMatters] = useState('')
+  const [desiredOutcome, setDesiredOutcome] = useState('')
+  const [deadline, setDeadline] = useState('')
+  const [linkUrl, setLinkUrl] = useState('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const data: Record<string, unknown> = { title: title.trim() }
+    if (description) data.description = description
+    if (whyItMatters) data.why_it_matters = whyItMatters
+    if (desiredOutcome) data.desired_outcome = desiredOutcome
+    if (deadline) data.deadline = deadline
+    if (linkUrl) data.link_url = linkUrl
+
+    // Type-specific fields
+    if (recordType === 'intake') {
+      data.intake_type = intakeType || 'ask_question'
+      data.what_is_happening = description
+    }
+    if (recordType === 'opportunities') {
+      data.opportunity = title.trim()
+      if (whyItMatters) data.why_it_matters = whyItMatters
+    }
+    if (recordType === 'evidence') {
+      data.evidence_type = 'note'
+      if (linkUrl) data.link_url = linkUrl
+    }
+    if (recordType === 'priorities') {
+      data.priority_order = 0
+    }
+
+    onSubmit(data)
+  }
+
+  const titleLabel = recordType === 'opportunities' ? 'Opportunity' : recordType === 'evidence' ? 'Title' : 'Title'
+  const descLabel = recordType === 'intake' ? 'What is happening?' : recordType === 'opportunities' ? 'Why it matters' : 'Description'
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
+      <div className="bg-background border rounded-lg p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <h2 className="text-lg font-semibold mb-4">
+          {recordType === 'intake' && intakeType ? `New: ${intakeTypes.find(t => t.value === intakeType)?.label}` : `Add ${recordType.replace(/_/g, ' ')}`}
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label className="text-sm font-medium block mb-1">{titleLabel}</label>
+            <input
+              type="text"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              required
+              className="w-full border rounded-md px-3 py-2 text-sm"
+              placeholder="Enter title..."
+            />
+          </div>
+          <div>
+            <label className="text-sm font-medium block mb-1">{descLabel}</label>
+            <textarea
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              rows={3}
+              className="w-full border rounded-md px-3 py-2 text-sm"
+              placeholder="Enter details..."
+            />
+          </div>
+          {recordType === 'intake' && (
+            <>
+              <div>
+                <label className="text-sm font-medium block mb-1">Why it matters</label>
+                <textarea value={whyItMatters} onChange={e => setWhyItMatters(e.target.value)} rows={2} className="w-full border rounded-md px-3 py-2 text-sm" />
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1">Desired outcome</label>
+                <input type="text" value={desiredOutcome} onChange={e => setDesiredOutcome(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" />
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1">Deadline / needed by</label>
+                <input type="text" value={deadline} onChange={e => setDeadline(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" placeholder="e.g., end of month" />
+              </div>
+            </>
+          )}
+          {recordType === 'evidence' && (
+            <div>
+              <label className="text-sm font-medium block mb-1">Link URL (optional)</label>
+              <input type="url" value={linkUrl} onChange={e => setLinkUrl(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" placeholder="https://..." />
+            </div>
+          )}
+          <div className="flex gap-2 pt-2">
+            <button type="submit" disabled={submitting || !title.trim()} className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50">
+              {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
+              {submitting ? 'Saving...' : 'Save'}
+            </button>
+            <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-sm border hover:bg-accent">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
