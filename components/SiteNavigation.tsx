@@ -10,54 +10,29 @@ import type { User } from "@supabase/supabase-js";
 import { SearchDialog } from "./SearchDialog";
 import type { SearchEntry } from "@/lib/search-index";
 
-const myBuild = {
-  saas: [
-    { name: "HAIEC", href: "/solutions/haiec", desc: "AI Compliance & Governance" },
-    { name: "KestrelVoice", href: "/solutions/kestrelvoice", desc: "AI Voice Operations" },
-    { name: "FrontOfAI", href: "/solutions/frontofai", desc: "Enterprise AI Solutions" },
-  ],
-  codePackage: [
-    { name: "CourtCase", href: "/products/courtcase", desc: "Legal doc organization" },
-    { name: "Print Later", href: "/products/print-later", desc: "Save now, print later" },
-    { name: "PDF Redactor", href: "/products/pdf-redactor", desc: "AI PII redaction" },
-    { name: "Doc Timeline", href: "/products/doc-timeline", desc: "Document timeline extraction" },
-    { name: "SKC Log Analyser", href: "/products/skc-log-analyser", desc: "AI log analysis" },
-    { name: "AI Article Generator", href: "/products/ai-article-generator", desc: "Automated article generation" },
-  ],
-  packages: [
-    { name: "llmverify", href: "/products/llmverify", desc: "LLM output verification" },
-    { name: "AI Briefing", href: "/solutions/ai-briefing", desc: "Weekly AI Intelligence" },
-    { name: "ISAF", href: "/packages/isaf", desc: "Integrated Security Assessment Framework" },
-  ],
-};
-
-const interactiveTools = [
-  { name: "Architecture Decision Master Sheet", href: "/architecture-decision-master-sheet", desc: "Interactive 25-layer architecture decision sheet" },
-  { name: "AI Security Tools", href: "/ai-security-tools", desc: "Blast radius, agent matrix, prompt injection library" },
-  { name: "AI Risk Register", href: "/ai-risk-register", desc: "34+ AI-specific risks with controls & tracking" },
-  { name: "Vendor Due-Diligence Checklist", href: "/ai-vendor-due-diligence-checklist", desc: "60-item AI vendor evaluation checklist" },
-  { name: "Incident Evidence Checklist", href: "/ai-incident-evidence-checklist", desc: "4-phase AI security incident checklist" },
+const solutionsLinks = [
+  { name: "AI Automation Blueprint", href: "/ai-automation", desc: "Find the workflow worth improving" },
+  { name: "AI Voice Agent", href: "/ai-voice-agent", desc: "Turn more calls into completed actions" },
+  { name: "AI Security & Compliance", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
+  { name: "Local AI Review", href: "/local-ai-review", desc: "AI opportunities for local business" },
+  { name: "Direct Advisory", href: "/advisory", desc: "An AI advisor in the room" },
+  { name: "SaaS Security Review", href: "/saas-security-review", desc: "Tenant isolation audit" },
 ];
 
+const insightsLinks = [
+  { name: "Blog", href: "/blog", desc: "Articles on AI governance and architecture" },
+  { name: "Research", href: "/research", desc: "Research papers and publications" },
+  { name: "CSM Framework", href: "/cognitive-systems-management", desc: "Cognitive Systems Management" },
+  { name: "Architecture Decisions", href: "/architecture-decision-master-sheet", desc: "Interactive decision master sheet" },
+  { name: "AI Security Tools", href: "/ai-security-tools", desc: "Blast radius, agent matrix, scenarios" },
+  { name: "Guides", href: "/guides", desc: "AI compliance guides" },
+];
 
 const aboutLinks = [
   { name: "About", href: "/about", desc: "Background, story, and credentials" },
-  { name: "Magazine", href: "/magazine", desc: "Curated reading and publications" },
-  { name: "Executive Portfolio", href: "/portfolio", desc: "Programs, metrics, and deliverables" },
-  { name: "Contact", href: "/contact", desc: "Get in touch or schedule a meeting" },
-];
-
-const blogLinks = [
-  { name: "12 Production Readiness Checks for AI Pilots", href: "/blog/12-production-readiness-checks-for-ai-pilots", desc: "Enterprise architecture gate for AI deployments" },
-  { name: "7 Layers of AI Compliance: NIST, ISO & SOC 2", href: "/blog/seven-layers-ai-compliance-nist-iso-soc2", desc: "Compliance framework mapping and implementation" },
-  { name: "Texas HB 149 vs EU AI Act: Engineering Playbook", href: "/blog/texas-hb-149-eu-ai-act-engineering-compliance-playbook", desc: "CTO-level compliance comparison with code" },
-  { name: "Claude Code MCP: Fix stdio, ENOENT, Timeouts", href: "/blog/claude-code-mcp-failed-to-connect-stdio-enoent-timeout", desc: "Practical debugging guide for MCP connections" },
-  { name: "Low-Latency AI Voice Pipeline Architecture", href: "/blog/modal-fastapi-postgres-ai-voice-pipeline-architecture", desc: "Modal, FastAPI and Postgres for sub-second voice AI" },
-  { name: "Production RAG Architecture for Hybrid Search", href: "/blog/production-rag-architecture-patterns-for-hybrid-search", desc: "RAG patterns, vector databases, and hybrid retrieval" },
-];
-
-const navLinks = [
-  { label: "services", href: "/services" },
+  { name: "Executive Bio", href: "/executive-bio", desc: "Executive biography" },
+  { name: "Portfolio", href: "/portfolio", desc: "Programs, metrics, and deliverables" },
+  { name: "Speaking", href: "/speaking", desc: "Speaking topics and bookings" },
 ];
 
 export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[] }) {
@@ -82,7 +57,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
     return () => subscription.unsubscribe();
   }, []);
 
-  const [open, setOpen] = React.useState<null | "myBuild" | "interactiveTools" | "about" | "blog">(null);
+  const [open, setOpen] = React.useState<null | "solutions" | "insights" | "about">(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -244,6 +219,69 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               fontSize: 12,
             }}
           >
+            <Link
+              href="/ai-advisor"
+              onClick={() => setOpen(null)}
+              style={{
+                color: "var(--op-muted)",
+                textDecoration: "none",
+                fontSize: "inherit",
+                fontFamily: "inherit",
+              }}
+            >
+              AI Advisor
+            </Link>
+
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setOpen(open === "solutions" ? null : "solutions")}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: "transparent",
+                  fontFamily: "inherit",
+                  fontSize: "inherit",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  color: open === "solutions" ? "var(--fg)" : "var(--op-muted)",
+                }}
+              >
+                Solutions
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "solutions" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                  <path d="M2 4 L5 7 L8 4" />
+                </svg>
+              </button>
+              {open === "solutions" && dropdown(solutionsLinks)}
+            </div>
+
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setOpen(open === "insights" ? null : "insights")}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: "transparent",
+                  fontFamily: "inherit",
+                  fontSize: "inherit",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  color: open === "insights" ? "var(--fg)" : "var(--op-muted)",
+                }}
+              >
+                Insights
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "insights" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                  <path d="M2 4 L5 7 L8 4" />
+                </svg>
+              </button>
+              {open === "insights" && dropdown(insightsLinks)}
+            </div>
+
             <div style={{ position: "relative" }}>
               <button
                 onClick={() => setOpen(open === "about" ? null : "about")}
@@ -261,7 +299,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                   color: open === "about" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
-                about
+                About
                 <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "about" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
                   <path d="M2 4 L5 7 L8 4" />
                 </svg>
@@ -269,122 +307,8 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               {open === "about" && dropdown(aboutLinks)}
             </div>
 
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setOpen(open === "myBuild" ? null : "myBuild")}
-                style={{
-                  appearance: "none",
-                  border: "none",
-                  background: "transparent",
-                  fontFamily: "inherit",
-                  fontSize: "inherit",
-                  cursor: "pointer",
-                  padding: 0,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 4,
-                  color: open === "myBuild" ? "var(--fg)" : "var(--op-muted)",
-                }}
-              >
-                my build
-                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "myBuild" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
-                  <path d="M2 4 L5 7 L8 4" />
-                </svg>
-              </button>
-              {open === "myBuild" && (
-                <div
-                  role="menu"
-                  style={{
-                    position: "absolute",
-                    top: "calc(100% + 8px)",
-                    left: 0,
-                    minWidth: 340,
-                    background: "var(--op-card)",
-                    border: "1px solid var(--op-border)",
-                    borderRadius: 10,
-                    padding: 6,
-                    boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
-                    zIndex: 40,
-                  }}
-                >
-                  {/* SAAS */}
-                  <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", padding: "6px 10px 4px" }}>SAAS</div>
-                  {myBuild.saas.map((it) => (
-                    <Link
-                      key={it.href}
-                      href={it.href}
-                      onClick={() => setOpen(null)}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 3,
-                        padding: "8px 10px",
-                        borderRadius: 6,
-                        color: "var(--fg)",
-                        transition: "background .12s",
-                        textDecoration: "none",
-                      }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                    >
-                      <span style={{ fontSize: 13, fontWeight: 600 }}>{it.name}</span>
-                      <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", lineHeight: 1.4 }}>{it.desc}</span>
-                    </Link>
-                  ))}
-                  {/* Code Package */}
-                  <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", padding: "10px 10px 4px", borderTop: "1px solid var(--op-border)", marginTop: 6 }}>Code Package</div>
-                  {myBuild.codePackage.map((it) => (
-                    <Link
-                      key={it.href}
-                      href={it.href}
-                      onClick={() => setOpen(null)}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 3,
-                        padding: "8px 10px",
-                        borderRadius: 6,
-                        color: "var(--fg)",
-                        transition: "background .12s",
-                        textDecoration: "none",
-                      }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                    >
-                      <span style={{ fontSize: 13, fontWeight: 600 }}>{it.name}</span>
-                      <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", lineHeight: 1.4 }}>{it.desc}</span>
-                    </Link>
-                  ))}
-                  {/* Packages */}
-                  <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", padding: "10px 10px 4px", borderTop: "1px solid var(--op-border)", marginTop: 6 }}>Packages</div>
-                  {myBuild.packages.map((it) => (
-                    <Link
-                      key={it.href}
-                      href={it.href}
-                      onClick={() => setOpen(null)}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 3,
-                        padding: "8px 10px",
-                        borderRadius: 6,
-                        color: "var(--fg)",
-                        transition: "background .12s",
-                        textDecoration: "none",
-                      }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                    >
-                      <span style={{ fontSize: 13, fontWeight: 600 }}>{it.name}</span>
-                      <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", lineHeight: 1.4 }}>{it.desc}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
             <Link
-              href="/school-pickup/wilshire"
+              href="/contact"
               onClick={() => setOpen(null)}
               style={{
                 color: "var(--op-muted)",
@@ -393,126 +317,8 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 fontFamily: "inherit",
               }}
             >
-              june's school
+              Contact
             </Link>
-
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setOpen(open === "interactiveTools" ? null : "interactiveTools")}
-                style={{
-                  appearance: "none",
-                  border: "none",
-                  background: "transparent",
-                  fontFamily: "inherit",
-                  fontSize: "inherit",
-                  cursor: "pointer",
-                  padding: 0,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 4,
-                  color: open === "interactiveTools" ? "var(--fg)" : "var(--op-muted)",
-                }}
-              >
-                tools
-                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "interactiveTools" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
-                  <path d="M2 4 L5 7 L8 4" />
-                </svg>
-              </button>
-              {open === "interactiveTools" && dropdown(interactiveTools)}
-            </div>
-
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setOpen(open === "blog" ? null : "blog")}
-                style={{
-                  appearance: "none",
-                  border: "none",
-                  background: "transparent",
-                  fontFamily: "inherit",
-                  fontSize: "inherit",
-                  cursor: "pointer",
-                  padding: 0,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 4,
-                  color: open === "blog" ? "var(--fg)" : "var(--op-muted)",
-                }}
-              >
-                blog
-                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "blog" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
-                  <path d="M2 4 L5 7 L8 4" />
-                </svg>
-              </button>
-              {open === "blog" && (
-                <div
-                  role="menu"
-                  style={{
-                    position: "absolute",
-                    top: "calc(100% + 8px)",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    minWidth: 340,
-                    background: "var(--op-card)",
-                    border: "1px solid var(--op-border)",
-                    borderRadius: 10,
-                    padding: 4,
-                    boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
-                    zIndex: 40,
-                  }}
-                >
-                  <Link
-                    href="/blog"
-                    onClick={() => setOpen(null)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "10px 12px",
-                      borderRadius: 6,
-                      color: "var(--fg)",
-                      textDecoration: "none",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      borderBottom: "1px solid var(--op-border)",
-                      marginBottom: 4,
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                  >
-                    View All Articles
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--op-muted)" }}>→</span>
-                  </Link>
-                  {blogLinks.map((it, i) => (
-                    <React.Fragment key={it.href}>
-                      {i > 0 && (
-                        <div style={{ height: 1, background: "var(--op-border)", margin: "4px 8px" }} />
-                      )}
-                      <Link
-                        href={it.href}
-                        onClick={() => setOpen(null)}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 3,
-                          padding: "10px 12px",
-                          borderRadius: 6,
-                          color: "var(--fg)",
-                          transition: "background .12s",
-                          textDecoration: "none",
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                      >
-                        <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: "-0.005em", lineHeight: 1.3 }}>{it.name}</span>
-                        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", lineHeight: 1.4 }}>
-                          {it.desc}
-                        </span>
-                      </Link>
-                    </React.Fragment>
-                  ))}
-                </div>
-              )}
-            </div>
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -595,6 +401,26 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 fontFamily: "inherit",
               }}>K</kbd>
             </button>
+
+            <Link
+              href="/contact?subject=ai-advisor"
+              className="nav-cta"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "7px 16px",
+                background: "var(--op-accent)",
+                color: "#fff",
+                borderRadius: 999,
+                fontFamily: "var(--font-mono)",
+                fontSize: 11.5,
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "opacity .12s",
+              }}
+            >
+              Start AI Advisor
+            </Link>
 
             {/* Mobile hamburger */}
             <button
@@ -711,8 +537,82 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               Search articles, tools, guides...
             </button>
 
-            {/* About section */}
+            {/* AI Advisor link */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 20 }}>
+              <Link
+                href="/ai-advisor"
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 13,
+                  color: "var(--fg)",
+                  padding: "10px 12px",
+                  borderRadius: 6,
+                  textDecoration: "none",
+                  display: "block",
+                  fontWeight: 600,
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+              >
+                AI Advisor
+              </Link>
+            </div>
+
+            {/* Solutions section */}
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>Solutions</div>
+              {solutionsLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    padding: "9px 12px",
+                    borderRadius: 6,
+                    textDecoration: "none",
+                    color: "var(--fg)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 600 }}>{l.name}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)" }}>{l.desc}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Insights section */}
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>Insights</div>
+              {insightsLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    padding: "9px 12px",
+                    borderRadius: 6,
+                    textDecoration: "none",
+                    color: "var(--fg)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 600 }}>{l.name}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)" }}>{l.desc}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* About section */}
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
               <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>About</div>
               {aboutLinks.map((l) => (
                 <Link
@@ -737,111 +637,10 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               ))}
             </div>
 
-            {/* Services link */}
-            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
-              {navLinks.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 13,
-                    color: "var(--fg)",
-                    padding: "10px 12px",
-                    borderRadius: 6,
-                    textDecoration: "none",
-                    display: "block",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* My Build section */}
-            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 16 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>My Build</div>
-
-              {/* SAAS */}
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--op-muted)", padding: "4px 12px 2px", opacity: 0.7 }}>SAAS</div>
-              {myBuild.saas.map((s) => (
-                <Link
-                  key={s.href}
-                  href={s.href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    padding: "9px 12px",
-                    borderRadius: 6,
-                    textDecoration: "none",
-                    color: "var(--fg)",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 500 }}>{s.name}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{s.desc}</span>
-                </Link>
-              ))}
-
-              {/* Code Package */}
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--op-muted)", padding: "8px 12px 2px", opacity: 0.7, borderTop: "1px solid var(--op-border)", marginTop: 6 }}>Code Package</div>
-              {myBuild.codePackage.map((p) => (
-                <Link
-                  key={p.href}
-                  href={p.href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    padding: "9px 12px",
-                    borderRadius: 6,
-                    textDecoration: "none",
-                    color: "var(--fg)",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 500 }}>{p.name}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{p.desc}</span>
-                </Link>
-              ))}
-
-              {/* Packages */}
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--op-muted)", padding: "8px 12px 2px", opacity: 0.7, borderTop: "1px solid var(--op-border)", marginTop: 6 }}>Packages</div>
-              {myBuild.packages.map((p) => (
-                <Link
-                  key={p.href}
-                  href={p.href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    padding: "9px 12px",
-                    borderRadius: 6,
-                    textDecoration: "none",
-                    color: "var(--fg)",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 500 }}>{p.name}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{p.desc}</span>
-                </Link>
-              ))}
-            </div>
-
-            {/* June's School */}
-            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 16 }}>
+            {/* Contact link */}
+            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
               <Link
-                href="/school-pickup/wilshire"
+                href="/contact"
                 onClick={() => setMobileOpen(false)}
                 style={{
                   display: "block",
@@ -856,81 +655,30 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
-                June's School
+                Contact
               </Link>
-            </div>
-
-            {/* Interactive Tools section */}
-            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>Tools</div>
-              {interactiveTools.map((t) => (
-                <Link
-                  key={t.href}
-                  href={t.href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    padding: "9px 12px",
-                    borderRadius: 6,
-                    textDecoration: "none",
-                    color: "var(--fg)",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 500 }}>{t.name}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{t.desc}</span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Blog section */}
-            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 10, padding: "0 12px" }}>Blog</div>
-              <Link
-                href="/blog"
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
-                  padding: "9px 12px",
-                  borderRadius: 6,
-                  textDecoration: "none",
-                  color: "var(--fg)",
-                  marginBottom: 4,
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                <span style={{ fontSize: 13, fontWeight: 600 }}>View All Articles</span>
-              </Link>
-              {blogLinks.map((b) => (
-                <Link
-                  key={b.href}
-                  href={b.href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    padding: "9px 12px",
-                    borderRadius: 6,
-                    textDecoration: "none",
-                    color: "var(--fg)",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 500 }}>{b.name}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-secondary)" }}>{b.desc}</span>
-                </Link>
-              ))}
             </div>
 
             <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid var(--op-border)", position: "sticky", bottom: 0, background: "var(--op-card)" }}>
+            <Link
+              href="/contact?subject=ai-advisor"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: "block",
+                textAlign: "center",
+                padding: "10px 16px",
+                background: "var(--op-accent)",
+                color: "#fff",
+                borderRadius: 999,
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                fontWeight: 600,
+                textDecoration: "none",
+                marginBottom: 10,
+              }}
+            >
+              Start AI Advisor
+            </Link>
             {authChecked && user ? (
               <Link
                 href="/app"
@@ -990,6 +738,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
           .nav-search-label { display: none !important; }
           .nav-search-kbd { display: none !important; }
           .nav-signin { display: none !important; }
+          .nav-cta { display: none !important; }
           .nav-inner { padding: 10px 16px !important; gap: 8px !important; }
           .nav-search-btn { padding: 6px 8px !important; }
           .nav-hamburger { padding: 6px 8px !important; }

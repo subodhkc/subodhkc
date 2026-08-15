@@ -75,7 +75,7 @@ export default function SolutionsPage() {
       features: [
         'Autonomous Intake',
         'Smart Scheduling',
-        'Emergency Detection',
+        'Urgent Call Routing',
         '24/7 Availability'
       ],
       color: 'emerald'

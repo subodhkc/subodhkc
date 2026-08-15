@@ -40,7 +40,7 @@ export default function ResumePage() {
           
           {/* Summary */}
           <p className="mt-3 text-xs text-zinc-700 leading-relaxed">
-            <span className="font-semibold text-zinc-900">16+ years</span> building AI and compliance systems at <span className="font-semibold text-zinc-900">Fortune 50</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
+            <span className="font-semibold text-zinc-900">12+ years</span> building AI and compliance systems at <span className="font-semibold text-zinc-900">HP Inc.</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows. 
             Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">$50M+</span> AI portfolios, reducing manual review by <span className="font-semibold text-zinc-900">40-60%</span>. 
             Shipped AI-native products for drift detection, autonomous RCA, and compliance mapping. 
             <span className="font-semibold text-zinc-900">5 patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.

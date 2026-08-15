@@ -34,9 +34,9 @@ export const securityClaims: SecurityClaim[] = [
     claim: 'Runtime adversarial testing of AI systems',
     technicalSource: 'HAIEC Exposure Assessment methodology (subodhkc.com/solutions/haiec/exposure-assessment)',
     implementationStatus: 'verified',
-    validationSource: 'Published assessment page describing prompt injection, RAG poisoning, tool abuse, auth bypass, cross-tenant testing',
+    validationSource: 'Published assessment page describing prompt injection, RAG data integrity, tool abuse, auth bypass, cross-tenant testing',
     frameworkReference: ['OWASP LLM Top 10', 'NIST AI RMF', 'MITRE ATLAS'],
-    approvedWording: 'Runtime adversarial testing: prompt injection, RAG poisoning, tool abuse, auth bypass, and cross-tenant access attempts',
+    approvedWording: 'Runtime adversarial testing: prompt injection, RAG data integrity, tool abuse, auth bypass, and cross-tenant access attempts',
     lastVerified: '2026-08-13',
   },
   {
@@ -210,7 +210,7 @@ export const blockedClaims = securityClaims.filter(
  */
 export const capabilityCounts = {
   staticAnalysisTools: 1, // HAIEC Action
-  runtimeAttackVectors: 5, // prompt injection, RAG poisoning, tool abuse, auth bypass, cross-tenant
+  runtimeAttackVectors: 5, // prompt injection, RAG data integrity, tool abuse, auth bypass, cross-tenant
   tenantIsolationTestSuites: 7, // rls, expanded-security, queue, auth-flow, onboarding, school-pickup, dismissal-groups
   frameworkMappings: 7, // EU AI Act, NIST AI RMF, ISO 42001, NYC LL144, SOC 2, TRAIGA, OWASP LLM
   openSourceTools: 4, // llmverify, ISAF, Shadow AI Detector, HAIEC Action

@@ -122,11 +122,15 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
     return
   }
 
+  // Extract user_id from session metadata to link purchase to existing user's org
+  const userId = session.metadata?.user_id as string | undefined
+
   // Resolve or create organization
   const orgResult = await resolveOrCreateOrganization({
     customerEmail,
     customerName,
     customerId,
+    userId,
   })
 
   if ('error' in orgResult) {
@@ -162,6 +166,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
   const entResult = await activateEntitlement({
     orgId,
     offerKey,
+    userId,
     sourceType: offer.billingMode === 'subscription' ? 'subscription' : 'purchase',
     validUntil,
     metadata: { session_id: session.id, stripe_customer_id: customerId },
@@ -277,9 +282,11 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
   const orgId = link.organization_id
 
   if (subscription.status === 'active' || subscription.status === 'trialing') {
+    const subUserId = subscription.metadata?.user_id as string | undefined
     await activateEntitlement({
       orgId,
       offerKey,
+      userId: subUserId,
       sourceType: 'subscription',
       metadata: { subscription_id: subscription.id, status: subscription.status },
     })

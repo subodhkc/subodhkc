@@ -24,7 +24,7 @@ export const commercialOffers: CommercialOffer[] = [
     pricingLabel: '$99/month',
     annualLabel: '$990/year',
     pricingDetail: 'Up to 3 team members. Cancel anytime.',
-    description: 'Light-touch advisor access, controls review, regulatory monitoring, and recommended next actions.',
+    description: 'AI intelligence, opportunity discovery, human advisory access, controls review, and regulatory monitoring.',
     category: 'primary',
   },
   {
@@ -51,7 +51,7 @@ export const commercialOffers: CommercialOffer[] = [
     route: '/ai-security-compliance',
     pricingLabel: 'Custom scoped',
     pricingDetail: 'Scoped to your architecture and regulatory environment.',
-    description: 'AI security assessment, compliance review, vendor risk, hiring bias, and evidence-grade documentation.',
+    description: 'AI security assessment, compliance review, vendor risk, hiring bias, and documentation suitable for audits.',
     category: 'specific',
   },
   {

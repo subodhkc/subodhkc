@@ -37,6 +37,9 @@ const BUSINESS_TYPES = [
   'Restaurant',
   'Consultant',
   'Sales Team',
+  'SaaS / Software Company',
+  'Startup / Founder',
+  'Nonprofit',
   'Other',
 ]
 
@@ -46,6 +49,7 @@ const PROBLEM_AREAS = [
   'Missed calls / slow response',
   'Repetitive staff work',
   'AI without clear rules',
+  'Unsure where AI could help',
   'Not sure yet',
 ]
 
@@ -229,8 +233,8 @@ export default function LocalAIReviewPage() {
         </div>
       </section>
 
-      {/* Where is your business losing value? */}
-      <Section subtitle="Common Patterns" title="Where is your business losing value?">
+      {/* Where could AI create more leverage? */}
+      <Section subtitle="Common Patterns" title="Where could AI create more leverage?">
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {

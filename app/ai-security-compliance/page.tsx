@@ -23,21 +23,21 @@ import {
 export const metadata = {
   title: 'AI Security Assessment & Compliance Review | Subodh KC',
   description:
-    'Understand how your AI systems, risks and controls fit together. AI security assessment, compliance review, vendor risk, hiring bias, and evidence-grade documentation.',
+    'Understand how your AI systems, risks and controls fit together. AI security assessment, compliance review, vendor risk, hiring bias, and documentation suitable for audits.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-security-compliance',
   },
   openGraph: {
     title: 'AI Security Assessment & Compliance Review | Subodh KC',
     description:
-      'Understand how your AI systems, risks and controls fit together. AI security assessment, compliance review, vendor risk, hiring bias, and evidence-grade documentation.',
+      'Understand how your AI systems, risks and controls fit together. AI security assessment, compliance review, vendor risk, hiring bias, and documentation suitable for audits.',
     url: 'https://subodhkc.com/ai-security-compliance',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI Security Assessment & Compliance Review | Subodh KC',
-    description: 'AI security assessment, compliance review, vendor risk, hiring bias, and evidence-grade documentation.',
+    description: 'AI security assessment, compliance review, vendor risk, hiring bias, and documentation suitable for audits.',
   },
   keywords: [
     'AI security assessment',
@@ -97,15 +97,15 @@ const securityQuestions = [
 
 const assessmentAreas = [
   { icon: AlertTriangle, title: 'Prompt Injection Testing', description: 'Adversarial testing of your AI system prompts. We attempt to override instructions, extract system prompts, and manipulate outputs. Every finding includes reproduction steps and remediation guidance.' },
-  { icon: Scan, title: 'RAG Poisoning Detection', description: 'Analysis of your retrieval-augmented generation pipeline for data poisoning vectors. We check document ingestion, embedding security, and retrieval integrity.' },
+  { icon: Scan, title: 'RAG Data Integrity Review', description: 'Analysis of your retrieval-augmented generation pipeline for data integrity risks. We check document ingestion, embedding security, and retrieval authorization.' },
   { icon: Lock, title: 'Tool Abuse & MCP Security', description: 'Review of tool definitions, MCP server configurations, and model-driven authorization. We identify where the AI can take actions it should not be allowed to take.' },
   { icon: Building2, title: 'Tenant Isolation Review', description: 'Verification that your multi-tenant AI system properly isolates data, prompts, and outputs between customers. We check for cross-tenant leakage vectors.' },
   { icon: Shield, title: 'Authentication & Authorization', description: 'Review of auth flows for AI endpoints, API key management, rate limiting, and access controls. We identify where unauthorized users could access AI capabilities.' },
-  { icon: FileText, title: 'Compliance Documentation', description: 'Evidence-grade documentation suitable for EU AI Act, NIST AI RMF, ISO 42001, and SOC 2 audits. Test results, control mappings, and remediation roadmaps.' },
+  { icon: FileText, title: 'Compliance Documentation', description: 'Documentation suitable for EU AI Act, NIST AI RMF, ISO 42001, and SOC 2 audits. Test results, control mappings, and remediation roadmaps.' },
 ]
 
 const frameworks = [
-  { name: 'EU AI Act', description: 'Risk classification, transparency obligations, and conformity assessment evidence.' },
+  { name: 'EU AI Act', description: 'Risk classification, transparency obligations, and conformity assessment support.' },
   { name: 'NIST AI RMF', description: 'Govern, Map, Measure, Manage functions mapped to your AI systems and controls.' },
   { name: 'ISO 42001', description: 'AI Management System alignment and gap analysis for certification readiness.' },
   { name: 'SOC 2', description: 'Security, availability, and confidentiality controls applied to AI infrastructure.' },
@@ -116,7 +116,7 @@ const frameworks = [
 
 const process = [
   { step: '1', title: 'Scope & Architecture Review', description: 'We review your AI system architecture, data flows, tool integrations, and regulatory environment. Define the assessment scope and compliance targets.' },
-  { step: '2', title: 'Adversarial Testing', description: 'Hands-on testing of your AI system: prompt injection attempts, RAG poisoning vectors, tool abuse scenarios, and tenant isolation verification.' },
+  { step: '2', title: 'Adversarial Testing', description: 'Hands-on testing of your AI system: prompt injection attempts, RAG data integrity risks, tool abuse scenarios, and tenant isolation verification.' },
   { step: '3', title: 'Control Gap Analysis', description: 'Map findings to compliance frameworks (EU AI Act, NIST AI RMF, ISO 42001). Identify gaps, classify severity, and prioritize remediation.' },
   { step: '4', title: 'Evidence & Reporting', description: 'Full evidence package: test results, attack transcripts, control gap documentation, remediation roadmap, and compliance-aligned documentation for auditors.' },
 ]
@@ -124,11 +124,11 @@ const process = [
 const faqItems = [
   {
     question: 'What is an AI security assessment?',
-    answer: 'An AI security assessment evaluates your AI systems, data flows, vendors, controls, and human oversight. It covers AI-specific attack surfaces like prompt injection, RAG poisoning, tool abuse, and tenant isolation. You receive prioritized findings, remediation guidance, and evidence-grade documentation.',
+    answer: 'An AI security assessment evaluates your AI systems, data flows, vendors, controls, and human oversight. It covers AI-specific attack surfaces like prompt injection, RAG data integrity, tool abuse, and tenant isolation. You receive prioritized findings, remediation guidance, and documentation suitable for audits.',
   },
   {
     question: 'How is this different from a regular security audit?',
-    answer: 'Traditional security audits focus on network, infrastructure, and compliance checklists. This assessment focuses on AI-specific attack surfaces that traditional tools cannot see: prompt injection, RAG authorization, tool/function abuse, agent privilege boundaries, and AI supply-chain dependencies.',
+    answer: 'Traditional security audits focus on network, infrastructure, and compliance checklists. This assessment focuses on AI-specific attack surfaces that traditional security tools do not typically cover: prompt injection, RAG authorization, tool/function abuse, agent privilege boundaries, and AI supply-chain dependencies.',
   },
   {
     question: 'Do you review AI vendor risk?',
@@ -136,7 +136,7 @@ const faqItems = [
   },
   {
     question: 'Can you help with EU AI Act compliance?',
-    answer: 'Yes. The assessment maps your AI systems to EU AI Act risk classifications, transparency obligations, and conformity assessment evidence requirements. This produces documentation that supports your compliance process.',
+    answer: 'Yes. The assessment maps your AI systems to EU AI Act risk classifications, transparency obligations, and conformity assessment requirements. This produces documentation that supports your compliance process.',
   },
   {
     question: 'Do you test AI hiring tools for bias?',
@@ -174,7 +174,7 @@ export default function AISecurityCompliancePage() {
             <span className="gradient-text">risks and controls fit together.</span>
           </>
         }
-        description="AI security assessment and compliance review. Evidence-grade documentation, control gap analysis, and clear recommendations for regulators, auditors, and enterprise customers."
+        description="AI security assessment and compliance review. Detailed documentation, control gap analysis, and clear recommendations for regulators, auditors, and enterprise customers."
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="#request">
@@ -244,7 +244,7 @@ export default function AISecurityCompliancePage() {
       <Section
         subtitle="What We Review"
         title="AI-specific attack surfaces and control gaps."
-        description="Generic security scans check for known vulnerabilities. We analyze the AI-specific attack surface that traditional tools cannot see."
+        description="Generic security scans check for known vulnerabilities. We analyze the AI-specific attack surface that standard security tools do not typically cover."
         sectionNum="§03"
       >
         <Grid cols={3}>

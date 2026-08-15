@@ -130,7 +130,7 @@ export const techDecisions = [
 
 export const limitations = [
   { title: 'Zero hallucinations', desc: 'The model may still invent facts, mishear information, or claim actions succeeded when they failed. Deterministic fast paths, RAG grounding, and tool-result verification reduce this risk but cannot eliminate it.' },
-  { title: 'Perfect emergency detection', desc: 'Regex-based emergency matching catches known phrases but cannot detect every possible emergency description. The system errs on the side of caution but cannot guarantee zero missed emergencies.' },
+  { title: 'Perfect urgent call routing', desc: 'Regex-based urgent matching catches known phrases but cannot detect every possible urgent situation description. The system errs on the side of caution but cannot guarantee zero missed urgent calls.' },
   { title: 'Legal compliance in every jurisdiction', desc: 'TCPA, HIPAA, state biometric laws, and international regulations vary by use case and jurisdiction. The platform provides configurable controls but does not make any business compliant by default.' },
   { title: 'Permanent uptime', desc: 'The system degrades gracefully but is not immune to provider outages, network failures, or infrastructure issues.' },
   { title: 'Complete immunity from attacks', desc: 'Twilio signature validation, API key management, spam enforcement, and tenant isolation reduce attack surface but cannot prevent every possible attack vector.' },

@@ -84,7 +84,7 @@
           "name": "AI Advisor Desk",
           "pricing": "$99/month ($990/year)",
           "url": "https://subodhkc.com/ai-advisor",
-          "description": "Light-touch advisor access, controls review, regulatory monitoring. Up to 3 team members."
+          "description": "AI intelligence, opportunity discovery, human advisory access, controls review, and regulatory monitoring. Up to 3 team members."
         },
         {
           "name": "AI Automation Blueprint",

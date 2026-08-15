@@ -64,7 +64,7 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresQualification: false,
     requiresAgreement: false,
     requiresSecurityAuthorization: false,
-    checkoutDescription: 'AI Advisor Desk subscription — light-touch advisor access',
+    checkoutDescription: 'AI Advisor Desk subscription — AI intelligence, opportunity discovery, and human advisory access',
   },
 
   ai_automation_blueprint: {

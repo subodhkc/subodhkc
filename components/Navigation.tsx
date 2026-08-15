@@ -2,182 +2,108 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield, Globe, Phone, Sparkles, FileText, Briefcase, Layers, Grid, MessageSquare, Workflow } from 'lucide-react'
+import { Menu, X, ChevronDown, Printer, Scale, Clock, EyeOff, Activity, Shield, Globe, Phone, Sparkles, FileText, Briefcase, Layers, Grid, MessageSquare, Workflow, ArrowRight, BookOpen, Lightbulb } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ProfileCard from './ProfileCard'
 
-const products = [
-  { 
-    name: 'llmverify', 
-    href: '/products/llmverify',
-    description: 'LLM output verification & guardrails',
-    icon: Shield,
-    badge: 'Open Source'
-  },
-  { 
-    name: 'Print Later', 
-    href: '/products/print-later',
-    description: 'Save web pages, print when ready',
-    icon: Printer,
-    badge: 'Free'
-  },
-  { 
-    name: 'PDF Redactor', 
-    href: '/products/pdf-redactor',
-    description: 'AI-powered sensitive data removal',
-    icon: EyeOff,
-    badge: 'Free'
-  },
-  { 
-    name: 'Doc Timeline', 
-    href: '/products/doc-timeline',
-    description: 'Document timeline extraction',
-    icon: Clock,
-    badge: 'Enterprise'
-  },
-  { 
-    name: 'SKC Log Analyser', 
-    href: '/products/skc-log-analyser',
-    description: 'AI log analysis & anomaly detection',
-    icon: Activity,
-    badge: 'Early Access'
-  },
-  { 
-    name: 'CourtCase', 
-    href: '/products/courtcase',
-    description: 'Legal document organization',
-    icon: Scale,
-    badge: 'Coming Soon'
-  },
-]
-
 const solutions = [
-  { 
-    name: 'HAIEC', 
-    href: '/solutions/haiec',
-    description: 'AI Compliance & Governance Platform',
-    icon: Shield,
-    badge: 'Enterprise',
-    external: 'https://www.haiec.com'
-  },
-  { 
-    name: 'KestrelVoice', 
-    href: '/solutions/kestrelvoice',
-    description: 'AI Voice Operations Platform',
-    icon: Phone,
-    badge: 'Production',
-    external: 'https://www.kestrelvoice.com'
-  },
-  { 
-    name: 'FrontOfAI', 
-    href: '/solutions/frontofai',
-    description: 'Enterprise AI Solutions Platform',
-    icon: Sparkles,
-    badge: 'Live',
-    external: 'https://frontofai.com'
-  },
-  { 
-    name: 'CourtCase', 
-    href: '/solutions/courtcase',
-    description: 'AI-Assisted Court Evidence Builder',
-    icon: Scale,
-    badge: 'Beta',
-    external: 'https://courtcase.frontofai.com'
-  },
-  { 
-    name: 'AI Briefing', 
-    href: '/solutions/ai-briefing',
-    description: 'Weekly AI Intelligence for IT Leaders',
-    icon: FileText,
-    badge: 'Free',
-    external: 'https://frontofai.com/briefing'
-  },
-]
-
-const frameworks = [
-  {
-    name: 'Cognitive Systems Management',
-    href: '/cognitive-systems-management',
-    description: 'Four-domain AI governance methodology',
-    icon: Layers,
-    badge: 'Published 2025'
-  },
-  {
-    name: 'Architecture Decision Master Sheet',
-    href: '/architecture-decision-master-sheet',
-    description: '25-layer architecture decision reference',
-    icon: Grid,
-    badge: 'Interactive'
-  },
-  {
-    name: 'Research',
-    href: '/research',
-    description: 'Frameworks, methodologies and publications',
-    icon: FileText,
-    badge: ''
-  },
-]
-
-const offers = [
-  {
-    name: 'AI Advisor Desk',
-    href: '/ai-advisor',
-    description: 'Light-touch advisor access, $99/month',
-    icon: MessageSquare,
-    badge: '$99/mo'
-  },
   {
     name: 'AI Automation Blueprint',
     href: '/ai-automation',
-    description: 'One workflow analyzed, $500 fixed',
+    description: 'Find the workflow worth improving',
     icon: Workflow,
-    badge: '$500'
+    badge: '$500 fixed'
   },
   {
     name: 'AI Voice Agent',
     href: '/ai-voice-agent',
-    description: 'Managed AI voice deployment from $499/month',
+    description: 'Turn more calls into completed customer actions',
     icon: Phone,
     badge: 'from $499/mo'
   },
   {
     name: 'AI Security & Compliance',
     href: '/ai-security-compliance',
-    description: 'AI security assessment and compliance review',
+    description: 'Understand and strengthen AI controls',
     icon: Shield,
     badge: 'Custom'
   },
   {
     name: 'SaaS & AI Security Review',
     href: '/saas-security-review',
-    description: 'Tenant isolation, AI app security, enterprise readiness',
+    description: 'Build buyer confidence with evidence',
     icon: Shield,
     badge: 'from $950'
+  },
+  {
+    name: 'Direct AI Advisory',
+    href: '/advisory',
+    description: 'An AI advisor in the room',
+    icon: Briefcase,
+    badge: 'Custom'
+  },
+]
+
+const insights = [
+  {
+    name: 'AI Intelligence',
+    href: '/solutions/ai-briefing',
+    description: 'Weekly AI intelligence for IT leaders',
+    icon: Sparkles,
+    badge: 'Free'
+  },
+  {
+    name: 'Articles',
+    href: '/writing',
+    description: 'AI governance, architecture and practical insights',
+    icon: FileText,
+    badge: ''
+  },
+  {
+    name: 'Research',
+    href: '/research',
+    description: 'Frameworks, methodologies and publications',
+    icon: Lightbulb,
+    badge: ''
+  },
+  {
+    name: 'CSM Framework',
+    href: '/cognitive-systems-management',
+    description: 'Four-domain AI governance methodology',
+    icon: Layers,
+    badge: 'Published 2025'
+  },
+  {
+    name: 'Architecture Decisions',
+    href: '/architecture-decision-master-sheet',
+    description: '25-layer architecture decision reference',
+    icon: Grid,
+    badge: 'Interactive'
+  },
+  {
+    name: 'Guides',
+    href: '/guides',
+    description: 'Practical AI governance and compliance guides',
+    icon: BookOpen,
+    badge: ''
   },
 ]
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Offers', href: '/ai-advisor', hasDropdown: true, dropdownType: 'offers' },
-  { name: 'Frameworks', href: '/cognitive-systems-management', hasDropdown: true, dropdownType: 'frameworks' },
+  { name: 'AI Advisor', href: '/ai-advisor' },
   { name: 'Solutions', href: '/solutions', hasDropdown: true, dropdownType: 'solutions' },
-  { name: 'Products', href: '/products', hasDropdown: true, dropdownType: 'products' },
-  { name: 'Services', href: '/services' },
+  { name: 'Insights', href: '/research', hasDropdown: true, dropdownType: 'insights' },
+  { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ]
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [productsOpen, setProductsOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
-  const [frameworksOpen, setFrameworksOpen] = useState(false)
-  const [offersOpen, setOffersOpen] = useState(false)
+  const [insightsOpen, setInsightsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const solutionsDropdownRef = useRef<HTMLDivElement>(null)
-  const frameworksDropdownRef = useRef<HTMLDivElement>(null)
-  const offersDropdownRef = useRef<HTMLDivElement>(null)
+  const insightsDropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -190,16 +116,10 @@ export default function Navigation() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setProductsOpen(false)
-      }
-      if (solutionsDropdownRef.current && !solutionsDropdownRef.current.contains(event.target as Node)) {
         setSolutionsOpen(false)
       }
-      if (frameworksDropdownRef.current && !frameworksDropdownRef.current.contains(event.target as Node)) {
-        setFrameworksOpen(false)
-      }
-      if (offersDropdownRef.current && !offersDropdownRef.current.contains(event.target as Node)) {
-        setOffersOpen(false)
+      if (insightsDropdownRef.current && !insightsDropdownRef.current.contains(event.target as Node)) {
+        setInsightsOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -236,23 +156,23 @@ export default function Navigation() {
         <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
           {navigation.map((item) => (
             item.hasDropdown ? (
-              <div key={item.name} className="relative" ref={item.dropdownType === 'solutions' ? solutionsDropdownRef : item.dropdownType === 'frameworks' ? frameworksDropdownRef : item.dropdownType === 'offers' ? offersDropdownRef : dropdownRef}>
+              <div key={item.name} className="relative" ref={item.dropdownType === 'solutions' ? dropdownRef : insightsDropdownRef}>
                 <button
-                  onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(!solutionsOpen) : item.dropdownType === 'frameworks' ? setFrameworksOpen(!frameworksOpen) : item.dropdownType === 'offers' ? setOffersOpen(!offersOpen) : setProductsOpen(!productsOpen)}
+                  onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(!solutionsOpen) : setInsightsOpen(!insightsOpen)}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
                 >
                   {item.name}
-                  <ChevronDown className={cn("h-4 w-4 transition-transform", (item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : item.dropdownType === 'offers' ? offersOpen : productsOpen) && "rotate-180")} />
+                  <ChevronDown className={cn("h-4 w-4 transition-transform", (item.dropdownType === 'solutions' ? solutionsOpen : insightsOpen) && "rotate-180")} />
                 </button>
-                {(item.dropdownType === 'solutions' ? solutionsOpen : item.dropdownType === 'frameworks' ? frameworksOpen : item.dropdownType === 'offers' ? offersOpen : productsOpen) && (
+                {(item.dropdownType === 'solutions' ? solutionsOpen : insightsOpen) && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-background border border-border rounded-xl shadow-xl p-2 z-50">
-                    {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : item.dropdownType === 'offers' ? offers : products).map((product) => {
+                    {(item.dropdownType === 'solutions' ? solutions : insights).map((product) => {
                       const Icon = product.icon
                       return (
                         <Link
                           key={product.name}
                           href={product.href}
-                          onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(false) : item.dropdownType === 'frameworks' ? setFrameworksOpen(false) : item.dropdownType === 'offers' ? setOffersOpen(false) : setProductsOpen(false)}
+                          onClick={() => item.dropdownType === 'solutions' ? setSolutionsOpen(false) : setInsightsOpen(false)}
                           className="flex items-start gap-3 p-3 rounded-lg hover:bg-secondary/50 transition-colors"
                         >
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -265,17 +185,9 @@ export default function Navigation() {
                                 <span className={cn(
                                   "text-xs px-2 py-0.5 rounded-full",
                                   product.badge === 'Free' && "bg-green-500/10 text-green-500",
-                                  product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
-                                  product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
-                                  product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
-                                  product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500",
-                                  product.badge === 'Production' && "bg-emerald-500/10 text-emerald-500",
-                                  product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
-                                  product.badge === 'Beta' && "bg-orange-500/10 text-orange-500",
                                   product.badge === 'Published 2025' && "bg-purple-500/10 text-purple-500",
                                   product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500",
-                                  product.badge === '$99/mo' && "bg-green-500/10 text-green-500",
-                                  product.badge === '$500' && "bg-blue-500/10 text-blue-500",
+                                  product.badge === '$500 fixed' && "bg-blue-500/10 text-blue-500",
                                   product.badge === 'from $499/mo' && "bg-blue-500/10 text-blue-500",
                                   product.badge === 'from $950' && "bg-blue-500/10 text-blue-500",
                                   product.badge === 'Custom' && "bg-indigo-500/10 text-indigo-500"
@@ -302,6 +214,13 @@ export default function Navigation() {
               </Link>
             )
           ))}
+          <Link
+            href="/ai-advisor"
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            Start AI Advisor
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </nav>
 
@@ -340,7 +259,7 @@ export default function Navigation() {
                         {item.name}
                       </div>
                       <div className="pl-4 space-y-1">
-                        {(item.dropdownType === 'solutions' ? solutions : item.dropdownType === 'frameworks' ? frameworks : item.dropdownType === 'offers' ? offers : products).map((product) => {
+                        {(item.dropdownType === 'solutions' ? solutions : insights).map((product) => {
                           const Icon = product.icon
                           return (
                             <Link
@@ -355,17 +274,9 @@ export default function Navigation() {
                               <span className={cn(
                                 "text-xs px-2 py-0.5 rounded-full ml-auto",
                                 product.badge === 'Free' && "bg-green-500/10 text-green-500",
-                                product.badge === 'Open Source' && "bg-blue-500/10 text-blue-500",
-                                product.badge === 'Enterprise' && "bg-indigo-500/10 text-indigo-500",
-                                product.badge === 'Early Access' && "bg-purple-500/10 text-purple-500",
-                                product.badge === 'Coming Soon' && "bg-amber-500/10 text-amber-500",
-                                product.badge === 'Production' && "bg-emerald-500/10 text-emerald-500",
-                                product.badge === 'Live' && "bg-cyan-500/10 text-cyan-500",
-                                product.badge === 'Beta' && "bg-orange-500/10 text-orange-500",
                                 product.badge === 'Published 2025' && "bg-purple-500/10 text-purple-500",
                                 product.badge === 'Interactive' && "bg-blue-500/10 text-blue-500",
-                                product.badge === '$99/mo' && "bg-green-500/10 text-green-500",
-                                product.badge === '$500' && "bg-blue-500/10 text-blue-500",
+                                product.badge === '$500 fixed' && "bg-blue-500/10 text-blue-500",
                                 product.badge === 'from $499/mo' && "bg-blue-500/10 text-blue-500",
                                 product.badge === 'from $950' && "bg-blue-500/10 text-blue-500",
                                 product.badge === 'Custom' && "bg-indigo-500/10 text-indigo-500"

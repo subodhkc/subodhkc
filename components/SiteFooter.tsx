@@ -25,28 +25,48 @@ function Arrow({ kind = "right" }: { kind?: "right" | "ext" }) {
 
 const SITEMAP = [
   {
-    head: "Site",
+    head: "Solutions",
     items: [
-      ["/", "home"],
-      ["/about", "about"],
-      ["/services", "services"],
-      ["/blog", "blog"],
-      ["/contact", "contact"],
-      ["/executive-bio", "executive bio"],
-      ["/person/subodh-kc", "person profile"],
-      ["/portfolio", "portfolio"],
-      ["/magazine", "AI magazine"],
-      ["/local-ai-review", "local AI review"],
+      ["/ai-advisor", "AI Advisor Desk"],
+      ["/ai-automation", "AI Automation Blueprint"],
+      ["/ai-voice-agent", "AI Voice Agent"],
+      ["/ai-security-compliance", "AI Security & Compliance"],
+      ["/local-ai-review", "Local AI Review"],
+      ["/advisory", "Direct Advisory"],
+      ["/saas-security-review", "SaaS Security Review"],
     ],
   },
   {
-    head: "Solutions",
+    head: "Insights",
     items: [
-      ["/solutions/haiec", "haiec"],
-      ["/solutions/kestrelvoice", "kestrelvoice"],
-      ["/solutions/frontofai", "frontofai"],
-      ["/solutions/courtcase", "courtcase"],
-      ["/solutions/ai-briefing", "ai briefing"],
+      ["/blog", "Blog"],
+      ["/research", "Research"],
+      ["/ai-security-tools", "AI Security Tools"],
+      ["/architecture-decision-master-sheet", "Architecture Decisions"],
+      ["/cognitive-systems-management", "CSM Framework"],
+      ["/guides", "AI Compliance Guides"],
+    ],
+  },
+  {
+    head: "About",
+    items: [
+      ["/about", "About"],
+      ["/executive-bio", "Executive Bio"],
+      ["/portfolio", "Portfolio"],
+      ["/speaking", "Speaking"],
+      ["/contact", "Contact"],
+      ["/faq", "FAQ"],
+    ],
+  },
+  {
+    head: "Compliance",
+    items: [
+      ["/guides/texas-ai-law", "Texas AI Law"],
+      ["/guides/eu-ai-act", "EU AI Act"],
+      ["/guides/nyc-local-law-144", "NYC LL144"],
+      ["/solutions/haiec", "HAIEC Platform"],
+      ["/solutions/haiec/exposure-assessment", "Exposure Assessment"],
+      ["/course", "AI Governance Course"],
     ],
   },
   {
@@ -59,34 +79,6 @@ const SITEMAP = [
       ["/products/skc-log-analyser", "log analyser"],
       ["/products/courtcase", "courtcase"],
       ["/products/ai-article-generator", "AI article generator"],
-    ],
-  },
-  {
-    head: "Resources",
-    items: [
-      ["/writing", "writing"],
-      ["/ai-security-tools", "AI security tools"],
-      ["/ai-advisor", "AI advisor desk"],
-      ["/ai-automation", "AI automation blueprint"],
-      ["/ai-voice-agent", "AI voice agent"],
-      ["/ai-security-compliance", "AI security & compliance"],
-      ["/saas-security-review", "SaaS security review"],
-      ["/solutions/haiec/exposure-assessment", "exposure assessment"],
-      ["/research", "research"],
-      ["/speaking", "speaking"],
-      ["/advisory", "advisory"],
-      ["/faq", "faq"],
-    ],
-  },
-  {
-    head: "Compliance",
-    items: [
-      ["/guides", "AI compliance guides"],
-      ["/guides/texas-ai-law", "Texas AI law"],
-      ["/guides/eu-ai-act", "EU AI Act"],
-      ["/guides/nyc-local-law-144", "NYC LL144"],
-      ["/course", "AI Governance Course"],
-      ["/webinar/ai-laws-small-business", "AI Laws Webinar"],
     ],
   },
 ] as const;
@@ -273,8 +265,8 @@ export function SiteFooter() {
               maxWidth: 560,
             }}
           >
-            Former Fortune 50 AI Strategy CTL. Founder of HAIEC - integrated AI Ethics & Compliance. M.Sc.
-            Engineering & Technology Management, Louisiana Tech. 16+ years of full-stack engineering from
+            Former Sr. Program Manager, HP Inc. Founder of HAIEC - integrated AI Ethics & Compliance. M.Sc.
+            Engineering & Technology Management, Louisiana Tech. 12+ years of full-stack engineering from
             startups to global enterprise. Open for consulting, advisory boards, and research partnerships.
           </p>
           <div style={{ marginTop: 24, display: "flex", gap: 8, flexWrap: "wrap" }}>

@@ -2,12 +2,19 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { createSubscriptionCheckout } from '@/lib/stripe/checkout'
 import { getOffer, type OfferKey } from '@/lib/commercial/offers'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const user = await getAuthenticatedUser()
+  if (!user) {
+    return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
+  }
 
   const body = await req.json()
   const { period } = body as { period?: 'monthly' | 'annual' }
@@ -31,8 +38,8 @@ export async function POST(req: NextRequest) {
     period,
     successUrl,
     cancelUrl,
-    customerEmail: user?.email ?? undefined,
-    metadata: user ? { user_id: user.id } : {},
+    customerEmail: user.email ?? undefined,
+    metadata: { user_id: user.id },
   })
 
   if ('error' in result) {

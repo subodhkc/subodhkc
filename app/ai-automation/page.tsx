@@ -19,34 +19,34 @@ import {
 import { BlueprintQualificationCTA } from '@/components/commercial/BlueprintQualificationCTA'
 
 export const metadata = {
-  title: 'AI Automation Consultant for Small Business | Dallas–Fort Worth',
+  title: 'AI Automation Blueprint | Find the Workflow Worth Improving | Subodh KC',
   description:
-    '$500 AI Automation Blueprint. A fixed-scope assessment of one business workflow with automation recommendations, implementation roadmap, and buy/configure/build recommendation.',
+    'A $500 fixed-scope assessment of one business workflow. AI automation recommendations, architecture, cost-benefit, and a clear buy/configure/build recommendation. Delivered in 5 business days.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-automation',
   },
   openGraph: {
-    title: 'AI Automation Consultant for Small Business | Dallas–Fort Worth',
+    title: 'AI Automation Blueprint | Find the Workflow Worth Improving',
     description:
-      '$500 AI Automation Blueprint. A fixed-scope assessment of one business workflow with automation recommendations, implementation roadmap, and buy/configure/build recommendation.',
+      'A $500 fixed-scope assessment of one business workflow. AI automation recommendations, architecture, cost-benefit, and a clear buy/configure/build recommendation.',
     url: 'https://subodhkc.com/ai-automation',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Automation Consultant for Small Business | Dallas–Fort Worth',
-    description: '$500 fixed-scope AI Automation Blueprint. One workflow analyzed, one roadmap delivered.',
+    title: 'AI Automation Blueprint | $500 Fixed-Scope Workflow Assessment',
+    description: 'One workflow analyzed, one roadmap delivered. $500 fixed, 5 business days.',
   },
   keywords: [
     'AI automation consultant',
-    'AI automation for small business',
-    'business process automation',
-    'AI workflow automation',
-    'AI automation services',
     'AI automation blueprint',
     'AI workflow analysis',
     'AI automation strategy',
     'AI process optimization',
+    'buy configure build recommendation',
+    'AI workflow assessment',
+    'AI automation roadmap',
+    'business process automation',
     'Subodh KC',
   ],
 }
@@ -64,7 +64,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'AI Automation Blueprint',
-  description: 'Fixed-scope $500 assessment of one business workflow with AI automation recommendations, implementation roadmap, and buy/configure/build recommendation.',
+  description: 'Fixed-scope $500 assessment of one business workflow. AI automation recommendations, architecture, cost-benefit analysis, and buy/configure/build recommendation.',
   url: 'https://subodhkc.com/ai-automation',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'AI Automation Assessment',
@@ -168,9 +168,9 @@ export default function AIAutomationPage() {
         subtitle="AI Automation Blueprint"
         title={
           <>
-            Find the right AI automation
+            Find the workflow
             <br />
-            <span className="gradient-text">before you pay to build it.</span>
+            <span className="gradient-text">worth improving.</span>
           </>
         }
         description="$500 fixed. One workflow analyzed. A complete Blueprint with buy/configure/build recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days."
@@ -325,7 +325,7 @@ export default function AIAutomationPage() {
 
       <BlueprintQualificationCTA
         title="One workflow. One Blueprint. $500."
-        description="Stop wondering if AI can automate your workflow. Get a specific, actionable Blueprint with a buy/configure/build recommendation, architecture, and implementation roadmap."
+        description="Get a specific, actionable Blueprint with a buy/configure/build recommendation, architecture, and implementation roadmap. Know what to build first and whether you should build at all."
       />
     </>
   )

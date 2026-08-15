@@ -20,14 +20,14 @@ export function AdvisorCheckoutCTA({ title, description }: AdvisorCheckoutCTAPro
             <div className="flex flex-wrap gap-4">
               <CheckoutButton
                 apiEndpoint="/api/commercial/advisor-desk/checkout"
-                body={{ period: 'annual' }}
-                text="Start AI Advisor Desk — $990/year"
+                body={{ period: 'monthly' }}
+                text="Start AI Advisor Desk — $99/month"
                 className="group"
               />
               <CheckoutButton
                 apiEndpoint="/api/commercial/advisor-desk/checkout"
-                body={{ period: 'monthly' }}
-                text="$99/month"
+                body={{ period: 'annual' }}
+                text="$990/year (save 2 months)"
                 variant="outline"
                 showArrow={false}
               />

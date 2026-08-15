@@ -6,7 +6,7 @@ export default function StructuredData() {
     alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri'],
     jobTitle: 'AI Systems Architect & Governance Expert',
     description:
-      'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC. 16+ years architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
+      'AI Systems Architect and Governance Expert. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC. 12+ years architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation at enterprise scale.',
     url: 'https://subodhkc.com',
     email: 'subodhkc@subodhkc.com',
     image: 'https://subodhkc.com/portrait.jpeg',
@@ -144,7 +144,7 @@ export default function StructuredData() {
       url: 'https://subodhkc.com',
       jobTitle: 'AI Systems Architect & Governance Expert',
       description:
-        'AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC.',
+        'AI Systems Architect and Governance Expert. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC.',
     },
     dateCreated: '2024-01-01',
   }
@@ -229,7 +229,7 @@ export default function StructuredData() {
     '@type': 'ProfessionalService',
     name: 'Subodh KC - AI Governance & Architecture Advisory',
     description:
-      'AI governance consulting, compliance architecture, and enterprise AI strategy advisory. Specializing in EU AI Act, NIST AI RMF, ISO 42001, and NYC LL 144 compliance implementation. Former Fortune 50 AI Strategy CTL with 16+ years of production AI systems experience.',
+      'AI governance consulting, compliance architecture, and enterprise AI strategy advisory. Specializing in EU AI Act, NIST AI RMF, ISO 42001, and NYC LL 144 compliance implementation. Former Sr. Program Manager, HP Inc. with 12+ years of production AI systems experience.',
     url: 'https://subodhkc.com/services',
     provider: {
       '@type': 'Person',
@@ -513,7 +513,7 @@ export default function StructuredData() {
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
       name: 'Modular Audit Engine',
-      description: 'AI fairness and transparency scoring system with modular architecture for evidence-grade documentation and compliance reporting.',
+      description: 'AI fairness and transparency scoring system with modular architecture for documentation suitable for audits and compliance reporting.',
       author: { '@type': 'Person', name: 'Subodh KC' },
       url: 'https://subodhkc.com/about',
       keywords: 'AI audit, fairness scoring, transparency, compliance reporting',

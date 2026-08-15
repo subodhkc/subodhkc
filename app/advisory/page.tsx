@@ -57,7 +57,7 @@ export default function AdvisoryPage() {
         'Direct async access via agreed channels',
       ],
       engagement: 'Monthly retainer, 3-month minimum',
-      ideal: 'Organizations deploying AI at scale that need experienced direct judgment, not email-based guidance',
+      ideal: 'Organizations deploying AI at scale that need experienced direct judgment, not periodic guidance',
     },
     {
       icon: Target,
@@ -150,12 +150,12 @@ export default function AdvisoryPage() {
         subtitle="Advisory & Consulting"
         title={
           <>
-            Direct human advisory for
+            An AI advisor
             <br />
-            <span className="gradient-text">enterprise AI leaders</span>
+            <span className="gradient-text">in the room.</span>
           </>
         }
-        description="Fractional AI Advisor and Fractional AI Lead engagements for organizations that need embedded leadership, not email-based guidance. For scalable ongoing AI guidance, see the AI Advisor Desk."
+        description="Fractional AI Advisor and Fractional AI Lead engagements for organizations that need embedded leadership, not periodic guidance. For ongoing AI intelligence and advisory access, see the AI Advisor Desk."
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="/contact">
@@ -183,9 +183,9 @@ export default function AdvisoryPage() {
               <CardHeader>
                 <CardTitle className="text-lg">AI Advisor Desk</CardTitle>
                 <CardDescription className="text-sm mt-2">
-                  $99/month. Scalable, email-based ongoing guidance for small businesses.
-                  One advisor-reviewed question per month, AI controls review, regulatory monitoring,
-                  and recommended next actions. Up to 3 team members.
+                  $99/month. An AI advisor in my corner. Ongoing AI intelligence, opportunity discovery, and human advisory access for organizations of any size.
+                  Curated signals across models, tools, research, security, regulation, and real-world adoption,
+                  controls review, and recommended next actions. Up to 3 team members.
                 </CardDescription>
                 <div className="mt-3">
                   <Link href="/ai-advisor">

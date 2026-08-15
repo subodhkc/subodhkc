@@ -54,7 +54,7 @@ export default function KestrelVoicePage() {
     },
     {
       icon: Shield,
-      title: 'Emergency Detection',
+      title: 'Urgent Call Routing',
       description: 'Intelligent routing for urgent calls with priority escalation protocols.'
     },
     {

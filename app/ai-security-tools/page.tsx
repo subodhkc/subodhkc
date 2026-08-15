@@ -97,7 +97,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'What should I do if the blast radius calculator shows Critical?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Do not deploy without a completed security assessment. Follow the recommendations provided with the Critical result, and consider engaging a professional AI security assessment. The HAIEC AI Exposure Assessment provides deterministic analysis, adversarial testing, and evidence-grade compliance outputs.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Do not deploy without a completed security assessment. Follow the recommendations provided with the Critical result, and consider engaging a professional AI security assessment. The HAIEC AI Exposure Assessment provides deterministic analysis, adversarial testing, and compliance documentation suitable for audits.' },
     },
   ],
 }
@@ -261,7 +261,7 @@ export default function AISecurityToolsPage() {
             <p className="text-sm text-foreground/90">
               <strong>Need complete analysis?</strong> The{' '}
               <Link href="/solutions/haiec/exposure-assessment" className="text-primary font-medium hover:underline">HAIEC AI Exposure Assessment</Link>{' '}
-              performs deterministic code analysis, runtime adversarial testing, and produces evidence-grade compliance documentation.
+              performs deterministic code analysis, runtime adversarial testing, and produces compliance documentation suitable for audits.
             </p>
           </div>
         </div>
@@ -447,7 +447,7 @@ export default function AISecurityToolsPage() {
             },
             {
               q: 'What should I do if the blast radius calculator shows Critical?',
-              a: 'Do not deploy without a completed security assessment. Follow the recommendations provided with the Critical result, and consider engaging a professional AI security assessment. The HAIEC AI Exposure Assessment provides deterministic analysis, adversarial testing, and evidence-grade compliance outputs.',
+              a: 'Do not deploy without a completed security assessment. Follow the recommendations provided with the Critical result, and consider engaging a professional AI security assessment. The HAIEC AI Exposure Assessment provides deterministic analysis, adversarial testing, and compliance documentation suitable for audits.',
             },
           ].map((faq) => (
             <details key={faq.q} className="rounded-lg border border-border p-4 group">
@@ -484,7 +484,7 @@ export default function AISecurityToolsPage() {
       {/* CTA */}
       <CTA
         title="Need an AI Security Assessment?"
-        description="Get a complete AI application security review - prompt injection, RAG poisoning, tool abuse, RLS, tenant isolation, and evidence-grade compliance outputs from Subodh KC, founder of HAIEC."
+        description="Get a complete AI application security review - prompt injection, RAG poisoning, tool abuse, RLS, tenant isolation, and compliance documentation suitable for audits from Subodh KC, founder of HAIEC."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'Explore HAIEC Platform', href: '/solutions/haiec' }}
       />

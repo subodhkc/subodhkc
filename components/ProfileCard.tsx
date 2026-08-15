@@ -78,7 +78,7 @@ export default function ProfileCard() {
 
                   <h2 className="text-2xl font-bold mb-1">Subodh Kumar Kc</h2>
                   <p className="text-primary font-medium mb-2">
-                    Former Fortune 50 AI Strategy CTL
+                    Former Sr. Program Manager, HP Inc.
                   </p>
                   <p className="text-xs text-muted-foreground/80 italic mb-4">
                     Sanskrit: <span className="font-medium">su</span> (good, easy) + <span className="font-medium">bodh</span> (knowledge, understanding)

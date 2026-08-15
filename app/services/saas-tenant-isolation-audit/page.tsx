@@ -776,7 +776,7 @@ export default function TenantIsolationAuditPage() {
       >
         <div style={{ maxWidth: 760 }}>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 16 }}>
-            I am a former Fortune 50 software and AI program leader who now builds and reviews AI, compliance and operational systems. My work spans application architecture, authorization, evidence generation, testing and production delivery.
+            I am a former HP Inc. software and AI program leader who now builds and reviews AI, compliance and operational systems. My work spans application architecture, authorization, evidence generation, testing and production delivery.
           </p>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 16 }}>
             This service comes from the expensive part of building multi-tenant products: tracing organization ownership across hundreds of routes, resolving inconsistent authorization patterns and converting security assumptions into executable tests.

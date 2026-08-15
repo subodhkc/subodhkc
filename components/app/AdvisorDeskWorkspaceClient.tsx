@@ -233,19 +233,19 @@ export function AdvisorDeskWorkspaceClient({
         <div>
           <h1 className="text-2xl font-bold tracking-tight">AI Advisor Desk</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Ongoing AI guidance for {organization.name}
+            AI intelligence and human advisory for {organization.name}
           </p>
         </div>
 
-        {/* This Week */}
+        {/* Start Here */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Calendar className="h-5 w-5 text-muted-foreground" />
-            This Week
+            Start Here
           </h2>
           <div className="border rounded-lg p-5 bg-card space-y-3">
             <p className="text-sm text-muted-foreground">
-              Review areas that may need your attention this week. Use the tools below to check your posture.
+              Review areas that may need your attention. Use the tools below to check your posture.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Link
@@ -329,8 +329,9 @@ export function AdvisorDeskWorkspaceClient({
           </h2>
           <div className="border rounded-lg p-5 bg-card space-y-4">
             <p className="text-sm text-muted-foreground">
-              Send focused AI questions as decisions come up. Brief guidance and directional
-              recommendations are included under reasonable use.
+              When an AI decision matters, bring it here. I review the context, pressure-test
+              the options, and give you a practical point of view on what deserves action.
+              Most focused questions receive a thoughtfully reviewed response within 72 hours.
             </p>
             <p className="text-sm text-muted-foreground">
               When a question deserves deeper research, document review, architecture work, or

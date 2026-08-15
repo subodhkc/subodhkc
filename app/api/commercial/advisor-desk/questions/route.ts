@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
 
 /**
  * POST /api/commercial/advisor-desk/questions
- * Submit a new advisor question (light-touch model, no hard quota).
+ * Submit a new advisor question (reasonable-use model, no hard quota).
  */
 export async function POST(req: NextRequest) {
   const user = await getAuthenticatedUser()
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
   // Resolve billing period for tracking
   const { periodKey: currentPeriod } = await getAdvisorBillingPeriod(ctx.organization.id)
 
-  // Direct insert - no allowance enforcement (light-touch / reasonable use model)
+  // Direct insert - no allowance enforcement (reasonable-use / reasonable use model)
   const { data: newQuestion, error } = await sc
     .from('advisor_questions')
     .insert({

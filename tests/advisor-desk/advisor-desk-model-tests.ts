@@ -1,11 +1,12 @@
 /**
- * Advisor Desk Light-Touch Model Tests
+ * Advisor Desk Model Tests
  *
- * Verifies that the new commercial model is correctly configured:
+ * Verifies that the commercial model is correctly configured:
  * - No hard question allowance enforcement
  * - Classification fields supported
  * - Member priority concept present
  * - No stale quota language in offer config
+ * - No 'light-touch' in public-facing copy
  *
  * Run: npx tsx tests/advisor-desk/advisor-desk-model-tests.ts
  */
@@ -24,7 +25,7 @@ function assert(condition: boolean, message: string) {
   }
 }
 
-console.log('=== Advisor Desk Light-Touch Model Tests ===\n')
+console.log('=== Advisor Desk Model Tests ===\n')
 
 // ============================================
 // 1. OFFER CONFIG: NO HARD QUOTA
@@ -60,8 +61,13 @@ assert(
 )
 
 assert(
-  advisorOffer!.checkoutDescription.toLowerCase().includes('light-touch'),
-  'checkoutDescription includes "light-touch"'
+  !advisorOffer!.checkoutDescription.toLowerCase().includes('light-touch'),
+  'checkoutDescription no longer says "light-touch"'
+)
+
+assert(
+  advisorOffer!.checkoutDescription.toLowerCase().includes('human advisory access'),
+  'checkoutDescription includes "human advisory access"'
 )
 
 // ============================================
@@ -70,7 +76,7 @@ assert(
 console.log('\n--- Stale Quota Language ---')
 
 const offerJson = JSON.stringify(advisorOffer)
-const staleTerms = ['one question', 'monthly question', 'question allowance', 'allowance exceeded', '$49', 'pooled question']
+const staleTerms = ['one question', 'monthly question', 'question allowance', 'allowance exceeded', '$49', 'pooled question', 'light-touch', 'email-based', 'pays for itself', 'stop guessing', 'safe to use', 'everything included', 'upsell funnel', '40+ sources']
 
 for (const term of staleTerms) {
   assert(

@@ -19,37 +19,52 @@ import {
   Compass,
   Rocket,
   Star,
+  Eye,
+  Lightbulb,
+  Brain,
+  Building2,
+  Users,
 } from 'lucide-react'
 import { AdvisorCheckoutCTA } from '@/components/commercial/AdvisorCheckoutCTA'
 
 export const metadata = {
-  title: 'AI Advisor for Small Business | AI Risk, Compliance & Automation',
+  title: 'AI Advisor Desk | AI Intelligence, Opportunity Discovery & Human Advisory',
   description:
-    'Stay informed about AI developments relevant to your company, review important AI tools and decisions, and know what deserves action. $99/month, up to 3 team members.',
+    'An AI advisor in your corner. Ongoing AI intelligence, opportunity discovery, and human advisory access. See what is changing, what it could mean for you, and what deserves action. $99/month, up to 3 team members.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-advisor',
   },
   openGraph: {
-    title: 'AI Advisor for Small Business | AI Risk, Compliance & Automation',
+    title: 'AI Advisor Desk | AI Intelligence, Opportunity Discovery & Human Advisory',
     description:
-      'Stay informed about AI developments relevant to your company. $99/month with light-touch advisor access, AI controls review, and regulatory monitoring. Up to 3 team members.',
+      'An AI advisor in your corner. Ongoing AI intelligence, curated signals, and human advisory access. $99/month, up to 3 team members.',
     url: 'https://subodhkc.com/ai-advisor',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Advisor for Small Business | AI Risk, Compliance & Automation',
-    description: '$99/month AI Advisor Desk with light-touch advisor access, AI controls review, and regulatory monitoring.',
+    title: 'AI Advisor Desk | AI Intelligence & Human Advisory',
+    description: 'An AI advisor in your corner. Ongoing AI intelligence, curated signals, and human advisory access. $99/month, up to 3 team members.',
   },
   keywords: [
+    'AI advisor',
+    'human AI advisor',
+    'AI business advisor',
+    'AI strategy advisor',
+    'AI implementation advisor',
+    'AI advisor for founders',
+    'AI advisor for SaaS',
+    'AI advisor for startups',
+    'AI technology advisor',
+    'AI decision support',
+    'AI opportunity assessment',
+    'AI use case assessment',
+    'AI executive briefing',
+    'AI automation advisor',
+    'Dallas AI advisor',
+    'DFW AI consultant',
+    'Texas AI advisor',
     'AI advisor for small business',
-    'AI compliance for small business',
-    'AI risk management',
-    'AI tools for business',
-    'AI vendor assessment',
-    'AI hiring bias',
-    'AI law monitoring',
-    'AI automation guidance',
     'AI advisor desk',
     'Subodh KC',
   ],
@@ -68,7 +83,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'AI Advisor Desk',
-  description: 'Monthly AI advisory subscription for small businesses. Light-touch advisor access, AI controls review, regulatory monitoring, and recommended next actions.',
+  description: 'Ongoing AI intelligence, opportunity discovery, and human advisory access. Curated signals across models, tools, research, security, regulation, and real-world adoption. $99/month, up to 3 team members.',
   url: 'https://subodhkc.com/ai-advisor',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'AI Advisory',
@@ -133,8 +148,8 @@ const buyerQuestions = [
 const whatYouGet = [
   {
     icon: TrendingUp,
-    title: 'Relevant Weekly AI Intelligence',
-    description: 'AI developments filtered for your business context. Know which changes matter and which you can safely ignore. Delivered weekly with executive, manager, and technical briefing views.',
+    title: 'Weekly AI Intelligence Brief',
+    description: 'What changed. Why it matters. What may deserve action. Curated across models, tools, research, security, regulation, and real-world adoption — with executive, management, and technical lenses.',
   },
   {
     icon: Shield,
@@ -158,13 +173,13 @@ const whatYouGet = [
   },
   {
     icon: Mail,
-    title: 'Light-Touch Advisor Access',
-    description: 'Send focused AI questions as decisions come up. Brief guidance and directional recommendations are included under reasonable use. When a question deserves deeper work, I will identify that before additional work begins and offer a clearly scoped next step.',
+    title: 'Human Advisory Access',
+    description: 'When an AI decision matters, bring it to the Desk. I review the context, pressure-test the options, and give you a practical point of view on what deserves action. Most focused questions receive a thoughtfully reviewed response within 72 hours.',
   },
 ]
 
 const boundaries = [
-  'This is not a full consulting engagement. It is email-based guidance for specific questions.',
+  'This is not a full consulting engagement. It is focused human guidance for specific AI decisions as they come up.',
   'This is not continuous monitoring or managed services. For that, see our advisory engagements.',
   'This is not legal advice. For regulatory compliance obligations, consult a licensed attorney.',
   'Deeper research, document review, architecture work, or implementation requires a separately scoped engagement. I will flag that before any additional work begins.',
@@ -210,12 +225,12 @@ export default function AIAdvisorPage() {
         subtitle="AI Advisor Desk"
         title={
           <>
-            AI changes every week.
+            An AI advisor
             <br />
-            <span className="gradient-text">Your business shouldn&rsquo;t have to chase it.</span>
+            <span className="gradient-text">in your corner.</span>
           </>
         }
-        description="AI Advisor Desk gives your team a practical place to bring AI questions as they come up — what to use, what to review, what deserves action, and when something is worth building. $99/month · Up to 3 team members · Light-touch advisor access"
+        description="Stay focused on your organization while I keep watch on AI. I monitor new models, tools, research, security developments, regulation, and real-world adoption, then curate what deserves your attention and help you understand what it could mean for your organization. $99/month · Up to 3 team members · Human advisory access"
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="/contact?subject=ai-advisor-desk">
@@ -325,7 +340,7 @@ export default function AIAdvisorPage() {
               },
               {
                 step: 'DECIDE',
-                desc: 'Get brief guidance on what matters, what can wait, and what next step makes sense.',
+                desc: 'Get clear guidance on what matters, what can wait, and what next step makes sense.',
               },
               {
                 step: 'MOVE FORWARD',
@@ -344,16 +359,16 @@ export default function AIAdvisorPage() {
             ))}
           </div>
           <p className="text-center text-sm text-muted-foreground mt-8">
-            This is decision support, not an upsell funnel. No automatic charges. No surprise scope.
+            Sometimes the answer is simply an answer. If something deserves more, I will explain the options before anything additional begins.
           </p>
         </div>
       </Section>
 
       {/* Business Situations */}
       <Section
-        subtitle="Business Situations"
-        title="When the AI Advisor Desk pays for itself"
-        description="Common scenarios where a $99/month subscription saves you from a costly mistake or a month of indecision. Light-touch advisor access means you can ask focused questions as decisions come up."
+        subtitle="Where better AI decisions create leverage"
+        title="Common scenarios where the Desk earns its place"
+        description="A $99/month subscription can save you from a costly mistake, a month of indecision, or a missed opportunity. Human advisory access means you can ask focused questions as decisions come up."
         sectionNum="§04"
         className="bg-secondary/20"
       >
@@ -362,7 +377,7 @@ export default function AIAdvisorPage() {
             {[
               {
                 title: 'Your team wants to adopt a new AI tool',
-                desc: 'You need someone to review the vendor, check data handling, and tell you whether the tool is safe to use before you sign.',
+                desc: 'You need someone to review the vendor, check data handling, and help you understand the data, security, contractual, and operational considerations before adoption.',
               },
               {
                 title: 'A customer or partner asks about your AI policy',
@@ -404,8 +419,8 @@ export default function AIAdvisorPage() {
       {/* What You Get */}
       <Section
         subtitle="What You Receive"
-        title="Everything included for $99/month"
-        description="One subscription. No hidden fees, no per-seat charges, no usage metering. Light-touch advisor access included under reasonable use."
+        title="What is included for $99/month"
+        description="One subscription. No hidden fees, no per-seat charges, no usage metering. Human advisory access included under reasonable use."
         sectionNum="§05"
         className="bg-secondary/20"
       >
@@ -429,11 +444,64 @@ export default function AIAdvisorPage() {
         </Grid>
       </Section>
 
+      {/* Continuity */}
+      <Section
+        subtitle="Continuity"
+        title="The value compounds when you stay"
+        description="The Desk is not a one-time consultation. The longer you subscribe, the more context I build about your organization, your tools, your risks, and your goals. That context makes every answer more useful."
+        sectionNum="§06"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: TrendingUp,
+                title: 'Weekly',
+                desc: 'AI intelligence brief arrives in your inbox. Curated signals across models, tools, research, security, regulation, and real-world adoption. You see what changed and why it matters.',
+              },
+              {
+                icon: Shield,
+                title: 'Monthly',
+                desc: 'Controls review check-in. I review your current AI tools, vendor agreements, and internal practices. Gaps get flagged before they become incidents.',
+              },
+              {
+                icon: Mail,
+                title: 'On-Demand',
+                desc: 'When a decision comes up, bring it to the Desk. Vendor evaluation, automation questions, regulatory developments, hiring concerns. Considering a new AI vendor? Bring the contract before you sign. Most focused questions receive a reviewed response within 72 hours.',
+              },
+            ].map((item, i) => {
+              const Icon = item.icon
+              return (
+                <Reveal key={i} delay={i * 80} style="up">
+                  <Card className="h-full">
+                    <CardHeader>
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                        <Icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <CardTitle className="text-base">{item.title}</CardTitle>
+                      <CardDescription className="text-sm mt-1">{item.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </div>
+          <div className="mt-8 max-w-2xl mx-auto text-center">
+            <p className="text-sm text-muted-foreground">
+              Over time, I learn your existing tools, your risk tolerance, and your priorities.
+              When a new AI vendor appears, I can flag whether it fits. When a regulation shifts,
+              I can tell you if it applies. That continuity is the difference between an advisor
+              and a search engine.
+            </p>
+          </div>
+        </div>
+      </Section>
+
       {/* Evidence */}
       <Section
         subtitle="Why Trust This"
         title="Built on real AI governance work"
-        sectionNum="§06"
+        sectionNum="§07"
       >
         <div className="max-w-4xl mx-auto space-y-4">
           <Card className="border-l-4 border-l-primary">
@@ -447,10 +515,11 @@ export default function AIAdvisorPage() {
           </Card>
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="text-lg">Daily AI Industry Monitoring</CardTitle>
+              <CardTitle className="text-lg">AI Intelligence Engine</CardTitle>
               <CardDescription className="text-base">
-                Your subscription includes filtered AI industry signals so you know which developments
-                matter and which to ignore. No need to track 40+ sources yourself.
+                I use an AI intelligence engine to monitor developments across models, tools, research,
+                security, regulation, and real-world adoption. You receive curated signals without
+                having to track the landscape yourself.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -467,11 +536,182 @@ export default function AIAdvisorPage() {
         </div>
       </Section>
 
+      {/* See -> Understand -> Discover -> Decide */}
+      <Section
+        subtitle="How Signals Become Value"
+        title="See what is changing. Understand what it means. Discover what it could unlock. Decide what deserves action."
+        sectionNum="§08"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { icon: Eye, step: 'SEE', desc: 'Curated signals across models, tools, research, security, regulation, and real-world adoption.' },
+              { icon: Brain, step: 'UNDERSTAND', desc: 'I interpret what each development means and why it matters for your context.' },
+              { icon: Lightbulb, step: 'DISCOVER', desc: 'Surface possibilities and opportunities the signal could unlock for your organization.' },
+              { icon: Compass, step: 'DECIDE', desc: 'When a decision deserves action, you already have an advisor who understands the context.' },
+            ].map((item, i) => {
+              const Icon = item.icon
+              return (
+                <Reveal key={i} delay={i * 80} style="up">
+                  <Card className="h-full text-center">
+                    <CardHeader>
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3 mx-auto">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <CardTitle className="text-sm font-bold tracking-wide">{item.step}</CardTitle>
+                      <CardDescription className="text-sm mt-2">{item.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </div>
+        </div>
+      </Section>
+
+      {/* Same Signal. Different Decision. */}
+      <Section
+        subtitle="Role-Based Intelligence"
+        title="Same signal. Different decision."
+        description="The same AI development can mean different things depending on who is asking. The Desk provides lenses for each role."
+        sectionNum="§09"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Building2,
+                role: 'Executive',
+                question: 'What could this change for the business?',
+                focus: ['Strategy', 'Competition', 'Investment', 'Customer impact', 'Timing', 'Material opportunity and risk'],
+              },
+              {
+                icon: Users,
+                role: 'Management',
+                question: 'What could this change in the way we work?',
+                focus: ['Workflow', 'People', 'Adoption', 'Operations', 'Policy', 'Execution and measurement'],
+              },
+              {
+                icon: Shield,
+                role: 'Technical',
+                question: 'What should we evaluate or prepare for?',
+                focus: ['Architecture', 'Models', 'Agents', 'RAG and data', 'Security', 'Integration and trade-offs'],
+              },
+            ].map((item, i) => {
+              const Icon = item.icon
+              return (
+                <Reveal key={i} delay={i * 80} style="up">
+                  <Card className="h-full">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <Icon className="h-5 w-5 text-primary" />
+                        </div>
+                        <CardTitle className="text-base">{item.role}</CardTitle>
+                      </div>
+                      <p className="text-sm font-medium text-foreground mt-2">{item.question}</p>
+                      <ul className="mt-3 space-y-1.5">
+                        {item.focus.map((f, j) => (
+                          <li key={j} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <span className="text-primary mt-0.5">&rarr;</span>
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardHeader>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </div>
+        </div>
+      </Section>
+
+      {/* Opportunity Discovery */}
+      <Section
+        subtitle="Opportunity Discovery"
+        title="What could AI make possible?"
+        description="Opportunity discovery is a core benefit of the Desk. These are the kinds of questions worth exploring together."
+        sectionNum="§10"
+      >
+        <div className="max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              'Where could AI give your team back time or capacity?',
+              'What are customers waiting for that could happen faster?',
+              'What information do you already have but struggle to use?',
+              'What could become a better product, service, or new source of revenue?',
+              'What could you build today that was not practical twelve months ago?',
+              'Which AI investment deserves your budget — and which should wait?',
+              'What should AI handle, and where should people remain in control?',
+              'What would you test first before committing serious budget?',
+            ].map((q, i) => (
+              <Reveal key={i} delay={i * 40} style="up">
+                <div className="flex items-start gap-3 rounded-lg border border-border p-4 bg-card">
+                  <Lightbulb className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-foreground">{q}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Organizational Context / Personalization */}
+      <Section
+        subtitle="Organizational Context"
+        title="The more I understand your organization, the more useful the Desk becomes."
+        sectionNum="§11"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardDescription className="text-base">
+                As I learn more about your organization, I can use that context to make
+                future guidance and recommendations increasingly relevant. Organizational
+                context may include your goals, industry, customers, products and services,
+                technology, current AI tools, initiatives, constraints, and areas of interest.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <p className="text-sm text-muted-foreground mt-4 text-center">
+            Generic AI advice starts from zero. The Desk does not have to. You remain in control
+            of what context is shared, and it is always editable.
+          </p>
+        </div>
+      </Section>
+
+      {/* Human Advisory */}
+      <Section
+        subtitle="Human Advisory Access"
+        title="When an AI decision matters, bring it to the Desk."
+        sectionNum="§12"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardDescription className="text-base">
+                I review the context, pressure-test the options, and give you a practical
+                point of view on what deserves action. Most focused questions receive a
+                thoughtfully reviewed human response within 72 hours. Timing may vary with
+                complexity and current volume.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <p className="text-sm text-muted-foreground mt-4 text-center">
+            Rigorous thinking before you commit budget, time, or reputation. Not every important
+            AI decision needs a consulting project. It does deserve good thinking.
+          </p>
+        </div>
+      </Section>
+
       {/* Member Priority */}
       <Section
         subtitle="Member Benefits"
         title="Advisor Desk Member Priority"
-        sectionNum="§07"
+        sectionNum="§13"
       >
         <div className="max-w-3xl mx-auto">
           <Card className="border-l-4 border-l-primary">
@@ -519,7 +759,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Pricing"
         title="Simple, Transparent, Cancelable"
-        sectionNum="§08"
+        sectionNum="§14"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
@@ -534,7 +774,7 @@ export default function AIAdvisorPage() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {['Light-touch advisor access (reasonable use)', 'AI Controls Review', 'FrontOfAI industry intelligence', 'Up to 3 team members', 'AI tools and vendor guidance', 'AI hiring and policy support'].map((f, i) => (
+                  {['Human advisory access (reasonable use)', 'Weekly AI intelligence brief', 'AI Controls Review', 'AI regulatory monitoring', 'Up to 3 team members', 'AI tools and vendor guidance', 'AI hiring and policy support'].map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
@@ -557,7 +797,7 @@ export default function AIAdvisorPage() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {['Everything in Monthly', '2 months free', 'Priority response queue', 'Annual AI Controls Review report', 'FrontOfAI quarterly trend briefing', 'Up to 3 team members'].map((f, i) => (
+                  {['Everything in Monthly', '2 months free', 'Priority response queue', 'Annual AI Controls Review report', 'Quarterly trend briefing', 'Up to 3 team members'].map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
@@ -577,7 +817,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="Boundaries"
         title="What This Is Not"
-        sectionNum="§09"
+        sectionNum="§15"
       >
         <div className="max-w-3xl mx-auto">
           <div className="space-y-3">
@@ -606,7 +846,7 @@ export default function AIAdvisorPage() {
       <Section
         subtitle="FAQ"
         title="Common Questions"
-        sectionNum="§10"
+        sectionNum="§16"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-4">
@@ -624,8 +864,8 @@ export default function AIAdvisorPage() {
       </Section>
 
       <AdvisorCheckoutCTA
-        title="Stop guessing about AI"
-        description="Get a specialist in your corner for $99/month. Light-touch advisor access, controls review, regulatory monitoring, and a clear next step when deeper work is needed."
+        title="Get a specialist in your corner."
+        description="$99/month. Human advisory access, curated intelligence, opportunity discovery, and a clear next step when deeper work is needed. Cancel anytime."
       />
     </>
   )

@@ -53,8 +53,8 @@ export function CommercialDecisionSection() {
           marginBottom: 32,
         }}
       >
-        I help businesses decide where AI is useful, deploy it where it creates value,
-        and put appropriate controls around it. Choose the path that matches your situation.
+        I help organizations see where AI can create advantage, turn the right opportunities into working
+        systems, and put appropriate controls around them. Choose the path that matches your situation.
       </p>
 
       {/* PRIMARY: Two main starting points */}
@@ -96,7 +96,7 @@ export function CommercialDecisionSection() {
             </div>
             <div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--fg)', margin: 0 }}>
-                I want ongoing advisor access
+                I want an AI advisor in my corner
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
                 AI Advisor Desk &middot; $99/month
@@ -104,8 +104,9 @@ export function CommercialDecisionSection() {
             </div>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-            Stay informed about AI developments relevant to your company, review important AI tools
-            and decisions, and know what deserves action without adding another full-time role.
+            Ongoing AI intelligence, opportunity discovery, and human advisory access.
+            See what is changing, what it could mean for you, and what deserves action.
+            For $99/month.
           </p>
           <div
             style={{
@@ -153,7 +154,7 @@ export function CommercialDecisionSection() {
             </div>
             <div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--fg)', margin: 0 }}>
-                I have a workflow I want to automate
+                I want to find where AI could improve a workflow
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
                 AI Automation Blueprint &middot; $500 fixed
@@ -161,8 +162,8 @@ export function CommercialDecisionSection() {
             </div>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-            Find the right AI automation before you pay to build it. One workflow analyzed with
-            tool selection, architecture, cost-benefit, and a clear buy/configure/build recommendation.
+            One workflow analyzed with tool selection, architecture, cost-benefit, and
+            a clear buy/configure/build recommendation. $500 fixed, delivered in 5 business days.
           </p>
           <div
             style={{
@@ -227,7 +228,7 @@ export function CommercialDecisionSection() {
                 AI Voice Agent
               </p>
               <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
-                Calls, intake, booking &middot; from $499/month
+                Missing calls while busy or after hours &middot; from $499/month
               </p>
             </div>
           </Link>
@@ -251,7 +252,7 @@ export function CommercialDecisionSection() {
                 AI Security &amp; Compliance
               </p>
               <p style={{ fontSize: '0.82rem', color: 'var(--op-muted)', margin: '2px 0 0' }}>
-                AI risk, controls, evidence &middot; SaaS security review from $950
+                Worried about AI security or compliance gaps? &middot; from $950
               </p>
             </div>
           </Link>

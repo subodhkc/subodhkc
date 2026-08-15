@@ -77,10 +77,11 @@ export function MagicLinkForm({ next = '/dashboard' }: { next?: string }) {
     setLoading(true)
     setError('')
 
+    const safeNext = next && next.startsWith('/') && !next.startsWith('//') ? next : '/app'
     const { error: signInError } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
       },
     })
 

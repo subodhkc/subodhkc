@@ -13,8 +13,7 @@ import { PRODUCTS } from "@/data/products";
 const KPIS = [
   { k: "products", v: 15, fmt: { suffix: "" }, sub: "shipped", live: false },
   { k: "installs", v: 10000, fmt: { formatK: true, suffix: "+" }, sub: "npm + pypi", live: true },
-  { k: "patents", v: 5, fmt: { suffix: "" }, sub: "pending", live: false },
-  { k: "experience", v: 16, fmt: { suffix: "y" }, sub: "full-stack", live: false },
+  { k: "experience", v: 12, fmt: { suffix: "y" }, sub: "full-stack", live: false },
 ];
 
 export function HeroInteractive() {
@@ -114,9 +113,8 @@ export function HeroInteractive() {
             textWrap: "pretty",
           }}
         >
-          From agentic workflows, voice AI, RAG and MCP integrations to AI compliance certifications and
-          enterprise-scale delivery. Subodh Kc, former Fortune 50 AI Strategy CTL, founder of KestrelVoice,
-          founder of HAIEC. Dallas-based.
+          From agentic workflows, voice AI, RAG and MCP integrations to security, governance, and
+          enterprise-scale delivery. Subodh KC, founder of KestrelVoice, founder of HAIEC. Dallas-based.
         </p>
 
         {/* CTA buttons */}
@@ -174,7 +172,7 @@ export function HeroInteractive() {
           style={{
             marginTop: 36,
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(3, 1fr)",
             borderTop: "1px solid var(--op-border)",
             borderBottom: "1px solid var(--op-border)",
           }}

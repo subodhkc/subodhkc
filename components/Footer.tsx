@@ -2,24 +2,32 @@ import Link from 'next/link'
 import { Linkedin, Github, Mail, BookOpen, FileText, Rss } from 'lucide-react'
 
 const footerLinks = {
-  main: [
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Products', href: '/products' },
-    { name: 'Contact', href: '/contact' },
-  ],
-  offers: [
+  workWithMe: [
     { name: 'AI Advisor Desk', href: '/ai-advisor' },
     { name: 'AI Automation Blueprint', href: '/ai-automation' },
     { name: 'AI Voice Agent', href: '/ai-voice-agent' },
     { name: 'AI Security & Compliance', href: '/ai-security-compliance' },
     { name: 'SaaS Security Review', href: '/saas-security-review' },
+    { name: 'Direct AI Advisory', href: '/advisory' },
+    { name: 'Local AI Review', href: '/local-ai-review' },
   ],
-  resources: [
-    { name: 'Writing', href: '/writing' },
+  builtBySubodh: [
+    { name: 'HAIEC', href: 'https://www.haiec.com' },
+    { name: 'KestrelVoice', href: 'https://www.kestrelvoice.com' },
+    { name: 'FrontOfAI', href: 'https://frontofai.com' },
+    { name: 'All Products', href: '/products' },
+    { name: 'Services', href: '/services' },
+  ],
+  insights: [
+    { name: 'Articles', href: '/writing' },
     { name: 'Research', href: '/research' },
+    { name: 'CSM Framework', href: '/cognitive-systems-management' },
+    { name: 'Architecture Decisions', href: '/architecture-decision-master-sheet' },
     { name: 'Speaking', href: '/speaking' },
-    { name: 'Advisory', href: '/advisory' },
+  ],
+  company: [
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
   ],
   social: [
     {
@@ -56,20 +64,20 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
       <div className="section-container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mb-8">
           <div>
             <h3 className="text-xl font-bold gradient-text mb-4">KC</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Turn AI Pilots Into Production Systems. Without Regulatory Risk.
+              AI intelligence, systems architecture, and human advisory for organizations deploying AI with confidence.
             </p>
           </div>
 
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-              Navigation
+              Work With Me
             </h4>
             <ul className="space-y-2">
-              {footerLinks.main.map((item) => (
+              {footerLinks.workWithMe.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -84,10 +92,46 @@ export default function Footer() {
 
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-              Offers
+              Built by Subodh
             </h4>
             <ul className="space-y-2">
-              {footerLinks.offers.map((item) => (
+              {footerLinks.builtBySubodh.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
+              Insights
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.insights.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
+              Company
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.company.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -121,24 +165,6 @@ export default function Footer() {
                 )
               })}
             </div>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-              Resources
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.resources.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
 

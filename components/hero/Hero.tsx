@@ -12,15 +12,15 @@ export function Hero() {
         <div style={{ padding: "56px 28px", maxWidth: 1240, margin: "0 auto" }}>
           <h1>I Advise, Architect, Deploy and Govern production AI systems.</h1>
           <p>
-            From agentic workflows, voice AI, RAG and MCP integrations to AI compliance certifications and
-            enterprise-scale delivery. Subodh Kc, former Fortune 50 AI Strategy CTL, founder of KestrelVoice,
-            founder of HAIEC. Dallas-based.
+            I help organizations see where AI can create advantage, turn the right opportunities into working
+            systems, and put the right controls around them to operate with confidence. From agentic workflows,
+            voice AI, RAG and MCP integrations to security, governance, and enterprise-scale delivery.
+            Subodh KC, founder of KestrelVoice, founder of HAIEC. Dallas-based.
           </p>
           <ul>
             <li>15 products shipped</li>
             <li>10,000+ npm + pypi installs</li>
-            <li>5 patent-pending frameworks</li>
-            <li>16+ years full-stack experience</li>
+            <li>12+ years full-stack experience</li>
           </ul>
           <p>
             <a href="https://calendly.com/subodhkc/30min">Discuss an AI System</a> | <a href="https://calendly.com/subodhkc/30min">Hire Subodh Kc</a>

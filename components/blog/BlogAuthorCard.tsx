@@ -8,7 +8,7 @@ const AUTHOR_PROFILES: Record<string, {
   imagePosition: string
 }> = {
   'Subodh KC': {
-    bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC - integrated AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
+    bio: 'AI Systems Architect & Governance Expert. Former Sr. Program Manager, HP Inc. Founder of HAIEC - integrated AI Ethics & Compliance. 12+ years building production AI systems from startups to global enterprise.',
     links: [
       ['About', '/about'],
       ['Services', '/services'],
@@ -29,7 +29,7 @@ const AUTHOR_PROFILES: Record<string, {
 }
 
 const DEFAULT_PROFILE = {
-  bio: 'AI Systems Architect & Governance Expert. Former Fortune 50 AI Strategy CTL. Founder of HAIEC - integrated AI Ethics & Compliance. 16+ years building production AI systems from startups to global enterprise.',
+  bio: 'AI Systems Architect & Governance Expert. Former Sr. Program Manager, HP Inc. Founder of HAIEC - integrated AI Ethics & Compliance. 12+ years building production AI systems from startups to global enterprise.',
   links: [
     ['About', '/about'],
     ['Services', '/services'],

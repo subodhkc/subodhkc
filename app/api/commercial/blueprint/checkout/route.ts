@@ -3,12 +3,19 @@ import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { createOneTimeCheckout } from '@/lib/stripe/checkout'
 import { getOffer, type OfferKey } from '@/lib/commercial/offers'
 import { createServiceClient } from '@/lib/supabase'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const user = await getAuthenticatedUser()
+  if (!user) {
+    return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
+  }
 
   const body = await req.json()
   const { qualificationResponses } = body as { qualificationResponses?: Record<string, string> }
@@ -52,8 +59,7 @@ export async function POST(req: NextRequest) {
   const sc = createServiceClient()
 
   // If the offer requires an agreement, verify an accepted agreement exists
-  // Only check if user is authenticated and has an existing organization
-  if (offer.requiresAgreement && sc && user) {
+  if (offer.requiresAgreement && sc) {
     // Find user's org
     const { data: membership } = await sc
       .from('organization_memberships')
@@ -127,12 +133,13 @@ export async function POST(req: NextRequest) {
       }
     }
   }
+  let qualificationRecordId: string | null = null
   if (sc) {
-    await sc
+    const { data: qualRecord } = await sc
       .from('blueprint_qualifications')
       .insert({
-        user_email: user?.email ?? '',
-        user_id: user?.id ?? null,
+        user_email: user.email ?? '',
+        user_id: user.id,
         business_objective: qualificationResponses.business_objective || '',
         workflow_problem: qualificationResponses.workflow_problem || '',
         current_process: qualificationResponses.current_process || null,
@@ -145,6 +152,10 @@ export async function POST(req: NextRequest) {
         fit_decision: fitDecision,
         status: 'checkout_started',
       })
+      .select('id')
+      .single()
+
+    qualificationRecordId = qualRecord?.id ?? null
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
@@ -155,14 +166,14 @@ export async function POST(req: NextRequest) {
     offerKey,
     successUrl,
     cancelUrl,
-    customerEmail: user?.email ?? undefined,
+    customerEmail: user.email ?? undefined,
     metadata: {
-      ...(user ? { user_id: user.id } : {}),
+      user_id: user.id,
       offer_key: offerKey,
-      qualification: JSON.stringify(qualificationResponses),
-      business_objective: qualificationResponses.business_objective || '',
-      workflow_problem: qualificationResponses.workflow_problem || '',
-      systems_involved: qualificationResponses.systems_involved || '',
+      qualification_record_id: qualificationRecordId ?? '',
+      business_objective: qualificationResponses.business_objective?.slice(0, 200) || '',
+      workflow_problem: qualificationResponses.workflow_problem?.slice(0, 200) || '',
+      systems_involved: qualificationResponses.systems_involved?.slice(0, 200) || '',
       fit_decision: fitDecision,
     },
   })

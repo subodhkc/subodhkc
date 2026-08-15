@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
               </div>
               <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
-                  <strong>About the author:</strong> Subodh KC - AI Systems Architect and Governance Expert. Former Fortune 50 AI Strategy CTL, founder of KestrelVoice, founder of HAIEC.
+                  <strong>About the author:</strong> Subodh KC - AI Systems Architect and Governance Expert. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC.
                 </p>
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/about" style="display: inline-block; color: #10B981; text-decoration: none; font-weight: 600; font-size: 14px;">
                   Learn More →

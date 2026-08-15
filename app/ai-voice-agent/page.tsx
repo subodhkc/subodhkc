@@ -20,14 +20,14 @@ import {
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'AI Voice Agent for Small Business | AI Receptionist Dallas-Fort Worth',
+  title: 'AI Voice Agent | AI Receptionist Dallas-Fort Worth | Subodh KC',
   description:
     'Turn more incoming calls into completed customer actions. Managed AI voice deployment. Standard and custom workflows. Dallas-Fort Worth based.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-voice-agent',
   },
   openGraph: {
-    title: 'AI Voice Agent for Small Business | AI Receptionist Dallas-Fort Worth',
+    title: 'AI Voice Agent | AI Receptionist Dallas-Fort Worth',
     description:
       'Managed AI voice deployment. Standard and custom workflows. Dallas-Fort Worth based.',
     url: 'https://subodhkc.com/ai-voice-agent',
@@ -35,7 +35,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Voice Agent for Small Business | AI Receptionist Dallas-Fort Worth',
+    title: 'AI Voice Agent | AI Receptionist Dallas-Fort Worth',
     description: 'Managed AI voice deployment. Standard and custom workflows. Dallas-Fort Worth based.',
   },
   keywords: [
@@ -114,10 +114,10 @@ const customFeatures = [
 ]
 
 const capabilities = [
-  { icon: Zap, title: 'Instant Response', description: 'Zero rings. Every call answered immediately, no hold music, no waiting queue.' },
+  { icon: Zap, title: 'Immediate Response', description: 'Calls answered without delay. No hold music, no waiting queue.' },
   { icon: Calendar, title: 'Smart Scheduling', description: 'Books, reschedules, and cancels appointments directly in your calendar system.' },
-  { icon: Shield, title: 'Emergency Detection', description: 'Identifies urgent calls and escalates to human staff with context and priority.' },
-  { icon: Clock, title: '24/7 Availability', description: 'After-hours, weekends, holidays. Your business never stops answering the phone.' },
+  { icon: Shield, title: 'Urgent Call Routing', description: 'Identifies urgent calls and escalates to human staff with context and priority.' },
+  { icon: Clock, title: '24/7 Availability', description: 'After-hours, weekends, holidays. Your business answers every call.' },
   { icon: Globe, title: 'Multi-Language', description: 'Handles calls in multiple languages with natural conversation flow.' },
   { icon: Building2, title: 'CRM Integration', description: 'Logs every call, updates records, and triggers workflows in your existing tools.' },
 ]
@@ -131,7 +131,7 @@ const deploymentSteps = [
 ]
 
 const industries = [
-  { icon: Stethoscope, name: 'Healthcare', description: 'Appointment scheduling, prescription refill requests, insurance verification, and HIPAA-compliant call handling.' },
+  { icon: Stethoscope, name: 'Healthcare', description: 'Appointment scheduling, prescription refill requests, insurance verification, and call handling aligned with healthcare privacy requirements.' },
   { icon: Building2, name: 'Professional Services', description: 'Client intake, consultation scheduling, matter routing, and after-hours coverage for law firms, accounting, and consulting.' },
   { icon: Phone, name: 'Field Services', description: 'Dispatch coordination, appointment confirmation, emergency triage, and customer status updates for HVAC, plumbing, and electrical.' },
 ]

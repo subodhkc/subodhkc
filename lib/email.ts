@@ -275,11 +275,11 @@ export async function sendAdvisorWelcomeEmail(opts: {
               </a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
-              Light-touch advisor access is included under reasonable use. Your team has up to 3 seats. Billing is managed through Stripe.
+              Human advisory access is included under reasonable use. Your team has up to 3 seats. Billing is managed through Stripe.
             </p>
           </div>
           <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-            <p>SubodhKC — Practical AI guidance for small business</p>
+            <p>SubodhKC — AI intelligence, opportunity discovery, and human advisory access</p>
           </div>
         </body>
       </html>

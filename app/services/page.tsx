@@ -150,7 +150,7 @@ export default function ServicesPage() {
         {
           icon: FileCheck,
           name: 'Evidence Architecture',
-          desc: 'Evidence-grade documentation generation, documentation pipelines, and compliance evidence repositories.',
+          desc: 'Documentation generation, documentation pipelines, and compliance evidence repositories.',
         },
         {
           icon: Activity,
@@ -394,7 +394,7 @@ export default function ServicesPage() {
                     AI Advisor Desk
                   </CardTitle>
                   <CardDescription className="text-sm">
-                    $99/month. Light-touch advisor access, controls review, regulatory monitoring. Up to 3 team members. Start here if you want ongoing support.
+                    $99/month. AI intelligence, opportunity discovery, human advisory access, controls review, regulatory monitoring. Up to 3 team members. Start here if you want ongoing support.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -436,7 +436,7 @@ export default function ServicesPage() {
                     AI Security &amp; Compliance
                   </CardTitle>
                   <CardDescription className="text-sm">
-                    AI security assessment, compliance review, vendor risk, hiring bias, and evidence-grade documentation.
+                    AI security assessment, compliance review, vendor risk, hiring bias, and documentation suitable for audits.
                   </CardDescription>
                 </CardHeader>
               </Card>

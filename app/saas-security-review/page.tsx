@@ -224,7 +224,7 @@ const processSteps = [
   { num: '01', title: 'Fit / Scope Call', desc: '20 to 30 minutes. We discuss your architecture, stack, tenant model, AI features, customer requirements, and timeline.' },
   { num: '02', title: 'Scope Defined', desc: 'Written scope: routes, roles, storage, AI components, test accounts, environment, and methodology version.' },
   { num: '03', title: 'Access & Test Accounts', desc: 'Repository access, staging environment, synthetic tenant accounts, and relevant credentials scoped to minimum required permissions.' },
-  { num: '04', title: 'Security Review', desc: 'Static analysis, architecture review, and adversarial testing across the defined scope using a tested evidence-grade methodology.' },
+  { num: '04', title: 'Security Review', desc: 'Static analysis, architecture review, and adversarial testing across the defined scope using a tested methodology.' },
   { num: '05', title: 'Evidence-Backed Findings', desc: 'Each finding traced through test, evidence, control reference, and remediation. Evidence fingerprinted via ISAF SHA-256 hash chains.' },
   { num: '06', title: 'Remediation Discussion', desc: 'Walkthrough of findings, priorities, and remediation approach. Technical appendix for developers.' },
   { num: '07', title: 'Retest', desc: 'After remediation: each finding retested. Status moves to Verified, Additional Work Recommended, or Risk Accepted by Client.' },
@@ -476,7 +476,7 @@ export default function SaaSSecurityReviewPage() {
       <Section
         subtitle="AI Application Security"
         title="When AI features exist, the attack surface expands"
-        description="Static AI security analysis, runtime adversarial testing, and evidence-grade documentation. Covers prompt injection, RAG authorization, tool abuse, agent privilege boundaries, and AI supply-chain review."
+        description="Static AI security analysis, runtime adversarial testing, and documentation suitable for audits. Covers prompt injection, RAG authorization, tool abuse, agent privilege boundaries, and AI supply-chain review."
         sectionNum="§04"
         className="bg-secondary/20"
       >
