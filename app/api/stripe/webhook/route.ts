@@ -97,6 +97,7 @@ export async function POST(req: NextRequest) {
  */
 async function handleCheckoutCompleted(event: Stripe.Event) {
   const session = event.data.object as Stripe.Checkout.Session
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
   const offerKey = session.metadata?.offer_key as OfferKey | undefined
   if (!offerKey) {
     // No offer_key means this event is from another app (HAIEC, Kestrel, etc.)
@@ -224,15 +225,37 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
 
   // Send welcome/notification email based on offer type
   try {
+    // Resolve org name for internal notifications
+    let orgName = orgSlug
+    if (sc) {
+      const { data: orgData } = await sc
+        .from('organizations')
+        .select('name')
+        .eq('id', orgId)
+        .single()
+      if (orgData?.name) orgName = orgData.name
+    }
+
     if (offerKey === 'ai_advisor_desk') {
-      const { sendAdvisorWelcomeEmail } = await import('@/lib/email')
+      const { sendAdvisorWelcomeEmail, sendInternalPurchaseNotification } = await import('@/lib/email')
       await sendAdvisorWelcomeEmail({
         to: customerEmail,
         customerName,
         orgSlug,
       })
+      // Internal notification to Subodh
+      const billingPeriod = session.metadata?.billing_period as 'monthly' | 'annual' | undefined
+      await sendInternalPurchaseNotification({
+        customerName: customerName || customerEmail,
+        customerEmail,
+        orgName,
+        orgSlug,
+        offerName: 'AI Advisor for Business',
+        price: billingPeriod === 'annual' ? '$990/year' : '$99/month',
+        workspaceUrl: `${siteUrl}/app/${orgSlug}/advisor-desk`,
+      })
     } else if (offerKey === 'ai_automation_blueprint') {
-      const { sendBlueprintPurchasedEmail } = await import('@/lib/email')
+      const { sendBlueprintPurchasedEmail, sendInternalPurchaseNotification } = await import('@/lib/email')
       // Fetch business_objective from qualification record, not Stripe metadata
       let objective = 'AI automation analysis'
       const qualRecordId = session.metadata?.qualification_record_id as string | undefined
@@ -252,6 +275,16 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         orgSlug,
         businessObjective: objective,
       })
+      // Internal notification to Subodh
+      await sendInternalPurchaseNotification({
+        customerName: customerName || customerEmail,
+        customerEmail,
+        orgName,
+        orgSlug,
+        offerName: 'AI Opportunity & Workflow Assessment',
+        price: '$500 fixed',
+        workspaceUrl: `${siteUrl}/app/${orgSlug}/blueprint`,
+      })
     } else if (offerKey === 'fractional_ai_advisor') {
       const { sendFractionalAdvisorWelcomeEmail, sendFractionalClientNotificationEmail } = await import('@/lib/email')
       await sendFractionalAdvisorWelcomeEmail({
@@ -261,15 +294,6 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
       })
       // Internal notification to Subodh
       const billingPeriod = session.metadata?.billing_period as 'monthly' | 'annual' | undefined
-      let orgName = orgSlug
-      if (sc) {
-        const { data: orgData } = await sc
-          .from('organizations')
-          .select('name')
-          .eq('id', orgId)
-          .single()
-        if (orgData?.name) orgName = orgData.name
-      }
       await sendFractionalClientNotificationEmail({
         customerName: customerName || customerEmail,
         customerEmail,
@@ -278,13 +302,23 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         plan: billingPeriod === 'annual' ? 'annual' : 'monthly',
       })
     } else if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
-      const { sendSecurityReviewActivatedEmail } = await import('@/lib/email')
+      const { sendSecurityReviewActivatedEmail, sendInternalPurchaseNotification } = await import('@/lib/email')
       const scope = session.metadata?.scope_summary || 'Application security review'
       await sendSecurityReviewActivatedEmail({
         to: customerEmail,
         customerName,
         orgSlug,
         scopeSummary: scope,
+      })
+      // Internal notification to Subodh
+      await sendInternalPurchaseNotification({
+        customerName: customerName || customerEmail,
+        customerEmail,
+        orgName,
+        orgSlug,
+        offerName: 'AI Security & Compliance Review',
+        price: 'Custom scoped',
+        workspaceUrl: `${siteUrl}/app/${orgSlug}`,
       })
     }
   } catch (err) {

@@ -138,14 +138,16 @@ export async function POST(req: NextRequest) {
 
   // Send notification email to Subodh
   try {
-    const { data: orgData } = await sc
-      .from('organizations')
-      .select('name')
-      .eq('id', ctx.organization.id)
-      .single()
-
-    // Log the request for now; email notification can be added when email helper supports it
-    console.log(`Product access request: ${product.name} requested by ${orgData?.name || ctx.organization.slug}`)
+    const { sendProductAccessRequestEmail } = await import('@/lib/email')
+    await sendProductAccessRequestEmail({
+      customerName: user.displayName || user.email || '',
+      customerEmail: user.email || '',
+      orgName: ctx.organization.name,
+      orgSlug: ctx.organization.slug,
+      productName: product.name,
+      offeringKey: product.offeringKey,
+      requestNote: requestNote,
+    })
   } catch (err) {
     console.error('Failed to send product request notification:', err)
   }

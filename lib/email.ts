@@ -443,6 +443,154 @@ export async function sendFractionalOnboardingCompleteEmail(opts: {
 }
 
 /**
+ * Generic internal purchase notification to Subodh.
+ * Used for AI Advisor Desk, Blueprint, and Security Review purchases.
+ */
+export async function sendInternalPurchaseNotification(opts: {
+  customerName: string
+  customerEmail: string
+  orgName: string
+  orgSlug: string
+  offerName: string
+  price: string
+  workspaceUrl?: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { customerName, customerEmail, orgName, orgSlug, offerName, price, workspaceUrl } = opts
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: ['subodhkc@subodhkc.com'],
+    subject: `New Purchase: ${offerName} — ${orgName}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>New Purchase: ${offerName}</h2>
+          <p><strong>Client:</strong> ${customerName}</p>
+          <p><strong>Email:</strong> ${customerEmail}</p>
+          <p><strong>Organization:</strong> ${orgName}</p>
+          <p><strong>Offer:</strong> ${offerName}</p>
+          <p><strong>Price:</strong> ${price}</p>
+          ${workspaceUrl ? `<div style="margin: 30px 0;"><a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600;">Open Client Workspace</a></div>` : ''}
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Notify Subodh when a product access request is submitted.
+ */
+export async function sendProductAccessRequestEmail(opts: {
+  customerName: string
+  customerEmail: string
+  orgName: string
+  orgSlug: string
+  productName: string
+  offeringKey: string
+  requestNote?: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { customerName, customerEmail, orgName, orgSlug, productName, offeringKey, requestNote } = opts
+  const adminUrl = `${siteUrl}/app/admin`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: ['subodhkc@subodhkc.com'],
+    subject: `Product Access Request: ${productName} — ${orgName}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>Product Access Request</h2>
+          <p><strong>Product:</strong> ${productName} (${offeringKey})</p>
+          <p><strong>Client:</strong> ${customerName} (${customerEmail})</p>
+          <p><strong>Organization:</strong> ${orgName}</p>
+          ${requestNote ? `<p><strong>Note:</strong> ${requestNote}</p>` : ''}
+          <div style="margin: 30px 0;">
+            <a href="${adminUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600;">
+              Review in Admin Dashboard
+            </a>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Notify customer when their product access request is activated.
+ */
+export async function sendProductActivatedEmail(opts: {
+  to: string
+  customerName?: string
+  productName: string
+  productUrl: string
+  orgSlug: string
+  nextSteps?: string
+}): Promise<{ success: boolean; error?: string }> {
+  const resend = getResend()
+  if (!resend) return { success: false, error: 'Email service not configured' }
+
+  const { to, customerName, productName, productUrl, orgSlug, nextSteps } = opts
+  const workspaceUrl = `${siteUrl}/app/${orgSlug}`
+
+  const { error } = await resend.emails.send({
+    from: FROM,
+    to: [to],
+    subject: `Your ${productName} access is active`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">${productName} is ready</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Your access has been activated</p>
+          </div>
+          <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Hi ${customerName || 'there'},
+            </p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
+              Your request for <strong>${productName}</strong> has been approved and activated. You can now access the platform directly from your workspace.
+            </p>
+            ${nextSteps ? `<div style="background: #f3f4f6; border-radius: 8px; padding: 16px; margin: 20px 0;"><p style="font-size: 14px; color: #374151; margin: 0;"><strong>Next steps:</strong></p><p style="font-size: 14px; color: #6b7280; margin: 8px 0 0;">${nextSteps}</p></div>` : ''}
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${productUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px; margin-right: 10px;">
+                Open ${productName}
+              </a>
+              <a href="${workspaceUrl}" style="display: inline-block; background: white; color: #2563eb; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px; border: 1px solid #2563eb;">
+                Go to Workspace
+              </a>
+            </div>
+          </div>
+          <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+            <p>SubodhKC — AI advisory, systems architecture, and decision support</p>
+          </div>
+        </body>
+      </html>
+    `,
+  })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
  * Notify advisor (Subodh) when a new question is submitted.
  */
 export async function sendAdvisorQuestionNotification(opts: {

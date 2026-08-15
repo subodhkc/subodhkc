@@ -25,26 +25,53 @@ export function CheckoutButton({
 }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [needsAuth, setNeedsAuth] = useState(false)
 
   async function handleClick() {
     setLoading(true)
     setError(null)
+    setNeedsAuth(false)
     try {
       const res = await fetch(apiEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body || {}),
       })
+      if (res.status === 401) {
+        setNeedsAuth(true)
+        setLoading(false)
+        return
+      }
       const data = await res.json()
       if (data.url) {
         window.location.href = data.url
       } else {
-        setError(data.error || 'Failed to start checkout')
+        setError(data.error || data.message || 'Failed to start checkout')
       }
     } catch {
       setError('Network error. Please try again.')
     }
     setLoading(false)
+  }
+
+  if (needsAuth) {
+    return (
+      <div className="inline-flex flex-col gap-2">
+        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
+          <p className="font-medium mb-1">Sign in required.</p>
+          <p className="text-xs text-muted-foreground mb-2">
+            You need an account to proceed. This keeps your workspace and purchases secure.
+          </p>
+          <a
+            href={`/login?next=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/')}`}
+            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+          >
+            <ArrowRight className="h-4 w-4" />
+            Sign In
+          </a>
+        </div>
+      </div>
+    )
   }
 
   return (

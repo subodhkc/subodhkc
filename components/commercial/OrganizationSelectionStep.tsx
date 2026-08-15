@@ -127,7 +127,7 @@ export function OrganizationSelectionStep({
             You need an account to proceed. This keeps your workspace and purchases secure.
           </p>
           <a
-            href={`/auth/signin?redirect=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.hash : '/')}`}
+            href={`/login?next=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/')}`}
             className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
           >
             <ArrowRight className="h-4 w-4" />
