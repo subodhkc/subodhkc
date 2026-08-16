@@ -550,7 +550,7 @@ FOR SELECT
 USING (
     tenant_id = current_setting('app.tenant_id')::uuid
 );`}</code></pre></div>
-          <p className="text-sm text-muted-foreground">Table owners and roles with elevated privileges may bypass row-level behavior. Testing should include ordinary application identities, not only database owners.</p>
+          <p className="text-sm text-muted-foreground">Table owners and roles with elevated privileges may bypass row-level behavior. Testing should include ordinary application identities, not only database owners. For a detailed multi-tenant walkthrough, see the <Link href="/blog/implementing-rag-row-level-security-for-multi-tenant-ai" className="text-primary hover:underline">RAG row-level security implementation</Link>.</p>
         </div>
       </Section>
 

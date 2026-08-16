@@ -176,7 +176,7 @@ export default function AIVoiceAgentArchitecturePage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">The Direct Answer</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">Kestrel Voice is a multi-tenant AI voice agent platform built on FastAPI, deployed on Modal, and backed by Supabase and Postgres. When a call arrives, the system resolves the called number to a tenant, loads that tenant business configuration, selects an AI mode based on plan and credits, and routes the call through a layered orchestration pipeline: deterministic hard interrupts first, fast-path answers second, and realtime AI reasoning third. RAG grounds the model in tenant-specific knowledge. Tools execute bookings and CRM operations with result verification. A four-level degradation system handles failures. Post-call intelligence extracts structured outcomes. A learning pipeline promotes recurring patterns into fast paths. And every step produces evidence - transcripts, tool calls, prompt hashes, and outcome records - that a human can review.</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">The architecture is not a demo. It is an operational system handling real calls for real businesses.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">The architecture is not a demo. It is an operational system handling real calls for real businesses. For the companion production deep dive, see the <Link href="/blog/ai-voice-agent-architecture-kestrelvoice" className="text-primary font-medium hover:underline">KestrelVoice architecture</Link>.</p>
         </div>
       </Section>
 

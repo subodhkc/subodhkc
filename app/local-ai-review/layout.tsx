@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Local AI Review | Subodh KC - Practical AI for Local Businesses',
+  title: 'Dallas / DFW AI Advisor | Local AI Review | Subodh KC',
   description:
-    'Complimentary 20-minute AI review for Dallas-Fort Worth local and founder-led businesses. Find one practical use case, one measure of success, and the most useful next step.',
+    'Dallas-Fort Worth AI advisor for local and founder-led businesses. Complimentary 20-minute AI review to find one practical use case, one measure of success, and the most useful next step.',
   alternates: {
     canonical: 'https://subodhkc.com/local-ai-review',
   },
   openGraph: {
-    title: 'Local AI Review | Subodh KC - Practical AI for Local Businesses',
+    title: 'Dallas / DFW AI Advisor | Local AI Review | Subodh KC',
     description:
       'Complimentary 20-minute AI review for Dallas-Fort Worth local and founder-led businesses. Find one practical use case, one measure of success, and the most useful next step.',
     url: 'https://subodhkc.com/local-ai-review',
@@ -18,30 +18,29 @@ export const metadata: Metadata = {
         url: '/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC - Local AI Advisor | Complimentary AI Review for DFW Businesses',
+        alt: 'Subodh KC - Dallas / DFW AI Advisor | Complimentary AI Review for DFW Businesses',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Local AI Review | Subodh KC',
+    title: 'Dallas / DFW AI Advisor | Subodh KC',
     description:
       'Complimentary 20-minute AI review for DFW local businesses. Find one practical use case, one measure of success, and the most useful next step.',
   },
   keywords: [
-    'DFW AI advisor',
-    'local business AI',
     'Dallas AI advisor',
-    'HEB Chamber',
+    'DFW AI advisor',
+    'Dallas AI consultant',
+    'DFW AI consultant',
+    'Texas AI advisor',
+    'local business AI Dallas',
+    'HEB Chamber AI',
     'small business AI review',
     'Texas AI compliance',
-    'AI voice receptionist',
+    'AI voice receptionist Dallas',
     'workflow automation Dallas',
     'Fort Worth AI advisor',
-    'Arlington Texas AI',
-    'Bedford Texas AI',
-    'Euless Texas AI',
-    'Hurst Texas AI',
     'small business AI Dallas',
     'AI for local businesses',
     'complimentary AI review Dallas',
@@ -57,26 +56,29 @@ export const metadata: Metadata = {
 const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'Subodh KC - Local AI Advisor',
+  name: 'Subodh KC - Dallas / DFW AI Advisor',
   description:
     'Practical AI strategy, deployment, and readiness support for local and founder-led businesses in Dallas-Fort Worth.',
   url: 'https://subodhkc.com/local-ai-review',
   telephone: '+1-682-224-9904',
-  areaServed: {
-    '@type': 'City',
-    name: 'Dallas-Fort Worth',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Dallas',
-    addressRegion: 'TX',
-    addressCountry: 'US',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: '32.7767',
-    longitude: '-96.7970',
-  },
+  areaServed: [
+    {
+      '@type': 'City',
+      name: 'Dallas',
+    },
+    {
+      '@type': 'City',
+      name: 'Fort Worth',
+    },
+    {
+      '@type': 'AdministrativeArea',
+      name: 'Dallas-Fort Worth Metroplex',
+    },
+    {
+      '@type': 'State',
+      name: 'Texas',
+    },
+  ],
   priceRange: 'Complimentary initial review',
   knowsAbout: [
     'AI Strategy',
@@ -88,7 +90,7 @@ const professionalServiceSchema = {
   founder: {
     '@type': 'Person',
     name: 'Subodh KC',
-    jobTitle: 'Local AI Advisor',
+    jobTitle: 'AI Advisor & AI Systems Architect',
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',

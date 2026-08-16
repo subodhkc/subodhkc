@@ -406,10 +406,12 @@ export default function AIAutomationPage() {
         </div>
       </Section>
 
-      <BlueprintQualificationCTA
-        title="Should you automate this workflow? Get a clear answer for $500."
-        description="The AI Opportunity & Workflow Assessment analyzes one opportunity and one primary workflow. You receive an AI Automation Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Know what to build first and whether you should build at all."
-      />
+      <div id="start">
+        <BlueprintQualificationCTA
+          title="Should you automate this workflow? Get a clear answer for $500."
+          description="The AI Opportunity & Workflow Assessment analyzes one opportunity and one primary workflow. You receive an AI Automation Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Know what to build first and whether you should build at all."
+        />
+      </div>
     </>
   )
 }

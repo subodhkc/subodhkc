@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/advisory`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/ai-advisor`,
@@ -107,6 +107,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/haiec`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/solutions/kestrelvoice`,

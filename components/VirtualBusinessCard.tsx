@@ -25,7 +25,7 @@ FN:Subodh Kumar Kc
 N:Kc;Subodh;Kumar;;
 EMAIL:subodhkc@subodhkc.com
 TEL:+16822249904
-ADR:;;Dallas-Fort Worth;Texas;;75001;United States
+ADR:;;;;Dallas-Fort Worth;TX;;United States
 URL:https://subodhkc.com
 URL;TYPE=LinkedIn:https://www.linkedin.com/in/subodhkc
 URL;TYPE=GitHub:https://github.com/subodhkc

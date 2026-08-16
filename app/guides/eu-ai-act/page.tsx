@@ -373,6 +373,13 @@ export default function EUAIActPage() {
               <li><strong>Layer 7-9 (Monitoring, Governance, Accountability):</strong> Maps to human oversight (Art. 14), accuracy and robustness (Art. 15), and post-market monitoring (Art. 72)</li>
             </ul>
           </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            For the technical implementation of Article 12 record-keeping requirements, see the{' '}
+            <Link href="/blog/build-a-logging-pipeline-for-eu-ai-act-compliance" className="text-primary hover:underline">
+              logging pipeline for EU AI Act compliance
+            </Link>
+            .
+          </p>
           <div className="flex items-center gap-3 text-sm">
             <FileText className="h-4 w-4 text-primary" />
             <Link href="https://zenodo.org/records/18080355" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">

@@ -502,7 +502,7 @@ export default function WhyAIVoiceAgentsFailPage() {
   ↓ Authoritative result verification
   ↓ Recording, transcript, metrics, and evidence`}</pre>
           <p className="text-sm text-muted-foreground leading-relaxed">Every arrow is a potential failure point. The system must decide what happens when the caller interrupts, when the model is unavailable, when a calendar request times out, when the transfer target does not answer, when the wrong tenant configuration loads, when the knowledge base is stale, when the caller tries to manipulate the AI, when the call exceeds its cost limit, or when the agent does not know the answer.</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">The fallback path is part of the product.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">The fallback path is part of the product. For a layer-by-layer breakdown of how this works in practice, see the <Link href="/blog/ai-voice-agent-architecture-kestrelvoice" className="text-primary hover:underline">KestrelVoice architecture deep dive</Link>.</p>
         </div>
       </Section>
 

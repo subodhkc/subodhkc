@@ -208,7 +208,7 @@ export default function LocalAIReviewPage() {
               <span className="text-sm font-medium text-primary">HEB Chamber Member</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-              Practical AI for Local Businesses
+              Practical AI for Dallas-Fort Worth Businesses
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Capture more opportunities. Save staff time. Use AI with better control.
