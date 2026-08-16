@@ -63,11 +63,13 @@ export async function POST(req: NextRequest) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
 
   try {
+    const portalConfig = process.env.STRIPE_PORTAL_CONFIGURATION_ID
     const session = await stripe.billingPortal.sessions.create({
       customer: customerId,
       return_url: returnPath
         ? `${siteUrl}/app/${orgSlug}/${returnPath}`
         : `${siteUrl}/app/${orgSlug}`,
+      ...(portalConfig ? { configuration: portalConfig } : {}),
     })
 
     return NextResponse.json({ url: session.url })
