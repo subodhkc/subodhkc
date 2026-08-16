@@ -623,6 +623,9 @@ export default function AIAdvisorPage() {
               </Reveal>
             ))}
           </div>
+          <p className="text-sm text-muted-foreground mt-6">
+            For a structured framework on identifying which AI opportunities are worth pursuing, read <Link href="/blog/where-should-company-use-ai" className="text-primary font-medium hover:underline">where should our company actually use AI</Link>.
+          </p>
         </div>
       </Section>
 

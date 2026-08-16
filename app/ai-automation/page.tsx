@@ -244,7 +244,7 @@ export default function AIAutomationPage() {
       >
         <div className="max-w-4xl mx-auto">
           <p className="text-base text-muted-foreground mb-6">
-            Not sure if your workflow is a good fit? These are common starting points. If yours is not on the list, describe it in the intake form.
+            Not sure if your workflow is a good fit? These are common starting points. If yours is not on the list, describe it in the intake form. For a broader framework on how to identify where AI actually belongs in your business, read <Link href="/blog/where-should-company-use-ai" className="text-primary font-medium hover:underline">where should our company actually use AI</Link>.
           </p>
           <div className="flex flex-wrap gap-3">
             {startingPoints.map((s, i) => (

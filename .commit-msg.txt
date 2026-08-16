@@ -1,0 +1,39 @@
+feat: publish flagship authority article - Where Should Your Company Use AI?
+
+Phase 2.9A: First-wave authority asset for AI use case discovery.
+
+Article:
+- Slug: /blog/where-should-company-use-ai
+- Title: Where Should Your Company Use AI? A Decision Framework
+- Author: Subodh KC (hand-written, not CI-generated)
+- Pillar: ai-program-execution
+- Original artifacts: AI Opportunity Decision Map (6-stage framework)
+  and one-page AI Opportunity Card (18-field decision record)
+- FAQ schema with 5 Q&A pairs
+- Internal links to /cognitive-systems-management, /packages/isaf,
+  /solutions/kestrelvoice, /ai-advisor, /ai-automation
+- No em dashes, no emojis, no AI tell-tale phrases
+- Voice: Executive Operator-Researcher per editorial manifesto
+
+SEO ownership:
+- Article owns: AI use case discovery framework, how to identify AI use cases,
+  AI use case prioritization
+- Does NOT own: AI Opportunity Assessment (belongs to /ai-automation)
+- No cannibalization with commercial pages
+
+Incoming internal links added:
+- /ai-automation: contextual link in Starting Points section
+- /ai-advisor: contextual link after Opportunity Discovery section
+
+Validation:
+- TypeScript: PASS
+- Build: PASS (124 pages, +2 from new blog post + OG image)
+- CSM Golden Tests: 196 passed, 0 failed
+- CSM Invariant Tests: 512 passed, 0 failed
+- JSON parse: valid
+- No em dashes, en dashes, emojis, or AI phrases detected
+- Sitemap auto-includes blog posts via getAllPosts()
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
