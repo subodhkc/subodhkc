@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { createServiceClient } from '@/lib/supabase'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -44,6 +45,9 @@ async function resolveSmartRedirect(userId: string, fallback: string): Promise<s
 }
 
 export async function GET(request: NextRequest) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
   const nextParam = requestUrl.searchParams.get('next') || '/app'

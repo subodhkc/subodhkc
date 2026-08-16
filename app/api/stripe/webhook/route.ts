@@ -588,10 +588,47 @@ async function handlePaymentFailed(event: Stripe.Event) {
     organizationId: link.organization_id,
     failureType: 'entitlement',
     severity: 'critical',
-    message: `Payment failed for subscription`,
+    message: `Payment failed for subscription (attempt ${invoice.attempt_count})`,
     stripeEventId: event.id,
     retryable: true,
   })
+
+  // Suspend entitlement after 3 consecutive failed attempts.
+  // Stripe retries up to 4 times; suspending on the 3rd gives one final
+  // retry before Stripe cancels. The subscription.deleted webhook will
+  // finalize the transition to expired if Stripe cancels.
+  const SUSPEND_AFTER_ATTEMPTS = 3
+  if (invoice.attempt_count >= SUSPEND_AFTER_ATTEMPTS) {
+    // Find the subscription's entitlement by the Stripe subscription link
+    const subscriptionId = typeof invoice.subscription === 'string' ? invoice.subscription : invoice.subscription?.id
+    if (subscriptionId) {
+      // Find entitlement via subscription link key
+      const { data: subLink } = await sc
+        .from('external_system_links')
+        .select('external_id')
+        .eq('organization_id', link.organization_id)
+        .like('system_key', 'stripe_subscription:%')
+        .eq('external_id', subscriptionId)
+        .eq('status', 'active')
+        .single()
+
+      if (subLink) {
+        // Suspend all active entitlements for this org (subscriptions are 1:1 with orgs)
+        await sc
+          .from('organization_entitlements')
+          .update({
+            status: 'suspended',
+            source_metadata: {
+              suspension_reason: 'payment_failed',
+              suspension_attempt_count: invoice.attempt_count,
+              suspended_at: new Date().toISOString(),
+            },
+          })
+          .eq('organization_id', link.organization_id)
+          .eq('status', 'active')
+      }
+    }
+  }
 
   // Send subscription issue email
   try {

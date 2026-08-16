@@ -111,16 +111,16 @@ export async function createOneTimeCheckout(opts: {
  */
 export async function cancelSubscriptionAtPeriodEnd(
   subscriptionId: string
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: boolean; error?: string; currentPeriodEnd?: number }> {
   const { getStripe } = await import('@/lib/stripe/client')
   const stripe = getStripe()
   if (!stripe) return { success: false, error: 'Stripe not configured' }
 
   try {
-    await stripe.subscriptions.update(subscriptionId, {
+    const subscription = await stripe.subscriptions.update(subscriptionId, {
       cancel_at_period_end: true,
     })
-    return { success: true }
+    return { success: true, currentPeriodEnd: subscription.current_period_end }
   } catch (err: any) {
     return { success: false, error: err.message }
   }

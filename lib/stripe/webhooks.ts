@@ -92,6 +92,19 @@ export async function resolveOrCreateOrganization(opts: {
   // Logs an audit event for traceability.
   console.warn(`[webhook] Legacy checkout session without organization_id metadata. userId=${userId}, customer=${customerId}. Falling back to membership lookup.`)
 
+  // Record a commercial failure so admins are alerted to review the assignment
+  try {
+    const { recordFailure } = await import('@/lib/commercial/failures')
+    await recordFailure({
+      failureType: 'webhook',
+      severity: 'error',
+      message: `Legacy webhook fallback used: checkout session without organization_id metadata. userId=${userId}, customer=${customerId}. Manual review recommended to verify correct org assignment.`,
+      retryable: false,
+    })
+  } catch (e) {
+    console.error('Failed to record legacy fallback failure:', e)
+  }
+
   // If userId provided, find their org
   if (userId) {
     const { data: membership } = await sc

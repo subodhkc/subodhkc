@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import {
   getAuthenticatedUser,
   resolveOrganizationContext,
+  getUserOrganizations,
   AuthError,
   type OrganizationContext,
   type AuthenticatedUser,
@@ -104,6 +105,7 @@ export default async function OrgPage({
       ctx={ctx}
       engagements={engagements}
       members={members}
+      userOrganizations={await getUserOrganizations(user)}
     />
   )
 }

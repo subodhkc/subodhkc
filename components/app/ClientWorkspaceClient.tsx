@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState, useRef, useEffect } from 'react'
 import {
-  LogOut, ChevronRight, Building2, Shield, Users, Settings,
+  LogOut, ChevronRight, ChevronDown, Building2, Shield, Users, Settings,
   Briefcase, Wrench, ArrowRight, Calendar, User as UserIcon,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
@@ -33,16 +34,41 @@ interface OrgMember {
   status: string
 }
 
+interface UserOrgSummary {
+  id: string
+  name: string
+  slug: string
+  organization_kind: string
+  status: string
+  role: string
+}
+
 interface ClientWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
   engagements: OrgEngagement[]
   members: OrgMember[]
+  userOrganizations?: UserOrgSummary[]
 }
 
-export function ClientWorkspaceClient({ user, ctx, engagements, members }: ClientWorkspaceClientProps) {
+export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrganizations = [] }: ClientWorkspaceClientProps) {
   const pathname = usePathname()
+  const [orgSwitcherOpen, setOrgSwitcherOpen] = useState(false)
+  const switcherRef = useRef<HTMLDivElement>(null)
   const { organization, organizationRole, isPlatformAdmin, entitlements, offeringRoles } = ctx
+
+  // Close switcher when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (switcherRef.current && !switcherRef.current.contains(e.target as Node)) {
+        setOrgSwitcherOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const otherOrgs = userOrganizations.filter(o => o.slug !== organization.slug)
 
   const isAdmin = organizationRole === 'owner' || organizationRole === 'admin' || isPlatformAdmin
   const basePath = `/app/${organization.slug}`
@@ -88,7 +114,51 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members }: Clien
               SubodhKC
             </Link>
             <span className="text-muted-foreground text-sm">/</span>
-            <span className="text-sm font-medium truncate">{organization.name}</span>
+            {/* Org switcher */}
+            <div className="relative" ref={switcherRef}>
+              <button
+                onClick={() => otherOrgs.length > 0 && setOrgSwitcherOpen(!orgSwitcherOpen)}
+                className="flex items-center gap-1 text-sm font-medium truncate hover:bg-accent px-2 py-1 rounded-md"
+              >
+                <span className="truncate max-w-[120px] sm:max-w-[200px]">{organization.name}</span>
+                {otherOrgs.length > 0 && (
+                  <ChevronDown className={`h-3.5 w-3.5 flex-shrink-0 transition-transform ${orgSwitcherOpen ? 'rotate-180' : ''}`} />
+                )}
+              </button>
+              {orgSwitcherOpen && otherOrgs.length > 0 && (
+                <div className="absolute top-full left-0 mt-1 w-64 bg-card border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                  <div className="p-1">
+                    <div className="px-2 py-1.5 text-xs text-muted-foreground font-medium">
+                      Switch Organization
+                    </div>
+                    {otherOrgs.map((org) => (
+                      <Link
+                        key={org.id}
+                        href={`/app/${org.slug}`}
+                        onClick={() => setOrgSwitcherOpen(false)}
+                        className="flex items-center justify-between px-2 py-2 hover:bg-accent rounded-md text-sm"
+                      >
+                        <div className="min-w-0">
+                          <div className="font-medium truncate">{org.name}</div>
+                          <div className="text-xs text-muted-foreground">{org.role}</div>
+                        </div>
+                        <ChevronRight className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                      </Link>
+                    ))}
+                    <div className="border-t mt-1 pt-1">
+                      <Link
+                        href="/app"
+                        onClick={() => setOrgSwitcherOpen(false)}
+                        className="flex items-center gap-2 px-2 py-2 hover:bg-accent rounded-md text-sm text-muted-foreground"
+                      >
+                        <Building2 className="h-3.5 w-3.5" />
+                        All Organizations
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center gap-3 text-sm">

@@ -13,13 +13,13 @@ interface PageProps {
 export default async function ManagedVoicePage({ params }: PageProps) {
   const { orgSlug } = await params
   const user = await getAuthenticatedUser()
-  if (!user) redirect(`/login?redirect=/app/${orgSlug}/managed-voice`)
+  if (!user) redirect(`/login?next=/app/${orgSlug}/managed-voice`)
 
   let ctx
   try {
     ctx = await resolveOrganizationContext(user, orgSlug)
   } catch (err) {
-    if (err instanceof AuthError) redirect('/dashboard')
+    if (err instanceof AuthError) redirect('/app')
     throw err
   }
 
@@ -30,7 +30,7 @@ export default async function ManagedVoicePage({ params }: PageProps) {
   }
 
   const sc = createServiceClient()
-  if (!sc) redirect('/dashboard')
+  if (!sc) redirect('/app')
 
   // Find the managed voice engagement
   const { data: offeringData } = await sc

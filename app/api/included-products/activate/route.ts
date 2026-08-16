@@ -163,6 +163,20 @@ export async function POST(req: NextRequest) {
         })
         .eq('id', entitlement.id)
 
+      // Record commercial failure for admin visibility
+      try {
+        const { recordFailure } = await import('@/lib/commercial/failures')
+        await recordFailure({
+          organizationId: ctx.organization.id,
+          failureType: productKey === 'haiec' ? 'haiec_provisioning' : 'kestrel_provisioning',
+          severity: 'error',
+          message: `Provisioning failed for ${productKey}: ${result.error}`,
+          retryable: true,
+        })
+      } catch (e) {
+        console.error('Failed to record provisioning failure:', e)
+      }
+
       return NextResponse.json({
         success: false,
         error: result.error,

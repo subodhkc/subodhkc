@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
-const DEMO_EMAIL = 'demo-junekc@subodhkc.com'
-const DEMO_PASSWORD = 'WilshireDemo2026!Secure'
+const DEMO_EMAIL = process.env.DEMO_USER_EMAIL || 'demo-junekc@subodhkc.com'
+const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD || ''
 
 export async function POST(request: NextRequest) {
+  const limited = rateLimit(request)
+  if (limited) return limited
+
   const body = await request.json().catch(() => ({}))
   const { username, password } = body
 
@@ -31,6 +35,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { error: 'Invalid demo credentials' },
       { status: 401 }
+    )
+  }
+
+  if (!DEMO_PASSWORD) {
+    return NextResponse.json(
+      { error: 'Demo login not configured' },
+      { status: 503 }
     )
   }
 

@@ -45,16 +45,60 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: result.error }, { status: 500 })
   }
 
-  // Audit event
+  // Update entitlement in database immediately so the system reflects
+  // the pending cancellation even if the webhook is delayed or fails.
   const sc = createServiceClient()
   if (sc) {
+    const periodEndIso = result.currentPeriodEnd
+      ? new Date(result.currentPeriodEnd * 1000).toISOString()
+      : null
+
+    // Fetch offering id for ai_advisor_desk
+    const { data: offering } = await sc
+      .from('offerings')
+      .select('id')
+      .eq('offering_key', 'ai_advisor_desk')
+      .single()
+
+    if (offering) {
+      // Fetch current source_metadata to merge
+      const { data: ent } = await sc
+        .from('organization_entitlements')
+        .select('id, source_metadata')
+        .eq('organization_id', ctx.organization.id)
+        .eq('offering_id', offering.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single()
+
+      if (ent) {
+        const existingMeta = (ent.source_metadata as Record<string, unknown>) || {}
+        await sc
+          .from('organization_entitlements')
+          .update({
+            source_metadata: {
+              ...existingMeta,
+              cancel_at_period_end: true,
+              period_end: periodEndIso,
+              cancellation_requested_at: new Date().toISOString(),
+              cancellation_requested_by: user.id,
+            },
+            ...(periodEndIso ? { valid_until: periodEndIso } : {}),
+          })
+          .eq('id', ent.id)
+      }
+    }
+
     await sc.rpc('write_audit_event', {
       audit_action: 'commercial.subscription_cancellation_requested',
       audit_entity_type: 'subscription',
       audit_org_id: ctx.organization.id,
       audit_actor_id: user.id,
       audit_entity_id: subscriptionId,
-      audit_metadata: {} as any,
+      audit_metadata: {
+        cancel_at_period_end: true,
+        period_end: periodEndIso,
+      } as any,
     })
   }
 

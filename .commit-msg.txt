@@ -1,0 +1,47 @@
+fix: external audit - P0 and P1 workflow fixes
+
+External audit of signup, checkout, dashboard, and Stripe webhook flows
+identified 3 P0 (critical) and 5 P1 (high) issues. All 8 are fixed.
+
+P0 - Critical:
+1. Cancellation now updates database immediately (cancel route sets
+   cancel_at_period_end and period_end in entitlement source_metadata).
+   Previously relied solely on webhook - if webhook failed, customer
+   could be charged for another billing cycle.
+
+2. Payment failure now suspends entitlement after 3 failed attempts.
+   Previously entitlement stayed active indefinitely during failed
+   payments. Reactivation happens automatically when invoice.paid fires.
+
+3. Fixed broken /dashboard redirects in managed-voice page (route does
+   not exist). Changed to /app. Also fixed redirect param from
+   'redirect' to 'next' for consistency.
+
+P1 - High:
+4. Demo Supabase password moved from hardcoded source to env vars
+   (DEMO_USER_EMAIL, DEMO_USER_PASSWORD). Added .env.example docs.
+   Returns 503 if not configured.
+
+5. Organization switcher dropdown implemented in ClientWorkspaceClient
+   header. Users with multiple orgs can now switch without returning
+   to /app. Uses click-outside-to-close pattern.
+
+6. Provisioning failures now record commercial failures for admin
+   visibility. Manual retry already worked (activate endpoint allows
+   retry from provisioning_failed state).
+
+7. Legacy webhook fallback (no organization_id in metadata) now records
+   a commercial failure so admins can review org assignment correctness.
+
+8. Rate limiting added to auth endpoints: logout, invite accept,
+   OAuth callback, demo login.
+
+Validation:
+- TypeScript: PASS
+- Build: PASS (124 pages)
+- CSM Golden Tests: 196 passed, 0 failed
+- CSM Invariant Tests: 512 passed, 0 failed
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
