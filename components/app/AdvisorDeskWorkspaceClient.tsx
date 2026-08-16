@@ -24,6 +24,7 @@ import {
   Lightbulb,
   Boxes,
   Sparkles,
+  Building2,
   Loader2,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
@@ -694,6 +695,34 @@ export function AdvisorDeskWorkspaceClient({
           )}
         </section>
 
+        {/* Organization Context */}
+        <section>
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Building2 className="h-5 w-5 text-muted-foreground" />
+            Organization Context
+          </h2>
+          <div className="border rounded-lg p-5 bg-card space-y-2">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Organization</p>
+                <p className="text-sm mt-1">{organization.name}</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Plan</p>
+                <p className="text-sm mt-1">AI Advisor for Business</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Team Seats</p>
+                <p className="text-sm mt-1">Up to 3 members</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Response Time</p>
+                <p className="text-sm mt-1">Normally within 72 hours for focused requests</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Governance & Controls — separated, NOT removed */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -780,11 +809,11 @@ export function AdvisorDeskWorkspaceClient({
           </div>
         </section>
 
-        {/* Billing */}
+        {/* Plan & Billing */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <FileText className="h-5 w-5 text-muted-foreground" />
-            Billing
+            Plan & Billing
           </h2>
           <div className="border rounded-lg p-5 bg-card">
             {cancellationScheduled ? (

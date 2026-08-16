@@ -170,8 +170,8 @@ console.log('\n=== Test 8: Rollover logic ===')
 {
   const currentMonth = getCurrentMonth()
   const prevMonth = getPreviousMonth(currentMonth)
-  assert(currentMonth.match(/^\d{4}-\d{2}$/), 'Current month format is YYYY-MM')
-  assert(prevMonth.match(/^\d{4}-\d{2}$/), 'Previous month format is YYYY-MM')
+  assert(currentMonth.match(/^\d{4}-\d{2}$/) !== null, 'Current month format is YYYY-MM')
+  assert(prevMonth.match(/^\d{4}-\d{2}$/) !== null, 'Previous month format is YYYY-MM')
   assert(prevMonth !== currentMonth, 'Previous month differs from current')
 
   // Rollover computation: max 1 unused session

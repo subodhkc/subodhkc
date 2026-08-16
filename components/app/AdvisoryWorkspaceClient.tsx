@@ -428,7 +428,7 @@ export function AdvisoryWorkspaceClient({
           </div>
         </div>
 
-        {/* Top section: billing period + core relationship */}
+        {/* 1. Next Working Session / Activation state */}
         <div className="grid sm:grid-cols-3 gap-3">
           <div className="border rounded-lg p-4">
             <Calendar className="h-4 w-4 text-muted-foreground mb-2" />
@@ -467,42 +467,67 @@ export function AdvisoryWorkspaceClient({
           </div>
         </div>
 
-        {/* Onboarding state */}
-        {onboardingNotComplete && !showOnboarding && (
-          <section className="border border-primary/30 rounded-lg p-6 bg-primary/5">
-            <div className="flex items-start gap-3">
-              <AlertCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <h2 className="text-base font-semibold">Help me understand what matters first</h2>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Complete your advisory context so I can prepare before our first working session. It takes about five minutes.
-                </p>
-                <button
-                  onClick={() => setShowOnboarding(true)}
-                  className="mt-3 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-                >
-                  Complete Setup
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </section>
-        )}
+        {/* 2. What Needs Your Attention */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
+            <AlertCircle className="h-5 w-5 text-primary" />
+            What Needs Your Attention
+          </h2>
+          <div className="border rounded-lg p-4 space-y-3">
+            {(() => {
+              const openDecisions = decisionList.filter(d => d.status === 'open')
+              const newIntake = intakeList.filter((r: any) => r.status === 'new')
+              const now = new Date()
+              const pastDueActions = actionList.filter((a: any) => a.status === 'open' && a.due_date && new Date(a.due_date) < now)
+              const total = openDecisions.length + newIntake.length + pastDueActions.length
+              if (total === 0) {
+                return <p className="text-sm text-muted-foreground">Nothing needs your attention right now. Open decisions, new intake records, and past-due actions will appear here.</p>
+              }
+              return (
+                <div className="space-y-3">
+                  {openDecisions.length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Open Decisions ({openDecisions.length})</p>
+                      {openDecisions.map(d => (
+                        <div key={d.id} className="flex items-start justify-between gap-2 py-1">
+                          <p className="text-sm font-medium">{d.title}</p>
+                          <span className="text-xs bg-blue-500/10 text-blue-700 px-2 py-0.5 rounded flex-shrink-0">Open</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {newIntake.length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">New Intake ({newIntake.length})</p>
+                      {newIntake.map((r: any) => (
+                        <div key={r.id} className="flex items-start justify-between gap-2 py-1">
+                          <p className="text-sm font-medium">{r.title}</p>
+                          <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">New</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {pastDueActions.length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Past Due Actions ({pastDueActions.length})</p>
+                      {pastDueActions.map((a: any) => (
+                        <div key={a.id} className="flex items-start justify-between gap-2 py-1">
+                          <div className="flex-1">
+                            <p className="text-sm font-medium">{a.title}</p>
+                            {a.due_date && <p className="text-xs text-muted-foreground mt-0.5">Due: {a.due_date}</p>}
+                          </div>
+                          <span className="text-xs bg-red-500/10 text-red-700 px-2 py-0.5 rounded flex-shrink-0">Past Due</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            })()}
+          </div>
+        </section>
 
-        {/* Onboarding form */}
-        {showOnboarding && (
-          <OnboardingForm
-            orgSlug={organization.slug}
-            existingData={onboarding}
-            onComplete={() => {
-              setOnboardingComplete(true)
-              setShowOnboarding(false)
-            }}
-            onCancel={() => setShowOnboarding(false)}
-          />
-        )}
-
-        {/* Decision Desk */}
+        {/* 3. Decisions in Play (Decision Desk) */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold flex items-center gap-2">
@@ -599,124 +624,47 @@ export function AdvisoryWorkspaceClient({
           )}
         </section>
 
-        {/* Four smaller areas */}
-        <div className="grid sm:grid-cols-2 gap-4">
-          {/* Current Priorities */}
-          <section>
-            <h2 className="text-base font-semibold mb-3 flex items-center justify-between">
-              Current Priorities
-              {!showReadOnlyBanner && (
-                <button
-                  onClick={() => setShowAddRecord('priorities')}
-                  className="text-xs text-primary hover:underline inline-flex items-center gap-1"
-                >
-                  <Plus className="h-3 w-3" /> Add
-                </button>
-              )}
-            </h2>
-            <div className="border rounded-lg p-4">
-              {priorityList.length > 0 ? (
-                <div className="space-y-2">
-                  {priorityList.map((p: any) => (
-                    <div key={p.id} className="flex items-start justify-between gap-2">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">{p.title}</p>
-                        {p.description && <p className="text-xs text-muted-foreground mt-0.5">{p.description}</p>}
-                        {p.owner && <p className="text-xs text-muted-foreground mt-0.5">Owner: {p.owner}</p>}
-                      </div>
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{p.status}</span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">
-                  The 2-4 matters that deserve attention will be tracked here as the engagement progresses.
-                </p>
-              )}
-            </div>
-          </section>
-
-          {/* Working Sessions */}
-          <section>
-            <h2 className="text-base font-semibold mb-3">Working Sessions</h2>
-            <div className="border rounded-lg p-4">
-              {/* Session usage summary */}
-              {sessionUsage && (
-                <div className="mb-3 p-3 rounded-md bg-primary/5 border border-primary/10">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                        Session Usage — {sessionUsage.currentMonth}
-                      </p>
-                      <p className="text-sm mt-1">
-                        <strong>{sessionUsage.availableSessions}</strong> of{' '}
-                        {sessionUsage.includedSessions + sessionUsage.rolledOverFromPrev} available
-                        {sessionUsage.rolledOverFromPrev > 0 && (
-                          <span className="text-xs text-muted-foreground ml-1">
-                            (includes {sessionUsage.rolledOverFromPrev} rolled over)
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs text-muted-foreground">
-                        {sessionUsage.usedSessions} used
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Max rollover: {sessionUsage.maxRollover}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeEngagements.length > 0 ? (
-                <div className="space-y-2">
-                  {activeEngagements.map(eng => (
-                    <div key={eng.id} className="flex items-center justify-between">
-                      <span className="text-sm">{getEngagementTypeLabel(eng.engagement_type)}</span>
-                      <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded">
-                        {getEngagementStatusLabel(eng.status)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">
-                  Your first working session will be scheduled after onboarding.
-                </p>
-              )}
-            </div>
-          </section>
-
-          {/* Decision Artifacts */}
-          <section>
-            <h2 className="text-base font-semibold mb-3">Decision Artifacts</h2>
-            <div className="border rounded-lg p-4">
-              <p className="text-sm text-muted-foreground">
-                Decision briefs, vendor comparisons, architecture reviews, and decision records will appear here as they are produced.
-              </p>
-            </div>
-          </section>
-
-          {/* Ask / Send Context */}
-          <section>
-            <h2 className="text-base font-semibold mb-3">Ask / Send Context</h2>
-            <div className="border rounded-lg p-4">
-              <p className="text-sm text-muted-foreground mb-3">
-                Something changed before our next session? Add a decision, send context, or flag something for review.
-              </p>
-              <button
-                onClick={() => setShowAddDecision(true)}
-                className="text-sm text-primary hover:underline inline-flex items-center gap-1"
-              >
-                <Plus className="h-3 w-3" />
-                Add a decision
+        {/* 4. Opportunities in Play */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4 justify-between">
+            <span className="flex items-center gap-2">
+              <Compass className="h-5 w-5 text-primary" />
+              Opportunities in Play
+            </span>
+            {!showReadOnlyBanner && (
+              <button onClick={() => setShowAddRecord('opportunities')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                <Plus className="h-3 w-3" /> Add
               </button>
-            </div>
-          </section>
-        </div>
+            )}
+          </h2>
+          <div className="border rounded-lg p-4">
+            {(() => {
+              const activeOpportunities = opportunityList.filter((o: any) => !['closed', 'rejected', 'deferred'].includes(o.status))
+              if (activeOpportunities.length > 0) {
+                return (
+                  <div className="space-y-2">
+                    {activeOpportunities.map((o: any) => (
+                      <div key={o.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{o.opportunity}</p>
+                          {o.why_it_matters && <p className="text-xs text-muted-foreground mt-0.5">{o.why_it_matters}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{o.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                )
+              }
+              return (
+                <p className="text-sm text-muted-foreground">
+                  No opportunities in play right now. AI possibilities and improvement opportunities identified during the engagement will appear here.
+                </p>
+              )
+            })()}
+          </div>
+        </section>
 
-        {/* Bring Something to the Desk */}
+        {/* 5. Bring Something to the Desk */}
         <section className={`border rounded-lg p-6 ${showReadOnlyBanner ? 'border-muted bg-muted/10 opacity-60' : 'border-primary/30 bg-primary/5'}`}>
           <h2 className="text-lg font-semibold flex items-center gap-2 mb-2">
             <Zap className="h-5 w-5 text-primary" />
@@ -763,302 +711,13 @@ export function AdvisoryWorkspaceClient({
           )}
         </section>
 
-        {/* Operating Records */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Operating Records</h2>
-
-          {/* Opportunity Registry */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
-                <span className="flex items-center gap-2">
-                  <Compass className="h-4 w-4 text-muted-foreground" />
-                  Opportunity Registry
-                </span>
-                {!showReadOnlyBanner && (
-                  <button onClick={() => setShowAddRecord('opportunities')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
-                    <Plus className="h-3 w-3" /> Add
-                  </button>
-                )}
-              </h3>
-              <div className="border rounded-lg p-4">
-                {opportunityList.length > 0 ? (
-                  <div className="space-y-2">
-                    {opportunityList.slice(0, 5).map((o: any) => (
-                      <div key={o.id} className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">{o.opportunity}</p>
-                          {o.why_it_matters && <p className="text-xs text-muted-foreground mt-0.5">{o.why_it_matters}</p>}
-                        </div>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{o.status}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    AI possibilities and improvement opportunities identified during the engagement. Tracked with status, owner, and evidence.
-                  </p>
-                )}
-              </div>
-            </section>
-
-            {/* AI Systems & Vendor Inventory */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <Building2 className="h-4 w-4 text-muted-foreground" />
-                AI Systems & Vendor Inventory
-              </h3>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Current AI tools, vendors, models, and systems in use or under evaluation. Tracked with status, cost, and risk notes.
-                </p>
-              </div>
-            </section>
-
-            {/* Evidence & Inputs */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
-                <span className="flex items-center gap-2">
-                  <FlaskConical className="h-4 w-4 text-muted-foreground" />
-                  Evidence & Inputs
-                </span>
-                {!showReadOnlyBanner && (
-                  <button onClick={() => setShowAddRecord('evidence')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
-                    <Plus className="h-3 w-3" /> Add
-                  </button>
-                )}
-              </h3>
-              <div className="border rounded-lg p-4">
-                {evidenceList.length > 0 ? (
-                  <div className="space-y-2">
-                    {evidenceList.slice(0, 5).map((e: any) => (
-                      <div key={e.id} className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">{e.title}</p>
-                          <p className="text-xs text-muted-foreground mt-0.5">{e.evidence_type} · {e.provenance}</p>
-                          {e.link_url && <a href={e.link_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-0.5 inline-block">Open link</a>}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Research, benchmarks, test results, and client-provided evidence used to inform decisions.
-                  </p>
-                )}
-                <div className="mt-3 rounded-md bg-amber-500/5 border border-amber-500/20 p-3">
-                  <p className="text-xs text-amber-700 font-medium mb-1">Sensitive data warning</p>
-                  <p className="text-xs text-muted-foreground">
-                    Do not submit passwords, API keys, payment card data, medical information, or regulated/specially protected data unless a secure handling arrangement has been explicitly agreed.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* Assumptions & Risks */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-muted-foreground" />
-                Assumptions & Risks
-              </h3>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Key assumptions and risks tracked across active decisions and opportunities. Updated as evidence comes in.
-                </p>
-              </div>
-            </section>
-
-            {/* Partnership / External Opportunity Record */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <Handshake className="h-4 w-4 text-muted-foreground" />
-                Partnership / External Opportunity
-              </h3>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Strategic partnerships, technology partnerships, vendors, programs, and external opportunities identified for exploration or evaluation.
-                </p>
-              </div>
-            </section>
-
-            {/* Initiative Portfolio */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <Layers className="h-4 w-4 text-muted-foreground" />
-                Initiative Portfolio
-              </h3>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Active and planned AI initiatives tracked with status, dependencies, and sequencing recommendations.
-                </p>
-              </div>
-            </section>
-
-            {/* Working Session Records */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <ClipboardList className="h-4 w-4 text-muted-foreground" />
-                Working Session Records
-              </h3>
-              <div className="border rounded-lg p-4">
-                {sessionList.length > 0 ? (
-                  <div className="space-y-2">
-                    {sessionList.slice(0, 5).map((s: any) => (
-                      <div key={s.id} className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">
-                            {s.session_type === 'activation_call' ? 'Activation Call' : 'Working Session'}
-                            {s.scheduled_at && ` — ${new Date(s.scheduled_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`}
-                          </p>
-                          {s.agenda && <p className="text-xs text-muted-foreground mt-0.5">{s.agenda}</p>}
-                          {s.rolled_over_from_month && <p className="text-xs text-muted-foreground mt-0.5">Rolled over from {s.rolled_over_from_month}</p>}
-                        </div>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{s.status}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Notes, decisions, and action items from each working session. Persistent record of what was discussed and agreed.
-                  </p>
-                )}
-              </div>
-            </section>
-
-            {/* Actions & Commitments */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
-                <span className="flex items-center gap-2">
-                  <ListChecks className="h-4 w-4 text-muted-foreground" />
-                  Actions & Commitments
-                </span>
-                {!showReadOnlyBanner && (
-                  <button onClick={() => setShowAddRecord('actions')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
-                    <Plus className="h-3 w-3" /> Add
-                  </button>
-                )}
-              </h3>
-              <div className="border rounded-lg p-4">
-                {actionList.length > 0 ? (
-                  <div className="space-y-2">
-                    {actionList.slice(0, 5).map((a: any) => (
-                      <div key={a.id} className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">{a.title}</p>
-                          {a.assignee_label && <p className="text-xs text-muted-foreground mt-0.5">Owner: {a.assignee_label}</p>}
-                          {a.due_date && <p className="text-xs text-muted-foreground mt-0.5">Due: {a.due_date}</p>}
-                        </div>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{a.status}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Open actions, owners, and deadlines tracked across the engagement. Updated after each session and async exchange.
-                  </p>
-                )}
-              </div>
-            </section>
-
-            {/* Decision History */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <History className="h-4 w-4 text-muted-foreground" />
-                Decision History
-              </h3>
-              <div className="border rounded-lg p-4">
-                {decisionList.length > 0 ? (
-                  <div className="space-y-2">
-                    {decisionList.slice(0, 5).map((d) => (
-                      <div key={d.id} className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">{d.title}</p>
-                          {d.decided_at && <p className="text-xs text-muted-foreground mt-0.5">Decided: {new Date(d.decided_at).toLocaleDateString()}</p>}
-                        </div>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{d.status}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Full chronological record of decisions made, deferred, or superseded. Includes context and rationale.
-                  </p>
-                )}
-              </div>
-            </section>
-
-            {/* Outcome / Learning */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
-                <span className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                  Outcome / Learning
-                </span>
-                {!showReadOnlyBanner && (
-                  <button onClick={() => setShowAddRecord('outcomes')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
-                    <Plus className="h-3 w-3" /> Add
-                  </button>
-                )}
-              </h3>
-              <div className="border rounded-lg p-4">
-                {outcomeList.length > 0 ? (
-                  <div className="space-y-2">
-                    {outcomeList.slice(0, 5).map((o: any) => (
-                      <div key={o.id} className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">{o.title}</p>
-                          {o.description && <p className="text-xs text-muted-foreground mt-0.5">{o.description}</p>}
-                        </div>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{o.status}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Tracked outcomes of past decisions. What worked, what did not, and what was learned.
-                  </p>
-                )}
-              </div>
-            </section>
-
-            {/* Value Record */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <Award className="h-4 w-4 text-muted-foreground" />
-                Value Record
-              </h3>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Client-verified value evidence: time saved, cost avoided, risk reduced, revenue enabled. Updated as outcomes are confirmed.
-                </p>
-              </div>
-            </section>
-
-            {/* Open Loops */}
-            <section>
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <Clock className="h-4 w-4 text-muted-foreground" />
-                Open Loops
-              </h3>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  Unresolved questions, pending follow-ups, and items awaiting client input or external response.
-                </p>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        {/* Advisor Affiliations */}
+        {/* 6. Current Priorities */}
         <section>
-          <h2 className="text-lg font-semibold mb-3 flex items-center justify-between">
-            <span className="flex items-center gap-2">
-              <Handshake className="h-5 w-5 text-primary" />
-              Approved Advisor Affiliation
-            </span>
+          <h2 className="text-base font-semibold mb-3 flex items-center justify-between">
+            Current Priorities
             {!showReadOnlyBanner && (
               <button
-                onClick={() => setShowAddRecord('affiliations')}
+                onClick={() => setShowAddRecord('priorities')}
                 className="text-xs text-primary hover:underline inline-flex items-center gap-1"
               >
                 <Plus className="h-3 w-3" /> Add
@@ -1066,50 +725,199 @@ export function AdvisoryWorkspaceClient({
             )}
           </h2>
           <div className="border rounded-lg p-4">
-            {affiliationList.length > 0 ? (
+            {priorityList.length > 0 ? (
               <div className="space-y-2">
-                {affiliationList.map((aff: any) => (
-                  <div key={aff.id} className="flex items-start justify-between gap-2">
+                {priorityList.map((p: any) => (
+                  <div key={p.id} className="flex items-start justify-between gap-2">
                     <div className="flex-1">
-                      <p className="text-sm font-medium">{aff.affiliate_name}</p>
-                      {aff.affiliate_role && <p className="text-xs text-muted-foreground mt-0.5">{aff.affiliate_role}</p>}
-                      {aff.affiliate_company && <p className="text-xs text-muted-foreground mt-0.5">{aff.affiliate_company}</p>}
-                      {aff.notes && <p className="text-xs text-muted-foreground mt-1">{aff.notes}</p>}
+                      <p className="text-sm font-medium">{p.title}</p>
+                      {p.description && <p className="text-xs text-muted-foreground mt-0.5">{p.description}</p>}
+                      {p.owner && <p className="text-xs text-muted-foreground mt-0.5">Owner: {p.owner}</p>}
                     </div>
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{aff.status}</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{p.status}</span>
                   </div>
                 ))}
               </div>
             ) : (
               <p className="text-sm text-muted-foreground">
-                No approved advisor affiliations recorded yet. External advisors and partners introduced through this engagement will be tracked here.
+                The 2-4 matters that deserve attention will be tracked here as the engagement progresses.
               </p>
             )}
           </div>
         </section>
 
-        {/* Workspace Export */}
-        <section className="border rounded-lg p-4 bg-secondary/20">
-          <div className="flex items-start gap-3">
-            <Download className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <h3 className="text-sm font-semibold">Export Your Workspace</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                Download your decision records, opportunity records, client-provided inputs, advisor artifacts, and action/history records. Available anytime during your subscription and for 30 days after cancellation.
-              </p>
-              <button
-                onClick={handleExport}
-                disabled={exporting}
-                className="mt-3 inline-flex items-center gap-2 text-sm text-primary hover:underline disabled:opacity-50"
-              >
-                {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-                {exporting ? 'Preparing export...' : 'Export Workspace Data'}
+        {/* 7. Evidence & Inputs */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4 justify-between">
+            <span className="flex items-center gap-2">
+              <FlaskConical className="h-5 w-5 text-primary" />
+              Evidence & Inputs
+            </span>
+            {!showReadOnlyBanner && (
+              <button onClick={() => setShowAddRecord('evidence')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                <Plus className="h-3 w-3" /> Add
               </button>
+            )}
+          </h2>
+          <div className="border rounded-lg p-4">
+            {evidenceList.length > 0 ? (
+              <div className="space-y-2">
+                {evidenceList.slice(0, 5).map((e: any) => (
+                  <div key={e.id} className="flex items-start justify-between gap-2">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">{e.title}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{e.evidence_type} · {e.provenance}</p>
+                      {e.link_url && <a href={e.link_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-0.5 inline-block">Open link</a>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Research, benchmarks, test results, and client-provided evidence used to inform decisions.
+              </p>
+            )}
+            <div className="mt-3 rounded-md bg-amber-500/5 border border-amber-500/20 p-3">
+              <p className="text-xs text-amber-700 font-medium mb-1">Sensitive data warning</p>
+              <p className="text-xs text-muted-foreground">
+                Do not submit passwords, API keys, payment card data, medical information, or regulated/specially protected data unless a secure handling arrangement has been explicitly agreed.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Included Capabilities */}
+        {/* 8. Monthly Decision & Opportunity Brief */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
+            <FileText className="h-5 w-5 text-primary" />
+            Monthly Decision & Opportunity Brief
+          </h2>
+          <div className="border rounded-lg p-4">
+            {briefList.length > 0 ? (
+              (() => {
+                const brief = briefList[0]
+                return (
+                  <div className="space-y-3">
+                    {brief.period_label && (
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{brief.period_label}</p>
+                    )}
+                    {brief.what_changed && (
+                      <div>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">What Changed</p>
+                        <p className="text-sm">{brief.what_changed}</p>
+                      </div>
+                    )}
+                    {brief.what_matters && (
+                      <div>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">What Matters</p>
+                        <p className="text-sm">{brief.what_matters}</p>
+                      </div>
+                    )}
+                    {brief.decisions_in_play && (
+                      <div>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Decisions in Play</p>
+                        <p className="text-sm">{brief.decisions_in_play}</p>
+                      </div>
+                    )}
+                    {brief.opportunities_in_play && (
+                      <div>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Opportunities in Play</p>
+                        <p className="text-sm">{brief.opportunities_in_play}</p>
+                      </div>
+                    )}
+                    {brief.next_focus && (
+                      <div>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Next Focus</p>
+                        <p className="text-sm">{brief.next_focus}</p>
+                      </div>
+                    )}
+                  </div>
+                )
+              })()
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Your monthly brief will appear here once generated. It summarizes what changed, what matters, decisions and opportunities in play, and the next focus for the period.
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* 9. Actions & Commitments */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4 justify-between">
+            <span className="flex items-center gap-2">
+              <ListChecks className="h-5 w-5 text-primary" />
+              Actions & Commitments
+            </span>
+            {!showReadOnlyBanner && (
+              <button onClick={() => setShowAddRecord('actions')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                <Plus className="h-3 w-3" /> Add
+              </button>
+            )}
+          </h2>
+          <div className="border rounded-lg p-4">
+            {actionList.length > 0 ? (
+              <div className="space-y-2">
+                {actionList.slice(0, 5).map((a: any) => (
+                  <div key={a.id} className="flex items-start justify-between gap-2">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">{a.title}</p>
+                      {a.assignee_label && <p className="text-xs text-muted-foreground mt-0.5">Owner: {a.assignee_label}</p>}
+                      {a.due_date && <p className="text-xs text-muted-foreground mt-0.5">Due: {a.due_date}</p>}
+                    </div>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{a.status}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Open actions, owners, and deadlines tracked across the engagement. Updated after each session and async exchange.
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* 10. Decision Artifacts */}
+        <section>
+          <h2 className="text-base font-semibold mb-3">Decision Artifacts</h2>
+          <div className="border rounded-lg p-4">
+            <p className="text-sm text-muted-foreground">
+              Decision briefs, vendor comparisons, architecture reviews, and decision records will appear here as they are produced.
+            </p>
+          </div>
+        </section>
+
+        {/* 11. Organization Context */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
+            <Building2 className="h-5 w-5 text-primary" />
+            Organization Context
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="border rounded-lg p-4">
+              <h3 className="text-xs font-medium text-muted-foreground">Organization</h3>
+              <p className="text-sm mt-1">{organization.name}</p>
+              {organizationRole && <p className="text-xs text-muted-foreground mt-1">Your role: {organizationRole}</p>}
+            </div>
+            <div className="border rounded-lg p-4">
+              <h3 className="text-xs font-medium text-muted-foreground">Plan</h3>
+              <p className="text-sm mt-1">{fractionalEnt?.offering_name || 'Fractional AI Advisor'}</p>
+              <p className="text-xs text-muted-foreground mt-1">2 working sessions/month · Priority async advisory</p>
+            </div>
+            <div className="border rounded-lg p-4">
+              <h3 className="text-xs font-medium text-muted-foreground">Team Seats</h3>
+              <p className="text-sm mt-1">1 seat included</p>
+              <p className="text-xs text-muted-foreground mt-1">Additional seats available on request</p>
+            </div>
+            <div className="border rounded-lg p-4">
+              <h3 className="text-xs font-medium text-muted-foreground">Response Time</h3>
+              <p className="text-sm mt-1">Priority async advisory</p>
+              <p className="text-xs text-muted-foreground mt-1">Responses within 1 business day</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 12. Included Capabilities */}
         {productList.length > 0 && (
           <section>
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -1240,6 +1048,391 @@ export function AdvisoryWorkspaceClient({
           </section>
         )}
 
+        {/* 13. Plan & Billing */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
+            <Calendar className="h-5 w-5 text-primary" />
+            Plan & Billing
+          </h2>
+          <div className="border rounded-lg p-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <h3 className="text-sm font-medium">{fractionalEnt?.offering_name || 'Fractional AI Advisor'}</h3>
+                <p className="text-sm text-muted-foreground mt-1">$99/month · 2 working sessions + priority async advisory</p>
+                {subscriptionStatus && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Subscription status: <span className="font-medium">{subscriptionStatus}</span>
+                  </p>
+                )}
+                <p className="text-xs text-muted-foreground mt-1">
+                  Billing period:{' '}
+                  {billingPeriodStart && billingPeriodEnd
+                    ? `${new Date(billingPeriodStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(billingPeriodEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+                    : 'Active subscription'}
+                </p>
+              </div>
+              <button
+                onClick={async () => {
+                  const res = await fetch('/api/stripe/portal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orgSlug: organization.slug, returnTo: 'advisory' }),
+                  })
+                  if (res.ok) {
+                    const data = await res.json()
+                    if (data.url) window.location.href = data.url
+                  }
+                }}
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors flex-shrink-0"
+              >
+                <Briefcase className="h-4 w-4" />
+                Manage Billing
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Onboarding state */}
+        {onboardingNotComplete && !showOnboarding && (
+          <section className="border border-primary/30 rounded-lg p-6 bg-primary/5">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h2 className="text-base font-semibold">Help me understand what matters first</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Complete your advisory context so I can prepare before our first working session. It takes about five minutes.
+                </p>
+                <button
+                  onClick={() => setShowOnboarding(true)}
+                  className="mt-3 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  Complete Setup
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Onboarding form */}
+        {showOnboarding && (
+          <OnboardingForm
+            orgSlug={organization.slug}
+            existingData={onboarding}
+            onComplete={() => {
+              setOnboardingComplete(true)
+              setShowOnboarding(false)
+            }}
+            onCancel={() => setShowOnboarding(false)}
+          />
+        )}
+
+        {/* Working Sessions */}
+        <section>
+          <h2 className="text-base font-semibold mb-3">Working Sessions</h2>
+          <div className="border rounded-lg p-4">
+            {/* Session usage summary */}
+            {sessionUsage && (
+              <div className="mb-3 p-3 rounded-md bg-primary/5 border border-primary/10">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      Session Usage — {sessionUsage.currentMonth}
+                    </p>
+                    <p className="text-sm mt-1">
+                      <strong>{sessionUsage.availableSessions}</strong> of{' '}
+                      {sessionUsage.includedSessions + sessionUsage.rolledOverFromPrev} available
+                      {sessionUsage.rolledOverFromPrev > 0 && (
+                        <span className="text-xs text-muted-foreground ml-1">
+                          (includes {sessionUsage.rolledOverFromPrev} rolled over)
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground">
+                      {sessionUsage.usedSessions} used
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Max rollover: {sessionUsage.maxRollover}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            {activeEngagements.length > 0 ? (
+              <div className="space-y-2">
+                {activeEngagements.map(eng => (
+                  <div key={eng.id} className="flex items-center justify-between">
+                    <span className="text-sm">{getEngagementTypeLabel(eng.engagement_type)}</span>
+                    <span className="text-xs bg-green-500/10 text-green-700 px-2 py-0.5 rounded">
+                      {getEngagementStatusLabel(eng.status)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Your first working session will be scheduled after onboarding.
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Ask / Send Context */}
+        <section>
+          <h2 className="text-base font-semibold mb-3">Ask / Send Context</h2>
+          <div className="border rounded-lg p-4">
+            <p className="text-sm text-muted-foreground mb-3">
+              Something changed before our next session? Add a decision, send context, or flag something for review.
+            </p>
+            <button
+              onClick={() => setShowAddDecision(true)}
+              className="text-sm text-primary hover:underline inline-flex items-center gap-1"
+            >
+              <Plus className="h-3 w-3" />
+              Add a decision
+            </button>
+          </div>
+        </section>
+
+        {/* Advisor Affiliations */}
+        <section>
+          <h2 className="text-lg font-semibold mb-3 flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <Handshake className="h-5 w-5 text-primary" />
+              Approved Advisor Affiliation
+            </span>
+            {!showReadOnlyBanner && (
+              <button
+                onClick={() => setShowAddRecord('affiliations')}
+                className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+              >
+                <Plus className="h-3 w-3" /> Add
+              </button>
+            )}
+          </h2>
+          <div className="border rounded-lg p-4">
+            {affiliationList.length > 0 ? (
+              <div className="space-y-2">
+                {affiliationList.map((aff: any) => (
+                  <div key={aff.id} className="flex items-start justify-between gap-2">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">{aff.affiliate_name}</p>
+                      {aff.affiliate_role && <p className="text-xs text-muted-foreground mt-0.5">{aff.affiliate_role}</p>}
+                      {aff.affiliate_company && <p className="text-xs text-muted-foreground mt-0.5">{aff.affiliate_company}</p>}
+                      {aff.notes && <p className="text-xs text-muted-foreground mt-1">{aff.notes}</p>}
+                    </div>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{aff.status}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No approved advisor affiliations recorded yet. External advisors and partners introduced through this engagement will be tracked here.
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Workspace Export */}
+        <section className="border rounded-lg p-4 bg-secondary/20">
+          <div className="flex items-start gap-3">
+            <Download className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold">Export Your Workspace</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                Download your decision records, opportunity records, client-provided inputs, advisor artifacts, and action/history records. Available anytime during your subscription and for 30 days after cancellation.
+              </p>
+              <button
+                onClick={handleExport}
+                disabled={exporting}
+                className="mt-3 inline-flex items-center gap-2 text-sm text-primary hover:underline disabled:opacity-50"
+              >
+                {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                {exporting ? 'Preparing export...' : 'Export Workspace Data'}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Operating Records */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold">Operating Records</h2>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {/* AI Systems & Vendor Inventory */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Building2 className="h-4 w-4 text-muted-foreground" />
+                AI Systems & Vendor Inventory
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Current AI tools, vendors, models, and systems in use or under evaluation. Tracked with status, cost, and risk notes.
+                </p>
+              </div>
+            </section>
+
+            {/* Assumptions & Risks */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+                Assumptions & Risks
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Key assumptions and risks tracked across active decisions and opportunities. Updated as evidence comes in.
+                </p>
+              </div>
+            </section>
+
+            {/* Partnership / External Opportunity Record */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Handshake className="h-4 w-4 text-muted-foreground" />
+                Partnership / External Opportunity
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Strategic partnerships, technology partnerships, vendors, programs, and external opportunities identified for exploration or evaluation.
+                </p>
+              </div>
+            </section>
+
+            {/* Initiative Portfolio */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Layers className="h-4 w-4 text-muted-foreground" />
+                Initiative Portfolio
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Active and planned AI initiatives tracked with status, dependencies, and sequencing recommendations.
+                </p>
+              </div>
+            </section>
+
+            {/* Working Session Records */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <ClipboardList className="h-4 w-4 text-muted-foreground" />
+                Working Session Records
+              </h3>
+              <div className="border rounded-lg p-4">
+                {sessionList.length > 0 ? (
+                  <div className="space-y-2">
+                    {sessionList.slice(0, 5).map((s: any) => (
+                      <div key={s.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">
+                            {s.session_type === 'activation_call' ? 'Activation Call' : 'Working Session'}
+                            {s.scheduled_at && ` — ${new Date(s.scheduled_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`}
+                          </p>
+                          {s.agenda && <p className="text-xs text-muted-foreground mt-0.5">{s.agenda}</p>}
+                          {s.rolled_over_from_month && <p className="text-xs text-muted-foreground mt-0.5">Rolled over from {s.rolled_over_from_month}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{s.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Notes, decisions, and action items from each working session. Persistent record of what was discussed and agreed.
+                  </p>
+                )}
+              </div>
+            </section>
+
+            {/* Decision History */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <History className="h-4 w-4 text-muted-foreground" />
+                Decision History
+              </h3>
+              <div className="border rounded-lg p-4">
+                {decisionList.length > 0 ? (
+                  <div className="space-y-2">
+                    {decisionList.slice(0, 5).map((d) => (
+                      <div key={d.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{d.title}</p>
+                          {d.decided_at && <p className="text-xs text-muted-foreground mt-0.5">Decided: {new Date(d.decided_at).toLocaleDateString()}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{d.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Full chronological record of decisions made, deferred, or superseded. Includes context and rationale.
+                  </p>
+                )}
+              </div>
+            </section>
+
+            {/* Outcome / Learning */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2 justify-between">
+                <span className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                  Outcome / Learning
+                </span>
+                {!showReadOnlyBanner && (
+                  <button onClick={() => setShowAddRecord('outcomes')} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                    <Plus className="h-3 w-3" /> Add
+                  </button>
+                )}
+              </h3>
+              <div className="border rounded-lg p-4">
+                {outcomeList.length > 0 ? (
+                  <div className="space-y-2">
+                    {outcomeList.slice(0, 5).map((o: any) => (
+                      <div key={o.id} className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{o.title}</p>
+                          {o.description && <p className="text-xs text-muted-foreground mt-0.5">{o.description}</p>}
+                        </div>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{o.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Tracked outcomes of past decisions. What worked, what did not, and what was learned.
+                  </p>
+                )}
+              </div>
+            </section>
+
+            {/* Value Record */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Award className="h-4 w-4 text-muted-foreground" />
+                Value Record
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Client-verified value evidence: time saved, cost avoided, risk reduced, revenue enabled. Updated as outcomes are confirmed.
+                </p>
+              </div>
+            </section>
+
+            {/* Open Loops */}
+            <section>
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Clock className="h-4 w-4 text-muted-foreground" />
+                Open Loops
+              </h3>
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Unresolved questions, pending follow-ups, and items awaiting client input or external response.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+
         {/* Past engagements */}
         {pastEngagements.length > 0 && (
           <section>
@@ -1357,6 +1550,10 @@ function RecordCreationModal({
       if (affiliateCompany) data.affiliate_company = affiliateCompany
       data.relationship_type = 'approved_advisor'
       data.status = 'approved'
+    }
+    if (recordType === 'outcomes') {
+      if (description) data.what_happened = description
+      data.status = 'recorded'
     }
 
     onSubmit(data)

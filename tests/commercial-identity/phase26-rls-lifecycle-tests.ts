@@ -145,7 +145,7 @@ console.log('\n=== Test 9: Advisory page fetches all records ===')
     'fractional_priorities',
     'engagement_actions',
     'engagement_artifacts',
-    'engagement_outcomes',
+    'fractional_outcomes',
   ]
   for (const table of tables) {
     assert(pageContent.includes(table), `Advisory page should fetch from ${table}`)

@@ -251,9 +251,7 @@ export default async function AdvisoryPage({
       engagementId
         ? serviceClient.from('engagement_artifacts').select('*').eq('organization_id', ctx.organization.id).eq('engagement_id', engagementId).order('created_at', { ascending: false })
         : Promise.resolve({ data: null, error: null }),
-      engagementId
-        ? serviceClient.from('engagement_outcomes').select('*').eq('organization_id', ctx.organization.id).eq('engagement_id', engagementId).order('created_at', { ascending: false })
-        : Promise.resolve({ data: null, error: null }),
+      serviceClient.from('fractional_outcomes').select('*').eq('organization_id', ctx.organization.id).order('created_at', { ascending: false }),
       serviceClient.from('advisor_affiliations').select('*').eq('organization_id', ctx.organization.id).eq('status', 'approved').order('created_at', { ascending: false }),
     ])
 

@@ -129,6 +129,22 @@ export function AccountClient({ user, organizations }: AccountClientProps) {
           </button>
         </section>
 
+        {/* Service Terms */}
+        <section className="space-y-3">
+          <h2 className="text-base font-semibold">Service Terms</h2>
+          <div className="space-y-1.5">
+            <Link href="/terms" className="block text-sm text-primary hover:underline">
+              Terms of Service
+            </Link>
+            <Link href="/service-terms/ai-advisor-for-business" className="block text-sm text-primary hover:underline">
+              AI Advisor for Business — Service Schedule
+            </Link>
+            <Link href="/service-terms/fractional-ai-advisor" className="block text-sm text-primary hover:underline">
+              Fractional AI Advisor — Service Schedule
+            </Link>
+          </div>
+        </section>
+
         {/* Back */}
         <div>
           <Link href="/app" className="text-sm text-primary hover:underline">

@@ -38,7 +38,7 @@ const TABLE_MAP: Record<string, string> = {
   priorities: 'fractional_priorities',
   actions: 'engagement_actions',
   artifacts: 'engagement_artifacts',
-  outcomes: 'engagement_outcomes',
+  outcomes: 'fractional_outcomes',
   affiliations: 'advisor_affiliations',
 }
 
