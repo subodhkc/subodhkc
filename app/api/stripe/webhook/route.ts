@@ -11,6 +11,9 @@ import {
 import { getOfferByStripePriceId, getOffer, getIncludedProducts, type OfferKey } from '@/lib/commercial/offers'
 import { recordTermsAcceptance } from '@/lib/stripe/checkout'
 import { createServiceClient } from '@/lib/supabase'
+import { trackEvent } from '@/lib/commercial/analytics'
+import { computeAndUpsertLifecycleState } from '@/lib/commercial/customer-state'
+import { recordFailure } from '@/lib/commercial/failures'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -209,6 +212,27 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
 
   // Provision included product access (HAIEC, Kestrel, Member Tools)
   await provisionIncludedProducts(orgId, offerKey, customerEmail, customerName)
+
+  // Track conversion event
+  const billingPeriod = session.metadata?.billing_period as string | undefined
+  await trackEvent({
+    eventName: 'checkout_completed',
+    organizationId: orgId,
+    userId,
+    offerKey: offerKey,
+    billingPeriod: billingPeriod,
+    metadata: { checkout_session_id: session.id }
+  })
+
+  // Update customer lifecycle state
+  try {
+    const sc = createServiceClient()
+    if (sc) {
+      await computeAndUpsertLifecycleState(sc as any, orgId)
+    }
+  } catch (err) {
+    console.error('[lifecycle] Failed to update state:', err)
+  }
 
   // Record terms acceptance — ONLY after checkout is completed AND consent is verified
   // A created or abandoned checkout must never be recorded as accepted terms.
@@ -425,6 +449,13 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
       },
       { onConflict: 'organization_id,system_key' }
     )
+
+  // Update customer lifecycle state (cancel_at_period_end may have changed)
+  try {
+    await computeAndUpsertLifecycleState(sc as any, orgId)
+  } catch (err) {
+    console.error('[lifecycle] Failed to update state:', err)
+  }
 }
 
 /**
@@ -465,6 +496,13 @@ async function handleSubscriptionDeleted(event: Stripe.Event) {
     offerKey,
     reason: 'subscription_cancelled',
     validUntil,
+  })
+
+  // Track cancellation event
+  await trackEvent({
+    eventName: 'subscription_cancelled',
+    organizationId: orgId,
+    offerKey: offerKey,
   })
 
   // End included product entitlements at the same time as the advisory subscription
@@ -543,6 +581,16 @@ async function handlePaymentFailed(event: Stripe.Event) {
     audit_org_id: link.organization_id,
     audit_entity_id: invoice.id,
     audit_metadata: { attempt_count: invoice.attempt_count } as any,
+  })
+
+  // Record commercial failure for admin visibility
+  await recordFailure({
+    organizationId: link.organization_id,
+    failureType: 'entitlement',
+    severity: 'critical',
+    message: `Payment failed for subscription`,
+    stripeEventId: event.id,
+    retryable: true,
   })
 
   // Send subscription issue email
@@ -896,41 +944,51 @@ async function provisionIncludedProducts(
   }
 
   for (const ent of entitlementsToCreate) {
-    // Upsert entitlement record — idempotent on (org, product, source_offer)
-    await sc
-      .from('included_product_entitlements')
-      .upsert(
-        {
-          organization_id: orgId,
-          source_offer_key: offerKey,
-          product_key: ent.product_key,
-          tier_or_plan: ent.tier_or_plan,
+    try {
+      // Upsert entitlement record — idempotent on (org, product, source_offer)
+      await sc
+        .from('included_product_entitlements')
+        .upsert(
+          {
+            organization_id: orgId,
+            source_offer_key: offerKey,
+            product_key: ent.product_key,
+            tier_or_plan: ent.tier_or_plan,
+            seats: ent.seats,
+            credits: ent.credits,
+            entitlement_status: 'ready_to_activate',
+            provisioning_status: 'pending',
+            external_tier_mapped: ent.external_tier_mapped,
+            metadata: {
+              customer_email: customerEmail,
+              customer_name: customerName,
+            },
+          },
+          { onConflict: 'organization_id,product_key,source_offer_key' }
+        )
+
+      // Audit
+      await sc.rpc('write_audit_event', {
+        audit_action: 'included_product.entitlement_granted',
+        audit_entity_type: 'included_product_entitlement',
+        audit_org_id: orgId,
+        audit_entity_id: `${ent.product_key}:${ent.tier_or_plan}`,
+        audit_metadata: {
+          offer_key: offerKey,
+          product: ent.product_key,
+          tier: ent.tier_or_plan,
           seats: ent.seats,
           credits: ent.credits,
-          entitlement_status: 'ready_to_activate',
-          provisioning_status: 'pending',
-          external_tier_mapped: ent.external_tier_mapped,
-          metadata: {
-            customer_email: customerEmail,
-            customer_name: customerName,
-          },
-        },
-        { onConflict: 'organization_id,product_key,source_offer_key' }
-      )
-
-    // Audit
-    await sc.rpc('write_audit_event', {
-      audit_action: 'included_product.entitlement_granted',
-      audit_entity_type: 'included_product_entitlement',
-      audit_org_id: orgId,
-      audit_entity_id: `${ent.product_key}:${ent.tier_or_plan}`,
-      audit_metadata: {
-        offer_key: offerKey,
-        product: ent.product_key,
-        tier: ent.tier_or_plan,
-        seats: ent.seats,
-        credits: ent.credits,
-      } as any,
-    })
+        } as any,
+      })
+    } catch (err: any) {
+      await recordFailure({
+        organizationId: orgId,
+        failureType: ent.product_key === 'haiec' ? 'haiec_provisioning' : 'kestrel_provisioning',
+        severity: 'error',
+        message: `Provisioning failed: ${err.message}`,
+        retryable: true,
+      })
+    }
   }
 }

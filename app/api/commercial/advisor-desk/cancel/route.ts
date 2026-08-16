@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser, resolveOrganizationContext, AuthError } from '@/lib/auth/organization-resolver'
 import { cancelSubscriptionAtPeriodEnd, getStripeSubscriptionId } from '@/lib/stripe/checkout'
 import { createServiceClient } from '@/lib/supabase'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -11,6 +12,9 @@ export const dynamic = 'force-dynamic'
  * Cancel the AI Advisor Desk subscription at period end.
  */
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const user = await getAuthenticatedUser()
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 

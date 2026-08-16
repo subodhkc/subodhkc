@@ -6,6 +6,7 @@ import {
 } from '@/lib/auth/organization-resolver'
 import { checkMutationAllowed } from '@/lib/auth/fractional-access'
 import { createServiceClient } from '@/lib/supabase'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -68,6 +69,9 @@ export async function GET(req: NextRequest) {
  * Add a new decision to the Decision Desk.
  */
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const user = await getAuthenticatedUser()
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 
@@ -153,6 +157,9 @@ export async function POST(req: NextRequest) {
  * Update a decision's status.
  */
 export async function PATCH(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const user = await getAuthenticatedUser()
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 

@@ -5,6 +5,7 @@ import {
   AuthError,
 } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -19,6 +20,9 @@ export const dynamic = 'force-dynamic'
  * Available during active subscription and for 30 days after cancellation.
  */
 export async function GET(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const { searchParams } = new URL(req.url)
   const orgSlug = searchParams.get('orgSlug')
   if (!orgSlug) {

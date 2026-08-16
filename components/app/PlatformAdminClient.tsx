@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation'
 import {
   Building2, Plus, Shield, ArrowLeft, Menu, X, LogOut,
   Boxes, CheckCircle2, XCircle, Clock, FileText, Activity,
-  ChevronRight, Loader2, Mail, Send,
+  ChevronRight, Loader2, Mail, Send, Headset,
 } from 'lucide-react'
 import type { AuthenticatedUser } from '@/lib/auth/organization-resolver'
+import { AdvisorOperationsClient } from '@/components/app/AdvisorOperationsClient'
 
 interface ProductRequest {
   id: string
@@ -99,7 +100,7 @@ export function PlatformAdminClient({
   const [orgKind, setOrgKind] = useState('business')
   const [creating, setCreating] = useState(false)
   const [error, setError] = useState('')
-  const [activeTab, setActiveTab] = useState<'requests' | 'customers' | 'activity' | 'newsletter' | 'orgs'>('requests')
+  const [activeTab, setActiveTab] = useState<'requests' | 'customers' | 'activity' | 'newsletter' | 'orgs' | 'advisory'>('requests')
   const [processingRequestId, setProcessingRequestId] = useState<string | null>(null)
   const [newsletterData, setNewsletterData] = useState<{ recentPosts: any[]; subscriberCount: number | null } | null>(null)
   const [newsletterLoading, setNewsletterLoading] = useState(false)
@@ -325,6 +326,7 @@ export function PlatformAdminClient({
           <TabButton active={activeTab === 'activity'} onClick={() => setActiveTab('activity')} icon={Activity} label="Activity" />
           <TabButton active={activeTab === 'newsletter'} onClick={() => { setActiveTab('newsletter'); if (!newsletterData) fetchNewsletterData() }} icon={Mail} label="Newsletter" />
           <TabButton active={activeTab === 'orgs'} onClick={() => setActiveTab('orgs')} icon={Building2} label="Organizations" />
+          <TabButton active={activeTab === 'advisory'} onClick={() => setActiveTab('advisory')} icon={Headset} label="Advisory Ops" />
         </div>
 
         {/* Product Access Requests */}
@@ -671,6 +673,11 @@ export function PlatformAdminClient({
               </div>
             </div>
           </div>
+        )}
+
+        {/* Advisory Ops */}
+        {activeTab === 'advisory' && (
+          <AdvisorOperationsClient />
         )}
       </main>
     </div>

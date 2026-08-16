@@ -7,6 +7,7 @@ import {
 import { checkMutationAllowed } from '@/lib/auth/fractional-access'
 import { createServiceClient } from '@/lib/supabase'
 import { incrementSessionUsage, getCurrentMonth } from '@/lib/fractional/session-usage'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -117,6 +118,9 @@ export async function GET(req: NextRequest) {
  * POST — create, update, or delete a record
  */
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const body = await req.json()
   const { orgSlug, type, action, data, recordId } = body as {
     orgSlug: string

@@ -6,6 +6,7 @@ import {
 } from '@/lib/auth/organization-resolver'
 import { checkMutationAllowed } from '@/lib/auth/fractional-access'
 import { createServiceClient } from '@/lib/supabase'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -49,6 +50,9 @@ export async function GET(req: NextRequest) {
  * Submit or update onboarding data.
  */
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const user = await getAuthenticatedUser()
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 

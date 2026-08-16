@@ -5,6 +5,7 @@ import {
   AuthError,
 } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -20,6 +21,9 @@ export const dynamic = 'force-dynamic'
  * productKey: 'haiec' | 'kestrel'
  */
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req)
+  if (limited) return limited
+
   const body = await req.json()
   const { orgSlug, productKey } = body as { orgSlug?: string; productKey?: string }
 

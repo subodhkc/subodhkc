@@ -28,6 +28,7 @@ import {
   Loader2,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
+import { MemberToolsSection } from './MemberToolsSection'
 
 interface Question {
   id: string
@@ -722,6 +723,9 @@ export function AdvisorDeskWorkspaceClient({
             </div>
           </div>
         </section>
+
+        {/* Member Tools */}
+        <MemberToolsSection orgSlug={organization.slug} canAccess={true} />
 
         {/* Governance & Controls — separated, NOT removed */}
         <section>

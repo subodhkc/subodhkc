@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 import { getEngagementTypeLabel, getEngagementStatusLabel } from '@/lib/auth/dashboard-types'
+import { MemberToolsSection } from './MemberToolsSection'
 
 interface Engagement {
   id: string
@@ -189,6 +190,31 @@ export function AdvisoryWorkspaceClient({
   const [affiliationList, setAffiliationList] = useState(advisorAffiliations)
   const [recordSubmitting, setRecordSubmitting] = useState(false)
   const [showAddRecord, setShowAddRecord] = useState<string | null>(null)
+
+  // Scheduling links state
+  const [schedulingLinks, setSchedulingLinks] = useState<any[]>([])
+  const [schedulingLoading, setSchedulingLoading] = useState(true)
+
+  // Fetch scheduling links on mount
+  useEffect(() => {
+    let cancelled = false
+    async function fetchSchedulingLinks() {
+      try {
+        const res = await fetch(`/api/scheduling/links?orgSlug=${encodeURIComponent(organization.slug)}`)
+        if (!res.ok) return
+        const data = await res.json()
+        if (!cancelled) {
+          setSchedulingLinks(data.links || [])
+        }
+      } catch {
+        // Silently fail
+      } finally {
+        if (!cancelled) setSchedulingLoading(false)
+      }
+    }
+    fetchSchedulingLinks()
+    return () => { cancelled = true }
+  }, [organization.slug])
 
   // Determine Fractional access state from entitlements
   const fractionalEnt = ctx.entitlements.find(
@@ -466,6 +492,131 @@ export function AdvisoryWorkspaceClient({
             </button>
           </div>
         </div>
+
+        {/* 1b. Scheduling */}
+        <section>
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
+            <Calendar className="h-5 w-5 text-primary" />
+            Scheduling
+          </h2>
+          <div className="border rounded-lg p-4 space-y-3">
+            {schedulingLoading ? (
+              <p className="text-sm text-muted-foreground">Loading scheduling information...</p>
+            ) : (() => {
+              const activationLinks = schedulingLinks.filter(
+                (l: any) => l.link_type === 'activation_call'
+              )
+              const pendingActivation = activationLinks.find(
+                (l: any) => l.status === 'pending'
+              )
+              const scheduledActivation = activationLinks.find(
+                (l: any) => l.status === 'scheduled'
+              )
+              const completedActivation = activationLinks.find(
+                (l: any) => l.status === 'completed'
+              )
+              const scheduledWorkingSessions = schedulingLinks
+                .filter(
+                  (l: any) =>
+                    l.link_type === 'working_session' && l.status === 'scheduled'
+                )
+                .sort(
+                  (a: any, b: any) =>
+                    new Date(a.scheduled_at).getTime() -
+                    new Date(b.scheduled_at).getTime()
+                )
+              const nextWorkingSession = scheduledWorkingSessions[0]
+
+              return (
+                <div className="space-y-3">
+                  {/* Activation Call states */}
+                  {completedActivation ? (
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-medium">Activation Call completed</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          Your activation call has been completed. Working sessions can now be scheduled.
+                        </p>
+                      </div>
+                    </div>
+                  ) : scheduledActivation ? (
+                    <div className="flex items-start gap-3">
+                      <Clock className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">Activation Call scheduled</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {new Date(scheduledActivation.scheduled_at).toLocaleString('en-US', {
+                            weekday: 'long',
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: '2-digit',
+                          })}
+                        </p>
+                        <a
+                          href={scheduledActivation.scheduling_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-2"
+                        >
+                          Reschedule
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
+                    </div>
+                  ) : pendingActivation ? (
+                    <div className="flex items-start gap-3">
+                      <Calendar className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">Schedule Your Activation Call</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          Book your activation call to kick off the advisory relationship.
+                        </p>
+                        <a
+                          href={pendingActivation.scheduling_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 mt-2"
+                        >
+                          Schedule Your Activation Call
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {/* Next Working Session */}
+                  {nextWorkingSession && (
+                    <div className="flex items-start gap-3 pt-3 border-t">
+                      <Calendar className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">Next Working Session</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {new Date(nextWorkingSession.scheduled_at).toLocaleString('en-US', {
+                            weekday: 'long',
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: '2-digit',
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {!pendingActivation && !scheduledActivation && !completedActivation && !nextWorkingSession && (
+                    <p className="text-sm text-muted-foreground">
+                      Scheduling links will appear here once your activation call is set up.
+                    </p>
+                  )}
+                </div>
+              )
+            })()}
+          </div>
+        </section>
 
         {/* 2. What Needs Your Attention */}
         <section>
@@ -1047,6 +1198,9 @@ export function AdvisoryWorkspaceClient({
             )}
           </section>
         )}
+
+        {/* 12b. Member Tools */}
+        <MemberToolsSection orgSlug={organization.slug} canAccess={true} />
 
         {/* 13. Plan & Billing */}
         <section>
