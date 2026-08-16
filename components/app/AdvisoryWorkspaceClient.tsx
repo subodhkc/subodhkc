@@ -93,6 +93,15 @@ interface AdvisoryWorkspaceClientProps {
   actions?: any[]
   artifacts?: any[]
   outcomes?: any[]
+  advisorAffiliations?: any[]
+  sessionUsage?: {
+    currentMonth: string
+    includedSessions: number
+    usedSessions: number
+    rolledOverFromPrev: number
+    availableSessions: number
+    maxRollover: number
+  } | null
 }
 
 const DECISION_STATUS_LABELS: Record<string, { label: string; color: string }> = {
@@ -150,6 +159,8 @@ export function AdvisoryWorkspaceClient({
   actions = [],
   artifacts = [],
   outcomes = [],
+  advisorAffiliations = [],
+  sessionUsage = null,
 }: AdvisoryWorkspaceClientProps) {
   const { organization, organizationRole, isPlatformAdmin } = ctx
   const basePath = `/app/${organization.slug}`
@@ -175,6 +186,7 @@ export function AdvisoryWorkspaceClient({
   const [actionList, setActionList] = useState(actions)
   const [artifactList, setArtifactList] = useState(artifacts)
   const [outcomeList, setOutcomeList] = useState(outcomes)
+  const [affiliationList, setAffiliationList] = useState(advisorAffiliations)
   const [recordSubmitting, setRecordSubmitting] = useState(false)
   const [showAddRecord, setShowAddRecord] = useState<string | null>(null)
 
@@ -349,6 +361,7 @@ export function AdvisoryWorkspaceClient({
           case 'actions': setActionList(prev => [result.record, ...prev]); break
           case 'artifacts': setArtifactList(prev => [result.record, ...prev]); break
           case 'outcomes': setOutcomeList(prev => [result.record, ...prev]); break
+          case 'affiliations': setAffiliationList(prev => [result.record, ...prev]); break
         }
         onSuccess?.(result.record)
       }
@@ -627,6 +640,35 @@ export function AdvisoryWorkspaceClient({
           <section>
             <h2 className="text-base font-semibold mb-3">Working Sessions</h2>
             <div className="border rounded-lg p-4">
+              {/* Session usage summary */}
+              {sessionUsage && (
+                <div className="mb-3 p-3 rounded-md bg-primary/5 border border-primary/10">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        Session Usage — {sessionUsage.currentMonth}
+                      </p>
+                      <p className="text-sm mt-1">
+                        <strong>{sessionUsage.availableSessions}</strong> of{' '}
+                        {sessionUsage.includedSessions + sessionUsage.rolledOverFromPrev} available
+                        {sessionUsage.rolledOverFromPrev > 0 && (
+                          <span className="text-xs text-muted-foreground ml-1">
+                            (includes {sessionUsage.rolledOverFromPrev} rolled over)
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground">
+                        {sessionUsage.usedSessions} used
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Max rollover: {sessionUsage.maxRollover}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
               {activeEngagements.length > 0 ? (
                 <div className="space-y-2">
                   {activeEngagements.map(eng => (
@@ -1007,6 +1049,45 @@ export function AdvisoryWorkspaceClient({
           </div>
         </div>
 
+        {/* Advisor Affiliations */}
+        <section>
+          <h2 className="text-lg font-semibold mb-3 flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <Handshake className="h-5 w-5 text-primary" />
+              Approved Advisor Affiliation
+            </span>
+            {!showReadOnlyBanner && (
+              <button
+                onClick={() => setShowAddRecord('affiliations')}
+                className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+              >
+                <Plus className="h-3 w-3" /> Add
+              </button>
+            )}
+          </h2>
+          <div className="border rounded-lg p-4">
+            {affiliationList.length > 0 ? (
+              <div className="space-y-2">
+                {affiliationList.map((aff: any) => (
+                  <div key={aff.id} className="flex items-start justify-between gap-2">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">{aff.affiliate_name}</p>
+                      {aff.affiliate_role && <p className="text-xs text-muted-foreground mt-0.5">{aff.affiliate_role}</p>}
+                      {aff.affiliate_company && <p className="text-xs text-muted-foreground mt-0.5">{aff.affiliate_company}</p>}
+                      {aff.notes && <p className="text-xs text-muted-foreground mt-1">{aff.notes}</p>}
+                    </div>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded flex-shrink-0">{aff.status}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No approved advisor affiliations recorded yet. External advisors and partners introduced through this engagement will be tracked here.
+              </p>
+            )}
+          </div>
+        </section>
+
         {/* Workspace Export */}
         <section className="border rounded-lg p-4 bg-secondary/20">
           <div className="flex items-start gap-3">
@@ -1235,6 +1316,10 @@ function RecordCreationModal({
   const [desiredOutcome, setDesiredOutcome] = useState('')
   const [deadline, setDeadline] = useState('')
   const [linkUrl, setLinkUrl] = useState('')
+  const [affiliateName, setAffiliateName] = useState('')
+  const [affiliateRole, setAffiliateRole] = useState('')
+  const [affiliateCompany, setAffiliateCompany] = useState('')
+  const [artifactType, setArtifactType] = useState('document')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -1260,6 +1345,18 @@ function RecordCreationModal({
     }
     if (recordType === 'priorities') {
       data.priority_order = 0
+    }
+    if (recordType === 'artifacts') {
+      data.artifact_type = artifactType
+      if (linkUrl) data.external_url = linkUrl
+      data.status = 'draft'
+    }
+    if (recordType === 'affiliations') {
+      data.affiliate_name = affiliateName.trim() || title.trim()
+      if (affiliateRole) data.affiliate_role = affiliateRole
+      if (affiliateCompany) data.affiliate_company = affiliateCompany
+      data.relationship_type = 'approved_advisor'
+      data.status = 'approved'
     }
 
     onSubmit(data)
@@ -1317,6 +1414,43 @@ function RecordCreationModal({
               <label className="text-sm font-medium block mb-1">Link URL (optional)</label>
               <input type="url" value={linkUrl} onChange={e => setLinkUrl(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" placeholder="https://..." />
             </div>
+          )}
+          {recordType === 'artifacts' && (
+            <>
+              <div>
+                <label className="text-sm font-medium block mb-1">Artifact Type</label>
+                <select value={artifactType} onChange={e => setArtifactType(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm">
+                  <option value="document">Document</option>
+                  <option value="decision_brief">Decision Brief</option>
+                  <option value="vendor_comparison">Vendor Comparison</option>
+                  <option value="architecture_review">Architecture Review</option>
+                  <option value="opportunity_analysis">Opportunity Analysis</option>
+                  <option value="roadmap">Roadmap</option>
+                  <option value="operating_recommendation">Operating Recommendation</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1">Link URL (optional)</label>
+                <input type="url" value={linkUrl} onChange={e => setLinkUrl(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" placeholder="https://..." />
+              </div>
+            </>
+          )}
+          {recordType === 'affiliations' && (
+            <>
+              <div>
+                <label className="text-sm font-medium block mb-1">Advisor Name</label>
+                <input type="text" value={affiliateName} onChange={e => setAffiliateName(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" placeholder="Full name" />
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1">Role (optional)</label>
+                <input type="text" value={affiliateRole} onChange={e => setAffiliateRole(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" placeholder="e.g., CFO, Technical Advisor" />
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1">Company (optional)</label>
+                <input type="text" value={affiliateCompany} onChange={e => setAffiliateCompany(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm" placeholder="Company name" />
+              </div>
+            </>
           )}
           <div className="flex gap-2 pt-2">
             <button type="submit" disabled={submitting || !title.trim()} className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50">

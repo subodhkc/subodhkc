@@ -84,6 +84,8 @@ export default async function AdvisoryPage({
   let actions: any[] = []
   let artifacts: any[] = []
   let outcomes: any[] = []
+  let advisorAffiliations: any[] = []
+  let sessionUsage: any = null
 
   if (serviceClient) {
     // Engagements
@@ -235,7 +237,7 @@ export default async function AdvisoryPage({
 
     const [
       intakeRes, oppRes, evidenceRes, sessionsRes, briefsRes,
-      prioritiesRes, actionsRes, artifactsRes, outcomesRes,
+      prioritiesRes, actionsRes, artifactsRes, outcomesRes, affRes,
     ] = await Promise.all([
       serviceClient.from('fractional_intake_records').select('*').eq('organization_id', ctx.organization.id).order('created_at', { ascending: false }),
       serviceClient.from('fractional_opportunities').select('*').eq('organization_id', ctx.organization.id).order('created_at', { ascending: false }),
@@ -252,6 +254,7 @@ export default async function AdvisoryPage({
       engagementId
         ? serviceClient.from('engagement_outcomes').select('*').eq('organization_id', ctx.organization.id).eq('engagement_id', engagementId).order('created_at', { ascending: false })
         : Promise.resolve({ data: null, error: null }),
+      serviceClient.from('advisor_affiliations').select('*').eq('organization_id', ctx.organization.id).eq('status', 'approved').order('created_at', { ascending: false }),
     ])
 
     intakeRecords = intakeRes.data || []
@@ -263,6 +266,36 @@ export default async function AdvisoryPage({
     actions = actionsRes.data || []
     artifacts = artifactsRes.data || []
     outcomes = outcomesRes.data || []
+    advisorAffiliations = affRes.data || []
+
+    // Fetch session usage summary
+    const currentMonth = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
+    const { data: usageData } = await serviceClient
+      .from('fractional_session_usage')
+      .select('*')
+      .eq('organization_id', ctx.organization.id)
+      .eq('billing_period_month', currentMonth)
+      .single()
+    if (usageData) {
+      const available = usageData.included_sessions + usageData.rolled_over_from_prev - usageData.used_sessions
+      sessionUsage = {
+        currentMonth,
+        includedSessions: usageData.included_sessions,
+        usedSessions: usageData.used_sessions,
+        rolledOverFromPrev: usageData.rolled_over_from_prev,
+        availableSessions: available,
+        maxRollover: usageData.max_rollover,
+      }
+    } else {
+      sessionUsage = {
+        currentMonth,
+        includedSessions: 2,
+        usedSessions: 0,
+        rolledOverFromPrev: 0,
+        availableSessions: 2,
+        maxRollover: 1,
+      }
+    }
   }
 
   return (
@@ -286,6 +319,8 @@ export default async function AdvisoryPage({
       actions={actions}
       artifacts={artifacts}
       outcomes={outcomes}
+      advisorAffiliations={advisorAffiliations}
+      sessionUsage={sessionUsage}
     />
   )
 }

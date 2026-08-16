@@ -6,6 +6,7 @@ import {
 } from '@/lib/auth/organization-resolver'
 import { checkMutationAllowed } from '@/lib/auth/fractional-access'
 import { createServiceClient } from '@/lib/supabase'
+import { incrementSessionUsage, getCurrentMonth } from '@/lib/fractional/session-usage'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -38,6 +39,7 @@ const TABLE_MAP: Record<string, string> = {
   actions: 'engagement_actions',
   artifacts: 'engagement_artifacts',
   outcomes: 'engagement_outcomes',
+  affiliations: 'advisor_affiliations',
 }
 
 const VALID_INTAKE_TYPES = [
@@ -204,6 +206,20 @@ export async function POST(req: NextRequest) {
       insertData.authored_by_user_id = user.id
     }
 
+    // For working sessions: enforce session usage limits
+    if (type === 'sessions' && insertData.session_type !== 'activation_call') {
+      const billingMonth = (data.billing_period_month as string) || getCurrentMonth()
+      const usageResult = await incrementSessionUsage(ctx.organization.id, billingMonth)
+      if (!usageResult.success) {
+        return NextResponse.json(
+          { error: 'session_limit_reached', message: usageResult.message },
+          { status: 409 }
+        )
+      }
+      // Store the billing period on the session record
+      insertData.billing_period_month = billingMonth
+    }
+
     const { data: record, error } = await sc
       .from(table)
       .insert(insertData)
@@ -212,6 +228,28 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    // "Something Changed" intake: reopen related opportunity or decision
+    if (type === 'intake' && data.intake_type === 'something_changed') {
+      const relatedId = data.related_priority as string
+      if (relatedId) {
+        // Try to reopen an opportunity
+        await sc
+          .from('fractional_opportunities')
+          .update({ status: 'evidence_needed', updated_at: new Date().toISOString() })
+          .eq('id', relatedId)
+          .eq('organization_id', ctx.organization.id)
+          .in('status', ['closed', 'rejected', 'deferred'])
+
+        // Try to reopen a decision
+        await sc
+          .from('engagement_decisions')
+          .update({ status: 'open', updated_at: new Date().toISOString() })
+          .eq('id', relatedId)
+          .eq('organization_id', ctx.organization.id)
+          .in('status', ['decided', 'closed', 'deferred'])
+      }
     }
 
     // Audit

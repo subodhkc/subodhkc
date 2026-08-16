@@ -761,6 +761,40 @@ async function createEngagementForOffer(
       offering_id: offering.id,
     })
 
+  // For Fractional AI Advisor: auto-create current month's brief and session usage record
+  if (offerKey === 'fractional_ai_advisor') {
+    const now = new Date()
+    const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+
+    // Auto-create draft monthly brief for current month (unique constraint prevents duplicates)
+    await sc
+      .from('fractional_monthly_briefs')
+      .upsert({
+        organization_id: orgId,
+        engagement_id: eng.id,
+        brief_month: currentMonth,
+        what_changed: 'Engagement initiated.',
+        what_matters: 'Onboarding in progress. First working session to be scheduled.',
+        status: 'draft',
+      }, { onConflict: 'organization_id,brief_month' })
+      .eq('organization_id', orgId)
+      .eq('brief_month', currentMonth)
+
+    // Create session usage record for current month
+    await sc
+      .from('fractional_session_usage')
+      .upsert({
+        organization_id: orgId,
+        engagement_id: eng.id,
+        billing_period_month: currentMonth,
+        included_sessions: 2,
+        used_sessions: 0,
+        rolled_over_from_prev: 0,
+        rolled_over_to_next: 0,
+        max_rollover: 1,
+      }, { onConflict: 'organization_id,billing_period_month' })
+  }
+
   // For security reviews, seed coverage areas
   if (offerKey === 'saas_security_review' || offerKey === 'ai_security_compliance') {
     const coverageAreas = [
