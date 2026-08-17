@@ -56,8 +56,10 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
     }
   }, [responses])
 
-  async function submitToCheckout() {
-    if (!selectedOrg) {
+  async function submitToCheckout(org?: { id: string; name: string; slug: string }) {
+    // Use passed org or fall back to state - fixes React state race
+    const orgToUse = org || selectedOrg
+    if (!orgToUse) {
       setError('Please select an organization first.')
       return
     }
@@ -77,14 +79,15 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           qualificationResponses: responses,
-          organizationId: selectedOrg.id,
+          organizationId: orgToUse.id,
           agreementAccepted: step === 'agreement' ? agreementAccepted : false,
         }),
       })
       const data = await res.json()
       if (data.url) {
-        // Clear draft after successful checkout start
-        try { sessionStorage.removeItem(STORAGE_KEY) } catch { /* ignore */ }
+        // DO NOT clear draft here - only clear after payment is confirmed.
+        // If customer cancels Stripe or payment fails, intake should be resumable.
+        // Draft is cleared on checkout success page after fulfillment.
         window.location.href = data.url
       } else if (data.error === 'agreement_required') {
         setAgreementText(data.agreementBody || null)
@@ -92,6 +95,8 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
         setAgreementAccepted(false)
       } else if (data.error === 'membership_required') {
         setStep('membership_required')
+      } else if (data.error === 'custom_scope_required') {
+        setError(data.message || 'This looks larger than one standard Work Order. I will review the scope before you are asked to pay.')
       } else if (data.error === 'not_a_fit') {
         setError(data.message || 'Based on your responses, this may not be the right fit.')
       } else if (res.status === 401) {
@@ -123,7 +128,7 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
   function handleAgreementAccept() {
     if (!agreementAccepted) return
     setStep('checkout')
-    submitToCheckout()
+    submitToCheckout(selectedOrg ? { id: selectedOrg.id, name: selectedOrg.name, slug: selectedOrg.slug } : undefined)
   }
 
   return (
@@ -155,7 +160,7 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Button>
                     </Link>
-                    <Link href="/api/auth/signin">
+                    <Link href="/login?next=/ai-automation">
                       <Button size="lg" variant="outline">
                         Sign in if you&apos;re already a member
                       </Button>
@@ -169,7 +174,7 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
             ) : step === 'org' && !selectedOrg ? (
               <div className="space-y-4">
                 <p className="text-sm font-medium">Select which workspace this is for:</p>
-                <OrganizationSelectionStep onOrganizationSelected={(org) => { setSelectedOrg(org); setStep('checkout'); submitToCheckout() }} />
+                <OrganizationSelectionStep onOrganizationSelected={(org) => { setSelectedOrg(org); setStep('checkout'); submitToCheckout(org) }} />
                 <Button type="button" size="lg" variant="outline" onClick={() => setStep('intake')}>
                   Back to intake
                 </Button>
@@ -290,7 +295,7 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   ) : (
-                    <Button type="button" size="lg" disabled={loading} className="group" onClick={submitToCheckout}>
+                    <Button type="button" size="lg" disabled={loading} className="group" onClick={() => submitToCheckout()}>
                       {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                       Continue to Checkout — $500
                       {!loading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}

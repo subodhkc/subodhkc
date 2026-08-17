@@ -228,7 +228,7 @@ export async function fetchAdvisoryClients(filter?: AdvisoryFilter): Promise<Adv
     const kestrelProduct = orgProducts.find(p => p.product_key === 'kestrel')
     const orgQuestions = questionsByOrg.get(orgId) || []
     const latestQuestion = orgQuestions[0]
-    const unansweredQuestions = orgQuestions.filter(q => q.status === 'new' || q.status === 'answered')
+    const unansweredQuestions = orgQuestions.filter(q => q.status === 'submitted' || q.status === 'under_review' || q.status === 'answered')
     const membership = membershipMap.get(orgId)
     const isFractional = ent.offering_key === 'fractional_ai_advisor'
     const sourceMeta = ent.source_metadata as any
@@ -239,7 +239,7 @@ export async function fetchAdvisoryClients(filter?: AdvisoryFilter): Promise<Adv
 
     // Calculate response aging
     let responseAgingHours: number | null = null
-    if (latestQuestion && (latestQuestion.status === 'new' || latestQuestion.status === 'open')) {
+    if (latestQuestion && (latestQuestion.status === 'submitted' || latestQuestion.status === 'under_review')) {
       const createdAt = new Date(latestQuestion.created_at)
       responseAgingHours = Math.floor((now.getTime() - createdAt.getTime()) / (1000 * 60 * 60))
     }
@@ -336,7 +336,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
   const { data: questions } = await sc
     .from('advisor_questions')
     .select('id, organization_id, title, created_at, status, organizations!inner(name, slug)')
-    .eq('status', 'new')
+    .in('status', ['submitted', 'under_review'])
     .order('created_at', { ascending: false })
     .limit(50)
 
@@ -350,7 +350,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       priority: ageHours > 72 ? 'high' : ageHours > 48 ? 'medium' : 'low',
       age_hours: ageHours,
       target_date: null,
-      status: 'new',
+      status: q.status || 'submitted',
       direct_link: `/app/${(q as any).organizations?.slug}/advisor-desk`,
       title: q.title || 'New advisor question',
       dismissable: false,

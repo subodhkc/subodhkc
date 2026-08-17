@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
       message: 'AI Work Orders are available through the AI Advisor relationship.',
       advisorDeskUrl: '/ai-advisor',
       advisoryUrl: '/advisory',
-      signInUrl: '/api/auth/signin',
+      signInUrl: '/login?next=/ai-automation',
     }, { status: 403 })
   }
 
@@ -94,6 +94,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       error: 'not_a_fit',
       message: fitResult.reason,
+    }, { status: 422 })
+  }
+
+  // Expanded scope cannot silently enter standard $500 checkout.
+  // Queue for advisor review instead of charging.
+  if (fitDecision === 'expanded_scope_review') {
+    return NextResponse.json({
+      error: 'custom_scope_required',
+      message: 'This looks larger than one standard Work Order. I will review the scope before you are asked to pay. You can narrow the first Work Order, define multiple Work Orders, or we can discuss a larger scope.',
+      fitDecision,
     }, { status: 422 })
   }
 
@@ -222,10 +232,11 @@ export async function POST(req: NextRequest) {
   }
 
   // ============================================
-  // QUALIFICATION RECORD (with organization_id)
+  // QUALIFICATION RECORD (with organization_id) - FAIL CLOSED
   // ============================================
-  let qualificationRecordId: string | null = null
-  const { data: qualRecord } = await sc
+  // If qualification persistence fails, do NOT proceed to Stripe checkout.
+  // Never permit qualification_record_id = '' for a new Work Order checkout.
+  const { data: qualRecord, error: qualError } = await sc
     .from('blueprint_qualifications')
     .insert({
       organization_id: organization.id,
@@ -238,7 +249,15 @@ export async function POST(req: NextRequest) {
     .select('id')
     .single()
 
-  qualificationRecordId = qualRecord?.id ?? null
+  if (qualError || !qualRecord) {
+    console.error('Qualification persistence failed:', qualError?.message)
+    return NextResponse.json({
+      error: 'qualification_persistence_failed',
+      message: 'Failed to save your intake. Please try again.',
+    }, { status: 500 })
+  }
+
+  const qualificationRecordId = qualRecord.id
 
   // ============================================
   // STRIPE CHECKOUT (metadata contains only identifiers, no free-text)

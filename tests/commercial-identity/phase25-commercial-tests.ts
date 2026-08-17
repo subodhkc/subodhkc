@@ -181,7 +181,7 @@ async function testFractionalWelcomeEmail() {
   )
 
   assert(
-    emailFile.includes('Your Fractional AI Advisor relationship is active'),
+    emailFile.includes('Your Fractional AI Advisor engagement is active'),
     'Welcome email should have correct subject'
   )
 }
@@ -196,8 +196,8 @@ async function testAdvisoryPage() {
   const page = await readFile('app/advisory/page.tsx')
 
   assert(
-    page.includes('Fractional AI Advisor | Executive AI Strategy Advisor'),
-    'Advisory page title should target Fractional AI Advisor + Executive AI Strategy Advisor'
+    page.includes('Fractional AI Advisor | Strategy, Architecture & Governance'),
+    'Advisory page title should target Fractional AI Advisor'
   )
 
   assert(
@@ -243,7 +243,7 @@ async function testAIAdvisorPage() {
   )
 
   assert(
-    page.includes('AI Advisor for Business | Human AI Advisory'),
+    page.includes('AI Advisor for Business | AI Opportunity, Strategy & Risk'),
     'AI advisor page title should target "AI Advisor for Business"'
   )
 

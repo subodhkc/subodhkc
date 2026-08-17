@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   const { orgSlug, step, status } = body as {
     orgSlug: string
     step: 'context_intake' | 'watchlist_review' | 'activation_call'
-    status: 'not_started' | 'in_progress' | 'completed'
+    status: 'not_started' | 'in_progress' | 'completed' | 'deferred' | 'scheduled' | 'cancelled'
   }
 
   if (!orgSlug || !step || !status) {
@@ -54,10 +54,12 @@ export async function POST(req: NextRequest) {
     [step]: status,
   }
 
+  // Service is usable after context + watchlist. Activation can be completed, scheduled, or deferred.
+  const activationUsable = updatedSteps.activation_call === 'completed' || updatedSteps.activation_call === 'scheduled' || updatedSteps.activation_call === 'deferred'
   const allComplete =
     updatedSteps.context_intake === 'completed' &&
     updatedSteps.watchlist_review === 'completed' &&
-    updatedSteps.activation_call === 'completed'
+    activationUsable
 
   if (lifecycle) {
     const { error } = await sc

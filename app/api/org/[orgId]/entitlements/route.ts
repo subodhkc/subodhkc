@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAuthenticatedUser, resolveOrganizationContext, AuthError } from '@/lib/auth/organization-resolver'
+import { getAuthenticatedUser, resolveOrganizationContextById, AuthError } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
@@ -15,14 +15,20 @@ export async function POST(
 
   let ctx
   try {
-    ctx = await resolveOrganizationContext(user, orgId)
+    ctx = await resolveOrganizationContextById(user, orgId)
   } catch (err) {
     if (err instanceof AuthError) return NextResponse.json({ error: err.code }, { status: 403 })
     return NextResponse.json({ error: 'internal' }, { status: 500 })
   }
 
-  const isAdmin = ctx.organizationRole === 'owner' || ctx.organizationRole === 'admin' || ctx.isPlatformAdmin
-  if (!isAdmin) return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
+  // Commercial entitlements can only be granted by platform admin or Stripe fulfillment.
+  // Organization owners/admins cannot self-grant paid product rights.
+  if (!ctx.isPlatformAdmin) {
+    return NextResponse.json(
+      { error: 'platform_admin_required', message: 'Commercial entitlements can only be granted by platform administration or Stripe fulfillment.' },
+      { status: 403 }
+    )
+  }
 
   const body = await request.json()
   const { offering_id } = body
@@ -56,7 +62,7 @@ export async function POST(
     action: 'entitlement.created',
     entity_type: 'entitlement',
     entity_id: data.id,
-    metadata: { offering_id },
+    metadata: { offering_id, source: 'platform_admin' },
   })
 
   return NextResponse.json({ success: true, id: data.id })
@@ -72,14 +78,19 @@ export async function PATCH(
 
   let ctx
   try {
-    ctx = await resolveOrganizationContext(user, orgId)
+    ctx = await resolveOrganizationContextById(user, orgId)
   } catch (err) {
     if (err instanceof AuthError) return NextResponse.json({ error: err.code }, { status: 403 })
     return NextResponse.json({ error: 'internal' }, { status: 500 })
   }
 
-  const isAdmin = ctx.organizationRole === 'owner' || ctx.organizationRole === 'admin' || ctx.isPlatformAdmin
-  if (!isAdmin) return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
+  // Commercial entitlement mutations (suspend/activate/revoke) require platform admin.
+  if (!ctx.isPlatformAdmin) {
+    return NextResponse.json(
+      { error: 'platform_admin_required', message: 'Commercial entitlement changes can only be made by platform administration.' },
+      { status: 403 }
+    )
+  }
 
   const body = await request.json()
   const { offering_id, action } = body
@@ -110,7 +121,7 @@ export async function PATCH(
     actor_user_id: user.id,
     action: `entitlement.${action}d`,
     entity_type: 'entitlement',
-    metadata: { offering_id },
+    metadata: { offering_id, source: 'platform_admin' },
   })
 
   return NextResponse.json({ success: true })

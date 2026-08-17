@@ -133,14 +133,16 @@ export function AdvisorOnboardingClient({
   }, [orgSlug])
 
   const handleActivationScheduled = useCallback(async () => {
+    // "Schedule later" defers activation - does not complete it.
+    // Service remains usable, but activation meeting is not marked complete.
     try {
       const res = await fetch('/api/commercial/advisor-desk/onboarding-step', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orgSlug, step: 'activation_call', status: 'completed' }),
+        body: JSON.stringify({ orgSlug, step: 'activation_call', status: 'deferred' }),
       })
       if (res.ok) {
-        setSteps(prev => ({ ...prev, activation_call: 'completed' }))
+        setSteps(prev => ({ ...prev, activation_call: 'deferred' }))
       }
     } catch {
       // Non-blocking
@@ -248,12 +250,16 @@ export function AdvisorOnboardingClient({
           />
         )}
 
-        {/* Completion state */}
-        {onboardingComplete || (steps.context_intake === 'completed' && steps.watchlist_review === 'completed' && steps.activation_call === 'completed') ? (
+        {/* Completion state - service is usable after context + watchlist, activation can be deferred */}
+        {onboardingComplete || (steps.context_intake === 'completed' && steps.watchlist_review === 'completed' && (steps.activation_call === 'completed' || steps.activation_call === 'deferred' || steps.activation_call === 'scheduled')) ? (
           <div className="rounded-xl border border-green-500/30 bg-green-500/5 p-6 text-center space-y-3">
             <CheckCircle2 className="h-8 w-8 text-green-500 mx-auto" />
-            <h3 className="text-lg font-semibold">Onboarding complete.</h3>
-            <p className="text-sm text-muted-foreground">Your Advisor Desk is set up. I have your context, your watchlist is calibrated, and your activation call is scheduled.</p>
+            <h3 className="text-lg font-semibold">Your Advisor Desk is ready.</h3>
+            <p className="text-sm text-muted-foreground">
+              {steps.activation_call === 'completed'
+                ? 'Your Advisor Desk is set up. I have your context, your watchlist is calibrated, and your activation call is complete.'
+                : 'Your Advisor Desk is set up. I have your context and your watchlist is calibrated. Schedule your activation call when ready.'}
+            </p>
             <Link
               href={deskUrl}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
@@ -290,8 +296,16 @@ function ActivationCallStep({
   const isScheduled = schedulingLink?.status === 'scheduled' || schedulingLink?.status === 'completed'
 
   function handleScheduleClick() {
+    // Clicking the scheduling link only tracks that scheduling was started.
+    // It does NOT mark activation as scheduled or completed.
+    // A confirmed booking (via webhook or manual advisor action) marks 'scheduled'.
+    // A completed meeting marks 'completed'.
     track('advisor_activation_schedule_started')
-    track('advisor_activation_scheduled')
+  }
+
+  function handleScheduleLater() {
+    // "Schedule later" defers activation - does not complete it.
+    track('advisor_activation_deferred')
     onScheduled()
   }
 
@@ -354,7 +368,7 @@ function ActivationCallStep({
             </a>
             <div>
               <button
-                onClick={onScheduled}
+                onClick={handleScheduleLater}
                 className="text-xs text-muted-foreground hover:text-foreground underline"
               >
                 I&apos;ll schedule later

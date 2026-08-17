@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAuthenticatedUser, resolveOrganizationContext, AuthError } from '@/lib/auth/organization-resolver'
+import { getAuthenticatedUser, resolveOrganizationContext, resolveOrganizationContextById, AuthError } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { sendRoleChangeEmail, sendRemovalEmail } from '@/lib/email'
 
@@ -16,7 +16,7 @@ export async function PATCH(
 
   let ctx
   try {
-    ctx = await resolveOrganizationContext(user, orgId)
+    ctx = await resolveOrganizationContextById(user, orgId)
   } catch (err) {
     if (err instanceof AuthError) return NextResponse.json({ error: err.code }, { status: 403 })
     return NextResponse.json({ error: 'internal' }, { status: 500 })
@@ -92,7 +92,7 @@ export async function DELETE(
 
   let ctx
   try {
-    ctx = await resolveOrganizationContext(user, orgId)
+    ctx = await resolveOrganizationContextById(user, orgId)
   } catch (err) {
     if (err instanceof AuthError) return NextResponse.json({ error: err.code }, { status: 403 })
     return NextResponse.json({ error: 'internal' }, { status: 500 })

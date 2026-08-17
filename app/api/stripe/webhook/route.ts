@@ -182,7 +182,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
 
   if ('error' in entResult) {
     console.error('Failed to activate entitlement:', entResult.error)
-    return
+    throw new Error(`Entitlement activation failed: ${entResult.error}`)
   }
 
   // Store subscription ID if applicable (per-offer to support multiple subscriptions)
@@ -787,26 +787,30 @@ async function createEngagementForOffer(
 
   if (!offering) return
 
-  // Check if engagement already exists for this org + offering (prevent duplicates)
-  // engagement_offerings doesn't have organization_id, so we query engagements first
-  const { data: existingEngagements } = await sc
-    .from('engagements')
-    .select('id')
-    .eq('organization_id', orgId)
-  const existingEngIds = (existingEngagements || []).map(e => e.id)
-  let existing: { engagement_id: string }[] | null = null
-  if (existingEngIds.length > 0) {
-    const { data: existingLinks } = await sc
-      .from('engagement_offerings')
-      .select('engagement_id')
-      .in('engagement_id', existingEngIds)
-      .eq('offering_id', offering.id)
-    existing = existingLinks
-  }
+  // AI Work Orders are repeatable transactions - each purchase creates a new engagement.
+  // Skip dedup check for ai_automation_blueprint so multiple Work Orders can coexist.
+  if (offerKey !== 'ai_automation_blueprint') {
+    // Check if engagement already exists for this org + offering (prevent duplicates)
+    // engagement_offerings doesn't have organization_id, so we query engagements first
+    const { data: existingEngagements } = await sc
+      .from('engagements')
+      .select('id')
+      .eq('organization_id', orgId)
+    const existingEngIds = (existingEngagements || []).map(e => e.id)
+    let existing: { engagement_id: string }[] | null = null
+    if (existingEngIds.length > 0) {
+      const { data: existingLinks } = await sc
+        .from('engagement_offerings')
+        .select('engagement_id')
+        .in('engagement_id', existingEngIds)
+        .eq('offering_id', offering.id)
+      existing = existingLinks
+    }
 
-  if (existing && existing.length > 0) {
-    // Engagement already exists for this offering - don't create a duplicate
-    return
+    if (existing && existing.length > 0) {
+      // Engagement already exists for this offering - don't create a duplicate
+      return
+    }
   }
 
   // Build engagement fields based on offer type
@@ -859,7 +863,7 @@ async function createEngagementForOffer(
 
   if (engError || !eng) {
     console.error('Failed to create engagement:', engError?.message)
-    return
+    throw new Error(`Engagement creation failed: ${engError?.message || 'unknown'}`)
   }
 
   // Link engagement to offering

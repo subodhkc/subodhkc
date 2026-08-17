@@ -196,12 +196,10 @@ export function PlatformAdminClient({
     setBroadcastSending(true)
     setBroadcastResult(null)
     try {
-      const token = process.env.NEXT_PUBLIC_BABYLOVE_SYNC_SECRET || ''
       const res = await fetch('/api/newsletter-broadcast', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ postCount: 3 }),
       })

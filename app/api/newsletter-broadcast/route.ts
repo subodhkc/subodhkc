@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllPosts } from '@/lib/blog'
+import { requirePlatformAdmin } from '@/lib/auth/organization-resolver'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,17 +20,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const authHeader = request.headers.get('authorization')
-  const expectedToken = process.env.BABYLOVE_SYNC_SECRET || process.env.NEWSLETTER_BROADCAST_SECRET
-
-  if (!expectedToken) {
-    return NextResponse.json(
-      { error: 'Broadcast secret not configured' },
-      { status: 500 }
-    )
-  }
-
-  if (authHeader !== `Bearer ${expectedToken}`) {
+  try {
+    await requirePlatformAdmin()
+  } catch {
     return NextResponse.json(
       { error: 'Unauthorized' },
       { status: 401 }

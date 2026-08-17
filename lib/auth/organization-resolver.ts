@@ -152,6 +152,44 @@ export async function resolveOrganizationContext(
     throw new AuthError('organization_not_found', `Organization '${orgSlug}' not found`)
   }
 
+  return resolveOrganizationContextFromOrg(user, org, serviceClient)
+}
+
+/**
+ * Resolve organization context by UUID.
+ * Explicit by-ID semantics - cannot be confused with slug resolution.
+ */
+export async function resolveOrganizationContextById(
+  user: AuthenticatedUser,
+  organizationId: string
+): Promise<OrganizationContext> {
+  const serviceClient = createServiceClient()
+  if (!serviceClient) {
+    throw new AuthError('unauthorized', 'Service client not available')
+  }
+
+  const { data: org, error: orgError } = await serviceClient
+    .from('organizations')
+    .select('id, name, slug, organization_kind, status')
+    .eq('id', organizationId)
+    .single()
+
+  if (orgError || !org) {
+    throw new AuthError('organization_not_found', `Organization '${organizationId}' not found`)
+  }
+
+  return resolveOrganizationContextFromOrg(user, org, serviceClient)
+}
+
+/**
+ * Shared resolution logic after organization row is fetched (by slug or by ID).
+ */
+async function resolveOrganizationContextFromOrg(
+  user: AuthenticatedUser,
+  org: { id: string; name: string; slug: string; organization_kind: string; status: string },
+  serviceClient: ReturnType<typeof createServiceClient> & {}
+): Promise<OrganizationContext> {
+
   // 2. Check if organization is suspended
   if (org.status === 'suspended' && !user.isPlatformAdmin) {
     throw new AuthError('organization_suspended', 'Organization is suspended')

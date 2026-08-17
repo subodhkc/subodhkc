@@ -116,15 +116,36 @@ export async function incrementSessionUsage(
     }
   }
 
+  // Atomic conditional update: only increment if used_sessions hasn't changed since we read it.
+  // This prevents race conditions where two concurrent requests both see availability and both increment.
   const { data: updated, error } = await sc
     .from('fractional_session_usage')
     .update({ used_sessions: usage.used_sessions + 1 })
     .eq('id', usage.id)
+    .eq('used_sessions', usage.used_sessions) // Optimistic concurrency check
     .select('*')
     .single()
 
-  if (error) {
-    return { success: false, available, used: usage.used_sessions, message: error.message }
+  if (error || !updated) {
+    // Either another request consumed the session, or the row changed - retry once
+    const retryUsage = await getOrCreateSessionUsage(orgId, engagement?.id || null, billingPeriodMonth)
+    if (!retryUsage) return { success: false, available: 0, used: 0, message: 'Could not verify session availability' }
+    const retryAvailable = retryUsage.included_sessions + retryUsage.rolled_over_from_prev - retryUsage.used_sessions
+    if (retryAvailable <= 0) {
+      return { success: false, available: 0, used: retryUsage.used_sessions, message: 'No sessions remaining (concurrent request consumed the last session).' }
+    }
+    const { data: retryUpdated, error: retryError } = await sc
+      .from('fractional_session_usage')
+      .update({ used_sessions: retryUsage.used_sessions + 1 })
+      .eq('id', retryUsage.id)
+      .eq('used_sessions', retryUsage.used_sessions)
+      .select('*')
+      .single()
+    if (retryError || !retryUpdated) {
+      return { success: false, available: retryAvailable, used: retryUsage.used_sessions, message: 'Session was consumed by another request. Please try again.' }
+    }
+    const newAvailable = retryUpdated.included_sessions + retryUpdated.rolled_over_from_prev - retryUpdated.used_sessions
+    return { success: true, available: newAvailable, used: retryUpdated.used_sessions }
   }
 
   const newAvailable = updated.included_sessions + updated.rolled_over_from_prev - updated.used_sessions
