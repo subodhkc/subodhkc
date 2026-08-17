@@ -19,6 +19,7 @@ import {
   Clock,
 } from 'lucide-react'
 import { AdvisorCheckoutCTA } from '@/components/commercial/AdvisorCheckoutCTA'
+import { AdvisorHeroCTA } from '@/components/commercial/AdvisorHeroCTA'
 import { getCheckoutBullets } from '@/lib/commercial/offers'
 import { AdvisorStickyCTA } from '@/components/commercial/AdvisorStickyCTA'
 import { FAQAccordion } from '@/components/ai-advisor/FAQAccordion'
@@ -302,14 +303,7 @@ export default function AIAdvisorPage() {
                 <p className="text-sm text-muted-foreground">Month-to-month. Cancel anytime.</p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Link href="#start">
-                  <Button size="lg" className="group w-full sm:w-auto">
-                    Start My Advisor Desk
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-              </div>
+              <AdvisorHeroCTA />
             </div>
 
             {/* Right: Context -> Watch -> Find -> Decide -> Act visual model */}
@@ -728,9 +722,10 @@ export default function AIAdvisorPage() {
                 <CardDescription className="text-base">$1,250/month</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-3">Someone working through multiple interconnected decisions with you.</p>
+                <p className="text-sm text-muted-foreground mb-3">Someone working through the decisions with you, not just watching for you.</p>
+                <p className="text-xs text-muted-foreground mb-3 italic">The difference is depth of involvement, not a bigger feature package.</p>
                 <ul className="space-y-1.5 text-sm">
-                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Two monthly working sessions</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Two monthly working sessions (60 min)</li>
                   <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Priority async advisory</li>
                   <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Decision and Opportunity Workspace</li>
                   <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Monthly Decision and Opportunity Brief</li>

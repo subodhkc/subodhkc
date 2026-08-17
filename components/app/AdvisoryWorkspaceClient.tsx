@@ -607,10 +607,58 @@ export function AdvisoryWorkspaceClient({
                     </div>
                   )}
 
+                  {/* If activation is done but no working session scheduled, offer self-scheduling */}
+                  {completedActivation && !nextWorkingSession && (
+                    <div className="pt-3 border-t">
+                      <p className="text-sm font-medium">Schedule Your Next Working Session</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        60 minutes. Book directly.
+                      </p>
+                      <a
+                        href="https://calendly.com/subodhkc/30min"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 border border-border text-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-accent/10 mt-2"
+                      >
+                        Schedule Working Session
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                  )}
+
                   {!pendingActivation && !scheduledActivation && !completedActivation && !nextWorkingSession && (
-                    <p className="text-sm text-muted-foreground">
-                      Scheduling links will appear here once your activation call is set up.
-                    </p>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="text-sm font-medium">Schedule Your Activation Call</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          20 minutes, complimentary. Validate priorities, confirm decisions, establish cadence.
+                        </p>
+                        <a
+                          href="https://calendly.com/subodhkc/30min"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 mt-2"
+                        >
+                          Schedule Activation Call
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
+                      <div className="pt-3 border-t">
+                        <p className="text-sm font-medium">Schedule Your First Working Session</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          60 minutes. The first real working session on your priorities.
+                        </p>
+                        <a
+                          href="https://calendly.com/subodhkc/30min"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 border border-border text-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-accent/10 mt-2"
+                        >
+                          Schedule Working Session
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
+                    </div>
                   )}
                 </div>
               )

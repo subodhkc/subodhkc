@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Section from '@/components/Section'
 import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import {
   Target,
   Compass,
@@ -19,13 +19,14 @@ import {
 } from 'lucide-react'
 import { FractionalAdvisorCheckoutCTA } from '@/components/commercial/FractionalAdvisorCheckoutCTA'
 import { FractionalStickyCTA } from '@/components/commercial/FractionalStickyCTA'
+import { FractionalHeroCTA } from '@/components/commercial/FractionalHeroCTA'
 import { FAQAccordion } from '@/components/ai-advisor/FAQAccordion'
 import { getCheckoutBullets } from '@/lib/commercial/offers'
 
 export const metadata = {
   title: 'Fractional AI Advisor | Strategy, Architecture & Governance | Subodh KC',
   description:
-    'Add senior AI judgment without adding another executive seat. Strategy, opportunity, vendor, architecture, roadmap, and governance decisions for founders, executives, and CTOs. $1,250/month.',
+    'Add senior AI judgment without adding another executive seat. Strategy, vendor, architecture, roadmap, and governance decisions. $1,250/month.',
   keywords: [
     'fractional AI advisor',
     'executive AI advisor',
@@ -56,7 +57,7 @@ export const metadata = {
   openGraph: {
     title: 'Fractional AI Advisor | Strategy, Architecture & Governance | Subodh KC',
     description:
-      'Add senior AI judgment without adding another executive seat. Strategy, opportunity, vendor, architecture, roadmap, and governance decisions for founders, executives, and CTOs. $1,250/month.',
+      'Add senior AI judgment without adding another executive seat. Strategy, vendor, architecture, roadmap, and governance decisions. $1,250/month.',
     url: 'https://subodhkc.com/advisory',
     type: 'website',
   },
@@ -314,19 +315,7 @@ export default function AdvisoryPage() {
                 <p className="text-sm text-muted-foreground">Recommended 90-day working horizon. No minimum term.</p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Link href="#start">
-                  <Button size="lg" className="group w-full sm:w-auto">
-                    Start Fractional AI Advisor
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                    Discuss Fit
-                  </Button>
-                </Link>
-              </div>
+              <FractionalHeroCTA />
             </div>
 
             {/* Right: Decision & Opportunity system visual */}
@@ -380,12 +369,56 @@ export default function AdvisoryPage() {
       </div>
 
       {/* ============================================
-          1. WHEN FRACTIONAL EARNS ITS PLACE
+          WHO IS THIS FOR
+          ============================================ */}
+      <Section
+        subtitle="Who this is for"
+        title="If you are carrying AI decisions that are expensive to reverse, this is for you."
+        sectionNum="01"
+      >
+        <div className="max-w-3xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            You do not need a specific title. You need to be the person who cannot afford to get the AI decision wrong and cannot afford to delay it either.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="border-l-2 border-primary/40 pl-4 py-1">
+              <h3 className="text-sm font-semibold mb-1">The founder deciding what to build first</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">You have limited capital, limited time, and multiple AI opportunities competing for both. You need someone to help you sequence the work and commit without overcommitting.</p>
+            </div>
+            <div className="border-l-2 border-primary/40 pl-4 py-1">
+              <h3 className="text-sm font-semibold mb-1">The executive approving the spend</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">You are being asked to fund AI initiatives, sign vendor contracts, and approve architectures. You need an independent view before the money moves, not after.</p>
+            </div>
+            <div className="border-l-2 border-primary/40 pl-4 py-1">
+              <h3 className="text-sm font-semibold mb-1">The CTO deciding build, buy, or wait</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">You are responsible for the architecture, the data, the security boundaries, and the operational reality. You need someone who speaks both engineering and executive and can pressure-test the plan.</p>
+            </div>
+            <div className="border-l-2 border-primary/40 pl-4 py-1">
+              <h3 className="text-sm font-semibold mb-1">The operator crossing from experiment to production</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Your organization is moving from AI experiments to AI that has to work. The stakes change. The decisions change. You need someone who has been through that transition.</p>
+            </div>
+            <div className="border-l-2 border-primary/40 pl-4 py-1">
+              <h3 className="text-sm font-semibold mb-1">The leader in a regulated industry</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Regulations, security requirements, and governance constraints are affecting your architecture and your rollout. You need someone who can connect compliance to execution without paralyzing either.</p>
+            </div>
+            <div className="border-l-2 border-primary/40 pl-4 py-1">
+              <h3 className="text-sm font-semibold mb-1">The team leading multiple AI initiatives at once</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Different business units are pursuing disconnected AI work. You need someone to see the whole portfolio, identify the conflicts, and help leadership prioritize across all of it.</p>
+            </div>
+          </div>
+          <p className="text-lg font-medium text-foreground leading-relaxed pt-2">
+            If you are the person who has to answer "what do we do about AI?" and the answer actually matters, this is for you.
+          </p>
+        </div>
+      </Section>
+
+      {/* ============================================
+          2. WHEN FRACTIONAL EARNS ITS PLACE
           ============================================ */}
       <Section
         subtitle="When Fractional earns its place"
         title="Concrete situations where this relationship is worth it"
-        sectionNum="01"
+        sectionNum="02"
       >
         <div className="max-w-3xl mx-auto space-y-3">
           {whenFractionalEarnsItsPlace.map((situation, i) => (
@@ -408,7 +441,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="What I work through"
         title="The decisions this relationship covers"
-        sectionNum="02"
+        sectionNum="03"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto space-y-6">
@@ -439,7 +472,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="How the relationship operates"
         title="The product is not the meetings. The product is judgment, continuity, and an operating record."
-        sectionNum="03"
+        sectionNum="04"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -487,7 +520,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Operating method"
         title="The method behind every decision"
-        sectionNum="04"
+        sectionNum="05"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto space-y-6">
@@ -517,25 +550,12 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Decision and Opportunity System"
         title="What the workspace actually holds"
-        sectionNum="05"
+        sectionNum="06"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            The workspace is not a shared drive. It is a structured operating record that moves with the work.
+            The workspace is not a shared drive. It is a structured operating record that moves with the work. Every decision passes through the same loop you saw above: Context to Opportunities to Decisions to Evidence to Commitments to Outcomes.
           </p>
-          <div className="space-y-1">
-            {decisionOpportunitySystem.map((stage, i) => (
-              <Reveal key={stage.label} delay={i * 40} style="up">
-                <div className="flex items-start gap-4 py-3 border-b border-border last:border-b-0">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">{i + 1}</div>
-                  <div>
-                    <h3 className="text-sm font-bold tracking-wide">{stage.label}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{stage.sub}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
           <div className="rounded-lg border border-border bg-secondary/20 p-6 space-y-3">
             <h3 className="font-semibold text-sm">What exists inside the workspace</h3>
             <div className="grid sm:grid-cols-2 gap-2">
@@ -574,7 +594,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Representative artifacts"
         title="What the work produces"
-        sectionNum="06"
+        sectionNum="07"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto space-y-6">
@@ -603,7 +623,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Why Subodh"
         title="Why have me working through these decisions with you?"
-        sectionNum="07"
+        sectionNum="08"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -642,7 +662,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Pricing and working horizon"
         title="Fractional AI Advisor"
-        sectionNum="08"
+        sectionNum="09"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-6">
@@ -711,7 +731,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Activation and onboarding"
         title="How the relationship starts"
-        sectionNum="09"
+        sectionNum="10"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -766,7 +786,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Lighter and deeper engagement paths"
         title="This is one relationship in a larger model"
-        sectionNum="10"
+        sectionNum="11"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-8">
@@ -807,7 +827,7 @@ export default function AdvisoryPage() {
         subtitle="Included AI capability access"
         title="Member tools included with your subscription"
         description="Human judgment comes first. These supporting tools extend what the advisory relationship can do. Product limits apply to each included tool."
-        sectionNum="11"
+        sectionNum="12"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
@@ -857,7 +877,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="Affiliation, expectations, and session policy"
         title="How the engagement works in practice"
-        sectionNum="12"
+        sectionNum="13"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-8">
@@ -922,7 +942,7 @@ export default function AdvisoryPage() {
       <Section
         subtitle="FAQ"
         title="Common questions about fractional AI advisory"
-        sectionNum="13"
+        sectionNum="14"
       >
         <div className="max-w-3xl mx-auto">
           <FAQAccordion items={faqs} />
@@ -935,7 +955,7 @@ export default function AdvisoryPage() {
       <div id="start">
         <FractionalAdvisorCheckoutCTA
           title="Start Fractional AI Advisor"
-          description="$1,250/month. Senior AI judgment working through your strategy, vendor, architecture, roadmap, and governance decisions. Two monthly working sessions, priority async advisory, Decision and Opportunity Workspace, Monthly Brief, selected decision artifacts, HAIEC SCAN access, Kestrel AI Number Basic, and Member Tool Library. Month-to-month. Recommended 90-day working horizon."
+          description="Senior AI judgment working through your strategy, vendor, architecture, roadmap, and governance decisions. Month-to-month. Recommended 90-day working horizon."
           bullets={getCheckoutBullets('fractional_ai_advisor')}
         />
       </div>
