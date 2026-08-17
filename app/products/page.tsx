@@ -19,16 +19,16 @@ import {
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'Privacy-First AI Tools & Products | Subodh KC',
+  title: 'Open Source & Systems | Subodh KC',
   description:
-    'Open-source and free AI tools: LLM output monitoring, PDF redaction, print queue manager, document timeline generator, log analyzer, and legal case management. 100% local processing.',
+    'Open-source packages, tools, and systems: LLM output monitoring, MCP tenant isolation analysis, PDF redaction, document timeline, log analyzer, and more. Inspectable technical work by Subodh KC.',
   alternates: {
     canonical: 'https://subodhkc.com/products',
   },
   openGraph: {
-    title: 'Privacy-First AI Tools & Products | Subodh KC',
+    title: 'Open Source & Systems | Subodh KC',
     description:
-      'Open-source and free AI tools with 100% local processing. No cloud uploads. No tracking.',
+      'Open-source packages, tools, and systems. Inspectable technical work in the same areas I advise on.',
     url: 'https://subodhkc.com/products',
     type: 'website',
   },

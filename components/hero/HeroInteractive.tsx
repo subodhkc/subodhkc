@@ -1,15 +1,27 @@
 "use client";
 
 import { Aurora } from "./Aurora";
-import { Constellation } from "./Constellation";
-import { Counter } from "./Counter";
 import { DotGrid } from "./DotGrid";
-import { PRODUCTS } from "@/data/products";
 
-const KPIS = [
-  { k: "products", v: 18, fmt: { suffix: "" }, sub: "shipped", live: false },
-  { k: "installs", v: 10000, fmt: { formatK: true, suffix: "+" }, sub: "npm + pypi", live: true },
-  { k: "programs", v: 50, fmt: { suffix: "+" }, sub: "AI delivered", live: false },
+const PROOF_POINTS = [
+  { v: "16+", sub: "years", detail: "software, infrastructure, programs, AI systems" },
+  { v: "83+", sub: "projects delivered", detail: "enterprise, client, founder-led" },
+  { v: "53", sub: "enterprise applications", detail: "core team / portfolio leadership" },
+  { v: "12K+", sub: "npm + pypi installs", detail: "public technical work" },
+];
+
+const LEVERAGE_PATH = [
+  { label: "POSSIBILITY", q: "What became possible?" },
+  { label: "DECISION", q: "What deserves action?" },
+  { label: "ARCHITECTURE", q: "How should it work?" },
+  { label: "PRODUCTION", q: "Can it operate?" },
+];
+
+const EVIDENCE_NODES = [
+  { label: "HAIEC", href: "/solutions/haiec" },
+  { label: "Kestrel", href: "/solutions/kestrelvoice" },
+  { label: "MCP", href: "/products/mcp-tenant-isolation" },
+  { label: "llmverify", href: "/products/llmverify" },
 ];
 
 export function HeroInteractive() {
@@ -18,7 +30,8 @@ export function HeroInteractive() {
       <DotGrid />
       <Aurora />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 1240, margin: "0 auto", padding: "56px 28px 30px" }}>
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 1240, margin: "0 auto", padding: "56px 28px 40px" }}>
+        {/* Header line */}
         <div
           style={{
             display: "flex",
@@ -35,11 +48,12 @@ export function HeroInteractive() {
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
             <span style={{ width: 18, height: 1, background: "var(--op-accent)", display: "inline-block" }} />
-            00 / soo-BOHD KAY-see
+            SUBODH KC · AI ADVISOR + AI SYSTEMS ARCHITECT
           </span>
-          <span>v3.3.0 - Aug 2026</span>
+          <span style={{ display: "none" }} className="hero-version">v4.0</span>
         </div>
 
+        {/* H1 */}
         <h1
           style={{
             margin: 0,
@@ -85,6 +99,7 @@ export function HeroInteractive() {
           </span>
         </h1>
 
+        {/* Tagline */}
         <p
           style={{
             maxWidth: 720,
@@ -101,9 +116,10 @@ export function HeroInteractive() {
           From decision to production.
         </p>
 
+        {/* Supporting copy */}
         <p
           style={{
-            maxWidth: 720,
+            maxWidth: 680,
             marginTop: 18,
             fontSize: 17,
             lineHeight: 1.55,
@@ -111,15 +127,15 @@ export function HeroInteractive() {
             textWrap: "pretty",
           }}
         >
-          I turn AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can
-          actually operate. Research and critical inquiry, evidence over hype, architecture that survives
-          production, program leadership that ships, and continuous improvement after launch.
+          I help leaders find AI opportunities worth pursuing, pressure-test important decisions
+          before they become expensive, and architect systems that can actually operate.
         </p>
 
-        {/* CTA buttons */}
-        <div style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap" }}>
+        {/* CTAs */}
+        <div style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap", alignItems: "center" }}>
           <a
-            href="/contact?subject=discuss-ai"
+            href="/ai-advisor"
+            data-track="homepage_ai_advisor_click"
             style={{
               appearance: "none",
               background: "var(--fg)",
@@ -139,10 +155,11 @@ export function HeroInteractive() {
               alignItems: "center",
             }}
           >
-            Discuss AI →
+            Explore AI Advisor →
           </a>
           <a
-            href="#method"
+            href="/portfolio"
+            data-track="homepage_work_click"
             style={{
               appearance: "none",
               background: "transparent",
@@ -162,109 +179,224 @@ export function HeroInteractive() {
               alignItems: "center",
             }}
           >
-            See how I work ↓
+            See Selected Work
+          </a>
+          <a
+            href="/contact?subject=discuss-ai"
+            data-track="homepage_discuss_ai_click"
+            style={{
+              appearance: "none",
+              background: "transparent",
+              color: "var(--op-muted)",
+              border: "none",
+              padding: "12px 8px",
+              fontSize: 12,
+              fontFamily: "var(--font-mono)",
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+              cursor: "pointer",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+            }}
+          >
+            Discuss an AI Decision
           </a>
         </div>
 
-        {/* KPI bar */}
+        {/* Proof rail */}
         <div
-          className="hero-kpi-grid"
+          className="hero-proof-grid"
           style={{
-            marginTop: 36,
+            marginTop: 40,
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(4, 1fr)",
             borderTop: "1px solid var(--op-border)",
             borderBottom: "1px solid var(--op-border)",
           }}
         >
-          {KPIS.map((s, i) => (
+          {PROOF_POINTS.map((s, i) => (
             <div
-              key={s.k}
+              key={s.sub}
               style={{
-                padding: "18px 22px 18px",
+                padding: "18px 18px",
                 borderLeft: i === 0 ? "none" : "1px solid var(--op-border)",
-                position: "relative",
               }}
             >
               <div
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11.5,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  color: "var(--text-secondary)",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                {s.live && (
-                  <span
-                    style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
-                      background: "var(--op-accent)",
-                      animation: "hero-pulse 1.4s ease-in-out infinite",
-                    }}
-                  />
-                )}
-                {s.k}
-              </div>
-              <div
-                style={{
-                  fontSize: 38,
+                  fontSize: 36,
                   fontWeight: 600,
                   letterSpacing: "-0.025em",
-                  marginTop: 8,
                   lineHeight: 1,
                 }}
               >
-                <Counter value={s.v} {...(s.fmt as any)} />
+                {s.v}
               </div>
-              <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 6 }}>{s.sub}</div>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  color: "var(--text-secondary)",
+                  marginTop: 8,
+                }}
+              >
+                {s.sub}
+              </div>
+              <div style={{ fontSize: 11, color: "var(--op-muted)", marginTop: 4, lineHeight: 1.4 }}>
+                {s.detail}
+              </div>
             </div>
           ))}
         </div>
 
+        {/* Supporting line */}
         <div
           style={{
-            marginTop: 28,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            marginTop: 14,
             fontFamily: "var(--font-mono)",
-            fontSize: 10.5,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
+            fontSize: 11,
             color: "var(--op-muted)",
+            letterSpacing: "0.04em",
           }}
         >
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
-            <span style={{ width: 18, height: 1, background: "var(--op-border)" }} />
-            fig.01 - deployed systems
-          </span>
-          <span>click a node ↓</span>
+          Former Fortune 50 Core Team Lead · Founder of HAIEC + KestrelVoice
         </div>
 
-        <div style={{ marginTop: 10, marginBottom: 10 }}>
-          <Constellation products={PRODUCTS} />
+        {/* Leverage path visual */}
+        <div style={{ marginTop: 36, marginBottom: 8 }}>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10.5,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "var(--op-muted)",
+              marginBottom: 16,
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <span style={{ width: 18, height: 1, background: "var(--op-border)" }} />
+            fig.01 - the decision path
+          </div>
+
+          <div className="hero-leverage-path" style={{ display: "flex", alignItems: "stretch", gap: 0, flexWrap: "wrap" }}>
+            {LEVERAGE_PATH.map((stage, i) => (
+              <div key={stage.label} style={{ display: "flex", alignItems: "stretch", flex: "1 1 0", minWidth: 0 }}>
+                <div
+                  style={{
+                    flex: 1,
+                    padding: "16px 14px",
+                    background: i === 0 ? "var(--op-card)" : "transparent",
+                    borderTop: "1px solid var(--op-border)",
+                    borderBottom: "1px solid var(--op-border)",
+                    borderLeft: i === 0 ? "1px solid var(--op-border)" : "none",
+                    borderRight: "1px solid var(--op-border)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10,
+                      letterSpacing: "0.08em",
+                      color: "var(--op-muted)",
+                      marginBottom: 6,
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "-0.01em", color: "var(--fg)" }}>
+                    {stage.label}
+                  </div>
+                  <div style={{ fontSize: 11, color: "var(--text-secondary)", marginTop: 4, lineHeight: 1.4 }}>
+                    {stage.q}
+                  </div>
+                </div>
+                {i < LEVERAGE_PATH.length - 1 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "0 2px",
+                      color: "var(--op-accent)",
+                      flexShrink: 0,
+                    }}
+                    className="hero-path-arrow"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 7 H11" />
+                      <path d="M9 5 L11 7 L9 9" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Evidence nodes */}
+          <div
+            style={{
+              marginTop: 14,
+              display: "flex",
+              gap: 8,
+              flexWrap: "wrap",
+              fontFamily: "var(--font-mono)",
+              fontSize: 10.5,
+              color: "var(--op-muted)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            <span style={{ opacity: 0.6 }}>evidence:</span>
+            {EVIDENCE_NODES.map((node, i) => (
+              <span key={node.label} style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <a
+                  href={node.href}
+                  data-track={`homepage_${node.label.toLowerCase()}_click`}
+                  style={{
+                    color: "var(--text-secondary)",
+                    textDecoration: "none",
+                    borderBottom: "1px dotted var(--op-border)",
+                    paddingBottom: 1,
+                  }}
+                >
+                  {node.label}
+                </a>
+                {i < EVIDENCE_NODES.length - 1 && <span style={{ opacity: 0.3 }}>·</span>}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 640px) {
-          .hero-kpi-grid {
+        @media (max-width: 768px) {
+          .hero-proof-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
-          .hero-kpi-grid > div:nth-child(odd) {
+          .hero-proof-grid > div:nth-child(odd) {
             border-left: none !important;
           }
-          .hero-kpi-grid > div:nth-child(3) {
+          .hero-proof-grid > div:nth-child(3),
+          .hero-proof-grid > div:nth-child(4) {
             border-top: 1px solid var(--op-border);
           }
-          .hero-kpi-grid > div:nth-child(4) {
-            border-top: 1px solid var(--op-border);
+          .hero-leverage-path {
+            flex-direction: column !important;
+          }
+          .hero-leverage-path > div {
+            flex: 1 1 100% !important;
+          }
+          .hero-path-arrow {
+            transform: rotate(90deg);
+            padding: 4px 0 !important;
+          }
+          .hero-version {
+            display: none !important;
           }
         }
       `}</style>

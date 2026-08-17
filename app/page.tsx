@@ -1,77 +1,81 @@
-// app/page.tsx - AI systems architect homepage
+// app/page.tsx - AI Advisor + AI Systems Architect homepage
 import { AccessProvider } from "@/components/AccessProvider";
 import { Hero } from "@/components/hero/Hero";
-import { FrontOfAIBanner } from "@/components/home/FrontOfAIBanner";
-import { Registry } from "@/components/Registry";
-import { WritingSection } from "@/components/writing/WritingSection";
-import { ComplianceGuidesSection } from "@/components/home/ComplianceGuidesSection";
-import { MagazineBadge } from "@/components/home/MagazineBadge";
-import { CSMFrameworkSection } from "@/components/home/CSMFrameworkSection";
-import { CommercialDecisionSection } from "@/components/home/CommercialDecisionSection";
-import { PossibilitySection } from "@/components/home/PossibilitySection";
-import { OperatingMethodSection } from "@/components/home/OperatingMethodSection";
-import { NamePronunciationSection } from "@/components/home/NamePronunciationSection";
-import { FloatingNav } from "@/components/home/FloatingNav";
+import { LeverageSection } from "@/components/home/LeverageSection";
+import { WaysToWork } from "@/components/home/WaysToWork";
+import { SystemsSection } from "@/components/home/SystemsSection";
+import { HowIWork } from "@/components/home/HowIWork";
+import { WritingResearchSection } from "@/components/home/WritingResearchSection";
+import { AboutSection } from "@/components/home/AboutSection";
+import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const metadata = {
   title: "AI Advisor & AI Systems Architect | Subodh KC",
   description:
-    "Subodh KC turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate. Research, architecture, program leadership, continuous improvement.",
+    "AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.",
   keywords: [
-    'Subodh KC',
-    'AI advisor',
-    'AI systems architect',
-    'enterprise AI',
-    'AI strategy',
-    'AI opportunity discovery',
-    'AI decision support',
-    'RAG architecture',
-    'voice AI',
-    'agentic AI',
-    'technical program management',
+    "Subodh KC",
+    "AI advisor",
+    "AI systems architect",
+    "AI strategy advisor",
+    "enterprise AI advisor",
+    "AI decision support",
+    "AI opportunity discovery",
+    "AI systems architecture",
+    "AI architecture",
+    "AI vendor evaluation",
+    "AI build vs buy",
+    "AI governance",
+    "production AI",
+    "AI implementation",
   ],
   alternates: {
-    canonical: 'https://subodhkc.com',
+    canonical: "https://subodhkc.com",
   },
   openGraph: {
-    title: 'AI Advisor & AI Systems Architect | Subodh KC',
+    title: "AI Advisor & AI Systems Architect | Subodh KC",
     description:
-      'Subodh KC turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate.',
-    url: 'https://subodhkc.com',
-    type: 'website',
+      "AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.",
+    url: "https://subodhkc.com",
+    type: "website",
     images: [
       {
-        url: 'https://subodhkc.com/portrait.jpeg',
+        url: "https://subodhkc.com/portrait.jpeg",
         width: 1200,
         height: 630,
-        alt: 'Subodh KC - AI Advisor & AI Systems Architect',
+        alt: "Subodh KC - AI Advisor & AI Systems Architect",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'AI Advisor & AI Systems Architect | Subodh KC',
+    card: "summary_large_image",
+    title: "AI Advisor & AI Systems Architect | Subodh KC",
     description:
-      'AI ambiguity turned into possibilities, evidence-backed decisions, and systems organizations can actually operate.',
-    images: ['https://subodhkc.com/portrait.jpeg'],
+      "AI advisor and systems architect. From possibility to decision. From decision to production.",
+    images: ["https://subodhkc.com/portrait.jpeg"],
   },
 };
 
 export default function HomePage() {
   return (
     <AccessProvider>
+      {/* 01 - HERO */}
       <Hero />
-      <FrontOfAIBanner />
-      <NamePronunciationSection />
-      <PossibilitySection />
-      <OperatingMethodSection />
-      <CommercialDecisionSection />
-      <MagazineBadge />
-      <CSMFrameworkSection />
-      <Registry />
-      <ComplianceGuidesSection />
-      <WritingSection />
-      <FloatingNav />
+      {/* 02 - PROOF RAIL (integrated into hero) */}
+      {/* 03 - WHERE I CREATE LEVERAGE */}
+      <LeverageSection />
+      {/* 04 - WAYS TO WORK WITH ME */}
+      <WaysToWork />
+      {/* 05 - SELECTED SYSTEMS + OPEN SOURCE */}
+      <SystemsSection />
+      {/* 06 - HOW I WORK */}
+      <HowIWork />
+      {/* 07 - WRITING + RESEARCH */}
+      <WritingResearchSection />
+      {/* 08 - ABOUT */}
+      <AboutSection />
+      {/* 09 - FINAL CTA */}
+      <FinalCTA />
     </AccessProvider>
   );
 }

@@ -33,17 +33,39 @@
       }
     ],
     "currentRole": {
-      "title": "Sr. Program Manager - AI Implementation & Governance",
-      "company": "HP Inc.",
-      "companyType": "Fortune 50",
-      "since": "2025",
+      "title": "AI Advisor & AI Systems Architect",
+      "company": "SubodhKC.com",
+      "companyType": "Independent Practice",
+      "since": "2026",
       "highlights": [
-        "Driving strategic AI transformation across enterprise systems",
-        "Architecting governance frameworks for innovation without regulatory risk",
+        "AI advisory and systems architecture for leaders and organizations",
+        "Founder of HAIEC and KestrelVoice",
         "5 patent-pending methodologies for AI compliance and drift detection",
-        "Managing 53-application portfolio"
+        "Former Fortune 50 Core Team Lead, 53-application enterprise portfolio"
       ]
-    }
+    },
+    "formerRoles": [
+      {
+        "title": "Sr. Program Manager - AI Implementation & Governance",
+        "company": "HP Inc.",
+        "companyType": "Fortune 50",
+        "period": "2025-2026",
+        "highlights": [
+          "Commercial Software AI Strategy initiative leadership",
+          "AI implementation and governance across enterprise systems"
+        ]
+      },
+      {
+        "title": "Core Team Lead - Platform Enabling Applications",
+        "company": "HP Inc.",
+        "companyType": "Fortune 50",
+        "period": "2023-2025",
+        "highlights": [
+          "53-application enterprise portfolio leadership",
+          "Coordination through multiple program managers and cross-functional teams"
+        ]
+      }
+    ]
   },
   "services": {
     "pillars": [

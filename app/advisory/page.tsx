@@ -648,7 +648,7 @@ export default function AdvisoryPage() {
             <p className="text-sm font-medium text-foreground">Verified proof behind the work:</p>
             <ul className="text-sm text-muted-foreground space-y-1.5">
               <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Enterprise application portfolio leadership</li>
-              <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />50+ AI and technology initiatives</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />83+ projects delivered across enterprise, client, and founder-led work</li>
               <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Production AI systems, including Kestrel Voice and HAIEC</li>
               <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Systems architecture and governance and compliance work</li>
             </ul>

@@ -6,9 +6,9 @@ export default function StructuredData() {
     alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri'],
     jobTitle: 'AI Advisor & AI Systems Architect',
     description:
-      'AI Advisor and AI Systems Architect. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC. Architecting, deploying, and governing production AI systems - including agentic workflows, RAG, voice AI, and compliance automation.',
+      'AI Advisor and AI Systems Architect. Former Fortune 50 Core Team Lead and Senior Technical Program Manager. Founder of HAIEC and KestrelVoice. 16+ years across software, infrastructure, enterprise program delivery, and applied AI systems.',
     url: 'https://subodhkc.com',
-    email: 'admin@subodhkc.com',
+    email: 'subodhkc@subodhkc.com',
     image: 'https://subodhkc.com/portrait.jpeg',
     sameAs: [
       'https://www.wikidata.org/wiki/Q140546484',
@@ -108,7 +108,7 @@ export default function StructuredData() {
       url: 'https://subodhkc.com',
       jobTitle: 'AI Advisor & AI Systems Architect',
       description:
-        'AI Advisor and AI Systems Architect. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC.',
+        'AI Advisor and AI Systems Architect. Former Fortune 50 Core Team Lead and Senior Technical Program Manager. Founder of HAIEC and KestrelVoice.',
     },
     dateCreated: '2024-01-01',
   }

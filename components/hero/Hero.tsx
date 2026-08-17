@@ -13,18 +13,18 @@ export function Hero() {
           <h1>Subodh KC - AI Advisor & AI Systems Architect</h1>
           <p>From possibility to decision. From decision to production.</p>
           <p>
-            I turn AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can
-            actually operate. Research and critical inquiry, evidence over hype, architecture that survives
-            production, program leadership that ships, and continuous improvement after launch.
-            Subodh KC, founder of KestrelVoice, founder of HAIEC. Dallas-based.
+            I help leaders find AI opportunities worth pursuing, pressure-test important decisions
+            before they become expensive, and architect systems that can actually operate.
+            Former Fortune 50 Core Team Lead. Founder of HAIEC and KestrelVoice. Dallas-based.
           </p>
           <ul>
-            <li>18 products shipped</li>
-            <li>10,000+ npm + pypi installs</li>
-            <li>50+ AI programs delivered</li>
+            <li>16+ years across software, infrastructure, program delivery and AI systems</li>
+            <li>83+ projects delivered across enterprise, client and founder-led work</li>
+            <li>53 enterprise applications under core team / portfolio leadership</li>
+            <li>12K+ npm + PyPI installs across public open-source packages</li>
           </ul>
           <p>
-            <a href="/contact?subject=discuss-ai">Discuss AI</a> | <a href="/portfolio">Selected Work</a>
+            <a href="/ai-advisor">Explore AI Advisor</a> | <a href="/portfolio">See Selected Work</a> | <a href="/contact?subject=discuss-ai">Discuss an AI Decision</a>
           </p>
         </div>
       </noscript>

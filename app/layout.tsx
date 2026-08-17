@@ -25,24 +25,21 @@ export const metadata: Metadata = {
     template: '%s | Subodh KC',
   },
   description:
-    'AI advisor helping leaders, founders and technical teams discover high-value AI opportunities, pressure-test important decisions, architect production systems and govern AI from strategy through continuous improvement.',
+    'AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.',
   keywords: [
     'AI Advisor',
     'AI Systems Architect',
-    'AI Strategy Consultant',
+    'AI Strategy Advisor',
     'Enterprise AI Advisor',
     'AI Decision Support',
-    'AI Governance',
-    'AI Regulatory Compliance',
-    'EU AI Act Compliance',
-    'NIST AI RMF',
-    'ISO 42001',
-    'AI Risk Management',
-    'AI Production Systems',
-    'AI Automation Blueprint',
-    'AI Security Review',
+    'AI Opportunity Discovery',
+    'AI Systems Architecture',
+    'AI Architecture',
     'AI Vendor Evaluation',
-    'Cognitive Systems Management',
+    'AI Build vs Buy',
+    'AI Governance',
+    'Production AI',
+    'AI Implementation',
     'Subodh KC',
   ],
   authors: [{ name: 'Subodh KC', url: 'https://subodhkc.com' }],
@@ -70,7 +67,7 @@ export const metadata: Metadata = {
     siteName: 'Subodh KC | AI Advisor & AI Systems Architect',
     title: 'AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'AI advisor helping leaders, founders and technical teams discover high-value AI opportunities, pressure-test important decisions, architect production systems and govern AI from strategy through continuous improvement.',
+      'AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.',
     images: [
       {
         url: '/portrait.jpeg',
@@ -84,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'AI advisor helping leaders, founders and technical teams discover high-value AI opportunities, pressure-test important decisions, architect production systems and govern AI.',
+      'AI advisor and systems architect. From possibility to decision. From decision to production.',
     creator: '@subodhkc',
     images: ['/portrait.jpeg'],
   },
@@ -100,7 +97,7 @@ export const metadata: Metadata = {
     },
   },
   category: 'Technology',
-  classification: 'AI Consulting, AI Governance, Regulatory Compliance',
+  classification: 'AI Advisory, AI Strategy, AI Systems Architecture, Production AI, AI Governance',
 }
 
 export default async function RootLayout({

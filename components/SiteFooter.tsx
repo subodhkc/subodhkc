@@ -26,26 +26,30 @@ function Arrow({ kind = "right" }: { kind?: "right" | "ext" }) {
 
 const SITEMAP = [
   {
-    head: "Solutions",
+    head: "Work with Me",
     items: [
-      ["/ai-advisor", "AI Advisor for Business"],
-      ["/ai-automation", "AI Opportunity & Workflow Assessment"],
-      ["/advisory", "Fractional AI Advisor"],
-      ["/ai-voice-agent", "AI Voice Agent"],
-      ["/ai-security-compliance", "AI Security & Compliance"],
-      ["/local-ai-review", "Local AI Review"],
-      ["/saas-security-review", "SaaS Security Review"],
+      ["/ai-advisor", "AI Advisor"],
+      ["/advisory", "Fractional Advisor"],
+      ["/services", "Architecture & Implementation"],
+      ["/contact?subject=discuss-ai", "Discuss AI"],
+    ],
+  },
+  {
+    head: "Work",
+    items: [
+      ["/portfolio", "Selected Work"],
+      ["/products", "Open Source & Systems"],
+      ["/solutions/haiec", "HAIEC"],
+      ["/solutions/kestrelvoice", "KestrelVoice"],
     ],
   },
   {
     head: "Insights",
     items: [
-      ["/blog", "Blog"],
+      ["/blog", "Writing"],
       ["/research", "Research"],
-      ["/ai-security-tools", "AI Security Tools"],
-      ["/architecture-decision-master-sheet", "Architecture Decisions"],
-      ["/cognitive-systems-management", "CSM Framework"],
-      ["/guides", "AI Compliance Guides"],
+      ["/magazine", "Magazine"],
+      ["/guides", "Guides"],
     ],
   },
   {
@@ -53,33 +57,17 @@ const SITEMAP = [
     items: [
       ["/about", "About"],
       ["/executive-bio", "Executive Bio"],
-      ["/portfolio", "Portfolio"],
       ["/speaking", "Speaking"],
-      ["/contact", "Contact"],
+      ["https://linkedin.com/in/subodhkc", "LinkedIn"],
+      ["https://github.com/subodhkc", "GitHub"],
+    ],
+  },
+  {
+    head: "Legal",
+    items: [
+      ["/privacy", "Privacy"],
+      ["/terms", "Terms"],
       ["/faq", "FAQ"],
-    ],
-  },
-  {
-    head: "Compliance",
-    items: [
-      ["/guides/texas-ai-law", "Texas AI Law"],
-      ["/guides/eu-ai-act", "EU AI Act"],
-      ["/guides/nyc-local-law-144", "NYC LL144"],
-      ["/solutions/haiec", "HAIEC Platform"],
-      ["/solutions/haiec/exposure-assessment", "Exposure Assessment"],
-      ["/course", "AI Governance Course"],
-    ],
-  },
-  {
-    head: "Products",
-    items: [
-      ["/products/llmverify", "llmverify"],
-      ["/products/print-later", "print later"],
-      ["/products/pdf-redactor", "pdf redactor"],
-      ["/products/doc-timeline", "doc timeline"],
-      ["/products/skc-log-analyser", "log analyser"],
-      ["/products/courtcase", "courtcase"],
-      ["/products/ai-article-generator", "AI article generator"],
     ],
   },
 ] as const;
@@ -216,7 +204,7 @@ export function SiteFooter() {
             ))}
             <Image
               src="/portrait.jpeg"
-              alt="Subodh KC, founder of HAIEC"
+              alt="Subodh KC, AI Advisor and AI Systems Architect"
               fill
               sizes="(max-width: 768px) 100vw, 320px"
               style={{
@@ -267,8 +255,8 @@ export function SiteFooter() {
               color: "var(--fg)",
             }}
           >
-            <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>Architecting</span>{" "}
-            governance frameworks that enable sustainable AI innovation.
+            <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>From possibility</span>{" "}
+            to decision. From decision to production.
           </h3>
           <p
             style={{
@@ -279,9 +267,10 @@ export function SiteFooter() {
               maxWidth: 560,
             }}
           >
-            Former Sr. Program Manager, HP Inc. Founder of HAIEC - Holistic AI Ethics & Compliance. M.Sc.
-            Engineering & Technology Management, Louisiana Tech. Full-stack engineering from startups to
-            global enterprise. Open for consulting, advisory boards, and research partnerships.
+            AI Advisor and AI Systems Architect. Former Fortune 50 Core Team Lead and Senior Technical
+            Program Manager. Founder of HAIEC and KestrelVoice. 16+ years across software,
+            infrastructure, enterprise program delivery, and applied AI systems. M.Sc. Engineering &
+            Technology Management, Louisiana Tech.
           </p>
           <div style={{ marginTop: 24, display: "flex", gap: 8, flexWrap: "wrap" }}>
             {[
@@ -469,10 +458,10 @@ export function SiteFooter() {
             Now
           </h4>
           <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14, color: "var(--text-secondary)" }}>
-            <li><span style={{ color: "var(--fg)" }}>Building</span> HAIEC - compliance platform</li>
-            <li><span style={{ color: "var(--fg)" }}>Deploying</span> KestrelVoice + FrontOfAI</li>
-            <li><span style={{ color: "var(--fg)" }}>Researching</span> deterministic compliance</li>
-            <li><span style={{ color: "var(--fg)" }}>Advising</span> on AI transformation</li>
+            <li><span style={{ color: "var(--fg)" }}>Advising</span> on AI decisions and systems</li>
+            <li><span style={{ color: "var(--fg)" }}>Building</span> HAIEC and KestrelVoice</li>
+            <li><span style={{ color: "var(--fg)" }}>Publishing</span> research and frameworks</li>
+            <li><span style={{ color: "var(--fg)" }}>Open</span> for advisory and architecture work</li>
           </ul>
         </div>
       </div>
@@ -587,7 +576,7 @@ export function SiteFooter() {
         <span style={{ display: "flex", gap: 16 }}>
           <Link href="/terms" style={{ color: "var(--op-muted)", textDecoration: "none" }}>Terms</Link>
           <Link href="/privacy" style={{ color: "var(--op-muted)", textDecoration: "none" }}>Privacy</Link>
-          <span>v3.1 · last shipped {new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
+          <span>v4.0 · last shipped {new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
         </span>
       </div>
 

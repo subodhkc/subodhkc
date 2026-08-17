@@ -10,36 +10,32 @@ import type { User } from "@supabase/supabase-js";
 import { SearchDialog } from "./SearchDialog";
 import type { SearchEntry } from "@/lib/search-index";
 
-const howIHelpLinks = [
-  { name: "AI Advisor for Business", href: "/ai-advisor", desc: "Ongoing human AI advisory, $99/month" },
-  { name: "AI Opportunity & Workflow Assessment", href: "/ai-automation", desc: "One opportunity, one workflow, one Blueprint" },
+const servicesLinks = [
   { name: "Fractional AI Advisor", href: "/advisory", desc: "Executive AI advisory, $1,250/month" },
-  { name: "AI Voice", href: "/ai-voice-agent", desc: "Turn more calls into completed actions" },
-  { name: "AI Security & Controls", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
-  { name: "SaaS & AI Security Review", href: "/saas-security-review", desc: "Tenant isolation audit" },
-  { name: "View all", href: "/services", desc: "How I help → /services" },
+  { name: "AI Systems Architecture & Implementation", href: "/services", desc: "Architecture, integrations, production design" },
+  { name: "AI Security / Governance", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
+  { name: "AI Voice / Workflow Systems", href: "/ai-voice-agent", desc: "Voice AI and workflow operations" },
+  { name: "View All Services", href: "/services", desc: "All services and offerings" },
 ];
 
 const workLinks = [
+  { name: "Selected Work", href: "/portfolio", desc: "Execution proof and portfolio" },
+  { name: "Open Source & Systems", href: "/products", desc: "Packages, tools, and systems" },
   { name: "HAIEC", href: "/solutions/haiec", desc: "AI assurance and governance platform" },
   { name: "KestrelVoice", href: "/solutions/kestrelvoice", desc: "Voice AI operating layer" },
-  { name: "Open Source & Tools", href: "/products", desc: "Packages, tools, and utilities" },
   { name: "Cognitive Systems Management", href: "/cognitive-systems-management", desc: "Operating model for AI" },
-  { name: "Selected Work / Portfolio", href: "/portfolio", desc: "Execution proof" },
 ];
 
 const insightsLinks = [
-  { name: "Blog", href: "/blog", desc: "Articles on AI governance and architecture" },
+  { name: "Writing", href: "/blog", desc: "Articles on AI governance and architecture" },
   { name: "Research", href: "/research", desc: "Research papers and publications" },
-  { name: "Architecture Decisions", href: "/architecture-decision-master-sheet", desc: "Interactive decision master sheet" },
-  { name: "AI Security Tools", href: "/ai-security-tools", desc: "Blast radius, agent matrix, scenarios" },
+  { name: "Magazine", href: "/magazine", desc: "AI That Works Magazine" },
   { name: "Guides", href: "/guides", desc: "AI compliance guides" },
 ];
 
 const aboutLinks = [
   { name: "About", href: "/about", desc: "Background, story, and credentials" },
   { name: "Executive Bio", href: "/executive-bio", desc: "Executive biography" },
-  { name: "Portfolio", href: "/portfolio", desc: "Programs, metrics, and deliverables" },
   { name: "Speaking", href: "/speaking", desc: "Speaking topics and bookings" },
 ];
 
@@ -65,7 +61,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
     return () => subscription.unsubscribe();
   }, []);
 
-  const [open, setOpen] = React.useState<null | "help" | "work" | "insights" | "about">(null);
+  const [open, setOpen] = React.useState<null | "services" | "work" | "insights" | "about">(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -242,7 +238,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
 
             <div style={{ position: "relative" }}>
               <button
-                onClick={() => setOpen(open === "help" ? null : "help")}
+                onClick={() => setOpen(open === "services" ? null : "services")}
                 style={{
                   appearance: "none",
                   border: "none",
@@ -254,15 +250,15 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  color: open === "help" ? "var(--fg)" : "var(--op-muted)",
+                  color: open === "services" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
-                How I Help
-                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "help" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                Services
+                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "services" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
                   <path d="M2 4 L5 7 L8 4" />
                 </svg>
               </button>
-              {open === "help" && dropdown(howIHelpLinks)}
+              {open === "services" && dropdown(servicesLinks)}
             </div>
 
             <div style={{ position: "relative" }}>
@@ -340,18 +336,6 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               {open === "about" && dropdown(aboutLinks)}
             </div>
 
-            <Link
-              href="/contact"
-              onClick={() => setOpen(null)}
-              style={{
-                color: "var(--op-muted)",
-                textDecoration: "none",
-                fontSize: "inherit",
-                fontFamily: "inherit",
-              }}
-            >
-              Contact
-            </Link>
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -592,10 +576,10 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               </Link>
             </div>
 
-            {/* How I Help section */}
+            {/* Services section */}
             <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>How I Help</div>
-              {howIHelpLinks.map((l) => (
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>Services</div>
+              {servicesLinks.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
@@ -694,28 +678,6 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)" }}>{l.desc}</span>
                 </Link>
               ))}
-            </div>
-
-            {/* Contact link */}
-            <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 24 }}>
-              <Link
-                href="/contact"
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  display: "block",
-                  padding: "10px 12px",
-                  borderRadius: 6,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 13,
-                  color: "var(--fg)",
-                  textDecoration: "none",
-                  fontWeight: 500,
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                Contact
-              </Link>
             </div>
 
             <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid var(--op-border)", position: "sticky", bottom: 0, background: "var(--op-card)" }}>

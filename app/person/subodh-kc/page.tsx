@@ -335,19 +335,18 @@ export default function PersonPage() {
 
   const competencies = [
     { icon: Shield, title: 'AI Governance & Compliance', items: ['EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144, Texas TRAIGA', 'Model documentation, risk scoring, audit automation', 'Drift detection and behavioral monitoring', 'Governance structures for multi-application ecosystems'] },
-    { icon: Briefcase, title: 'Enterprise Program & Portfolio Leadership', items: ['53 enterprise applications across education, manageability, conferencing', '50+ AI programs delivered with $50M+ portfolio oversight', 'Cross-functional alignment across 100+ stakeholders', 'Dependency management, release readiness, continuous improvement'] },
+    { icon: Briefcase, title: 'Enterprise Program & Portfolio Leadership', items: ['53 enterprise applications across education, manageability, conferencing', '83+ projects delivered across enterprise, client, and founder-led work', 'Cross-functional alignment across 100+ stakeholders', 'Dependency management, release readiness, continuous improvement'] },
     { icon: Cpu, title: 'AI Architecture & Systems Design', items: ['Agentic AI systems, multi-agent orchestration, tool-use pipelines', 'RAG pipelines, vector databases, enterprise knowledge architectures', 'MCP servers, API orchestration, secure data connectors', 'Voice AI platforms, telephony, adaptive orchestration'] },
     { icon: Code2, title: 'Product Development & Commercialization', items: ['Founder of HAIEC (AI governance) and Kestrel Voice (AI communications)', 'Open-source tools including llmverify for LLM verification', 'Invention assessment and intellectual property evaluation', 'Technology commercialization from university research to market'] },
   ]
 
   const impactMetrics = [
     { value: '53', label: 'Applications Governed' },
-    { value: '50+', label: 'AI Projects Delivered' },
-    { value: '$50M+', label: 'Portfolio Oversight' },
+    { value: '83+', label: 'Projects Delivered' },
     { value: '100+', label: 'Stakeholders Aligned' },
     { value: '5', label: 'Patent-Pending Frameworks' },
     { value: '400+', label: 'MES Stations Deployed' },
-    { value: '50+', label: 'AI Programs Delivered' },
+    { value: '12K+', label: 'Installs (npm + PyPI)' },
     { value: '2', label: 'Companies Founded' },
   ]
 

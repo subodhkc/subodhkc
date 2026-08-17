@@ -34,8 +34,8 @@ export function StickyCTA() {
       }}
     >
       <Link
-        href="/contact?subject=discuss-ai"
-        data-track-click="sticky-cta-discuss-ai"
+        href="/ai-advisor"
+        data-track-click="homepage_sticky_cta_click"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -54,7 +54,7 @@ export function StickyCTA() {
           border: '1px solid var(--op-border)',
         }}
       >
-        Discuss AI →
+        AI Advisor →
       </Link>
     </div>
   )

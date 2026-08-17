@@ -370,7 +370,7 @@ export default function ExecutiveBioPage() {
               <CardTitle>Enterprise Program & Portfolio Leadership</CardTitle>
               <CardDescription className="text-base space-y-2">
                 <p>Led 53 enterprise applications across education, manageability, and conferencing portfolios at HP</p>
-                <p>50+ AI programs delivered with $50M+ in portfolio oversight</p>
+                <p>83+ projects delivered across enterprise, client, and founder-led work</p>
                 <p>Cross-functional alignment across 100+ stakeholders, vendors, and senior leadership</p>
                 <p>Dependency management, release readiness, and continuous improvement at scale</p>
               </CardDescription>
