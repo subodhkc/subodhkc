@@ -224,6 +224,18 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
     metadata: { checkout_session_id: session.id }
   })
 
+  // Track advisor-specific purchase completed
+  if (offerKey === 'ai_advisor_desk') {
+    await trackEvent({
+      eventName: 'advisor_purchase_completed',
+      organizationId: orgId,
+      userId,
+      offerKey: 'ai_advisor_desk',
+      billingPeriod: billingPeriod,
+      metadata: { checkout_session_id: session.id }
+    })
+  }
+
   // Update customer lifecycle state
   try {
     const sc = createServiceClient()

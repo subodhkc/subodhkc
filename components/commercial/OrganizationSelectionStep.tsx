@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Building2, Plus, ArrowRight, Loader2, Check } from 'lucide-react'
 import { createBrowserClient } from '@/lib/supabase-browser'
+import { useAdvisorAnalytics } from '@/components/commercial/useAdvisorAnalytics'
 
 interface EligibleOrg {
   id: string
@@ -29,6 +30,7 @@ export function OrganizationSelectionStep({
   const [creating, setCreating] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [unauthenticated, setUnauthenticated] = useState(false)
+  const { track } = useAdvisorAnalytics()
 
   const fetchOrgs = useCallback(async () => {
     // Check auth state via browser client first to avoid 401 console errors
@@ -92,6 +94,7 @@ export function OrganizationSelectionStep({
         setSelectedId(data.organization.id)
         setShowCreate(false)
         setNewOrgName('')
+        track('advisor_org_created', { orgId: data.organization.id })
       } else {
         setError(data.error || 'Failed to create organization')
       }
@@ -139,21 +142,21 @@ export function OrganizationSelectionStep({
     )
   }
 
-  // No organizations - show workspace creation
+  // No organizations - show organization/business name entry
   if (orgs.length === 0 && !showCreate) {
     return (
       <div className="space-y-4">
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-          <p className="text-sm font-medium mb-1">Let&apos;s set up your workspace.</p>
+          <p className="text-sm font-medium mb-1">Who is this Advisor Desk for?</p>
           <p className="text-xs text-muted-foreground mb-3">
-            You need a workspace to manage your purchases and access your tools.
+            Enter the organization or business you want this Advisor Desk to support.
           </p>
           <button
             onClick={() => setShowCreate(true)}
             className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
           >
             <Plus className="h-4 w-4" />
-            Create Workspace
+            Continue to Checkout
           </button>
         </div>
         {error && <p className="text-xs text-red-600">{error}</p>}
@@ -161,14 +164,14 @@ export function OrganizationSelectionStep({
     )
   }
 
-  // Workspace creation form
+  // Organization / business name entry form
   if (showCreate) {
     return (
       <div className="space-y-3">
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 space-y-3">
-          <p className="text-sm font-medium">Create a new workspace</p>
+          <p className="text-sm font-medium">Who is this Advisor Desk for?</p>
           <div>
-            <label className="text-xs font-medium block mb-1">Organization name</label>
+            <label className="text-xs font-medium block mb-1">Organization / Business Name</label>
             <input
               type="text"
               value={newOrgName}
@@ -186,7 +189,7 @@ export function OrganizationSelectionStep({
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
             >
               {creating && <Loader2 className="h-4 w-4 animate-spin" />}
-              Create &amp; Continue
+              Continue to Checkout
             </button>
             {orgs.length > 0 && (
               <button
@@ -216,7 +219,7 @@ export function OrganizationSelectionStep({
         </div>
       ) : (
         <>
-          <p className="text-sm font-medium">Which workspace is this for?</p>
+          <p className="text-sm font-medium">Who is this Advisor Desk for?</p>
           <div className="space-y-2">
             {orgs.map(org => (
               <label
@@ -246,7 +249,7 @@ export function OrganizationSelectionStep({
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
           >
             <Plus className="h-3 w-3" />
-            Create new workspace
+            Add a different organization
           </button>
         </>
       )}

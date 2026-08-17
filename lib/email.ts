@@ -248,30 +248,39 @@ export async function sendAdvisorWelcomeEmail(opts: {
 
   const { to, customerName, orgSlug } = opts
   const workspaceUrl = `${siteUrl}/app/${orgSlug}/advisor-desk`
+  const onboardingUrl = `${siteUrl}/app/${orgSlug}/advisor-desk/onboarding`
 
   const { error } = await resend.emails.send({
     from: FROM,
     to: [to],
-    subject: 'Welcome to AI Advisor Desk',
+    subject: 'Your AI Advisor Desk is active. Next steps inside.',
     html: `
       <!DOCTYPE html>
       <html>
         <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
           <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">Welcome to AI Advisor Desk</h1>
-            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Your subscription is active</p>
+            <h1 style="color: white; margin: 0; font-size: 24px;">Your AI Advisor Desk is active.</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Subscription confirmed. Let's get the context right.</p>
           </div>
           <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
               Hi ${customerName || 'there'},
             </p>
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
-              Your AI Advisor Desk subscription is now active. You can send focused AI questions as decisions come up, review AI risk areas, and invite up to 3 team members.
+              Your AI Advisor Desk subscription is now active. To get the most value, I need to learn your context. Here is what happens next:
             </p>
+            <div style="background: #f3f4f6; border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <p style="font-weight: 600; color: #1f2937; margin: 0 0 10px 0;">3 steps to get started:</p>
+              <ol style="margin: 0; padding-left: 20px; color: #374151; font-size: 15px;">
+                <li style="margin-bottom: 8px;">Complete your Organizational AI Context Profile (5 to 10 minutes)</li>
+                <li style="margin-bottom: 8px;">Review your starting Watchlist</li>
+                <li style="margin-bottom: 8px;">Schedule your complimentary 15-minute Activation Call (30-minute slot held as padding)</li>
+              </ol>
+            </div>
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
-                Go to Your Advisor Desk
+              <a href="${onboardingUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+                Go to My Advisor Desk
               </a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
@@ -279,7 +288,7 @@ export async function sendAdvisorWelcomeEmail(opts: {
             </p>
           </div>
           <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-            <p>SubodhKC — AI intelligence, opportunity discovery, and human advisory access</p>
+            <p>SubodhKC — Context, watch, and judgment for AI decisions.</p>
           </div>
         </body>
       </html>

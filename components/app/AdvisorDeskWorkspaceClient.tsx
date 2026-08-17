@@ -83,6 +83,32 @@ interface MemberToolsIncluded {
   entitlementStatus: string
 }
 
+interface WatchlistItem {
+  id: string
+  category: string
+  title: string
+  source: string | null
+  relevance: string | null
+  status: string
+  recommended_next_action: string | null
+  is_draft: boolean
+  created_at: string
+}
+
+interface SchedulingLink {
+  id: string
+  scheduling_url: string
+  status: string
+  scheduled_at: string | null
+  link_type: string
+}
+
+interface OnboardingSteps {
+  context_intake: string
+  watchlist_review: string
+  activation_call: string
+}
+
 interface AdvisorDeskWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
@@ -95,6 +121,10 @@ interface AdvisorDeskWorkspaceClientProps {
   entitlementStatus: string
   products: ProductInfo[]
   memberToolsIncluded?: MemberToolsIncluded | null
+  watchlistItems?: WatchlistItem[]
+  schedulingLink?: SchedulingLink | null
+  onboardingSteps?: OnboardingSteps | null
+  onboardingComplete?: boolean
 }
 
 const statusLabels: Record<string, string> = {
@@ -199,6 +229,10 @@ export function AdvisorDeskWorkspaceClient({
   entitlementStatus,
   products,
   memberToolsIncluded,
+  watchlistItems = [],
+  schedulingLink = null,
+  onboardingSteps = null,
+  onboardingComplete = false,
 }: AdvisorDeskWorkspaceClientProps) {
   const { organization } = ctx
   const basePath = `/app/${organization.slug}`
@@ -391,6 +425,141 @@ export function AdvisorDeskWorkspaceClient({
           </p>
         </div>
 
+        {/* Onboarding banner */}
+        {!onboardingComplete && (
+          <div className="rounded-xl border border-primary/30 bg-primary/5 p-5 space-y-3">
+            <div className="flex items-start gap-3">
+              <Clock className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold">Get started in 3 steps</h3>
+                <p className="text-xs text-muted-foreground mt-1">Complete your context profile, review your watchlist, and schedule your activation call.</p>
+                <div className="flex items-center gap-4 mt-3">
+                  <div className="flex items-center gap-1.5">
+                    {onboardingSteps?.context_intake === 'completed' ? (
+                      <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    ) : (
+                      <span className="w-4 h-4 rounded-full border-2 border-muted-foreground/30" />
+                    )}
+                    <span className="text-xs text-muted-foreground">Context</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    {onboardingSteps?.watchlist_review === 'completed' ? (
+                      <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    ) : (
+                      <span className="w-4 h-4 rounded-full border-2 border-muted-foreground/30" />
+                    )}
+                    <span className="text-xs text-muted-foreground">Watchlist</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    {onboardingSteps?.activation_call === 'completed' ? (
+                      <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    ) : (
+                      <span className="w-4 h-4 rounded-full border-2 border-muted-foreground/30" />
+                    )}
+                    <span className="text-xs text-muted-foreground">Activation Call</span>
+                  </div>
+                </div>
+                <Link
+                  href={`${basePath}/advisor-desk/onboarding`}
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3 font-medium"
+                >
+                  Continue Onboarding
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Overview: Watchlist */}
+        {watchlistItems.length > 0 && (
+          <section>
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <Eye className="h-5 w-5 text-primary" />
+              Your Watchlist
+            </h2>
+            <div className="space-y-2">
+              {watchlistItems.slice(0, 5).map(item => (
+                <div key={item.id} className={`border rounded-lg p-3 ${item.is_draft ? 'border-primary/20 bg-primary/5' : ''}`}>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-medium truncate">{item.title}</p>
+                        {item.is_draft && <span className="text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium flex-shrink-0">Draft</span>}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5 capitalize">{item.category.replace(/_/g, ' ')}</p>
+                    </div>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${
+                      item.status === 'watching' ? 'bg-blue-500/10 text-blue-600' :
+                      item.status === 'active' ? 'bg-amber-500/10 text-amber-600' :
+                      item.status === 'addressed' ? 'bg-green-500/10 text-green-600' :
+                      'bg-muted text-muted-foreground'
+                    }`}>
+                      {item.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+              {watchlistItems.length > 5 && (
+                <Link href={`${basePath}/advisor-desk/onboarding`} className="block text-sm text-primary hover:underline pt-1">
+                  View all {watchlistItems.length} items
+                </Link>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Meetings: Activation Call */}
+        <section>
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-primary" />
+            Activation Call
+          </h2>
+          <div className="border rounded-lg p-5 bg-card space-y-3">
+            {schedulingLink && schedulingLink.status !== 'cancelled' ? (
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  <p className="text-sm font-medium">
+                    {schedulingLink.status === 'completed' ? 'Activation call completed' : 'Activation call scheduled'}
+                  </p>
+                </div>
+                {schedulingLink.scheduled_at && (
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(schedulingLink.scheduled_at).toLocaleString('en-US', {
+                      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit',
+                    })}
+                  </p>
+                )}
+                {schedulingLink.status !== 'completed' && (
+                  <a
+                    href={schedulingLink.scheduling_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                  >
+                    Reschedule
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">
+                  Schedule your complimentary 15-minute Activation Call to calibrate your watchlist and clarify the decisions already in play. We hold a 30-minute slot so we have room if the conversation needs it.
+                </p>
+                <Link
+                  href={`${basePath}/advisor-desk/onboarding`}
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Schedule Activation Call
+                </Link>
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Worth Knowing */}
         <section>
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -427,6 +596,27 @@ export function AdvisorDeskWorkspaceClient({
             <Sparkles className="h-5 w-5 text-primary" />
             Possibilities Worth Considering
           </h2>
+
+          {/* Workflow Decision Review - member benefit */}
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 mb-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold">AI Workflow Decision Review</h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  A focused $500 investigation of one workflow or opportunity. Goes deeper than an advisory answer. Positioned for Advisor members.
+                </p>
+              </div>
+              <span className="text-sm font-bold flex-shrink-0">$500</span>
+            </div>
+            <Link
+              href="/ai-automation"
+              className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3"
+            >
+              Learn about the Workflow Decision Review
+              <ChevronRight className="h-3 w-3" />
+            </Link>
+          </div>
+
           <div className="grid sm:grid-cols-3 gap-3">
             {possibilitiesItems.map((item, i) => (
               <div key={i} className="border rounded-lg p-4 flex flex-col">

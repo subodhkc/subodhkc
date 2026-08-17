@@ -1,14 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
-import { CheckCircle2, Clock, AlertCircle, ArrowRight } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { CheckCircle2, Clock, AlertCircle, ArrowRight, FileText, ListChecks, Calendar } from 'lucide-react'
 
 interface CheckoutSuccessClientProps {
   status: 'success' | 'pending' | 'error'
   offerName: string
   workspaceUrl: string
   message: string
+  offerKey?: string
+  orgSlug?: string
 }
 
 export default function CheckoutSuccessClient({
@@ -16,12 +18,18 @@ export default function CheckoutSuccessClient({
   offerName,
   workspaceUrl,
   message,
+  offerKey,
+  orgSlug,
 }: CheckoutSuccessClientProps) {
   const autoRedirectTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [redirecting, setRedirecting] = useState(false)
+
+  const isAdvisorDesk = offerKey === 'ai_advisor_desk'
+  const onboardingUrl = orgSlug ? `/app/${orgSlug}/advisor-desk/onboarding` : workspaceUrl
 
   useEffect(() => {
-    if (status === 'success' && workspaceUrl) {
-      // Auto-redirect to workspace after 3 seconds
+    if (status === 'success' && !isAdvisorDesk && workspaceUrl) {
+      // For non-advisor-desk offers, auto-redirect to workspace after 3 seconds
       autoRedirectTimer.current = setTimeout(() => {
         window.location.href = workspaceUrl
       }, 3000)
@@ -29,7 +37,7 @@ export default function CheckoutSuccessClient({
     return () => {
       if (autoRedirectTimer.current) clearTimeout(autoRedirectTimer.current)
     }
-  }, [status, workspaceUrl])
+  }, [status, workspaceUrl, isAdvisorDesk])
 
   const icon =
     status === 'success' ? <CheckCircle2 className="h-12 w-12 text-green-500" /> :
@@ -37,6 +45,7 @@ export default function CheckoutSuccessClient({
     <AlertCircle className="h-12 w-12 text-red-500" />
 
   const title =
+    status === 'success' && isAdvisorDesk ? 'Your AI Advisor Desk is active.' :
     status === 'success' ? 'You are in.' :
     status === 'pending' ? 'Payment received.' :
     'Something went wrong.'
@@ -50,11 +59,11 @@ export default function CheckoutSuccessClient({
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-background">
-      <div className="max-w-md w-full text-center space-y-6">
+      <div className="max-w-lg w-full text-center space-y-6">
         <div className="flex justify-center">{icon}</div>
 
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">{title}</h1>
           {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
         </div>
 
@@ -62,22 +71,70 @@ export default function CheckoutSuccessClient({
           <p className="text-sm text-muted-foreground bg-secondary/30 rounded-lg p-4">{message}</p>
         )}
 
-        {status === 'success' && (
+        {/* Advisor Desk: 3-step onboarding checklist */}
+        {status === 'success' && isAdvisorDesk && (
+          <div className="text-left space-y-4 bg-secondary/20 rounded-xl p-6">
+            <h2 className="text-lg font-semibold text-center">Get started in 3 steps</h2>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">1</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <p className="text-sm font-medium text-foreground">Give me the context</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Complete your Organizational AI Context Profile. 5 to 10 minutes.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">2</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <ListChecks className="h-4 w-4 text-primary" />
+                    <p className="text-sm font-medium text-foreground">Build your Watchlist</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Review and calibrate what we should watch.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">3</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-primary" />
+                    <p className="text-sm font-medium text-foreground">Meet your advisor</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Schedule your complimentary 15-minute Activation Call. 30-minute slot held as padding.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {status === 'success' && !isAdvisorDesk && (
           <p className="text-xs text-muted-foreground">
             Redirecting to your workspace automatically...
           </p>
         )}
 
         <div className="flex flex-col gap-3 pt-4">
-          {workspaceUrl && status !== 'error' && (
+          {status === 'success' && isAdvisorDesk ? (
             <Link
-              href={workspaceUrl}
+              href={onboardingUrl}
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
             >
-              Go to Workspace
+              Go to My Advisor Desk
               <ArrowRight className="h-4 w-4" />
             </Link>
-          )}
+          ) : workspaceUrl && status !== 'error' ? (
+            <Link
+              href={workspaceUrl}
+              onClick={() => setRedirecting(true)}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              {redirecting ? 'Redirecting...' : 'Go to Workspace'}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : null}
           <Link
             href="/"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"

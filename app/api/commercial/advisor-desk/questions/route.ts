@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser, resolveOrganizationContext, AuthError } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { getAdvisorBillingPeriod } from '@/lib/commercial/billing-period'
+import { trackEvent } from '@/lib/commercial/analytics'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -134,6 +135,15 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error('Failed to send advisor question notification:', err)
   }
+
+  // Track advisor question submitted
+  await trackEvent({
+    eventName: 'advisor_question_submitted',
+    organizationId: ctx.organization.id,
+    userId: user.id,
+    offerKey: 'ai_advisor_desk',
+    pagePath: `/app/${orgSlug}/advisor-desk`,
+  })
 
   return NextResponse.json({ question: newQuestion })
 }

@@ -4,6 +4,7 @@ import { createSubscriptionCheckout } from '@/lib/stripe/checkout'
 import { getOffer, type OfferKey } from '@/lib/commercial/offers'
 import { validateOrganizationForPurchase, hasActiveEntitlement } from '@/lib/commercial/purchase-auth'
 import { rateLimit } from '@/lib/rate-limit'
+import { trackEvent } from '@/lib/commercial/analytics'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -67,6 +68,26 @@ export async function POST(req: NextRequest) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
   const successUrl = `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`
   const cancelUrl = `${siteUrl}${offer.landingPage}?checkout=cancelled`
+
+  // Track checkout started and annual selection
+  await trackEvent({
+    eventName: 'advisor_checkout_started',
+    organizationId: organization.id,
+    userId: user.id,
+    offerKey: 'ai_advisor_desk',
+    billingPeriod: period,
+    pagePath: '/ai-advisor',
+  })
+  if (period === 'annual') {
+    await trackEvent({
+      eventName: 'advisor_annual_selected',
+      organizationId: organization.id,
+      userId: user.id,
+      offerKey: 'ai_advisor_desk',
+      billingPeriod: 'annual',
+      pagePath: '/ai-advisor',
+    })
+  }
 
   const result = await createSubscriptionCheckout({
     offerKey,

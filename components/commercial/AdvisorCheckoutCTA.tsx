@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ArrowRight, Loader2, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
+import { useAdvisorAnalytics } from '@/components/commercial/useAdvisorAnalytics'
 
 interface AdvisorCheckoutCTAProps {
   title: string
@@ -15,6 +16,7 @@ export function AdvisorCheckoutCTA({ title, description, bullets }: AdvisorCheck
   const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { track } = useAdvisorAnalytics()
 
   async function handleCheckout(period: 'monthly' | 'annual') {
     if (!selectedOrg) return
@@ -34,6 +36,9 @@ export function AdvisorCheckoutCTA({ title, description, bullets }: AdvisorCheck
         if (data.workspaceUrl) {
           setTimeout(() => { window.location.href = data.workspaceUrl }, 2000)
         }
+      } else if (data.error === 'Authentication required' || data.error === 'unauthorized') {
+        track('advisor_login_required')
+        setError('Sign in to continue to checkout.')
       } else {
         setError(data.message || data.error || 'Failed to start checkout')
       }
@@ -87,7 +92,7 @@ export function AdvisorCheckoutCTA({ title, description, bullets }: AdvisorCheck
                     className="group"
                   >
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Start AI Advisor for Business: $99/month
+                    Start My Advisor Desk: $99/month
                     {!loading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
                   </Button>
                   <Button

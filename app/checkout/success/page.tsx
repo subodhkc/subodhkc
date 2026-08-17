@@ -166,6 +166,8 @@ export default async function CheckoutSuccessPage({
         offerName={offerName}
         workspaceUrl={workspaceUrl}
         message="Your payment was successful. We are confirming your access. This usually takes a few seconds. You can continue to your workspace below."
+        offerKey={offerKey}
+        orgSlug={org.slug}
       />
     )
   }
@@ -176,6 +178,8 @@ export default async function CheckoutSuccessPage({
       offerName={offerName}
       workspaceUrl={workspaceUrl}
       message=""
+      offerKey={offerKey}
+      orgSlug={org.slug}
     />
   )
 }

@@ -206,6 +206,32 @@ export default async function AdvisorDeskPage({
     entitlementStatus: memberToolsEnt.entitlement_status,
   } : null
 
+  // Fetch watchlist items
+  const { data: watchlistItems } = await sc
+    .from('advisor_watchlist_items')
+    .select('id, category, title, source, relevance, status, recommended_next_action, is_draft, created_at')
+    .eq('organization_id', ctx.organization.id)
+    .order('created_at', { ascending: false })
+
+  // Fetch scheduling links for activation call
+  const { data: schedulingLinks } = await sc
+    .from('scheduling_links')
+    .select('id, scheduling_url, status, scheduled_at, link_type')
+    .eq('organization_id', ctx.organization.id)
+    .eq('link_type', 'activation_call')
+    .order('created_at', { ascending: false })
+    .limit(1)
+
+  // Fetch lifecycle state for onboarding progress
+  const { data: lifecycle } = await sc
+    .from('customer_lifecycle_states')
+    .select('advisor_onboarding_steps, onboarding_complete')
+    .eq('organization_id', ctx.organization.id)
+    .single()
+
+  const onboardingSteps = lifecycle?.advisor_onboarding_steps || null
+  const onboardingComplete = lifecycle?.onboarding_complete || false
+
   return (
     <AdvisorDeskWorkspaceClient
       user={user}
@@ -225,6 +251,10 @@ export default async function AdvisorDeskPage({
       entitlementStatus={advisorEntitlement?.effective_status ?? 'active'}
       products={products}
       memberToolsIncluded={memberToolsIncluded}
+      watchlistItems={watchlistItems || []}
+      schedulingLink={schedulingLinks?.[0] || null}
+      onboardingSteps={onboardingSteps}
+      onboardingComplete={onboardingComplete}
     />
   )
 }

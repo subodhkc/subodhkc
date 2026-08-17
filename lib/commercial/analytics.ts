@@ -25,6 +25,25 @@ export type ConversionEventName =
   | 'artifact_published'
   | 'monthly_brief_published'
   | 'subscription_cancelled'
+  // Advisor Desk funnel events
+  | 'advisor_hero_cta_click'
+  | 'advisor_checkout_started'
+  | 'advisor_login_required'
+  | 'advisor_org_created'
+  | 'advisor_purchase_completed'
+  | 'advisor_annual_selected'
+  | 'advisor_context_started'
+  | 'advisor_context_completed'
+  | 'advisor_watchlist_created'
+  | 'advisor_activation_schedule_started'
+  | 'advisor_activation_scheduled'
+  | 'advisor_question_submitted'
+  // Workflow Decision Review funnel
+  | 'workflow_review_viewed'
+  | 'workflow_review_started'
+  | 'workflow_review_purchased'
+  // Cross-offer
+  | 'fractional_cta_clicked'
 
 /**
  * Track a conversion event. Non-blocking.
