@@ -9,14 +9,14 @@ import { CheckCircle2, GraduationCap, Briefcase, Award, Building2, Shield, Code2
 export const metadata = {
   title: 'Subodh KC | AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. $50M+ portfolio oversight. 53 enterprise applications governed.',
+    'Subodh KC is an AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending AI compliance frameworks. 83+ projects delivered across enterprise, client, and founder-led work. 53 enterprise applications governed.',
   alternates: {
     canonical: 'https://subodhkc.com/person/subodh-kc',
   },
   openGraph: {
     title: 'Subodh KC | AI Advisor & AI Systems Architect',
     description:
-      'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight.',
+      'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. 83+ projects delivered across enterprise, client, and founder-led work.',
     url: 'https://subodhkc.com/person/subodh-kc',
     type: 'profile',
     images: [
@@ -31,7 +31,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Subodh KC | AI Advisor & AI Systems Architect',
-    description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. 5 patent-pending frameworks. $50M+ portfolio oversight.',
+    description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. 5 patent-pending frameworks. 83+ projects delivered across enterprise, client, and founder-led work.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
   keywords: [
@@ -83,7 +83,7 @@ const personSchema = {
   familyName: 'KC',
   jobTitle: 'AI Advisor & AI Systems Architect',
   description:
-    'AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. $50M+ portfolio oversight across 53 enterprise applications.',
+    'AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks in AI compliance, drift detection, and behavioral verification. 83+ projects delivered across 53 enterprise applications.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -292,8 +292,8 @@ export default function PersonPage() {
       period: '2022 - 2026',
       role: 'Technical Program Manager → Sr. Program Manager (Promoted)',
       org: 'HP Inc. (Fortune 50)',
-      description: 'Joined HP as Technical Program Manager in 2022, promoted to Sr. Program Manager - AI Implementation & Governance in 2025. Directed development and release cycles for 53 enterprise applications. Architected governance frameworks that enabled innovation without regulatory risk. Orchestrated enterprise-wide AI rollouts with 100+ stakeholders. Managed $50M+ AI and technology portfolio. Developed five patent-pending compliance and drift frameworks.',
-      achievements: ['$50M+ portfolio oversight', '53 enterprise applications governed', '100+ stakeholders aligned', '5 patent-pending frameworks developed', 'Promoted from TPM to Sr. Program Manager'],
+      description: 'Joined HP as Technical Program Manager in 2022, promoted to Sr. Program Manager - AI Implementation & Governance in 2025. Directed development and release cycles for 53 enterprise applications. Architected governance frameworks that enabled innovation without regulatory risk. Orchestrated enterprise-wide AI rollouts with 100+ stakeholders. Delivered 83+ projects across enterprise, client, and founder-led work. Developed five patent-pending compliance and drift frameworks.',
+      achievements: ['83+ projects delivered', '53 enterprise applications governed', '100+ stakeholders aligned', '5 patent-pending frameworks developed', 'Promoted from TPM to Sr. Program Manager'],
     },
     {
       period: '2023 - Present',
@@ -400,7 +400,7 @@ export default function PersonPage() {
             <span className="gradient-text">AI Advisor & AI Systems Architect</span>
           </>
         }
-        description="Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. $50M+ portfolio oversight across 53 enterprise applications."
+        description="Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. 5 patent-pending frameworks. 83+ projects delivered across 53 enterprise applications."
       />
 
       <Section subtitle="Biography" title="About Subodh KC">
@@ -415,7 +415,7 @@ export default function PersonPage() {
                   governance frameworks that enable innovation without regulatory risk.
                 </p>
                 <p>
-                  At HP, he managed a $50M+ technology portfolio spanning 53 enterprise applications,
+                  At HP, he delivered 83+ projects across a portfolio spanning 53 enterprise applications,
                   aligning 100+ stakeholders across product, engineering, quality, operations, vendors,
                   risk functions, and senior leadership. He is the founder of Kestrel Voice, an AI voice
                   operations platform, and HAIEC, an enterprise AI governance and compliance platform.

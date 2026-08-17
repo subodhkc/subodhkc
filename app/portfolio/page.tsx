@@ -167,7 +167,7 @@ const BOOK_HTML = `
   <div class="metrics" style="margin-top:20px">
     <div class="metric"><div class="value">53</div><div class="label">Enterprise applications</div><p>Managed as Senior Technical Program Manager and Core Team Lead, directing portfolio execution through multiple program managers.</p></div>
     <div class="metric"><div class="value">50+</div><div class="label">AI &amp; technology initiatives</div><p>Resume-recorded portfolio of enterprise, automation, reliability, and founder-led initiatives; exact role varied by program.</p></div>
-    <div class="metric"><div class="value">$50M+</div><div class="label">Organizational portfolio scope</div><p>Aggregate program environment and executive visibility - not a claim of personal budget authority.</p></div>
+    <div class="metric"><div class="value">83+</div><div class="label">Projects delivered</div><p>Enterprise, client, and founder-led initiatives across the portfolio; exact role varied by program.</p></div>
     <div class="metric"><div class="value">100+</div><div class="label">Cross-functional network</div><p>Product, engineering, quality, operations, vendors, program managers, and leadership aligned across the portfolio.</p></div>
     <div class="metric"><div class="value">Global</div><div class="label">Commercial software reach</div><p>Applications serving a global device and customer ecosystem, with reliability and disciplined change as operating requirements.</p></div>
     <div class="metric"><div class="value">5</div><div class="label">AI invention filings</div><p>User-recorded provisional and non-provisional filings spanning drift, compliance twins, audit automation, and traceability.</p></div>

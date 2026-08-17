@@ -19,11 +19,11 @@ const servicesLinks = [
 ];
 
 const workLinks = [
-  { name: "Selected Work", href: "/portfolio", desc: "Execution proof and portfolio" },
+  { name: "Selected Work", href: "/work", desc: "Work hub - enterprise, products, open source" },
+  { name: "Executive Portfolio", href: "/portfolio", desc: "Deep executive artifact" },
   { name: "Open Source & Systems", href: "/products", desc: "Packages, tools, and systems" },
   { name: "HAIEC", href: "/solutions/haiec", desc: "AI assurance and governance platform" },
   { name: "KestrelVoice", href: "/solutions/kestrelvoice", desc: "Voice AI operating layer" },
-  { name: "Cognitive Systems Management", href: "/cognitive-systems-management", desc: "Operating model for AI" },
 ];
 
 const insightsLinks = [

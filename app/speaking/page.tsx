@@ -4,71 +4,98 @@ import Grid from '@/components/Grid'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import CTA from '@/components/CTA'
-import { Mic, Users, Briefcase, GraduationCap, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Mic, Users, Briefcase, GraduationCap, Compass, Shield, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Speaking & Keynotes | AI Governance & Strategy | Subodh KC',
+  title: 'Speaking | AI Decisions, Systems & Program Leadership | Subodh KC',
   description:
-    'Book Subodh KC for keynotes, workshops, and technical talks on AI architecture, governance, enterprise program management, and strategic execution at scale.',
+    'Book Subodh KC for keynotes, workshops, and technical talks on AI decisions, production AI systems, governance, enterprise program leadership, and Cognitive Systems Management.',
   keywords: [
     'AI keynote speaker',
-    'AI governance speaker',
+    'AI decisions speaker',
     'AI architecture speaker',
     'enterprise AI speaker',
-    'AI compliance speaker',
+    'AI governance speaker',
     'AI workshop',
-    'AI training',
     'AI strategy speaker',
     'AI systems architect',
-    'speaking engagements',
-    'technical speaker',
-    'Subodh KC'
+    'technical program leadership',
+    'Cognitive Systems Management',
+    'Subodh KC',
   ],
   alternates: {
     canonical: 'https://subodhkc.com/speaking',
   },
   openGraph: {
-    title: 'Speaking & Keynotes | AI Governance & Strategy | Subodh KC',
-    description: 'Book Subodh KC for keynotes, workshops, and technical talks on AI architecture, governance, enterprise program management, and strategic execution at scale.',
+    title: 'Speaking | Subodh KC',
+    description: 'Keynotes, workshops, and technical talks on AI decisions, production systems, governance, and program leadership at scale.',
     url: 'https://subodhkc.com/speaking',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Speaking & Keynotes | AI Governance & Strategy | Subodh KC',
-    description: 'Book Subodh KC for keynotes, workshops, and technical talks on AI architecture and governance.',
+    title: 'Speaking | Subodh KC',
+    description: 'Keynotes and workshops on AI decisions, systems, and program leadership.',
   },
 }
 
 export default function SpeakingPage() {
   const topics = [
     {
-      icon: Briefcase,
-      title: 'From AI Pilots to Production',
+      icon: Compass,
+      title: 'From Possibility to Decision',
       description:
-        'How enterprise leaders are building governance frameworks that enable the transition from experimentation to compliant, production-grade AI systems.',
-      audience: 'C-suite, VPs of Engineering, AI leaders',
+        'How to move from the excitement of AI possibilities to the decisions that actually deserve action. A framework for filtering signal from noise when everything seems possible.',
+      audience: 'C-suite, boards, executive teams',
+      format: 'Keynote (45-60 min)',
+      keyTakeaways: [
+        'A decision filter for AI opportunities',
+        'When to say no to a pilot',
+        'The cost of reversible vs irreversible AI decisions',
+        'Building organizational muscle for AI judgment',
+      ],
+    },
+    {
+      icon: Briefcase,
+      title: 'AI Decisions That Are Expensive to Reverse',
+      description:
+        'Some AI decisions can be undone cheaply. Others create lock-in, compliance exposure, or operational dependency that is expensive to unwind. How to tell the difference before you commit.',
+      audience: 'Executives, technology leaders, risk officers',
       format: 'Keynote (45-60 min) or Workshop (2-3 hours)',
       keyTakeaways: [
-        'Common pitfalls in AI pilot-to-production transitions',
-        'Governance frameworks that scale',
-        'Regulatory compliance without sacrificing velocity',
-        'Real-world case studies from Fortune 50',
+        'Reversibility as a decision criterion',
+        'Architecture choices that create lock-in',
+        'Governance decisions that are hard to undo',
+        'Vendor and model dependency analysis',
       ],
     },
     {
       icon: Users,
-      title: 'Why Enterprise AI Integration Fails',
+      title: 'Why AI Pilots Fail in Production',
       description:
-        'Systematic analysis of the architectural, organizational, and strategic failures that turn AI initiatives into expensive experiments.',
-      audience: 'Technical leaders, architects, TPMs',
+        'Systematic analysis of the architectural, organizational, and strategic failures that turn AI initiatives into expensive experiments that never reach production.',
+      audience: 'Technical leaders, architects, program managers',
       format: 'Keynote (45-60 min) or Technical Deep-Dive (90 min)',
       keyTakeaways: [
-        'The 5 failure patterns in enterprise AI',
-        'What actually works: proven architectures',
-        'Organizational anti-patterns to avoid',
+        'The failure patterns in enterprise AI',
+        'What production-grade AI actually requires',
+        'Organizational anti-patterns that kill pilots',
         'Decision frameworks for AI at scale',
+      ],
+    },
+    {
+      icon: Shield,
+      title: 'The Architecture Behind Responsible AI',
+      description:
+        'Responsible AI is not a policy document. It is an architecture. How governance, evidence, controls, and oversight show up in the actual system design.',
+      audience: 'Architects, security teams, governance leaders',
+      format: 'Technical Deep-Dive (90 min) or Workshop (half-day)',
+      keyTakeaways: [
+        'Governance as architecture, not paperwork',
+        'Evidence and auditability in system design',
+        'Controls that survive production pressure',
+        'Cognitive Systems Management in practice',
       ],
     },
     {
@@ -79,11 +106,9 @@ export default function SpeakingPage() {
       audience: 'Program managers, AI teams, governance leaders',
       format: 'Workshop (half-day or full-day)',
       keyTakeaways: [
-        'Four-domain CSM framework: Enterprise, Project, Code and UX',
+        'Four CSM domains: Enterprise, Project, Code, UX',
+        'Six execution functions across the lifecycle',
         'Connecting governance across organizational handoffs',
-        'Moving from pilot decisions to implementation',
-        'Governing AI-assisted development',
-        'Designing appropriate human oversight',
         'Translating CSM into an operating model',
       ],
     },
@@ -97,8 +122,8 @@ export default function SpeakingPage() {
       keyTakeaways: [
         'Stakeholder alignment at scale',
         'Managing dependencies across organizations',
-        'Measuring impact vs. activity',
-        'Career growth for technical leaders',
+        'Measuring impact vs activity',
+        'Portfolio governance across many applications',
       ],
     },
   ]
@@ -107,7 +132,7 @@ export default function SpeakingPage() {
     {
       type: 'Keynote',
       duration: '45-60 minutes',
-      description: 'High-impact presentations for conferences, corporate events, and summits.',
+      description: 'Strategic presentations for conferences, corporate events, and summits.',
       idealFor: 'Large audiences (100+), opening/closing sessions',
     },
     {
@@ -119,35 +144,14 @@ export default function SpeakingPage() {
     {
       type: 'Fireside Chat',
       duration: '30-45 minutes',
-      description: 'Conversational format with Q&A, exploring topics in-depth.',
+      description: 'Conversational format with Q&A, exploring topics in depth.',
       idealFor: 'Intimate settings, executive roundtables',
     },
     {
       type: 'Panel Moderator',
       duration: '45-60 minutes',
-      description: 'support discussions with industry experts on AI governance and strategy.',
+      description: 'Facilitated discussions with industry experts on AI strategy and governance.',
       idealFor: 'Multi-perspective discussions, industry events',
-    },
-  ]
-
-  const pastEngagements = [
-    {
-      event: 'Enterprise AI Summit',
-      topic: 'Regulatory Readiness for Production AI',
-      audience: '500+ attendees',
-      type: 'Keynote',
-    },
-    {
-      event: 'Fortune 50 Leadership Forum',
-      topic: 'Strategic Program Management at Scale',
-      audience: 'Executive leadership',
-      type: 'Fireside Chat',
-    },
-    {
-      event: 'AI Governance Workshop Series',
-      topic: 'Implementing CSM Methodology',
-      audience: 'Technical teams',
-      type: 'Full-day Workshop',
     },
   ]
 
@@ -155,7 +159,7 @@ export default function SpeakingPage() {
     {
       type: 'Conferences & Summits',
       description: 'Industry conferences, AI summits, technology events',
-      topics: 'AI governance, compliance, enterprise strategy',
+      topics: 'AI decisions, production AI, enterprise strategy',
     },
     {
       type: 'Corporate Events',
@@ -170,7 +174,7 @@ export default function SpeakingPage() {
     {
       type: 'Community Events',
       description: 'Meetups, user groups, community-driven gatherings',
-      topics: 'Open-source governance, mentorship, Nepal tech community',
+      topics: 'Open-source governance, mentorship, field practice',
     },
   ]
 
@@ -180,14 +184,14 @@ export default function SpeakingPage() {
         subtitle="Speaking"
         title={
           <>
-            High-Impact Talks on
+            Talks on AI Decisions,
             <br />
-            <span className="gradient-text">AI Governance & Strategy</span>
+            <span className="gradient-text">Systems & Leadership</span>
           </>
         }
-        description="No buzzwords. No fluff. Strategic insights from building AI systems and driving programs at Fortune 50 scale."
+        description="Practical talks from building AI systems and driving programs at Fortune 50 scale. No buzzwords. Field-tested frameworks and real failure patterns."
       >
-        <Link href="/contact">
+        <Link href="/contact?subject=speaking">
           <Button size="lg" className="group">
             Book for your event
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -199,7 +203,7 @@ export default function SpeakingPage() {
         id="topics"
         subtitle="Topics"
         title="What I Talk About"
-        description="Practical, actionable insights from real-world experience implementing AI compliance and driving technical programs at enterprise scale."
+        description="Talks span AI decisions, production systems, governance architecture, and program leadership. Each can be customized to your audience and objectives."
       >
         <div className="space-y-8">
           {topics.map((topic, index) => {
@@ -248,7 +252,7 @@ export default function SpeakingPage() {
           <p className="text-muted-foreground mb-4">
             Have a specific topic in mind? I can customize talks to your audience and objectives.
           </p>
-          <Link href="/contact">
+          <Link href="/contact?subject=speaking">
             <Button variant="outline">Discuss custom topic</Button>
           </Link>
         </div>
@@ -273,27 +277,6 @@ export default function SpeakingPage() {
         </Grid>
       </Section>
 
-      <Section subtitle="Experience" title="Past Speaking Engagements">
-        <div className="max-w-3xl mx-auto space-y-4">
-          {pastEngagements.map((engagement, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-3 py-1 mb-2 w-fit">
-                      <span className="text-xs font-medium text-accent">{engagement.type}</span>
-                    </div>
-                    <CardTitle className="text-xl mb-1">{engagement.event}</CardTitle>
-                    <CardDescription className="mb-2">{engagement.topic}</CardDescription>
-                    <p className="text-sm text-muted-foreground">{engagement.audience}</p>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
       <Section subtitle="Audiences" title="Where I Speak">
         <Grid cols={2}>
           {audiences.map((audience, index) => (
@@ -316,12 +299,12 @@ export default function SpeakingPage() {
             {[
               'Pre-event consultation to align on objectives',
               'Customized content for your audience',
-              'High-quality slide decks and materials',
+              'Slide decks and supporting materials',
               'Post-event Q&A and follow-up',
-              'Promotion of your event on my channels',
               'Recording-friendly (when permitted)',
               'Professional and reliable delivery',
               'Actionable insights, not theory',
+              'Frameworks audiences can use the next day',
             ].map((item, index) => (
               <div key={index} className="flex items-start gap-3">
                 <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -332,55 +315,10 @@ export default function SpeakingPage() {
         </div>
       </Section>
 
-      <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-sm text-muted-foreground mb-6 text-center">
-            complete guides to the AI regulations that matter most - informed by the HAIEC compliance engine and Zenodo-published research.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/guides/texas-ai-law" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">Texas AI Law (TRAIGA)</CardTitle>
-                  <CardDescription className="text-sm">
-                    HB 149. Effective Jan 2026. Built on the HAIEC TRAIGA compliance engine.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/guides/eu-ai-act" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">EU AI Act</CardTitle>
-                  <CardDescription className="text-sm">
-                    Risk-tiered regulation. Mapped to the ISAF framework published in Zenodo.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/guides/nyc-local-law-144" className="block">
-              <Card className="hover:border-primary/40 transition-all cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">NYC Local Law 144</CardTitle>
-                  <CardDescription className="text-sm">
-                    AEDT bias audits. Informed by deterministic bias detection research.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-          <div className="mt-4 text-center">
-            <Link href="/guides" className="text-sm text-primary hover:underline">
-              View all compliance guides →
-            </Link>
-          </div>
-        </div>
-      </Section>
-
       <CTA
         title="Book Me for Your Next Event"
-        description="Whether it's a keynote for 500 or a workshop for your leadership team, I bring strategic insights and practical takeaways that audiences remember."
-        primaryButton={{ text: 'Check availability', href: '/contact' }}
+        description="Whether it is a keynote for 500 or a workshop for your leadership team, I bring practical frameworks and real takeaways that audiences can use."
+        primaryButton={{ text: 'Check availability', href: '/contact?subject=speaking' }}
         secondaryButton={{ text: 'View topics', href: '#topics' }}
       />
     </>

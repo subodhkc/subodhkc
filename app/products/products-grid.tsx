@@ -1,38 +1,73 @@
+// app/products/products-grid.tsx - Client component with icon name mapping
 'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowRight } from 'lucide-react'
+import {
+  ArrowRight,
+  Shield,
+  FileText,
+  Printer,
+  EyeOff,
+  Clock,
+  Activity,
+  Scale,
+  Mic,
+  Lock,
+  Code,
+  Boxes,
+  Wrench,
+  FlaskConical,
+} from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-type Product = {
+export type ProductCategory = 'Products' | 'Open Source / Packages' | 'Technical Tools' | 'Experiments / Beta'
+
+export type Product = {
   name: string
   href: string
   description: string
-  icon: React.ComponentType<{ className?: string }>
-  badge: string
-  badgeColor: string
+  iconName: string
+  status: string
+  statusColor: string
+  category: ProductCategory
   features: string[]
   cta: string
+  external?: boolean
 }
 
-const filters = [
-  { label: 'Open Source', value: 'Open Source' },
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Shield,
+  FileText,
+  Printer,
+  EyeOff,
+  Clock,
+  Activity,
+  Scale,
+  Mic,
+  Lock,
+  Code,
+  Boxes,
+  Wrench,
+  FlaskConical,
+}
+
+const filters: { label: string; value: ProductCategory | 'All' }[] = [
   { label: 'All', value: 'All' },
-  { label: 'Free', value: 'Free' },
-  { label: 'Enterprise', value: 'Enterprise' },
-  { label: 'Early Access', value: 'Early Access' },
-  { label: 'Coming Soon', value: 'Coming Soon' },
+  { label: 'Products', value: 'Products' },
+  { label: 'Open Source', value: 'Open Source / Packages' },
+  { label: 'Technical Tools', value: 'Technical Tools' },
+  { label: 'Experiments', value: 'Experiments / Beta' },
 ]
 
 export default function ProductsGrid({ products }: { products: Product[] }) {
-  const [activeFilter, setActiveFilter] = useState('Open Source')
+  const [activeFilter, setActiveFilter] = useState<ProductCategory | 'All'>('All')
 
   const filtered = activeFilter === 'All'
     ? products
-    : products.filter(p => p.badge === activeFilter)
+    : products.filter(p => p.category === activeFilter)
 
   return (
     <>
@@ -55,7 +90,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((product) => {
-          const Icon = product.icon
+          const Icon = ICON_MAP[product.iconName] || Boxes
           return (
             <Card key={product.name} className="flex flex-col hover:border-primary/50 transition-colors">
               <CardHeader>
@@ -63,8 +98,8 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Icon className="h-7 w-7 text-primary" />
                   </div>
-                  <span className={cn('text-xs px-3 py-1 rounded-full font-medium', product.badgeColor)}>
-                    {product.badge}
+                  <span className={cn('text-xs px-3 py-1 rounded-full font-medium', product.statusColor)}>
+                    {product.status}
                   </span>
                 </div>
                 <CardTitle className="text-xl">{product.name}</CardTitle>
@@ -83,7 +118,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
                     </span>
                   ))}
                 </div>
-                <Link href={product.href}>
+                <Link href={product.href} target={product.external ? '_blank' : undefined} rel={product.external ? 'noopener noreferrer' : undefined}>
                   <Button className="w-full gap-2">
                     {product.cta}
                     <ArrowRight className="h-4 w-4" />
@@ -97,7 +132,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
 
       {filtered.length === 0 && (
         <p className="text-center text-muted-foreground py-12">
-          No products in this category yet.
+          No systems in this category yet.
         </p>
       )}
     </>

@@ -8,7 +8,7 @@ import { FileText, TrendingUp, Shield, Layers, AlertTriangle, CheckCircle2, Arro
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'AI Governance Research & Frameworks | Subodh KC',
+  title: 'Research & Frameworks | Subodh KC',
   description:
     'Research and frameworks on AI governance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies. Published in Zenodo with reproducible methodologies.',
   keywords: [
@@ -29,14 +29,14 @@ export const metadata = {
     canonical: 'https://subodhkc.com/research',
   },
   openGraph: {
-    title: 'AI Governance Research & Frameworks | Subodh KC',
+    title: 'Research & Frameworks | Subodh KC',
     description: 'Research and frameworks on AI governance, precision drift detection, Cognitive Systems Management, LegacyShift, and Red Audit methodologies.',
     url: 'https://subodhkc.com/research',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Governance Research & Frameworks | Subodh KC',
+    title: 'Research & Frameworks | Subodh KC',
     description: 'Research and frameworks on AI governance, drift detection, and audit methodologies. Published in Zenodo.',
   },
 }
@@ -266,12 +266,12 @@ export default function ResearchPage() {
         subtitle="Research & Frameworks"
         title={
           <>
-            Building the Science of
+            Original work on
             <br />
-            <span className="gradient-text">AI Governance</span>
+            <span className="gradient-text">AI governance</span>
           </>
         }
-        description="Research-backed frameworks and methodologies for enterprise AI compliance, governance, and risk management. Built from real-world implementation experience."
+        description="Original work on AI governance, deterministic evaluation, accountability, drift and operating systems. Built from real-world implementation experience."
       />
 
       <Section

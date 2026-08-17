@@ -1,22 +1,23 @@
-// app/insights/page.tsx - intellectual content hub
+// app/insights/page.tsx - intellectual content hub: How does Subodh think?
 import Link from "next/link";
 import { PAPERS } from "@/data/papers";
 import { FRAMEWORKS } from "@/data/frameworks";
 
 export const metadata = {
-  title: "Insights | Writing, Research, Frameworks & Guides",
+  title: "Insights | Writing, Research, Frameworks & Guides | Subodh KC",
   description:
-    "Writing, research, frameworks, magazine, and guides on AI strategy, production architecture, governance, and operating models. By Subodh KC, AI Advisor and AI Systems Architect.",
+    "How Subodh thinks about AI. Writing on systems, decisions, and field notes. Published research and frameworks. AI That Works magazine. Compliance and implementation guides.",
   keywords: [
-    "AI insights",
+    "Subodh KC insights",
+    "AI writing",
     "AI research",
     "AI frameworks",
-    "AI governance research",
-    "AI architecture",
-    "AI strategy",
     "Cognitive Systems Management",
+    "AI governance research",
     "AI compliance guides",
-    "Subodh KC",
+    "AI strategy",
+    "AI architecture",
+    "AI decision support",
   ],
   alternates: {
     canonical: "https://subodhkc.com/insights",
@@ -33,38 +34,51 @@ export const metadata = {
 const HUB_SECTIONS = [
   {
     label: "WRITING",
-    desc: "Articles on AI governance, architecture, and production systems.",
+    desc: "Articles on AI systems, decisions, architecture, and production. Field notes from real work.",
     href: "/blog",
     cta: "Read articles",
     count: "ongoing",
+    themes: ["AI Decisions", "Systems & Architecture", "Production AI", "Security & Governance", "Field Notes"],
   },
   {
     label: "RESEARCH",
-    desc: "Published papers with reproducible methodologies.",
+    desc: "Published papers with reproducible methodologies. Zenodo and SSRN publications.",
     href: "/research",
     cta: "Read research",
     count: `${PAPERS.length} papers`,
+    themes: ["Zenodo", "SSRN", "Working papers", "Technical reports"],
   },
   {
     label: "FRAMEWORKS",
-    desc: "Practitioner frameworks and methodologies.",
+    desc: "Practitioner frameworks and methodologies. CSM, ISAF, and other original work.",
     href: "/research",
     cta: "Explore frameworks",
     count: `${FRAMEWORKS.length} frameworks`,
+    themes: ["CSM 2.0", "ISAF", "Red Audit Kit", "LegacyShift"],
   },
   {
-    label: "MAGAZINE",
-    desc: "AI That Works Magazine. Independent field magazine, free to read.",
+    label: "AI THAT WORKS",
+    desc: "Independent field magazine. Strategy, systems, governance, and field practice. Free to read.",
     href: "/magazine",
     cta: "Read the magazine",
     count: "36 pages",
+    themes: [],
   },
   {
     label: "GUIDES",
-    desc: "AI compliance guides covering EU AI Act, Texas TRAIGA, and NYC LL144.",
+    desc: "AI compliance and implementation guides covering EU AI Act, Texas TRAIGA, and NYC LL144.",
     href: "/guides",
     cta: "Read guides",
     count: "3 law guides",
+    themes: ["EU AI Act", "Texas TRAIGA", "NYC LL144"],
+  },
+  {
+    label: "TOOLS & FIELD RESOURCES",
+    desc: "Interactive resources for architecture decisions, AI security analysis, and field work.",
+    href: "/ai-security-tools",
+    cta: "Explore tools",
+    count: "interactive",
+    themes: ["Architecture Decision Master Sheet", "AI Security Tools", "Blast Radius", "Agent Matrix"],
   },
 ];
 
@@ -111,35 +125,38 @@ export default function InsightsPage() {
           maxWidth: 640,
         }}
       >
-        Writing, research, frameworks, magazine, and guides on AI strategy, production
-        architecture, governance, and operating models.
+        How I think about AI. Writing on systems, decisions, and field notes. Published research and
+        frameworks. AI That Works magazine. Compliance and implementation guides. Interactive tools
+        and field resources.
       </p>
 
       {/* Hub sections */}
       <div
+        className="insights-grid"
         style={{
           marginTop: 48,
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
           gap: 0,
           border: "1px solid var(--op-border)",
           borderRadius: 10,
           overflow: "hidden",
         }}
       >
-        {HUB_SECTIONS.map((section, i) => (
+        {HUB_SECTIONS.map((section) => (
           <Link
             key={section.label}
             href={section.href}
             style={{
               padding: "28px 24px",
-              borderRight: (i + 1) % 3 !== 0 ? "1px solid var(--op-border)" : "none",
-              borderBottom: i < HUB_SECTIONS.length - 3 ? "1px solid var(--op-border)" : "none",
+              borderRight: "1px solid var(--op-border)",
+              borderBottom: "1px solid var(--op-border)",
               textDecoration: "none",
               color: "var(--fg)",
               display: "flex",
               flexDirection: "column",
             }}
+            className="insights-card"
           >
             <div
               style={{
@@ -167,6 +184,26 @@ export default function InsightsPage() {
             <p style={{ fontSize: 14, color: "var(--text-secondary)", margin: "0 0 16px", lineHeight: 1.55, flex: 1 }}>
               {section.desc}
             </p>
+            {section.themes.length > 0 && (
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
+                {section.themes.map((theme) => (
+                  <span
+                    key={theme}
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10,
+                      color: "var(--op-muted)",
+                      padding: "2px 8px",
+                      background: "var(--op-card)",
+                      borderRadius: 4,
+                      border: "1px solid var(--op-border)",
+                    }}
+                  >
+                    {theme}
+                  </span>
+                ))}
+              </div>
+            )}
             <span
               style={{
                 fontFamily: "var(--font-mono)",
@@ -185,9 +222,11 @@ export default function InsightsPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          a[style*="borderRight"] {
+          .insights-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .insights-card {
             border-right: none !important;
-            border-bottom: 1px solid var(--op-border) !important;
           }
         }
       `}</style>

@@ -41,7 +41,7 @@ export default function ResumePage() {
           {/* Summary */}
           <p className="mt-3 text-xs text-zinc-700 leading-relaxed">
             <span className="font-semibold text-zinc-900">Production AI</span> and compliance systems at <span className="font-semibold text-zinc-900">HP Inc.</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows.
-            Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">$50M+</span> AI portfolios, reducing manual review by <span className="font-semibold text-zinc-900">40-60%</span>. 
+            Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">83+ projects</span> delivered, reducing manual review by <span className="font-semibold text-zinc-900">40-60%</span>. 
             Shipped AI-native products for drift detection, autonomous RCA, and compliance mapping. 
             <span className="font-semibold text-zinc-900">5 patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.
           </p>
@@ -71,8 +71,8 @@ export default function ResumePage() {
             </div>
             <div className="w-px h-6 bg-zinc-300" />
             <div className="flex items-center gap-2">
-              <span className="text-xl font-bold text-rose-600">$50M+</span>
-              <span className="text-xs text-zinc-600">Portfolio Oversight</span>
+              <span className="text-xl font-bold text-rose-600">83+</span>
+              <span className="text-xs text-zinc-600">Projects Delivered</span>
             </div>
           </div>
         </section>
@@ -95,7 +95,7 @@ export default function ResumePage() {
                   <div>
                     <span className="font-semibold text-sm text-zinc-900">Sr Program Manager - AI Implementation & Governance</span>
                   </div>
-                  <span className="text-xs text-zinc-500 shrink-0">2025 - Present</span>
+                  <span className="text-xs text-zinc-500 shrink-0">2025 - 2026</span>
                 </div>
                 <p className="text-xs text-zinc-600 mb-1">HP Inc. · Core Team Lead · Dallas, TX</p>
                 <ul className="text-xs text-zinc-700 space-y-0.5 ml-3">

@@ -2,10 +2,8 @@ import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import CTA from '@/components/CTA'
-import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import Grid from '@/components/Grid'
-import { Award, GraduationCap, Briefcase, Heart, Shield, CheckCircle2, TrendingUp, Zap, Users, BookOpen, User, Newspaper, MapPin, Code2 } from 'lucide-react'
+import { Award, GraduationCap, Briefcase, Heart, Shield, TrendingUp, Zap, BookOpen, User, Newspaper, MapPin, Code2 } from 'lucide-react'
 
 export const metadata = {
   title: 'About Subodh KC | AI Advisor & AI Systems Architect',
@@ -480,145 +478,6 @@ export default function AboutPage() {
               </Button>
             </Link>
           </div>
-        </div>
-      </Section>
-
-      <Section subtitle="Innovation" title="Patent-Pending AI Compliance Frameworks">
-        <div className="max-w-4xl mx-auto mb-8">
-          <p className="text-lg text-muted-foreground text-center">
-            Developed 5 patent-pending methodologies for AI compliance, drift detection, and governance at enterprise scale.
-          </p>
-        </div>
-        <Grid cols={2}>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-primary" />
-                Adversarial Project Twin
-              </CardTitle>
-              <CardDescription>
-                Drift and sabotage simulation framework that proactively identifies AI system vulnerabilities 
-                before they impact production. Enables real-time monitoring and automated remediation.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary" />
-                AI Compliance Twin
-              </CardTitle>
-              <CardDescription>
-                Real-time regulatory enforcement engine that continuously validates AI systems against 
-                EU AI Act, GDPR, and sector-specific compliance requirements.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
-                Modular Audit Engine
-              </CardTitle>
-              <CardDescription>
-                AI fairness and transparency scoring system with modular architecture. 
-                Provides documentation suitable for audits and compliance reporting for enterprise deployments.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-primary" />
-                Precision Drift Detector
-              </CardTitle>
-              <CardDescription>
-                Numerical anomaly detection system for AI model performance monitoring. 
-                Identifies drift patterns before they impact business outcomes.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-primary" />
-                Compliance Fingerprint Layer
-              </CardTitle>
-              <CardDescription>
-                Tamper-evident traceability system for AI decision-making. 
-                Creates immutable audit trails for regulatory compliance and forensic analysis.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
-                CSM Framework & SKC ResetFrame
-              </CardTitle>
-              <CardDescription>
-                Subodh developed Cognitive Systems Management (CSM), a governance methodology with four domains: CSM-Enterprise, CSM-Project, CSM-Code, and CSM-UX. Six execution functions span purpose, mapping, risk, delivery, oversight, and compliance. CSM 2.0 (spec version 2.0.0) extends the original 2025 publication with machine-readable contracts and 16 governance components for enterprise AI deployment.{' '}
-                <Link href="/cognitive-systems-management" className="text-primary hover:underline">Explore the framework</Link>.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </Grid>
-      </Section>
-
-      <Section subtitle="Compliance Guides" title="AI Compliance Law Guides" className="bg-secondary/20">
-        <div className="max-w-4xl mx-auto mb-8">
-          <p className="text-base text-muted-foreground text-center">
-            Complete guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
-          </p>
-        </div>
-        <Grid cols={3}>
-          <Link href="/guides/texas-ai-law">
-            <Card className="hover:border-primary/40 transition-all h-full">
-              <CardHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="h-5 w-5 text-primary" />
-                  <span className="text-xs font-medium text-amber-600">Effective Jan 2026</span>
-                </div>
-                <CardTitle className="text-base">Texas AI Law (TRAIGA / HB 149)</CardTitle>
-                <CardDescription className="text-sm">
-                  Texas Responsible AI Governance Act. Applicability tests, prohibited practices, disclosure duties, penalties, and NIST AI RMF defense pathway.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-          <Link href="/guides/eu-ai-act">
-            <Card className="hover:border-primary/40 transition-all h-full">
-              <CardHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="h-5 w-5 text-primary" />
-                  <span className="text-xs font-medium text-amber-600">Full enforcement Aug 2026</span>
-                </div>
-                <CardTitle className="text-base">EU AI Act</CardTitle>
-                <CardDescription className="text-sm">
-                  World's first complete AI regulation. Risk-tiered framework for all AI on the EU market. Penalties up to 35M euros or 7% of global revenue.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-          <Link href="/guides/nyc-local-law-144">
-            <Card className="hover:border-primary/40 transition-all h-full">
-              <CardHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="h-5 w-5 text-primary" />
-                  <span className="text-xs font-medium text-red-600">Active enforcement</span>
-                </div>
-                <CardTitle className="text-base">NYC Local Law 144</CardTitle>
-                <CardDescription className="text-sm">
-                  Bias audit requirements for automated employment decision tools. Annual independent bias audits, 10-day candidate notice, daily penalties.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-        </Grid>
-        <div className="text-center mt-8">
-          <Link href="/guides" className="text-sm text-primary hover:underline">
-            View all compliance guides and technical resources →
-          </Link>
         </div>
       </Section>
 

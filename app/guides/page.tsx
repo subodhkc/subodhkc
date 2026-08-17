@@ -86,8 +86,8 @@ const lawGuides = [
     href: '/guides/texas-ai-law',
     title: 'Texas AI Law (TRAIGA / HB 149)',
     description:
-      'Texas Responsible AI Governance Act. Effective January 1, 2026. Covers applicability tests, prohibited practices, disclosure duties, penalties ($10K-$200K), 60-day cure period, NIST AI RMF defense pathway, and regulatory sandbox.',
-    badge: 'Effective Jan 2026',
+      'Texas Responsible AI Governance Act. Effective January 1, 2026. Covers applicability tests, prohibited practices, disclosure duties, penalties (curable and uncurable violations), 60-day cure period, NIST AI RMF defense pathway, and regulatory sandbox.',
+    badge: 'Effective Jan 2026 · Reviewed Aug 2026',
     badgeColor: 'text-amber-600',
   },
   {
@@ -95,8 +95,8 @@ const lawGuides = [
     href: '/guides/eu-ai-act',
     title: 'EU AI Act',
     description:
-      'World\'s first complete AI regulation. Risk-tiered framework for all AI on the EU market. Full enforcement August 2026. Penalties up to €35M or 7% of global revenue. Mapped to the ISAF framework published in Zenodo.',
-    badge: 'Full enforcement Aug 2026',
+      'Risk-tiered framework for all AI on the EU market. Staged application with provisions phased through 2026-2027. Penalties up to €35M or 7% of global revenue. Mapped to the ISAF framework published in Zenodo.',
+    badge: 'Staged application · Reviewed Aug 2026',
     badgeColor: 'text-amber-600',
   },
   {
@@ -105,7 +105,7 @@ const lawGuides = [
     title: 'NYC Local Law 144',
     description:
       'Bias audit requirements for automated employment decision tools (AEDTs). Active enforcement since July 2023. Annual independent bias audits, 10-day candidate notice, $500-$1,500/day penalties. Informed by deterministic bias detection research.',
-    badge: 'Active enforcement',
+    badge: 'Active enforcement · Reviewed Aug 2026',
     badgeColor: 'text-red-600',
   },
 ]
@@ -200,6 +200,19 @@ export default function GuidesIndexPage() {
         }
         description="Three AI laws are reshaping how companies build and deploy AI. Here's what each one requires - and which ones apply to you."
       />
+
+      <div className="page-padding pt-6">
+        <div className="section-container max-w-3xl">
+          <div className="rounded-lg border border-amber-300 bg-amber-50 p-4">
+            <p className="text-sm text-amber-900">
+              <strong>Informational only. Not legal advice.</strong> These guides summarize public
+              regulatory requirements as understood at the time of review. Laws and enforcement
+              guidance change. For jurisdiction-specific compliance guidance, contact Subodh KC for
+              advisory services.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* ─── Compliance Law Guides (Sticky Notes) ─── */}
       <Section
@@ -316,7 +329,7 @@ export default function GuidesIndexPage() {
               <tbody className="divide-y divide-border">
                 <tr>
                   <td className="py-3 px-4 font-medium">Effective Date</td>
-                  <td className="py-3 px-4">Aug 2, 2026 (full)</td>
+                  <td className="py-3 px-4">Staged 2026-2027</td>
                   <td className="py-3 px-4">Jul 5, 2023</td>
                   <td className="py-3 px-4">Jan 1, 2026</td>
                 </tr>
@@ -495,9 +508,10 @@ export default function GuidesIndexPage() {
       <div className="page-padding pb-8">
         <div className="section-container max-w-3xl">
           <p className="text-xs text-muted-foreground">
-            These guides are for informational purposes and do not constitute legal advice. For
-            jurisdiction-specific compliance guidance, contact Subodh KC for advisory services. Last
-            updated: July 2026.
+            Informational only. Not legal advice. These guides summarize public regulatory
+            requirements as understood at the time of review. Laws and enforcement guidance change.
+            For jurisdiction-specific compliance guidance, contact Subodh KC for advisory services.
+            Last reviewed: August 2026.
           </p>
         </div>
       </div>

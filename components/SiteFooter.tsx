@@ -37,7 +37,8 @@ const SITEMAP = [
   {
     head: "Work",
     items: [
-      ["/portfolio", "Selected Work"],
+      ["/work", "Work Hub"],
+      ["/portfolio", "Executive Portfolio"],
       ["/products", "Open Source & Systems"],
       ["/solutions/haiec", "HAIEC"],
       ["/solutions/kestrelvoice", "KestrelVoice"],
