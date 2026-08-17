@@ -7,6 +7,7 @@ import {
   type OrganizationContext,
 } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
+import { listWorkOrdersForOrg, statusLabel } from '@/lib/commercial/work-orders'
 import { AdvisoryWorkspaceClient } from '@/components/app/AdvisoryWorkspaceClient'
 
 export const dynamic = 'force-dynamic'
@@ -296,6 +297,19 @@ export default async function AdvisoryPage({
     }
   }
 
+  // Fetch Work Orders for this organization
+  const workOrders = await listWorkOrdersForOrg(ctx.organization.id)
+  const workOrderSummary = workOrders.map(wo => ({
+    id: wo.id,
+    workOrderNumber: wo.work_order_number,
+    title: wo.title,
+    workType: wo.work_type,
+    status: wo.status,
+    statusLabel: statusLabel(wo.status),
+    desiredOutcome: wo.desired_outcome,
+    createdAt: wo.created_at,
+  }))
+
   return (
     <AdvisoryWorkspaceClient
       user={user}
@@ -319,6 +333,7 @@ export default async function AdvisoryPage({
       outcomes={outcomes}
       advisorAffiliations={advisorAffiliations}
       sessionUsage={sessionUsage}
+      workOrders={workOrderSummary}
     />
   )
 }

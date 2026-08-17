@@ -51,6 +51,56 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
     }
   }
 
+  // Build "Needs Attention" section — action-first items requiring user action
+  const needsAttentionItems: Array<{ label: string; description: string; href: string; urgency: 'high' | 'medium' | 'low' }> = []
+
+  for (const org of organizations) {
+    // Pending invitations
+    if (org.pendingInvitations && org.pendingInvitations > 0) {
+      needsAttentionItems.push({
+        label: `${org.pendingInvitations} pending invitation${org.pendingInvitations > 1 ? 's' : ''}`,
+        description: `${org.name} — accept or decline team invitations`,
+        href: `/app/${org.slug}/members`,
+        urgency: 'medium',
+      })
+    }
+
+    // Check for Advisor Desk offerings needing onboarding
+    for (const offering of org.offerings) {
+      if (offering.offeringKey === 'ai_advisor_desk') {
+        const status = getOfferingStatus(offering)
+        if (status === 'available' && offering.onboardingComplete === false) {
+          needsAttentionItems.push({
+            label: 'Complete Advisor Desk onboarding',
+            description: `${org.name} — set up your advisor relationship`,
+            href: `/app/${org.slug}/advisor-desk/onboarding`,
+            urgency: 'medium',
+          })
+        }
+      }
+    }
+
+    // Check for Work Orders needing input
+    if (org.workOrdersNeedingInput && org.workOrdersNeedingInput > 0) {
+      needsAttentionItems.push({
+        label: `${org.workOrdersNeedingInput} Work Order${org.workOrdersNeedingInput > 1 ? 's' : ''} need your input`,
+        description: `${org.name} — respond to advisor requests`,
+        href: `/app/${org.slug}/work-orders`,
+        urgency: 'high',
+      })
+    }
+  }
+
+  // Pending join requests
+  if (joinRequests && joinRequests.length > 0) {
+    needsAttentionItems.push({
+      label: `${joinRequests.length} join request${joinRequests.length > 1 ? 's' : ''} pending`,
+      description: 'Organizations waiting for your membership',
+      href: '/app/account',
+      urgency: 'low',
+    })
+  }
+
   // Build "Tools & Applications" section
   const toolItems: Array<{ label: string; description: string; href: string | null; status: string }> = []
   const seenOfferings = new Set<string>()
@@ -300,6 +350,40 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
               </div>
             </div>
           </div>
+
+          {/* Needs Attention - action-first section */}
+          {needsAttentionItems.length > 0 && (
+            <section className="animate-fade-in-up">
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+                <AlertCircle className="h-4 w-4 text-orange-500" />
+                Needs Attention
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {needsAttentionItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className={`glass-card rounded-xl p-4 group ${
+                      item.urgency === 'high' ? 'border-orange-300/50' : ''
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          {item.urgency === 'high' && (
+                            <span className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0" />
+                          )}
+                          <h4 className="font-medium text-sm">{item.label}</h4>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Continue Working - highest value section */}
           {continueItems.length > 0 && (

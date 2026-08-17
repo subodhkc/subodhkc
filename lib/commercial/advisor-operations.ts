@@ -565,6 +565,47 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
     })
   }
 
+  // 10. Work Orders needing advisor attention
+  // - custom_scope_required (needs scope review)
+  // - payment_pending (webhook may have failed)
+  // - needs_client_input (visible to advisor as well)
+  const { data: workOrderItems } = await sc
+    .from('ai_work_orders')
+    .select('id, work_order_number, organization_id, title, status, scope_status, created_at, organizations!inner(name, slug)')
+    .in('status', ['awaiting_scope', 'payment_pending', 'needs_client_input', 'in_review'])
+    .order('created_at', { ascending: false })
+    .limit(50)
+
+  for (const wo of workOrderItems || []) {
+    const ageHours = Math.floor((now.getTime() - new Date(wo.created_at).getTime()) / (1000 * 60 * 60))
+    const org = (wo as any).organizations
+    let itemType = 'work_order_attention'
+    let priority: 'high' | 'medium' | 'low' = 'medium'
+    if (wo.status === 'payment_pending') {
+      itemType = 'work_order_payment_pending'
+      priority = ageHours > 24 ? 'high' : 'medium'
+    } else if (wo.status === 'awaiting_scope' && wo.scope_status === 'custom_scope_required') {
+      itemType = 'work_order_scope_review'
+      priority = ageHours > 48 ? 'high' : 'medium'
+    } else if (wo.status === 'needs_client_input') {
+      // Client-side action — lower priority for advisor
+      priority = 'low'
+    }
+    items.push({
+      organization_id: wo.organization_id,
+      organization_name: org?.name || 'Unknown',
+      organization_slug: org?.slug || '',
+      item_type: itemType,
+      priority,
+      age_hours: ageHours,
+      target_date: null,
+      status: wo.status,
+      direct_link: `/app/${org?.slug}/work-orders/${wo.id}`,
+      title: `${wo.work_order_number}: ${wo.title}`,
+      dismissable: false,
+    })
+  }
+
   // Sort by priority (high first), then by age (oldest first)
   const priorityOrder = { high: 0, medium: 1, low: 2 }
   items.sort((a, b) => {
@@ -575,6 +616,81 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
   })
 
   return items
+}
+
+/**
+ * Fetch all Work Orders across all organizations for the advisor console.
+ */
+export interface AdvisorWorkOrderRow {
+  id: string
+  work_order_number: string
+  organization_id: string
+  organization_name: string
+  organization_slug: string
+  title: string
+  work_type: string
+  status: string
+  scope_status: string
+  desired_outcome: string | null
+  standard_price_cents: number | null
+  created_at: string
+  scope_accepted_at: string | null
+  delivered_at: string | null
+  completed_at: string | null
+  customer_email: string | null
+}
+
+export async function fetchAdvisorWorkOrders(): Promise<AdvisorWorkOrderRow[]> {
+  const sc = createClient(supabaseUrl, serviceRoleKey)
+
+  const { data: workOrders } = await sc
+    .from('ai_work_orders')
+    .select(`
+      id, work_order_number, organization_id, title, work_type,
+      status, scope_status, desired_outcome, standard_price_cents,
+      created_at, scope_accepted_at, delivered_at, completed_at,
+      organizations!inner(name, slug)
+    `)
+    .order('created_at', { ascending: false })
+    .limit(200)
+
+  if (!workOrders || workOrders.length === 0) return []
+
+  // Fetch owner emails for these orgs
+  const orgIds = [...new Set(workOrders.map(wo => wo.organization_id))]
+  const { data: memberships } = await sc
+    .from('organization_memberships')
+    .select('organization_id, profiles!inner(email)')
+    .in('organization_id', orgIds)
+    .eq('role', 'owner')
+
+  const emailMap = new Map<string, string>()
+  for (const m of memberships || []) {
+    const email = (m as any).profiles?.email
+    if (email) emailMap.set(m.organization_id, email)
+  }
+
+  return workOrders.map(wo => {
+    const org = (wo as any).organizations
+    return {
+      id: wo.id,
+      work_order_number: wo.work_order_number,
+      organization_id: wo.organization_id,
+      organization_name: org?.name || 'Unknown',
+      organization_slug: org?.slug || '',
+      title: wo.title,
+      work_type: wo.work_type,
+      status: wo.status,
+      scope_status: wo.scope_status,
+      desired_outcome: wo.desired_outcome,
+      standard_price_cents: wo.standard_price_cents,
+      created_at: wo.created_at,
+      scope_accepted_at: wo.scope_accepted_at,
+      delivered_at: wo.delivered_at,
+      completed_at: wo.completed_at,
+      customer_email: emailMap.get(wo.organization_id) || null,
+    }
+  })
 }
 
 /**

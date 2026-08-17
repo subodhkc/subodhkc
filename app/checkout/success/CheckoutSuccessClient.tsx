@@ -11,6 +11,7 @@ interface CheckoutSuccessClientProps {
   message: string
   offerKey?: string
   orgSlug?: string
+  workOrderNumber?: string
 }
 
 export default function CheckoutSuccessClient({
@@ -20,6 +21,7 @@ export default function CheckoutSuccessClient({
   message,
   offerKey,
   orgSlug,
+  workOrderNumber,
 }: CheckoutSuccessClientProps) {
   const autoRedirectTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [redirecting, setRedirecting] = useState(false)

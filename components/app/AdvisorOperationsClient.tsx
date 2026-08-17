@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import {
   AlertCircle, Users, Activity, Calendar, Clock, AlertTriangle,
   CheckCircle2, Loader2, RefreshCw, ExternalLink, HeartPulse,
-  Inbox, Filter,
+  Inbox, Filter, FileText,
 } from 'lucide-react'
 
 // ---------- Types ----------
@@ -58,10 +58,29 @@ interface HealthOrg {
   indicators: HealthIndicator[]
 }
 
+interface AdvisorWorkOrder {
+  id: string
+  work_order_number: string
+  organization_id: string
+  organization_name: string
+  organization_slug: string
+  title: string
+  work_type: string
+  status: string
+  scope_status: string
+  desired_outcome: string | null
+  standard_price_cents: number | null
+  created_at: string
+  scope_accepted_at: string | null
+  delivered_at: string | null
+  completed_at: string | null
+  customer_email: string | null
+}
+
 type ClientFilter =
   | 'all'
   | 'needs_attention'
-  | 'advisor_99'
+  | 'advisor_desk'
   | 'fractional'
   | 'new_customers'
   | 'waiting_on_client'
@@ -74,7 +93,7 @@ type ClientFilter =
 // ---------- Component ----------
 
 export function AdvisorOperationsClient() {
-  const [activeView, setActiveView] = useState<'clients' | 'queue' | 'health'>('clients')
+  const [activeView, setActiveView] = useState<'clients' | 'queue' | 'health' | 'work-orders'>('clients')
   const [filter, setFilter] = useState<ClientFilter>('all')
 
   const [clients, setClients] = useState<AdvisorClient[]>([])
@@ -88,6 +107,10 @@ export function AdvisorOperationsClient() {
   const [health, setHealth] = useState<HealthOrg[]>([])
   const [healthLoading, setHealthLoading] = useState(false)
   const [healthError, setHealthError] = useState<string | null>(null)
+
+  const [workOrders, setWorkOrders] = useState<AdvisorWorkOrder[]>([])
+  const [workOrdersLoading, setWorkOrdersLoading] = useState(false)
+  const [workOrdersError, setWorkOrdersError] = useState<string | null>(null)
 
   const fetchClients = useCallback(async (f: ClientFilter) => {
     setClientsLoading(true)
@@ -146,6 +169,25 @@ export function AdvisorOperationsClient() {
     }
   }, [])
 
+  const fetchWorkOrders = useCallback(async () => {
+    setWorkOrdersLoading(true)
+    setWorkOrdersError(null)
+    try {
+      const res = await fetch('/api/admin/advisor-operations?view=work-orders')
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || `Failed to load work orders (${res.status})`)
+      }
+      const data = await res.json()
+      setWorkOrders(Array.isArray(data.workOrders) ? data.workOrders : [])
+    } catch (err: unknown) {
+      setWorkOrdersError(err instanceof Error ? err.message : 'Failed to load work orders')
+      setWorkOrders([])
+    } finally {
+      setWorkOrdersLoading(false)
+    }
+  }, [])
+
   // Fetch clients on mount and when filter changes
   useEffect(() => {
     if (activeView === 'clients') {
@@ -153,7 +195,7 @@ export function AdvisorOperationsClient() {
     }
   }, [filter, activeView, fetchClients])
 
-  // Fetch queue/health when their tab is first opened
+  // Fetch queue/health/work-orders when their tab is first opened
   useEffect(() => {
     if (activeView === 'queue' && queue.length === 0 && !queueLoading && !queueError) {
       fetchQueue()
@@ -161,7 +203,10 @@ export function AdvisorOperationsClient() {
     if (activeView === 'health' && health.length === 0 && !healthLoading && !healthError) {
       fetchHealth()
     }
-  }, [activeView, queue.length, queueLoading, queueError, health.length, healthLoading, healthError, fetchQueue, fetchHealth])
+    if (activeView === 'work-orders' && workOrders.length === 0 && !workOrdersLoading && !workOrdersError) {
+      fetchWorkOrders()
+    }
+  }, [activeView, queue.length, queueLoading, queueError, health.length, healthLoading, healthError, fetchQueue, fetchHealth, workOrders.length, workOrdersLoading, workOrdersError, fetchWorkOrders])
 
   const highCount = queue.filter(q => q.priority === 'high').length
 
@@ -187,6 +232,12 @@ export function AdvisorOperationsClient() {
           icon={HeartPulse}
           label="Health"
         />
+        <ViewTab
+          active={activeView === 'work-orders'}
+          onClick={() => setActiveView('work-orders')}
+          icon={FileText}
+          label="Work Orders"
+        />
       </div>
 
       {/* Clients view */}
@@ -200,7 +251,7 @@ export function AdvisorOperationsClient() {
             </span>
             <FilterButton active={filter === 'all'} onClick={() => setFilter('all')} label="All" />
             <FilterButton active={filter === 'needs_attention'} onClick={() => setFilter('needs_attention')} label="Needs Attention" />
-            <FilterButton active={filter === 'advisor_99'} onClick={() => setFilter('advisor_99')} label="$99 Advisor" />
+            <FilterButton active={filter === 'advisor_desk'} onClick={() => setFilter('advisor_desk')} label="$99 Advisor" />
             <FilterButton active={filter === 'fractional'} onClick={() => setFilter('fractional')} label="Fractional" />
             <FilterButton active={filter === 'new_customers'} onClick={() => setFilter('new_customers')} label="New Customers" />
             <FilterButton active={filter === 'waiting_on_client'} onClick={() => setFilter('waiting_on_client')} label="Waiting on Client" />
@@ -511,6 +562,104 @@ export function AdvisorOperationsClient() {
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeView === 'work-orders' && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="font-semibold text-sm">AI Work Orders</h3>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                All Work Orders across all organizations.
+              </p>
+            </div>
+            <button
+              onClick={() => fetchWorkOrders()}
+              disabled={workOrdersLoading}
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+            >
+              <RefreshCw className={`h-3 w-3 ${workOrdersLoading ? 'animate-spin' : ''}`} />
+              Refresh
+            </button>
+          </div>
+
+          {workOrdersLoading && (
+            <div className="border rounded-lg p-8 text-center">
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground mx-auto mb-2" />
+              <p className="text-sm text-muted-foreground">Loading Work Orders...</p>
+            </div>
+          )}
+
+          {workOrdersError && !workOrdersLoading && (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive flex items-start gap-2">
+              <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-medium">Failed to load Work Orders</p>
+                <p className="text-xs mt-1 opacity-90">{workOrdersError}</p>
+                <button onClick={() => fetchWorkOrders()} className="text-xs underline mt-2">
+                  Try again
+                </button>
+              </div>
+            </div>
+          )}
+
+          {!workOrdersLoading && !workOrdersError && workOrders.length === 0 && (
+            <div className="border rounded-lg p-8 text-center">
+              <FileText className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+              <p className="text-sm text-muted-foreground">No Work Orders yet.</p>
+            </div>
+          )}
+
+          {!workOrdersLoading && !workOrdersError && workOrders.length > 0 && (
+            <div className="border rounded-lg overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/50 text-xs text-muted-foreground">
+                  <tr>
+                    <th className="text-left p-3 font-medium">WO #</th>
+                    <th className="text-left p-3 font-medium">Organization</th>
+                    <th className="text-left p-3 font-medium">Title</th>
+                    <th className="text-left p-3 font-medium">Status</th>
+                    <th className="text-left p-3 font-medium">Scope</th>
+                    <th className="text-left p-3 font-medium">Created</th>
+                    <th className="text-left p-3 font-medium"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {workOrders.map(wo => (
+                    <tr key={wo.id} className="hover:bg-muted/30">
+                      <td className="p-3 font-mono text-xs">{wo.work_order_number}</td>
+                      <td className="p-3">
+                        <a href={`/app/${wo.organization_slug}`} className="text-primary hover:underline">
+                          {wo.organization_name}
+                        </a>
+                      </td>
+                      <td className="p-3 max-w-xs truncate">{wo.title}</td>
+                      <td className="p-3">
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                          wo.status === 'needs_client_input' ? 'bg-orange-100 text-orange-700' :
+                          wo.status === 'delivered' || wo.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          wo.status === 'in_progress' || wo.status === 'in_review' ? 'bg-blue-100 text-blue-700' :
+                          wo.status === 'payment_pending' ? 'bg-amber-100 text-amber-700' :
+                          wo.status === 'awaiting_scope' ? 'bg-purple-100 text-purple-700' :
+                          'bg-muted text-muted-foreground'
+                        }`}>
+                          {wo.status.replace(/_/g, ' ')}
+                        </span>
+                      </td>
+                      <td className="p-3 text-xs text-muted-foreground">{wo.scope_status.replace(/_/g, ' ')}</td>
+                      <td className="p-3 text-xs text-muted-foreground">{new Date(wo.created_at).toLocaleDateString()}</td>
+                      <td className="p-3">
+                        <a href={`/app/${wo.organization_slug}/work-orders/${wo.id}`} className="text-xs text-primary hover:underline">
+                          View
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>

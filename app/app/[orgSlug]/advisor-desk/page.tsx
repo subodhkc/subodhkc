@@ -7,6 +7,7 @@ import {
 } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { getOffer } from '@/lib/commercial/offers'
+import { listWorkOrdersForOrg, statusLabel, type WorkOrder } from '@/lib/commercial/work-orders'
 import { AdvisorDeskWorkspaceClient } from '@/components/app/AdvisorDeskWorkspaceClient'
 
 export const dynamic = 'force-dynamic'
@@ -232,6 +233,19 @@ export default async function AdvisorDeskPage({
   const onboardingSteps = lifecycle?.advisor_onboarding_steps || null
   const onboardingComplete = lifecycle?.onboarding_complete || false
 
+  // Fetch Work Orders for this organization
+  const workOrders = await listWorkOrdersForOrg(ctx.organization.id)
+  const workOrderSummary = workOrders.map(wo => ({
+    id: wo.id,
+    workOrderNumber: wo.work_order_number,
+    title: wo.title,
+    workType: wo.work_type,
+    status: wo.status,
+    statusLabel: statusLabel(wo.status),
+    desiredOutcome: wo.desired_outcome,
+    createdAt: wo.created_at,
+  }))
+
   return (
     <AdvisorDeskWorkspaceClient
       user={user}
@@ -255,6 +269,7 @@ export default async function AdvisorDeskPage({
       schedulingLink={schedulingLinks?.[0] || null}
       onboardingSteps={onboardingSteps}
       onboardingComplete={onboardingComplete}
+      workOrders={workOrderSummary}
     />
   )
 }

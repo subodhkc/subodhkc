@@ -6,6 +6,15 @@ import { validateOrganizationForPurchase, hasActiveEntitlement } from '@/lib/com
 import { createServiceClient } from '@/lib/supabase'
 import { rateLimit } from '@/lib/rate-limit'
 import { parseQualification, evaluateFit, toDbColumns } from '@/lib/commercial/blueprint-schema'
+import {
+  createWorkOrderDraft,
+  createCustomScopeWorkOrder,
+  buildStandardScopeSnapshot,
+  recordScopeAcceptance,
+  linkCheckoutSession,
+  type WorkType,
+} from '@/lib/commercial/work-orders'
+import { trackEvent } from '@/lib/commercial/analytics'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -98,12 +107,40 @@ export async function POST(req: NextRequest) {
   }
 
   // Expanded scope cannot silently enter standard $500 checkout.
-  // Queue for advisor review instead of charging.
+  // Create a custom-scope Work Order draft and queue for advisor review.
   if (fitDecision === 'expanded_scope_review') {
+    const customResult = await createCustomScopeWorkOrder({
+      organizationId: organization.id,
+      requestedByUserId: user.id,
+      title: qualification.business_objective,
+      workType: 'other' as WorkType,
+      desiredOutcome: qualification.desired_outcome || qualification.business_objective,
+      legacyQualificationId: undefined, // qualification not yet persisted at this point
+      metadata: { fit_decision: fitDecision, fit_reason: fitResult.reason },
+    })
+
+    if ('error' in customResult) {
+      console.error('Failed to create custom-scope Work Order:', customResult.error)
+      return NextResponse.json({
+        error: 'work_order_creation_failed',
+        message: 'Failed to create your Work Order request. Please try again.',
+      }, { status: 500 })
+    }
+
+    await trackEvent({
+      eventName: 'work_order_custom_scope_required',
+      organizationId: organization.id,
+      userId: user.id,
+      offerKey: 'ai_automation_blueprint',
+      metadata: { work_order_id: customResult.workOrderId },
+    })
+
     return NextResponse.json({
       error: 'custom_scope_required',
       message: 'This looks larger than one standard Work Order. I will review the scope before you are asked to pay. You can narrow the first Work Order, define multiple Work Orders, or we can discuss a larger scope.',
       fitDecision,
+      workOrderId: customResult.workOrderId,
+      workOrderNumber: customResult.workOrderNumber,
     }, { status: 422 })
   }
 
@@ -260,6 +297,70 @@ export async function POST(req: NextRequest) {
   const qualificationRecordId = qualRecord.id
 
   // ============================================
+  // WORK ORDER CREATION (before Stripe checkout)
+  // ============================================
+  // Create a Work Order draft linked to the qualification record.
+  // This ensures the Work Order identity exists before payment.
+  const woResult = await createWorkOrderDraft({
+    organizationId: organization.id,
+    requestedByUserId: user.id,
+    title: qualification.business_objective,
+    workType: 'other' as WorkType,
+    desiredOutcome: qualification.desired_outcome || qualification.business_objective,
+    legacyQualificationId: qualificationRecordId,
+    standardPriceCents: 50000,
+    metadata: {
+      qualification_record_id: qualificationRecordId,
+      fit_decision: fitDecision,
+      systems_involved: qualification.systems_involved || null,
+    },
+  })
+
+  if ('error' in woResult) {
+    console.error('Work Order creation failed:', woResult.error)
+    return NextResponse.json({
+      error: 'work_order_creation_failed',
+      message: 'Failed to create your Work Order. Please try again.',
+    }, { status: 500 })
+  }
+
+  const { workOrderId, workOrderNumber } = woResult
+
+  // ============================================
+  // SCOPE ACCEPTANCE (per-Work-Order, server-generated)
+  // ============================================
+  // Build the canonical scope snapshot and record acceptance.
+  // The hash is computed server-side — the client does not supply it.
+  const scopeSnapshot = buildStandardScopeSnapshot({
+    title: qualification.business_objective,
+    workType: 'other' as WorkType,
+    desiredOutcome: qualification.desired_outcome || qualification.business_objective,
+    targetDate: null,
+  })
+
+  const scopeResult = await recordScopeAcceptance({
+    workOrderId,
+    scopeSnapshot,
+    acceptedBy: user.id,
+  })
+
+  if ('error' in scopeResult) {
+    console.error('Scope acceptance failed:', scopeResult.error)
+    return NextResponse.json({
+      error: 'scope_acceptance_failed',
+      message: 'Failed to record scope acceptance. Please try again.',
+    }, { status: 500 })
+  }
+
+  await trackEvent({
+    eventName: 'work_order_scope_accepted',
+    organizationId: organization.id,
+    userId: user.id,
+    offerKey: 'ai_automation_blueprint',
+    metadata: { work_order_id: workOrderId, price_cents: 50000 },
+  })
+
+  // ============================================
   // STRIPE CHECKOUT (metadata contains only identifiers, no free-text)
   // ============================================
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
@@ -275,7 +376,8 @@ export async function POST(req: NextRequest) {
       user_id: user.id,
       organization_id: organization.id,
       offer_key: offerKey,
-      qualification_record_id: qualificationRecordId ?? '',
+      qualification_record_id: qualificationRecordId,
+      work_order_id: workOrderId,
       fit_decision: fitDecision,
     },
   })
@@ -284,5 +386,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: result.error }, { status: 500 })
   }
 
-  return NextResponse.json({ url: result.url, sessionId: result.sessionId, fitDecision })
+  // Link the Stripe checkout session to the Work Order
+  if (result.sessionId) {
+    await linkCheckoutSession(workOrderId, result.sessionId)
+  }
+
+  await trackEvent({
+    eventName: 'work_order_checkout_started',
+    organizationId: organization.id,
+    userId: user.id,
+    offerKey: 'ai_automation_blueprint',
+    metadata: { work_order_id: workOrderId, checkout_session_id: result.sessionId },
+  })
+
+  return NextResponse.json({
+    url: result.url,
+    sessionId: result.sessionId,
+    fitDecision,
+    workOrderId,
+    workOrderNumber,
+  })
 }

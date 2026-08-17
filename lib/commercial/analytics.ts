@@ -61,6 +61,9 @@ export type ConversionEventName =
   | 'work_order_client_input_requested'
   | 'work_order_delivered'
   | 'work_order_completed'
+  | 'work_order_created'
+  | 'work_order_custom_scope_required'
+  | 'work_order_input_received'
   // Fractional AI Advisor funnel events
   | 'fractional_hero_cta'
   | 'fractional_discuss_fit'

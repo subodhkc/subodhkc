@@ -492,8 +492,8 @@ async function testSuccessUrlScoping() {
     'Advisor checkout should NOT use generic /app?checkout=success URL'
   )
   assert(
-    advisorRoute.includes('/app/${organization.slug}/advisor-desk?checkout=success'),
-    'Advisor checkout should use org-scoped success URL'
+    advisorRoute.includes('/checkout/success?session_id={CHECKOUT_SESSION_ID}'),
+    'Advisor checkout should use unified checkout success URL'
   )
 
   const blueprintRoute = await fs.readFile(
@@ -506,8 +506,8 @@ async function testSuccessUrlScoping() {
     'Blueprint checkout should NOT use generic /app?checkout=success URL'
   )
   assert(
-    blueprintRoute.includes('/app/${organization.slug}/blueprint?checkout=success'),
-    'Blueprint checkout should use org-scoped success URL'
+    blueprintRoute.includes('/checkout/success?session_id={CHECKOUT_SESSION_ID}'),
+    'Blueprint checkout should use unified checkout success URL'
   )
 }
 

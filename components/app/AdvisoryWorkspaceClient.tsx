@@ -103,6 +103,16 @@ interface AdvisoryWorkspaceClientProps {
     availableSessions: number
     maxRollover: number
   } | null
+  workOrders?: Array<{
+    id: string
+    workOrderNumber: string
+    title: string
+    workType: string
+    status: string
+    statusLabel: string
+    desiredOutcome: string | null
+    createdAt: string
+  }>
 }
 
 const DECISION_STATUS_LABELS: Record<string, { label: string; color: string }> = {
@@ -162,6 +172,7 @@ export function AdvisoryWorkspaceClient({
   outcomes = [],
   advisorAffiliations = [],
   sessionUsage = null,
+  workOrders = [],
 }: AdvisoryWorkspaceClientProps) {
   const { organization, organizationRole, isPlatformAdmin } = ctx
   const basePath = `/app/${organization.slug}`
@@ -822,6 +833,49 @@ export function AdvisoryWorkspaceClient({
             </div>
           )}
         </section>
+
+        {/* Work Orders */}
+        {workOrders.length > 0 && (
+          <section>
+            <h2 className="text-lg font-semibold flex items-center gap-2 mb-4 justify-between">
+              <span className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                AI Work Orders
+              </span>
+              <Link href={`${basePath}/work-orders`} className="text-xs text-primary hover:underline">
+                View all
+              </Link>
+            </h2>
+            <div className="space-y-2">
+              {workOrders.slice(0, 5).map(wo => (
+                <Link
+                  key={wo.id}
+                  href={`${basePath}/work-orders/${wo.id}`}
+                  className={`block border rounded-lg p-3 hover:border-primary/50 transition-colors ${
+                    wo.status === 'needs_client_input' ? 'border-orange-300 bg-orange-50/50' : ''
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono text-muted-foreground">{wo.workOrderNumber}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                          wo.status === 'needs_client_input' ? 'bg-orange-100 text-orange-700' :
+                          wo.status === 'delivered' || wo.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          wo.status === 'in_progress' || wo.status === 'in_review' ? 'bg-blue-100 text-blue-700' :
+                          'bg-muted text-muted-foreground'
+                        }`}>
+                          {wo.statusLabel}
+                        </span>
+                      </div>
+                      <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* 4. Opportunities in Play */}
         <section>

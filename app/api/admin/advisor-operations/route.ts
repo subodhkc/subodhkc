@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requirePlatformAdmin } from '@/lib/auth/organization-resolver'
-import { fetchAdvisoryClients, fetchAttentionQueue, fetchClientHealth, type AdvisoryFilter } from '@/lib/commercial/advisor-operations'
+import { fetchAdvisoryClients, fetchAttentionQueue, fetchClientHealth, fetchAdvisorWorkOrders, type AdvisoryFilter } from '@/lib/commercial/advisor-operations'
 import { rateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
@@ -29,6 +29,11 @@ export async function GET(request: NextRequest) {
     if (view === 'health') {
       const health = await fetchClientHealth()
       return NextResponse.json({ health })
+    }
+
+    if (view === 'work-orders') {
+      const workOrders = await fetchAdvisorWorkOrders()
+      return NextResponse.json({ workOrders, count: workOrders.length })
     }
 
     // Default: clients view

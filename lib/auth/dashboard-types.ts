@@ -8,6 +8,8 @@ export interface DashboardOrganization {
   status: string
   role: OrganizationRole
   offerings: DashboardOffering[]
+  pendingInvitations?: number
+  workOrdersNeedingInput?: number
 }
 
 export interface DashboardOffering {
@@ -18,6 +20,7 @@ export interface DashboardOffering {
   effectiveStatus: string
   hasRole: boolean
   userRole: string | null
+  onboardingComplete?: boolean
 }
 
 export interface DashboardEngagement {
@@ -137,7 +140,7 @@ export function getOfferingRoute(orgSlug: string, offeringKey: string): string |
     case 'ai_advisor_desk':
       return `/app/${orgSlug}/advisor-desk`
     case 'ai_automation_blueprint':
-      return `/app/${orgSlug}/blueprint`
+      return `/app/${orgSlug}/work-orders`
     case 'managed_voice':
       return `/app/${orgSlug}/managed-voice`
     case 'ai_security_compliance':

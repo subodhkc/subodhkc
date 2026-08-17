@@ -116,6 +116,42 @@ export async function resolveDashboardData(): Promise<DashboardData | null> {
     offerings: orgOfferings[idx] || [],
   }))
 
+  // 2b. Fetch Work Orders needing input per org
+  if (orgIds.length > 0) {
+    const { data: woCounts } = await serviceClient
+      .from('ai_work_orders')
+      .select('organization_id')
+      .in('organization_id', orgIds)
+      .eq('status', 'needs_client_input')
+
+    const woCountMap = new Map<string, number>()
+    for (const wo of woCounts || []) {
+      woCountMap.set(wo.organization_id, (woCountMap.get(wo.organization_id) || 0) + 1)
+    }
+
+    for (const org of dashboardOrgs) {
+      org.workOrdersNeedingInput = woCountMap.get(org.id) || 0
+    }
+
+    // Fetch pending invitations count per org
+    const { data: invCounts } = await serviceClient
+      .from('organization_invitations')
+      .select('organization_id')
+      .in('organization_id', orgIds)
+      .is('accepted_at', null)
+      .is('revoked_at', null)
+      .gt('expires_at', new Date().toISOString())
+
+    const invCountMap = new Map<string, number>()
+    for (const inv of invCounts || []) {
+      invCountMap.set(inv.organization_id, (invCountMap.get(inv.organization_id) || 0) + 1)
+    }
+
+    for (const org of dashboardOrgs) {
+      org.pendingInvitations = invCountMap.get(org.id) || 0
+    }
+  }
+
   // 3. Get engagements for user's orgs
   let engagements: DashboardEngagement[] = []
   if (orgIds.length > 0) {

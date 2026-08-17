@@ -14,6 +14,11 @@ import { createServiceClient } from '@/lib/supabase'
 import { trackEvent } from '@/lib/commercial/analytics'
 import { computeAndUpsertLifecycleState } from '@/lib/commercial/customer-state'
 import { recordFailure } from '@/lib/commercial/failures'
+import {
+  findWorkOrderByCheckoutSession,
+  fulfillWorkOrder,
+  getWorkOrder,
+} from '@/lib/commercial/work-orders'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -150,7 +155,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
 
   // Record payment
   const amountTotal = session.amount_total ?? 0
-  await recordPayment({
+  const paymentResult = await recordPayment({
     orgId,
     offerKey,
     stripePaymentIntentId: session.payment_intent as string ?? undefined,
@@ -161,28 +166,115 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
     metadata: { session_id: session.id, created_org: created },
   })
 
-  // Activate entitlement
-  let validUntil: string | null = null
-  if (offer.billingMode === 'subscription') {
-    // For subscriptions, valid_until is null (managed by subscription lifecycle)
-    validUntil = null
-  } else {
-    // For one-time purchases, entitlement is permanent
-    validUntil = null
+  // Payment record is critical — fail closed if it didn't persist
+  if ('error' in paymentResult) {
+    console.error('Failed to record payment:', paymentResult.error)
+    throw new Error(`Payment record failed: ${paymentResult.error}`)
   }
 
-  const entResult = await activateEntitlement({
-    orgId,
-    offerKey,
-    userId,
-    sourceType: offer.billingMode === 'subscription' ? 'subscription' : 'purchase',
-    validUntil,
-    metadata: { session_id: session.id, stripe_customer_id: customerId },
-  })
+  // ============================================
+  // AI WORK ORDER: fulfill as transaction, NOT permanent entitlement
+  // ============================================
+  // For ai_automation_blueprint, the authoritative result is:
+  //   payment + ai_work_orders row + engagement
+  // NOT a permanent organization entitlement.
+  if (offerKey === 'ai_automation_blueprint') {
+    const workOrderId = session.metadata?.work_order_id as string | undefined
 
-  if ('error' in entResult) {
-    console.error('Failed to activate entitlement:', entResult.error)
-    throw new Error(`Entitlement activation failed: ${entResult.error}`)
+    if (workOrderId) {
+      // Idempotency: check if Work Order is already fulfilled
+      const existingWO = await getWorkOrder(workOrderId)
+      if (existingWO && existingWO.status !== 'payment_pending' && existingWO.status !== 'draft' && existingWO.status !== 'ready_for_checkout') {
+        // Already fulfilled — skip (idempotent)
+        console.log(`Work Order ${workOrderId} already fulfilled (status: ${existingWO.status})`)
+      } else {
+        // Create engagement for this Work Order
+        const engResult = await createEngagementForOffer(orgId, offerKey, offer.engagementType || 'project', customerEmail, session.metadata as Record<string, string | undefined> | undefined)
+
+        // Get the engagement ID — we need to fetch it since createEngagementForOffer doesn't return it
+        // We'll query the latest engagement for this org
+        const sc = createServiceClient()
+        let engagementId: string | null = null
+        if (sc) {
+          const { data: latestEng } = await sc
+            .from('engagements')
+            .select('id')
+            .eq('organization_id', orgId)
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .single()
+          engagementId = latestEng?.id || null
+        }
+
+        if (!engagementId) {
+          console.error('Failed to find engagement for Work Order fulfillment')
+          throw new Error('Engagement not found after creation for Work Order fulfillment')
+        }
+
+        // Fulfill the Work Order: link payment + engagement, transition to paid
+        const fulfillResult = await fulfillWorkOrder({
+          workOrderId,
+          organizationId: orgId,
+          paymentId: paymentResult.paymentId,
+          stripePaymentIntentId: session.payment_intent as string | undefined,
+          engagementId,
+        })
+
+        if (!fulfillResult.success) {
+          console.error('Work Order fulfillment failed:', fulfillResult.error)
+          throw new Error(`Work Order fulfillment failed: ${fulfillResult.error}`)
+        }
+
+        // Track Work Order fulfillment
+        await trackEvent({
+          eventName: 'work_order_payment_completed',
+          organizationId: orgId,
+          userId,
+          offerKey: 'ai_automation_blueprint',
+          metadata: { work_order_id: workOrderId, payment_id: paymentResult.paymentId, engagement_id: engagementId },
+        })
+      }
+    } else {
+      // Legacy path: no work_order_id in metadata (old checkout sessions)
+      // Fall back to creating engagement only
+      console.warn('[webhook] Legacy ai_automation_blueprint checkout without work_order_id metadata')
+      if (offer.createsEngagement && offer.engagementType) {
+        await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail, session.metadata as Record<string, string | undefined> | undefined)
+      }
+    }
+
+    // Skip entitlement activation for Work Orders — they are transactions, not entitlements
+    // Proceed to included products, tracking, emails, etc.
+  } else {
+    // ============================================
+    // SUBSCRIPTION / OTHER OFFERS: activate entitlement (existing behavior)
+    // ============================================
+    // Activate entitlement
+    let validUntil: string | null = null
+    if (offer.billingMode === 'subscription') {
+      validUntil = null
+    } else {
+      validUntil = null
+    }
+
+    const entResult = await activateEntitlement({
+      orgId,
+      offerKey,
+      userId,
+      sourceType: offer.billingMode === 'subscription' ? 'subscription' : 'purchase',
+      validUntil,
+      metadata: { session_id: session.id, stripe_customer_id: customerId },
+    })
+
+    if ('error' in entResult) {
+      console.error('Failed to activate entitlement:', entResult.error)
+      throw new Error(`Entitlement activation failed: ${entResult.error}`)
+    }
+
+    // Create engagement if the offer requires it (for non-Work-Order offers)
+    if (offer.createsEngagement && offer.engagementType) {
+      await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail, session.metadata as Record<string, string | undefined> | undefined)
+    }
   }
 
   // Store subscription ID if applicable (per-offer to support multiple subscriptions)
@@ -203,11 +295,6 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
           { onConflict: 'organization_id,system_key' }
         )
     }
-  }
-
-  // Create engagement if the offer requires it
-  if (offer.createsEngagement && offer.engagementType) {
-    await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail, session.metadata as Record<string, string | undefined> | undefined)
   }
 
   // Provision included product access (HAIEC, Kestrel, Member Tools)
@@ -368,7 +455,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         orgSlug,
         offerName: 'AI Work Order',
         price: '$500 fixed',
-        workspaceUrl: `${siteUrl}/app/${orgSlug}/blueprint`,
+        workspaceUrl: `${siteUrl}/app/${orgSlug}/work-orders`,
       })
     } else if (offerKey === 'fractional_ai_advisor') {
       const { sendFractionalAdvisorWelcomeEmail, sendFractionalClientNotificationEmail } = await import('@/lib/email')

@@ -16,7 +16,7 @@ export const metadata = {
 const OFFER_WORKSPACE_ROUTES: Record<string, string> = {
   ai_advisor_desk: 'advisor-desk',
   fractional_ai_advisor: 'advisory',
-  ai_automation_blueprint: 'blueprint',
+  ai_automation_blueprint: 'work-orders',
   ai_security_compliance: 'security-review',
   saas_security_review: 'security-review',
   managed_voice: 'managed-voice',
@@ -74,6 +74,37 @@ async function waitForEntitlement(orgId: string, offerKey: string, maxAttempts =
   }
 
   return false
+}
+
+/**
+ * For AI Work Orders, poll the Work Order fulfillment state instead of entitlement.
+ * Work Orders are transactions, not permanent entitlements.
+ */
+async function waitForWorkOrderFulfillment(
+  sessionId: string,
+  maxAttempts = 5
+): Promise<{ ready: boolean; workOrderNumber?: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { ready: false }
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const { data: wo } = await sc
+      .from('ai_work_orders')
+      .select('id, work_order_number, status')
+      .eq('stripe_checkout_session_id', sessionId)
+      .single()
+
+    if (wo) {
+      // Work Order exists — check if fulfillment is complete
+      if (wo.status === 'paid' || wo.status === 'scoped' || wo.status === 'in_progress' || wo.status === 'delivered' || wo.status === 'completed') {
+        return { ready: true, workOrderNumber: wo.work_order_number }
+      }
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 1000))
+  }
+
+  return { ready: false }
 }
 
 export default async function CheckoutSuccessPage({
@@ -152,22 +183,34 @@ export default async function CheckoutSuccessPage({
     )
   }
 
-  // Wait for webhook to process entitlement
-  const entitlementReady = await waitForEntitlement(orgId, offerKey)
+  // Wait for webhook to process
+  // For AI Work Orders: poll Work Order fulfillment state (not entitlement)
+  // For subscriptions: poll entitlement activation
+  let isReady = false
+  let workOrderNumber: string | undefined
+
+  if (offerKey === 'ai_automation_blueprint') {
+    const woResult = await waitForWorkOrderFulfillment(session_id)
+    isReady = woResult.ready
+    workOrderNumber = woResult.workOrderNumber
+  } else {
+    isReady = await waitForEntitlement(orgId, offerKey)
+  }
 
   const workspaceSlug = OFFER_WORKSPACE_ROUTES[offerKey] || ''
   const workspaceUrl = workspaceSlug ? `/app/${org.slug}/${workspaceSlug}` : `/app/${org.slug}`
 
-  if (!entitlementReady) {
+  if (!isReady) {
     // Webhook may have failed or is delayed. Show a pending state.
     return (
       <CheckoutSuccessClient
         status="pending"
         offerName={offerName}
         workspaceUrl={workspaceUrl}
-        message="Your payment was successful. We are confirming your access. This usually takes a few seconds. You can continue to your workspace below."
+        message="Your payment was successful. We are setting up your workspace. This usually takes a few seconds. You can continue to your workspace below."
         offerKey={offerKey}
         orgSlug={org.slug}
+        workOrderNumber={workOrderNumber}
       />
     )
   }
@@ -180,6 +223,7 @@ export default async function CheckoutSuccessPage({
       message=""
       offerKey={offerKey}
       orgSlug={org.slug}
+      workOrderNumber={workOrderNumber}
     />
   )
 }
