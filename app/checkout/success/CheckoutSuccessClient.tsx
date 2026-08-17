@@ -25,11 +25,12 @@ export default function CheckoutSuccessClient({
   const [redirecting, setRedirecting] = useState(false)
 
   const isAdvisorDesk = offerKey === 'ai_advisor_desk'
+  const isFractional = offerKey === 'fractional_ai_advisor'
   const onboardingUrl = orgSlug ? `/app/${orgSlug}/advisor-desk/onboarding` : workspaceUrl
 
   useEffect(() => {
-    if (status === 'success' && !isAdvisorDesk && workspaceUrl) {
-      // For non-advisor-desk offers, auto-redirect to workspace after 3 seconds
+    if (status === 'success' && !isAdvisorDesk && !isFractional && workspaceUrl) {
+      // For offers without a dedicated onboarding flow, auto-redirect after 3 seconds
       autoRedirectTimer.current = setTimeout(() => {
         window.location.href = workspaceUrl
       }, 3000)
@@ -37,7 +38,7 @@ export default function CheckoutSuccessClient({
     return () => {
       if (autoRedirectTimer.current) clearTimeout(autoRedirectTimer.current)
     }
-  }, [status, workspaceUrl, isAdvisorDesk])
+  }, [status, workspaceUrl, isAdvisorDesk, isFractional])
 
   const icon =
     status === 'success' ? <CheckCircle2 className="h-12 w-12 text-green-500" /> :
@@ -46,12 +47,15 @@ export default function CheckoutSuccessClient({
 
   const title =
     status === 'success' && isAdvisorDesk ? 'Your AI Advisor Desk is active.' :
+    status === 'success' && isFractional ? 'Your Fractional AI Advisor engagement is active.' :
     status === 'success' ? 'You are in.' :
     status === 'pending' ? 'Payment received.' :
     'Something went wrong.'
 
   const subtitle =
-    status === 'success' && offerName
+    status === 'success' && isFractional
+      ? 'Let\u2019s get the context right and schedule the first sessions.'
+      : status === 'success' && offerName
       ? `Your ${offerName} relationship is active.`
       : status === 'pending' && offerName
       ? `Your ${offerName} purchase is being confirmed.`
@@ -110,7 +114,56 @@ export default function CheckoutSuccessClient({
           </div>
         )}
 
-        {status === 'success' && !isAdvisorDesk && (
+        {/* Fractional: 4-step onboarding checklist */}
+        {status === 'success' && isFractional && (
+          <div className="text-left space-y-4 bg-secondary/20 rounded-xl p-6">
+            <h2 className="text-lg font-semibold text-center">Get started in 4 steps</h2>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">1</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <p className="text-sm font-medium text-foreground">Complete organizational context</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Strategy, AI portfolio, decisions in play, architecture, governance, roadmap, stakeholders.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">2</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <ListChecks className="h-4 w-4 text-primary" />
+                    <p className="text-sm font-medium text-foreground">Identify the first decisions in play</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">1 to 3 immediate decisions with owners, deadlines, and significance.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">3</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-primary" />
+                    <p className="text-sm font-medium text-foreground">Schedule your Activation Call</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">20 minutes, complimentary. Validate priorities, confirm decisions, establish cadence.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">4</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-primary" />
+                    <p className="text-sm font-medium text-foreground">Schedule your first Working Session</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">60 minutes. The first real working session on your priorities.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {status === 'success' && !isAdvisorDesk && !isFractional && (
           <p className="text-xs text-muted-foreground">
             Redirecting to your workspace automatically...
           </p>
@@ -123,6 +176,14 @@ export default function CheckoutSuccessClient({
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               Go to My Advisor Desk
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : status === 'success' && isFractional ? (
+            <Link
+              href={workspaceUrl}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Open Advisory Workspace
               <ArrowRight className="h-4 w-4" />
             </Link>
           ) : workspaceUrl && status !== 'error' ? (

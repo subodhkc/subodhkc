@@ -42,6 +42,19 @@ export type ConversionEventName =
   | 'workflow_review_viewed'
   | 'workflow_review_started'
   | 'workflow_review_purchased'
+  // Fractional AI Advisor funnel events
+  | 'fractional_hero_cta'
+  | 'fractional_discuss_fit'
+  | 'fractional_checkout_started'
+  | 'fractional_purchase_completed'
+  | 'fractional_context_started'
+  | 'fractional_context_completed'
+  | 'fractional_activation_schedule_started'
+  | 'fractional_activation_scheduled'
+  | 'fractional_first_working_session_scheduled'
+  | 'fractional_advisor_desk_lighter_cta'
+  | 'fractional_architecture_scope_cta'
+  | 'fractional_90_day_review_completed'
   // Cross-offer
   | 'fractional_cta_clicked'
 

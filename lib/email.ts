@@ -316,37 +316,43 @@ export async function sendFractionalAdvisorWelcomeEmail(opts: {
   const { error } = await resend.emails.send({
     from: FROM,
     to: [to],
-    subject: 'Your Fractional AI Advisor relationship is active',
+    subject: 'Your Fractional AI Advisor engagement is active. Next steps inside.',
     html: `
       <!DOCTYPE html>
       <html>
         <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
           <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">You are in.</h1>
-            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Your Fractional AI Advisor relationship is active</p>
+            <h1 style="color: white; margin: 0; font-size: 24px;">Your Fractional AI Advisor engagement is active.</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Let's get the context right and schedule the first sessions.</p>
           </div>
           <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
               Hi ${customerName || 'there'},
             </p>
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
-              Your Fractional AI Advisor subscription is now active. The core engagement includes two executive working sessions each month, priority async advisory, ongoing organizational context, and selected decision artifacts tied to the priorities we work through.
+              Your Fractional AI Advisor engagement is now active. To get the most value from our first working session, I need to understand your context. Here is what happens next:
             </p>
-            <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
-              <strong>What happens next:</strong> Complete your advisory setup so our first working session starts with the decisions, not introductions. It takes about five minutes.
-            </p>
+            <div style="background: #f3f4f6; border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <p style="font-weight: 600; color: #1f2937; margin: 0 0 10px 0;">4 steps to get started:</p>
+              <ol style="margin: 0; padding-left: 20px; color: #374151; font-size: 15px;">
+                <li style="margin-bottom: 8px;">Complete or confirm your organizational context (strategy, AI portfolio, decisions, architecture, governance, roadmap, stakeholders)</li>
+                <li style="margin-bottom: 8px;">Identify the first 1 to 3 decisions in play with owners and deadlines</li>
+                <li style="margin-bottom: 8px;">Schedule your complimentary 20-minute Activation Call (validate priorities, confirm decisions, establish cadence)</li>
+                <li style="margin-bottom: 8px;">Schedule your first 60-minute Working Session</li>
+              </ol>
+            </div>
             <div style="text-align: center; margin: 30px 0;">
               <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
-                Set Up My Advisory Workspace
+                Open Advisory Workspace
               </a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
-              You can also go directly to your workspace without completing setup. Billing is managed through Stripe.
+              You can schedule both sessions directly from the workspace. Billing is managed through Stripe. The engagement is month-to-month with a recommended 90-day working horizon.
             </p>
           </div>
           <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-            <p>SubodhKC — Executive AI advisory, strategy, architecture, and decision support</p>
+            <p>SubodhKC — Senior AI judgment for strategy, architecture, and decisions.</p>
           </div>
         </body>
       </html>

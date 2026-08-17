@@ -1,57 +1,69 @@
 import Link from 'next/link'
-import Hero from '@/components/Hero'
 import Section from '@/components/Section'
-import Grid from '@/components/Grid'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { Reveal } from '@/components/Reveal'
 import { Button } from '@/components/ui/button'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import {
-  CheckCircle2,
-  ArrowRight,
   Target,
   Compass,
-  FileText,
   Shield,
-  Zap,
-  Clock,
+  FileText,
+  Layers,
   Users,
   Handshake,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
   Wrench,
+  Zap,
 } from 'lucide-react'
 import { FractionalAdvisorCheckoutCTA } from '@/components/commercial/FractionalAdvisorCheckoutCTA'
+import { FractionalStickyCTA } from '@/components/commercial/FractionalStickyCTA'
+import { FAQAccordion } from '@/components/ai-advisor/FAQAccordion'
 import { getCheckoutBullets } from '@/lib/commercial/offers'
 
 export const metadata = {
-  title: 'Fractional AI Advisor | Executive AI Strategy Advisor | Subodh KC',
+  title: 'Fractional AI Advisor | Strategy, Architecture & Governance | Subodh KC',
   description:
-    'Fractional AI Advisor for executives, founders and technical leaders navigating higher-stakes AI decisions. Executive AI strategy, architecture, vendor, build-vs-buy and roadmap advisory starting at $1,250/month.',
+    'Add senior AI judgment without adding another executive seat. Strategy, opportunity, vendor, architecture, roadmap, and governance decisions for founders, executives, and CTOs. $1,250/month.',
   keywords: [
     'fractional AI advisor',
     'executive AI advisor',
-    'executive AI advisory',
     'AI strategy advisor',
-    'AI strategy advisory',
-    'AI architecture review',
-    'AI vendor evaluation',
-    'AI build vs buy',
-    'AI roadmap advisor',
-    'AI operating model',
+    'AI strategic advisor',
+    'AI executive advisory',
+    'fractional AI consultant',
+    'AI strategy consulting',
     'AI decision support',
+    'AI opportunity prioritization',
+    'AI portfolio prioritization',
+    'AI roadmap advisor',
+    'AI vendor evaluation',
+    'AI vendor selection',
+    'AI build vs buy',
+    'AI architecture advisor',
+    'AI systems architecture advisor',
+    'AI implementation strategy',
+    'AI operating model',
+    'AI governance advisor',
+    'AI governance consulting',
+    'AI transformation advisor',
     'Subodh KC',
   ],
   alternates: {
     canonical: 'https://subodhkc.com/advisory',
   },
   openGraph: {
-    title: 'Fractional AI Advisor | Executive AI Strategy Advisor | Subodh KC',
+    title: 'Fractional AI Advisor | Strategy, Architecture & Governance | Subodh KC',
     description:
-      'Fractional AI Advisor for executives, founders and technical leaders navigating higher-stakes AI decisions. Executive AI strategy, architecture, vendor, build-vs-buy and roadmap advisory starting at $1,250/month.',
+      'Add senior AI judgment without adding another executive seat. Strategy, opportunity, vendor, architecture, roadmap, and governance decisions for founders, executives, and CTOs. $1,250/month.',
     url: 'https://subodhkc.com/advisory',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Fractional AI Advisor | Executive AI Strategy Advisor',
-    description: 'Executive AI advisory for higher-stakes decisions. Strategy, architecture, vendor, build-vs-buy, and roadmap. From $1,250/month.',
+    title: 'Fractional AI Advisor | Strategy, Architecture & Governance',
+    description: 'Senior AI judgment for strategy, vendor, architecture, roadmap, and governance decisions. $1,250/month.',
   },
 }
 
@@ -68,7 +80,8 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Fractional AI Advisor',
-  description: 'Executive AI advisory for higher-stakes decisions. AI strategy, architecture review, vendor evaluation, build-vs-buy, roadmap, and operating model decisions. Starting at $1,250/month.',
+  description:
+    'Executive AI advisory for higher-stakes, interconnected decisions. Strategy, opportunity portfolio, investment decisions, vendor evaluation, build/buy/configure/connect/wait, architecture, roadmaps, operating model, governance, and implementation sequencing. $1,250/month.',
   url: 'https://subodhkc.com/advisory',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
   serviceType: 'Executive AI Advisory',
@@ -81,59 +94,79 @@ const serviceSchema = {
   },
 }
 
-const situations = [
+const whenFractionalEarnsItsPlace = [
+  'Several AI initiatives compete for attention and leadership needs prioritization.',
+  'A vendor or platform choice creates a long-term dependency before the contract is signed.',
+  'Architecture and business priorities conflict and someone needs to translate between them.',
+  'The roadmap sequence is unclear and leadership needs pressure-testing before committing.',
+  'An investment decision is expensive to reverse and needs an independent view first.',
+  'Governance and execution need to be connected, not documented and forgotten.',
+  'The organization has crossed from experimentation into operating AI.',
+  'Regulations or security requirements affect architecture or rollout decisions.',
+  'Multiple business units are pursuing disconnected AI work.',
+  'Leadership needs an independent point of view before approving spend.',
+]
+
+const whatIWorkThrough = [
   {
-    title: 'Several AI initiatives are competing for attention',
-    desc: 'You need someone to sequence the work, identify what is actually worth doing first, and help leadership commit without overcommitting.',
+    icon: Target,
+    title: 'Strategy',
+    desc: 'Where AI can materially change the business and what should not be pursued.',
   },
   {
-    title: 'A vendor or platform decision will create a long-term dependency',
-    desc: 'You need an independent review of the contract, the architecture, and the exit path before you sign.',
+    icon: Compass,
+    title: 'Opportunity Portfolio',
+    desc: 'Identify, compare, and sequence opportunities. Not all opportunities deserve investment.',
   },
   {
-    title: 'The roadmap exists but the sequence is unclear',
-    desc: 'You need someone to pressure-test the order of work, identify missing gates, and connect the roadmap to operating reality.',
+    icon: Layers,
+    title: 'Investment Decisions',
+    desc: 'What deserves capital, people, and executive attention. What does not.',
   },
   {
-    title: 'Technical architecture and business priorities are pulling in different directions',
-    desc: 'You need someone who speaks both languages and can translate between the engineering team and the executive team.',
+    icon: Shield,
+    title: 'Vendor Evaluation',
+    desc: 'Vendor capability, claims, architecture, data, economics, dependency, and exit path.',
   },
   {
-    title: 'Leadership needs an independent point of view before committing money',
-    desc: 'You need an advisor who has shipped production AI systems and can tell you whether the plan will survive contact with reality.',
+    icon: Wrench,
+    title: 'Build / Buy / Configure / Connect / Wait',
+    desc: 'The full decision set, not a binary build-versus-buy. What to buy, build, configure, connect, or wait on.',
   },
   {
-    title: 'The organization wants AI strategy tied to operating reality',
-    desc: 'You need someone who can connect strategy to execution, not just produce a deck that gets filed and forgotten.',
+    icon: FileText,
+    title: 'Architecture',
+    desc: 'Systems, data flows, integrations, agents, permissions, security boundaries, and operational design.',
+  },
+  {
+    icon: Compass,
+    title: 'Roadmaps',
+    desc: 'Sequencing, dependencies, evidence gates, and stop conditions. What each phase must prove before the next begins.',
+  },
+  {
+    icon: Users,
+    title: 'Operating Model',
+    desc: 'Who decides, owns, approves, monitors, and can stop AI systems. Centralized, federated, or hybrid.',
+  },
+  {
+    icon: Shield,
+    title: 'Governance and Regulatory Exposure',
+    desc: 'Where legal, regulatory, security, privacy, or governance constraints materially affect the decision. Not legal advice.',
+  },
+  {
+    icon: Wrench,
+    title: 'Implementation Sequencing',
+    desc: 'Translate decisions into executable next steps without automatically becoming the implementation team.',
   },
 ]
 
-const whatWeWorkThrough = [
-  { icon: Target, title: 'AI Strategy', desc: 'Where AI creates value for your organization, what to pursue first, and what to stop doing.' },
-  { icon: Compass, title: 'Opportunity Decisions', desc: 'Which opportunities deserve investment and which are distractions dressed as innovation.' },
-  { icon: Shield, title: 'Vendor Evaluation', desc: 'Independent review of vendors, platforms, and contracts before you create a dependency.' },
-  { icon: FileText, title: 'Build / Buy / Configure / Wait', desc: 'The layering decision: what to buy, what to build, what to configure, and what to wait on.' },
-  { icon: Compass, title: 'Architecture Review', desc: 'Review of proposed systems, data flows, agent permissions, and security boundaries.' },
-  { icon: Target, title: 'Roadmaps', desc: 'Sequencing, phase gates, evidence thresholds, and what each phase must prove before the next begins.' },
-  { icon: FileText, title: 'Operating Models', desc: 'Who decides, who owns, who can stop it. Centralized, federated, or hybrid.' },
-  { icon: Shield, title: 'Implementation Sequencing', desc: 'What to build first, what to test, what to deploy, and what to measure.' },
-]
-
-const coreEngagement = [
-  'Two 60-minute executive or technical working sessions each month',
-  'Priority async advisory through agreed channels',
-  'Persistent organizational and decision context',
-  'Decision Registry and Opportunity Registry',
-  'Evidence and context intake',
-  'Vendor, tool, and build-vs-buy evaluation',
-  'Architecture and implementation review',
-  'Roadmap and operating-model review',
-  'Implementation sequencing',
-  'Selected written decision artifacts tied to monthly priorities',
-  'Monthly Decision and Opportunity Brief',
-  'Actions, commitments, and decision history',
-  'Outcome and learning records',
-  'Value record where supported by client-verified evidence',
+const decisionOpportunitySystem = [
+  { label: 'CONTEXT', sub: 'What are we trying to accomplish?' },
+  { label: 'OPPORTUNITIES', sub: 'What deserves investigation?' },
+  { label: 'DECISIONS', sub: 'What needs a recommendation?' },
+  { label: 'EVIDENCE', sub: 'What supports or weakens the decision?' },
+  { label: 'COMMITMENTS', sub: 'What was decided, by whom, and what comes next?' },
+  { label: 'OUTCOMES', sub: 'What did reality teach us?' },
 ]
 
 const methodSteps = [
@@ -141,37 +174,28 @@ const methodSteps = [
   { phase: 'Reframe', desc: 'I find the real question behind the request. The stated problem is often not the problem worth solving.' },
   { phase: 'Prove & Decide', desc: 'We work the options, the evidence, and the trade-offs. You leave with a recommendation an executive can sign.' },
   { phase: 'Architect', desc: 'I design the system, data, human, and control model behind the decision. Not just what to do, but how it operates.' },
-  { phase: 'Mobilize', desc: 'We clarify ownership, dependencies, risks and cadence so the decision has named owners, visible next steps and a path into execution.' },
+  { phase: 'Mobilize', desc: 'We clarify ownership, dependencies, risks, and cadence so the decision has named owners and visible next steps.' },
   { phase: 'Improve', desc: 'I use production evidence to scale, change, or stop. The loop closes when the decision meets reality.' },
 ]
 
 const decisionArtifacts = [
   { name: 'Decision Brief', desc: 'A focused written analysis of one decision: options, evidence, trade-offs, and recommendation.' },
-  { name: 'Architecture Review', desc: 'Review of a proposed system with security, data, and operational considerations.' },
   { name: 'Vendor Comparison', desc: 'Side-by-side evaluation of vendors against your requirements, not a generic checklist.' },
+  { name: 'Architecture Review', desc: 'Review of a proposed system with security, data, and operational considerations.' },
   { name: 'Roadmap Review', desc: 'Pressure-test of sequence, gates, and evidence thresholds.' },
   { name: 'Decision Record', desc: 'A written record your executives can defend without me in the room.' },
   { name: 'Risk / Assumption Register', desc: 'What could go wrong, what we are assuming, and what would change the recommendation.' },
   { name: 'Operating Recommendation', desc: 'Who owns what, how decisions get made, and how the system gets stopped if it fails.' },
+  { name: 'Opportunity Prioritization', desc: 'Ranked comparison of opportunities by value, fit, feasibility, and risk.' },
+  { name: 'Implementation Sequencing Recommendation', desc: 'What to build first, what to test, what to deploy, and what to measure.' },
 ]
 
-const activationCallSteps = [
-  'Current priorities',
-  '1-3 decisions in play',
-  '1-3 opportunities worth investigating',
-  'Current AI systems and vendors',
-  'Important stakeholders',
-  'Immediate deadlines',
-  'Communication expectations',
-]
-
-const affiliationUses = [
-  'Team pages',
-  'Proposals',
-  'Partner discussions',
-  'Investor materials',
-  'Customer materials',
-  'Internal leadership materials',
+const activationCallPurpose = [
+  'Validate priorities',
+  'Confirm immediate decisions',
+  'Establish relationship cadence',
+  'Clarify stakeholders',
+  'Confirm first working session focus',
 ]
 
 const serviceExpectations = [
@@ -188,42 +212,19 @@ const sessionPolicy = [
   'The complimentary 20-minute Activation Call does not count against the two monthly sessions.',
 ]
 
-const comparison = [
-  {
-    name: 'AI Advisor for Business',
-    price: '$99/month',
-    desc: 'Ongoing AI intelligence, opportunity discovery, and human advisory access for focused questions as decisions come up.',
-    best: 'You want an AI advisor in your corner for ongoing signal and focused guidance.',
-    href: '/ai-advisor',
-  },
-  {
-    name: 'AI Opportunity & Workflow Assessment',
-    price: '$500 fixed',
-    desc: 'One opportunity, one primary workflow, one decision-ready Blueprint with architecture, cost-benefit, and buy/configure/build recommendation.',
-    best: 'You have one workflow you want investigated and want a clear answer.',
-    href: '/ai-automation',
-  },
-  {
-    name: 'Fractional AI Advisor',
-    price: '$1,250/month core',
-    desc: 'Executive AI advisory for higher-stakes or interconnected decisions. Strategy, architecture, vendor, build-vs-buy, roadmap, and operating model with context that carries forward.',
-    best: 'You need an AI advisor in the room for the decisions that matter.',
-    href: '/advisory',
-    highlight: true,
-  },
-  {
-    name: 'AI Implementation & Systems Architecture',
-    price: 'Custom scoped',
-    desc: 'For buyers who already know what needs to be implemented. Custom-scoped architecture, integration, and production deployment work. Separately scoped from advisory.',
-    best: 'The decision is made. You need the system built.',
-    href: '/services',
-  },
+const affiliationUses = [
+  'Team pages',
+  'Proposals',
+  'Partner discussions',
+  'Investor materials',
+  'Customer materials',
+  'Internal leadership materials',
 ]
 
 const faqs = [
   {
     q: 'What does a fractional AI advisor do?',
-    a: 'A fractional AI advisor provides senior AI judgment without a full-time hire. I review the decisions in front of your team, pressure-test the options, and give you a recommendation backed by production experience. Your team keeps ownership and execution. The relationship is ongoing, so context compounds rather than restarting from zero each engagement.',
+    a: 'A fractional AI advisor provides senior AI judgment without a full-time executive hire. I work alongside your leadership team on the decisions that are expensive to reverse: what to pursue, what to buy, what to build, how to architect it, what risk to accept, and what should wait. Your team keeps ownership and execution. The relationship is ongoing, so context compounds rather than restarting from zero each engagement.',
   },
   {
     q: 'What is the difference between an AI advisor and an AI consultant?',
@@ -231,23 +232,39 @@ const faqs = [
   },
   {
     q: 'When should I use a fractional AI advisor?',
-    a: 'When you have multiple AI decisions in flight, when a vendor or architecture decision will create a long-term dependency, when your roadmap needs an independent review, or when leadership needs a senior point of view before committing budget. If you have one specific workflow to investigate, the AI Opportunity & Workflow Assessment at $500 is a better starting point.',
+    a: 'When you have multiple AI decisions in flight, when a vendor or architecture decision will create a long-term dependency, when your roadmap needs an independent review, or when leadership needs a senior point of view before committing budget. If you primarily want someone watching what changes and helping with focused questions, AI Advisor Desk at $99/month is a better starting point.',
   },
   {
     q: 'Is this executive AI strategy advisory?',
-    a: 'Yes. The core engagement is designed for executives, founders, and technical leaders navigating higher-stakes AI decisions. The work includes AI strategy, roadmap review, vendor evaluation, build-vs-buy decisions, architecture review, and operating model design.',
+    a: 'Yes. The engagement is designed for executives, founders, and technical leaders navigating higher-stakes AI decisions. The work includes AI strategy, opportunity portfolio prioritization, investment decisions, vendor evaluation, build/buy/configure/connect/wait decisions, architecture review, roadmap review, operating model design, governance exposure, and implementation sequencing.',
   },
   {
     q: 'Can you review an AI vendor or architecture?',
     a: 'Yes. Vendor evaluation and architecture review are core parts of the engagement. I review the dependency you are about to create, the security and data implications, the exit path, and whether the architecture will survive production. This is independent review, not a vendor referral.',
   },
   {
-    q: 'What happens after I subscribe?',
-    a: 'You receive a welcome email with a link to your advisory workspace. I reach out to schedule our first working session, confirm your current priorities, and understand your organizational context. The first session typically covers the decisions in flight, the constraints, and what deserves attention first.',
+    q: 'Do I need a Fractional CAIO or a Fractional AI Advisor?',
+    a: 'A Fractional CAIO may imply broader executive ownership, organizational mandate, and program accountability. This Fractional AI Advisor offer is centered on independent senior judgment, decision support, and architecture and strategy without pretending to hold an executive office you have not delegated. If you need someone who acts as a fractional executive with organizational authority, that is a different relationship. If you need senior judgment working through decisions with your leadership team, this is it.',
   },
   {
-    q: 'How does the $1,250 core engagement work?',
-    a: 'The core relationship is designed around two monthly working sessions, ongoing async decision support, and selected decision artifacts tied to the priorities we are working through. Engagements can expand from the core relationship when your priorities require deeper or broader work. Any expanded scope is explicitly agreed before additional work begins.',
+    q: 'What happens after I subscribe?',
+    a: 'You receive a welcome email with a link to your advisory workspace. You complete or confirm your organizational context, identify the first decisions in play, schedule your complimentary 20-minute Activation Call, and schedule your first 60-minute Working Session. Both sessions can be scheduled directly from the workspace. The Activation Call validates priorities and establishes cadence. The first Working Session starts with the decisions, not introductions.',
+  },
+  {
+    q: 'How does the $1,250/month engagement work?',
+    a: 'The core relationship includes two monthly working sessions, priority async advisory, persistent organizational and decision context, Decision and Opportunity Registries, selected written decision artifacts tied to the priorities we are working through, a monthly Decision and Opportunity Brief, and vendor, roadmap, and architecture review within reasonable scope. Engagements can expand when your priorities require deeper or broader work. Any expanded scope is explicitly agreed before additional work begins.',
+  },
+  {
+    q: 'Is there a minimum term?',
+    a: 'No. The engagement is month-to-month. I recommend starting with a 90-day working horizon because the value comes from carrying context across several decisions, not from one isolated meeting. Around the 90-day mark, we run a structured review: decisions made, opportunities advanced or rejected, risks surfaced, assumptions changed, outcomes and evidence, and whether Fractional is still the correct relationship. You can continue, move to AI Advisor Desk, expand scope, or stop.',
+  },
+  {
+    q: 'Does Fractional include implementation?',
+    a: 'No. Fractional AI Advisor is advisory. If a decision has been made and you need substantial architecture, implementation, integration, or build work, that becomes a separately scoped engagement. I flag this before implementation work begins. The Fractional retainer is not silently consumed by build work.',
+  },
+  {
+    q: 'Do you provide legal advice or guaranteed compliance?',
+    a: 'No. I help you understand where legal, regulatory, security, privacy, or governance constraints materially affect the decision. For legal advice on regulatory compliance obligations, consult a licensed attorney. I do not provide legal advice, detect legal violations, or guarantee compliance.',
   },
 ]
 
@@ -268,144 +285,529 @@ export default function AdvisoryPage() {
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <Hero
-        subtitle="Fractional AI Advisor · Executive AI Advisory"
-        title={
-          <>
-            An AI advisor
-            <br />
-            <span className="gradient-text">in the room.</span>
-          </>
-        }
-        description="For executives, founders and technical leaders navigating higher-stakes or interconnected AI decisions. Bring the decisions, options, proposals, vendors, architectures and roadmaps in front of your team. I research, pressure-test and help turn them into an evidence-backed path forward."
-      >
-        <div className="flex flex-wrap gap-4 justify-center">
-          <Link href="#start">
-            <Button size="lg" className="group animate-glow">
-              Start Fractional AI Advisor
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-          <Link href="/ai-advisor">
-            <Button size="lg" variant="outline">
-              Start with AI Advisor for Business ($99/mo)
-            </Button>
-          </Link>
-        </div>
-        <p className="text-sm text-muted-foreground mt-4">
-          Core engagement: <strong className="text-foreground">$1,250/month</strong> · Annual: <strong className="text-foreground">$12,500/year</strong>
-        </p>
-      </Hero>
+      {/* ============================================
+          HERO
+          ============================================ */}
+      <section className="page-padding pt-16 md:pt-21 pb-12 md:pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/5 via-background to-background" />
+        <div className="section-container relative z-10">
+          <div className="grid lg:grid-cols-[3fr_2fr] gap-8 md:gap-12 lg:gap-16 items-center">
+            {/* Left: positioning, price, CTA */}
+            <div className="space-y-6 md:space-y-8">
+              <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5">
+                <span className="text-sm font-medium text-primary">Fractional AI Advisor</span>
+              </div>
 
-      {/* WHEN THIS RELATIONSHIP MAKES SENSE */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+                Add senior AI judgment <span className="gradient-text">without adding another executive seat.</span>
+              </h1>
+
+              <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-2xl">
+                When AI decisions start affecting strategy, vendors, architecture, investment, and operations at the same time, isolated advice is no longer enough. I work alongside founders, executives, and technical leaders on the decisions that are expensive to reverse: what to pursue, what to buy, what to build, how to architect it, what risk to accept, and what should wait.
+              </p>
+
+              <div className="space-y-2">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl md:text-4xl font-bold">$1,250<span className="text-lg font-normal text-muted-foreground">/month</span></span>
+                  <span className="text-sm text-muted-foreground">Month-to-month</span>
+                </div>
+                <p className="text-sm text-muted-foreground">Recommended 90-day working horizon. No minimum term.</p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <Link href="#start">
+                  <Button size="lg" className="group w-full sm:w-auto">
+                    Start Fractional AI Advisor
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                    Discuss Fit
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Decision & Opportunity system visual */}
+            <div className="relative">
+              <Reveal delay={200} style="up">
+                <div className="rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-4 md:p-6 lg:p-8 space-y-1">
+                  <div className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-3 md:mb-4 text-center">
+                    The Decision and Opportunity System
+                  </div>
+
+                  {decisionOpportunitySystem.map((stage, i) => (
+                    <div key={i}>
+                      {i > 0 && (
+                        <div className="flex justify-center py-0.5 md:py-1" aria-hidden="true">
+                          <ArrowRight className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground rotate-90" />
+                        </div>
+                      )}
+                      <div
+                        className={`rounded-lg px-3 md:px-4 py-2 md:py-3 text-center ${
+                          i === 0
+                            ? 'bg-muted/40 border border-border'
+                            : i === decisionOpportunitySystem.length - 1
+                            ? 'bg-primary/15 border border-primary/40'
+                            : 'bg-primary/5 border border-primary/20'
+                        }`}
+                      >
+                        <div className="text-xs md:text-sm font-bold tracking-wide">{stage.label}</div>
+                        <div className="hidden md:block text-xs text-muted-foreground mt-1 leading-relaxed">{stage.sub}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Capability line */}
+      <div className="page-padding pb-8">
+        <div className="section-container">
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 text-xs md:text-sm text-muted-foreground border-y border-border py-3 md:py-4">
+            {['Strategy', 'Opportunity', 'Vendors', 'Architecture', 'Roadmaps', 'Governance', 'Operating Model'].map((tag, i) => (
+              <span key={tag} className="flex items-center gap-2 md:gap-3">
+                <span className="font-medium text-foreground/80">{tag}</span>
+                {i < 6 && <span className="text-border hidden sm:inline" aria-hidden="true">/</span>}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================
+          1. WHEN FRACTIONAL EARNS ITS PLACE
+          ============================================ */}
       <Section
-        subtitle="When This Relationship Makes Sense"
-        title="Concrete situations where fractional advisory earns its place"
+        subtitle="When Fractional earns its place"
+        title="Concrete situations where this relationship is worth it"
         sectionNum="01"
       >
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-6">
-            {situations.map((situation, i) => (
-              <Card key={i} className="h-full">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-start gap-3">
-                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
-                    {situation.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm mt-2">{situation.desc}</CardDescription>
-                </CardHeader>
-              </Card>
+        <div className="max-w-3xl mx-auto space-y-3">
+          {whenFractionalEarnsItsPlace.map((situation, i) => (
+            <Reveal key={i} delay={i * 30} style="up">
+              <div className="flex items-start gap-4 py-3 border-b border-border last:border-b-0">
+                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</div>
+                <p className="text-sm md:text-base text-foreground/90 leading-relaxed">{situation}</p>
+              </div>
+            </Reveal>
+          ))}
+          <p className="text-sm text-muted-foreground pt-4">
+            None of these require a crisis. They require decisions that are expensive to reverse and benefit from independent senior judgment before commitment.
+          </p>
+        </div>
+      </Section>
+
+      {/* ============================================
+          2. WHAT I WORK THROUGH WITH LEADERSHIP
+          ============================================ */}
+      <Section
+        subtitle="What I work through"
+        title="The decisions this relationship covers"
+        sectionNum="02"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto space-y-6">
+          {whatIWorkThrough.map((item, i) => {
+            const Icon = item.icon
+            return (
+              <Reveal key={item.title} delay={i * 30} style="up">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-6 border-b border-border pb-6 last:border-b-0">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Icon className="h-5 w-5 text-primary" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold mb-1">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              </Reveal>
+            )
+          })}
+        </div>
+      </Section>
+
+      {/* ============================================
+          3. HOW THE RELATIONSHIP OPERATES
+          ============================================ */}
+      <Section
+        subtitle="How the relationship operates"
+        title="The product is not the meetings. The product is judgment, continuity, and an operating record."
+        sectionNum="03"
+      >
+        <div className="max-w-3xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Two monthly working sessions are the visible cadence. The actual value is what happens between and across them: persistent context, senior independent judgment, decision continuity, pressure-testing, evidence, architecture and business translation, decision artifacts, and an operating record of what was decided and why.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              { label: 'Persistent context', desc: 'Your strategy, systems, vendors, decisions, and constraints stay on file. I do not restart from zero each session.' },
+              { label: 'Senior judgment', desc: 'Independent review from someone who has shipped production AI systems and can tell you whether the plan survives contact with reality.' },
+              { label: 'Decision continuity', desc: 'Context carries across decisions. What we decided last month affects what we recommend this month.' },
+              { label: 'Pressure-testing', desc: 'I challenge the first answer. The stated problem is often not the problem worth solving.' },
+              { label: 'Evidence', desc: 'Recommendations are backed by evidence, not assertion. What supports the decision. What weakens it.' },
+              { label: 'Architecture and business translation', desc: 'I speak both languages and can translate between the engineering team and the executive team.' },
+              { label: 'Decision artifacts', desc: 'Selected written artifacts tied to active priorities. Not unlimited document production.' },
+              { label: 'Operating record', desc: 'A record of what was decided, by whom, why, and what happened next. Your executives can defend it without me in the room.' },
+            ].map((item) => (
+              <div key={item.label} className="border-l-2 border-primary/40 pl-4">
+                <div className="text-sm font-semibold text-foreground mb-1">{item.label}</div>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </Section>
 
-      {/* WHAT WE WORK THROUGH */}
+      {/* Mid-page CTA */}
+      <div className="page-padding py-8">
+        <div className="section-container">
+          <div className="rounded-xl border border-primary/20 bg-primary/5 p-6 md:p-8 text-center space-y-3">
+            <p className="text-lg font-medium text-foreground">Have multiple AI decisions moving? Let's work through them together.</p>
+            <Link href="#start">
+              <Button size="lg" className="group">
+                Start Fractional AI Advisor
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <p className="text-sm text-muted-foreground">$1,250/month. Month-to-month. Recommended 90-day working horizon.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================
+          4. DECISION FRAMEWORK / OPERATING METHOD
+          ============================================ */}
       <Section
-        subtitle="What We Work Through"
-        title="The decisions this relationship covers"
-        sectionNum="02"
+        subtitle="Operating method"
+        title="The method behind every decision"
+        sectionNum="04"
         className="bg-secondary/20"
       >
-        <Grid cols={4}>
-          {whatWeWorkThrough.map((item, i) => {
-            const Icon = item.icon
-            return (
-              <Card key={i} className="h-full">
-                <CardHeader>
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                    <Icon className="h-5 w-5 text-primary" />
+        <div className="max-w-4xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            The same six disciplines, adapted to an ongoing advisory relationship. Not over-branded. Connected to actual executive decisions.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            {methodSteps.map((step, i) => (
+              <Reveal key={step.phase} delay={i * 40} style="up">
+                <div className="border-l-2 border-primary/40 pl-4">
+                  <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 mb-3 w-fit">
+                    <span className="text-xs font-medium text-primary">{i + 1}</span>
                   </div>
-                  <CardTitle className="text-sm">{item.title}</CardTitle>
-                  <CardDescription className="text-xs mt-1">{item.desc}</CardDescription>
-                </CardHeader>
-              </Card>
-            )
-          })}
-        </Grid>
-      </Section>
-
-      {/* CORE ENGAGEMENT */}
-      <Section
-        subtitle="Core Engagement"
-        title="What the $1,250/month relationship includes"
-        description="The core relationship is designed around two monthly working sessions, ongoing async decision support, and selected decision artifacts tied to the priorities we are working through."
-        sectionNum="03"
-      >
-        <div className="max-w-3xl mx-auto">
-          <Card className="border-l-4 border-l-primary">
-            <CardContent className="pt-6">
-              <div className="space-y-3">
-                {coreEngagement.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 pt-6 border-t border-border">
-                <p className="text-sm text-muted-foreground">
-                  Engagements can expand from the $1,250/month core advisory relationship when your priorities require deeper or broader work. Any expanded scope is explicitly agreed before additional work begins.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+                  <h3 className="text-base font-semibold mb-1">{step.phase}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
+                </div>
+              </Reveal>
+            ))
+            }
+          </div>
         </div>
       </Section>
 
-      {/* COMPLIMENTARY ACTIVATION */}
+      {/* ============================================
+          5. DECISION & OPPORTUNITY SYSTEM
+          ============================================ */}
       <Section
-        subtitle="Complimentary Activation"
-        title="How the relationship starts"
-        description="After payment: digital context setup, a complimentary 20-minute Activation Call, then your first real working session. The Activation Call does not count against your two monthly sessions."
-        sectionNum="04"
+        subtitle="Decision and Opportunity System"
+        title="What the workspace actually holds"
+        sectionNum="05"
       >
-        <div className="max-w-3xl mx-auto">
-          <Card className="border-l-4 border-l-primary">
-            <CardContent className="pt-6">
-              <p className="text-sm text-muted-foreground mb-4">
-                The Activation Call establishes the working foundation. It is not a consulting session.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {activationCallSteps.map((step, i) => (
-                  <div key={i} className="flex items-start gap-2 text-sm">
+        <div className="max-w-3xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            The workspace is not a shared drive. It is a structured operating record that moves with the work.
+          </p>
+          <div className="space-y-1">
+            {decisionOpportunitySystem.map((stage, i) => (
+              <Reveal key={stage.label} delay={i * 40} style="up">
+                <div className="flex items-start gap-4 py-3 border-b border-border last:border-b-0">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">{i + 1}</div>
+                  <div>
+                    <h3 className="text-sm font-bold tracking-wide">{stage.label}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{stage.sub}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <div className="rounded-lg border border-border bg-secondary/20 p-6 space-y-3">
+            <h3 className="font-semibold text-sm">What exists inside the workspace</h3>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {[
+                'Persistent organizational and decision context',
+                'Decision Registry',
+                'Opportunity Registry',
+                'Evidence and context intake',
+                'Vendor evaluation records',
+                'Architecture review records',
+                'Roadmap review records',
+                'Operating model review',
+                'Implementation sequencing',
+                'Selected written decision artifacts',
+                'Monthly Decision and Opportunity Brief',
+                'Actions, commitments, and decision history',
+                'Outcome and learning records',
+                'Value records where evidence supports them',
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2 text-sm">
+                  <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Artifacts are tied to active priorities and scope. This is not unlimited document production.
+          </p>
+        </div>
+      </Section>
+
+      {/* ============================================
+          6. REPRESENTATIVE ARTIFACTS
+          ============================================ */}
+      <Section
+        subtitle="Representative artifacts"
+        title="What the work produces"
+        sectionNum="06"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-4xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Not every artifact every month. The artifacts that match the priorities we are working through.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {decisionArtifacts.map((artifact, i) => (
+              <Reveal key={artifact.name} delay={i * 30} style="up">
+                <div className="flex items-start gap-3 rounded-lg border border-border p-4 bg-card">
+                  <FileText className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{artifact.name}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{artifact.desc}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ============================================
+          7. WHY SUBODH
+          ============================================ */}
+      <Section
+        subtitle="Why Subodh"
+        title="Why have me working through these decisions with you?"
+        sectionNum="07"
+      >
+        <div className="max-w-3xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            I do not approach AI only as a strategist, a developer, or a governance specialist. I work across the decision.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              { label: 'Business', q: 'Does the opportunity create enough value to deserve attention?' },
+              { label: 'Technology', q: 'Can it work with the systems, data, and operating environment you actually have?' },
+              { label: 'Architecture', q: 'Should you buy, configure, connect, or build?' },
+              { label: 'Operations', q: 'Who owns it? What happens when it fails? Where does a human remain involved?' },
+              { label: 'Governance', q: 'What data, security, regulatory, compliance, or accountability exposure are we accepting?' },
+              { label: 'Evidence', q: 'How will we know whether the decision worked?' },
+            ].map((item) => (
+              <div key={item.label} className="border-l-2 border-primary/40 pl-4">
+                <div className="text-sm font-bold text-primary mb-1">{item.label}</div>
+                <p className="text-sm text-muted-foreground">{item.q}</p>
+              </div>
+            ))}
+          </div>
+          <div className="pt-4 space-y-2">
+            <p className="text-sm font-medium text-foreground">Verified proof behind the work:</p>
+            <ul className="text-sm text-muted-foreground space-y-1.5">
+              <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Enterprise application portfolio leadership</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />50+ AI and technology initiatives</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Production AI systems, including Kestrel Voice and HAIEC</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Systems architecture and governance and compliance work</li>
+            </ul>
+          </div>
+        </div>
+      </Section>
+
+      {/* ============================================
+          8. PRICING + 90-DAY HORIZON
+          ============================================ */}
+      <Section
+        subtitle="Pricing and working horizon"
+        title="Fractional AI Advisor"
+        sectionNum="08"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-3xl mx-auto space-y-6">
+          <div className="rounded-xl border border-primary/30 bg-card p-6 md:p-8 space-y-4">
+            <div className="flex items-baseline justify-between flex-wrap gap-2">
+              <h3 className="text-xl font-bold">Fractional AI Advisor</h3>
+              <span className="text-3xl font-bold">$1,250<span className="text-base font-normal text-muted-foreground">/month</span></span>
+            </div>
+            <p className="text-sm text-muted-foreground">Strategy, opportunity, vendor decisions, architecture, roadmaps, governance, and operating model. Month-to-month. No minimum term.</p>
+            <div className="border-t border-border pt-4 space-y-2">
+              <p className="text-sm font-medium text-foreground">What the relationship includes:</p>
+              <div className="grid sm:grid-cols-2 gap-2">
+                {[
+                  'Two monthly working sessions (60 minutes)',
+                  'Priority asynchronous advisory',
+                  'Persistent organization and decision context',
+                  'Decision and Opportunity Registries',
+                  'Selected written decision artifacts',
+                  'Monthly Decision and Opportunity Brief',
+                  'Vendor, roadmap, and architecture review',
+                  'HAIEC SCAN access (1 seat)',
+                  'Kestrel AI Number Basic',
+                  'Member Tool Library',
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-2 text-sm">
                     <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{step}</span>
+                    <span className="text-muted-foreground">{item}</span>
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="border-t border-border pt-4">
+              <p className="text-xs text-muted-foreground">
+                Annual: $12,500/year (twelve months for the equivalent of ten monthly payments). Monthly is the primary choice. Annual is available if you prefer it.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-border bg-card p-6 space-y-4">
+            <h3 className="font-semibold text-sm">Recommended working horizon: 90 days</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              The engagement is month-to-month. I recommend starting with a 90-day working horizon because the value comes from carrying context across several decisions, not from one isolated meeting.
+            </p>
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">At approximately 90 days, a structured review:</p>
+              <ul className="text-sm text-muted-foreground space-y-1.5">
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Decisions made</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Opportunities advanced or rejected</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Risks surfaced</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Assumptions changed</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Outcomes and evidence</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Priorities for next period</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Whether Fractional is still the correct relationship</li>
+              </ul>
+            </div>
+            <p className="text-sm text-muted-foreground pt-2">
+              You can continue, move to AI Advisor Desk, expand scope, or stop.
+            </p>
+          </div>
         </div>
       </Section>
 
-      {/* INCLUDED AI CAPABILITY ACCESS */}
+      {/* ============================================
+          9. ACTIVATION / ONBOARDING
+          ============================================ */}
       <Section
-        subtitle="Included AI Capability Access"
+        subtitle="Activation and onboarding"
+        title="How the relationship starts"
+        sectionNum="09"
+      >
+        <div className="max-w-3xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            After payment, you complete a deeper Context Intake than the $99 plan. Then you schedule the Activation Call and your first Working Session directly from the workspace.
+          </p>
+
+          <div className="rounded-lg border border-border bg-secondary/20 p-6 space-y-4">
+            <h3 className="font-semibold text-sm">Context Intake captures:</h3>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {[
+                'Organization: strategy, priorities, operating model',
+                'Current AI portfolio: systems, experiments, vendors',
+                'Decisions: 1 to 3 immediate, with owners and deadlines',
+                'Opportunities: 1 to 3 worth investigating',
+                'Architecture: platforms, data, integration constraints',
+                'Governance and risk: policies, security, jurisdictions',
+                'Roadmap: current sequence, dependencies, deadlines',
+                'Stakeholders: executive sponsor, technical owner, business owners',
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2 text-sm">
+                  <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 space-y-3">
+              <h3 className="font-semibold text-sm">Schedule your Activation Call</h3>
+              <p className="text-2xl font-bold">20 minutes <span className="text-sm font-normal text-muted-foreground">complimentary</span></p>
+              <ul className="text-sm text-muted-foreground space-y-1.5">
+                {activationCallPurpose.map((item) => (
+                  <li key={item} className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />{item}</li>
+                ))}
+              </ul>
+              <p className="text-xs text-muted-foreground">Self-scheduled from the workspace. Timezone aware. Does not count against your two monthly sessions.</p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 space-y-3">
+              <h3 className="font-semibold text-sm">Schedule your first Working Session</h3>
+              <p className="text-2xl font-bold">60 minutes</p>
+              <p className="text-sm text-muted-foreground">The first real working session on your priorities. Can be scheduled after the Activation Call or simultaneously if operationally sensible.</p>
+              <p className="text-xs text-muted-foreground">Self-scheduled from the workspace. Timezone aware. Cancellation and rescheduling available.</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* ============================================
+          10. LIGHTER / DEEPER ENGAGEMENT PATHS
+          ============================================ */}
+      <Section
+        subtitle="Lighter and deeper engagement paths"
+        title="This is one relationship in a larger model"
+        sectionNum="10"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-3xl mx-auto space-y-8">
+          {/* Lighter */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold">Need a lighter relationship?</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              If you primarily want someone watching what changes, maintaining context, and helping with focused AI decisions as they arise, AI Advisor Desk starts at $99/month.
+            </p>
+            <Link href="/ai-advisor">
+              <Button variant="outline" size="sm" className="group">
+                Explore AI Advisor Desk
+                <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
+
+          {/* Deeper */}
+          <div className="space-y-3 border-t border-border pt-6">
+            <h3 className="text-lg font-semibold">Need implementation, not advisory?</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Fractional AI Advisor is advisory. If a decision has been made and you need substantial architecture, implementation, integration, or build work, that becomes a separately scoped engagement. I flag this before implementation work begins. The Fractional retainer is not silently consumed by build work.
+            </p>
+            <Link href="/ai-automation">
+              <Button variant="outline" size="sm" className="group">
+                See AI Automation and Implementation
+                <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </Section>
+
+      {/* ============================================
+          11. INCLUDED AI CAPABILITY ACCESS
+          ============================================ */}
+      <Section
+        subtitle="Included AI capability access"
         title="Member tools included with your subscription"
         description="Human judgment comes first. These supporting tools extend what the advisory relationship can do. Product limits apply to each included tool."
-        sectionNum="05"
-        className="bg-secondary/20"
+        sectionNum="11"
       >
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
@@ -444,240 +846,102 @@ export default function AdvisoryPage() {
             </Card>
           </div>
           <p className="text-xs text-muted-foreground mt-4 text-center max-w-2xl mx-auto">
-            Included product access is a supporting capability, not the reason to upgrade. HAIEC and Kestrel maintain their own product limits, acceptable-use terms, and upgrade paths. Advisory subscription does not create additional uptime or SLA guarantees for those products.
+            Included product access is a supporting capability, not the reason to subscribe. HAIEC and Kestrel maintain their own product limits, acceptable-use terms, and upgrade paths. Advisory subscription does not create additional uptime or SLA guarantees for those products.
           </p>
         </div>
       </Section>
 
-      {/* HOW THE WORK HAPPENS */}
+      {/* ============================================
+          12. ADVISOR AFFILIATION + SERVICE EXPECTATIONS + SESSION POLICY
+          ============================================ */}
       <Section
-        subtitle="How the Work Happens"
-        title="The method behind every decision"
-        description="The same six disciplines, adapted to an ongoing advisory relationship."
-        sectionNum="06"
+        subtitle="Affiliation, expectations, and session policy"
+        title="How the engagement works in practice"
+        sectionNum="12"
         className="bg-secondary/20"
       >
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-4">
-            {methodSteps.map((step, i) => (
-              <Card key={i} className="h-full">
-                <CardHeader>
-                  <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 mb-3 w-fit">
-                    <span className="text-xs font-medium text-primary">{i + 1}</span>
-                  </div>
-                  <CardTitle className="text-base">{step.phase}</CardTitle>
-                  <CardDescription className="text-sm mt-1">{step.desc}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* DECISION ARTIFACTS */}
-      <Section
-        subtitle="Decision Artifacts"
-        title="What the work produces"
-        description="Not every artifact every month. The artifacts that match the priorities we are working through."
-        sectionNum="07"
-      >
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-4">
-            {decisionArtifacts.map((artifact, i) => (
-              <div key={i} className="flex items-start gap-3 rounded-lg border border-border p-4">
-                <FileText className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{artifact.name}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{artifact.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* OFFER COMPARISON */}
-      <Section
-        subtitle="Choose the Level of Help"
-        title="Four ways to work together"
-        description="Each is a different relationship to AI decisions, not a different product tier."
-        sectionNum="08"
-        className="bg-secondary/20"
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {comparison.map((item, i) => (
-              <Card key={i} className={item.highlight ? 'border-primary border-2' : ''}>
-                <CardHeader>
-                  <CardTitle className="text-lg">{item.name}</CardTitle>
-                  <p className="text-sm font-medium text-primary mt-1">{item.price}</p>
-                  <CardDescription className="text-sm mt-3">{item.desc}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground mb-4">
-                    <strong className="text-foreground">Best for:</strong> {item.best}
-                  </p>
-                  <Link href={item.href}>
-                    <Button variant={item.highlight ? 'default' : 'outline'} size="sm" className="w-full">
-                      {item.highlight ? 'Start Fractional AI Advisor' : 'Explore'} <ArrowRight className="ml-2 h-3 w-3" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* ADVISOR AFFILIATION */}
-      <Section
-        subtitle="Advisor Affiliation"
-        title="Identify your Fractional AI Advisor where appropriate"
-        description="An active Fractional client may, with approval, identify Subodh KC as Fractional AI Advisor or External AI Advisor in appropriate materials."
-        sectionNum="09"
-      >
-        <div className="max-w-3xl mx-auto space-y-4">
-          <Card>
-            <CardHeader>
-              <div className="flex items-start gap-3">
-                <Handshake className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <CardTitle className="text-base">Where you may identify the relationship</CardTitle>
-                  <div className="grid sm:grid-cols-2 gap-2 mt-3">
-                    {affiliationUses.map((use, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                        <span>{use}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <div className="flex items-start gap-3">
-                <Compass className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <CardTitle className="text-base">Partnership and opportunity exploration</CardTitle>
-                  <CardDescription className="text-sm mt-2">
-                    The relationship can include identifying and evaluating strategic partnerships, technology partnerships, vendors, programs, external opportunities, and introductions where appropriate. This is exploration and evaluation support, not a promise of introductions or partnerships.
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-          </Card>
-          <Card className="bg-secondary/20">
-            <CardContent className="pt-6">
-              <p className="text-xs text-muted-foreground">
-                This does not create employment, officer status, agency, fiduciary authority, or authority to bind either party. Public quotes, press releases, logos, or alternative titles require approval. Full terms are in the Fractional AI Advisor Service Terms.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </Section>
-
-      {/* SERVICE EXPECTATIONS */}
-      <Section
-        subtitle="Advisory Service Expectations"
-        title="How async advisory works"
-        sectionNum="10"
-        className="bg-secondary/20"
-      >
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto space-y-8">
+          {/* Affiliation */}
           <div className="space-y-3">
-            {serviceExpectations.map((exp, i) => (
-              <div key={i} className="flex items-start gap-3 rounded-lg border border-border p-4">
-                <Clock className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">{exp.label}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{exp.value}</p>
+            <div className="flex items-start gap-3">
+              <Handshake className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-semibold text-sm">Advisor affiliation</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  An active Fractional client may, with approval, identify Subodh KC as Fractional AI Advisor or External AI Advisor in appropriate materials.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-2 mt-3">
+                  {affiliationUses.map((use) => (
+                    <div key={use} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{use}</span>
+                    </div>
+                  ))}
                 </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  This does not create employment, officer status, agency, fiduciary authority, or authority to bind either party. Public quotes, press releases, logos, or alternative titles require approval. Full terms are in the Fractional AI Advisor Service Terms.
+                </p>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Service expectations */}
+          <div className="border-t border-border pt-6 space-y-3">
+            <h3 className="font-semibold text-sm">Advisory service expectations</h3>
+            <div className="space-y-2">
+              {serviceExpectations.map((exp) => (
+                <div key={exp.label} className="flex items-start gap-3 rounded-lg border border-border p-3 bg-card">
+                  <Clock className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-foreground">{exp.label}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{exp.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Session policy */}
+          <div className="border-t border-border pt-6 space-y-3">
+            <h3 className="font-semibold text-sm">Session policy</h3>
+            <div className="space-y-2">
+              {sessionPolicy.map((policy) => (
+                <div key={policy} className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-foreground">{policy}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </Section>
 
-      {/* SESSION POLICY */}
-      <Section
-        subtitle="Session Policy"
-        title="How working sessions work"
-        sectionNum="11"
-      >
-        <div className="max-w-3xl mx-auto">
-          <Card className="border-l-4 border-l-primary">
-            <CardContent className="pt-6">
-              <div className="space-y-3">
-                {sessionPolicy.map((policy, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">{policy}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </Section>
-
-      {/* FAQ */}
+      {/* ============================================
+          13. FAQ
+          ============================================ */}
       <Section
         subtitle="FAQ"
         title="Common questions about fractional AI advisory"
-        sectionNum="12"
+        sectionNum="13"
       >
         <div className="max-w-3xl mx-auto">
-          <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <details key={i} className="rounded-lg border border-border p-4 group">
-                <summary className="cursor-pointer text-sm font-semibold text-foreground flex items-center justify-between">
-                  {faq.q}
-                  <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-90 flex-shrink-0 ml-2" />
-                </summary>
-                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{faq.a}</p>
-              </details>
-            ))}
-          </div>
+          <FAQAccordion items={faqs} />
         </div>
       </Section>
 
-      {/* CHECKOUT CTA */}
+      {/* ============================================
+          FINAL CTA + CHECKOUT
+          ============================================ */}
       <div id="start">
         <FractionalAdvisorCheckoutCTA
           title="Start Fractional AI Advisor"
-          description="Core engagement at $1,250/month. Two 60-minute working sessions, priority async advisory, Decision and Opportunity Workspace, Monthly Brief, vendor/roadmap/architecture review, selected decision artifacts, HAIEC SCAN access, Kestrel AI Number Basic, and Member Tool Library. Monthly: continue month to month, cancel before your next renewal. Annual: $12,500/year for twelve months of the core advisory relationship (equivalent of ten monthly payments)."
+          description="$1,250/month. Senior AI judgment working through your strategy, vendor, architecture, roadmap, and governance decisions. Two monthly working sessions, priority async advisory, Decision and Opportunity Workspace, Monthly Brief, selected decision artifacts, HAIEC SCAN access, Kestrel AI Number Basic, and Member Tool Library. Month-to-month. Recommended 90-day working horizon."
           bullets={getCheckoutBullets('fractional_ai_advisor')}
         />
       </div>
 
-      <Section
-        subtitle="Not Sure Which Level Fits?"
-        title="Start lighter if you are not ready for a full advisory relationship"
-        className="bg-secondary/20"
-      >
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="grid md:grid-cols-2 gap-4">
-            <Link href="/ai-advisor" className="block">
-              <Card className="h-full hover:shadow-lg transition-all">
-                <CardHeader>
-                  <CardTitle className="text-base">AI Advisor for Business</CardTitle>
-                  <CardDescription className="text-sm mt-1">$99/month. Ongoing signal and focused human advisory for specific questions as they come up.</CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-            <Link href="/ai-automation" className="block">
-              <Card className="h-full hover:shadow-lg transition-all">
-                <CardHeader>
-                  <CardTitle className="text-base">AI Opportunity & Workflow Assessment</CardTitle>
-                  <CardDescription className="text-sm mt-1">$500 fixed. One opportunity, one workflow, one decision-ready Blueprint.</CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-        </div>
-      </Section>
+      {/* Sticky mobile CTA */}
+      <FractionalStickyCTA />
     </>
   )
 }

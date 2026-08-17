@@ -236,6 +236,18 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
     })
   }
 
+  // Track fractional-specific purchase completed
+  if (offerKey === 'fractional_ai_advisor') {
+    await trackEvent({
+      eventName: 'fractional_purchase_completed',
+      organizationId: orgId,
+      userId,
+      offerKey: 'fractional_ai_advisor',
+      billingPeriod: billingPeriod,
+      metadata: { checkout_session_id: session.id }
+    })
+  }
+
   // Update customer lifecycle state
   try {
     const sc = createServiceClient()

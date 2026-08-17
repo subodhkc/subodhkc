@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ArrowRight, Loader2, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
+import { useFractionalAnalytics } from '@/components/commercial/useFractionalAnalytics'
 
 interface FractionalAdvisorCheckoutCTAProps {
   title: string
@@ -15,11 +16,13 @@ export function FractionalAdvisorCheckoutCTA({ title, description, bullets }: Fr
   const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { track } = useFractionalAnalytics()
 
   async function handleCheckout(period: 'monthly' | 'annual') {
     if (!selectedOrg) return
     setLoading(true)
     setError(null)
+    track('fractional_checkout_started', { period })
     try {
       const res = await fetch('/api/commercial/fractional-advisor/checkout', {
         method: 'POST',
@@ -34,6 +37,8 @@ export function FractionalAdvisorCheckoutCTA({ title, description, bullets }: Fr
         if (data.workspaceUrl) {
           setTimeout(() => { window.location.href = data.workspaceUrl }, 2000)
         }
+      } else if (data.error === 'Authentication required' || data.error === 'unauthorized') {
+        setError('Sign in to continue to checkout.')
       } else {
         setError(data.message || data.error || 'Failed to start checkout')
       }
