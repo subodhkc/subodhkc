@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Send, CheckCircle2, FileText, Clock } from 'lucide-react'
+import { ArrowLeft, Send, CheckCircle2, FileText, Clock, Loader2, ExternalLink, Package } from 'lucide-react'
 import {
   type WorkOrder,
   type WorkOrderUpdate,
@@ -18,6 +18,16 @@ interface Props {
   userId: string
 }
 
+interface Deliverable {
+  id: string
+  title: string
+  description: string | null
+  artifact_type: string
+  artifact_url: string | null
+  is_client_visible: boolean
+  created_at: string
+}
+
 export default function WorkOrderDetailClient({
   orgSlug,
   workOrder,
@@ -30,10 +40,30 @@ export default function WorkOrderDetailClient({
   const [submitting, setSubmitting] = useState(false)
   const [inputError, setInputError] = useState<string | null>(null)
   const [localUpdates, setLocalUpdates] = useState<WorkOrderUpdate[]>(updates)
+  const [deliverables, setDeliverables] = useState<Deliverable[]>([])
+  const [deliverablesLoading, setDeliverablesLoading] = useState(false)
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [checkoutError, setCheckoutError] = useState<string | null>(null)
+  const [completeLoading, setCompleteLoading] = useState(false)
+  const [completeError, setCompleteError] = useState<string | null>(null)
+  const [actionSuccess, setActionSuccess] = useState<string | null>(null)
 
   const needsInput = workOrder.status === 'needs_client_input'
-  const isDelivered = workOrder.status === 'delivered' || workOrder.status === 'completed'
+  const isDelivered = workOrder.status === 'delivered'
+  const isCompleted = workOrder.status === 'completed'
   const showCheckout = workOrder.status === 'ready_for_checkout' || workOrder.status === 'awaiting_approval'
+
+  // Fetch deliverables when delivered or completed
+  useEffect(() => {
+    if (isDelivered || isCompleted) {
+      setDeliverablesLoading(true)
+      fetch(`/api/commercial/work-orders/${workOrder.id}/deliverables?orgSlug=${orgSlug}`)
+        .then(r => r.ok ? r.json() : { deliverables: [] })
+        .then(data => setDeliverables(Array.isArray(data.deliverables) ? data.deliverables : []))
+        .catch(() => setDeliverables([]))
+        .finally(() => setDeliverablesLoading(false))
+    }
+  }, [workOrder.id, orgSlug, isDelivered, isCompleted])
 
   async function submitInput() {
     if (!inputText.trim()) return
@@ -160,15 +190,42 @@ export default function WorkOrderDetailClient({
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="font-semibold">Ready for checkout</h2>
-                <p className="text-sm text-muted-foreground mt-1">$500 standard Work Order. Scope has been accepted.</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  ${(workOrder.standard_price_cents ? workOrder.standard_price_cents / 100 : 500).toFixed(0)} Work Order. Scope has been prepared.
+                </p>
               </div>
-              <Link
-                href="/ai-automation"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90"
+              <button
+                onClick={async () => {
+                  setCheckoutLoading(true)
+                  setCheckoutError(null)
+                  try {
+                    const res = await fetch('/api/commercial/work-orders/checkout', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ orgSlug, workOrderId: workOrder.id }),
+                    })
+                    if (!res.ok) {
+                      const data = await res.json().catch(() => ({}))
+                      throw new Error(data.error || 'Checkout failed')
+                    }
+                    const data = await res.json()
+                    if (data.url) {
+                      window.location.href = data.url
+                    }
+                  } catch (err: any) {
+                    setCheckoutError(err.message)
+                  } finally {
+                    setCheckoutLoading(false)
+                  }
+                }}
+                disabled={checkoutLoading}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
               >
+                {checkoutLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                 Continue to Payment
-              </Link>
+              </button>
             </div>
+            {checkoutError && <p className="text-xs text-red-600 mt-2">{checkoutError}</p>}
           </section>
         )}
 
@@ -202,17 +259,88 @@ export default function WorkOrderDetailClient({
         )}
 
         {/* Deliverable / Result */}
-        {isDelivered && (
-          <section className="border border-green-300 rounded-lg p-5 bg-green-50/50">
-            <h2 className="font-semibold flex items-center gap-2 mb-2">
+        {(isDelivered || isCompleted) && (
+          <section className="border border-green-300 rounded-lg p-5 bg-green-50/50 space-y-4">
+            <h2 className="font-semibold flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-green-600" />
-              Delivered
+              {isCompleted ? 'Completed' : 'Delivered'}
             </h2>
             <p className="text-sm text-muted-foreground">
               {workOrder.delivered_at
                 ? `Delivered on ${new Date(workOrder.delivered_at).toLocaleDateString()}`
                 : 'This Work Order has been delivered.'}
             </p>
+
+            {/* Deliverables list */}
+            {deliverablesLoading ? (
+              <div className="text-sm text-muted-foreground flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin" /> Loading deliverables...
+              </div>
+            ) : deliverables.length > 0 ? (
+              <div className="space-y-2">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Deliverables</h3>
+                {deliverables.map(d => (
+                  <div key={d.id} className="border rounded-lg p-3 bg-background">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <Package className="w-4 h-4 text-green-600 flex-shrink-0" />
+                          <h4 className="text-sm font-medium">{d.title}</h4>
+                        </div>
+                        {d.description && <p className="text-xs text-muted-foreground mt-1">{d.description}</p>}
+                        <span className="text-xs text-muted-foreground capitalize mt-1 inline-block">{d.artifact_type.replace(/_/g, ' ')}</span>
+                      </div>
+                      {d.artifact_url && (
+                        <a
+                          href={d.artifact_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary hover:underline inline-flex items-center gap-1 flex-shrink-0"
+                        >
+                          Open <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+
+            {/* Mark complete button — only when delivered, not yet completed */}
+            {isDelivered && !isCompleted && (
+              <div className="pt-2 border-t">
+                <button
+                  onClick={async () => {
+                    setCompleteLoading(true)
+                    setCompleteError(null)
+                    try {
+                      const res = await fetch(`/api/commercial/work-orders/${workOrder.id}/complete`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ orgSlug }),
+                      })
+                      if (!res.ok) {
+                        const data = await res.json().catch(() => ({}))
+                        throw new Error(data.error || 'Failed to mark complete')
+                      }
+                      setActionSuccess('Work Order marked as complete')
+                      // Reload to show completed state
+                      setTimeout(() => window.location.reload(), 1500)
+                    } catch (err: any) {
+                      setCompleteError(err.message)
+                    } finally {
+                      setCompleteLoading(false)
+                    }
+                  }}
+                  disabled={completeLoading}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:opacity-50"
+                >
+                  {completeLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
+                  Mark as Complete
+                </button>
+                {completeError && <p className="text-xs text-red-600 mt-2">{completeError}</p>}
+              </div>
+            )}
           </section>
         )}
 
@@ -270,6 +398,14 @@ export default function WorkOrderDetailClient({
               {submitting ? 'Sending...' : 'Send'}
             </button>
           </section>
+        )}
+
+        {/* Success toast */}
+        {actionSuccess && (
+          <div className="fixed bottom-4 right-4 z-50 rounded-lg border border-green-500/30 bg-green-500/10 p-4 text-sm text-green-700 flex items-center gap-2 shadow-lg">
+            <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+            <span>{actionSuccess}</span>
+          </div>
         )}
       </div>
     </div>

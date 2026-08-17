@@ -35,8 +35,8 @@ export async function GET(request: NextRequest) {
       let requesterName = null
       let requesterEmail = null
       if (question.submitted_by) {
-        const { data: profile } = await sc.from('profiles').select('email, full_name').eq('id', question.submitted_by).single()
-        requesterName = profile?.full_name || null
+        const { data: profile } = await sc.from('profiles').select('email, display_name').eq('id', question.submitted_by).single()
+        requesterName = profile?.display_name || null
         requesterEmail = profile?.email || null
       }
       const org = (question as any).organizations
@@ -96,11 +96,14 @@ export async function GET(request: NextRequest) {
       for (const e of fractionalEnts || []) { const m = (e.source_metadata as any)?.amount_cents; if (m) fractionalMRR += m / 100 }
 
       // Work Orders
-      const { data: wos } = await sc.from('ai_work_orders').select('id, status, standard_price_cents, created_at, paid_at').order('created_at', { ascending: false }).limit(500)
+      const { data: wos } = await sc.from('ai_work_orders').select('id, status, standard_price_cents, created_at, scope_accepted_at').order('created_at', { ascending: false }).limit(500)
       const woList = wos || []
       const newThisMonth = woList.filter(w => new Date(w.created_at) >= new Date(monthStart)).length
-      const paidThisMonth = woList.filter(w => w.paid_at && new Date(w.paid_at) >= new Date(monthStart)).length
-      const revenueThisMonth = woList.filter(w => w.paid_at && new Date(w.paid_at) >= new Date(monthStart)).reduce((s, w) => s + (w.standard_price_cents || 0), 0) / 100
+      // Use scope_accepted_at as proxy for "paid" since there's no paid_at column
+      // Work orders that are paid or further along have scope_accepted_at set
+      const paidStatuses = ['paid', 'scoped', 'in_progress', 'in_review', 'needs_client_input', 'delivered', 'completed']
+      const paidThisMonth = woList.filter(w => paidStatuses.includes(w.status) && w.scope_accepted_at && new Date(w.scope_accepted_at) >= new Date(monthStart)).length
+      const revenueThisMonth = woList.filter(w => paidStatuses.includes(w.status) && w.scope_accepted_at && new Date(w.scope_accepted_at) >= new Date(monthStart)).reduce((s, w) => s + (w.standard_price_cents || 0), 0) / 100
       const awaitingScope = woList.filter(w => w.status === 'awaiting_scope' || w.status === 'draft').length
       const awaitingPayment = woList.filter(w => w.status === 'ready_for_checkout' || w.status === 'payment_pending' || w.status === 'awaiting_approval').length
       const inProgress = woList.filter(w => w.status === 'in_progress' || w.status === 'in_review' || w.status === 'paid' || w.status === 'scoped').length

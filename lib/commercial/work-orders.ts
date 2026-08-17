@@ -507,7 +507,7 @@ export async function getFulfillmentState(
 export async function transitionWorkOrderStatus(
   workOrderId: string,
   newStatus: WorkOrderStatus,
-  actorRole: 'advisor' | 'platform_admin',
+  actorRole: 'advisor' | 'platform_admin' | 'client',
   actorUserId?: string,
   note?: string
 ): Promise<{ success: boolean; error?: string }> {
