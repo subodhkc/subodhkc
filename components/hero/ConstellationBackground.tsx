@@ -11,22 +11,23 @@ import { PRODUCTS, type Product } from "@/data/products";
 
 // Curated node layout — positions avoid the hero text area (left-center).
 // Nodes cluster toward edges and right side, leaving the H1/tagline zone clear.
+// Radii are kept small (10-14) so nodes remain subtle at all viewport sizes.
 const NODES = [
-  { x: 920, y: 45,  r: 18, d: 0 },
-  { x: 840, y: 110, r: 22, d: 0.4 },
-  { x: 950, y: 200, r: 18, d: 0.8 },
-  { x: 760, y: 55,  r: 18, d: 1.2 },
-  { x: 700, y: 180, r: 20, d: 1.6 },
-  { x: 620, y: 100, r: 18, d: 2.0 },
-  { x: 580, y: 230, r: 18, d: 2.4 },
-  { x: 520, y: 160, r: 22, d: 2.8 },
-  { x: 440, y: 70,  r: 18, d: 3.2 },
-  { x: 390, y: 210, r: 20, d: 3.6 },
-  { x: 310, y: 120, r: 18, d: 4.0 },
-  { x: 250, y: 250, r: 18, d: 4.4 },
-  { x: 190, y: 90,  r: 18, d: 4.8 },
-  { x: 120, y: 200, r: 22, d: 5.2 },
-  { x: 50,  y: 130, r: 18, d: 5.6 },
+  { x: 920, y: 45,  r: 10, d: 0 },
+  { x: 840, y: 110, r: 12, d: 0.4 },
+  { x: 950, y: 200, r: 10, d: 0.8 },
+  { x: 760, y: 55,  r: 10, d: 1.2 },
+  { x: 700, y: 180, r: 11, d: 1.6 },
+  { x: 620, y: 100, r: 10, d: 2.0 },
+  { x: 580, y: 230, r: 10, d: 2.4 },
+  { x: 520, y: 160, r: 12, d: 2.8 },
+  { x: 440, y: 70,  r: 10, d: 3.2 },
+  { x: 390, y: 210, r: 11, d: 3.6 },
+  { x: 310, y: 120, r: 10, d: 4.0 },
+  { x: 250, y: 250, r: 10, d: 4.4 },
+  { x: 190, y: 90,  r: 10, d: 4.8 },
+  { x: 120, y: 200, r: 12, d: 5.2 },
+  { x: 50,  y: 130, r: 10, d: 5.6 },
 ];
 
 const EDGES: Array<[number, number, number]> = [
@@ -87,7 +88,7 @@ export function ConstellationBackground() {
           width: "100%",
           height: "100%",
           display: "block",
-          opacity: 0.35,
+          opacity: 0.28,
         }}
       >
         {/* Edges — static base line + subtle flowing dash */}
@@ -118,6 +119,8 @@ export function ConstellationBackground() {
         {items.map((p: Product, i: number) => {
           const N = NODES[i];
           if (!N) return null;
+          // Compute label width based on product name length
+          const labelWidth = Math.max(80, p.name.length * 7 + 16);
           return (
             <g
               key={p.id}
@@ -131,21 +134,21 @@ export function ConstellationBackground() {
                 transformBox: "fill-box",
               }}>
                 {/* Outer ring — very subtle */}
-                <circle r={N.r + 5} fill="none" stroke="var(--op-accent)" strokeWidth="0.5" opacity="0.15" />
+                <circle r={N.r + 4} fill="none" stroke="var(--op-accent)" strokeWidth="0.5" opacity="0.15" />
                 {/* Node body */}
                 <circle r={N.r} fill="var(--op-card)" stroke="var(--op-border)" strokeWidth="0.8" opacity="0.7" />
                 {/* Glyph icon */}
-                <g transform={`translate(-${N.r * 0.6} -${N.r * 0.6})`} style={{ color: "var(--op-accent)", opacity: 0.5 }}>
-                  <Glyph kind={p.glyph} size={N.r * 1.2} />
+                <g transform={`translate(-${N.r * 0.55} -${N.r * 0.55})`} style={{ color: "var(--op-accent)", opacity: 0.5 }}>
+                  <Glyph kind={p.glyph} size={N.r * 1.1} />
                 </g>
               </g>
-              {/* Hover label — CSS only, desktop only */}
-              <g className="constellation-bg-label" style={{ opacity: 0, pointerEvents: "none" }}>
+              {/* Hover label — CSS controls visibility via class, not inline style */}
+              <g className="constellation-bg-label" pointerEvents="none">
                 <rect
-                  x={-60}
-                  y={N.r + 6}
-                  width="120"
-                  height="18"
+                  x={-labelWidth / 2}
+                  y={N.r + 5}
+                  width={labelWidth}
+                  height="16"
                   rx="3"
                   fill="var(--op-card)"
                   stroke="var(--op-border)"
@@ -154,19 +157,19 @@ export function ConstellationBackground() {
                 />
                 <text
                   x={0}
-                  y={N.r + 18}
+                  y={N.r + 16}
                   textAnchor="middle"
-                  fontSize="9.5"
+                  fontSize="8"
                   fontFamily="var(--font-mono)"
                   fill="var(--fg)"
                 >
                   {p.name}
                 </text>
               </g>
-              {/* Invisible hit area for hover — desktop only via CSS */}
+              {/* Invisible hit area for hover + click — desktop only via CSS */}
               <circle
                 className="constellation-bg-hit"
-                r={N.r + 10}
+                r={N.r + 8}
                 fill="transparent"
                 style={{ pointerEvents: "auto", cursor: "pointer" }}
                 data-href={p.primary.href}

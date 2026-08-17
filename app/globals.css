@@ -565,9 +565,13 @@ section[id], [id] {
   mask-composite: intersect;
 }
 
+/* Labels hidden by default — use visibility so CSS hover can reveal them.
+   Do NOT use inline opacity:0 on the element, as it fights with CSS. */
+.constellation-bg-label { visibility: hidden; opacity: 0; transition: opacity .15s; }
+
 /* Desktop hover: brighten node + show label */
 @media (hover: hover) and (pointer: fine) {
-  .constellation-bg-node:hover .constellation-bg-label { opacity: 1 !important; transition: opacity .2s; }
+  .constellation-bg-node:hover .constellation-bg-label { visibility: visible; opacity: 1; }
   .constellation-bg-node:hover .constellation-bg-float { opacity: 1 !important; }
   .constellation-bg-node:hover .constellation-bg-float circle[fill="var(--op-card)"] { opacity: 0.95 !important; stroke-width: 1.2; }
   .constellation-bg-node:hover .constellation-bg-float g[style*="color: var(--op-accent)"] { opacity: 0.9 !important; }

@@ -27,9 +27,21 @@ export type {
   WorkOrder,
   WorkOrderScopeAcceptance,
   WorkOrderUpdate,
+  WorkOrderDeliverable,
   ScopeSnapshot,
+  ArtifactType,
+  SourceRequestType,
+  UpdateAuthorRole,
+  UpdateType,
 } from '@/lib/commercial/work-order-types'
-export { statusLabel } from '@/lib/commercial/work-order-types'
+export {
+  statusLabel,
+  statusActionLabel,
+  statusAdvisorLabel,
+  statusPriority,
+  artifactTypeLabel,
+  workTypeLabel,
+} from '@/lib/commercial/work-order-types'
 
 // Import types for internal use
 import type {
@@ -39,7 +51,12 @@ import type {
   WorkOrder,
   WorkOrderScopeAcceptance,
   WorkOrderUpdate,
+  WorkOrderDeliverable,
   ScopeSnapshot,
+  ArtifactType,
+  SourceRequestType,
+  UpdateAuthorRole,
+  UpdateType,
 } from '@/lib/commercial/work-order-types'
 
 // ============================================
@@ -531,6 +548,555 @@ export async function transitionWorkOrderStatus(
       body: note || `Status changed from ${previousStatus} to ${newStatus}`,
       previous_status: previousStatus,
       new_status: newStatus,
+      is_client_visible: true,
+    })
+
+  return { success: true }
+}
+
+// ============================================
+// Advisor fulfillment operations
+// ============================================
+
+/**
+ * Add an advisor update/note to a Work Order.
+ * Advisor updates can be client-visible or internal (is_client_visible=false).
+ * Uses service role to bypass the client-author trigger.
+ */
+export async function addAdvisorUpdate(opts: {
+  workOrderId: string
+  authorUserId: string
+  body: string
+  isClientVisible: boolean
+  updateType?: UpdateType
+}): Promise<{ success: boolean; error?: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { success: false, error: 'Service client unavailable' }
+
+  const { error } = await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.workOrderId,
+      author_user_id: opts.authorUserId,
+      author_role: 'advisor',
+      update_type: opts.updateType || 'note',
+      body: opts.body,
+      is_client_visible: opts.isClientVisible,
+    })
+
+  if (error) return { success: false, error: error.message }
+  return { success: true }
+}
+
+/**
+ * Compose/edit scope for a Work Order (advisor-side).
+ * Updates scope fields and optionally transitions to awaiting_approval.
+ */
+export async function composeWorkOrderScope(opts: {
+  workOrderId: string
+  advisorUserId: string
+  scopeTitle?: string
+  scopeIncluded?: string
+  scopeExcluded?: string
+  requiredInputs?: string
+  deliverableDescription?: string
+  desiredOutcome?: string
+  workType?: WorkType
+  targetTiming?: string
+  priceCents?: number
+  sendToClient?: boolean
+}): Promise<{ success: boolean; error?: string; workOrder?: WorkOrder }> {
+  const sc = createServiceClient()
+  if (!sc) return { success: false, error: 'Service client unavailable' }
+
+  const updateFields: Record<string, unknown> = {
+    scope_composed_by: opts.advisorUserId,
+    scope_composed_at: new Date().toISOString(),
+  }
+
+  if (opts.scopeTitle !== undefined) updateFields.scope_title = opts.scopeTitle
+  if (opts.scopeIncluded !== undefined) updateFields.scope_included = opts.scopeIncluded
+  if (opts.scopeExcluded !== undefined) updateFields.scope_excluded = opts.scopeExcluded
+  if (opts.requiredInputs !== undefined) updateFields.required_inputs = opts.requiredInputs
+  if (opts.deliverableDescription !== undefined) updateFields.deliverable_description = opts.deliverableDescription
+  if (opts.desiredOutcome !== undefined) updateFields.desired_outcome = opts.desiredOutcome
+  if (opts.workType !== undefined) updateFields.work_type = opts.workType
+  if (opts.targetTiming !== undefined) updateFields.scope_target_timing = opts.targetTiming
+  if (opts.priceCents !== undefined) {
+    updateFields.scope_price_cents = opts.priceCents
+    updateFields.standard_price_cents = opts.priceCents
+  }
+
+  if (opts.sendToClient) {
+    updateFields.scope_status = 'accepted'
+    updateFields.status = 'awaiting_approval'
+    updateFields.scope_accepted_at = new Date().toISOString()
+    updateFields.scope_accepted_by = opts.advisorUserId
+  } else {
+    updateFields.scope_status = 'needs_review'
+  }
+
+  const { data, error } = await sc
+    .from('ai_work_orders')
+    .update(updateFields)
+    .eq('id', opts.workOrderId)
+    .select('*')
+    .single()
+
+  if (error || !data) return { success: false, error: error?.message || 'Failed to compose scope' }
+
+  // Add scope change update record
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.workOrderId,
+      author_user_id: opts.advisorUserId,
+      author_role: 'advisor',
+      update_type: 'scope_change',
+      body: opts.sendToClient ? 'Scope prepared and sent to client for approval.' : 'Scope draft saved.',
+      is_client_visible: opts.sendToClient,
+    })
+
+  return { success: true, workOrder: data as WorkOrder }
+}
+
+/**
+ * Request client input on a Work Order.
+ * Transitions to needs_client_input and creates an update record.
+ */
+export async function requestClientInput(opts: {
+  workOrderId: string
+  advisorUserId: string
+  requestTitle: string
+  whatIsNeeded: string
+  whyItMatters?: string
+  dueDate?: string | null
+}): Promise<{ success: boolean; error?: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { success: false, error: 'Service client unavailable' }
+
+  // Get current status
+  const { data: wo } = await sc
+    .from('ai_work_orders')
+    .select('status')
+    .eq('id', opts.workOrderId)
+    .single()
+
+  if (!wo) return { success: false, error: 'Work Order not found' }
+
+  const previousStatus = wo.status
+
+  // Transition to needs_client_input
+  const { error: updateError } = await sc
+    .from('ai_work_orders')
+    .update({ status: 'needs_client_input' })
+    .eq('id', opts.workOrderId)
+
+  if (updateError) return { success: false, error: updateError.message }
+
+  // Build the request body
+  const bodyParts = [opts.requestTitle, '', opts.whatIsNeeded]
+  if (opts.whyItMatters) bodyParts.push('', `Why it matters: ${opts.whyItMatters}`)
+  if (opts.dueDate) bodyParts.push('', `Needed by: ${opts.dueDate}`)
+
+  // Add update record (client-visible)
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.workOrderId,
+      author_user_id: opts.advisorUserId,
+      author_role: 'advisor',
+      update_type: 'client_input_requested',
+      body: bodyParts.join('\n'),
+      previous_status: previousStatus,
+      new_status: 'needs_client_input',
+      is_client_visible: true,
+    })
+
+  // Store request metadata
+  await sc
+    .from('ai_work_orders')
+    .update({
+      metadata: { input_request: { title: opts.requestTitle, needed: opts.whatIsNeeded, why: opts.whyItMatters, due: opts.dueDate } },
+    })
+    .eq('id', opts.workOrderId)
+
+  return { success: true }
+}
+
+/**
+ * Publish a deliverable for a Work Order.
+ * Creates a deliverable record and optionally transitions to delivered.
+ */
+export async function publishDeliverable(opts: {
+  workOrderId: string
+  advisorUserId: string
+  title: string
+  description?: string
+  artifactType: ArtifactType
+  artifactUrl?: string
+  artifactMetadata?: Record<string, unknown>
+  isClientVisible?: boolean
+  markDelivered?: boolean
+}): Promise<{ deliverableId: string } | { error: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { error: 'Service client unavailable' }
+
+  const { data, error } = await sc
+    .from('ai_work_order_deliverables')
+    .insert({
+      work_order_id: opts.workOrderId,
+      title: opts.title,
+      description: opts.description || null,
+      artifact_type: opts.artifactType,
+      artifact_url: opts.artifactUrl || null,
+      artifact_metadata: opts.artifactMetadata || {},
+      is_client_visible: opts.isClientVisible !== false,
+      published_by: opts.advisorUserId,
+      published_at: new Date().toISOString(),
+    })
+    .select('id')
+    .single()
+
+  if (error || !data) return { error: error?.message || 'Failed to publish deliverable' }
+
+  // Add deliverable_published update record
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.workOrderId,
+      author_user_id: opts.advisorUserId,
+      author_role: 'advisor',
+      update_type: 'deliverable_published',
+      body: `Deliverable published: ${opts.title}`,
+      is_client_visible: opts.isClientVisible !== false,
+    })
+
+  // Optionally transition to delivered
+  if (opts.markDelivered) {
+    const { data: wo } = await sc
+      .from('ai_work_orders')
+      .select('status')
+      .eq('id', opts.workOrderId)
+      .single()
+
+    if (wo) {
+      await sc
+        .from('ai_work_orders')
+        .update({ status: 'delivered', delivered_at: new Date().toISOString() })
+        .eq('id', opts.workOrderId)
+
+      await sc
+        .from('ai_work_order_updates')
+        .insert({
+          work_order_id: opts.workOrderId,
+          author_user_id: opts.advisorUserId,
+          author_role: 'advisor',
+          update_type: 'status_change',
+          body: 'Work Order marked as delivered.',
+          previous_status: wo.status,
+          new_status: 'delivered',
+          is_client_visible: true,
+        })
+    }
+  }
+
+  return { deliverableId: data.id }
+}
+
+/**
+ * List deliverables for a Work Order.
+ * Returns only client-visible deliverables unless includeInternal is true.
+ */
+export async function listDeliverables(
+  workOrderId: string,
+  includeInternal = false
+): Promise<WorkOrderDeliverable[]> {
+  const sc = createServiceClient()
+  if (!sc) return []
+
+  let query = sc
+    .from('ai_work_order_deliverables')
+    .select('*')
+    .eq('work_order_id', workOrderId)
+    .order('created_at', { ascending: false })
+
+  if (!includeInternal) {
+    query = query.eq('is_client_visible', true)
+  }
+
+  const { data } = await query
+  return (data || []) as WorkOrderDeliverable[]
+}
+
+/**
+ * Split a Work Order into multiple child Work Orders.
+ * Each child has its own scope, acceptance, payment, and status.
+ */
+export async function splitWorkOrder(opts: {
+  parentWorkOrderId: string
+  advisorUserId: string
+  splits: Array<{
+    title: string
+    workType?: WorkType
+    desiredOutcome?: string
+    scopeIncluded?: string
+    priceCents?: number
+  }>
+}): Promise<{ childWorkOrderIds: string[] } | { error: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { error: 'Service client unavailable' }
+
+  // Get parent Work Order
+  const { data: parent } = await sc
+    .from('ai_work_orders')
+    .select('*')
+    .eq('id', opts.parentWorkOrderId)
+    .single()
+
+  if (!parent) return { error: 'Parent Work Order not found' }
+
+  const childIds: string[] = []
+
+  for (const split of opts.splits) {
+    const { data: child, error } = await sc
+      .from('ai_work_orders')
+      .insert({
+        organization_id: parent.organization_id,
+        requested_by_user_id: parent.requested_by_user_id,
+        source_offer_key: parent.source_offer_key,
+        parent_work_order_id: opts.parentWorkOrderId,
+        source_request_id: parent.source_request_id,
+        source_request_type: parent.source_request_type,
+        title: split.title,
+        work_type: split.workType || parent.work_type,
+        desired_outcome: split.desiredOutcome || null,
+        scope_included: split.scopeIncluded || null,
+        scope_status: 'needs_review',
+        status: 'awaiting_scope',
+        standard_price_cents: split.priceCents || 50000,
+        currency: 'USD',
+        metadata: { split_from: opts.parentWorkOrderId },
+      })
+      .select('id')
+      .single()
+
+    if (error || !child) {
+      return { error: error?.message || 'Failed to create split Work Order' }
+    }
+
+    childIds.push(child.id)
+  }
+
+  // Add split update record on parent
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.parentWorkOrderId,
+      author_user_id: opts.advisorUserId,
+      author_role: 'advisor',
+      update_type: 'split',
+      body: `Work Order split into ${opts.splits.length} separate Work Orders.`,
+      is_client_visible: true,
+    })
+
+  return { childWorkOrderIds: childIds }
+}
+
+/**
+ * Create a Work Order draft from an Advisor Question (escalation flow).
+ * Pre-populates from the question without charging.
+ */
+export async function createWorkOrderFromQuestion(opts: {
+  organizationId: string
+  requestedByUserId: string
+  questionId: string
+  questionSubject: string
+  questionBody: string
+  questionContext?: Record<string, unknown>
+  suggestedWorkType?: WorkType
+  suggestedOutcome?: string
+}): Promise<{ workOrderId: string; workOrderNumber: string } | { error: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { error: 'Service client unavailable' }
+
+  const { data, error } = await sc
+    .from('ai_work_orders')
+    .insert({
+      organization_id: opts.organizationId,
+      requested_by_user_id: opts.requestedByUserId,
+      source_offer_key: 'ai_automation_blueprint',
+      source_request_id: opts.questionId,
+      source_request_type: 'advisor_question',
+      title: opts.questionSubject,
+      work_type: opts.suggestedWorkType || 'other',
+      desired_outcome: opts.suggestedOutcome || null,
+      scope_included: null,
+      scope_status: 'custom_scope_required',
+      status: 'awaiting_scope',
+      standard_price_cents: 50000,
+      currency: 'USD',
+      metadata: {
+        source_question: opts.questionId,
+        question_subject: opts.questionSubject,
+        question_body: opts.questionBody,
+        question_context: opts.questionContext || {},
+      },
+    })
+    .select('id, work_order_number')
+    .single()
+
+  if (error || !data) return { error: error?.message || 'Failed to create Work Order from question' }
+
+  // Add update record
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: data.id,
+      author_role: 'advisor',
+      update_type: 'note',
+      body: `Work Order created from Advisor Question: "${opts.questionSubject}". The original question and context are attached.`,
+      is_client_visible: true,
+    })
+
+  return { workOrderId: data.id, workOrderNumber: data.work_order_number }
+}
+
+/**
+ * Request owner/admin approval for a Work Order created by a non-purchasing member.
+ * Transitions to awaiting_owner_approval and notifies organization admins.
+ */
+export async function requestOwnerApproval(opts: {
+  workOrderId: string
+  requesterUserId: string
+  requesterName?: string
+}): Promise<{ success: boolean; error?: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { success: false, error: 'Service client unavailable' }
+
+  const { data: wo } = await sc
+    .from('ai_work_orders')
+    .select('status')
+    .eq('id', opts.workOrderId)
+    .single()
+
+  if (!wo) return { success: false, error: 'Work Order not found' }
+
+  const previousStatus = wo.status
+
+  const { error } = await sc
+    .from('ai_work_orders')
+    .update({ status: 'awaiting_owner_approval' })
+    .eq('id', opts.workOrderId)
+
+  if (error) return { success: false, error: error.message }
+
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.workOrderId,
+      author_user_id: opts.requesterUserId,
+      author_role: 'client',
+      update_type: 'owner_approval_requested',
+      body: opts.requesterName
+        ? `${opts.requesterName} requested this Work Order. Organization owner/admin approval required.`
+        : 'Organization owner/admin approval required for this Work Order.',
+      previous_status: previousStatus,
+      new_status: 'awaiting_owner_approval',
+      is_client_visible: true,
+    })
+
+  return { success: true }
+}
+
+/**
+ * Owner/admin approves a Work Order and transitions to ready_for_checkout.
+ * The owner must then complete checkout to pay.
+ */
+export async function approveWorkOrderByOwner(opts: {
+  workOrderId: string
+  ownerUserId: string
+}): Promise<{ success: boolean; error?: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { success: false, error: 'Service client unavailable' }
+
+  const { data: wo } = await sc
+    .from('ai_work_orders')
+    .select('status, scope_status')
+    .eq('id', opts.workOrderId)
+    .single()
+
+  if (!wo) return { success: false, error: 'Work Order not found' }
+  if (wo.status !== 'awaiting_owner_approval') {
+    return { success: false, error: 'Work Order is not awaiting owner approval' }
+  }
+
+  // If scope is already accepted, go to ready_for_checkout
+  // If scope needs composition, go to awaiting_scope (advisor composes first)
+  const newStatus: WorkOrderStatus = wo.scope_status === 'accepted' ? 'ready_for_checkout' : 'awaiting_scope'
+
+  const { error } = await sc
+    .from('ai_work_orders')
+    .update({ status: newStatus })
+    .eq('id', opts.workOrderId)
+
+  if (error) return { success: false, error: error.message }
+
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.workOrderId,
+      author_user_id: opts.ownerUserId,
+      author_role: 'client',
+      update_type: 'status_change',
+      body: 'Organization owner/admin approved this Work Order.',
+      previous_status: 'awaiting_owner_approval',
+      new_status: newStatus,
+      is_client_visible: true,
+    })
+
+  return { success: true }
+}
+
+/**
+ * Owner/admin declines a Work Order request from a member.
+ */
+export async function declineWorkOrderByOwner(opts: {
+  workOrderId: string
+  ownerUserId: string
+  reason?: string
+}): Promise<{ success: boolean; error?: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { success: false, error: 'Service client unavailable' }
+
+  const { data: wo } = await sc
+    .from('ai_work_orders')
+    .select('status')
+    .eq('id', opts.workOrderId)
+    .single()
+
+  if (!wo) return { success: false, error: 'Work Order not found' }
+  if (wo.status !== 'awaiting_owner_approval') {
+    return { success: false, error: 'Work Order is not awaiting owner approval' }
+  }
+
+  const { error } = await sc
+    .from('ai_work_orders')
+    .update({ status: 'cancelled' })
+    .eq('id', opts.workOrderId)
+
+  if (error) return { success: false, error: error.message }
+
+  await sc
+    .from('ai_work_order_updates')
+    .insert({
+      work_order_id: opts.workOrderId,
+      author_user_id: opts.ownerUserId,
+      author_role: 'client',
+      update_type: 'status_change',
+      body: opts.reason ? `Work Order declined by organization owner/admin: ${opts.reason}` : 'Work Order declined by organization owner/admin.',
+      previous_status: 'awaiting_owner_approval',
+      new_status: 'cancelled',
       is_client_visible: true,
     })
 
