@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react'
 import {
   LogOut, ChevronRight, ChevronDown, Building2, Shield, Users, Settings,
   Briefcase, Wrench, ArrowRight, Calendar, User as UserIcon,
+  AlertCircle, FileText, Clock, CheckCircle2, Loader2,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 import {
@@ -74,6 +75,40 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
   const basePath = `/app/${organization.slug}`
 
   const activeEngagements = engagements.filter(e => e.status === 'active')
+
+  // Needs Attention + Current Work for org home
+  const [orgAttention, setOrgAttention] = useState<any[]>([])
+  const [orgWorkSummary, setOrgWorkSummary] = useState<{ active: number; needsInput: number; delivered: number } | null>(null)
+  const [attentionLoading, setAttentionLoading] = useState(false)
+
+  useEffect(() => {
+    async function fetchOrgSummary() {
+      setAttentionLoading(true)
+      try {
+        const res = await fetch(`/api/commercial/work-orders?orgSlug=${organization.slug}`)
+        if (res.ok) {
+          const data = await res.json()
+          const wos = Array.isArray(data.workOrders) ? data.workOrders : []
+          const needsInput = wos.filter((w: any) => w.status === 'needs_client_input')
+          const awaitingApproval = wos.filter((w: any) => w.status === 'awaiting_approval' || w.status === 'ready_for_checkout')
+          const active = wos.filter((w: any) => ['in_progress', 'in_review', 'paid', 'scoped'].includes(w.status))
+          const delivered = wos.filter((w: any) => w.status === 'delivered')
+          const items = [
+            ...needsInput.map((w: any) => ({ type: 'input', title: `${w.work_order_number} needs your input`, link: `/app/${organization.slug}/work-orders/${w.id}`, status: w.status })),
+            ...awaitingApproval.map((w: any) => ({ type: 'approval', title: `${w.work_order_number} ready for approval`, link: `/app/${organization.slug}/work-orders/${w.id}`, status: w.status })),
+            ...delivered.map((w: any) => ({ type: 'delivered', title: `${w.work_order_number} delivered — review and complete`, link: `/app/${organization.slug}/work-orders/${w.id}`, status: w.status })),
+          ]
+          setOrgAttention(items)
+          setOrgWorkSummary({ active: active.length, needsInput: needsInput.length, delivered: delivered.length })
+        }
+      } catch {
+        // silent — org home should still render
+      } finally {
+        setAttentionLoading(false)
+      }
+    }
+    fetchOrgSummary()
+  }, [organization.slug])
 
   // Available offerings with routes
   const availableOfferings = entitlements
@@ -238,6 +273,52 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
             {organizationRole || 'Admin (platform)'}
           </p>
         </div>
+
+        {/* Needs Attention */}
+        {orgAttention.length > 0 && (
+          <section>
+            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-amber-600" />
+              Needs Your Attention
+            </h2>
+            <div className="space-y-2">
+              {orgAttention.map((item, i) => (
+                <Link key={i} href={item.link}
+                  className="flex items-center gap-3 border rounded-lg p-3 hover:bg-accent/5 group">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium">{item.title}</p>
+                    <p className="text-xs text-muted-foreground capitalize mt-0.5">{item.status.replace(/_/g, ' ')}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Current Work Summary */}
+        {orgWorkSummary && (orgWorkSummary.active > 0 || orgWorkSummary.needsInput > 0 || orgWorkSummary.delivered > 0) && (
+          <section>
+            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              Current Work
+            </h2>
+            <div className="grid grid-cols-3 gap-3">
+              <Link href={`${basePath}/work-orders`} className="border rounded-lg p-4 hover:bg-accent/5">
+                <div className="text-2xl font-bold">{orgWorkSummary.active}</div>
+                <div className="text-xs text-muted-foreground mt-1">Active Work Orders</div>
+              </Link>
+              <Link href={`${basePath}/work-orders`} className="border rounded-lg p-4 hover:bg-accent/5">
+                <div className="text-2xl font-bold text-amber-600">{orgWorkSummary.needsInput}</div>
+                <div className="text-xs text-muted-foreground mt-1">Needs Your Input</div>
+              </Link>
+              <Link href={`${basePath}/work-orders`} className="border rounded-lg p-4 hover:bg-accent/5">
+                <div className="text-2xl font-bold text-green-600">{orgWorkSummary.delivered}</div>
+                <div className="text-xs text-muted-foreground mt-1">Delivered</div>
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* Active engagement summary */}
         {activeEngagements.length > 0 && (

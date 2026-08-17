@@ -80,13 +80,47 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
       }
     }
 
-    // Check for Work Orders needing input
-    if (org.workOrdersNeedingInput && org.workOrdersNeedingInput > 0) {
+    // Check for Work Orders needing input (deep-link to first WO)
+    const needingInputIds = org.workOrdersNeedingInputIds || []
+    if (needingInputIds.length > 0) {
       needsAttentionItems.push({
-        label: `${org.workOrdersNeedingInput} Work Order${org.workOrdersNeedingInput > 1 ? 's' : ''} need your input`,
+        label: `${needingInputIds.length} Work Order${needingInputIds.length > 1 ? 's' : ''} need your input`,
         description: `${org.name} — respond to advisor requests`,
-        href: `/app/${org.slug}/work-orders`,
+        href: `/app/${org.slug}/work-orders/${needingInputIds[0]}`,
         urgency: 'high',
+      })
+    }
+
+    // Check for Work Orders with scope ready for approval (deep-link to first WO)
+    const scopeReadyIds = org.workOrdersScopeReadyIds || []
+    if (scopeReadyIds.length > 0) {
+      needsAttentionItems.push({
+        label: `${scopeReadyIds.length} Work Order${scopeReadyIds.length > 1 ? 's' : ''} scope ready for review`,
+        description: `${org.name} — review and approve your scope`,
+        href: `/app/${org.slug}/work-orders/${scopeReadyIds[0]}`,
+        urgency: 'high',
+      })
+    }
+
+    // Check for Work Orders awaiting owner approval (deep-link to first WO)
+    const ownerApprovalIds = org.workOrdersOwnerApprovalIds || []
+    if (ownerApprovalIds.length > 0) {
+      needsAttentionItems.push({
+        label: `${ownerApprovalIds.length} Work Order${ownerApprovalIds.length > 1 ? 's' : ''} awaiting approval`,
+        description: `${org.name} — organization approval needed`,
+        href: `/app/${org.slug}/work-orders/${ownerApprovalIds[0]}`,
+        urgency: 'medium',
+      })
+    }
+
+    // Check for answered advisor questions (no specific question URL — link to advisor desk)
+    const answeredCount = org.answeredAdvisorQuestionCount || 0
+    if (answeredCount > 0) {
+      needsAttentionItems.push({
+        label: `${answeredCount} answered advisor question${answeredCount > 1 ? 's' : ''}`,
+        description: `${org.name} — review your advisor's response`,
+        href: `/app/${org.slug}/advisor-desk`,
+        urgency: 'low',
       })
     }
   }

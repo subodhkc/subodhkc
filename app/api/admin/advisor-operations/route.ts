@@ -66,6 +66,56 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ workOrders, count: workOrders.length })
     }
 
+    if (view === 'commercial') {
+      const { createClient } = await import('@supabase/supabase-js')
+      const sc = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+      const now = new Date()
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+
+      // Active customers
+      const { data: advisorEnts } = await sc.from('organization_entitlements').select('id, offering_key, effective_status, source_metadata').eq('offering_key', 'ai_advisor_desk').eq('effective_status', 'active')
+      const { data: fractionalEnts } = await sc.from('organization_entitlements').select('id, offering_key, effective_status, source_metadata').eq('offering_key', 'fractional_ai_advisor').eq('effective_status', 'active')
+
+      let advisorMRR = 0
+      for (const e of advisorEnts || []) { const m = (e.source_metadata as any)?.amount_cents; if (m) advisorMRR += m / 100 }
+      let fractionalMRR = 0
+      for (const e of fractionalEnts || []) { const m = (e.source_metadata as any)?.amount_cents; if (m) fractionalMRR += m / 100 }
+
+      // Work Orders
+      const { data: wos } = await sc.from('ai_work_orders').select('id, status, standard_price_cents, created_at, paid_at').order('created_at', { ascending: false }).limit(500)
+      const woList = wos || []
+      const newThisMonth = woList.filter(w => new Date(w.created_at) >= new Date(monthStart)).length
+      const paidThisMonth = woList.filter(w => w.paid_at && new Date(w.paid_at) >= new Date(monthStart)).length
+      const revenueThisMonth = woList.filter(w => w.paid_at && new Date(w.paid_at) >= new Date(monthStart)).reduce((s, w) => s + (w.standard_price_cents || 0), 0) / 100
+      const awaitingScope = woList.filter(w => w.status === 'awaiting_scope' || w.status === 'draft').length
+      const awaitingPayment = woList.filter(w => w.status === 'ready_for_checkout' || w.status === 'payment_pending' || w.status === 'awaiting_approval').length
+      const inProgress = woList.filter(w => w.status === 'in_progress' || w.status === 'in_review' || w.status === 'paid' || w.status === 'scoped').length
+      const delivered = woList.filter(w => w.status === 'delivered').length
+
+      // Funnel
+      const funnel = {
+        intakeStarted: woList.length,
+        scopePrepared: woList.filter(w => w.status !== 'draft' && w.status !== 'awaiting_scope').length,
+        scopeAccepted: woList.filter(w => ['ready_for_checkout', 'payment_pending', 'paid', 'scoped', 'in_progress', 'in_review', 'needs_client_input', 'delivered', 'completed'].includes(w.status)).length,
+        paid: woList.filter(w => ['paid', 'scoped', 'in_progress', 'in_review', 'needs_client_input', 'delivered', 'completed'].includes(w.status)).length,
+        delivered: woList.filter(w => ['delivered', 'completed'].includes(w.status)).length,
+      }
+
+      // Failures
+      const { count: provisioningFailures } = await sc.from('included_product_entitlements').select('id', { count: 'exact', head: true }).eq('provisioning_status', 'provisioning_failed')
+      const { count: paymentFailures } = await sc.from('organization_entitlements').select('id', { count: 'exact', head: true }).in('effective_status', ['suspended', 'past_due'])
+
+      return NextResponse.json({
+        advisorCount: advisorEnts?.length || 0,
+        fractionalCount: fractionalEnts?.length || 0,
+        advisorMRR: Math.round(advisorMRR),
+        fractionalMRR: Math.round(fractionalMRR),
+        workOrders: { newThisMonth, paidThisMonth, revenueThisMonth: Math.round(revenueThisMonth), awaitingScope, awaitingPayment, inProgress, delivered },
+        funnel,
+        failures: { provisioning: provisioningFailures || 0, payment: paymentFailures || 0, fulfillment: 0 },
+      })
+    }
+
     // Default: clients view
     const clients = await fetchAdvisoryClients(filter || undefined)
     return NextResponse.json({ clients, count: clients.length })

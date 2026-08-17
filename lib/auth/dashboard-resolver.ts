@@ -116,21 +116,73 @@ export async function resolveDashboardData(): Promise<DashboardData | null> {
     offerings: orgOfferings[idx] || [],
   }))
 
-  // 2b. Fetch Work Orders needing input per org
+  // 2b. Fetch Work Orders needing attention per org (with IDs for deep-linking)
   if (orgIds.length > 0) {
-    const { data: woCounts } = await serviceClient
+    // Work orders needing client input
+    const { data: woInput } = await serviceClient
       .from('ai_work_orders')
-      .select('organization_id')
+      .select('id, organization_id')
       .in('organization_id', orgIds)
       .eq('status', 'needs_client_input')
+      .order('updated_at', { ascending: false })
 
-    const woCountMap = new Map<string, number>()
-    for (const wo of woCounts || []) {
-      woCountMap.set(wo.organization_id, (woCountMap.get(wo.organization_id) || 0) + 1)
+    const woInputMap = new Map<string, string[]>()
+    for (const wo of woInput || []) {
+      const arr = woInputMap.get(wo.organization_id) || []
+      arr.push(wo.id)
+      woInputMap.set(wo.organization_id, arr)
+    }
+
+    // Work orders with scope ready for approval
+    const { data: woScope } = await serviceClient
+      .from('ai_work_orders')
+      .select('id, organization_id')
+      .in('organization_id', orgIds)
+      .eq('status', 'awaiting_approval')
+      .order('updated_at', { ascending: false })
+
+    const woScopeMap = new Map<string, string[]>()
+    for (const wo of woScope || []) {
+      const arr = woScopeMap.get(wo.organization_id) || []
+      arr.push(wo.id)
+      woScopeMap.set(wo.organization_id, arr)
+    }
+
+    // Work orders awaiting owner approval
+    const { data: woOwner } = await serviceClient
+      .from('ai_work_orders')
+      .select('id, organization_id')
+      .in('organization_id', orgIds)
+      .eq('status', 'awaiting_owner_approval')
+      .order('updated_at', { ascending: false })
+
+    const woOwnerMap = new Map<string, string[]>()
+    for (const wo of woOwner || []) {
+      const arr = woOwnerMap.get(wo.organization_id) || []
+      arr.push(wo.id)
+      woOwnerMap.set(wo.organization_id, arr)
     }
 
     for (const org of dashboardOrgs) {
-      org.workOrdersNeedingInput = woCountMap.get(org.id) || 0
+      org.workOrdersNeedingInputIds = woInputMap.get(org.id) || []
+      org.workOrdersScopeReadyIds = woScopeMap.get(org.id) || []
+      org.workOrdersOwnerApprovalIds = woOwnerMap.get(org.id) || []
+    }
+
+    // Fetch answered advisor questions count per org
+    const { data: answeredQuestions } = await serviceClient
+      .from('advisor_questions')
+      .select('organization_id')
+      .in('organization_id', orgIds)
+      .eq('status', 'answered')
+
+    const answeredQMap = new Map<string, number>()
+    for (const q of answeredQuestions || []) {
+      answeredQMap.set(q.organization_id, (answeredQMap.get(q.organization_id) || 0) + 1)
+    }
+
+    for (const org of dashboardOrgs) {
+      org.answeredAdvisorQuestionCount = answeredQMap.get(org.id) || 0
     }
 
     // Fetch pending invitations count per org

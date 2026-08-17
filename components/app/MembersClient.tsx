@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Trash2, UserPlus, X, Send, Check, Clock } from 'lucide-react'
+import { Trash2, UserPlus, X, Send, Check, Clock, Sparkles } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 
 interface Member {
@@ -37,15 +37,24 @@ interface AccessRequest {
   profiles: { email: string; display_name: string | null; avatar_url: string | null }
 }
 
+interface AdvisorSeat {
+  user_id: string
+  email: string
+  display_name: string
+}
+
 interface MembersClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
   members: Member[]
   invitations: Invitation[]
   accessRequests: AccessRequest[]
+  advisorSeats: AdvisorSeat[]
 }
 
-export function MembersClient({ user, ctx, members, invitations, accessRequests }: MembersClientProps) {
+const ADVISOR_SEAT_LIMIT = 3
+
+export function MembersClient({ user, ctx, members, invitations, accessRequests, advisorSeats }: MembersClientProps) {
   const router = useRouter()
   const [inviteEmail, setInviteEmail] = useState('')
   const [inviteRole, setInviteRole] = useState('member')
@@ -53,9 +62,72 @@ export function MembersClient({ user, ctx, members, invitations, accessRequests 
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  const [advisorSeatUserIds, setAdvisorSeatUserIds] = useState<Set<string>>(
+    () => new Set(advisorSeats.map((s) => s.user_id))
+  )
+  const [seatActionLoading, setSeatActionLoading] = useState<string | null>(null)
 
   const isOwner = ctx.organizationRole === 'owner' || ctx.isPlatformAdmin
   const basePath = `/app/${ctx.organization.slug}`
+
+  const seatsUsed = advisorSeatUserIds.size
+  const seatsAvailable = Math.max(0, ADVISOR_SEAT_LIMIT - seatsUsed)
+  const seatsFull = seatsUsed >= ADVISOR_SEAT_LIMIT
+
+  async function handleAssignAdvisor(memberUserId: string) {
+    setSeatActionLoading(memberUserId)
+    setError('')
+    setSuccess('')
+    try {
+      const res = await fetch(`/api/org/${ctx.organization.id}/advisor-seats`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: memberUserId }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error || 'Failed to assign Advisor access')
+      } else {
+        setAdvisorSeatUserIds((prev) => new Set(prev).add(memberUserId))
+        setSuccess('Advisor access assigned')
+        setTimeout(() => setSuccess(''), 3000)
+      }
+    } catch {
+      setError('Network error')
+    } finally {
+      setSeatActionLoading(null)
+    }
+  }
+
+  async function handleRemoveAdvisor(memberUserId: string) {
+    if (!confirm('Remove Advisor access from this member?')) return
+    setSeatActionLoading(memberUserId)
+    setError('')
+    setSuccess('')
+    try {
+      const res = await fetch(`/api/org/${ctx.organization.id}/advisor-seats`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: memberUserId }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error || 'Failed to remove Advisor access')
+      } else {
+        setAdvisorSeatUserIds((prev) => {
+          const next = new Set(prev)
+          next.delete(memberUserId)
+          return next
+        })
+        setSuccess('Advisor access removed')
+        setTimeout(() => setSuccess(''), 3000)
+      }
+    } catch {
+      setError('Network error')
+    } finally {
+      setSeatActionLoading(null)
+    }
+  }
 
   async function handleInvite(e: React.FormEvent) {
     e.preventDefault()
@@ -387,6 +459,66 @@ export function MembersClient({ user, ctx, members, invitations, accessRequests 
             </div>
           </section>
         )}
+
+        {/* AI Advisor Access */}
+        <section className="mt-6">
+          <h2 className="font-semibold mb-3 flex items-center gap-2">
+            <Sparkles className="h-4 w-4" />
+            AI Advisor Access
+          </h2>
+          <div className="border rounded-lg p-4 mb-3 bg-muted/30">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">
+                {seatsUsed} of {ADVISOR_SEAT_LIMIT} seats used
+              </span>
+              <span className={`text-xs px-2 py-0.5 rounded ${
+                seatsFull ? 'bg-red-500/10 text-red-700' : 'bg-green-500/10 text-green-700'
+              }`}>
+                {seatsFull ? 'Full — no seats available' : `${seatsAvailable} seat${seatsAvailable === 1 ? '' : 's'} available`}
+              </span>
+            </div>
+          </div>
+          <div className="border rounded-lg divide-y">
+            {members.filter((m) => m.status === 'active').map((m) => {
+              const hasAdvisor = advisorSeatUserIds.has(m.user_id)
+              return (
+                <div key={m.id} className="flex items-center justify-between p-3">
+                  <div>
+                    <span className="text-sm font-medium">{m.display_name || m.email}</span>
+                    <span className="ml-2 text-xs text-muted-foreground">{m.email}</span>
+                    {hasAdvisor && (
+                      <span className="ml-2 text-xs px-1.5 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                        Advisor
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {hasAdvisor ? (
+                      <button
+                        onClick={() => handleRemoveAdvisor(m.user_id)}
+                        disabled={!isOwner || seatActionLoading === m.user_id}
+                        className="px-2.5 py-1 border border-red-500/30 text-red-600 rounded text-xs font-medium hover:bg-red-500/10 disabled:opacity-50"
+                      >
+                        {seatActionLoading === m.user_id ? 'Removing...' : 'Remove Advisor Access'}
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleAssignAdvisor(m.user_id)}
+                        disabled={!isOwner || seatsFull || seatActionLoading === m.user_id}
+                        className="px-2.5 py-1 bg-primary text-primary-foreground rounded text-xs font-medium hover:bg-primary/90 disabled:opacity-50"
+                      >
+                        {seatActionLoading === m.user_id ? 'Assigning...' : 'Assign Advisor Access'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+            {members.filter((m) => m.status === 'active').length === 0 && (
+              <div className="p-4 text-sm text-muted-foreground">No active members to assign.</div>
+            )}
+          </div>
+        </section>
       </main>
     </div>
   )

@@ -9,7 +9,10 @@ export interface DashboardOrganization {
   role: OrganizationRole
   offerings: DashboardOffering[]
   pendingInvitations?: number
-  workOrdersNeedingInput?: number
+  workOrdersNeedingInputIds?: string[]
+  workOrdersScopeReadyIds?: string[]
+  workOrdersOwnerApprovalIds?: string[]
+  answeredAdvisorQuestionCount?: number
 }
 
 export interface DashboardOffering {

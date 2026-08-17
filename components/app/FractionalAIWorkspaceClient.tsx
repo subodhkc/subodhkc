@@ -1,7 +1,8 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { LogOut, ArrowLeft, Briefcase, Calendar, Code, Cpu, GitBranch, Zap } from 'lucide-react'
+import { LogOut, ArrowLeft, Briefcase, Calendar, Code, Cpu, GitBranch, Zap, Sun, AlertCircle, FileText, CheckCircle2, Clock, ArrowRight } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 import { getEngagementTypeLabel, getEngagementStatusLabel } from '@/lib/auth/dashboard-types'
 
@@ -25,6 +26,41 @@ export function FractionalAIWorkspaceClient({ user, ctx, engagements }: Fraction
 
   const activeEngagements = engagements.filter(e => e.status === 'active')
   const pastEngagements = engagements.filter(e => e.status !== 'active')
+
+  // Today view data
+  const [todayData, setTodayData] = useState<{
+    decisions: any[]
+    workOrders: any[]
+    actions: any[]
+    sessions: any[]
+  }>({ decisions: [], workOrders: [], actions: [], sessions: [] })
+  const [todayLoading, setTodayLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchToday() {
+      setTodayLoading(true)
+      try {
+        const [woRes] = await Promise.all([
+          fetch(`/api/commercial/work-orders?orgSlug=${organization.slug}`).then(r => r.ok ? r.json() : { workOrders: [] }).catch(() => ({ workOrders: [] })),
+        ])
+        const wos = Array.isArray(woRes.workOrders) ? woRes.workOrders : []
+        const active = wos.filter((w: any) => ['in_progress', 'in_review', 'paid', 'scoped', 'needs_client_input', 'delivered'].includes(w.status))
+        const needsInput = wos.filter((w: any) => w.status === 'needs_client_input')
+        const delivered = wos.filter((w: any) => w.status === 'delivered')
+        setTodayData({
+          decisions: [],
+          workOrders: active,
+          actions: needsInput,
+          sessions: [],
+        })
+      } catch {
+        // silent
+      } finally {
+        setTodayLoading(false)
+      }
+    }
+    fetchToday()
+  }, [organization.slug])
 
   async function handleLogout() {
     await fetch('/auth/logout', { method: 'POST' })
@@ -59,6 +95,64 @@ export function FractionalAIWorkspaceClient({ user, ctx, engagements }: Fraction
             Embedded AI leadership and hands-on engineering for {organization.name}
           </p>
         </div>
+
+        {/* Today view */}
+        <section>
+          <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+            <Sun className="h-5 w-5" />
+            Today
+          </h2>
+          {todayLoading ? (
+            <div className="border rounded-lg p-6 text-center text-sm text-muted-foreground">Loading...</div>
+          ) : todayData.workOrders.length === 0 && todayData.actions.length === 0 ? (
+            <div className="border rounded-lg p-6 text-center">
+              <CheckCircle2 className="h-6 w-6 text-green-600 mx-auto mb-2" />
+              <p className="text-sm text-muted-foreground">Nothing needs attention right now.</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {/* Work Orders */}
+              {todayData.workOrders.length > 0 && (
+                <div className="border rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <h3 className="text-sm font-medium">Work Orders ({todayData.workOrders.length})</h3>
+                  </div>
+                  <div className="space-y-1.5">
+                    {todayData.workOrders.map((wo: any) => (
+                      <Link key={wo.id} href={`${basePath}/work-orders/${wo.id}`}
+                        className="flex items-center gap-3 p-2 rounded-md hover:bg-accent/5 group">
+                        <span className="text-xs font-mono text-muted-foreground">{wo.work_order_number}</span>
+                        <span className="text-sm flex-1 truncate">{wo.title}</span>
+                        <span className="text-xs px-2 py-0.5 rounded bg-muted capitalize">{wo.status.replace(/_/g, ' ')}</span>
+                        <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Actions needing input */}
+              {todayData.actions.length > 0 && (
+                <div className="border rounded-lg p-4 border-amber-500/20 bg-amber-500/5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <AlertCircle className="h-4 w-4 text-amber-600" />
+                    <h3 className="text-sm font-medium">Needs Your Input ({todayData.actions.length})</h3>
+                  </div>
+                  <div className="space-y-1.5">
+                    {todayData.actions.map((wo: any) => (
+                      <Link key={wo.id} href={`${basePath}/work-orders/${wo.id}`}
+                        className="flex items-center gap-3 p-2 rounded-md hover:bg-amber-500/10 group">
+                        <span className="text-xs font-mono text-muted-foreground">{wo.work_order_number}</span>
+                        <span className="text-sm flex-1 truncate">{wo.title}</span>
+                        <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-amber-600" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </section>
 
         {/* Active engagements */}
         {activeEngagements.length > 0 ? (

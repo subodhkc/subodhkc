@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
@@ -100,7 +100,7 @@ export function PlatformAdminClient({
   const [orgKind, setOrgKind] = useState('business')
   const [creating, setCreating] = useState(false)
   const [error, setError] = useState('')
-  const [activeTab, setActiveTab] = useState<'requests' | 'customers' | 'activity' | 'newsletter' | 'orgs' | 'advisory'>('requests')
+  const [activeTab, setActiveTab] = useState<'requests' | 'customers' | 'activity' | 'newsletter' | 'orgs' | 'advisory' | 'commercial'>('requests')
   const [processingRequestId, setProcessingRequestId] = useState<string | null>(null)
   const [newsletterData, setNewsletterData] = useState<{ recentPosts: any[]; subscriberCount: number | null } | null>(null)
   const [newsletterLoading, setNewsletterLoading] = useState(false)
@@ -325,6 +325,7 @@ export function PlatformAdminClient({
           <TabButton active={activeTab === 'newsletter'} onClick={() => { setActiveTab('newsletter'); if (!newsletterData) fetchNewsletterData() }} icon={Mail} label="Newsletter" />
           <TabButton active={activeTab === 'orgs'} onClick={() => setActiveTab('orgs')} icon={Building2} label="Organizations" />
           <TabButton active={activeTab === 'advisory'} onClick={() => setActiveTab('advisory')} icon={Headset} label="Advisory Ops" />
+          <TabButton active={activeTab === 'commercial'} onClick={() => setActiveTab('commercial')} icon={Activity} label="Commercial" />
         </div>
 
         {/* Product Access Requests */}
@@ -677,6 +678,11 @@ export function PlatformAdminClient({
         {activeTab === 'advisory' && (
           <AdvisorOperationsClient />
         )}
+
+        {/* Commercial Ops Summary */}
+        {activeTab === 'commercial' && (
+          <CommercialOpsSummary entitlements={entitlements} />
+        )}
       </main>
     </div>
   )
@@ -695,5 +701,112 @@ function TabButton({ active, onClick, icon: Icon, label }: { active: boolean; on
       <Icon className="h-4 w-4" />
       {label}
     </button>
+  )
+}
+
+function CommercialOpsSummary({ entitlements }: { entitlements: Entitlement[] }) {
+  const [metrics, setMetrics] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function fetchMetrics() {
+      try {
+        const res = await fetch('/api/admin/advisor-operations?view=commercial')
+        if (res.ok) {
+          const data = await res.json()
+          setMetrics(data)
+        }
+      } catch (err: any) {
+        setError(err.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchMetrics()
+  }, [])
+
+  // Calculate from entitlements as fallback
+  const advisorCount = entitlements.filter(e => e.offeringKey === 'ai_advisor_desk' && e.status === 'active').length
+  const fractionalCount = entitlements.filter(e => e.offeringKey === 'fractional_ai_advisor' && e.status === 'active').length
+
+  if (loading) {
+    return <div className="border rounded-lg p-8 text-center"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground mx-auto" /></div>
+  }
+
+  const m = metrics || {}
+  const wo = m.workOrders || {}
+  const failures = m.failures || {}
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="font-semibold text-sm">Commercial Operating Metrics</h3>
+        <p className="text-xs text-muted-foreground mt-0.5">From actual Stripe/DB records. No invented metrics.</p>
+      </div>
+
+      {/* Active customers */}
+      <div>
+        <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Active</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <MetricCard label="Advisor Customers" value={m.advisorCount ?? advisorCount} />
+          <MetricCard label="Fractional Customers" value={m.fractionalCount ?? fractionalCount} />
+          <MetricCard label="Advisor MRR" value={m.advisorMRR ? `$${m.advisorMRR}` : '—'} />
+          <MetricCard label="Fractional MRR" value={m.fractionalMRR ? `$${m.fractionalMRR}` : '—'} />
+        </div>
+      </div>
+
+      {/* Work Orders */}
+      <div>
+        <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Work Orders</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <MetricCard label="New This Month" value={wo.newThisMonth ?? '—'} />
+          <MetricCard label="Paid This Month" value={wo.paidThisMonth ?? '—'} />
+          <MetricCard label="Revenue This Month" value={wo.revenueThisMonth ? `$${wo.revenueThisMonth}` : '—'} />
+          <MetricCard label="Awaiting Scope" value={wo.awaitingScope ?? '—'} />
+          <MetricCard label="Awaiting Payment" value={wo.awaitingPayment ?? '—'} />
+          <MetricCard label="In Progress" value={wo.inProgress ?? '—'} />
+          <MetricCard label="Delivered" value={wo.delivered ?? '—'} />
+        </div>
+      </div>
+
+      {/* Failures */}
+      <div>
+        <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Failures</h4>
+        <div className="grid grid-cols-3 gap-3">
+          <MetricCard label="Fulfillment Failures" value={failures.fulfillment ?? 0} accent={failures.fulfillment > 0 ? 'red' : undefined} />
+          <MetricCard label="Provisioning Failures" value={failures.provisioning ?? 0} accent={failures.provisioning > 0 ? 'red' : undefined} />
+          <MetricCard label="Payment Issues" value={failures.payment ?? 0} accent={failures.payment > 0 ? 'red' : undefined} />
+        </div>
+      </div>
+
+      {/* Funnel */}
+      {m.funnel && (
+        <div>
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Funnel</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <MetricCard label="Intake Started" value={m.funnel.intakeStarted ?? '—'} />
+            <MetricCard label="Scope Prepared" value={m.funnel.scopePrepared ?? '—'} />
+            <MetricCard label="Scope Accepted" value={m.funnel.scopeAccepted ?? '—'} />
+            <MetricCard label="Paid" value={m.funnel.paid ?? '—'} />
+            <MetricCard label="Delivered" value={m.funnel.delivered ?? '—'} />
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="text-xs text-muted-foreground">Note: Some metrics may be unavailable. {error}</div>
+      )}
+    </div>
+  )
+}
+
+function MetricCard({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
+  const cls = accent === 'red' ? 'text-red-600' : 'text-foreground'
+  return (
+    <div className="border rounded-lg p-3">
+      <div className={`text-xl font-bold ${cls}`}>{value}</div>
+      <div className="text-xs text-muted-foreground mt-0.5">{label}</div>
+    </div>
   )
 }

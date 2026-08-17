@@ -85,6 +85,37 @@ export default async function MembersPage({
     .eq('organization_id', ctx.organization.id)
     .order('created_at', { ascending: false })
 
+  // Fetch Advisor service seats (member_offering_roles for ai_advisor_desk)
+  const { data: advisorOffering } = await serviceClient
+    .from('offerings')
+    .select('id')
+    .eq('offering_key', 'ai_advisor_desk')
+    .single()
+
+  let advisorSeats: Array<{
+    user_id: string
+    email: string
+    display_name: string
+  }> = []
+
+  if (advisorOffering) {
+    const { data: seatRows } = await serviceClient
+      .from('member_offering_roles')
+      .select(`
+        user_id,
+        profiles!inner(email, display_name)
+      `)
+      .eq('organization_id', ctx.organization.id)
+      .eq('offering_id', advisorOffering.id)
+      .eq('status', 'active')
+
+    advisorSeats = (seatRows || []).map((s: any) => ({
+      user_id: s.user_id,
+      email: s.profiles?.email || '',
+      display_name: s.profiles?.display_name || '',
+    }))
+  }
+
   return (
     <MembersClient
       user={user}
@@ -98,6 +129,7 @@ export default async function MembersPage({
         status: m.status,
         joined_at: m.joined_at,
       }))}
+      advisorSeats={advisorSeats}
       invitations={(invitations || []).map((i: any) => ({
         id: i.id,
         email: i.email,
