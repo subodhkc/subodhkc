@@ -54,6 +54,7 @@ export interface AttentionQueueItem {
   organization_id: string
   organization_name: string
   organization_slug: string
+  entity_id: string | null
   item_type: string
     // 'new_advisor_question' | 'new_fractional_desk_item' | 'evidence_uploaded'
     // | 'opportunity_awaiting_review' | 'decision_awaiting_review'
@@ -335,7 +336,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
   // 1. New advisor questions (from $99 clients)
   const { data: questions } = await sc
     .from('advisor_questions')
-    .select('id, organization_id, title, created_at, status, organizations!inner(name, slug)')
+    .select('id, organization_id, subject, created_at, status, organizations!inner(name, slug)')
     .in('status', ['submitted', 'under_review'])
     .order('created_at', { ascending: false })
     .limit(50)
@@ -346,13 +347,14 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: q.organization_id,
       organization_name: (q as any).organizations?.name || 'Unknown',
       organization_slug: (q as any).organizations?.slug || '',
+      entity_id: q.id,
       item_type: 'new_advisor_question',
       priority: ageHours > 72 ? 'high' : ageHours > 48 ? 'medium' : 'low',
       age_hours: ageHours,
       target_date: null,
       status: q.status || 'submitted',
       direct_link: `/app/${(q as any).organizations?.slug}/advisor-desk`,
-      title: q.title || 'New advisor question',
+      title: q.subject || 'New advisor question',
       dismissable: false,
     })
   }
@@ -371,6 +373,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: i.organization_id,
       organization_name: (i as any).organizations?.name || 'Unknown',
       organization_slug: (i as any).organizations?.slug || '',
+      entity_id: i.id,
       item_type: 'new_fractional_desk_item',
       priority: ageHours > 48 ? 'high' : ageHours > 24 ? 'medium' : 'low',
       age_hours: ageHours,
@@ -396,6 +399,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: d.organization_id,
       organization_name: (d as any).organizations?.name || 'Unknown',
       organization_slug: (d as any).organizations?.slug || '',
+      entity_id: d.id,
       item_type: 'decision_awaiting_review',
       priority: d.status === 'decision_ready' ? 'high' : 'medium',
       age_hours: ageHours,
@@ -421,6 +425,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: o.organization_id,
       organization_name: (o as any).organizations?.name || 'Unknown',
       organization_slug: (o as any).organizations?.slug || '',
+      entity_id: o.id,
       item_type: 'opportunity_awaiting_review',
       priority: o.status === 'candidate' ? 'medium' : 'low',
       age_hours: ageHours,
@@ -454,6 +459,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
         organization_id: orgId,
         organization_name: (ent as any).organizations?.name || 'Unknown',
         organization_slug: (ent as any).organizations?.slug || '',
+        entity_id: null,
         item_type: 'activation_call_needed',
         priority: 'high',
         age_hours: 0,
@@ -482,6 +488,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
         organization_id: a.organization_id,
         organization_name: (a as any).organizations?.name || 'Unknown',
         organization_slug: (a as any).organizations?.slug || '',
+        entity_id: a.id,
         item_type: 'client_action_overdue',
         priority: ageHours > 72 ? 'high' : 'medium',
         age_hours: ageHours,
@@ -507,6 +514,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: b.organization_id,
       organization_name: (b as any).organizations?.name || 'Unknown',
       organization_slug: (b as any).organizations?.slug || '',
+      entity_id: b.id,
       item_type: 'monthly_brief_due',
       priority: 'medium',
       age_hours: 0,
@@ -529,6 +537,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: p.organization_id,
       organization_name: (p as any).organizations?.name || 'Unknown',
       organization_slug: (p as any).organizations?.slug || '',
+      entity_id: p.id,
       item_type: 'provisioning_failure',
       priority: 'high',
       age_hours: 0,
@@ -554,6 +563,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: f.organization_id || '',
       organization_name: (f as any).organizations?.name || 'System',
       organization_slug: (f as any).organizations?.slug || '',
+      entity_id: f.id,
       item_type: f.failure_type === 'haiec_provisioning' || f.failure_type === 'kestrel_provisioning' ? 'provisioning_failure' : 'payment_failure',
       priority: f.severity === 'critical' ? 'high' : f.severity === 'error' ? 'medium' : 'low',
       age_hours: ageHours,
@@ -595,6 +605,7 @@ export async function fetchAttentionQueue(): Promise<AttentionQueueItem[]> {
       organization_id: wo.organization_id,
       organization_name: org?.name || 'Unknown',
       organization_slug: org?.slug || '',
+      entity_id: wo.id,
       item_type: itemType,
       priority,
       age_hours: ageHours,

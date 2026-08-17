@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
       const sc = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
       const { data: question } = await sc
         .from('advisor_questions')
-        .select('id, organization_id, title, subject, question_body, status, request_category, created_at, answered_at, submitted_by, organizations!inner(name, slug)')
+        .select('id, organization_id, subject, question, context, status, request_category, created_at, responded_at, submitted_by, organizations!inner(name, slug)')
         .eq('id', questionId)
         .single()
       if (!question) return NextResponse.json({ error: 'not_found' }, { status: 404 })
@@ -52,7 +52,21 @@ export async function GET(request: NextRequest) {
     }
 
     if (view === 'queue') {
-      const items = await fetchAttentionQueue()
+      const rawItems = await fetchAttentionQueue()
+      // Map snake_case backend fields to camelCase frontend interface
+      const items = rawItems.map((item, idx) => ({
+        id: item.entity_id || `${item.organization_id}-${item.item_type}-${idx}`,
+        organization: item.organization_name,
+        orgSlug: item.organization_slug,
+        type: item.item_type,
+        priority: item.priority,
+        age: item.age_hours < 24 ? `${item.age_hours}h` : `${Math.floor(item.age_hours / 24)}d`,
+        ageHours: item.age_hours,
+        targetDate: item.target_date,
+        status: item.status,
+        title: item.title,
+        link: item.direct_link,
+      }))
       return NextResponse.json({ items, count: items.length })
     }
 

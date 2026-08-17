@@ -1055,7 +1055,7 @@ function QuestionActionPanel({
       const res = await fetch(`/api/admin/advisor-questions/${questionId}/recommend-work-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ suggestedWorkType: 'research', suggestedOutcome: question?.title || '' }),
+        body: JSON.stringify({ suggestedWorkType: 'research', suggestedOutcome: question?.subject || '' }),
       })
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
@@ -1118,8 +1118,8 @@ function QuestionActionPanel({
                   <span>·</span>
                   <span>{new Date(question.created_at).toLocaleString()}</span>
                 </div>
-                <h4 className="text-base font-semibold">{question.title}</h4>
-                {question.question_body && <p className="text-sm text-muted-foreground whitespace-pre-wrap">{question.question_body}</p>}
+                <h4 className="text-base font-semibold">{question.subject}</h4>
+                {question.question && <p className="text-sm text-muted-foreground whitespace-pre-wrap">{question.question}</p>}
               </div>
 
               <div>
@@ -1257,8 +1257,16 @@ function WorkOrderActionPanel({
   async function handleSaveScope(send: boolean) {
     try {
       await apiCall(`/api/admin/work-orders/${workOrderId}/scope`, 'PATCH', {
-        ...scopeData,
-        action: send ? 'send' : 'save_draft',
+        scopeTitle: scopeData.title,
+        scopeIncluded: scopeData.scopeIncluded,
+        scopeExcluded: scopeData.scopeExcluded,
+        requiredInputs: scopeData.requiredInputs,
+        deliverableDescription: scopeData.deliverableDescription,
+        desiredOutcome: scopeData.desiredOutcome,
+        workType: scopeData.workType,
+        targetTiming: scopeData.targetTiming,
+        priceCents: Math.round(scopeData.price * 100),
+        sendToClient: send,
       })
       onSuccess(send ? 'Scope sent to customer' : 'Scope draft saved')
       onClose()
@@ -1278,7 +1286,7 @@ function WorkOrderActionPanel({
     try {
       await apiCall(`/api/admin/work-orders/${workOrderId}/updates`, 'POST', {
         body: updateText.trim(),
-        isInternal: updateIsInternal,
+        isClientVisible: !updateIsInternal,
         updateType: updateIsInternal ? 'internal_note' : 'client_update',
       })
       onSuccess(updateIsInternal ? 'Internal note saved' : 'Client update published')
@@ -1290,7 +1298,13 @@ function WorkOrderActionPanel({
   async function handlePublishDeliverable() {
     if (!deliverable.title.trim()) return
     try {
-      await apiCall(`/api/admin/work-orders/${workOrderId}/deliverables`, 'POST', deliverable)
+      await apiCall(`/api/admin/work-orders/${workOrderId}/deliverables`, 'POST', {
+        title: deliverable.title,
+        description: deliverable.description,
+        artifactType: deliverable.artifactType,
+        artifactUrl: deliverable.url,
+        isClientVisible: deliverable.clientVisible,
+      })
       onSuccess('Deliverable published')
       setDeliverable({ title: '', description: '', artifactType: 'document', url: '', clientVisible: true })
     } catch (err: any) { setError(err.message) }
@@ -1299,7 +1313,12 @@ function WorkOrderActionPanel({
   async function handleRequestInput() {
     if (!inputRequest.title.trim()) return
     try {
-      await apiCall(`/api/admin/work-orders/${workOrderId}/request-input`, 'POST', inputRequest)
+      await apiCall(`/api/admin/work-orders/${workOrderId}/request-input`, 'POST', {
+        requestTitle: inputRequest.title,
+        whatIsNeeded: inputRequest.whatIsNeeded,
+        whyItMatters: inputRequest.whyItMatters,
+        dueDate: inputRequest.dueDate || undefined,
+      })
       onSuccess('Client input requested')
       setInputRequest({ title: '', whatIsNeeded: '', whyItMatters: '', dueDate: '' })
     } catch (err: any) { setError(err.message) }
