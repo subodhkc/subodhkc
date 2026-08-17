@@ -42,9 +42,9 @@ ${categories}
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Yeti AI Writer - AI Governance &amp; Architecture Blog</title>
+    <title>Writing | AI Systems, Decisions &amp; Field Notes | Subodh KC</title>
     <link>${SITE_URL}/blog</link>
-    <description>Practical articles on AI governance, compliance automation, enterprise AI architecture, and production AI systems. No fluff - frameworks, patterns, and steps you can apply.</description>
+    <description>Articles and field notes on AI systems, governance, decisions, architecture, compliance automation, and production AI. Practical writing from enterprise implementation experience.</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />

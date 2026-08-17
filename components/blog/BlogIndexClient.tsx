@@ -182,7 +182,7 @@ export function BlogIndexClient({ posts, blogJsonLd, breadcrumbJsonLd }: BlogInd
           color: "var(--fg)",
         }}
       >
-        AI Governance & Architecture
+        Writing
       </h1>
       <p
         style={{
@@ -193,8 +193,9 @@ export function BlogIndexClient({ posts, blogJsonLd, breadcrumbJsonLd }: BlogInd
           margin: "0 0 40px",
         }}
       >
-        Practical articles on AI governance, compliance automation, enterprise AI architecture,
-        and production AI systems. No fluff - frameworks, patterns, and steps you can apply.
+        Articles and field notes on AI systems, governance, decisions, architecture,
+        compliance automation, and production AI. Practical writing from enterprise
+        implementation experience.
       </p>
 
       {allKeywords.length > 0 && (
