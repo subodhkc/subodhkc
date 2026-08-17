@@ -298,7 +298,7 @@ export default function AIAdvisorPage() {
               <div className="space-y-2">
                 <div className="flex items-baseline gap-3">
                   <span className="text-3xl md:text-4xl font-bold">$99<span className="text-lg font-normal text-muted-foreground">/month</span></span>
-                  <span className="text-sm text-muted-foreground">Up to 3 people</span>
+                  <span className="text-sm text-muted-foreground">Activation call included</span>
                 </div>
                 <p className="text-sm text-muted-foreground">Month-to-month. Cancel anytime.</p>
               </div>

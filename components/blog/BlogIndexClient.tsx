@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from "react"
 import Link from "next/link"
-import { calculateReadingTime } from "@/lib/blog-utils"
 import type { BlogPostSummary } from "@/lib/blog"
 
 interface BlogIndexClientProps {
@@ -96,7 +95,7 @@ export function BlogIndexClient({ posts, blogJsonLd, breadcrumbJsonLd }: BlogInd
     const pinClass = v.pin === "tape" ? "blog-note-taped" : ""
     const titleClass = `blog-note-title-${v.titleStyle}`
     const excerptClass = v.excerptStyle === "serif" ? "blog-note-excerpt-serif" : "blog-note-excerpt"
-    const readTime = calculateReadingTime(post.contentHtml)
+    const readTime = post.readingTimeMinutes
     const date = formatDate(post.createdAt)
 
     let metaContent: React.ReactNode = null

@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { calculateReadingTime } from './blog-utils'
 
 export interface BlogPost {
   id: number
@@ -27,13 +28,13 @@ export interface BlogPostSummary {
   title: string
   slug: string
   metaDescription: string
-  contentHtml: string
   heroImageUrl: string | null
   excerpt: string | null
   createdAt: string
   updatedAt?: string
   keywords: string[]
   seedKeyword: string | null
+  readingTimeMinutes: number
   downloadableUrl?: string | null
   downloadableLabel?: string | null
 }
@@ -52,12 +53,18 @@ function readPostFile(slug: string): BlogPost | null {
 }
 
 export function getAllPosts(): BlogPostSummary[] {
+  let files: string[]
   try {
-    const files = fs.readdirSync(POSTS_DIR)
-    const posts: BlogPostSummary[] = []
+    files = fs.readdirSync(POSTS_DIR)
+  } catch {
+    return []
+  }
 
-    for (const file of files) {
-      if (!file.endsWith('.json')) continue
+  const posts: BlogPostSummary[] = []
+
+  for (const file of files) {
+    if (!file.endsWith('.json')) continue
+    try {
       let raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
       if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1)
       const post: BlogPost = JSON.parse(raw)
@@ -66,23 +73,24 @@ export function getAllPosts(): BlogPostSummary[] {
         title: post.title,
         slug: post.slug,
         metaDescription: post.metaDescription,
-        contentHtml: post.contentHtml,
         heroImageUrl: post.heroImageUrl,
         excerpt: post.excerpt,
         createdAt: post.createdAt,
         updatedAt: post.updatedAt,
         keywords: post.keywords || [],
         seedKeyword: post.seedKeyword || null,
+        readingTimeMinutes: calculateReadingTime(post.contentHtml || ''),
         downloadableUrl: post.downloadableUrl || null,
         downloadableLabel: post.downloadableLabel || null,
       })
+    } catch {
+      // Skip this file — don't fail the entire list
+      continue
     }
-
-    posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    return posts
-  } catch {
-    return []
   }
+
+  posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+  return posts
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {

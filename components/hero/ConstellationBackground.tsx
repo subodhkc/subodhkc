@@ -10,24 +10,24 @@ import { Glyph } from "@/components/Glyph";
 import { PRODUCTS, type Product } from "@/data/products";
 
 // Curated node layout — positions avoid the hero text area (left-center).
-// Nodes cluster toward edges and right side, leaving the H1/tagline zone clear.
-// Radii are kept small (10-14) so nodes remain subtle at all viewport sizes.
+// Nodes cluster toward the right side and edges, leaving the H1/tagline zone clear.
+// Radii are kept very small (5-8) so nodes remain subtle at all viewport sizes.
 const NODES = [
-  { x: 920, y: 45,  r: 10, d: 0 },
-  { x: 840, y: 110, r: 12, d: 0.4 },
-  { x: 950, y: 200, r: 10, d: 0.8 },
-  { x: 760, y: 55,  r: 10, d: 1.2 },
-  { x: 700, y: 180, r: 11, d: 1.6 },
-  { x: 620, y: 100, r: 10, d: 2.0 },
-  { x: 580, y: 230, r: 10, d: 2.4 },
-  { x: 520, y: 160, r: 12, d: 2.8 },
-  { x: 440, y: 70,  r: 10, d: 3.2 },
-  { x: 390, y: 210, r: 11, d: 3.6 },
-  { x: 310, y: 120, r: 10, d: 4.0 },
-  { x: 250, y: 250, r: 10, d: 4.4 },
-  { x: 190, y: 90,  r: 10, d: 4.8 },
-  { x: 120, y: 200, r: 12, d: 5.2 },
-  { x: 50,  y: 130, r: 10, d: 5.6 },
+  { x: 930, y: 40,  r: 6, d: 0 },
+  { x: 870, y: 90,  r: 7, d: 0.4 },
+  { x: 960, y: 160, r: 6, d: 0.8 },
+  { x: 800, y: 50,  r: 6, d: 1.2 },
+  { x: 740, y: 140, r: 7, d: 1.6 },
+  { x: 680, y: 80,  r: 6, d: 2.0 },
+  { x: 640, y: 190, r: 6, d: 2.4 },
+  { x: 580, y: 130, r: 7, d: 2.8 },
+  { x: 520, y: 60,  r: 6, d: 3.2 },
+  { x: 470, y: 170, r: 6, d: 3.6 },
+  { x: 410, y: 100, r: 6, d: 4.0 },
+  { x: 360, y: 210, r: 6, d: 4.4 },
+  { x: 300, y: 70,  r: 6, d: 4.8 },
+  { x: 250, y: 160, r: 7, d: 5.2 },
+  { x: 190, y: 110, r: 6, d: 5.6 },
 ];
 
 const EDGES: Array<[number, number, number]> = [
@@ -88,7 +88,7 @@ export function ConstellationBackground() {
           width: "100%",
           height: "100%",
           display: "block",
-          opacity: 0.28,
+          opacity: 0.22,
         }}
       >
         {/* Edges — static base line + subtle flowing dash */}
@@ -134,32 +134,32 @@ export function ConstellationBackground() {
                 transformBox: "fill-box",
               }}>
                 {/* Outer ring — very subtle */}
-                <circle r={N.r + 4} fill="none" stroke="var(--op-accent)" strokeWidth="0.5" opacity="0.15" />
+                <circle r={N.r + 3} fill="none" stroke="var(--op-accent)" strokeWidth="0.4" opacity="0.12" />
                 {/* Node body */}
-                <circle r={N.r} fill="var(--op-card)" stroke="var(--op-border)" strokeWidth="0.8" opacity="0.7" />
+                <circle r={N.r} fill="var(--op-card)" stroke="var(--op-border)" strokeWidth="0.6" opacity="0.65" />
                 {/* Glyph icon */}
-                <g transform={`translate(-${N.r * 0.55} -${N.r * 0.55})`} style={{ color: "var(--op-accent)", opacity: 0.5 }}>
-                  <Glyph kind={p.glyph} size={N.r * 1.1} />
+                <g transform={`translate(-${N.r * 0.5} -${N.r * 0.5})`} style={{ color: "var(--op-accent)", opacity: 0.45 }}>
+                  <Glyph kind={p.glyph} size={N.r} />
                 </g>
               </g>
               {/* Hover label — CSS controls visibility via class, not inline style */}
               <g className="constellation-bg-label" pointerEvents="none">
                 <rect
                   x={-labelWidth / 2}
-                  y={N.r + 5}
+                  y={N.r + 4}
                   width={labelWidth}
-                  height="16"
-                  rx="3"
+                  height="14"
+                  rx="2"
                   fill="var(--op-card)"
                   stroke="var(--op-border)"
-                  strokeWidth="0.6"
+                  strokeWidth="0.5"
                   opacity="0.95"
                 />
                 <text
                   x={0}
-                  y={N.r + 16}
+                  y={N.r + 14}
                   textAnchor="middle"
-                  fontSize="8"
+                  fontSize="7"
                   fontFamily="var(--font-mono)"
                   fill="var(--fg)"
                 >
@@ -169,7 +169,7 @@ export function ConstellationBackground() {
               {/* Invisible hit area for hover + click — desktop only via CSS */}
               <circle
                 className="constellation-bg-hit"
-                r={N.r + 8}
+                r={N.r + 6}
                 fill="transparent"
                 style={{ pointerEvents: "auto", cursor: "pointer" }}
                 data-href={p.primary.href}

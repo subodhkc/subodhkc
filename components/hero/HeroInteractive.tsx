@@ -30,7 +30,7 @@ export function HeroInteractive() {
       <ConstellationBackground />
       <Aurora />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 1240, margin: "0 auto", padding: "56px 28px 40px" }}>
+      <div className="hero-content-layer" style={{ position: "relative", zIndex: 1, maxWidth: 1240, margin: "0 auto", padding: "56px 28px 40px", pointerEvents: "none" }}>
         {/* Header line */}
         <div
           style={{
@@ -374,6 +374,7 @@ export function HeroInteractive() {
       </div>
 
       <style>{`
+        .hero-content-layer a, .hero-content-layer button { pointer-events: auto; }
         @media (max-width: 768px) {
           .hero-proof-grid {
             grid-template-columns: repeat(2, 1fr) !important;
