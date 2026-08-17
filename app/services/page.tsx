@@ -149,7 +149,7 @@ export default function ServicesPage() {
       >
         <div className="max-w-6xl mx-auto">
           {/* Depth progression bar */}
-          <div className="hidden md:flex items-center justify-center gap-2 mb-10">
+          <div className="flex items-center justify-center gap-2 mb-10 flex-wrap">
             <span className="text-sm font-medium text-muted-foreground">Shallow</span>
             <div className="flex items-center gap-1">
               {[1, 2, 3].map((d) => (

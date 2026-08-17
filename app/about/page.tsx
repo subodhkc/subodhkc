@@ -508,7 +508,7 @@ export default function AboutPage() {
         title="Discuss AI"
         description="Weighing an AI decision, exploring what AI could change in your organization, or working through a complex technical program. The conversation starts here."
         primaryButton={{ text: 'Discuss AI', href: '/contact?subject=discuss-ai' }}
-        secondaryButton={{ text: 'How I help', href: '/services' }}
+        secondaryButton={{ text: 'Services', href: '/services' }}
       />
       <div className="text-center pb-8">
         <Link href="/person/subodh-kc" className="text-sm text-muted-foreground hover:text-primary transition-colors">Person Profile →</Link>

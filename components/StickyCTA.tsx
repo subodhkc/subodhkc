@@ -22,6 +22,7 @@ export function StickyCTA() {
 
   return (
     <div
+      className="sticky-cta-wrapper"
       style={{
         position: 'fixed',
         bottom: 24,
@@ -36,6 +37,7 @@ export function StickyCTA() {
       <Link
         href="/ai-advisor"
         data-track-click="homepage_sticky_cta_click"
+        aria-label="Explore AI Advisor"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -56,6 +58,18 @@ export function StickyCTA() {
       >
         AI Advisor →
       </Link>
+      <style>{`
+        @media (max-width: 640px) {
+          .sticky-cta-wrapper {
+            bottom: 16px !important;
+            right: 16px !important;
+          }
+          .sticky-cta-wrapper a {
+            padding: 10px 18px !important;
+            font-size: 12px !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

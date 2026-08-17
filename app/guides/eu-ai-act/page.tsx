@@ -82,7 +82,7 @@ const faqs = [
   },
   {
     q: 'When does the EU AI Act take effect?',
-    a: 'The EU AI Act entered into force on August 1, 2024, with phased application. Prohibited practices apply from February 2, 2025. General-purpose AI model obligations apply from August 2, 2025. Full enforcement for high-risk AI systems applies from August 2, 2026. National AI authorities must be designated by August 2, 2025.',
+    a: 'The EU AI Act entered into force on August 1, 2024, with staged application. Prohibited practices apply from February 2, 2025. General-purpose AI model obligations apply from August 2, 2025. High-risk AI system obligations apply from August 2, 2026. Certain provisions (e.g., obligations for high-risk AI systems already on the market) apply from August 2, 2027. National AI authorities must be designated by August 2, 2025.',
   },
   {
     q: 'Who needs to comply with the EU AI Act?',
@@ -98,7 +98,7 @@ const faqs = [
   },
   {
     q: 'Does the EU AI Act have a cure period?',
-    a: 'No. Unlike the Texas TRAIGA, the EU AI Act does not provide a cure period. Non-compliance can result in immediate penalties. This makes proactive compliance preparation essential before the August 2026 full enforcement deadline.',
+    a: 'No. Unlike the Texas TRAIGA, the EU AI Act does not provide a cure period. Non-compliance can result in immediate penalties. This makes proactive compliance preparation essential before the August 2026 high-risk system obligations take effect.',
   },
   {
     q: 'How does the ISAF framework map to the EU AI Act?',
@@ -166,15 +166,16 @@ export default function EUAIActPage() {
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Like the GDPR, the EU AI Act has <strong>extraterritorial scope</strong> - US companies offering
-            AI to EU users must comply. The Act entered into force on August 1, 2024, with phased application
-            culminating in full enforcement for high-risk AI systems on <strong>August 2, 2026</strong>.
+            AI to EU users must comply. The Act entered into force on August 1, 2024, with staged application
+            of obligations through 2025-2027. High-risk AI system obligations apply from <strong>August 2, 2026</strong>,
+            with certain provisions extending to August 2, 2027.
           </p>
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
             <p className="text-sm font-medium text-primary mb-1">Key Facts</p>
             <ul className="text-sm text-muted-foreground space-y-1">
               <li><strong>Regulation:</strong> EU Regulation 2024/1689</li>
               <li><strong>Entered into force:</strong> August 1, 2024</li>
-              <li><strong>Full enforcement:</strong> August 2, 2026</li>
+              <li><strong>High-risk obligations:</strong> August 2, 2026 (staged through 2027)</li>
               <li><strong>Scope:</strong> All AI placed on EU market (extraterritorial)</li>
               <li><strong>Max penalty:</strong> €35M or 7% of global annual turnover</li>
               <li><strong>Cure period:</strong> None</li>
@@ -393,7 +394,7 @@ export default function EUAIActPage() {
       <Section
         subtitle="Action Items"
         title="EU AI Act Compliance Checklist"
-        description="A practical checklist for preparing for EU AI Act compliance before the August 2026 full enforcement deadline."
+        description="A practical checklist for preparing for EU AI Act compliance before the August 2026 high-risk system obligations take effect."
         id="compliance-checklist"
         className="bg-secondary/20"
       >
@@ -591,7 +592,7 @@ export default function EUAIActPage() {
       {/* ─── CTA ─── */}
       <CTA
         title="Prepare for EU AI Act Compliance"
-        description="Full enforcement begins August 2026. Get an EU AI Act risk assessment or compliance roadmap from Subodh KC - author of the ISAF framework published in Zenodo."
+        description="High-risk AI system obligations apply from August 2026. Get an EU AI Act risk assessment or compliance roadmap from Subodh KC - author of the ISAF framework published in Zenodo."
         primaryButton={{ text: 'Contact Subodh KC', href: '/contact' }}
         secondaryButton={{ text: 'View Advisory Services', href: '/advisory' }}
       />

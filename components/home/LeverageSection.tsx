@@ -148,6 +148,8 @@ export function LeverageSection() {
             <button
               key={area.label}
               onClick={() => setActive(i)}
+              aria-label={`Select ${area.label} stage`}
+              aria-pressed={active === i}
               data-track={`homepage_leverage_${area.label.toLowerCase()}_click`}
               style={{
                 appearance: "none",
