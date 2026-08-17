@@ -189,17 +189,20 @@ alter table public.ai_work_order_updates enable row level security;
 
 create policy "wo_updates_select_org_member" on public.ai_work_order_updates
   for select using (
-    exists (
-      select 1 from public.ai_work_orders wo
-      where wo.id = work_order_id
-      and (private.is_org_member(wo.organization_id) or private.is_platform_admin())
-    ) and is_client_visible = true
-  ) or (
-    -- Advisor/platform admin can see all updates including internal
-    exists (
-      select 1 from public.ai_work_orders wo
-      where wo.id = work_order_id
-      and private.is_platform_admin()
+    (
+      exists (
+        select 1 from public.ai_work_orders wo
+        where wo.id = work_order_id
+        and (private.is_org_member(wo.organization_id) or private.is_platform_admin())
+      ) and is_client_visible = true
+    )
+    or
+    (
+      exists (
+        select 1 from public.ai_work_orders wo
+        where wo.id = work_order_id
+        and private.is_platform_admin()
+      )
     )
   );
 
