@@ -1,9 +1,8 @@
-// components/SiteFooter.tsx - operator footer with portrait, newsletter, sitemap
+// components/SiteFooter.tsx - operator footer with newsletter, sitemap, contact
 "use client";
 
 import * as React from "react";
 import Script from "next/script";
-import Image from "next/image";
 import Link from "next/link";
 import { SafeEmail } from "./SafeEmail";
 
@@ -115,158 +114,6 @@ export function SiteFooter() {
 
   return (
     <footer id="contact" style={{ borderTop: "1px solid var(--op-border)", marginTop: 40, background: "var(--op-card)" }}>
-      {/* About + portrait */}
-      <div
-        id="about"
-        className="footer-about-grid"
-        style={{
-          maxWidth: 1240,
-          margin: "0 auto",
-          padding: "64px 28px 40px",
-          display: "grid",
-          gridTemplateColumns: "minmax(220px, 320px) 1fr",
-          gap: 56,
-          alignItems: "flex-start",
-          borderBottom: "1px solid var(--op-border)",
-        }}
-      >
-        <figure style={{ margin: 0, position: "relative" }}>
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: "4 / 5",
-              borderRadius: 6,
-              overflow: "hidden",
-              border: "1px solid var(--op-border)",
-              background: "var(--chip)",
-            }}
-          >
-            {([
-              { pos: { top: 8, left: 8 },    deg: 0 },
-              { pos: { top: 8, right: 8 },   deg: 90 },
-              { pos: { bottom: 8, right: 8 }, deg: 180 },
-              { pos: { bottom: 8, left: 8 }, deg: 270 },
-            ]).map(({ pos, deg }, i) => (
-              <svg
-                key={i}
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                stroke="var(--op-accent)"
-                strokeWidth="1.4"
-                style={{
-                  position: "absolute",
-                  ...pos,
-                  transform: `rotate(${deg}deg)`,
-                  zIndex: 2,
-                  opacity: 0.85,
-                } as React.CSSProperties}
-              >
-                <path d="M2 8 V2 H8" strokeLinecap="round" />
-              </svg>
-            ))}
-            <Image
-              src="/portrait.jpeg"
-              alt="Subodh KC, AI Advisor and AI Systems Architect"
-              fill
-              sizes="(max-width: 768px) 100vw, 320px"
-              style={{
-                objectFit: "cover",
-                objectPosition: "center 18%",
-                filter: "grayscale(0.18) contrast(1.04)",
-              }}
-            />
-          </div>
-          <figcaption
-            style={{
-              marginTop: 12,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              fontFamily: "var(--font-mono)",
-              fontSize: 11.5,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              color: "var(--text-secondary)",
-            }}
-          >
-            <span>fig.02 - operator</span>
-            <span>Dallas, TX</span>
-          </figcaption>
-        </figure>
-
-        <div>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "var(--op-accent)",
-              marginBottom: 16,
-            }}
-          >
-            03 / about
-          </div>
-          <h3
-            style={{
-              margin: 0,
-              fontSize: "clamp(22px, 3vw, 32px)",
-              fontWeight: 500,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.15,
-              color: "var(--fg)",
-            }}
-          >
-            <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>From possibility</span>{" "}
-            to decision. From decision to production.
-          </h3>
-          <p
-            style={{
-              fontSize: 15,
-              color: "var(--text-secondary)",
-              marginTop: 20,
-              lineHeight: 1.65,
-              maxWidth: 560,
-            }}
-          >
-            AI Advisor and AI Systems Architect. Former Fortune 50 Core Team Lead and Senior Technical
-            Program Manager. Founder of HAIEC and KestrelVoice. 16+ years across software,
-            infrastructure, enterprise program delivery, and applied AI systems. M.Sc. Engineering &
-            Technology Management, Louisiana Tech.
-          </p>
-          <div style={{ marginTop: 24, display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {[
-              ["Executive Bio", "/executive-bio"],
-              ["Speaking", "/speaking"],
-              ["Advisory", "/advisory"],
-              ["Person Profile", "/person/subodh-kc"],
-            ].map(([label, href]) => (
-              <Link
-                key={label as string}
-                href={href as string}
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 12,
-                  padding: "6px 11px",
-                  borderRadius: 999,
-                  border: "1px solid var(--op-border)",
-                  color: "var(--fg)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  textDecoration: "none",
-                }}
-              >
-                {label} <Arrow kind="right" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Newsletter + Reach + Now */}
       <div
         className="footer-info-grid"
@@ -383,7 +230,7 @@ export function SiteFooter() {
           <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14 }}>
             <li>
               <SafeEmail style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--fg)", textDecoration: "none" }}>
-                admin@subodhkc.com <Arrow kind="ext" />
+                subodhkc@subodhkc.com <Arrow kind="ext" />
               </SafeEmail>
             </li>
             <li>
@@ -535,14 +382,6 @@ export function SiteFooter() {
       {/* Responsive styles */}
       <style>{`
         @media (max-width: 768px) {
-          .footer-about-grid {
-            grid-template-columns: 1fr !important;
-            gap: 32px !important;
-            padding: 40px 20px 32px !important;
-          }
-          .footer-about-grid figure {
-            max-width: 240px;
-          }
           .footer-info-grid {
             grid-template-columns: 1fr !important;
             gap: 32px !important;

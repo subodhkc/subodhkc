@@ -34,7 +34,7 @@ const insightsLinks = [
 ];
 
 const aboutLinks = [
-  { name: "About", href: "/about", desc: "Background, story, and credentials" },
+  { name: "Overview", href: "/about", desc: "Background, story, and credentials" },
   { name: "Executive Bio", href: "/executive-bio", desc: "Executive biography" },
   { name: "Speaking", href: "/speaking", desc: "Speaking topics and bookings" },
 ];

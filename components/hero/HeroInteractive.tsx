@@ -1,7 +1,7 @@
 "use client";
 
 import { Aurora } from "./Aurora";
-import { DotGrid } from "./DotGrid";
+import { ConstellationBackground } from "./ConstellationBackground";
 
 const PROOF_POINTS = [
   { v: "16+", sub: "years", detail: "software, infrastructure, programs, AI systems" },
@@ -27,7 +27,7 @@ const EVIDENCE_NODES = [
 export function HeroInteractive() {
   return (
     <>
-      <DotGrid />
+      <ConstellationBackground />
       <Aurora />
 
       <div style={{ position: "relative", zIndex: 1, maxWidth: 1240, margin: "0 auto", padding: "56px 28px 40px" }}>

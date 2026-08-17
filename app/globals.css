@@ -554,6 +554,41 @@ section[id], [id] {
 .constellation-svg g[data-node]:hover circle[stroke="var(--op-accent)"] { opacity: 0.7; }
 .constellation-svg g[data-node]:hover circle[stroke="var(--op-border)"] { stroke-width: 1.5; }
 
+/* Constellation hero background — subtle, non-overlapping */
+.constellation-bg {
+  /* Fade the center-left text zone so nodes don't compete with H1/tagline */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%, black 100%),
+                      radial-gradient(ellipse 100% 100% at 100% 50%, black 40%, transparent 90%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0%, black 35%, black 100%),
+              radial-gradient(ellipse 100% 100% at 100% 50%, black 40%, transparent 90%);
+  mask-composite: intersect;
+}
+
+/* Desktop hover: brighten node + show label */
+@media (hover: hover) and (pointer: fine) {
+  .constellation-bg-node:hover .constellation-bg-label { opacity: 1 !important; transition: opacity .2s; }
+  .constellation-bg-node:hover .constellation-bg-float { opacity: 1 !important; }
+  .constellation-bg-node:hover .constellation-bg-float circle[fill="var(--op-card)"] { opacity: 0.95 !important; stroke-width: 1.2; }
+  .constellation-bg-node:hover .constellation-bg-float g[style*="color: var(--op-accent)"] { opacity: 0.9 !important; }
+}
+
+/* Mobile: disable all interaction, reduce visibility further */
+@media (max-width: 768px) {
+  .constellation-bg-svg { opacity: 0.18 !important; }
+  .constellation-bg-hit { pointer-events: none !important; cursor: default !important; }
+  .constellation-bg-label { display: none !important; }
+  .constellation-bg {
+    -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%) !important;
+    mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%) !important;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .constellation-bg-svg * { animation: none !important; }
+}
+
 /* Publication row accent rule draw-in */
 .paper-row:hover .paper-rule { height: 100%; }
 .paper-row:hover { background: var(--op-card); }
