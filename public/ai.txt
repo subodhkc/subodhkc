@@ -109,7 +109,7 @@
           "description": "Ongoing human AI advisory. Weekly signal, monthly point of view, and human advice when a decision matters. Up to 3 team members."
         },
         {
-          "name": "AI Opportunity & Workflow Assessment",
+          "name": "AI Work Order",
           "pricing": "$500 fixed",
           "url": "https://subodhkc.com/ai-automation",
           "description": "One opportunity, one primary workflow. Delivers an AI Automation Blueprint with buy/configure/build recommendation, architecture, and implementation roadmap."

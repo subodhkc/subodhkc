@@ -308,7 +308,7 @@ function ActivationCallStep({
         <div className="space-y-2 text-sm text-muted-foreground">
           <p className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />15-minute meeting, 30-minute slot held as padding</p>
           <p className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Complimentary, included with your subscription</p>
-          <p className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Does not count as a paid Workflow Decision Review</p>
+          <p className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Does not count as a paid AI Work Order</p>
           <p className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />Strongly recommended but not required to access the service</p>
         </div>
 

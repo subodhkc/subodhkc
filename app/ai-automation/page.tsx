@@ -15,40 +15,45 @@ import {
   DollarSign,
   Zap,
   ClipboardCheck,
+  Code,
+  FlaskConical,
+  ShieldCheck,
 } from 'lucide-react'
 import { BlueprintQualificationCTA } from '@/components/commercial/BlueprintQualificationCTA'
 
 export const metadata = {
-  title: 'AI Opportunity & Workflow Assessment | AI Automation Blueprint | Subodh KC',
+  title: 'AI Work Order | $500 Scoped AI Work | Subodh KC',
   description:
-    'AI Opportunity & Workflow Assessment: a focused $500 fixed-scope assessment of one opportunity and one primary workflow. You receive an AI Automation Blueprint with a yes/no answer, a buy/configure/build/wait recommendation, architecture, cost-benefit, and implementation roadmap. Delivered in 5 business days.',
+    'An AI Work Order is a bounded piece of work with one defined outcome. $500 standard scoped work order. It might be one workflow, one research question, one architecture decision, one implementation slice, or another focused unit of work. Available through the AI Advisor relationship.',
   alternates: {
     canonical: 'https://subodhkc.com/ai-automation',
   },
   openGraph: {
-    title: 'AI Opportunity & Workflow Assessment | AI Automation Blueprint',
+    title: 'AI Work Order | $500 Scoped AI Work | Subodh KC',
     description:
-      'A $500 fixed-scope assessment of one opportunity and one workflow. You receive an AI Automation Blueprint: yes/no answer, architecture, cost-benefit, and a clear buy/configure/build/wait recommendation. 5 business days.',
+      'One defined outcome. Scoped before work begins. $500 standard scoped work order. Available through the AI Advisor relationship.',
     url: 'https://subodhkc.com/ai-automation',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Opportunity & Workflow Assessment | $500 Fixed-Scope',
-    description: 'One opportunity, one workflow, one AI Automation Blueprint. $500 fixed. 5 business days.',
+    title: 'AI Work Order | $500 Scoped AI Work',
+    description: 'One defined outcome. Scoped before work begins. $500 standard work order.',
   },
   keywords: [
+    'AI work order',
     'AI opportunity assessment',
-    'AI opportunity assessment framework',
     'AI workflow assessment',
     'AI workflow analysis',
-    'AI automation blueprint',
-    'should I automate this workflow',
     'AI automation strategy',
-    'AI process optimization',
-    'buy configure build recommendation',
+    'should I automate this workflow',
+    'build vs buy AI',
+    'configure vs connect',
     'AI automation roadmap',
-    'business process automation',
+    'AI feasibility',
+    'AI vendor evaluation',
+    'AI architecture decision',
+    'scoped AI work',
     'Subodh KC',
   ],
 }
@@ -58,18 +63,18 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://subodhkc.com' },
-    { '@type': 'ListItem', position: 2, name: 'AI Opportunity & Workflow Assessment', item: 'https://subodhkc.com/ai-automation' },
+    { '@type': 'ListItem', position: 2, name: 'AI Work Order', item: 'https://subodhkc.com/ai-automation' },
   ],
 }
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'AI Opportunity & Workflow Assessment',
-  description: 'Fixed-scope $500 assessment of one opportunity and one primary workflow. Delivers an AI Automation Blueprint with yes/no recommendation, architecture, cost-benefit analysis, and buy/configure/build/wait recommendation.',
+  name: 'AI Work Order',
+  description: 'A standard scoped unit of AI work with one defined outcome. $500. May include workflow analysis, design, research, architecture decision, vendor evaluation, bounded implementation, or another focused deliverable. Available through the AI Advisor relationship.',
   url: 'https://subodhkc.com/ai-automation',
   provider: { '@type': 'Person', name: 'Subodh KC', url: 'https://subodhkc.com' },
-  serviceType: 'AI Opportunity Assessment',
+  serviceType: 'AI Work Order',
   areaServed: 'Global',
   offers: {
     '@type': 'Offer',
@@ -78,18 +83,28 @@ const serviceSchema = {
   },
 }
 
-const primaryQuestions = [
-  'Should you automate this at all?',
-  'Is AI the right tool, or would simpler software work?',
+const workOrderExamples = [
+  { icon: Workflow, title: 'Workflow', description: 'Map, analyze, or improve one intake or operational workflow.' },
+  { icon: Code, title: 'Build', description: 'Implement one bounded AI-assisted workflow or component.' },
+  { icon: Search, title: 'Research', description: 'Investigate one technical or business question and return findings.' },
+  { icon: ClipboardCheck, title: 'Architecture', description: 'Design one bounded architecture decision or integration slice.' },
+  { icon: ShieldCheck, title: 'Vendor', description: 'Evaluate a defined vendor or tool decision.' },
+  { icon: FlaskConical, title: 'Evaluation', description: 'Create or test one bounded evaluation, control, or proof of concept.' },
+]
+
+const decisionQuestions = [
+  'What are we trying to improve?',
+  'Should AI be involved?',
+  'Should we build, buy, configure, connect, simplify, wait, or stop?',
   'What should remain human?',
-  'What will it cost to build and run?',
-  'What happens when AI is wrong or unavailable?',
-  'What should you build first?',
+  'What does the architecture require?',
+  'What are the dependencies and failure modes?',
+  'What is worth doing next?',
 ]
 
 const fullQuestions = [
   'What business outcome are we actually trying to improve?',
-  'What exactly are we automating?',
+  'What exactly are we automating or investigating?',
   'Is AI appropriate for this workflow?',
   'How does the process work today?',
   'Where does manual effort, delay, friction or opportunity exist?',
@@ -107,7 +122,6 @@ const fullQuestions = [
   'Who must approve or intervene?',
   'What happens when AI is uncertain?',
   'What happens when AI is unavailable?',
-  'What happens when another integration is unavailable?',
   'What is the human fallback?',
   'What data does AI need to process?',
   'What sensitive information is involved?',
@@ -115,7 +129,6 @@ const fullQuestions = [
   'What external dependencies exist?',
   'What assumptions are we making?',
   'How will success be measured?',
-  'Do baseline data exist?',
   'What should a pilot demonstrate?',
   'Should we buy, configure, automate, custom build, or keep the current process?',
   'What is the realistic implementation cost range?',
@@ -133,53 +146,7 @@ const startingPoints = [
   'Email or call triage',
 ]
 
-const deliverables = [
-  {
-    icon: Search,
-    title: 'Current Workflow Map',
-    description: 'A detailed breakdown of your current workflow: inputs, outputs, bottlenecks, human decision points, and automation opportunities.',
-  },
-  {
-    icon: ClipboardCheck,
-    title: 'Buy / Configure / Build Recommendation',
-    description: 'A clear recommendation: should you buy existing software, configure a standard deployment, automate with AI, custom build, or keep the current process? The best solution is sometimes simpler than a custom build.',
-  },
-  {
-    icon: Workflow,
-    title: 'Recommended Future Workflow',
-    description: 'A step-by-step automation design showing how AI fits into your workflow. Includes human vs automation responsibilities, data flow, and fallback procedures.',
-  },
-  {
-    icon: FileText,
-    title: 'Implementation Roadmap',
-    description: 'A phased implementation plan with estimated timelines, costs, and resource requirements. You will know exactly what to build first, what to test, and when to deploy.',
-  },
-  {
-    icon: DollarSign,
-    title: 'Cost-Benefit Analysis',
-    description: 'Where measurable: hours, dollars, error rates. Includes a break-even calculation and implementation cost range. We do not promise savings where measurement is not available.',
-  },
-  {
-    icon: Zap,
-    title: 'Failure / Fallback Design',
-    description: 'What happens when AI is uncertain, unavailable, or when an integration fails. Human fallback design, business-rule exceptions, and security considerations.',
-  },
-]
-
-const process = [
-  { step: '1', title: 'Describe Your Opportunity', description: 'After starting, you receive a structured intake form. Describe the workflow you want assessed: what outcome you are trying to improve, what happens today, who is involved, and what tools you currently use.' },
-  { step: '2', title: 'Analysis Call (45 min)', description: 'A 45-minute call to walk through your workflow in detail, ask clarifying questions, and understand constraints. Recorded for reference.' },
-  { step: '3', title: 'Blueprint Delivery (5 business days)', description: 'You receive a written Blueprint document with all deliverables. Includes a review and walkthrough call to discuss findings and answer questions.' },
-  { step: '4', title: 'Optional Implementation', description: 'If you want help implementing the Blueprint, we can scope a separate engagement. The Blueprint is yours to keep and implement independently.' },
-]
-
-const boundaries = [
-  'This is a focused assessment: one opportunity, one primary workflow, one decision-ready Blueprint. It is not an enterprise-wide AI maturity audit, a multi-week organizational diagnostic, or a portfolio prioritization.',
-  'This covers one workflow. If you need multiple workflows analyzed, contact us for custom scoping.',
-  'This is an assessment and roadmap, not implementation. Building the automation is a separate engagement.',
-  'The 45-minute call and 5-business-day turnaround assume you submit the intake form within 3 business days of payment.',
-  'No refunds after the analysis call has been conducted, as the work is performed.',
-]
+const validOutcomes = ['Build', 'Buy', 'Configure', 'Integrate', 'Automate', 'Simplify', 'Wait', 'Keep current', 'Do not use AI']
 
 export default function AIAutomationPage() {
   return (
@@ -188,45 +155,80 @@ export default function AIAutomationPage() {
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
 
       <Hero
-        subtitle="AI Opportunity & Workflow Assessment · AI Automation Blueprint"
+        subtitle="AI Work Order · $500 standard scoped work order"
         title={
           <>
-            You don't need to know what to automate.
+            One defined outcome.
             <br />
-            <span className="gradient-text">Start with what you want to improve.</span>
+            <span className="gradient-text">Scoped before work begins.</span>
           </>
         }
-        description="The AI Opportunity & Workflow Assessment is a focused assessment of one opportunity and one primary workflow. See what you may be missing, test whether it matters, decide, then map the execution. You receive an AI Automation Blueprint: a written, decision-ready document with a yes/no recommendation, architecture, cost-benefit, and implementation roadmap. $500 fixed, delivered in 5 business days."
+        description="An AI Work Order is a bounded piece of work with a defined outcome. It might be one workflow, one research question, one architecture decision, one implementation slice, or another focused unit of work. The scope is agreed before work begins. If the work is larger, I will tell you before it starts. $500 standard work order. Available through the AI Advisor relationship."
       >
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="#start">
             <Button size="lg" className="group animate-glow">
-              Start My Assessment
+              Start My Work Order
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
           <Link href="/ai-advisor">
             <Button size="lg" variant="outline">
-              Prefer ongoing guidance? ($99/mo)
+              Join AI Advisor Desk ($99/mo)
             </Button>
           </Link>
         </div>
       </Hero>
 
+      {/* What fits */}
+      <Section
+        subtitle="What Fits"
+        title="What can fit into an AI Work Order?"
+        sectionNum="00"
+        className="bg-secondary/20"
+      >
+        <div className="max-w-5xl mx-auto">
+          <p className="text-base text-muted-foreground mb-6">
+            A Work Order is flexible. It is not narrowly a review, an assessment, or implementation.
+            It is a standard bounded unit of work. The actual output depends on agreed scope.
+          </p>
+          <Grid cols={3}>
+            {workOrderExamples.map((item, i) => {
+              const Icon = item.icon
+              return (
+                <Reveal key={i} delay={i * 60} style="up">
+                  <Card className="h-full">
+                    <CardHeader>
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                        <Icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <CardTitle className="text-base">{item.title}</CardTitle>
+                      <CardDescription className="text-sm mt-1">{item.description}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </Grid>
+          <p className="text-sm text-muted-foreground mt-6 text-center">
+            These are examples, not an exhaustive list. A larger project may require multiple Work Orders or a custom scoped engagement.
+          </p>
+        </div>
+      </Section>
+
       {/* Valid Outcomes */}
       <Section
         subtitle="Valid Outcomes"
         title="The honest answer might not be build."
-        sectionNum="00"
-        className="bg-secondary/20"
+        sectionNum="01"
       >
         <div className="max-w-4xl mx-auto">
           <p className="text-base text-muted-foreground mb-6">
-            A Blueprint can end in any of these recommendations. All of them are valid outcomes.
+            A Work Order can end in any of these recommendations. All of them are valid outcomes.
             The answer is allowed to be no.
           </p>
           <div className="flex flex-wrap gap-3">
-            {['Build', 'Buy', 'Configure', 'Integrate', 'Automate', 'Simplify', 'Wait', 'Keep current', 'Do not use AI'].map((outcome, i) => (
+            {validOutcomes.map((outcome, i) => (
               <span key={i} className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 {outcome}
@@ -239,12 +241,13 @@ export default function AIAutomationPage() {
       {/* Starting Points */}
       <Section
         subtitle="Starting Points"
-        title="Common workflows worth assessing."
-        sectionNum="01"
+        title="Common workflows worth investigating."
+        sectionNum="02"
+        className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
           <p className="text-base text-muted-foreground mb-6">
-            Not sure if your workflow is a good fit? These are common starting points. If yours is not on the list, describe it in the intake form. For a broader framework on how to identify where AI actually belongs in your business, read <Link href="/blog/where-should-company-use-ai" className="text-primary font-medium hover:underline">where should our company actually use AI</Link>.
+            Not sure if your workflow is a good fit? These are common starting points. If yours is not on the list, describe it in the intake. For a broader framework on how to identify where AI actually belongs in your business, read <Link href="/blog/where-should-company-use-ai" className="text-primary font-medium hover:underline">where should our company actually use AI</Link>.
           </p>
           <div className="flex flex-wrap gap-3">
             {startingPoints.map((s, i) => (
@@ -257,20 +260,20 @@ export default function AIAutomationPage() {
         </div>
       </Section>
 
-      {/* What Your Blueprint Answers */}
+      {/* Decision Methodology */}
       <Section
-        subtitle="What Your Blueprint Answers"
-        title="Six questions. One clear answer."
-        sectionNum="02"
+        subtitle="Decision Methodology"
+        title="Seven questions. One clear path."
+        sectionNum="03"
         className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto">
           <p className="text-base text-muted-foreground mb-6">
-            The Blueprint reduces uncertainty. It does not sell a meeting, a generic assessment, or consulting hours.
-            It sells a clear answer: should you automate this, and if so, how?
+            When the Work Order involves a workflow or build decision, these questions shape the analysis.
+            Not every Work Order uses all of them. The scope determines which apply.
           </p>
           <div className="grid md:grid-cols-2 gap-3">
-            {primaryQuestions.map((q, i) => (
+            {decisionQuestions.map((q, i) => (
               <div key={i} className="flex items-start gap-3 rounded-lg border border-border p-3">
                 <span className="text-primary mt-0.5 flex-shrink-0">
                   <CheckCircle2 className="h-4 w-4" />
@@ -281,7 +284,7 @@ export default function AIAutomationPage() {
           </div>
           <details className="mt-6">
             <summary className="cursor-pointer text-sm font-medium text-primary hover:underline">
-              See the full set of 30+ questions the Blueprint covers
+              See the full set of 30+ questions used for workflow assessments
             </summary>
             <div className="grid md:grid-cols-2 gap-3 mt-4">
               {fullQuestions.map((q, i) => (
@@ -297,52 +300,42 @@ export default function AIAutomationPage() {
         </div>
       </Section>
 
-      {/* What You Get */}
+      {/* Scope */}
       <Section
-        subtitle="Your Deliverable"
-        title="The AI Automation Blueprint"
-        description="The Assessment produces an AI Automation Blueprint: a written document with everything you need to automate your workflow or hand it to your team for implementation."
-        sectionNum="03"
-      >
-        <Grid cols={3}>
-          {deliverables.map((item, i) => {
-            const Icon = item.icon
-            return (
-              <Reveal key={i} delay={i * 60} style="up">
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <CardHeader>
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                      <Icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <CardTitle className="text-base">{item.title}</CardTitle>
-                    <CardDescription className="text-sm mt-1">{item.description}</CardDescription>
-                  </CardHeader>
-                </Card>
-              </Reveal>
-            )
-          })}
-        </Grid>
-      </Section>
-
-      {/* Process */}
-      <Section
-        subtitle="How It Works"
-        title="Four Steps. Five Business Days."
+        subtitle="Scope"
+        title="How scope works."
         sectionNum="04"
-        className="bg-secondary/20"
       >
-        <div className="max-w-3xl mx-auto">
-          <div className="space-y-3">
-            {process.map((phase) => (
-              <div key={phase.step} className="flex items-start gap-4 rounded-lg border border-border p-4">
-                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">{phase.step}</span>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{phase.title}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{phase.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="max-w-3xl mx-auto space-y-4">
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-lg">One Work Order, one defined outcome</CardTitle>
+              <CardDescription className="text-base">
+                A standard Work Order covers one bounded piece of work. The scope is agreed before work begins.
+                You know what is included, what is excluded, and what the intended deliverable is.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-lg">If the work is larger</CardTitle>
+              <CardDescription className="text-base">
+                If your request looks larger than one standard Work Order, I will tell you before it starts.
+                We can break it into additional Work Orders or scope a larger engagement.
+                No surprise change orders.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-l-4 border-l-primary">
+            <CardHeader>
+              <CardTitle className="text-lg">The deliverable depends on scope</CardTitle>
+              <CardDescription className="text-base">
+                A Work Order may produce analysis, research, a design, a recommendation, a configuration,
+                a bounded implementation, or another scoped deliverable. The output matches the agreed scope,
+                not a fixed template.
+              </CardDescription>
+            </CardHeader>
+          </Card>
         </div>
       </Section>
 
@@ -351,6 +344,7 @@ export default function AIAutomationPage() {
         subtitle="Why Trust This"
         title="Independent recommendations. Real implementation experience."
         sectionNum="05"
+        className="bg-secondary/20"
       >
         <div className="max-w-4xl mx-auto space-y-4">
           <Card className="border-l-4 border-l-primary">
@@ -358,18 +352,18 @@ export default function AIAutomationPage() {
               <CardTitle className="text-lg">The best solution is sometimes simpler than a custom build</CardTitle>
               <CardDescription className="text-base">
                 If existing software, a standard deployment, or another appropriate tool can solve the problem
-                efficiently, the Blueprint recommends that path. Independence of recommendation is an advantage,
+                efficiently, the Work Order recommends that path. Independence of recommendation is an advantage,
                 not a limitation.
               </CardDescription>
             </CardHeader>
           </Card>
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
-              <CardTitle className="text-lg">Real automation, not slides</CardTitle>
+              <CardTitle className="text-lg">Real implementation, not slides</CardTitle>
               <CardDescription className="text-base">
                 I have built production AI automations including voice agents that handle live calls,
                 compliance platforms that process evidence pipelines, and content systems that generate
-                and publish autonomously. The Blueprint methodology comes from real implementations.
+                and publish autonomously. The Work Order methodology comes from real implementations.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -387,29 +381,10 @@ export default function AIAutomationPage() {
         </div>
       </Section>
 
-      {/* Boundary */}
-      <Section
-        subtitle="Boundaries"
-        title="What This Is Not"
-        sectionNum="06"
-        className="bg-secondary/20"
-      >
-        <div className="max-w-3xl mx-auto">
-          <div className="space-y-3">
-            {boundaries.map((b, i) => (
-              <div key={i} className="flex items-start gap-3 rounded-lg border border-border p-4">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">{i + 1}</span>
-                <p className="text-sm text-muted-foreground">{b}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
       <div id="start">
         <BlueprintQualificationCTA
-          title="Should you automate this workflow? Get a clear answer for $500."
-          description="The AI Opportunity & Workflow Assessment analyzes one opportunity and one primary workflow. You receive an AI Automation Blueprint with a yes/no recommendation, buy/configure/build decision, architecture, cost-benefit, and implementation roadmap. Know what to build first and whether you should build at all."
+          title="Start your AI Work Order."
+          description="Describe what you need. You will see scope and membership options before payment. If you are already an AI Advisor member, you can continue to checkout. If not, you can join the AI Advisor Desk to commission this Work Order."
         />
       </div>
     </>

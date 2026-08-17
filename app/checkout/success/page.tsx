@@ -25,7 +25,7 @@ const OFFER_WORKSPACE_ROUTES: Record<string, string> = {
 const OFFER_DISPLAY_NAMES: Record<string, string> = {
   ai_advisor_desk: 'AI Advisor for Business',
   fractional_ai_advisor: 'Fractional AI Advisor',
-  ai_automation_blueprint: 'AI Opportunity & Workflow Assessment',
+  ai_automation_blueprint: 'AI Work Order',
   ai_security_compliance: 'AI Security & Compliance Review',
   saas_security_review: 'SaaS & AI Security Review',
   managed_voice: 'Managed AI Voice',

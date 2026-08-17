@@ -125,7 +125,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
       items: [
         { label: 'Services', href: '/services', icon: Briefcase },
         { label: 'AI Advisor Desk', href: '/ai-advisor', icon: Sparkles },
-        { label: 'AI Automation Blueprint', href: '/ai-automation', icon: Wrench },
+        { label: 'AI Work Order', href: '/ai-automation', icon: Wrench },
         { label: 'AI Voice Agent', href: '/ai-voice-agent', icon: Phone },
         { label: 'AI Security Review', href: '/ai-security-compliance', icon: Shield },
         { label: 'SaaS Security Review', href: '/saas-security-review', icon: Shield },

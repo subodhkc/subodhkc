@@ -14,17 +14,6 @@ interface TrackEvent {
   meta?: Record<string, string | number | boolean>
 }
 
-function hashIp(ip: string): string {
-  let hash = 0
-  const salted = `sk-analytics-${ip}`
-  for (let i = 0; i < salted.length; i++) {
-    const char = salted.charCodeAt(i)
-    hash = ((hash << 5) - hash) + char
-    hash = hash & hash
-  }
-  return `h_${Math.abs(hash).toString(36)}`
-}
-
 export async function POST(request: NextRequest) {
   const limited = rateLimit(request)
   if (limited) return limited
@@ -39,14 +28,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const ip =
-      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-      request.headers.get('x-real-ip') ||
-      'unknown'
-
+    // No IP collection for analytics.
+    // The ip_hash column remains nullable for backward compatibility but new events do not populate it.
     const userAgent = request.headers.get('user-agent') || 'unknown'
     const referer = body.ref || null
-    const ipHash = ip !== 'unknown' ? hashIp(ip) : null
 
     const supabase = createBrowserClient()
 
@@ -58,7 +43,7 @@ export async function POST(request: NextRequest) {
           path: body.path,
           referrer: referer,
           user_agent: userAgent,
-          ip_hash: ipHash,
+          ip_hash: null,
           session_id: body.sessionId || null,
           duration: body.duration || 0,
           meta: body.meta || {},

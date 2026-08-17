@@ -597,11 +597,11 @@ export function AdvisorDeskWorkspaceClient({
             Possibilities Worth Considering
           </h2>
 
-          {/* Workflow Decision Review - member benefit */}
+          {/* AI Work Order - member benefit */}
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 mb-3">
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1">
-                <h3 className="text-sm font-semibold">AI Workflow Decision Review</h3>
+                <h3 className="text-sm font-semibold">AI Work Order</h3>
                 <p className="text-xs text-muted-foreground mt-1">
                   A focused $500 investigation of one workflow or opportunity. Goes deeper than an advisory answer. Positioned for Advisor members.
                 </p>
@@ -612,7 +612,7 @@ export function AdvisorDeskWorkspaceClient({
               href="/ai-automation"
               className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3"
             >
-              Learn about the Workflow Decision Review
+              Learn about the AI Work Order
               <ChevronRight className="h-3 w-3" />
             </Link>
           </div>

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
 import { createOneTimeCheckout } from '@/lib/stripe/checkout'
 import { getOffer, type OfferKey } from '@/lib/commercial/offers'
-import { validateOrganizationForPurchase } from '@/lib/commercial/purchase-auth'
+import { validateOrganizationForPurchase, hasActiveEntitlement } from '@/lib/commercial/purchase-auth'
 import { createServiceClient } from '@/lib/supabase'
 import { rateLimit } from '@/lib/rate-limit'
 import { parseQualification, evaluateFit, toDbColumns } from '@/lib/commercial/blueprint-schema'
@@ -67,6 +67,24 @@ export async function POST(req: NextRequest) {
   }
 
   const { organization } = orgValidation
+
+  // ============================================
+  // MEMBERSHIP ENTITLEMENT CHECK
+  // ============================================
+  // AI Work Orders are available through the AI Advisor relationship.
+  // User must have an ACTIVE AI Advisor Desk OR Fractional AI Advisor entitlement.
+  // This check is placed at the transactional point, not before intake.
+  const hasAdvisorDesk = await hasActiveEntitlement(organization.id, 'ai_advisor_desk')
+  const hasFractional = await hasActiveEntitlement(organization.id, 'fractional_ai_advisor')
+  if (!hasAdvisorDesk && !hasFractional) {
+    return NextResponse.json({
+      error: 'membership_required',
+      message: 'AI Work Orders are available through the AI Advisor relationship.',
+      advisorDeskUrl: '/ai-advisor',
+      advisoryUrl: '/advisory',
+      signInUrl: '/api/auth/signin',
+    }, { status: 403 })
+  }
 
   // Determine fit decision using canonical schema (opportunity-first model)
   const fitResult = evaluateFit(qualification)

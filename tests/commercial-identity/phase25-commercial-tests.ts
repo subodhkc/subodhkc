@@ -81,8 +81,8 @@ async function testPublicOfferNames() {
   )
 
   assert(
-    publicOffers.includes("name: 'AI Opportunity & Workflow Assessment'"),
-    'Public offer should use "AI Opportunity & Workflow Assessment"'
+    publicOffers.includes("name: 'AI Work Order'"),
+    'Public offer should use "AI Work Order"'
   )
 
   assert(
@@ -268,18 +268,13 @@ async function testAIAutomationPage() {
   const page = await readFile('app/ai-automation/page.tsx')
 
   assert(
-    page.includes('AI Opportunity & Workflow Assessment'),
-    'AI automation page should use "AI Opportunity & Workflow Assessment" as service name'
+    page.includes('AI Work Order'),
+    'AI automation page should use "AI Work Order" as service name'
   )
 
   assert(
-    page.includes('AI Automation Blueprint'),
-    'AI automation page should still reference "AI Automation Blueprint" as the deliverable'
-  )
-
-  assert(
-    page.includes('name: \'AI Opportunity & Workflow Assessment\''),
-    'Service schema should use "AI Opportunity & Workflow Assessment"'
+    page.includes('name: \'AI Work Order\''),
+    'Service schema should use "AI Work Order"'
   )
 }
 
@@ -298,8 +293,8 @@ async function testHomepage() {
   )
 
   assert(
-    homepage.includes('AI Opportunity & Workflow Assessment'),
-    'Homepage should use "AI Opportunity & Workflow Assessment"'
+    homepage.includes('AI Work Order'),
+    'Homepage should use "AI Work Order"'
   )
 
   assert(

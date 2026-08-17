@@ -38,7 +38,7 @@ export type ConversionEventName =
   | 'advisor_activation_schedule_started'
   | 'advisor_activation_scheduled'
   | 'advisor_question_submitted'
-  // Workflow Decision Review funnel
+  // AI Work Order funnel
   | 'workflow_review_viewed'
   | 'workflow_review_started'
   | 'workflow_review_purchased'

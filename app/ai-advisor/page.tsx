@@ -130,8 +130,8 @@ const faqs = [
     a: 'No. I watch for regulatory changes and compliance signals and help you understand their business implications. For legal advice on regulatory compliance obligations, consult a licensed attorney. I can help you identify when a legal question deserves attention and prepare the context for that conversation.',
   },
   {
-    q: 'What is an AI Workflow Decision Review?',
-    a: 'An AI Workflow Decision Review is a focused $500 investigation of one workflow or opportunity. It goes deeper than an advisory answer: current process, actual problem, AI opportunity, options, buy or configure or connect or build or keep current, business value, implementation effort, data, integrations, feasibility, dependencies, security, governance, regulatory considerations, human fallback, and success measures. The outcome is a recommendation: proceed, investigate further, defer, or stop. It is available to Advisor members and is positioned as a deeper step when a single decision deserves more investigation.',
+    q: 'What is an AI Work Order?',
+    a: 'An AI Work Order is a focused $500 investigation of one workflow or opportunity. It goes deeper than an advisory answer: current process, actual problem, AI opportunity, options, buy or configure or connect or build or keep current, business value, implementation effort, data, integrations, feasibility, dependencies, security, governance, regulatory considerations, human fallback, and success measures. The outcome is a recommendation: proceed, investigate further, defer, or stop. It is available to Advisor members and is positioned as a deeper step when a single decision deserves more investigation.',
   },
   {
     q: 'How long should I use the Advisor Desk?',
@@ -240,7 +240,7 @@ const commercialLadder = [
   },
   {
     step: 'INVESTIGATE',
-    name: 'AI Workflow Decision Review',
+    name: 'AI Work Order',
     price: '$500 per workflow',
     desc: 'A focused decision on one opportunity or workflow. Positioned for Advisor members.',
   },
@@ -262,7 +262,7 @@ const boundaries = [
   'Reasonable-use focused advisory. No per-question metering, but this is not an unlimited consulting engagement.',
   'Most focused questions are reviewed within 72 hours. No guaranteed emergency support, no 24/7 monitoring, no managed incident response.',
   'Deeper research, document review, architecture work, or implementation is not silently billed. I flag it before any additional work begins and offer a scoped option.',
-  'The AI Workflow Decision Review exists for deeper single-workflow investigation. Fractional AI Advisor exists for sustained, interconnected work.',
+  'The AI Work Order exists for deeper single-workflow investigation. Fractional AI Advisor exists for sustained, interconnected work.',
   'No legal advice. For regulatory compliance obligations, consult a licensed attorney.',
   'No guaranteed compliance. No guaranteed business outcome.',
 ]
@@ -629,21 +629,21 @@ export default function AIAdvisorPage() {
       </Section>
 
       {/* ============================================
-          8. MEMBER-ONLY WORKFLOW DECISION REVIEW ($500)
+          8. MEMBER-ONLY AI WORK ORDER ($500)
           ============================================ */}
       <Section
         subtitle="When something deserves deeper investigation"
-        title="AI Workflow Decision Review"
+        title="AI Work Order"
         sectionNum="09"
         className="bg-secondary/20"
       >
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Some decisions need more than an advisory answer. Advisor members can commission a focused AI Workflow Decision Review for one workflow or opportunity.
+            Some decisions need more than an advisory answer. Advisor members can commission a focused AI Work Order for one workflow or opportunity.
           </p>
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 space-y-3">
             <div className="flex items-baseline justify-between">
-              <h3 className="text-lg font-semibold">AI Workflow Decision Review</h3>
+              <h3 className="text-lg font-semibold">AI Work Order</h3>
               <span className="text-2xl font-bold">$500<span className="text-sm font-normal text-muted-foreground"> /workflow</span></span>
             </div>
             <p className="text-sm text-muted-foreground">Positioned for Advisor members. A focused decision on one opportunity or workflow.</p>
@@ -673,7 +673,7 @@ export default function AIAdvisorPage() {
           <div className="flex flex-wrap gap-3">
             <Link href="/ai-automation">
               <Button variant="outline" size="sm">
-                Learn about the Workflow Decision Review
+                Learn about the AI Work Order
                 <ArrowRight className="ml-2 h-3 w-3" />
               </Button>
             </Link>

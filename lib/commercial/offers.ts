@@ -123,8 +123,8 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
 
   ai_automation_blueprint: {
     key: 'ai_automation_blueprint',
-    name: 'AI Automation Blueprint',
-    displayName: 'AI Opportunity & Workflow Assessment',
+    name: 'AI Work Order',
+    displayName: 'AI Work Order',
     billingMode: 'one_time',
     monthlyPriceCents: null,
     annualPriceCents: null,
@@ -138,7 +138,7 @@ export const COMMERCIAL_OFFERS: Record<OfferKey, CommercialOffer> = {
     requiresQualification: true,
     requiresAgreement: true,
     requiresSecurityAuthorization: false,
-    checkoutDescription: 'AI Opportunity & Workflow Assessment — fixed-scope assessment with AI Automation Blueprint deliverable',
+    checkoutDescription: 'AI Work Order — one defined outcome, scoped before work begins. $500 standard scoped work order.',
     includedProducts: null,
     serviceTerms: null,
     checkoutBullets: [],

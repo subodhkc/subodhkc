@@ -213,7 +213,7 @@ export default function ServicesPage() {
 
           {/* Member-only note */}
           <p className="text-sm text-muted-foreground mt-8 max-w-3xl mx-auto text-center">
-            Members can commission deeper Workflow Decision Reviews when one opportunity deserves focused
+            Members can commission AI Work Orders when one opportunity deserves focused
             investigation. Available under the Advisor relationship, not as a standalone public starting point.
           </p>
         </div>

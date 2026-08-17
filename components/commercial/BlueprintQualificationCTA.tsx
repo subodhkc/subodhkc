@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
 import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
@@ -11,7 +12,9 @@ interface BlueprintQualificationCTAProps {
   description: string
 }
 
-type Step = 'org' | 'qualification' | 'agreement' | 'checkout'
+type Step = 'intake' | 'org' | 'agreement' | 'checkout' | 'membership_required'
+
+const STORAGE_KEY = 'work_order_intake_draft'
 
 export function BlueprintQualificationCTA({ title, description }: BlueprintQualificationCTAProps) {
   const [responses, setResponses] = useState<Record<string, string>>({})
@@ -19,7 +22,7 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
   const [selectedOrg, setSelectedOrg] = useState<{ id: string; name: string; slug: string } | null>(null)
-  const [step, setStep] = useState<Step>('org')
+  const [step, setStep] = useState<Step>('intake')
   const [agreementText, setAgreementText] = useState<string | null>(null)
   const [agreementAccepted, setAgreementAccepted] = useState(false)
   const [showAllQuestions, setShowAllQuestions] = useState(false)
@@ -27,8 +30,33 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
   const primaryFields = QUALIFICATION_FIELDS.slice(0, 4)
   const secondaryFields = QUALIFICATION_FIELDS.slice(4)
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  // Restore intake draft from sessionStorage on mount
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (parsed && typeof parsed === 'object') {
+          setResponses(parsed)
+        }
+      }
+    } catch {
+      // Ignore storage errors
+    }
+  }, [])
+
+  // Persist intake responses to sessionStorage whenever they change
+  useEffect(() => {
+    if (Object.keys(responses).length > 0) {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(responses))
+      } catch {
+        // Ignore storage errors
+      }
+    }
+  }, [responses])
+
+  async function submitToCheckout() {
     if (!selectedOrg) {
       setError('Please select an organization first.')
       return
@@ -55,13 +83,20 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
       })
       const data = await res.json()
       if (data.url) {
+        // Clear draft after successful checkout start
+        try { sessionStorage.removeItem(STORAGE_KEY) } catch { /* ignore */ }
         window.location.href = data.url
       } else if (data.error === 'agreement_required') {
         setAgreementText(data.agreementBody || null)
         setStep('agreement')
         setAgreementAccepted(false)
+      } else if (data.error === 'membership_required') {
+        setStep('membership_required')
       } else if (data.error === 'not_a_fit') {
-        setError(data.message || 'Based on your responses, the Blueprint may not be the right fit.')
+        setError(data.message || 'Based on your responses, this may not be the right fit.')
+      } else if (res.status === 401) {
+        // Not authenticated - show membership prompt
+        setStep('membership_required')
       } else {
         setError(data.message || data.error || 'Failed to start checkout')
       }
@@ -71,11 +106,24 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
     setLoading(false)
   }
 
+  function handleIntakeSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const requiredFilled = REQUIRED_FIELDS.filter(
+      key => (responses[key] || '').trim().length >= 3
+    )
+    if (requiredFilled.length < MIN_REQUIRED_FILLED) {
+      setError('Please answer both required questions with at least a few words.')
+      return
+    }
+    setError(null)
+    // Move to org selection (auth/membership resolved at this point)
+    setStep('org')
+  }
+
   function handleAgreementAccept() {
     if (!agreementAccepted) return
     setStep('checkout')
-    // Re-submit with agreementAccepted = true
-    handleSubmit(new Event('submit') as unknown as React.FormEvent)
+    submitToCheckout()
   }
 
   return (
@@ -89,16 +137,41 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">{description}</p>
 
             {!showForm ? (
-              <Button size="lg" className="group" onClick={() => { setShowForm(true); setStep('org') }}>
-                Start My Blueprint — $500
+              <Button size="lg" className="group" onClick={() => { setShowForm(true); setStep('intake') }}>
+                Start My Work Order — $500
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
+            ) : step === 'membership_required' ? (
+              <div className="space-y-4">
+                <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+                  <p className="text-sm font-semibold mb-2">AI Work Orders are available through the AI Advisor relationship.</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Your intake has been saved. Join the AI Advisor Desk to commission this Work Order, or sign in if you are already a member.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <Link href="/ai-advisor">
+                      <Button size="lg" className="group">
+                        Start AI Advisor Desk — $99/month
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </Link>
+                    <Link href="/api/auth/signin">
+                      <Button size="lg" variant="outline">
+                        Sign in if you&apos;re already a member
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+                <Button type="button" size="sm" variant="ghost" onClick={() => { setStep('intake'); setShowForm(true) }}>
+                  Back to intake
+                </Button>
+              </div>
             ) : step === 'org' && !selectedOrg ? (
               <div className="space-y-4">
                 <p className="text-sm font-medium">Select which workspace this is for:</p>
-                <OrganizationSelectionStep onOrganizationSelected={(org) => { setSelectedOrg(org); setStep('qualification') }} />
-                <Button type="button" size="lg" variant="outline" onClick={() => setShowForm(false)}>
-                  Cancel
+                <OrganizationSelectionStep onOrganizationSelected={(org) => { setSelectedOrg(org); setStep('checkout'); submitToCheckout() }} />
+                <Button type="button" size="lg" variant="outline" onClick={() => setStep('intake')}>
+                  Back to intake
                 </Button>
               </div>
             ) : step === 'agreement' ? (
@@ -143,7 +216,7 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                       type="button"
                       size="sm"
                       variant="outline"
-                      onClick={() => { setStep('qualification'); setAgreementAccepted(false) }}
+                      onClick={() => { setStep('intake'); setAgreementAccepted(false) }}
                     >
                       Back
                     </Button>
@@ -151,18 +224,20 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                 </div>
                 {error && <p className="text-sm text-red-600">{error}</p>}
               </div>
-            ) : (
-              <form id="blueprint-form" onSubmit={handleSubmit} className="space-y-4">
-                <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
-                  For <strong>{selectedOrg?.name}</strong>{' '}
-                  <button
-                    type="button"
-                    onClick={() => { setSelectedOrg(null); setStep('org') }}
-                    className="text-xs text-muted-foreground hover:text-foreground underline ml-2"
-                  >
-                    Change
-                  </button>
-                </div>
+            ) : step === 'intake' || step === 'checkout' ? (
+              <form id="work-order-form" onSubmit={handleIntakeSubmit} className="space-y-4">
+                {selectedOrg && (
+                  <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
+                    For <strong>{selectedOrg.name}</strong>{' '}
+                    <button
+                      type="button"
+                      onClick={() => { setSelectedOrg(null); setStep('org') }}
+                      className="text-xs text-muted-foreground hover:text-foreground underline ml-2"
+                    >
+                      Change
+                    </button>
+                  </div>
+                )}
                 {primaryFields.map(q => (
                   <div key={q.key}>
                     <label className="text-sm font-medium block mb-1.5">
@@ -203,26 +278,35 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
                   {showAllQuestions ? (
                     <><ChevronUp className="h-3 w-3" /> Show fewer questions</>
                   ) : (
-                    <><ChevronDown className="h-3 w-3" /> Answer more questions for a richer Blueprint</>
+                    <><ChevronDown className="h-3 w-3" /> Answer more questions for a richer Work Order</>
                   )}
                 </button>
 
                 {error && <p className="text-sm text-red-600">{error}</p>}
                 <div className="flex gap-3">
-                  <Button type="submit" size="lg" disabled={loading} className="group">
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Continue to Checkout — $500
-                    {!loading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
-                  </Button>
+                  {step === 'intake' ? (
+                    <Button type="submit" size="lg" className="group">
+                      Continue
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  ) : (
+                    <Button type="button" size="lg" disabled={loading} className="group" onClick={submitToCheckout}>
+                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Continue to Checkout — $500
+                      {!loading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
+                    </Button>
+                  )}
                   <Button type="button" size="lg" variant="outline" onClick={() => setShowForm(false)}>
                     Cancel
                   </Button>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Qualification helps ensure your opportunity fits the fixed-scope Blueprint before payment.
-                </p>
+                {step === 'intake' && (
+                  <p className="text-xs text-muted-foreground">
+                    Describe what you need. You will see scope and membership options before payment.
+                  </p>
+                )}
               </form>
-            )}
+            ) : null}
           </div>
           <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
           <div className="absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />

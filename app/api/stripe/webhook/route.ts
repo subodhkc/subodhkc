@@ -366,7 +366,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         customerEmail,
         orgName,
         orgSlug,
-        offerName: 'AI Opportunity & Workflow Assessment',
+        offerName: 'AI Work Order',
         price: '$500 fixed',
         workspaceUrl: `${siteUrl}/app/${orgSlug}/blueprint`,
       })

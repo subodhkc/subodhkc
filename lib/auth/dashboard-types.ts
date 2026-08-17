@@ -67,7 +67,7 @@ const OFFERING_LABELS: Record<string, { label: string; description: string; kind
   kestrel: { label: 'KestrelVoice', description: 'Voice automation platform', kind: 'external_product' },
   six_stones_ai: { label: 'Six Stones AI', description: 'AI program management', kind: 'program' },
   ai_advisor_desk: { label: 'AI Advisor for Business', description: 'Ongoing human AI advisory subscription', kind: 'service' },
-  ai_automation_blueprint: { label: 'AI Opportunity & Workflow Assessment', description: 'Fixed-scope assessment with AI Automation Blueprint deliverable', kind: 'service' },
+  ai_automation_blueprint: { label: 'AI Work Order', description: 'Fixed-scope assessment with AI Automation Blueprint deliverable', kind: 'service' },
   managed_voice: { label: 'Managed AI Voice', description: 'Managed voice deployment service', kind: 'service' },
   ai_security_compliance: { label: 'AI Security & Compliance', description: 'AI security and compliance review', kind: 'service' },
   saas_security_review: { label: 'SaaS & AI Security Review', description: 'Focused application security review', kind: 'service' },

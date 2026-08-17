@@ -73,7 +73,7 @@ const PRODUCT_NAMES: Record<string, string> = {
   kestrel: 'KestrelVoice',
   fractional_ai_advisor: 'Fractional AI Advisor',
   ai_advisor_desk: 'AI Advisor for Business',
-  ai_automation_blueprint: 'AI Opportunity & Workflow Assessment',
+  ai_automation_blueprint: 'AI Work Order',
   saas_security_review: 'SaaS Security Review',
   ai_security_compliance: 'AI Security & Compliance',
 }

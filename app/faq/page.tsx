@@ -135,11 +135,11 @@ const faqs = [
       },
       {
         q: 'What services does Subodh KC offer?',
-        a: 'Three pillars: (1) AI Architecture & Integration - agentic systems, RAG, MCP integrations, workflow architecture; (2) AI Operations & Deployment - voice agents, monitoring, production hardening; (3) AI Governance & Assurance - compliance implementation (EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144), evidence architecture, drift controls. Commercial offers include AI Advisor for Business ($99/month), AI Opportunity & Workflow Assessment ($500 fixed, includes AI Automation Blueprint), Fractional AI Advisor ($1,250/month), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950).',
+        a: 'Three pillars: (1) AI Architecture & Integration - agentic systems, RAG, MCP integrations, workflow architecture; (2) AI Operations & Deployment - voice agents, monitoring, production hardening; (3) AI Governance & Assurance - compliance implementation (EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144), evidence architecture, drift controls. Commercial offers include AI Advisor for Business ($99/month), AI Work Order ($500 fixed, includes AI Automation Blueprint), Fractional AI Advisor ($1,250/month), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950).',
       },
       {
         q: 'How do I work with Subodh KC?',
-        a: 'Use the contact form at subodhkc.com/contact or email admin@subodhkc.com directly. Commercial offers include AI Advisor for Business ($99/month), AI Opportunity & Workflow Assessment ($500 fixed), Fractional AI Advisor ($1,250/month), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). He is also open to full-time Director/VP roles at enterprise, Series B+ startups, and AI-first companies.',
+        a: 'Use the contact form at subodhkc.com/contact or email admin@subodhkc.com directly. Commercial offers include AI Advisor for Business ($99/month), AI Work Order ($500 fixed), Fractional AI Advisor ($1,250/month), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). He is also open to full-time Director/VP roles at enterprise, Series B+ startups, and AI-first companies.',
       },
       {
         q: 'Does Subodh KC offer training or courses?',

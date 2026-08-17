@@ -125,7 +125,7 @@ export function CommercialDecisionSection() {
           </div>
         </Link>
 
-        {/* AI Opportunity & Workflow Assessment */}
+        {/* AI Work Order */}
         <Link
           href="/ai-automation"
           data-track-click="homepage_assessment"
@@ -158,7 +158,7 @@ export function CommercialDecisionSection() {
                 I want to find where AI could improve a workflow
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
-                AI Opportunity & Workflow Assessment &middot; $500 fixed
+                AI Work Order &middot; $500 fixed
               </p>
             </div>
           </div>

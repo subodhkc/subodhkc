@@ -29,7 +29,7 @@ export const commercialOffers: CommercialOffer[] = [
   },
   {
     id: 'automation-blueprint',
-    name: 'AI Opportunity & Workflow Assessment',
+    name: 'AI Work Order',
     route: '/ai-automation',
     pricingLabel: '$500 fixed',
     pricingDetail: 'One opportunity, one primary workflow. Includes AI Automation Blueprint.',

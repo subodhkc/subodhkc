@@ -715,7 +715,7 @@ export async function sendBlueprintPurchasedEmail(opts: {
   const { error } = await resend.emails.send({
     from: FROM,
     to: [to],
-    subject: 'Your AI Automation Blueprint is Starting',
+    subject: 'Your AI Work Order is Starting',
     html: `
       <!DOCTYPE html>
       <html>
@@ -729,7 +729,7 @@ export async function sendBlueprintPurchasedEmail(opts: {
               Hi ${customerName || 'there'},
             </p>
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
-              Your AI Automation Blueprint is underway. We are analyzing your workflow and will deliver your recommendation shortly.
+              Your AI Work Order is underway. We are analyzing your workflow and will deliver your recommendation shortly.
             </p>
             <p style="font-size: 14px; color: #6b7280; margin-bottom: 10px;">
               <strong>Objective:</strong> ${businessObjective}

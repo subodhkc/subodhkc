@@ -85,7 +85,7 @@
 
 ### Primary Pathways
 - **AI Advisor for Business:** $99/month ($990/year). Ongoing human AI advisory. Weekly signal, monthly point of view, and human advice when a decision matters. Up to 3 team members. [subodhkc.com/ai-advisor](https://subodhkc.com/ai-advisor)
-- **AI Opportunity & Workflow Assessment:** $500 fixed. One opportunity, one primary workflow. Delivers an AI Automation Blueprint with buy/configure/build recommendation, architecture, and implementation roadmap. [subodhkc.com/ai-automation](https://subodhkc.com/ai-automation)
+- **AI Work Order:** $500 fixed. One opportunity, one primary workflow. Delivers an AI Automation Blueprint with buy/configure/build recommendation, architecture, and implementation roadmap. [subodhkc.com/ai-automation](https://subodhkc.com/ai-automation)
 - **Fractional AI Advisor:** $1,250/month ($12,500/year). Executive AI advisory for higher-stakes decisions. Strategy, architecture, vendor evaluation, build-vs-buy, and roadmap review with context continuity. [subodhkc.com/advisory](https://subodhkc.com/advisory)
 
 ### Specific-Solution Pathways
@@ -446,7 +446,7 @@ CSM is a practitioner-developed governance methodology, not a certification, reg
 - [Person Profile](https://subodhkc.com/person/subodh-kc)
 - [Fractional AI Advisor ($1,250/mo)](https://subodhkc.com/advisory)
 - [AI Advisor for Business ($99/mo)](https://subodhkc.com/ai-advisor)
-- [AI Opportunity & Workflow Assessment ($500)](https://subodhkc.com/ai-automation)
+- [AI Work Order ($500)](https://subodhkc.com/ai-automation)
 - [AI Voice Agent (from $499/mo)](https://subodhkc.com/ai-voice-agent)
 - [AI Security & Compliance Review](https://subodhkc.com/ai-security-compliance)
 - [SaaS & AI Security Review](https://subodhkc.com/saas-security-review)

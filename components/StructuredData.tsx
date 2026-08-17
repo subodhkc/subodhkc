@@ -62,16 +62,6 @@ export default function StructuredData() {
         '@type': 'Country',
         name: 'United States',
       },
-      estimatedSalary: {
-        '@type': 'MonetaryAmountDistribution',
-        name: 'AI Systems Architect',
-        currency: 'USD',
-        percentile10: '120000',
-        percentile25: '150000',
-        percentile50: '180000',
-        percentile75: '220000',
-        percentile90: '280000',
-      },
       description: 'Expert in AI architecture, governance, compliance automation, and enterprise AI deployment',
     },
     alumniOf: {

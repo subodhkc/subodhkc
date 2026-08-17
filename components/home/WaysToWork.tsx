@@ -243,7 +243,7 @@ export function WaysToWork() {
         ))}
       </div>
 
-      {/* Workflow Decision Review note */}
+      {/* AI Work Order note */}
       <p
         style={{
           marginTop: 20,
@@ -253,7 +253,7 @@ export function WaysToWork() {
           lineHeight: 1.5,
         }}
       >
-        Members can commission deeper Workflow Decision Reviews ($500) when one opportunity
+        Members can commission AI Work Orders ($500) when one opportunity
         deserves focused investigation.
       </p>
 
