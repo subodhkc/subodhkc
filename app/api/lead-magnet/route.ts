@@ -78,8 +78,8 @@ export async function POST(request: NextRequest) {
               <div style="background: #f0fdf4; border-left: 4px solid #10B981; padding: 20px; margin-bottom: 30px; border-radius: 8px;">
                 <ul style="margin: 0; padding-left: 20px; color: #065f46;">
                   <li style="margin-bottom: 10px;"><strong>Cognitive Systems Management (CSM) Framework</strong> - Proven methodology for AI program delivery</li>
-                  <li style="margin-bottom: 10px;"><strong>5 Patent-Pending Methodologies</strong> - Adversarial Project Twin, AI Compliance Twin, Modular Audit Engine, Precision Drift Detector, Compliance Fingerprint Layer</li>
-                  <li style="margin-bottom: 10px;"><strong>SKC Meeting ResetFrame</strong> - Enterprise accountability framework</li>
+                  <li style="margin-bottom: 10px;"><strong>Patent-pending methodologies</strong> - Adversarial Project Twin, AI Compliance Twin, Modular Audit Engine, Precision Drift Detector, Compliance Fingerprint Layer</li>
+                  <li style="margin-bottom: 10px;"><strong>Enterprise accountability patterns</strong> - Governance and delivery frameworks</li>
                   <li style="margin-bottom: 10px;"><strong>Enterprise Implementation Strategies</strong> - Real-world deployment guidance</li>
                 </ul>
               </div>
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
               <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
                 <h3 style="color: #1f2937; margin-top: 0; font-size: 18px;">Need Help Implementing?</h3>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
-                  I work with Fortune 500 enterprises and Series B+ startups on AI compliance, governance, and technical program leadership.
+                  I work with enterprises and growth-stage companies on AI decisions, systems architecture, and technical program leadership.
                 </p>
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}/contact" 
                    style="display: inline-block; color: #10B981; text-decoration: none; font-weight: 600; font-size: 14px;">
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
             <div style="text-align: center; padding: 30px 20px; color: #9ca3af; font-size: 12px;">
               <p style="margin: 0 0 10px 0;">
                 <strong style="color: #6b7280;">Subodh KC</strong><br>
-                AI Advisor & Enterprise AI Governance Leader | Founder of Kestrel Voice | Founder of HAIEC
+                AI Advisor & AI Systems Architect | From possibility to decision. From decision to production.
               </p>
               <p style="margin: 10px 0;">
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'}" style="color: #10B981; text-decoration: none;">subodhkc.com</a> | 

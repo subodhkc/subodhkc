@@ -23,7 +23,7 @@
     "seedKeyword":  "AI voice agent architecture",
     "excerpt":  "How KestrelVoice works under the hood: telephony, adaptive orchestration, RAG, tool execution, degradation modes, security, and the evidence pipeline that makes AI voice agents production-ready.",
     "downloadableUrl":  "/downloads/ai-voice-agent-architecture-kestrelvoice-checklist.md",
-    "downloadableLabel":  "Download the How AI Voice Agents Checklist",
+    "downloadableLabel":  "Download the AI Voice Agent Architecture Checklist",
     "author":  "Subodh KC",
     "pillar":  "ai-operations-and-deployment"
 }

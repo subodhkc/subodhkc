@@ -62,7 +62,7 @@
   "seedKeyword": "immutable audit trails for SOC 2 AI compliance",
   "excerpt": "This guide outlines practical steps to implement immutable audit trails for SOC 2 compliance, enhancing data integrity and security.",
   "downloadableUrl": "/downloads/implementing-immutable-audit-trails-for-soc-2-ai-compliance-checklist.md",
-  "downloadableLabel": "Download the Implementing Immutable Audit Trails Checklist",
+  "downloadableLabel": "Download the Immutable Audit Trails Checklist",
   "author": "Subodh KC",
   "pillar": "ai-governance-and-evidence"
 }

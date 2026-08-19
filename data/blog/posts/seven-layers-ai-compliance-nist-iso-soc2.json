@@ -77,7 +77,7 @@
   "seedKeyword": "AI compliance framework",
   "excerpt": "AI compliance is not a single framework. The seven layers map NIST AI RMF, ISO 42001, and SOC 2 to legal obligations, security testing, architecture, evidence, and governance.",
   "downloadableUrl": "/downloads/seven-layers-ai-compliance-nist-iso-soc2-checklist.md",
-  "downloadableLabel": "Download the 7 Layers of AI Checklist",
+  "downloadableLabel": "Download the 7 Layers of AI Compliance Checklist",
   "author": "Subodh KC",
   "pillar": "ai-governance-and-evidence"
 }

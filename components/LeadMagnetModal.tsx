@@ -98,11 +98,11 @@ export default function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProp
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span>5 Patent-Pending AI Compliance Methodologies</span>
+                  <span>Patent-pending AI compliance methodologies</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span>SKC Meeting ResetFrame Implementation</span>
+                  <span>Enterprise accountability and governance patterns</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
@@ -113,22 +113,24 @@ export default function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProp
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <Input
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    disabled={status === 'loading'}
-                  />
-                </div>
-                <div>
-                  <Input
                     type="email"
                     placeholder="Your work email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={status === 'loading'}
+                    autoComplete="email"
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    disabled={status === 'loading'}
+                    autoComplete="name"
                   />
                 </div>
                 <Button 
