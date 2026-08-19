@@ -15,15 +15,41 @@ export interface FractionalAccessResult {
 }
 
 /**
+ * S4: Canonical list of offering keys that grant Fractional AI Advisor access.
+ * Centralized here so alias checks are NOT spread across pages and routes.
+ *
+ * Canonical key: 'fractional_ai_advisor'
+ * Legacy aliases: 'advisory', 'fractional_ai'
+ */
+export const FRACTIONAL_OFFERING_KEYS = [
+  'fractional_ai_advisor',
+  'advisory',
+  'fractional_ai',
+] as const
+
+export type FractionalOfferingKey = (typeof FRACTIONAL_OFFERING_KEYS)[number]
+
+/**
+ * Check if an offering key is a recognized Fractional key (canonical or alias).
+ */
+export function isFractionalOfferingKey(key: string): boolean {
+  return (FRACTIONAL_OFFERING_KEYS as readonly string[]).includes(key)
+}
+
+/**
  * Determine the Fractional workspace access state for an organization.
  *
- * - If the Fractional entitlement is active → 'active'
+ * S4: This is the CANONICAL access check. Do NOT call
+ * requireOfferingAccess(active) before this — that function is a binary
+ * active/inactive check and will deny read-only users entirely.
+ *
+ * - If the Fractional entitlement is active → 'active' (read/write)
  * - If the entitlement is expired but within 30 days of valid_until → 'readonly'
- * - Otherwise → 'expired'
+ * - Otherwise → 'expired' (deny)
  */
 export function getFractionalAccessState(ctx: OrganizationContext): FractionalAccessResult {
   const ent = ctx.entitlements.find(
-    e => e.offering_key === 'fractional_ai_advisor' || e.offering_key === 'advisory'
+    e => isFractionalOfferingKey(e.offering_key)
   )
 
   if (!ent) {
@@ -61,8 +87,23 @@ export function getFractionalAccessState(ctx: OrganizationContext): FractionalAc
 }
 
 /**
+ * Check if the user has ANY Fractional access (active or read-only).
+ * Use this for page-level access gates (can the user see the page at all?).
+ *
+ * S4: This replaces the pattern of calling requireOfferingAccess(active)
+ * which denies read-only users entirely.
+ */
+export function hasFractionalAccess(ctx: OrganizationContext): boolean {
+  const access = getFractionalAccessState(ctx)
+  return access.state === 'active' || access.state === 'readonly'
+}
+
+/**
  * Check if mutating operations are allowed.
  * Returns an error response if the workspace is in read-only or expired state.
+ *
+ * S4: This is the canonical mutation gate. API routes must call this before
+ * any write operation. Read-only users get 403 on mutations.
  */
 export function checkMutationAllowed(ctx: OrganizationContext): { allowed: true } | { allowed: false; status: number; error: string; message?: string } {
   const access = getFractionalAccessState(ctx)

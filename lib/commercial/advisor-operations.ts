@@ -116,11 +116,21 @@ export async function fetchAdvisoryClients(filter?: AdvisoryFilter): Promise<Adv
     .in('organization_id', orgIds)
 
   // Batch fetch latest advisor requests (questions)
-  const { data: questions } = await sc
+  // S8: Use 'responded_at' (the actual DB column), not 'answered_at'.
+  // The previous 'answered_at' would silently return null because the
+  // column does not exist, making all questions appear unanswered.
+  const { data: questions, error: questionsError } = await sc
     .from('advisor_questions')
-    .select('organization_id, title, created_at, status, answered_at')
+    .select('organization_id, title, created_at, status, responded_at')
     .in('organization_id', orgIds)
     .order('created_at', { ascending: false })
+
+  // S8: Surface query errors instead of silently returning empty arrays.
+  // A schema error here must not appear as "no questions needing response".
+  if (questionsError) {
+    console.error('[advisor-operations] advisor_questions query failed:', questionsError.message)
+    throw new Error(`advisor_questions query failed: ${questionsError.message}`)
+  }
 
   // Batch fetch decisions needing attention
   const { data: decisions } = await sc
@@ -229,7 +239,10 @@ export async function fetchAdvisoryClients(filter?: AdvisoryFilter): Promise<Adv
     const kestrelProduct = orgProducts.find(p => p.product_key === 'kestrel')
     const orgQuestions = questionsByOrg.get(orgId) || []
     const latestQuestion = orgQuestions[0]
-    const unansweredQuestions = orgQuestions.filter(q => q.status === 'submitted' || q.status === 'under_review' || q.status === 'answered')
+    // S8: requests_needing_response must EXCLUDE answered questions.
+    // The previous filter included 'answered' status, which caused answered
+    // questions to appear in the response queue forever.
+    const unansweredQuestions = orgQuestions.filter(q => q.status === 'submitted' || q.status === 'under_review')
     const membership = membershipMap.get(orgId)
     const isFractional = ent.offering_key === 'fractional_ai_advisor'
     const sourceMeta = ent.source_metadata as any
@@ -706,6 +719,10 @@ export async function fetchAdvisorWorkOrders(): Promise<AdvisorWorkOrderRow[]> {
 
 /**
  * Fetch client health indicators (transparent operational facts, not AI scoring).
+ *
+ * S8: The indicator field is 'value' (not 'detail') to match the client
+ * component's HealthIndicator interface. The previous mismatch caused
+ * health indicators to render empty values.
  */
 export interface ClientHealthIndicator {
   organization_id: string
@@ -714,7 +731,7 @@ export interface ClientHealthIndicator {
     type: string
     label: string
     severity: 'info' | 'warning' | 'critical'
-    detail: string
+    value: string
   }[]
 }
 
@@ -730,7 +747,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'onboarding_incomplete',
         label: 'Onboarding incomplete',
         severity: 'warning',
-        detail: `Status: ${client.onboarding_status}`,
+        value: `Status: ${client.onboarding_status}`,
       })
     }
 
@@ -739,7 +756,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'unanswered_request',
         label: 'Unanswered request',
         severity: client.response_aging_hours && client.response_aging_hours > 72 ? 'critical' : 'warning',
-        detail: `${client.requests_needing_response} request(s) needing response, ${client.response_aging_hours || 0}h aging`,
+        value: `${client.requests_needing_response} request(s) needing response, ${client.response_aging_hours || 0}h aging`,
       })
     }
 
@@ -748,7 +765,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'overdue_action',
         label: 'Overdue action',
         severity: 'warning',
-        detail: `${client.actions_overdue} overdue action(s)`,
+        value: `${client.actions_overdue} overdue action(s)`,
       })
     }
 
@@ -757,7 +774,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'provisioning_issue',
         label: 'Provisioning issue',
         severity: 'critical',
-        detail: `HAIEC: ${client.haiec_provisioning_status}, Kestrel: ${client.kestrel_provisioning_status}`,
+        value: `HAIEC: ${client.haiec_provisioning_status}, Kestrel: ${client.kestrel_provisioning_status}`,
       })
     }
 
@@ -766,7 +783,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'payment_issue',
         label: 'Payment issue',
         severity: 'critical',
-        detail: `Subscription status: ${client.subscription_status}`,
+        value: `Subscription status: ${client.subscription_status}`,
       })
     }
 
@@ -775,7 +792,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'cancellation_pending',
         label: 'Cancellation pending',
         severity: 'warning',
-        detail: 'Cancel at period end',
+        value: 'Cancel at period end',
       })
     }
 
@@ -784,7 +801,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'read_only',
         label: 'Read-only mode',
         severity: 'info',
-        detail: `Read-only until ${client.readonly_until || 'unknown'}`,
+        value: `Read-only until ${client.readonly_until || 'unknown'}`,
       })
     }
 
@@ -795,7 +812,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
           type: 'no_interaction',
           label: `No interaction in ${Math.floor(daysSince)} days`,
           severity: daysSince > 30 ? 'warning' : 'info',
-          detail: `Last interaction: ${client.last_interaction_at}`,
+          value: `Last interaction: ${client.last_interaction_at}`,
         })
       }
     }
@@ -805,7 +822,7 @@ export async function fetchClientHealth(): Promise<ClientHealthIndicator[]> {
         type: 'brief_due',
         label: 'Monthly brief due',
         severity: 'warning',
-        detail: 'Brief is in draft status',
+        value: 'Brief is in draft status',
       })
     }
 

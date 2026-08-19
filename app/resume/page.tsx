@@ -43,7 +43,7 @@ export default function ResumePage() {
             <span className="font-semibold text-zinc-900">Production AI</span> and compliance systems at <span className="font-semibold text-zinc-900">HP Inc.</span> scale, with <span className="font-semibold text-zinc-900">4 years</span> at HP Inc. driving AI-powered automation for regulated, high-stakes workflows.
             Led program management across <span className="font-semibold text-zinc-900">53 enterprise apps</span> and <span className="font-semibold text-zinc-900">83+ projects</span> delivered, reducing manual review by <span className="font-semibold text-zinc-900">40-60%</span>. 
             Shipped AI-native products for drift detection, autonomous RCA, and compliance mapping. 
-            <span className="font-semibold text-zinc-900">5 patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.
+            <span className="font-semibold text-zinc-900">patent filings</span> in AI governance. Thrives in ambiguous problem spaces with cross-functional execution.
           </p>
         </header>
 

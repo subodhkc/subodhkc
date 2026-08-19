@@ -72,7 +72,9 @@ export async function GET(request: NextRequest) {
 
     if (view === 'health') {
       const health = await fetchClientHealth()
-      return NextResponse.json({ health })
+      // S8: Return { orgs: health } to match the client component's
+      // HealthOrg interface which expects data.orgs.
+      return NextResponse.json({ orgs: health })
     }
 
     if (view === 'work-orders') {
@@ -95,26 +97,29 @@ export async function GET(request: NextRequest) {
       let fractionalMRR = 0
       for (const e of fractionalEnts || []) { const m = (e.source_metadata as any)?.amount_cents; if (m) fractionalMRR += m / 100 }
 
-      // Work Orders
-      const { data: wos } = await sc.from('ai_work_orders').select('id, status, standard_price_cents, created_at, scope_accepted_at').order('created_at', { ascending: false }).limit(500)
+      // Work Orders — revenue uses paid_at (payment source of truth), NOT
+      // scope_accepted_at (which is set on scope acceptance, before payment,
+      // and historically was set when an advisor merely sent a scope).
+      const { data: wos } = await sc.from('ai_work_orders').select('id, status, standard_price_cents, created_at, paid_at, payment_id').order('created_at', { ascending: false }).limit(500)
       const woList = wos || []
       const newThisMonth = woList.filter(w => new Date(w.created_at) >= new Date(monthStart)).length
-      // Use scope_accepted_at as proxy for "paid" since there's no paid_at column
-      // Work orders that are paid or further along have scope_accepted_at set
       const paidStatuses = ['paid', 'scoped', 'in_progress', 'in_review', 'needs_client_input', 'delivered', 'completed']
-      const paidThisMonth = woList.filter(w => paidStatuses.includes(w.status) && w.scope_accepted_at && new Date(w.scope_accepted_at) >= new Date(monthStart)).length
-      const revenueThisMonth = woList.filter(w => paidStatuses.includes(w.status) && w.scope_accepted_at && new Date(w.scope_accepted_at) >= new Date(monthStart)).reduce((s, w) => s + (w.standard_price_cents || 0), 0) / 100
-      const awaitingScope = woList.filter(w => w.status === 'awaiting_scope' || w.status === 'draft').length
-      const awaitingPayment = woList.filter(w => w.status === 'ready_for_checkout' || w.status === 'payment_pending' || w.status === 'awaiting_approval').length
+      // A Work Order counts as paid-revenue only when it has a payment_id AND
+      // a paid_at timestamp. paid_at is set by the fulfill_work_order RPC.
+      const paidThisMonth = woList.filter(w => paidStatuses.includes(w.status) && w.paid_at && w.payment_id && new Date(w.paid_at) >= new Date(monthStart)).length
+      const revenueThisMonth = woList.filter(w => paidStatuses.includes(w.status) && w.paid_at && w.payment_id && new Date(w.paid_at) >= new Date(monthStart)).reduce((s, w) => s + (w.standard_price_cents || 0), 0) / 100
+      const awaitingScope = woList.filter(w => w.status === 'awaiting_scope' || w.status === 'draft' || w.status === 'awaiting_client_acceptance').length
+      const awaitingPayment = woList.filter(w => w.status === 'ready_for_checkout' || w.status === 'payment_pending' || w.status === 'awaiting_approval' || w.status === 'awaiting_owner_approval').length
       const inProgress = woList.filter(w => w.status === 'in_progress' || w.status === 'in_review' || w.status === 'paid' || w.status === 'scoped').length
       const delivered = woList.filter(w => w.status === 'delivered').length
 
-      // Funnel
+      // Funnel — paid counts only Work Orders with a payment_id (revenue
+      // source of truth), not just status >= paid.
       const funnel = {
         intakeStarted: woList.length,
         scopePrepared: woList.filter(w => w.status !== 'draft' && w.status !== 'awaiting_scope').length,
         scopeAccepted: woList.filter(w => ['ready_for_checkout', 'payment_pending', 'paid', 'scoped', 'in_progress', 'in_review', 'needs_client_input', 'delivered', 'completed'].includes(w.status)).length,
-        paid: woList.filter(w => ['paid', 'scoped', 'in_progress', 'in_review', 'needs_client_input', 'delivered', 'completed'].includes(w.status)).length,
+        paid: woList.filter(w => ['paid', 'scoped', 'in_progress', 'in_review', 'needs_client_input', 'delivered', 'completed'].includes(w.status) && w.payment_id).length,
         delivered: woList.filter(w => ['delivered', 'completed'].includes(w.status)).length,
       }
 

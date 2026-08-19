@@ -1,5 +1,17 @@
 import type { AuthenticatedUser, OrganizationRole } from '@/lib/auth/organization-resolver'
 
+export interface DashboardWorkOrderAttention {
+  id: string
+  workOrderNumber: string
+  title: string
+  workType: string
+  status: string
+  statusLabel: string
+  actionLabel: string
+  updatedAt: string
+  attentionReason: 'needs_input' | 'scope_ready' | 'owner_approval'
+}
+
 export interface DashboardOrganization {
   id: string
   name: string
@@ -12,6 +24,7 @@ export interface DashboardOrganization {
   workOrdersNeedingInputIds?: string[]
   workOrdersScopeReadyIds?: string[]
   workOrdersOwnerApprovalIds?: string[]
+  workOrderAttentionSummaries?: DashboardWorkOrderAttention[]
   answeredAdvisorQuestionCount?: number
 }
 
@@ -73,7 +86,7 @@ const OFFERING_LABELS: Record<string, { label: string; description: string; kind
   kestrel: { label: 'KestrelVoice', description: 'Voice automation platform', kind: 'external_product' },
   six_stones_ai: { label: 'Six Stones AI', description: 'AI program management', kind: 'program' },
   ai_advisor_desk: { label: 'AI Advisor for Business', description: 'Ongoing human AI advisory subscription', kind: 'service' },
-  ai_automation_blueprint: { label: 'AI Work Order', description: 'Fixed-scope assessment with AI Automation Blueprint deliverable', kind: 'service' },
+  ai_automation_blueprint: { label: 'AI Work Order', description: 'One defined outcome, scoped before work begins', kind: 'service' },
   managed_voice: { label: 'Managed AI Voice', description: 'Managed voice deployment service', kind: 'service' },
   ai_security_compliance: { label: 'AI Security & Compliance', description: 'AI security and compliance review', kind: 'service' },
   saas_security_review: { label: 'SaaS & AI Security Review', description: 'Focused application security review', kind: 'service' },

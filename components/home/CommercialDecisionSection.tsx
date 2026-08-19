@@ -158,14 +158,15 @@ export function CommercialDecisionSection() {
                 I want to find where AI could improve a workflow
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
-                AI Work Order &middot; $500 fixed
+                AI Work Order &middot; $500 standard
               </p>
             </div>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-            One opportunity, one primary workflow. You receive an AI Automation Blueprint with
-            tool selection, architecture, cost-benefit, and a clear buy/configure/build
-            recommendation. $500 fixed, delivered in 5 business days.
+            One defined outcome. Scoped before work begins. A Work Order can cover research,
+            analysis, design, evaluation, configuration, architecture, integration, investigation
+            or bounded implementation. If the work is larger, I will scope the next step before
+            additional work begins.
           </p>
           <div
             style={{

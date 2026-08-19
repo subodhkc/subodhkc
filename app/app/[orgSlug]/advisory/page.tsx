@@ -2,10 +2,10 @@ import { redirect } from 'next/navigation'
 import {
   getAuthenticatedUser,
   resolveOrganizationContext,
-  requireOfferingAccess,
   AuthError,
   type OrganizationContext,
 } from '@/lib/auth/organization-resolver'
+import { hasFractionalAccess, getFractionalAccessState } from '@/lib/auth/fractional-access'
 import { createServiceClient } from '@/lib/supabase'
 import { listWorkOrdersForOrg, statusLabel } from '@/lib/commercial/work-orders'
 import { AdvisoryWorkspaceClient } from '@/components/app/AdvisoryWorkspaceClient'
@@ -25,12 +25,12 @@ export default async function AdvisoryPage({
   let ctx: OrganizationContext | undefined
   try {
     ctx = await resolveOrganizationContext(user, orgSlug)
-    // Accept the canonical fractional_ai_advisor key, with backward compat
-    // for legacy 'advisory' and 'fractional_ai' entitlements
-    try {
-      requireOfferingAccess(ctx, 'fractional_ai_advisor')
-    } catch {
-      requireOfferingAccess(ctx, 'advisory')
+    // S4: Use the canonical Fractional access state (active/readonly/expired)
+    // instead of requireOfferingAccess which is a binary active/inactive check.
+    // Read-only users (within 30-day post-cancellation window) can view the
+    // page but mutations are blocked at the API layer by checkMutationAllowed.
+    if (!hasFractionalAccess(ctx)) {
+      throw new AuthError('unauthorized', 'No active Fractional AI Advisor subscription.')
     }
   } catch (err) {
     if (err instanceof AuthError) {
@@ -48,6 +48,9 @@ export default async function AdvisoryPage({
     }
     throw err
   }
+
+  // S4: Pass the access state to the client so it can show read-only banners
+  const fractionalAccess = getFractionalAccessState(ctx!)
 
   const serviceClient = createServiceClient()
 
@@ -314,6 +317,8 @@ export default async function AdvisoryPage({
     <AdvisoryWorkspaceClient
       user={user}
       ctx={ctx}
+      fractionalAccessState={fractionalAccess.state}
+      fractionalAccessMessage={fractionalAccess.message}
       engagements={engagements}
       onboarding={onboarding}
       decisions={decisions}

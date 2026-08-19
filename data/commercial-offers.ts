@@ -31,9 +31,9 @@ export const commercialOffers: CommercialOffer[] = [
     id: 'automation-blueprint',
     name: 'AI Work Order',
     route: '/ai-automation',
-    pricingLabel: '$500 fixed',
-    pricingDetail: 'One opportunity, one primary workflow. Includes AI Automation Blueprint.',
-    description: 'A focused assessment of one opportunity and one primary workflow. Decision-ready Blueprint with buy/configure/build recommendation.',
+    pricingLabel: '$500 standard',
+    pricingDetail: 'One defined outcome. Scoped before work begins. Available through the AI Advisor relationship.',
+    description: 'A bounded piece of work with a defined outcome. Can cover research, analysis, design, evaluation, configuration, architecture, integration, investigation or bounded implementation.',
     category: 'primary',
   },
   {

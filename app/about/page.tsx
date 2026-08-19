@@ -8,7 +8,7 @@ import { Award, GraduationCap, Briefcase, Heart, Shield, TrendingUp, Zap, BookOp
 export const metadata = {
   title: 'About Subodh KC | AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and AI systems architect with experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+    'Subodh KC is an AI advisor and AI systems architect with experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. patent-pending frameworks.',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
@@ -37,7 +37,7 @@ export const metadata = {
   openGraph: {
     title: 'About Subodh KC | AI Advisor & AI Systems Architect',
     description:
-      'Experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. 5 patent-pending frameworks.',
+      'Experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. patent-pending frameworks.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
     images: [
@@ -423,7 +423,7 @@ export default function AboutPage() {
               Increasingly, that interest in systems and institutions has moved beyond companies. Based in Euless, Texas, Subodh is active in the Hurst-Euless-Bedford business and civic community. He participates in the HEB Chamber of Commerce and volunteers with <strong className="text-foreground">6 Stones</strong>, including initiatives supporting local students and families.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-4">
-              He has also joined HEB ISD's <strong className="text-foreground">Adopt-A-School program with Wilshire Elementary</strong>, where his daughter attends school. Rather than approaching the relationship only through sponsorship, he has offered the skills he knows best: helping teachers and staff explore useful automation, supporting technology and AI learning opportunities for students, mentoring, and contributing professional expertise where it can make a practical difference.
+              He has also joined HEB ISD's <strong className="text-foreground">Adopt-A-School program</strong>, partnering with a local elementary school. Rather than approaching the relationship only through sponsorship, he has offered the skills he knows best: helping teachers and staff explore useful automation, supporting technology and AI learning opportunities for students, mentoring, and contributing professional expertise where it can make a practical difference.
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
               He remains engaged in local civic affairs and increasingly interested in the intersection of technology, education, entrepreneurship, economic development, and effective public institutions.

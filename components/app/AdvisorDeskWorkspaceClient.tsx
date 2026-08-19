@@ -1,17 +1,13 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import {
   LogOut,
   ArrowLeft,
   Calendar,
   AlertTriangle,
-  Shield,
   Users,
-  Scale,
-  Gauge,
-  Lock,
   MessageSquare,
   Send,
   CheckCircle2,
@@ -21,9 +17,7 @@ import {
   ChevronRight,
   ExternalLink,
   ArrowRight,
-  Lightbulb,
   Boxes,
-  Sparkles,
   Building2,
   Loader2,
 } from 'lucide-react'
@@ -59,8 +53,8 @@ interface IncludedEntitlement {
   tierOrPlan: string
   seats: number
   credits: number | null
-  entitlementStatus: string  // included, ready_to_activate, provisioning, active, provisioning_failed, suspended, ended
-  provisioningStatus: string  // pending, in_progress, provisioned, failed, not_applicable
+  entitlementStatus: string
+  provisioningStatus: string
   externalUserId: string | null
   provisioningError: string | null
   sourceOfferKey: string
@@ -155,80 +149,6 @@ const statusColors: Record<string, string> = {
   closed: 'bg-muted text-muted-foreground border-border',
 }
 
-// Worth Knowing — intelligence and advisory items
-const worthKnowingItems = [
-  {
-    icon: Lightbulb,
-    title: 'New AI Possibilities',
-    description: 'Capabilities that may be newly practical for your organization. Ask your advisor whether any of these fit your current priorities.',
-  },
-  {
-    icon: Eye,
-    title: 'Market Signals',
-    description: 'Vendor moves, regulatory shifts, and adoption patterns worth tracking. Bring anything relevant to your next advisory question.',
-  },
-  {
-    icon: Gauge,
-    title: 'AI Readiness Check',
-    description: 'Quick self-assessment to see where your organization stands on AI adoption maturity.',
-    action: { label: 'Take Assessment', href: '/cognitive-systems-management/assessment' },
-  },
-]
-
-// Possibilities Worth Considering
-const possibilitiesItems = [
-  {
-    icon: Sparkles,
-    title: 'Workflow Automation Opportunity',
-    description: 'If a repetitive decision or process is consuming team time, an AI Opportunity & Workflow Assessment can identify whether automation is worth it.',
-    action: { label: 'Explore Assessment', href: '/ai-automation' },
-  },
-  {
-    icon: Users,
-    title: 'Fractional AI Advisor',
-    description: 'When decisions get bigger and more frequent, upgrading to a fractional advisory relationship gives you dedicated working sessions and decision artifacts.',
-    action: { label: 'Learn More', href: '/advisory' },
-  },
-  {
-    icon: Shield,
-    title: 'AI Security & Controls Review',
-    description: 'If you are moving AI toward production, a focused security review can identify gaps before they become incidents.',
-    action: { label: 'Explore Review', href: '/ai-security-compliance' },
-  },
-]
-
-// Governance & Controls — separated, NOT removed
-const governanceItems = [
-  {
-    icon: Shield,
-    title: 'AI Vendor Consideration',
-    description: 'Reviewing a new AI tool? Check data handling, model transparency, and contractual protections before procurement.',
-    action: { label: 'Vendor Due-Diligence Checklist', href: '/ai-vendor-due-diligence-checklist' },
-  },
-  {
-    icon: Scale,
-    title: 'Regulatory Development',
-    description: 'AI regulations continue to evolve. Confirm which laws apply to your business and what they require.',
-    action: { label: 'Check AI Law Applicability', href: '/does-texas-ai-law-apply-to-my-business' },
-  },
-  {
-    icon: Lock,
-    title: 'AI Controls Follow-Up',
-    description: 'If you have AI systems in production, verify that governance controls are documented and enforced.',
-    action: { label: 'How to Secure and Govern AI', href: '/how-to-secure-and-govern-ai' },
-  },
-]
-
-const governanceTools = [
-  { icon: AlertTriangle, label: 'AI Risk Register', href: '/ai-risk-register' },
-  { icon: FileText, label: 'Incident Evidence Checklist', href: '/ai-incident-evidence-checklist' },
-  { icon: Gauge, label: 'AI Readiness Assessment', href: '/cognitive-systems-management/assessment' },
-  { icon: Shield, label: 'Vendor / Tool Check', href: '/ai-vendor-due-diligence-checklist' },
-  { icon: Lock, label: 'AI Controls Review', href: '/how-to-secure-and-govern-ai' },
-  { icon: Scale, label: 'AI Law Applicability', href: '/does-texas-ai-law-apply-to-my-business' },
-  { icon: Users, label: 'Hiring / JD / Resume Check', href: '/guides/nyc-local-law-144' },
-]
-
 export function AdvisorDeskWorkspaceClient({
   user,
   ctx,
@@ -257,11 +177,32 @@ export function AdvisorDeskWorkspaceClient({
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [localQuestions, setLocalQuestions] = useState(questions)
   const [portalLoading, setPortalLoading] = useState(false)
+  const [portalError, setPortalError] = useState<string | null>(null)
   const [productList, setProductList] = useState<ProductInfo[]>(products)
-  const [requestingProduct, setRequestingProduct] = useState<string | null>(null)
   const [activatingProduct, setActivatingProduct] = useState<string | null>(null)
 
   const cancellationScheduled = entitlementStatus === 'active' && entitlementValidUntil
+
+  // Derived Today view data
+  const unansweredQuestions = localQuestions.filter(q =>
+    q.status === 'submitted' || q.status === 'under_review'
+  )
+  const answeredQuestions = localQuestions.filter(q =>
+    q.status === 'answered' || q.status === 'deeper_work_recommended'
+  )
+  const workOrdersNeedingInput = workOrders.filter(wo => wo.status === 'needs_client_input')
+  const workOrdersActive = workOrders.filter(wo =>
+    wo.status === 'in_progress' || wo.status === 'in_review' || wo.status === 'paid' || wo.status === 'scoped'
+  )
+  const workOrdersDelivered = workOrders.filter(wo =>
+    wo.status === 'delivered' || wo.status === 'completed'
+  )
+
+  const hasTodayContent =
+    workOrders.length > 0 ||
+    unansweredQuestions.length > 0 ||
+    answeredQuestions.length > 0 ||
+    watchlistItems.length > 0
 
   async function handleLogout() {
     await fetch('/auth/logout', { method: 'POST' })
@@ -270,6 +211,7 @@ export function AdvisorDeskWorkspaceClient({
 
   async function handleManageBilling() {
     setPortalLoading(true)
+    setPortalError(null)
     try {
       const res = await fetch('/api/stripe/portal', {
         method: 'POST',
@@ -279,9 +221,11 @@ export function AdvisorDeskWorkspaceClient({
       const data = await res.json()
       if (data.url) {
         window.location.href = data.url
+      } else {
+        setPortalError(data.error || 'Unable to open billing portal. Please try again.')
       }
     } catch {
-      // Silently fail - user can retry
+      setPortalError('Network error opening billing portal. Please try again.')
     }
     setPortalLoading(false)
   }
@@ -339,28 +283,6 @@ export function AdvisorDeskWorkspaceClient({
     setSubmitting(false)
   }
 
-  async function handleRequestProduct(offeringKey: string) {
-    setRequestingProduct(offeringKey)
-    try {
-      const res = await fetch('/api/products/access-requests', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orgSlug: organization.slug, offeringKey }),
-      })
-      if (res.ok) {
-        // Update product list to show requested status
-        setProductList(prev => prev.map(p =>
-          p.offeringKey === offeringKey
-            ? { ...p, requestStatus: 'requested' }
-            : p
-        ))
-      }
-    } catch (err) {
-      console.error('Failed to request product:', err)
-    }
-    setRequestingProduct(null)
-  }
-
   async function handleActivateProduct(offeringKey: string) {
     setActivatingProduct(offeringKey)
     try {
@@ -371,7 +293,6 @@ export function AdvisorDeskWorkspaceClient({
       })
       const data = await res.json()
       if (res.ok && data.success) {
-        // Update product to show as active/provisioned
         setProductList(prev => prev.map(p =>
           p.offeringKey === offeringKey && p.includedEntitlement
             ? {
@@ -386,7 +307,6 @@ export function AdvisorDeskWorkspaceClient({
             : p
         ))
       } else if (data.requiresManualAction) {
-        // Mark as provisioning_failed but keep entitlement
         setProductList(prev => prev.map(p =>
           p.offeringKey === offeringKey && p.includedEntitlement
             ? {
@@ -410,19 +330,20 @@ export function AdvisorDeskWorkspaceClient({
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-30">
+      <header className="border-b border-border bg-card sticky top-0 z-30">
         <div className="flex items-center justify-between px-4 h-14">
           <div className="flex items-center gap-2 min-w-0">
             <Link href="/app" className="font-semibold text-sm flex-shrink-0">SubodhKC</Link>
             <span className="text-muted-foreground text-sm">/</span>
             <Link href={basePath} className="text-sm truncate">{organization.name}</Link>
             <span className="text-muted-foreground text-sm">/</span>
-            <span className="text-sm font-medium">AI Advisor for Business</span>
+            <span className="text-sm font-medium">Advisor Desk</span>
           </div>
           <button
             onClick={handleLogout}
-            className="p-1.5 hover:bg-accent rounded-md"
+            className="p-1.5 hover:bg-accent/10 rounded-md"
             title="Sign out"
+            aria-label="Sign out"
           >
             <LogOut className="h-4 w-4" />
           </button>
@@ -432,13 +353,13 @@ export function AdvisorDeskWorkspaceClient({
       <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8 space-y-10">
         {/* Title */}
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">AI Advisor for Business</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Advisor Desk</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Your Advisor Desk — ongoing AI intelligence and human advisory for {organization.name}
+            Ongoing AI advisory for {organization.name}
           </p>
         </div>
 
-        {/* Onboarding banner */}
+        {/* Onboarding banner — only if incomplete */}
         {!onboardingComplete && (
           <div className="rounded-xl border border-primary/30 bg-primary/5 p-5 space-y-3">
             <div className="flex items-start gap-3">
@@ -446,7 +367,7 @@ export function AdvisorDeskWorkspaceClient({
               <div className="flex-1">
                 <h3 className="text-sm font-semibold">Get started in 3 steps</h3>
                 <p className="text-xs text-muted-foreground mt-1">Complete your context profile, review your watchlist, and schedule your activation call.</p>
-                <div className="flex items-center gap-4 mt-3">
+                <div className="flex items-center gap-4 mt-3 flex-wrap">
                   <div className="flex items-center gap-1.5">
                     {onboardingSteps?.context_intake === 'completed' ? (
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
@@ -484,96 +405,237 @@ export function AdvisorDeskWorkspaceClient({
           </div>
         )}
 
-        {/* Overview: Watchlist */}
-        {watchlistItems.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Eye className="h-5 w-5 text-primary" />
-              Your Watchlist
-            </h2>
-            <div className="space-y-2">
-              {watchlistItems.slice(0, 5).map(item => (
-                <div key={item.id} className={`border rounded-lg p-3 ${item.is_draft ? 'border-primary/20 bg-primary/5' : ''}`}>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm font-medium truncate">{item.title}</p>
-                        {item.is_draft && <span className="text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium flex-shrink-0">Draft</span>}
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-0.5 capitalize">{item.category.replace(/_/g, ' ')}</p>
-                    </div>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${
-                      item.status === 'watching' ? 'bg-blue-500/10 text-blue-600' :
-                      item.status === 'active' ? 'bg-amber-500/10 text-amber-600' :
-                      item.status === 'addressed' ? 'bg-green-500/10 text-green-600' :
-                      'bg-muted text-muted-foreground'
-                    }`}>
-                      {item.status}
-                    </span>
-                  </div>
-                </div>
-              ))}
-              {watchlistItems.length > 5 && (
-                <Link href={`${basePath}/advisor-desk/onboarding`} className="block text-sm text-primary hover:underline pt-1">
-                  View all {watchlistItems.length} items
-                </Link>
-              )}
-            </div>
-          </section>
-        )}
+        {/* TODAY — operational view */}
+        <section aria-labelledby="today-heading">
+          <h2 id="today-heading" className="text-lg font-semibold mb-4">Today</h2>
 
-        {/* Work Orders */}
-        {workOrders.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <FileText className="h-5 w-5 text-primary" />
-              AI Work Orders
-            </h2>
-            <div className="space-y-2">
-              {workOrders.slice(0, 5).map(wo => (
-                <Link
-                  key={wo.id}
-                  href={`${basePath}/work-orders/${wo.id}`}
-                  className={`block border rounded-lg p-3 hover:border-primary/50 transition-colors ${
-                    wo.status === 'needs_client_input' ? 'border-orange-300 bg-orange-50/50' : ''
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono text-muted-foreground">{wo.workOrderNumber}</span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                          wo.status === 'needs_client_input' ? 'bg-orange-100 text-orange-700' :
-                          wo.status === 'delivered' || wo.status === 'completed' ? 'bg-green-100 text-green-700' :
-                          wo.status === 'in_progress' || wo.status === 'in_review' ? 'bg-blue-100 text-blue-700' :
-                          'bg-muted text-muted-foreground'
-                        }`}>
-                          {wo.statusLabel}
-                        </span>
+          {!hasTodayContent && (
+            <div className="border border-border rounded-lg p-6">
+              <p className="text-sm text-muted-foreground">
+                No material change currently alters your priorities.
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                When you have Work Orders in progress, advisor questions awaiting response, or watchlist items, they will appear here.
+              </p>
+            </div>
+          )}
+
+          {/* Work Orders needing input — highest priority */}
+          {workOrdersNeedingInput.length > 0 && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-orange-500" aria-hidden="true" />
+                Needs your input
+              </h3>
+              <div className="border border-border rounded-lg divide-y divide-border">
+                {workOrdersNeedingInput.map(wo => (
+                  <Link
+                    key={wo.id}
+                    href={`${basePath}/work-orders/${wo.id}`}
+                    className="block p-3 hover:bg-accent/5 transition-colors group"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.workOrderNumber}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-orange-500/10 text-orange-600">
+                            {wo.statusLabel}
+                          </span>
+                        </div>
+                        <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
                       </div>
-                      <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
                     </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Unanswered questions */}
+          {unansweredQuestions.length > 0 && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-500" aria-hidden="true" />
+                Awaiting advisor response
+              </h3>
+              <div className="border border-border rounded-lg divide-y divide-border">
+                {unansweredQuestions.map(q => (
+                  <div key={q.id} className="p-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <h4 className="text-sm font-medium truncate">{q.subject}</h4>
+                      <span className={`text-xs px-2 py-0.5 rounded border flex-shrink-0 ${statusColors[q.status] || statusColors.submitted}`}>
+                        {statusLabels[q.status] || q.status}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </p>
                   </div>
-                </Link>
-              ))}
-              {workOrders.length > 5 && (
-                <Link href={`${basePath}/work-orders`} className="block text-sm text-primary hover:underline pt-1">
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Answered questions to review */}
+          {answeredQuestions.length > 0 && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-500" aria-hidden="true" />
+                Recently answered
+              </h3>
+              <div className="border border-border rounded-lg divide-y divide-border">
+                {answeredQuestions.slice(0, 3).map(q => (
+                  <div key={q.id} className="p-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <h4 className="text-sm font-medium truncate">{q.subject}</h4>
+                      <span className={`text-xs px-2 py-0.5 rounded border flex-shrink-0 ${statusColors[q.status] || statusColors.answered}`}>
+                        {statusLabels[q.status] || q.status}
+                      </span>
+                    </div>
+                    {q.advisor_response && (
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{q.advisor_response}</p>
+                    )}
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {q.responded_at && new Date(q.responded_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Active Work Orders */}
+          {workOrdersActive.length > 0 && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2">In progress</h3>
+              <div className="border border-border rounded-lg divide-y divide-border">
+                {workOrdersActive.map(wo => (
+                  <Link
+                    key={wo.id}
+                    href={`${basePath}/work-orders/${wo.id}`}
+                    className="block p-3 hover:bg-accent/5 transition-colors group"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.workOrderNumber}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-blue-500/10 text-blue-600">
+                            {wo.statusLabel}
+                          </span>
+                        </div>
+                        <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Delivered Work Orders */}
+          {workOrdersDelivered.length > 0 && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2">Delivered</h3>
+              <div className="border border-border rounded-lg divide-y divide-border">
+                {workOrdersDelivered.slice(0, 3).map(wo => (
+                  <Link
+                    key={wo.id}
+                    href={`${basePath}/work-orders/${wo.id}`}
+                    className="block p-3 hover:bg-accent/5 transition-colors group"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.workOrderNumber}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-500/10 text-green-600">
+                            {wo.statusLabel}
+                          </span>
+                        </div>
+                        <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              {workOrders.length > 3 && (
+                <Link href={`${basePath}/work-orders`} className="block text-sm text-primary hover:underline pt-2">
                   View all {workOrders.length} Work Orders
                 </Link>
               )}
             </div>
-          </section>
-        )}
+          )}
 
-        {/* Meetings: Activation Call */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-primary" />
-            Activation Call
-          </h2>
-          <div className="border rounded-lg p-5 bg-card space-y-3">
-            {schedulingLink && schedulingLink.status !== 'cancelled' ? (
-              <div className="space-y-2">
+          {/* Watchlist */}
+          {watchlistItems.length > 0 && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                <Eye className="h-4 w-4 text-muted-foreground" />
+                Watchlist
+              </h3>
+              <div className="border border-border rounded-lg divide-y divide-border">
+                {watchlistItems.slice(0, 5).map(item => (
+                  <div key={item.id} className={`p-3 ${item.is_draft ? 'bg-primary/5' : ''}`}>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium truncate">{item.title}</p>
+                          {item.is_draft && <span className="text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium flex-shrink-0">Draft</span>}
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-0.5 capitalize">{item.category.replace(/_/g, ' ')}</p>
+                      </div>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${
+                        item.status === 'watching' ? 'bg-blue-500/10 text-blue-600' :
+                        item.status === 'active' ? 'bg-amber-500/10 text-amber-600' :
+                        item.status === 'addressed' ? 'bg-green-500/10 text-green-600' :
+                        'bg-muted text-muted-foreground'
+                      }`}>
+                        {item.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {watchlistItems.length > 5 && (
+                <Link href={`${basePath}/advisor-desk/onboarding`} className="block text-sm text-primary hover:underline pt-2">
+                  View all {watchlistItems.length} items
+                </Link>
+              )}
+            </div>
+          )}
+
+          {/* Activation call — only if not yet scheduled */}
+          {(!schedulingLink || schedulingLink.status === 'cancelled') && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                Activation Call
+              </h3>
+              <div className="border border-border rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">
+                  Schedule your 15-minute Activation Call to calibrate your watchlist and clarify the decisions already in play.
+                </p>
+                <Link
+                  href={`${basePath}/advisor-desk/onboarding`}
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 mt-3"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Schedule Activation Call
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* Scheduled activation call summary */}
+          {schedulingLink && schedulingLink.status !== 'cancelled' && (
+            <div className="mb-5">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                Activation Call
+              </h3>
+              <div className="border border-border rounded-lg p-4">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-500" />
                   <p className="text-sm font-medium">
@@ -581,7 +643,7 @@ export function AdvisorDeskWorkspaceClient({
                   </p>
                 </div>
                 {schedulingLink.scheduled_at && (
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-muted-foreground mt-1.5">
                     {new Date(schedulingLink.scheduled_at).toLocaleString('en-US', {
                       weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit',
                     })}
@@ -592,112 +654,21 @@ export function AdvisorDeskWorkspaceClient({
                     href={schedulingLink.scheduling_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2"
                   >
                     Reschedule
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 )}
               </div>
-            ) : (
-              <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">
-                  Schedule your complimentary 15-minute Activation Call to calibrate your watchlist and clarify the decisions already in play. We hold a 30-minute slot so we have room if the conversation needs it.
-                </p>
-                <Link
-                  href={`${basePath}/advisor-desk/onboarding`}
-                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90"
-                >
-                  <Calendar className="h-4 w-4" />
-                  Schedule Activation Call
-                </Link>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Worth Knowing */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Lightbulb className="h-5 w-5 text-primary" />
-            Worth Knowing
-          </h2>
-          <div className="space-y-3">
-            {worthKnowingItems.map((item, i) => (
-              <div key={i} className="border rounded-lg p-4">
-                <div className="flex items-start gap-3">
-                  <item.icon className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
-                    {item.action && (
-                      <Link
-                        href={item.action.href}
-                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-2"
-                      >
-                        {item.action.label}
-                        <ExternalLink className="h-3 w-3" />
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Possibilities Worth Considering */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            Possibilities Worth Considering
-          </h2>
-
-          {/* AI Work Order - member benefit */}
-          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 mb-3">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex-1">
-                <h3 className="text-sm font-semibold">AI Work Order</h3>
-                <p className="text-xs text-muted-foreground mt-1">
-                  A focused $500 investigation of one workflow or opportunity. Goes deeper than an advisory answer. Positioned for Advisor members.
-                </p>
-              </div>
-              <span className="text-sm font-bold flex-shrink-0">$500</span>
             </div>
-            <Link
-              href="/ai-automation"
-              className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3"
-            >
-              Learn about the AI Work Order
-              <ChevronRight className="h-3 w-3" />
-            </Link>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-3">
-            {possibilitiesItems.map((item, i) => (
-              <div key={i} className="border rounded-lg p-4 flex flex-col">
-                <item.icon className="h-5 w-5 text-primary mb-2" />
-                <h3 className="text-sm font-medium">{item.title}</h3>
-                <p className="text-xs text-muted-foreground mt-1 flex-1">{item.description}</p>
-                <Link
-                  href={item.action.href}
-                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3"
-                >
-                  {item.action.label}
-                  <ChevronRight className="h-3 w-3" />
-                </Link>
-              </div>
-            ))}
-          </div>
+          )}
         </section>
 
-        {/* Ask Your Advisor */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-primary" />
-            Ask Your Advisor
-          </h2>
-          <div className="border rounded-lg p-5 bg-card space-y-4">
+        {/* ASK ADVISOR */}
+        <section aria-labelledby="ask-heading">
+          <h2 id="ask-heading" className="text-lg font-semibold mb-4">Ask Your Advisor</h2>
+          <div className="border border-border rounded-lg p-5 space-y-4">
             <p className="text-sm text-muted-foreground">
               When an AI decision matters, bring it here. I review the context, pressure-test
               the options, and give you a practical point of view on what deserves action.
@@ -711,39 +682,42 @@ export function AdvisorDeskWorkspaceClient({
 
             <form onSubmit={handleSubmitQuestion} className="space-y-4">
               <div>
-                <label className="text-sm font-medium block mb-1.5">Subject</label>
+                <label htmlFor="question-subject" className="text-sm font-medium block mb-1.5">Subject</label>
                 <input
+                  id="question-subject"
                   type="text"
                   value={subject}
                   onChange={e => setSubject(e.target.value)}
                   placeholder="What decision are you working through?"
-                  className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full border border-border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 />
               </div>
               <div>
-                <label className="text-sm font-medium block mb-1.5">Question</label>
+                <label htmlFor="question-body" className="text-sm font-medium block mb-1.5">Question</label>
                 <textarea
+                  id="question-body"
                   value={question}
                   onChange={e => setQuestion(e.target.value)}
                   placeholder="Briefly describe the decision, options or concern."
                   rows={4}
-                  className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                  className="w-full border border-border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                   required
                 />
               </div>
               <div>
-                <label className="text-sm font-medium block mb-1.5">Optional context</label>
+                <label htmlFor="question-context" className="text-sm font-medium block mb-1.5">Optional context</label>
                 <input
+                  id="question-context"
                   type="text"
                   value={context}
                   onChange={e => setContext(e.target.value)}
                   placeholder="Relevant link or short context"
-                  className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full border border-border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
 
-              {submitError && <p className="text-sm text-red-600">{submitError}</p>}
+              {submitError && <p className="text-sm text-red-600" role="alert">{submitError}</p>}
 
               <div className="flex items-center justify-end">
                 <button
@@ -759,14 +733,11 @@ export function AdvisorDeskWorkspaceClient({
           </div>
         </section>
 
-        {/* Question History */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Clock className="h-5 w-5 text-muted-foreground" />
-            Question History
-          </h2>
+        {/* QUESTION HISTORY */}
+        <section aria-labelledby="history-heading">
+          <h2 id="history-heading" className="text-lg font-semibold mb-4">Question History</h2>
           {localQuestions.length === 0 ? (
-            <div className="border rounded-lg p-6 text-center">
+            <div className="border border-border rounded-lg p-6 text-center">
               <p className="text-sm text-muted-foreground">
                 No questions yet. Send your first question above.
               </p>
@@ -774,7 +745,7 @@ export function AdvisorDeskWorkspaceClient({
           ) : (
             <div className="space-y-3">
               {localQuestions.map(q => (
-                <div key={q.id} className="border rounded-lg p-4">
+                <div key={q.id} className="border border-border rounded-lg p-4">
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <h3 className="text-sm font-medium">{q.subject}</h3>
                     <span className={`text-xs px-2 py-0.5 rounded border flex-shrink-0 ${statusColors[q.status] || statusColors.submitted}`}>
@@ -786,7 +757,7 @@ export function AdvisorDeskWorkspaceClient({
                     {new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </p>
                   {q.advisor_response && (
-                    <div className="mt-3 pt-3 border-t">
+                    <div className="mt-3 pt-3 border-t border-border">
                       <div className="flex items-center gap-1.5 mb-1.5">
                         <CheckCircle2 className="h-4 w-4 text-green-600" />
                         <span className="text-xs font-medium">Advisor Response</span>
@@ -807,7 +778,7 @@ export function AdvisorDeskWorkspaceClient({
                       </div>
                       <p className="text-sm text-muted-foreground">{q.recommended_next_step}</p>
                       <p className="text-xs text-purple-600/70 mt-1.5">
-                        Deeper work is billed at a member rate per hour. No automatic charges. You approve scope and cost before any work begins.
+                        Deeper work is scoped as an AI Work Order ($500 standard) or a custom engagement. No automatic charges. You approve scope and cost before any work begins.
                       </p>
                     </div>
                   )}
@@ -817,10 +788,36 @@ export function AdvisorDeskWorkspaceClient({
           )}
         </section>
 
-        {/* Included Capabilities */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Boxes className="h-5 w-5 text-primary" />
+        {/* WORK ORDERS — compact launcher */}
+        <section aria-labelledby="wo-heading">
+          <h2 id="wo-heading" className="text-lg font-semibold mb-4">Work Orders</h2>
+          <div className="border border-border rounded-lg p-4">
+            <p className="text-sm text-muted-foreground">
+              A focused $500 investigation of one workflow or opportunity. Goes deeper than an advisory answer.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-3">
+              <Link
+                href={`${basePath}/work-orders`}
+                className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+              >
+                View all Work Orders
+                <ChevronRight className="h-3 w-3" />
+              </Link>
+              <Link
+                href="/ai-automation"
+                className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+              >
+                Start a Work Order
+                <ChevronRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* INCLUDED CAPABILITIES */}
+        <section aria-labelledby="capabilities-heading">
+          <h2 id="capabilities-heading" className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Boxes className="h-5 w-5 text-muted-foreground" />
             Included Capabilities
           </h2>
           <div className="space-y-3">
@@ -833,19 +830,19 @@ export function AdvisorDeskWorkspaceClient({
               const isReadyToActivate = ent?.entitlementStatus === 'ready_to_activate'
 
               return (
-                <div key={product.offeringKey} className="border rounded-lg p-4">
+                <div key={product.offeringKey} className="border border-border rounded-lg p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium">{product.name}</h3>
                       <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
                       {isIncluded && (
                         <p className="text-xs text-primary mt-1 font-medium">
-                          Included with AI Advisor for Business
+                          Included with Advisor Desk
                           {ent?.seats && ent.seats > 1 ? ` · ${ent.seats} seats` : ' · 1 seat'}
                           {ent?.credits != null && ` · ${ent.credits} monthly credits`}
                         </p>
                       )}
-                      <div className="flex items-center gap-3 mt-2">
+                      <div className="flex items-center gap-3 mt-2 flex-wrap">
                         <Link
                           href={product.learnMoreHref}
                           className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
@@ -914,7 +911,7 @@ export function AdvisorDeskWorkspaceClient({
                     </div>
                   </div>
                   {isFailed && ent?.provisioningError && (
-                    <p className="text-xs text-muted-foreground mt-2 pt-2 border-t">
+                    <p className="text-xs text-muted-foreground mt-2 pt-2 border-t border-border">
                       {ent.provisioningError}
                     </p>
                   )}
@@ -923,15 +920,15 @@ export function AdvisorDeskWorkspaceClient({
             })}
           </div>
           {memberToolsIncluded && memberToolsIncluded.entitlementStatus !== 'ended' && (
-            <div className="border rounded-lg p-4 mt-3">
+            <div className="border border-border rounded-lg p-4 mt-3">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="h-4 w-4 text-primary" />
+                  <Boxes className="h-4 w-4 text-primary" />
                 </div>
                 <div>
                   <h3 className="text-sm font-medium">Selected Member Tools</h3>
                   <p className="text-xs text-primary mt-1 font-medium">
-                    Included with AI Advisor for Business
+                    Included with Advisor Desk
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
                     Selected SubodhKC production-ready internal tools and utilities. Additional tools are added as they become available.
@@ -942,155 +939,78 @@ export function AdvisorDeskWorkspaceClient({
           )}
         </section>
 
-        {/* Organization Context */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Building2 className="h-5 w-5 text-muted-foreground" />
-            Organization Context
-          </h2>
-          <div className="border rounded-lg p-5 bg-card space-y-2">
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Organization</p>
-                <p className="text-sm mt-1">{organization.name}</p>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Plan</p>
-                <p className="text-sm mt-1">AI Advisor for Business</p>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Team Seats</p>
-                <p className="text-sm mt-1">Up to 3 members</p>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Response Time</p>
-                <p className="text-sm mt-1">Normally within 72 hours for focused requests</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Member Tools */}
+        {/* MEMBER TOOLS */}
         <MemberToolsSection orgSlug={organization.slug} canAccess={true} />
 
-        {/* Governance & Controls — separated, NOT removed */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Shield className="h-5 w-5 text-muted-foreground" />
-            Governance & Controls
+        {/* TEAM & BILLING */}
+        <section aria-labelledby="team-heading">
+          <h2 id="team-heading" className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Users className="h-5 w-5 text-muted-foreground" />
+            Team &amp; Billing
           </h2>
-          <div className="border rounded-lg p-5 bg-card space-y-4">
-            <p className="text-sm text-muted-foreground">
-              AI governance, compliance, and risk management resources. These are available as additional features alongside your advisory subscription.
-            </p>
-
-            {/* Governance attention items */}
-            <div className="space-y-3">
-              {governanceItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <item.icon className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium">{item.title}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
-                    <Link
-                      href={item.action.href}
-                      className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-1.5"
-                    >
-                      {item.action.label}
-                      <ExternalLink className="h-3 w-3" />
-                    </Link>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {/* Team */}
+            <div className="border border-border rounded-lg p-4">
+              <h3 className="text-sm font-semibold mb-2">Team</h3>
+              <p className="text-xs text-muted-foreground mb-3">
+                Advisor seats: {members.length} / {teamSeatLimit} used
+              </p>
+              <div className="space-y-2">
+                {members.map(m => (
+                  <div key={m.id} className="flex items-center justify-between py-1.5 border-b border-border last:border-0">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium truncate">{m.fullName || m.email}</p>
+                      {m.fullName && m.email && (
+                        <p className="text-xs text-muted-foreground truncate">{m.email}</p>
+                      )}
+                    </div>
+                    <span className="text-xs text-muted-foreground capitalize flex-shrink-0">{m.role}</span>
                   </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Governance tools grid */}
-            <div className="pt-3 border-t">
-              <h3 className="text-xs font-medium text-muted-foreground mb-3">Governance Tools</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {governanceTools.map((tool, i) => (
-                  <Link
-                    key={i}
-                    href={tool.href}
-                    className="flex items-center gap-2 border rounded-lg p-2.5 hover:bg-accent transition-colors"
-                  >
-                    <tool.icon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                    <span className="text-xs font-medium">{tool.label}</span>
-                    <ChevronRight className="h-3 w-3 text-muted-foreground ml-auto" />
-                  </Link>
                 ))}
               </div>
+              {members.length < teamSeatLimit && (
+                <Link
+                  href={`${basePath}/members`}
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3"
+                >
+                  Invite Member
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              )}
             </div>
-          </div>
-        </section>
 
-        {/* Team */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Users className="h-5 w-5 text-muted-foreground" />
-            Team
-          </h2>
-          <div className="border rounded-lg p-5 bg-card">
-            <p className="text-sm text-muted-foreground mb-3">
-              Up to {teamSeatLimit} organization members.
-            </p>
-            <div className="space-y-2">
-              {members.map(m => (
-                <div key={m.id} className="flex items-center justify-between py-2 border-b last:border-0">
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium truncate">{m.fullName || m.email}</p>
-                    {m.fullName && m.email && (
-                      <p className="text-xs text-muted-foreground truncate">{m.email}</p>
-                    )}
-                  </div>
-                  <span className="text-xs text-muted-foreground capitalize flex-shrink-0">{m.role}</span>
+            {/* Billing */}
+            <div className="border border-border rounded-lg p-4">
+              <h3 className="text-sm font-semibold mb-2">Plan &amp; Billing</h3>
+              {cancellationScheduled ? (
+                <div className="space-y-1">
+                  <p className="text-sm">
+                    <span className="font-medium">Active until</span>{' '}
+                    {new Date(entitlementValidUntil!).toLocaleDateString('en-US', {
+                      month: 'long', day: 'numeric', year: 'numeric',
+                    })}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Your subscription will end at the close of the current billing period.
+                  </p>
                 </div>
-              ))}
-            </div>
-            {members.length < teamSeatLimit && (
-              <Link
-                href={`${basePath}/members`}
-                className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3"
-              >
-                Invite Member
-                <ChevronRight className="h-4 w-4" />
-              </Link>
-            )}
-          </div>
-        </section>
-
-        {/* Plan & Billing */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <FileText className="h-5 w-5 text-muted-foreground" />
-            Plan & Billing
-          </h2>
-          <div className="border rounded-lg p-5 bg-card">
-            {cancellationScheduled ? (
-              <div className="space-y-2">
+              ) : (
                 <p className="text-sm">
-                  <span className="font-medium">Active until</span>{' '}
-                  {new Date(entitlementValidUntil!).toLocaleDateString('en-US', {
-                    month: 'long', day: 'numeric', year: 'numeric',
-                  })}
+                  <span className="font-medium">Active</span> — $99/month
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  Your subscription will end at the close of the current billing period.
-                </p>
-              </div>
-            ) : (
-              <p className="text-sm">
-                <span className="font-medium">Active</span> — $99/month
-              </p>
-            )}
-            <button
-              onClick={handleManageBilling}
-              disabled={portalLoading}
-              className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3 disabled:opacity-50"
-            >
-              {portalLoading ? 'Opening...' : 'Manage Billing'}
-              <ChevronRight className="h-4 w-4" />
-            </button>
+              )}
+              {portalError && (
+                <p className="text-xs text-red-600 mt-2" role="alert">{portalError}</p>
+              )}
+              <button
+                onClick={handleManageBilling}
+                disabled={portalLoading}
+                className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-3 disabled:opacity-50"
+              >
+                {portalLoading ? 'Opening...' : 'Manage Billing'}
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </section>
 

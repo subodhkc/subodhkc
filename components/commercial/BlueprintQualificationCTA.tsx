@@ -89,6 +89,12 @@ export function BlueprintQualificationCTA({ title, description }: BlueprintQuali
         // If customer cancels Stripe or payment fails, intake should be resumable.
         // Draft is cleared on checkout success page after fulfillment.
         window.location.href = data.url
+      } else if (data.nextStep === 'review_and_accept_scope' && data.acceptUrl) {
+        // Section D: the server created a Work Order + proposed scope version
+        // and is waiting for the customer to review and explicitly accept the
+        // exact scope before checkout. Redirect to the Work Order detail page
+        // where the scope acceptance UI lives.
+        window.location.href = data.acceptUrl
       } else if (data.error === 'agreement_required') {
         setAgreementText(data.agreementBody || null)
         setStep('agreement')

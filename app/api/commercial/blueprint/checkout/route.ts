@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/lib/auth/organization-resolver'
-import { createOneTimeCheckout } from '@/lib/stripe/checkout'
 import { getOffer, type OfferKey } from '@/lib/commercial/offers'
-import { validateOrganizationForPurchase, hasActiveEntitlement } from '@/lib/commercial/purchase-auth'
+import { validateOrganizationForPurchase } from '@/lib/commercial/purchase-auth'
 import { createServiceClient } from '@/lib/supabase'
 import { rateLimit } from '@/lib/rate-limit'
 import { parseQualification, evaluateFit, toDbColumns } from '@/lib/commercial/blueprint-schema'
@@ -10,10 +9,10 @@ import {
   createWorkOrderDraft,
   createCustomScopeWorkOrder,
   buildStandardScopeSnapshot,
-  recordScopeAcceptance,
-  linkCheckoutSession,
+  createWorkOrderScopeVersion,
   type WorkType,
 } from '@/lib/commercial/work-orders'
+import { orgHasActiveAdvisorEntitlementById } from '@/lib/commercial/work-order-auth'
 import { trackEvent } from '@/lib/commercial/analytics'
 
 export const runtime = 'nodejs'
@@ -78,14 +77,14 @@ export async function POST(req: NextRequest) {
   const { organization } = orgValidation
 
   // ============================================
-  // MEMBERSHIP ENTITLEMENT CHECK
+  // MEMBERSHIP ENTITLEMENT CHECK (canonical, no trialing)
   // ============================================
   // AI Work Orders are available through the AI Advisor relationship.
-  // User must have an ACTIVE AI Advisor Desk OR Fractional AI Advisor entitlement.
+  // The organization must have an ACTIVE AI Advisor Desk OR ACTIVE
+  // Fractional AI Advisor entitlement. Trialing is NOT sufficient.
   // This check is placed at the transactional point, not before intake.
-  const hasAdvisorDesk = await hasActiveEntitlement(organization.id, 'ai_advisor_desk')
-  const hasFractional = await hasActiveEntitlement(organization.id, 'fractional_ai_advisor')
-  if (!hasAdvisorDesk && !hasFractional) {
+  const eligible = await orgHasActiveAdvisorEntitlementById(organization.id)
+  if (!eligible) {
     return NextResponse.json({
       error: 'membership_required',
       message: 'AI Work Orders are available through the AI Advisor relationship.',
@@ -327,10 +326,14 @@ export async function POST(req: NextRequest) {
   const { workOrderId, workOrderNumber } = woResult
 
   // ============================================
-  // SCOPE ACCEPTANCE (per-Work-Order, server-generated)
+  // SCOPE PROPOSAL (server-generated, NOT auto-accepted)
   // ============================================
-  // Build the canonical scope snapshot and record acceptance.
-  // The hash is computed server-side — the client does not supply it.
+  // Section D: the public intake must NOT auto-accept an invisible scope.
+  // We build the canonical standard scope snapshot, create an immutable
+  // scope version in the `sent_to_client` state, and transition the Work
+  // Order to `awaiting_client_acceptance`. The customer must explicitly
+  // accept the exact version via /api/commercial/work-orders/[id]/scope/accept
+  // before checkout is allowed.
   const scopeSnapshot = buildStandardScopeSnapshot({
     title: qualification.business_objective,
     workType: 'other' as WorkType,
@@ -338,72 +341,47 @@ export async function POST(req: NextRequest) {
     targetDate: null,
   })
 
-  const scopeResult = await recordScopeAcceptance({
+  const scopeVersionResult = await createWorkOrderScopeVersion({
     workOrderId,
     scopeSnapshot,
-    acceptedBy: user.id,
+    composedBy: user.id,
+    sendToClient: true,
   })
 
-  if ('error' in scopeResult) {
-    console.error('Scope acceptance failed:', scopeResult.error)
+  if ('error' in scopeVersionResult) {
+    console.error('Scope version creation failed:', scopeVersionResult.error)
     return NextResponse.json({
-      error: 'scope_acceptance_failed',
-      message: 'Failed to record scope acceptance. Please try again.',
+      error: 'scope_proposal_failed',
+      message: 'Failed to prepare your scope. Please try again.',
     }, { status: 500 })
   }
 
   await trackEvent({
-    eventName: 'work_order_scope_accepted',
+    eventName: 'work_order_scope_sent',
     organizationId: organization.id,
     userId: user.id,
     offerKey: 'ai_automation_blueprint',
-    metadata: { work_order_id: workOrderId, price_cents: 50000 },
-  })
-
-  // ============================================
-  // STRIPE CHECKOUT (metadata contains only identifiers, no free-text)
-  // ============================================
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subodhkc.com'
-  const successUrl = `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`
-  const cancelUrl = `${siteUrl}${offer.landingPage}?checkout=cancelled`
-
-  const result = await createOneTimeCheckout({
-    offerKey,
-    successUrl,
-    cancelUrl,
-    customerEmail: user.email ?? undefined,
     metadata: {
-      user_id: user.id,
-      organization_id: organization.id,
-      offer_key: offerKey,
-      qualification_record_id: qualificationRecordId,
       work_order_id: workOrderId,
-      fit_decision: fitDecision,
+      scope_version_id: scopeVersionResult.scopeVersionId,
+      price_cents: 50000,
     },
   })
 
-  if ('error' in result) {
-    return NextResponse.json({ error: result.error }, { status: 500 })
-  }
-
-  // Link the Stripe checkout session to the Work Order
-  if (result.sessionId) {
-    await linkCheckoutSession(workOrderId, result.sessionId)
-  }
-
-  await trackEvent({
-    eventName: 'work_order_checkout_started',
-    organizationId: organization.id,
-    userId: user.id,
-    offerKey: 'ai_automation_blueprint',
-    metadata: { work_order_id: workOrderId, checkout_session_id: result.sessionId },
-  })
-
+  // ============================================
+  // RETURN: scope must be reviewed and accepted before checkout
+  // ============================================
+  // The client renders the exact scope (from the scope version) and the
+  // customer explicitly accepts. Only then does the work-orders/checkout
+  // route create a Stripe session. We do NOT create a Stripe session here.
   return NextResponse.json({
-    url: result.url,
-    sessionId: result.sessionId,
     fitDecision,
     workOrderId,
     workOrderNumber,
+    scopeVersionId: scopeVersionResult.scopeVersionId,
+    scopeVersionNumber: scopeVersionResult.versionNumber,
+    scopeSnapshot,
+    nextStep: 'review_and_accept_scope',
+    acceptUrl: `/app/${orgValidation.organization.slug}/work-orders/${workOrderId}?action=accept_scope`,
   })
 }

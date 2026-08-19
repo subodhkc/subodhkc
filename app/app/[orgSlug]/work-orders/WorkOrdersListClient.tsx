@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Plus, FileText, Clock, CheckCircle2, Archive, AlertCircle } from 'lucide-react'
-import { statusLabel, type WorkOrder } from '@/lib/commercial/work-order-types'
+import { Plus, FileText, Clock, CheckCircle2, Archive, AlertCircle, ArrowRight } from 'lucide-react'
+import { statusLabel, statusActionLabel, type WorkOrder } from '@/lib/commercial/work-order-types'
 
 interface Props {
   orgSlug: string
@@ -127,7 +127,8 @@ export default function WorkOrdersListClient({
             <div>
               <h3 className="text-lg font-semibold">No Work Orders yet</h3>
               <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
-                AI Work Orders are bounded pieces of work with a defined outcome. $500 standard scope. Available through your AI Advisor relationship.
+                A Work Order is a focused investigation of one workflow or opportunity. $500 standard scope.
+                If the work is larger, it will be scoped before additional work begins.
               </p>
             </div>
             <Link
@@ -148,33 +149,32 @@ function WorkOrderCard({ wo, orgSlug, highlight }: { wo: WorkOrder; orgSlug: str
   return (
     <Link
       href={`/app/${orgSlug}/work-orders/${wo.id}`}
-      className={`block border rounded-lg p-4 hover:border-primary/50 transition-colors ${
-        highlight ? 'border-orange-300 bg-orange-50/50' : 'border-border bg-card'
+      className={`block border rounded-lg p-4 hover:bg-accent/5 transition-colors group ${
+        highlight ? 'border-orange-300/50 bg-orange-50/30' : 'border-border'
       }`}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-mono text-muted-foreground">{wo.work_order_number}</span>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.work_order_number}</span>
             <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-              wo.status === 'needs_client_input' ? 'bg-orange-100 text-orange-700' :
-              wo.status === 'delivered' || wo.status === 'completed' ? 'bg-green-100 text-green-700' :
-              wo.status === 'in_progress' || wo.status === 'in_review' ? 'bg-blue-100 text-blue-700' :
+              wo.status === 'needs_client_input' ? 'bg-orange-500/10 text-orange-600' :
+              wo.status === 'delivered' || wo.status === 'completed' ? 'bg-green-500/10 text-green-600' :
+              wo.status === 'in_progress' || wo.status === 'in_review' ? 'bg-blue-500/10 text-blue-600' :
               'bg-muted text-muted-foreground'
             }`}>
               {statusLabel(wo.status)}
             </span>
           </div>
-          <h3 className="font-medium truncate">{wo.title}</h3>
-          {wo.desired_outcome && (
-            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{wo.desired_outcome}</p>
-          )}
-          <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
+          <h3 className="font-medium text-sm truncate">{wo.title}</h3>
+          <p className="text-xs text-muted-foreground mt-1">{statusActionLabel(wo.status)}</p>
+          <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
             <span className="capitalize">{wo.work_type.replace(/_/g, ' ')}</span>
-            <span>·</span>
-            <span>{new Date(wo.created_at).toLocaleDateString()}</span>
+            <span className="text-muted-foreground/40">·</span>
+            <span>Updated {new Date(wo.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
           </div>
         </div>
+        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0 mt-0.5" />
       </div>
     </Link>
   )

@@ -241,7 +241,7 @@ const commercialLadder = [
   {
     step: 'INVESTIGATE',
     name: 'AI Work Order',
-    price: '$500 per workflow',
+    price: '$500 standard Work Order',
     desc: 'A focused decision on one opportunity or workflow. Positioned for Advisor members.',
   },
   {
@@ -644,7 +644,7 @@ export default function AIAdvisorPage() {
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 space-y-3">
             <div className="flex items-baseline justify-between">
               <h3 className="text-lg font-semibold">AI Work Order</h3>
-              <span className="text-2xl font-bold">$500<span className="text-sm font-normal text-muted-foreground"> /workflow</span></span>
+              <span className="text-2xl font-bold">$500<span className="text-sm font-normal text-muted-foreground"> standard Work Order</span></span>
             </div>
             <p className="text-sm text-muted-foreground">Positioned for Advisor members. A focused decision on one opportunity or workflow.</p>
             <div className="grid sm:grid-cols-2 gap-2 pt-2">

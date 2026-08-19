@@ -47,11 +47,31 @@ export default function WorkOrderDetailClient({
   const [completeLoading, setCompleteLoading] = useState(false)
   const [completeError, setCompleteError] = useState<string | null>(null)
   const [actionSuccess, setActionSuccess] = useState<string | null>(null)
+  const [scopeVersion, setScopeVersion] = useState<{
+    id: string
+    version_number: number
+    scope_snapshot: {
+      title?: string
+      desired_outcome?: string
+      scope_included?: string
+      scope_excluded?: string
+      required_inputs?: string
+      deliverable_description?: string
+      price_cents?: number
+      currency?: string
+      assumptions?: string[]
+    }
+    version_status: string
+  } | null>(null)
+  const [scopeLoading, setScopeLoading] = useState(false)
+  const [acceptLoading, setAcceptLoading] = useState(false)
+  const [acceptError, setAcceptError] = useState<string | null>(null)
 
   const needsInput = workOrder.status === 'needs_client_input'
   const isDelivered = workOrder.status === 'delivered'
   const isCompleted = workOrder.status === 'completed'
-  const showCheckout = workOrder.status === 'ready_for_checkout' || workOrder.status === 'awaiting_approval'
+  const showCheckout = workOrder.status === 'ready_for_checkout'
+  const awaitingAcceptance = workOrder.status === 'awaiting_client_acceptance' || workOrder.status === 'awaiting_approval'
 
   // Fetch deliverables when delivered or completed
   useEffect(() => {
@@ -64,6 +84,18 @@ export default function WorkOrderDetailClient({
         .finally(() => setDeliverablesLoading(false))
     }
   }, [workOrder.id, orgSlug, isDelivered, isCompleted])
+
+  // Fetch the current offered scope version when awaiting client acceptance
+  useEffect(() => {
+    if (awaitingAcceptance) {
+      setScopeLoading(true)
+      fetch(`/api/commercial/work-orders/${workOrder.id}/scope?orgSlug=${orgSlug}`)
+        .then(r => r.ok ? r.json() : { currentScopeVersion: null })
+        .then(data => setScopeVersion(data.currentScopeVersion || null))
+        .catch(() => setScopeVersion(null))
+        .finally(() => setScopeLoading(false))
+    }
+  }, [workOrder.id, orgSlug, awaitingAcceptance])
 
   async function submitInput() {
     if (!inputText.trim()) return
@@ -181,6 +213,90 @@ export default function WorkOrderDetailClient({
                 Scope accepted on {new Date(scopeAcceptance.accepted_at).toLocaleDateString()} · ${(scopeAcceptance.price_cents / 100).toFixed(0)} {scopeAcceptance.currency}
               </div>
             )}
+          </section>
+        )}
+
+        {/* Scope acceptance — customer must explicitly accept the exact
+            immutable scope version before checkout is allowed (Section D) */}
+        {awaitingAcceptance && (
+          <section className="border border-primary/30 rounded-lg p-5 bg-primary/5 space-y-4">
+            <h2 className="font-semibold">Review and accept your scope</h2>
+            <p className="text-sm text-muted-foreground">
+              Your scope has been prepared. Review it carefully. You must accept this exact scope before payment. The scope cannot be changed after acceptance without a new version.
+            </p>
+            {scopeLoading ? (
+              <div className="text-sm text-muted-foreground flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin" /> Loading scope...
+              </div>
+            ) : scopeVersion ? (
+              <div className="space-y-3 border rounded-lg p-4 bg-background">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono text-muted-foreground">Scope v{scopeVersion.version_number}</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">{scopeVersion.version_status.replace(/_/g, ' ')}</span>
+                </div>
+                {scopeVersion.scope_snapshot?.title && (
+                  <div><h3 className="text-xs font-medium text-muted-foreground mb-1">Title</h3><p className="text-sm">{scopeVersion.scope_snapshot.title}</p></div>
+                )}
+                {scopeVersion.scope_snapshot?.desired_outcome && (
+                  <div><h3 className="text-xs font-medium text-muted-foreground mb-1">Defined Outcome</h3><p className="text-sm">{scopeVersion.scope_snapshot.desired_outcome}</p></div>
+                )}
+                {scopeVersion.scope_snapshot?.scope_included && (
+                  <div><h3 className="text-xs font-medium text-green-700 mb-1">What is Included</h3><p className="text-sm">{scopeVersion.scope_snapshot.scope_included}</p></div>
+                )}
+                {scopeVersion.scope_snapshot?.scope_excluded && (
+                  <div><h3 className="text-xs font-medium text-red-700 mb-1">What is Excluded</h3><p className="text-sm">{scopeVersion.scope_snapshot.scope_excluded}</p></div>
+                )}
+                {scopeVersion.scope_snapshot?.required_inputs && (
+                  <div><h3 className="text-xs font-medium text-blue-700 mb-1">What I Need From You</h3><p className="text-sm">{scopeVersion.scope_snapshot.required_inputs}</p></div>
+                )}
+                {scopeVersion.scope_snapshot?.deliverable_description && (
+                  <div><h3 className="text-xs font-medium text-purple-700 mb-1">Expected Deliverable</h3><p className="text-sm">{scopeVersion.scope_snapshot.deliverable_description}</p></div>
+                )}
+                {scopeVersion.scope_snapshot?.assumptions && scopeVersion.scope_snapshot.assumptions.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-medium text-muted-foreground mb-1">Assumptions</h3>
+                    <ul className="text-sm list-disc pl-5 space-y-1">
+                      {scopeVersion.scope_snapshot.assumptions.map((a, i) => <li key={i}>{a}</li>)}
+                    </ul>
+                  </div>
+                )}
+                <div className="pt-2 border-t text-sm font-medium">
+                  Price: ${(scopeVersion.scope_snapshot?.price_cents ? scopeVersion.scope_snapshot.price_cents / 100 : 500).toFixed(0)} {scopeVersion.scope_snapshot?.currency || 'USD'}
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No scope version is currently available.</p>
+            )}
+            {acceptError && <p className="text-xs text-red-600">{acceptError}</p>}
+            <button
+              onClick={async () => {
+                if (!scopeVersion) return
+                setAcceptLoading(true)
+                setAcceptError(null)
+                try {
+                  const res = await fetch(`/api/commercial/work-orders/${workOrder.id}/scope/accept`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orgSlug, scopeVersionId: scopeVersion.id, accept: true }),
+                  })
+                  if (!res.ok) {
+                    const data = await res.json().catch(() => ({}))
+                    throw new Error(data.error || data.message || 'Failed to accept scope')
+                  }
+                  setActionSuccess('Scope accepted. Redirecting...')
+                  setTimeout(() => window.location.reload(), 1200)
+                } catch (err: any) {
+                  setAcceptError(err.message)
+                } finally {
+                  setAcceptLoading(false)
+                }
+              }}
+              disabled={acceptLoading || !scopeVersion}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
+            >
+              {acceptLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
+              Accept This Scope
+            </button>
           </section>
         )}
 

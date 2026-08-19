@@ -2,12 +2,70 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { getAuthenticatedUser, resolveOrganizationContext } from '@/lib/auth/organization-resolver'
 import { rateLimit } from '@/lib/rate-limit'
+import { recordFailure } from '@/lib/commercial/failures'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+
+/**
+ * S7: Centralized scheduling configuration.
+ *
+ * Default durations per link type. These can be overridden per-request
+ * via the durationMinutes field, but the defaults are defined here
+ * (not hardcoded inline in the route logic).
+ *
+ * External scheduling provider event-type URLs should be configured via
+ * environment variables or the scheduling_links table. A link click
+ * does NOT imply a session was scheduled — the status must be set
+ * explicitly via PATCH.
+ */
+const SCHEDULING_DEFAULTS = {
+  activation_call: {
+    durationMinutes: 20,
+    description: 'Fractional activation call',
+  },
+  working_session: {
+    durationMinutes: 60,
+    description: 'Fractional working session',
+  },
+  advisor_activation: {
+    durationMinutes: 15,
+    description: 'Advisor Desk activation',
+  },
+} as const
+
+/**
+ * S7: Scheduling status model.
+ *
+ * Client-settable statuses (any org member):
+ *   not_started, scheduling, scheduled, deferred, cancelled
+ *
+ * Advisor-authoritative statuses (platform_admin / advisor_operator only):
+ *   completed, no_show
+ *
+ * A link click or "schedule later" must NOT set completed.
+ */
+const CLIENT_SETTABLE_STATUSES = new Set([
+  'not_started',
+  'scheduling',
+  'scheduled',
+  'deferred',
+  'cancelled',
+  'pending',
+])
+
+const ADVISOR_AUTHORITATIVE_STATUSES = new Set([
+  'completed',
+  'no_show',
+])
+
+const ALL_VALID_STATUSES = new Set([
+  ...CLIENT_SETTABLE_STATUSES,
+  ...ADVISOR_AUTHORITATIVE_STATUSES,
+])
 
 /**
  * GET /api/scheduling/links?orgSlug=...&type=activation_call|working_session
@@ -74,6 +132,9 @@ export async function POST(request: NextRequest) {
 
     const sc = createClient(supabaseUrl, serviceRoleKey)
 
+    // S7: Use centralized default duration
+    const defaultDuration = SCHEDULING_DEFAULTS[linkType as keyof typeof SCHEDULING_DEFAULTS]?.durationMinutes ?? 30
+
     // For activation_call, only allow one pending/scheduled link at a time
     if (linkType === 'activation_call') {
       const { data: existing } = await sc
@@ -81,7 +142,7 @@ export async function POST(request: NextRequest) {
         .select('id, status')
         .eq('organization_id', ctx.organization.id)
         .eq('link_type', 'activation_call')
-        .in('status', ['pending', 'scheduled'])
+        .in('status', ['pending', 'scheduled', 'scheduling'])
         .limit(1) as { data: any }
 
       if (existing && existing.length > 0) {
@@ -91,7 +152,7 @@ export async function POST(request: NextRequest) {
           .update({
             scheduling_url: schedulingUrl,
             scheduled_at: scheduledAt || null,
-            duration_minutes: durationMinutes || 20,
+            duration_minutes: durationMinutes || defaultDuration,
             status: status || 'scheduled',
             notes: notes || null,
           })
@@ -109,7 +170,7 @@ export async function POST(request: NextRequest) {
         link_type: linkType,
         scheduling_url: schedulingUrl,
         scheduled_at: scheduledAt || null,
-        duration_minutes: durationMinutes || (linkType === 'activation_call' ? 20 : 60),
+        duration_minutes: durationMinutes || defaultDuration,
         status: status || 'scheduled',
         notes: notes || null,
       })
@@ -118,6 +179,16 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('[scheduling] Insert error:', error)
+      // S10: Record scheduling creation failure for operator visibility
+      await recordFailure({
+        organizationId: ctx.organization.id,
+        userId: user.id,
+        failureType: 'scheduling',
+        severity: 'warning',
+        message: `Scheduling link creation failed: ${error.message}`,
+        details: { linkType, schedulingUrl, error: error.message },
+        retryable: true,
+      }).catch(() => undefined)
       return NextResponse.json({ error: 'Failed to create scheduling link' }, { status: 500 })
     }
 
@@ -130,8 +201,14 @@ export async function POST(request: NextRequest) {
 
 /**
  * PATCH /api/scheduling/links
- * Update a scheduling link status (e.g., mark as completed).
+ * Update a scheduling link status.
  * Body: { linkId, status, scheduledAt? }
+ *
+ * S7: Authority enforcement:
+ *   - Client-settable: not_started, scheduling, scheduled, deferred, cancelled, pending
+ *   - Advisor-authoritative: completed, no_show (platform_admin / advisor_operator only)
+ *
+ * A scheduling link click or "schedule later" must NOT set completed.
  */
 export async function PATCH(request: NextRequest) {
   const limited = rateLimit(request)
@@ -146,6 +223,14 @@ export async function PATCH(request: NextRequest) {
 
     if (!linkId || !status) {
       return NextResponse.json({ error: 'Missing linkId or status' }, { status: 400 })
+    }
+
+    // S7: Validate the status is in the allowed set
+    if (!ALL_VALID_STATUSES.has(status)) {
+      return NextResponse.json({
+        error: 'invalid_status',
+        message: `Status must be one of: ${[...ALL_VALID_STATUSES].join(', ')}`,
+      }, { status: 400 })
     }
 
     const sc = createClient(supabaseUrl, serviceRoleKey)
@@ -172,11 +257,25 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
     }
 
+    // S7: Enforce advisor-authoritative statuses.
+    // Only platform admins / advisor operators can set completed or no_show.
+    // A client clicking a scheduling link must not be able to mark a session
+    // as completed.
+    if (ADVISOR_AUTHORITATIVE_STATUSES.has(status) && !user.isPlatformAdmin && !user.isAdvisorOperator) {
+      return NextResponse.json({
+        error: 'advisor_only_status',
+        message: `The '${status}' status can only be set by Subodh or an authorized operator. Clients may set: ${[...CLIENT_SETTABLE_STATUSES].join(', ')}.`,
+      }, { status: 403 })
+    }
+
     const { data: updated, error } = await (sc
       .from('scheduling_links') as any)
       .update({
         status,
         scheduled_at: scheduledAt || undefined,
+        status_set_by: user.id,
+        status_set_by_role: user.isPlatformAdmin ? 'platform_admin' : (user.isAdvisorOperator ? 'advisor_operator' : 'org_member'),
+        status_set_at: new Date().toISOString(),
       })
       .eq('id', linkId)
       .select()
@@ -184,6 +283,16 @@ export async function PATCH(request: NextRequest) {
 
     if (error) {
       console.error('[scheduling] Update error:', error)
+      // S10: Record scheduling update failure for operator visibility
+      await recordFailure({
+        organizationId: link.organization_id,
+        userId: user.id,
+        failureType: 'scheduling',
+        severity: 'warning',
+        message: `Scheduling link status update failed: ${error.message}`,
+        details: { linkId, status, error: error.message },
+        retryable: true,
+      }).catch(() => undefined)
       return NextResponse.json({ error: 'Failed to update scheduling link' }, { status: 500 })
     }
 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser, resolveOrganizationContext, resolveOrganizationContextById, AuthError } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { sendInvitationEmail } from '@/lib/email'
+import { recordFailure } from '@/lib/commercial/failures'
 import crypto from 'crypto'
 
 export const runtime = 'nodejs'
@@ -49,7 +50,7 @@ export async function POST(
     return NextResponse.json({ error: 'invitation_revoked' }, { status: 400 })
   }
 
-  // Generate new token and extend expiry
+  // Generate new token and extend expiry (rotation: old token is invalidated)
   const token = crypto.randomBytes(32).toString('hex')
   const tokenHash = crypto.createHash('sha256').update(token).digest('hex')
   const expiresAt = new Date()
@@ -60,6 +61,7 @@ export async function POST(
     .update({
       token_hash: tokenHash,
       expires_at: expiresAt.toISOString(),
+      email_sent: false,
     })
     .eq('id', invitationId)
 
@@ -78,7 +80,7 @@ export async function POST(
   })
 
   // Send email
-  await sendInvitationEmail({
+  const emailResult = await sendInvitationEmail({
     to: invitation.email,
     orgName: ctx.organization.name,
     inviterName: user.displayName || user.email || 'A team member',
@@ -86,5 +88,23 @@ export async function POST(
     token,
   })
 
-  return NextResponse.json({ success: true })
+  // S3: Update email_sent flag on the invitation
+  await serviceClient
+    .from('organization_invitations')
+    .update({ email_sent: emailResult.success })
+    .eq('id', invitationId)
+
+  if (!emailResult.success) {
+    await recordFailure({
+      organizationId: orgId,
+      userId: user.id,
+      failureType: 'invitation',
+      severity: 'warning',
+      message: `Invitation resend failed for ${invitation.email}: ${emailResult.error}`,
+      details: { invitation_id: invitationId, email: invitation.email },
+      retryable: true,
+    }).catch(() => undefined)
+  }
+
+  return NextResponse.json({ success: true, email_sent: emailResult.success })
 }

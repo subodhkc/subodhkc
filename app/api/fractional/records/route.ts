@@ -6,8 +6,9 @@ import {
 } from '@/lib/auth/organization-resolver'
 import { checkMutationAllowed } from '@/lib/auth/fractional-access'
 import { createServiceClient } from '@/lib/supabase'
-import { incrementSessionUsage, getCurrentMonth } from '@/lib/fractional/session-usage'
+import { getCurrentMonth } from '@/lib/fractional/session-usage'
 import { rateLimit } from '@/lib/rate-limit'
+import { recordFailure } from '@/lib/commercial/failures'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -18,16 +19,12 @@ export const dynamic = 'force-dynamic'
  * GET  /api/fractional/records?orgSlug=...&type=opportunities
  * POST /api/fractional/records  { orgSlug, type, action: 'create'|'update'|'delete', data }
  *
- * Supported record types:
- *   intake       — Bring Something to the Desk
- *   opportunities — Opportunity Registry
- *   evidence     — Evidence & Inputs
- *   sessions     — Working Session Records
- *   briefs       — Monthly Decision & Opportunity Brief
- *   priorities   — Current Priorities
- *   actions      — Actions & Commitments (uses engagement_actions)
- *   artifacts    — Decision Artifacts (uses engagement_artifacts)
- *   outcomes     — Outcome / Learning (uses engagement_outcomes)
+ * S5: Record authorization matrix:
+ *   CLIENT-AUTHORABLE (any org member with active Fractional access):
+ *     intake, opportunities, evidence, priorities, actions (client actions)
+ *   ADVISOR-AUTHORITATIVE (platform_admin / advisor_operator only):
+ *     briefs, artifacts, outcomes, affiliations
+ *   SESSIONS: any org member may schedule; completion is advisor-authoritative
  */
 
 const TABLE_MAP: Record<string, string> = {
@@ -42,6 +39,15 @@ const TABLE_MAP: Record<string, string> = {
   outcomes: 'fractional_outcomes',
   affiliations: 'advisor_affiliations',
 }
+
+// S5: Advisor-authoritative record types — only platform admins / advisor
+// operators can create/update/delete these. Clients can GET them.
+const ADVISOR_AUTHORITATIVE_TYPES = new Set([
+  'briefs',
+  'artifacts',
+  'outcomes',
+  'affiliations',
+])
 
 const VALID_INTAKE_TYPES = [
   'ask_question', 'explore_opportunity', 'review_decision', 'review_vendor',
@@ -159,6 +165,16 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  // S5: Enforce advisor-authoritative record types. Only platform admins /
+  // advisor operators can create/update/delete these. A normal org member
+  // (even an owner) cannot publish briefs, artifacts, outcomes, or affiliations.
+  if (ADVISOR_AUTHORITATIVE_TYPES.has(type) && !ctx.isPlatformAdmin && !ctx.isAdvisorOperator) {
+    return NextResponse.json({
+      error: 'advisor_only',
+      message: `${type} are advisor-authoritative records. Only Subodh and authorized operators can create or modify them.`,
+    }, { status: 403 })
+  }
+
   const sc = createServiceClient()
   if (!sc) return NextResponse.json({ error: 'Configuration error' }, { status: 500 })
 
@@ -210,18 +226,102 @@ export async function POST(req: NextRequest) {
       insertData.authored_by_user_id = user.id
     }
 
-    // For working sessions: enforce session usage limits
+    // S6: For working sessions, use the atomic RPC that inserts the session
+    // AND increments usage in one transaction. This prevents the race condition
+    // where quota is incremented but the session insert fails (leaving a
+    // consumed session with no session record).
     if (type === 'sessions' && insertData.session_type !== 'activation_call') {
       const billingMonth = (data.billing_period_month as string) || getCurrentMonth()
-      const usageResult = await incrementSessionUsage(ctx.organization.id, billingMonth)
-      if (!usageResult.success) {
+      insertData.billing_period_month = billingMonth
+
+      // Call the atomic RPC: create_working_session_atomic
+      const { data: rpcResult, error: rpcError } = await sc.rpc('create_working_session_atomic', {
+        p_org_id: ctx.organization.id,
+        p_engagement_id: engagement?.id || null,
+        p_billing_period_month: billingMonth,
+        p_session_data: {
+          session_type: insertData.session_type,
+          scheduled_at: insertData.scheduled_at,
+          participants: insertData.participants,
+          agenda: insertData.agenda,
+          status: insertData.status || 'scheduled',
+        } as any,
+      })
+
+      if (rpcError) {
+        // If the RPC doesn't exist yet (migration not applied), fall back to
+        // the old non-atomic path with the order fixed (insert first, then
+        // increment). This maintains backwards compatibility.
+        const { data: sessionRecord, error: sessionError } = await sc
+          .from(table)
+          .insert(insertData)
+          .select('*')
+          .single()
+
+        if (sessionError) {
+          return NextResponse.json({ error: sessionError.message }, { status: 500 })
+        }
+
+        // Now increment usage (after successful insert)
+        const { incrementSessionUsage } = await import('@/lib/fractional/session-usage')
+        const usageResult = await incrementSessionUsage(ctx.organization.id, billingMonth)
+        if (!usageResult.success) {
+          // S6: The session was inserted but the quota increment failed.
+          // Record a commercial failure for reconciliation — the session
+          // exists but is not counted against quota.
+          await recordFailure({
+            organizationId: ctx.organization.id,
+            userId: user.id,
+            failureType: 'session_usage',
+            severity: 'warning',
+            message: `Session usage increment failed after session insert. Session ${sessionRecord.id} exists but quota was not incremented.`,
+            details: { session_id: sessionRecord.id, billing_month: billingMonth, usage_error: usageResult.message },
+            retryable: true,
+          }).catch(() => undefined)
+          // Do NOT delete the session — it was legitimately scheduled.
+          // The failure record allows an operator to reconcile.
+        }
+
+        // Audit
+        await sc.rpc('write_audit_event', {
+          audit_action: `fractional.${type}.created`,
+          audit_entity_type: 'fractional_record',
+          audit_org_id: ctx.organization.id,
+          audit_entity_id: sessionRecord.id,
+          audit_actor_id: user.id,
+          audit_metadata: { type, title: data.title || data.session_type } as any,
+        })
+
+        return NextResponse.json({ success: true, record: sessionRecord })
+      }
+
+      // RPC succeeded
+      const result = rpcResult as { success: boolean; session_id?: string; error?: string; available?: number; used?: number }
+      if (!result.success) {
         return NextResponse.json(
-          { error: 'session_limit_reached', message: usageResult.message },
+          { error: 'session_limit_reached', message: result.error || 'No sessions remaining.' },
           { status: 409 }
         )
       }
-      // Store the billing period on the session record
-      insertData.billing_period_month = billingMonth
+
+      // Fetch the created session record for the response
+      const { data: createdSession } = await sc
+        .from(table)
+        .select('*')
+        .eq('id', result.session_id)
+        .single()
+
+      // Audit
+      await sc.rpc('write_audit_event', {
+        audit_action: `fractional.${type}.created`,
+        audit_entity_type: 'fractional_record',
+        audit_org_id: ctx.organization.id,
+        audit_entity_id: result.session_id,
+        audit_actor_id: user.id,
+        audit_metadata: { type, title: data.title || data.session_type } as any,
+      })
+
+      return NextResponse.json({ success: true, record: createdSession })
     }
 
     const { data: record, error } = await sc

@@ -7,6 +7,7 @@ export type {
   DashboardEngagement,
   DashboardInvitation,
   DashboardJoinRequest,
+  DashboardWorkOrderAttention,
   DashboardData,
 } from '@/lib/auth/dashboard-types'
 
@@ -27,6 +28,7 @@ import type {
   DashboardEngagement,
   DashboardInvitation,
   DashboardJoinRequest,
+  DashboardWorkOrderAttention,
 } from '@/lib/auth/dashboard-types'
 
 /**
@@ -116,12 +118,12 @@ export async function resolveDashboardData(): Promise<DashboardData | null> {
     offerings: orgOfferings[idx] || [],
   }))
 
-  // 2b. Fetch Work Orders needing attention per org (with IDs for deep-linking)
+  // 2b. Fetch Work Orders needing attention per org (with summaries for object-first rendering)
   if (orgIds.length > 0) {
-    // Work orders needing client input
+    // Work orders needing client input — fetch full summary columns
     const { data: woInput } = await serviceClient
       .from('ai_work_orders')
-      .select('id, organization_id')
+      .select('id, organization_id, work_order_number, title, work_type, status, updated_at')
       .in('organization_id', orgIds)
       .eq('status', 'needs_client_input')
       .order('updated_at', { ascending: false })
@@ -136,7 +138,7 @@ export async function resolveDashboardData(): Promise<DashboardData | null> {
     // Work orders with scope ready for approval
     const { data: woScope } = await serviceClient
       .from('ai_work_orders')
-      .select('id, organization_id')
+      .select('id, organization_id, work_order_number, title, work_type, status, updated_at')
       .in('organization_id', orgIds)
       .eq('status', 'awaiting_approval')
       .order('updated_at', { ascending: false })
@@ -151,7 +153,7 @@ export async function resolveDashboardData(): Promise<DashboardData | null> {
     // Work orders awaiting owner approval
     const { data: woOwner } = await serviceClient
       .from('ai_work_orders')
-      .select('id, organization_id')
+      .select('id, organization_id, work_order_number, title, work_type, status, updated_at')
       .in('organization_id', orgIds)
       .eq('status', 'awaiting_owner_approval')
       .order('updated_at', { ascending: false })
@@ -163,10 +165,38 @@ export async function resolveDashboardData(): Promise<DashboardData | null> {
       woOwnerMap.set(wo.organization_id, arr)
     }
 
+    // Build object-first attention summaries per org
+    const { statusLabel: woStatusLabel, statusActionLabel: woActionLabel } = await import('@/lib/commercial/work-order-types')
+    const attentionByOrg = new Map<string, DashboardWorkOrderAttention[]>()
+    const collectAttention = (
+      rows: any[],
+      reason: DashboardWorkOrderAttention['attentionReason']
+    ) => {
+      for (const wo of rows || []) {
+        const arr = attentionByOrg.get(wo.organization_id) || []
+        arr.push({
+          id: wo.id,
+          workOrderNumber: wo.work_order_number,
+          title: wo.title,
+          workType: wo.work_type,
+          status: wo.status,
+          statusLabel: woStatusLabel(wo.status),
+          actionLabel: woActionLabel(wo.status),
+          updatedAt: wo.updated_at,
+          attentionReason: reason,
+        })
+        attentionByOrg.set(wo.organization_id, arr)
+      }
+    }
+    collectAttention(woInput || [], 'needs_input')
+    collectAttention(woScope || [], 'scope_ready')
+    collectAttention(woOwner || [], 'owner_approval')
+
     for (const org of dashboardOrgs) {
       org.workOrdersNeedingInputIds = woInputMap.get(org.id) || []
       org.workOrdersScopeReadyIds = woScopeMap.get(org.id) || []
       org.workOrdersOwnerApprovalIds = woOwnerMap.get(org.id) || []
+      org.workOrderAttentionSummaries = attentionByOrg.get(org.id) || []
     }
 
     // Fetch answered advisor questions count per org

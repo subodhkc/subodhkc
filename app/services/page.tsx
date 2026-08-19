@@ -117,7 +117,7 @@ const technicalNeeds = [
 const credentials = [
   { value: '83+', label: 'projects delivered' },
   { value: '53', label: 'enterprise applications' },
-  { value: '16+', label: 'years in production AI' },
+  { value: '16+', label: 'years across software, infrastructure, programs, AI systems' },
 ]
 
 export default function ServicesPage() {
@@ -213,8 +213,8 @@ export default function ServicesPage() {
 
           {/* Member-only note */}
           <p className="text-sm text-muted-foreground mt-8 max-w-3xl mx-auto text-center">
-            Members can commission AI Work Orders when one opportunity deserves focused
-            investigation. Available under the Advisor relationship, not as a standalone public starting point.
+            Members can commission a $500 AI Work Order when one defined outcome deserves focused
+            work. Available under the Advisor relationship, not as a standalone public starting point.
           </p>
         </div>
       </Section>
@@ -284,7 +284,7 @@ export default function ServicesPage() {
             <CardHeader>
               <CardTitle>Tested in production at enterprise scale</CardTitle>
               <CardDescription className="text-base">
-                83+ projects delivered, 53 enterprise applications, 16+ years in production AI. Everything I
+                83+ projects delivered, 53 enterprise applications, 16+ years across software, infrastructure, program delivery and AI systems. Everything I
                 build is designed for production environments with real constraints, real users, and real
                 compliance obligations.
               </CardDescription>

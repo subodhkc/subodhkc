@@ -13,7 +13,7 @@ interface LeadMagnetCardProps {
 
 export function LeadMagnetCard({
   title = 'Free AI Governance & Compliance Framework Guide',
-  description = 'Get a practical guide covering the Cognitive Systems Management (CSM) Framework, 5 patent-pending methodologies, and enterprise implementation strategies for AI governance and compliance.',
+  description = 'Get a practical guide covering the Cognitive Systems Management (CSM) Framework, patent-pending methodologies, and enterprise implementation strategies for AI governance and compliance.',
   resourceName = 'AI Governance & Compliance Framework Guide',
 }: LeadMagnetCardProps) {
   const [name, setName] = useState('')

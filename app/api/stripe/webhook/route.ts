@@ -20,6 +20,22 @@ import {
   getWorkOrder,
 } from '@/lib/commercial/work-orders'
 
+// ============================================
+// Section H: distinguish "unrelated event" from "SubodhKC event with broken
+// data". The former returns silently; the latter throws so Stripe retries
+// and a commercial_failures row is recorded.
+// ============================================
+class SubodhKCWebhookError extends Error {
+  constructor(
+    message: string,
+    public readonly code: string,
+    public readonly organizationId?: string
+  ) {
+    super(message)
+    this.name = 'SubodhKCWebhookError'
+  }
+}
+
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
@@ -95,6 +111,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ received: true })
   } catch (err: any) {
     console.error(`Webhook processing error for ${event.type} (${event.id}):`, err.message)
+    // Record a commercial failure for SubodhKC events with broken data so
+    // admins can see and reconcile. Unrelated events never reach this path
+    // (they return before throwing).
+    if (err instanceof SubodhKCWebhookError) {
+      await recordFailure({
+        organizationId: err.organizationId,
+        failureType: 'webhook',
+        severity: 'critical',
+        message: `[${event.type}] ${err.code}: ${err.message}`,
+        details: { event_id: event.id, code: err.code },
+        stripeEventId: event.id,
+        retryable: true,
+      }).catch(() => undefined)
+    }
     // Remove idempotency mark so Stripe can retry
     await sc.from('webhook_idempotency').delete().eq('event_id', event.id)
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 })
@@ -127,9 +157,14 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
   const customerName = session.customer_details?.name ?? undefined
   const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id
 
+  // Section H: missing customer identity on a SubodhKC event is a broken
+  // data condition, not an unrelated event. Fail closed so Stripe retries
+  // and a failure row is recorded.
   if (!customerEmail || !customerId) {
-    console.error('Missing customer email or ID in session', session.id)
-    return
+    throw new SubodhKCWebhookError(
+      'Missing customer email or ID in checkout session',
+      'missing_customer_identity'
+    )
   }
 
   // Extract user_id and organization_id from session metadata
@@ -147,8 +182,11 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
   })
 
   if ('error' in orgResult) {
-    console.error('Failed to resolve org:', orgResult.error)
-    return
+    // Section H: org resolution failure on a SubodhKC event is retryable.
+    throw new SubodhKCWebhookError(
+      `Failed to resolve org: ${orgResult.error}`,
+      'organization_resolution_failed'
+    )
   }
 
   const { orgId, orgSlug, created } = orgResult
@@ -181,66 +219,89 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
   if (offerKey === 'ai_automation_blueprint') {
     const workOrderId = session.metadata?.work_order_id as string | undefined
 
-    if (workOrderId) {
-      // Idempotency: check if Work Order is already fulfilled
-      const existingWO = await getWorkOrder(workOrderId)
-      if (existingWO && existingWO.status !== 'payment_pending' && existingWO.status !== 'draft' && existingWO.status !== 'ready_for_checkout') {
-        // Already fulfilled — skip (idempotent)
-        console.log(`Work Order ${workOrderId} already fulfilled (status: ${existingWO.status})`)
-      } else {
-        // Create engagement for this Work Order
-        const engResult = await createEngagementForOffer(orgId, offerKey, offer.engagementType || 'project', customerEmail, session.metadata as Record<string, string | undefined> | undefined)
+    // Section H: a SubodhKC Work Order checkout with no work_order_id is a
+    // broken data condition, not a legacy path to silently ignore. Fail
+    // closed so it can be reconciled.
+    if (!workOrderId) {
+      throw new SubodhKCWebhookError(
+        'Work Order checkout session missing work_order_id metadata',
+        'missing_work_order_id',
+        orgId
+      )
+    }
 
-        // Get the engagement ID — we need to fetch it since createEngagementForOffer doesn't return it
-        // We'll query the latest engagement for this org
-        const sc = createServiceClient()
-        let engagementId: string | null = null
-        if (sc) {
-          const { data: latestEng } = await sc
-            .from('engagements')
-            .select('id')
-            .eq('organization_id', orgId)
-            .order('created_at', { ascending: false })
-            .limit(1)
-            .single()
-          engagementId = latestEng?.id || null
-        }
+    // Idempotency: check if Work Order is already fulfilled
+    const existingWO = await getWorkOrder(workOrderId)
+    if (!existingWO) {
+      throw new SubodhKCWebhookError(
+        `Work Order ${workOrderId} not found`,
+        'work_order_not_found',
+        orgId
+      )
+    }
 
-        if (!engagementId) {
-          console.error('Failed to find engagement for Work Order fulfillment')
-          throw new Error('Engagement not found after creation for Work Order fulfillment')
-        }
+    // Section G: validate the Work Order belongs to the resolved org before
+    // fulfillment. Never link a Work Order to an engagement for a different org.
+    if (existingWO.organization_id !== orgId) {
+      throw new SubodhKCWebhookError(
+        `Work Order ${workOrderId} org ${existingWO.organization_id} does not match checkout org ${orgId}`,
+        'work_order_org_mismatch',
+        orgId
+      )
+    }
 
-        // Fulfill the Work Order: link payment + engagement, transition to paid
-        const fulfillResult = await fulfillWorkOrder({
-          workOrderId,
-          organizationId: orgId,
-          paymentId: paymentResult.paymentId,
-          stripePaymentIntentId: session.payment_intent as string | undefined,
-          engagementId,
-        })
-
-        if (!fulfillResult.success) {
-          console.error('Work Order fulfillment failed:', fulfillResult.error)
-          throw new Error(`Work Order fulfillment failed: ${fulfillResult.error}`)
-        }
-
-        // Track Work Order fulfillment
-        await trackEvent({
-          eventName: 'work_order_payment_completed',
-          organizationId: orgId,
-          userId,
-          offerKey: 'ai_automation_blueprint',
-          metadata: { work_order_id: workOrderId, payment_id: paymentResult.paymentId, engagement_id: engagementId },
-        })
-      }
+    const alreadyFulfilled = !['payment_pending', 'draft', 'ready_for_checkout'].includes(existingWO.status)
+    if (alreadyFulfilled) {
+      // Idempotent — skip. Validate linkage matches to detect mis-linking.
+      console.log(`Work Order ${workOrderId} already fulfilled (status: ${existingWO.status})`)
     } else {
-      // Legacy path: no work_order_id in metadata (old checkout sessions)
-      // Fall back to creating engagement only
-      console.warn('[webhook] Legacy ai_automation_blueprint checkout without work_order_id metadata')
-      if (offer.createsEngagement && offer.engagementType) {
-        await createEngagementForOffer(orgId, offerKey, offer.engagementType, customerEmail, session.metadata as Record<string, string | undefined> | undefined)
+      // Section G: createEngagementForOffer now returns the engagement id.
+      // Do NOT query "latest engagement in org" — under concurrent webhooks
+      // that pattern mis-links Work Order B to engagement A.
+      const engId = await createEngagementForOffer(
+        orgId,
+        offerKey,
+        offer.engagementType || 'project',
+        customerEmail,
+        session.metadata as Record<string, string | undefined> | undefined
+      )
+
+      if (!engId) {
+        throw new SubodhKCWebhookError(
+          'Engagement creation returned no id',
+          'engagement_creation_failed',
+          orgId
+        )
       }
+
+      // Fulfill the Work Order: link payment + engagement, transition to
+      // paid, set purchased_by_user_id and paid_at. The RPC validates org
+      // match again and is idempotent on payment_id/engagement_id.
+      const fulfillResult = await fulfillWorkOrder({
+        workOrderId,
+        organizationId: orgId,
+        paymentId: paymentResult.paymentId,
+        stripePaymentIntentId: session.payment_intent as string | undefined,
+        engagementId: engId,
+        purchaserUserId: userId,
+      })
+
+      if (!fulfillResult.success) {
+        throw new SubodhKCWebhookError(
+          `Work Order fulfillment failed: ${fulfillResult.error}`,
+          'fulfillment_failed',
+          orgId
+        )
+      }
+
+      // Track Work Order fulfillment
+      await trackEvent({
+        eventName: 'work_order_payment_completed',
+        organizationId: orgId,
+        userId,
+        offerKey: 'ai_automation_blueprint',
+        metadata: { work_order_id: workOrderId, payment_id: paymentResult.paymentId, engagement_id: engId },
+      })
     }
 
     // Skip entitlement activation for Work Orders — they are transactions, not entitlements
@@ -454,7 +515,7 @@ async function handleCheckoutCompleted(event: Stripe.Event) {
         orgName,
         orgSlug,
         offerName: 'AI Work Order',
-        price: '$500 fixed',
+        price: '$500 standard',
         workspaceUrl: `${siteUrl}/app/${orgSlug}/work-orders`,
       })
     } else if (offerKey === 'fractional_ai_advisor') {
@@ -527,7 +588,12 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
 
   const orgId = link.organization_id
 
-  if (subscription.status === 'active' || subscription.status === 'trialing') {
+  // Section J: trialing is NOT a supported product state for Work Order
+  // eligibility. Only activate entitlements on `active` status. Trialing
+  // subscriptions do not grant Advisor Desk / Fractional privileges, so
+  // hasActiveEntitlement (which checks status='active') will correctly
+  // return false for trialing orgs.
+  if (subscription.status === 'active') {
     const subUserId = subscription.metadata?.user_id as string | undefined
     await activateEntitlement({
       orgId,
@@ -535,6 +601,15 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
       userId: subUserId,
       sourceType: 'subscription',
       metadata: { subscription_id: subscription.id, status: subscription.status },
+    })
+  } else if (subscription.status === 'trialing') {
+    // Record but do NOT activate. Trialing is intentionally not entitled.
+    await sc.rpc('write_audit_event', {
+      audit_action: 'commercial.subscription_trialing',
+      audit_entity_type: 'subscription',
+      audit_org_id: orgId,
+      audit_entity_id: subscription.id,
+      audit_metadata: { status: subscription.status } as any,
     })
   } else if (subscription.status === 'past_due' || subscription.status === 'unpaid') {
     // Don't deactivate immediately - Stripe will retry
@@ -851,6 +926,10 @@ async function handleInvoicePaid(event: Stripe.Event) {
  * Create an engagement for offers that require it (Blueprint, Security Review, etc.)
  * Prevents duplicate engagements by checking offering_id, not just org_id.
  * For Blueprint, populates charter fields from qualification metadata.
+ *
+ * Section G: returns the newly-created engagement id (or null if a duplicate
+ * was found / creation skipped). Callers must use the returned id to link
+ * the Work Order — never query "latest engagement in org".
  */
 async function createEngagementForOffer(
   orgId: string,
@@ -858,12 +937,12 @@ async function createEngagementForOffer(
   engagementType: string,
   customerEmail: string,
   sessionMetadata?: Record<string, string | undefined>
-): Promise<void> {
+): Promise<string | null> {
   const sc = createServiceClient()
-  if (!sc) return
+  if (!sc) return null
 
   const offer = getOffer(offerKey)
-  if (!offer) return
+  if (!offer) return null
 
   // Get offering ID
   const { data: offering } = await sc
@@ -872,7 +951,7 @@ async function createEngagementForOffer(
     .eq('offering_key', offerKey)
     .single()
 
-  if (!offering) return
+  if (!offering) return null
 
   // AI Work Orders are repeatable transactions - each purchase creates a new engagement.
   // Skip dedup check for ai_automation_blueprint so multiple Work Orders can coexist.
@@ -896,7 +975,7 @@ async function createEngagementForOffer(
 
     if (existing && existing.length > 0) {
       // Engagement already exists for this offering - don't create a duplicate
-      return
+      return null
     }
   }
 
@@ -1033,6 +1112,10 @@ async function createEngagementForOffer(
     audit_entity_id: eng.id,
     audit_metadata: { offer_key: offerKey, title: engagementFields.title } as any,
   })
+
+  // Section G: return the newly-created engagement id so callers can link
+  // the Work Order to the exact engagement, never "latest engagement in org".
+  return eng.id
 }
 
 /**

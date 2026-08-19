@@ -73,6 +73,8 @@ interface AdvisorWorkOrder {
   standard_price_cents: number | null
   created_at: string
   scope_accepted_at: string | null
+  paid_at: string | null
+  payment_id: string | null
   delivered_at: string | null
   completed_at: string | null
   customer_email: string | null

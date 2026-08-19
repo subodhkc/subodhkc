@@ -107,7 +107,7 @@ export function WaysToWork() {
           maxWidth: 600,
         }}
       >
-        Increasing depth of involvement, not Bronze/Silver/Gold tiers.
+        Different levels of involvement for different decisions.
       </p>
 
       {/* Progression arrow */}
@@ -253,8 +253,8 @@ export function WaysToWork() {
           lineHeight: 1.5,
         }}
       >
-        Members can commission AI Work Orders ($500) when one opportunity
-        deserves focused investigation.
+        Members can commission a $500 AI Work Order when one defined outcome
+        deserves focused work.
       </p>
 
       <style>{`

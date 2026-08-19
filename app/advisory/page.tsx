@@ -812,7 +812,7 @@ export default function AdvisoryPage() {
             </p>
             <Link href="/ai-automation">
               <Button variant="outline" size="sm" className="group">
-                See AI Automation and Implementation
+                See AI Work Orders
                 <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>

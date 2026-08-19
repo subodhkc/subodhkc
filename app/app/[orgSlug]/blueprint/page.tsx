@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
 export const metadata = {
-  title: 'AI Automation Blueprint | SubodhKC',
+  title: 'AI Work Order | SubodhKC',
   robots: { index: false, follow: false },
 }
 
@@ -54,12 +54,12 @@ export default async function BlueprintPage({
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center space-y-3 max-w-md">
-          <h1 className="text-xl font-bold">AI Automation Blueprint</h1>
+          <h1 className="text-xl font-bold">AI Work Order</h1>
           <p className="text-sm text-muted-foreground">
-            Your organization does not have an active Blueprint.
+            Your organization does not have an active Work Order.
           </p>
           <a href="/ai-automation" className="inline-block text-sm text-primary hover:underline">
-            Learn about AI Automation Blueprint
+            Learn about AI Work Orders
           </a>
         </div>
       </div>
@@ -122,9 +122,9 @@ export default async function BlueprintPage({
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center space-y-3 max-w-md">
-          <h1 className="text-xl font-bold">AI Automation Blueprint</h1>
+          <h1 className="text-xl font-bold">AI Work Order</h1>
           <p className="text-sm text-muted-foreground">
-            Your Blueprint is being set up. Check back shortly.
+            Your Work Order is being set up. Check back shortly.
           </p>
         </div>
       </div>

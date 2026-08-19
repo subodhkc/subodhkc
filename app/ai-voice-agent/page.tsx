@@ -238,11 +238,11 @@ export default function AIVoiceAgentPage() {
                   ))}
                 </ul>
                 <p className="text-xs text-muted-foreground mt-4">
-                  Starts with an AI Automation Blueprint to map the workflow, followed by a fixed scope of work.
+                  Starts with a Work Order to map the workflow, followed by a fixed scope of work.
                   Custom workflow engineering is scoped based on your integration needs.
                 </p>
                 <Link href="/ai-automation" className="block mt-3">
-                  <Button variant="outline" size="sm">Start with a Blueprint <ArrowRight className="ml-2 h-3 w-3" /></Button>
+                  <Button variant="outline" size="sm">Start with a Work Order <ArrowRight className="ml-2 h-3 w-3" /></Button>
                 </Link>
               </CardContent>
             </Card>
@@ -329,7 +329,7 @@ export default function AIVoiceAgentPage() {
               <Button variant="outline" size="sm">Security & Compliance Review <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
             <Link href="/ai-automation">
-              <Button variant="outline" size="sm">AI Automation Blueprint <ArrowRight className="ml-2 h-3 w-3" /></Button>
+              <Button variant="outline" size="sm">AI Work Order <ArrowRight className="ml-2 h-3 w-3" /></Button>
             </Link>
             <Link href="/services">
               <Button variant="outline" size="sm">All Services <ArrowRight className="ml-2 h-3 w-3" /></Button>

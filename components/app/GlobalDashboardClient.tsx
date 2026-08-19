@@ -5,20 +5,18 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import {
   LogOut, ChevronRight, Building2, Shield, User as UserIcon,
-  Briefcase, Wrench, ArrowRight, MailOpen, Clock, CheckCircle2,
-  AlertCircle, Calendar, LayoutDashboard, MessageSquare,
-  Settings, Menu, X, Sparkles, TrendingUp, FileText, Phone,
+  ArrowRight, MailOpen, Clock,
+  LayoutDashboard, MessageSquare,
+  Settings, Menu, X,
 } from 'lucide-react'
-import type { DashboardData, DashboardOrganization, DashboardOffering } from '@/lib/auth/dashboard-types'
+import type { DashboardData, DashboardOrganization, DashboardOffering, DashboardWorkOrderAttention } from '@/lib/auth/dashboard-types'
 import {
-  getOfferingLabel, getOfferingDescription, getOfferingKindLabel,
-  getOfferingRoute, getOfferingStatus,
+  getOfferingLabel, getOfferingRoute, getOfferingStatus,
   getEngagementTypeLabel, getEngagementStatusLabel,
 } from '@/lib/auth/dashboard-types'
 
 export function GlobalDashboardClient({ data }: { data: DashboardData }) {
   const router = useRouter()
-  const [menuOpen, setMenuOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const { user, organizations, engagements, invitations, joinRequests, isPlatformAdmin } = data
@@ -31,130 +29,107 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
     router.refresh()
   }
 
-  // Build "Continue Working" section from accessible offerings
-  const continueItems: Array<{ label: string; description: string; href: string; badge?: string }> = []
+  // ---- Object-first Needs Attention ----
+  // Render actual Work Order objects instead of aggregated counts.
+  type AttentionItem =
+    | { kind: 'work_order'; orgSlug: string; orgName: string; wo: DashboardWorkOrderAttention }
+    | { kind: 'onboarding'; orgSlug: string; orgName: string; href: string }
+    | { kind: 'answered_questions'; orgSlug: string; orgName: string; count: number }
+    | { kind: 'invitations'; orgSlug: string; orgName: string; count: number }
+    | { kind: 'join_requests'; count: number }
 
+  const attentionItems: AttentionItem[] = []
+
+  for (const org of organizations) {
+    for (const wo of org.workOrderAttentionSummaries || []) {
+      attentionItems.push({ kind: 'work_order', orgSlug: org.slug, orgName: org.name, wo })
+    }
+    for (const offering of org.offerings) {
+      if (offering.offeringKey === 'ai_advisor_desk') {
+        const status = getOfferingStatus(offering)
+        if (status === 'available' && offering.onboardingComplete === false) {
+          attentionItems.push({
+            kind: 'onboarding',
+            orgSlug: org.slug,
+            orgName: org.name,
+            href: `/app/${org.slug}/advisor-desk/onboarding`,
+          })
+        }
+      }
+    }
+    const answeredCount = org.answeredAdvisorQuestionCount || 0
+    if (answeredCount > 0) {
+      attentionItems.push({ kind: 'answered_questions', orgSlug: org.slug, orgName: org.name, count: answeredCount })
+    }
+    if (org.pendingInvitations && org.pendingInvitations > 0) {
+      attentionItems.push({ kind: 'invitations', orgSlug: org.slug, orgName: org.name, count: org.pendingInvitations })
+    }
+  }
+
+  if (joinRequests && joinRequests.length > 0) {
+    attentionItems.push({ kind: 'join_requests', count: joinRequests.length })
+  }
+
+  // ---- Continue Working: object-first, then service launchers ----
+  type ContinueItem = { label: string; description: string; href: string; tag?: string }
+
+  const continueItems: ContinueItem[] = []
+
+  // 1. Work Orders needing input (object-first)
+  for (const org of organizations) {
+    for (const wo of org.workOrderAttentionSummaries || []) {
+      if (wo.attentionReason === 'needs_input') {
+        continueItems.push({
+          label: `${wo.workOrderNumber} — ${wo.title}`,
+          description: `${org.name} · ${wo.actionLabel}`,
+          href: `/app/${org.slug}/work-orders/${wo.id}`,
+          tag: 'Work Order',
+        })
+      }
+    }
+  }
+
+  // 2. Answered advisor questions to review
+  for (const org of organizations) {
+    const answeredCount = org.answeredAdvisorQuestionCount || 0
+    if (answeredCount > 0) {
+      continueItems.push({
+        label: `${answeredCount} answered advisor question${answeredCount > 1 ? 's' : ''}`,
+        description: `${org.name} · review your advisor's response`,
+        href: `/app/${org.slug}/advisor-desk`,
+        tag: 'Advisor',
+      })
+    }
+  }
+
+  // 3. Incomplete onboarding
+  for (const org of organizations) {
+    for (const offering of org.offerings) {
+      if (offering.offeringKey === 'ai_advisor_desk') {
+        const status = getOfferingStatus(offering)
+        if (status === 'available' && offering.onboardingComplete === false) {
+          continueItems.push({
+            label: 'Complete Advisor Desk onboarding',
+            description: `${org.name} · set up your advisor relationship`,
+            href: `/app/${org.slug}/advisor-desk/onboarding`,
+            tag: 'Onboarding',
+          })
+        }
+      }
+    }
+  }
+
+  // 4. Active offering workspaces (service launchers, demoted after objects)
   for (const org of organizations) {
     for (const offering of org.offerings) {
       const status = getOfferingStatus(offering)
       if (status === 'available') {
         const route = getOfferingRoute(org.slug, offering.offeringKey)
-        if (route) {
+        if (route && offering.offeringKey !== 'ai_automation_blueprint') {
           continueItems.push({
-            label: `${getOfferingLabel(offering.offeringKey)}`,
-            description: `${org.name}`,
-            href: route,
-            badge: org.name,
-          })
-        }
-      }
-    }
-  }
-
-  // Build "Needs Attention" section — action-first items requiring user action
-  const needsAttentionItems: Array<{ label: string; description: string; href: string; urgency: 'high' | 'medium' | 'low' }> = []
-
-  for (const org of organizations) {
-    // Pending invitations
-    if (org.pendingInvitations && org.pendingInvitations > 0) {
-      needsAttentionItems.push({
-        label: `${org.pendingInvitations} pending invitation${org.pendingInvitations > 1 ? 's' : ''}`,
-        description: `${org.name} — accept or decline team invitations`,
-        href: `/app/${org.slug}/members`,
-        urgency: 'medium',
-      })
-    }
-
-    // Check for Advisor Desk offerings needing onboarding
-    for (const offering of org.offerings) {
-      if (offering.offeringKey === 'ai_advisor_desk') {
-        const status = getOfferingStatus(offering)
-        if (status === 'available' && offering.onboardingComplete === false) {
-          needsAttentionItems.push({
-            label: 'Complete Advisor Desk onboarding',
-            description: `${org.name} — set up your advisor relationship`,
-            href: `/app/${org.slug}/advisor-desk/onboarding`,
-            urgency: 'medium',
-          })
-        }
-      }
-    }
-
-    // Check for Work Orders needing input (deep-link to first WO)
-    const needingInputIds = org.workOrdersNeedingInputIds || []
-    if (needingInputIds.length > 0) {
-      needsAttentionItems.push({
-        label: `${needingInputIds.length} Work Order${needingInputIds.length > 1 ? 's' : ''} need your input`,
-        description: `${org.name} — respond to advisor requests`,
-        href: `/app/${org.slug}/work-orders/${needingInputIds[0]}`,
-        urgency: 'high',
-      })
-    }
-
-    // Check for Work Orders with scope ready for approval (deep-link to first WO)
-    const scopeReadyIds = org.workOrdersScopeReadyIds || []
-    if (scopeReadyIds.length > 0) {
-      needsAttentionItems.push({
-        label: `${scopeReadyIds.length} Work Order${scopeReadyIds.length > 1 ? 's' : ''} scope ready for review`,
-        description: `${org.name} — review and approve your scope`,
-        href: `/app/${org.slug}/work-orders/${scopeReadyIds[0]}`,
-        urgency: 'high',
-      })
-    }
-
-    // Check for Work Orders awaiting owner approval (deep-link to first WO)
-    const ownerApprovalIds = org.workOrdersOwnerApprovalIds || []
-    if (ownerApprovalIds.length > 0) {
-      needsAttentionItems.push({
-        label: `${ownerApprovalIds.length} Work Order${ownerApprovalIds.length > 1 ? 's' : ''} awaiting approval`,
-        description: `${org.name} — organization approval needed`,
-        href: `/app/${org.slug}/work-orders/${ownerApprovalIds[0]}`,
-        urgency: 'medium',
-      })
-    }
-
-    // Check for answered advisor questions (no specific question URL — link to advisor desk)
-    const answeredCount = org.answeredAdvisorQuestionCount || 0
-    if (answeredCount > 0) {
-      needsAttentionItems.push({
-        label: `${answeredCount} answered advisor question${answeredCount > 1 ? 's' : ''}`,
-        description: `${org.name} — review your advisor's response`,
-        href: `/app/${org.slug}/advisor-desk`,
-        urgency: 'low',
-      })
-    }
-  }
-
-  // Pending join requests
-  if (joinRequests && joinRequests.length > 0) {
-    needsAttentionItems.push({
-      label: `${joinRequests.length} join request${joinRequests.length > 1 ? 's' : ''} pending`,
-      description: 'Organizations waiting for your membership',
-      href: '/app/account',
-      urgency: 'low',
-    })
-  }
-
-  // Build "Tools & Applications" section
-  const toolItems: Array<{ label: string; description: string; href: string | null; status: string }> = []
-  const seenOfferings = new Set<string>()
-
-  for (const org of organizations) {
-    for (const offering of org.offerings) {
-      const status = getOfferingStatus(offering)
-      if (status === 'available' || status === 'no-role') {
-        if (!seenOfferings.has(offering.offeringKey)) {
-          seenOfferings.add(offering.offeringKey)
-          const route = getOfferingRoute(org.slug, offering.offeringKey)
-          let statusLabel = 'Open'
-          if (offering.offeringKind === 'external_product') statusLabel = 'External Platform'
-          if (!route && offering.offeringKind !== 'external_product') statusLabel = 'Coming to portal'
-
-          toolItems.push({
             label: getOfferingLabel(offering.offeringKey),
-            description: getOfferingDescription(offering.offeringKey),
+            description: org.name,
             href: route,
-            status: statusLabel,
           })
         }
       }
@@ -204,45 +179,42 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
         { label: 'Admin Console', href: '/app/admin', icon: Shield },
       ],
     }] : []),
-    {
-      label: 'Resources',
-      items: [
-        { label: 'Services', href: '/services', icon: Briefcase },
-        { label: 'AI Advisor Desk', href: '/ai-advisor', icon: Sparkles },
-        { label: 'AI Work Order', href: '/ai-automation', icon: Wrench },
-        { label: 'AI Voice Agent', href: '/ai-voice-agent', icon: Phone },
-        { label: 'AI Security Review', href: '/ai-security-compliance', icon: Shield },
-        { label: 'SaaS Security Review', href: '/saas-security-review', icon: Shield },
-      ],
-    },
   ]
 
+  const hasOrgs = organizations.length > 0
+  const hasAttention = attentionItems.length > 0
+  const hasContinue = continueItems.length > 0
+  const hasEngagements = activeEngagements.length > 0
+  const showEmptyState = !hasOrgs && !isPlatformAdmin
+
   return (
-    <div className="min-h-screen glass-gradient-bg">
+    <div className="min-h-screen bg-background">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
         />
       )}
 
       {/* Sidebar */}
       <aside className={`
-        fixed top-0 left-0 h-full w-64 glass-sidebar z-50
-        transform transition-transform duration-300 ease-in-out
+        fixed top-0 left-0 h-full w-64 border-r border-border bg-card z-50
+        transform transition-transform duration-200 ease-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 lg:z-30
       `}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center justify-between px-5 h-16 border-b border-border/20">
-            <Link href="/app" className="font-bold text-lg tracking-tight">
+          <div className="flex items-center justify-between px-5 h-16 border-b border-border">
+            <Link href="/app" className="font-bold text-lg tracking-tight" onClick={() => setSidebarOpen(false)}>
               SubodhKC
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden p-1.5 hover:bg-accent/20 rounded-lg"
+              className="lg:hidden p-1.5 hover:bg-accent/10 rounded-lg"
+              aria-label="Close navigation"
             >
               <X className="h-4 w-4" />
             </button>
@@ -251,7 +223,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
           {/* Admin badge */}
           {isPlatformAdmin && (
             <div className="mx-3 mt-3 mb-1">
-              <div className="glass-badge rounded-lg px-3 py-2 flex items-center gap-2">
+              <div className="rounded-lg px-3 py-2 flex items-center gap-2 border border-accent/30 bg-accent/5">
                 <Shield className="h-3.5 w-3.5 text-accent" />
                 <span className="text-xs font-medium text-accent">Platform Admin</span>
               </div>
@@ -259,10 +231,10 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
           )}
 
           {/* Navigation */}
-          <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
+          <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4" aria-label="Main navigation">
             {navSections.map((section, si) => (
               <div key={si}>
-                <p className="text-xs font-medium text-muted-foreground/70 uppercase tracking-wider px-3 mb-1.5">
+                <p className="text-[11px] font-medium text-muted-foreground/70 uppercase tracking-wider px-3 mb-1.5">
                   {section.label}
                 </p>
                 <div className="space-y-0.5">
@@ -275,10 +247,10 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
                         onClick={() => setSidebarOpen(false)}
                         className={`
                           flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm
-                          transition-all duration-200
+                          transition-colors
                           ${item.active
-                            ? 'glass-badge text-accent font-medium'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-accent/10'
+                            ? 'bg-accent/10 text-accent font-medium'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
                           }
                         `}
                       >
@@ -293,13 +265,13 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
           </nav>
 
           {/* User card at bottom */}
-          <div className="border-t border-border/20 p-3">
-            <div className="glass rounded-xl p-3">
+          <div className="border-t border-border p-3">
+            <div className="rounded-xl p-3 border border-border">
               <div className="flex items-center gap-2.5">
                 {user.avatarUrl ? (
                   <img src={user.avatarUrl} alt="" className="h-8 w-8 rounded-full" />
                 ) : (
-                  <div className="h-8 w-8 rounded-full bg-accent/15 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
                     <UserIcon className="h-4 w-4 text-accent" />
                   </div>
                 )}
@@ -310,7 +282,7 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
               </div>
               <button
                 onClick={handleLogout}
-                className="mt-2.5 w-full flex items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
+                className="mt-2.5 w-full flex items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/5 rounded-lg transition-colors"
               >
                 <LogOut className="h-3.5 w-3.5" />
                 Sign out
@@ -322,36 +294,37 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
 
       {/* Main content area */}
       <div className="lg:ml-64">
-        {/* Top bar */}
-        <header className="glass sticky top-0 z-20 border-b border-border/20">
+        {/* Top bar — compact on mobile */}
+        <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur-sm">
           <div className="flex items-center justify-between px-4 sm:px-6 h-16">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 min-w-0">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 hover:bg-accent/10 rounded-lg"
+                className="lg:hidden p-2 hover:bg-accent/10 rounded-lg flex-shrink-0"
+                aria-label="Open navigation"
               >
                 <Menu className="h-5 w-5" />
               </button>
-              <h1 className="text-lg font-bold tracking-tight">
-                {greeting}, {firstName}
+              <h1 className="text-base sm:text-lg font-bold tracking-tight truncate">
+                <span className="hidden sm:inline">{greeting}, </span>{firstName}
               </h1>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-shrink-0">
               {isPlatformAdmin && (
                 <Link
                   href="/app/admin"
-                  className="glass-badge rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5 hover:scale-105 transition-transform"
+                  className="rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5 border border-accent/30 hover:bg-accent/5 transition-colors"
                 >
                   <Shield className="h-3.5 w-3.5" />
-                  Admin Console
+                  <span className="hidden sm:inline">Admin</span>
                 </Link>
               )}
               <Link
                 href={advisorDeskHref}
-                className="glass-badge rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5 hover:scale-105 transition-transform"
+                className="rounded-lg px-3 py-1.5 text-xs font-medium text-accent flex items-center gap-1.5 border border-accent/30 hover:bg-accent/5 transition-colors"
               >
                 <MessageSquare className="h-3.5 w-3.5" />
-                Advisor Desk
+                <span className="hidden sm:inline">Advisor Desk</span>
               </Link>
             </div>
           </div>
@@ -359,168 +332,67 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
 
         {/* Dashboard content */}
         <main className="px-4 sm:px-6 py-6 sm:py-8 space-y-8 max-w-5xl">
-          {/* Welcome banner */}
-          <div className="glass-card rounded-2xl p-6 animate-fade-in-up">
-            <div className="flex items-start justify-between flex-wrap gap-4">
-              <div>
-                <h2 className="text-xl font-bold">Your work, tools, and client spaces</h2>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {organizations.length > 0
-                    ? `${organizations.length} organization${organizations.length > 1 ? 's' : ''} · ${activeEngagements.length} active engagement${activeEngagements.length !== 1 ? 's' : ''}`
-                    : isPlatformAdmin
-                      ? 'Platform admin access · No organization memberships'
-                      : 'Awaiting organization access'
-                  }
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <Link
-                  href={advisorDeskHref}
-                  className="glass-badge rounded-lg px-4 py-2 text-sm font-medium text-accent flex items-center gap-2 hover:scale-105 transition-transform"
-                >
-                  <TrendingUp className="h-4 w-4" />
-                  Advisor Desk
-                </Link>
-              </div>
-            </div>
+          {/* Compact status line — replaces large welcome banner */}
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <p className="text-sm text-muted-foreground">
+              {organizations.length > 0
+                ? `${organizations.length} organization${organizations.length > 1 ? 's' : ''} · ${activeEngagements.length} active engagement${activeEngagements.length !== 1 ? 's' : ''}`
+                : isPlatformAdmin
+                  ? 'Platform admin access · No organization memberships'
+                  : 'Awaiting organization access'
+              }
+            </p>
           </div>
 
-          {/* Needs Attention - action-first section */}
-          {needsAttentionItems.length > 0 && (
-            <section className="animate-fade-in-up">
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <AlertCircle className="h-4 w-4 text-orange-500" />
+          {/* 1. Needs Attention — object-first */}
+          {hasAttention && (
+            <section aria-labelledby="attention-heading">
+              <h3 id="attention-heading" className="text-base font-semibold mb-3">
                 Needs Attention
               </h3>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {needsAttentionItems.map((item, idx) => (
-                  <Link
-                    key={idx}
-                    href={item.href}
-                    className={`glass-card rounded-xl p-4 group ${
-                      item.urgency === 'high' ? 'border-orange-300/50' : ''
-                    }`}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          {item.urgency === 'high' && (
-                            <span className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0" />
-                          )}
-                          <h4 className="font-medium text-sm">{item.label}</h4>
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
-                    </div>
-                  </Link>
+              <div className="border border-border rounded-xl divide-y divide-border">
+                {attentionItems.map((item, idx) => (
+                  <AttentionRow key={idx} item={item} />
                 ))}
               </div>
             </section>
           )}
 
-          {/* Continue Working - highest value section */}
-          {continueItems.length > 0 && (
-            <section className="animate-fade-in-up" style={{ animationDelay: '50ms' }}>
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <ArrowRight className="h-4 w-4 text-accent" />
+          {/* 2. Continue Working — object-first, then service launchers */}
+          {hasContinue && (
+            <section aria-labelledby="continue-heading">
+              <h3 id="continue-heading" className="text-base font-semibold mb-3">
                 Continue Working
               </h3>
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="border border-border rounded-xl divide-y divide-border">
                 {continueItems.map((item, idx) => (
                   <Link
                     key={idx}
                     href={item.href}
-                    className="glass-card rounded-xl p-4 group"
+                    className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
                   >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm">{item.label}</h4>
-                        <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* My Work - active engagements */}
-          {activeEngagements.length > 0 && (
-            <section className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-accent" />
-                My Work
-              </h3>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {activeEngagements.map((eng) => (
-                  <Link
-                    key={eng.id}
-                    href={`/app/${eng.organizationSlug}`}
-                    className="glass-card rounded-xl p-4 group"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm">{getEngagementTypeLabel(eng.engagementType)}</h4>
-                        <p className="text-xs text-muted-foreground mt-0.5">{eng.organizationName}</p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <span className="text-xs glass-badge px-2 py-0.5 rounded-full text-accent">
-                            {getEngagementStatusLabel(eng.status)}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        {item.tag && (
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70 border border-border rounded px-1.5 py-0.5">
+                            {item.tag}
                           </span>
-                          {eng.startsAt && (
-                            <span className="text-xs text-muted-foreground flex items-center gap-1">
-                              <Calendar className="h-3 w-3" />
-                              {new Date(eng.startsAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                            </span>
-                          )}
-                        </div>
+                        )}
+                        <h4 className="font-medium text-sm truncate">{item.label}</h4>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
+                      <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.description}</p>
                     </div>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
                   </Link>
                 ))}
               </div>
             </section>
           )}
 
-          {/* Tools & Applications */}
-          {toolItems.length > 0 && (
-            <section className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <Wrench className="h-4 w-4 text-accent" />
-                Tools &amp; Applications
-              </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {toolItems.map((tool, idx) => {
-                  const content = (
-                    <div className="glass-card rounded-xl p-4 h-full group">
-                      <h4 className="font-medium text-sm">{tool.label}</h4>
-                      <p className="text-xs text-muted-foreground mt-0.5">{tool.description}</p>
-                      <span className="text-xs text-muted-foreground mt-2 inline-block">
-                        {tool.href ? (
-                          <span className="text-accent group-hover:underline">Open →</span>
-                        ) : (
-                          <span className="text-muted-foreground">{tool.status}</span>
-                        )}
-                      </span>
-                    </div>
-                  )
-                  return tool.href ? (
-                    <Link key={idx} href={tool.href}>{content}</Link>
-                  ) : (
-                    <div key={idx}>{content}</div>
-                  )
-                })}
-              </div>
-            </section>
-          )}
-
-          {/* Organizations */}
-          {organizations.length > 0 && (
-            <section className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-accent" />
+          {/* 3. Organizations / Workspaces */}
+          {hasOrgs && (
+            <section aria-labelledby="orgs-heading">
+              <h3 id="orgs-heading" className="text-base font-semibold mb-3">
                 Organizations
               </h3>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -531,25 +403,53 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
             </section>
           )}
 
-          {/* Pending invitations */}
+          {/* 4. Active engagements (My Work) — demoted below organizations */}
+          {hasEngagements && (
+            <section aria-labelledby="work-heading">
+              <h3 id="work-heading" className="text-base font-semibold mb-3">
+                Active Engagements
+              </h3>
+              <div className="border border-border rounded-xl divide-y divide-border">
+                {activeEngagements.map((eng) => (
+                  <Link
+                    key={eng.id}
+                    href={`/app/${eng.organizationSlug}`}
+                    className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-medium text-sm">{getEngagementTypeLabel(eng.engagementType)}</h4>
+                      <p className="text-xs text-muted-foreground mt-0.5">{eng.organizationName}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-accent/10 text-accent">
+                          {getEngagementStatusLabel(eng.status)}
+                        </span>
+                      </div>
+                    </div>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 5. Pending invitations */}
           {invitations.length > 0 && (
-            <section className="animate-fade-in-up" style={{ animationDelay: '250ms' }}>
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <MailOpen className="h-4 w-4 text-accent" />
+            <section aria-labelledby="invitations-heading">
+              <h3 id="invitations-heading" className="text-base font-semibold mb-3">
                 Invitations
               </h3>
-              <div className="space-y-2">
+              <div className="border border-border rounded-xl divide-y divide-border">
                 {invitations.map((inv) => (
-                  <div key={inv.id} className="glass-card rounded-xl p-4 flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-sm">{inv.organizationName}</h4>
-                      <p className="text-xs text-muted-foreground">
+                  <div key={inv.id} className="p-4 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <h4 className="font-medium text-sm truncate">{inv.organizationName}</h4>
+                      <p className="text-xs text-muted-foreground mt-0.5">
                         Invited as {inv.role} · Expires {new Date(inv.expiresAt).toLocaleDateString()}
                       </p>
                     </div>
                     <Link
                       href={`/auth/accept-invitation?token=${inv.id}`}
-                      className="text-sm text-accent hover:underline glass-badge px-3 py-1.5 rounded-lg"
+                      className="text-sm text-accent hover:underline px-3 py-1.5 rounded-lg border border-accent/30 hover:bg-accent/5 transition-colors flex-shrink-0"
                     >
                       Accept
                     </Link>
@@ -559,23 +459,22 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
             </section>
           )}
 
-          {/* Pending join requests */}
+          {/* 6. Pending join requests */}
           {joinRequests.length > 0 && (
-            <section className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <Clock className="h-4 w-4 text-accent" />
+            <section aria-labelledby="requests-heading">
+              <h3 id="requests-heading" className="text-base font-semibold mb-3">
                 Access Requests
               </h3>
-              <div className="space-y-2">
+              <div className="border border-border rounded-xl divide-y divide-border">
                 {joinRequests.map((jr) => (
-                  <div key={jr.id} className="glass-card rounded-xl p-4 flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-sm">{jr.organizationName}</h4>
-                      <p className="text-xs text-muted-foreground">
+                  <div key={jr.id} className="p-4 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <h4 className="font-medium text-sm truncate">{jr.organizationName}</h4>
+                      <p className="text-xs text-muted-foreground mt-0.5">
                         Requested {new Date(jr.createdAt).toLocaleDateString()} · {jr.status}
                       </p>
                     </div>
-                    <span className="text-xs glass-badge px-2 py-0.5 rounded-full text-amber-500">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 flex-shrink-0">
                       Pending
                     </span>
                   </div>
@@ -584,51 +483,35 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
             </section>
           )}
 
-          {/* No organizations - onboarding state */}
-          {organizations.length === 0 && !isPlatformAdmin && (
-            <section className="animate-fade-in-up">
-              <div className="glass-card rounded-2xl p-8 text-center">
-                <CheckCircle2 className="h-10 w-10 text-accent mx-auto mb-3" />
-                <h3 className="text-lg font-semibold">Welcome to SubodhKC</h3>
-                <p className="text-sm text-muted-foreground mt-1 mb-4">
-                  Your account is ready. Once you&apos;re invited to an organization or granted access to tools,
-                  they&apos;ll appear here.
+          {/* No organizations — operational empty state (no marketing CTAs) */}
+          {showEmptyState && !hasAttention && (
+            <section>
+              <div className="border border-border rounded-xl p-8 text-center">
+                <h3 className="text-lg font-semibold">Your account is ready</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Once you&apos;re invited to an organization or granted access to a service,
+                  your workspaces will appear here.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                  <Link
-                    href="/services"
-                    className="glass-badge rounded-lg px-4 py-2 text-sm text-accent hover:scale-105 transition-transform"
-                  >
-                    Explore services
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="glass-badge rounded-lg px-4 py-2 text-sm text-accent hover:scale-105 transition-transform"
-                  >
-                    Request access
-                  </Link>
-                </div>
               </div>
             </section>
           )}
 
           {/* Platform admin section */}
           {isPlatformAdmin && (
-            <section className="animate-fade-in-up" style={{ animationDelay: '350ms' }}>
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-                <Shield className="h-4 w-4 text-accent" />
+            <section aria-labelledby="admin-heading">
+              <h3 id="admin-heading" className="text-base font-semibold mb-3">
                 Platform Administration
               </h3>
               <Link
                 href="/app/admin"
-                className="glass-card rounded-xl p-4 block group"
+                className="block border border-border rounded-xl p-4 hover:bg-accent/5 transition-colors group"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-3">
                   <div>
                     <h4 className="font-medium text-sm">Admin Console</h4>
-                    <p className="text-xs text-muted-foreground">Manage organizations, users, and entitlements</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Manage organizations, users, and entitlements</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0" />
                 </div>
               </Link>
             </section>
@@ -639,21 +522,129 @@ export function GlobalDashboardClient({ data }: { data: DashboardData }) {
   )
 }
 
+function AttentionRow({ item }: { item: any }) {
+  if (item.kind === 'work_order') {
+    const wo = item.wo as DashboardWorkOrderAttention
+    const href = `/app/${item.orgSlug}/work-orders/${wo.id}`
+    const urgencyDot = wo.attentionReason === 'needs_input' || wo.attentionReason === 'scope_ready'
+      ? 'bg-orange-500'
+      : 'bg-amber-500'
+    return (
+      <Link
+        href={href}
+        className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className={`w-2 h-2 rounded-full ${urgencyDot} flex-shrink-0`} aria-hidden="true" />
+            <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">
+              {wo.workOrderNumber}
+            </span>
+            <h4 className="font-medium text-sm truncate">{wo.title}</h4>
+          </div>
+          <p className="text-xs text-muted-foreground mt-0.5 ml-4">
+            {item.orgName} · {wo.actionLabel}
+          </p>
+        </div>
+        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+      </Link>
+    )
+  }
+
+  if (item.kind === 'onboarding') {
+    return (
+      <Link
+        href={item.href}
+        className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0" aria-hidden="true" />
+            <h4 className="font-medium text-sm">Complete Advisor Desk onboarding</h4>
+          </div>
+          <p className="text-xs text-muted-foreground mt-0.5 ml-4">{item.orgName} · set up your advisor relationship</p>
+        </div>
+        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+      </Link>
+    )
+  }
+
+  if (item.kind === 'answered_questions') {
+    return (
+      <Link
+        href={`/app/${item.orgSlug}/advisor-desk`}
+        className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" aria-hidden="true" />
+            <h4 className="font-medium text-sm">
+              {item.count} answered advisor question{item.count > 1 ? 's' : ''}
+            </h4>
+          </div>
+          <p className="text-xs text-muted-foreground mt-0.5 ml-4">{item.orgName} · review your advisor&apos;s response</p>
+        </div>
+        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+      </Link>
+    )
+  }
+
+  if (item.kind === 'invitations') {
+    return (
+      <Link
+        href={`/app/${item.orgSlug}/members`}
+        className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0" aria-hidden="true" />
+            <h4 className="font-medium text-sm">
+              {item.count} pending invitation{item.count > 1 ? 's' : ''}
+            </h4>
+          </div>
+          <p className="text-xs text-muted-foreground mt-0.5 ml-4">{item.orgName} · accept or decline team invitations</p>
+        </div>
+        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+      </Link>
+    )
+  }
+
+  // join_requests
+  return (
+    <Link
+      href="/app/account"
+      className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
+    >
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0" aria-hidden="true" />
+          <h4 className="font-medium text-sm">
+            {item.count} join request{item.count > 1 ? 's' : ''} pending
+          </h4>
+        </div>
+        <p className="text-xs text-muted-foreground mt-0.5 ml-4">Organizations waiting for your membership</p>
+      </div>
+      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
+    </Link>
+  )
+}
+
 function OrganizationCard({ org }: { org: DashboardOrganization }) {
   const activeOfferings = org.offerings.filter(o => getOfferingStatus(o) === 'available')
   const isDemoOrg = org.slug === 'wilshire-demo'
+  const attentionCount = (org.workOrderAttentionSummaries || []).length
 
   return (
     <Link
       href={`/app/${org.slug}`}
-      className="glass-card rounded-xl p-4 group"
+      className="block border border-border rounded-xl p-4 hover:bg-accent/5 transition-colors group"
     >
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <h4 className="font-medium text-sm">{org.name}</h4>
+            <h4 className="font-medium text-sm truncate">{org.name}</h4>
             {isDemoOrg && (
-              <span className="text-xs glass-badge px-1.5 py-0.5 rounded-full text-amber-500 font-medium">
+              <span className="text-xs px-1.5 py-0.5 rounded-full text-amber-600 font-medium bg-amber-500/10">
                 Synthetic Data
               </span>
             )}
@@ -661,10 +652,15 @@ function OrganizationCard({ org }: { org: DashboardOrganization }) {
           <p className="text-xs text-muted-foreground mt-0.5">
             {org.organizationKind} · {org.role}
           </p>
+          {attentionCount > 0 && (
+            <p className="text-xs text-orange-600 mt-1.5 font-medium">
+              {attentionCount} item{attentionCount > 1 ? 's' : ''} need attention
+            </p>
+          )}
           {activeOfferings.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-2">
               {activeOfferings.slice(0, 3).map((o) => (
-                <span key={o.offeringKey} className="text-xs glass-badge px-1.5 py-0.5 rounded text-accent">
+                <span key={o.offeringKey} className="text-xs px-1.5 py-0.5 rounded bg-accent/10 text-accent">
                   {getOfferingLabel(o.offeringKey)}
                 </span>
               ))}
@@ -676,7 +672,7 @@ function OrganizationCard({ org }: { org: DashboardOrganization }) {
             </div>
           )}
         </div>
-        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0" />
+        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent flex-shrink-0 mt-0.5" />
       </div>
     </Link>
   )

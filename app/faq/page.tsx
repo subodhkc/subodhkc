@@ -121,7 +121,7 @@ const faqs = [
       },
       {
         q: 'Who founded HAIEC?',
-        a: 'HAIEC was founded by Subodh KC in 2020. He built the platform to address the gap between AI innovation and regulatory compliance. The platform includes the AI Governance Execution Framework, Red Audit Kit, Precision Drift Detector, and AI Compliance Twin - all designed for enterprise-scale AI compliance. HAIEC stands for Holistic AI Ethics & Compliance.',
+        a: 'HAIEC was founded by Subodh KC to address the gap between AI innovation and regulatory compliance. The platform includes the AI Governance Execution Framework, Red Audit Kit, Precision Drift Detector, and AI Compliance Twin - all designed for enterprise-scale AI compliance. HAIEC stands for Holistic AI Ethics & Compliance.',
       },
     ],
   },
@@ -131,15 +131,15 @@ const faqs = [
     items: [
       {
         q: 'Who is Subodh KC?',
-        a: 'Subodh KC is an AI Advisor and AI Systems Architect. He is a former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC - Holistic AI Ethics & Compliance (AI compliance platform). He holds 5 patent-pending frameworks in AI compliance and drift detection, and holds M.S. and B.S. degrees from Louisiana Tech University.',
+        a: 'Subodh KC is an AI Advisor and AI Systems Architect. He is a former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). He is the founder of KestrelVoice (AI voice operations platform) and founder of HAIEC - Holistic AI Ethics & Compliance (AI compliance platform). He holds patent-pending frameworks in AI compliance and drift detection, and holds M.S. and B.S. degrees from Louisiana Tech University.',
       },
       {
         q: 'What services does Subodh KC offer?',
-        a: 'Three pillars: (1) AI Architecture & Integration - agentic systems, RAG, MCP integrations, workflow architecture; (2) AI Operations & Deployment - voice agents, monitoring, production hardening; (3) AI Governance & Assurance - compliance implementation (EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144), evidence architecture, drift controls. Commercial offers include AI Advisor for Business ($99/month), AI Work Order ($500 fixed, includes AI Automation Blueprint), Fractional AI Advisor ($1,250/month), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950).',
+        a: 'Three primary paths: (1) AI Advisor Desk ($99/month) - ongoing human AI advisory; (2) Fractional AI Advisor ($1,250/month) - executive AI advisory for higher-stakes interconnected decisions; (3) AI Systems Architecture & Implementation - custom scoped. AI Work Orders ($500 standard) are available through the Advisor relationship for one defined outcome. Additional technical offers include AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950).',
       },
       {
         q: 'How do I work with Subodh KC?',
-        a: 'Use the contact form at subodhkc.com/contact or email admin@subodhkc.com directly. Commercial offers include AI Advisor for Business ($99/month), AI Work Order ($500 fixed), Fractional AI Advisor ($1,250/month), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). He is also open to full-time Director/VP roles at enterprise, Series B+ startups, and AI-first companies.',
+        a: 'Use the contact form at subodhkc.com/contact or email admin@subodhkc.com directly. Commercial offers include AI Advisor for Business ($99/month), AI Work Order ($500 standard), Fractional AI Advisor ($1,250/month), AI Voice Agent (from $499/month), AI Security & Compliance Review (custom scoped), and SaaS Security Review (from $950). He is also open to full-time Director/VP roles at enterprise, Series B+ startups, and AI-first companies.',
       },
       {
         q: 'Does Subodh KC offer training or courses?',

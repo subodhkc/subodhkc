@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import {
-  LogOut, ArrowLeft, Briefcase, Calendar, FileText, Lightbulb, Users,
+  LogOut, ArrowLeft, ArrowRight, Briefcase, Calendar, FileText, Lightbulb, Users,
   Plus, CheckCircle2, Clock, AlertCircle, ChevronRight, Target,
   Boxes, ExternalLink, Loader2,
   Compass, ClipboardList, Building2, FlaskConical, TrendingUp,
@@ -77,6 +77,10 @@ interface MemberToolsIncluded {
 interface AdvisoryWorkspaceClientProps {
   user: AuthenticatedUser
   ctx: OrganizationContext
+  /** S4: Fractional access state — 'active' (RW), 'readonly' (30-day window), 'expired' (deny) */
+  fractionalAccessState?: 'active' | 'readonly' | 'expired'
+  /** S4: Human-readable access message (e.g. read-only expiry date) */
+  fractionalAccessMessage?: string | null
   engagements: Engagement[]
   onboarding: OnboardingData | null
   decisions: Decision[]
@@ -465,43 +469,16 @@ export function AdvisoryWorkspaceClient({
           </div>
         </div>
 
-        {/* 1. Next Working Session / Activation state */}
-        <div className="grid sm:grid-cols-3 gap-3">
-          <div className="border rounded-lg p-4">
-            <Calendar className="h-4 w-4 text-muted-foreground mb-2" />
-            <h3 className="text-xs font-medium text-muted-foreground">Current billing period</h3>
-            <p className="text-sm mt-1">
-              {billingPeriodStart && billingPeriodEnd
-                ? `${new Date(billingPeriodStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(billingPeriodEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
-                : 'Active subscription'}
-            </p>
-          </div>
-          <div className="border rounded-lg p-4">
-            <Briefcase className="h-4 w-4 text-muted-foreground mb-2" />
-            <h3 className="text-xs font-medium text-muted-foreground">Core relationship</h3>
-            <p className="text-sm mt-1">2 working sessions/month</p>
-            <p className="text-xs text-muted-foreground">Priority async advisory + selected artifacts</p>
-          </div>
-          <div className="border rounded-lg p-4">
-            <Users className="h-4 w-4 text-muted-foreground mb-2" />
-            <h3 className="text-xs font-medium text-muted-foreground">Manage billing</h3>
-            <button
-              onClick={async () => {
-                const res = await fetch('/api/stripe/portal', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ orgSlug: organization.slug, returnTo: 'advisory' }),
-                })
-                if (res.ok) {
-                  const data = await res.json()
-                  if (data.url) window.location.href = data.url
-                }
-              }}
-              className="text-sm text-primary hover:underline mt-1 block"
-            >
-              Stripe Customer Portal
-            </button>
-          </div>
+        {/* Compact status line — replaces 3-card grid */}
+        <div className="flex items-center gap-3 flex-wrap text-sm text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <Calendar className="h-3.5 w-3.5" />
+            {billingPeriodStart && billingPeriodEnd
+              ? `${new Date(billingPeriodStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(billingPeriodEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+              : 'Active subscription'}
+          </span>
+          <span className="text-muted-foreground/40">·</span>
+          <span>2 working sessions/month</span>
         </div>
 
         {/* 1b. Scheduling */}
@@ -677,12 +654,15 @@ export function AdvisoryWorkspaceClient({
           </div>
         </section>
 
+        {/* TODAY — operational view */}
+        <h2 className="text-xl font-bold tracking-tight pt-2">Today</h2>
+
         {/* 2. What Needs Your Attention */}
         <section>
-          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
-            <AlertCircle className="h-5 w-5 text-primary" />
-            What Needs Your Attention
-          </h2>
+          <h3 className="text-base font-semibold flex items-center gap-2 mb-3">
+            <AlertCircle className="h-4 w-4 text-primary" />
+            Needs Your Attention
+          </h3>
           <div className="border rounded-lg p-4 space-y-3">
             {(() => {
               const openDecisions = decisionList.filter(d => d.status === 'open')
@@ -736,6 +716,50 @@ export function AdvisoryWorkspaceClient({
             })()}
           </div>
         </section>
+
+        {/* Current Work Orders — part of Today view */}
+        {workOrders.length > 0 && (
+          <section>
+            <h3 className="text-base font-semibold flex items-center gap-2 mb-3 justify-between">
+              <span className="flex items-center gap-2">
+                <FileText className="h-4 w-4 text-primary" />
+                Work Orders
+              </span>
+              <Link href={`${basePath}/work-orders`} className="text-xs text-primary hover:underline">
+                View all
+              </Link>
+            </h3>
+            <div className="border border-border rounded-lg divide-y divide-border">
+              {workOrders.slice(0, 5).map(wo => (
+                <Link
+                  key={wo.id}
+                  href={`${basePath}/work-orders/${wo.id}`}
+                  className={`block p-3 hover:bg-accent/5 transition-colors group ${
+                    wo.status === 'needs_client_input' ? 'bg-orange-50/50' : ''
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.workOrderNumber}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                          wo.status === 'needs_client_input' ? 'bg-orange-500/10 text-orange-600' :
+                          wo.status === 'delivered' || wo.status === 'completed' ? 'bg-green-500/10 text-green-600' :
+                          wo.status === 'in_progress' || wo.status === 'in_review' ? 'bg-blue-500/10 text-blue-600' :
+                          'bg-muted text-muted-foreground'
+                        }`}>
+                          {wo.statusLabel}
+                        </span>
+                      </div>
+                      <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0 mt-0.5" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* 3. Decisions in Play (Decision Desk) */}
         <section>
@@ -833,49 +857,6 @@ export function AdvisoryWorkspaceClient({
             </div>
           )}
         </section>
-
-        {/* Work Orders */}
-        {workOrders.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold flex items-center gap-2 mb-4 justify-between">
-              <span className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-primary" />
-                AI Work Orders
-              </span>
-              <Link href={`${basePath}/work-orders`} className="text-xs text-primary hover:underline">
-                View all
-              </Link>
-            </h2>
-            <div className="space-y-2">
-              {workOrders.slice(0, 5).map(wo => (
-                <Link
-                  key={wo.id}
-                  href={`${basePath}/work-orders/${wo.id}`}
-                  className={`block border rounded-lg p-3 hover:border-primary/50 transition-colors ${
-                    wo.status === 'needs_client_input' ? 'border-orange-300 bg-orange-50/50' : ''
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono text-muted-foreground">{wo.workOrderNumber}</span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                          wo.status === 'needs_client_input' ? 'bg-orange-100 text-orange-700' :
-                          wo.status === 'delivered' || wo.status === 'completed' ? 'bg-green-100 text-green-700' :
-                          wo.status === 'in_progress' || wo.status === 'in_review' ? 'bg-blue-100 text-blue-700' :
-                          'bg-muted text-muted-foreground'
-                        }`}>
-                          {wo.statusLabel}
-                        </span>
-                      </div>
-                      <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
 
         {/* 4. Opportunities in Play */}
         <section>

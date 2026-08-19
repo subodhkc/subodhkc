@@ -114,9 +114,9 @@ export function BlueprintWorkspaceClient({
       <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8 space-y-10">
         {/* Title */}
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">AI Automation Blueprint</h1>
+          <h1 className="text-2xl font-bold tracking-tight">AI Work Order</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            One workflow. A clear recommendation before implementation.
+            One defined outcome. Scoped before work begins.
           </p>
         </div>
 
@@ -355,7 +355,7 @@ export function BlueprintWorkspaceClient({
                   <div className="flex items-center gap-3">
                     <FileText className="h-8 w-8 text-primary" />
                     <div>
-                      <p className="text-sm font-medium">AI Automation Blueprint</p>
+                      <p className="text-sm font-medium">AI Work Order</p>
                       <p className="text-xs text-muted-foreground">
                         Published {engagement.completed_at
                           ? new Date(engagement.completed_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })

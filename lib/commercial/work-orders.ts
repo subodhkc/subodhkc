@@ -22,10 +22,12 @@ import { createHash } from 'crypto'
 export type {
   WorkOrderStatus,
   WorkOrderScopeStatus,
+  ScopeVersionStatus,
   WorkType,
   FulfillmentState,
   WorkOrder,
   WorkOrderScopeAcceptance,
+  WorkOrderScopeVersion,
   WorkOrderUpdate,
   WorkOrderDeliverable,
   ScopeSnapshot,
@@ -46,10 +48,13 @@ export {
 // Import types for internal use
 import type {
   WorkOrderStatus,
+  WorkOrderScopeStatus,
+  ScopeVersionStatus,
   WorkType,
   FulfillmentState,
   WorkOrder,
   WorkOrderScopeAcceptance,
+  WorkOrderScopeVersion,
   WorkOrderUpdate,
   WorkOrderDeliverable,
   ScopeSnapshot,
@@ -219,60 +224,243 @@ export async function createCustomScopeWorkOrder(opts: {
 }
 
 /**
- * Record scope acceptance for a Work Order.
- * Uses service role so accepted_by can be set to the authenticated user.
+ * Create an immutable scope version for a Work Order.
+ *
+ * The server generates the snapshot and hash; the caller does NOT supply a
+ * hash. The version is inserted as `proposed` (or `sent_to_client` if
+ * `sendToClient` is true). The Work Order's `current_scope_version_id` is
+ * pointed at the new version and prior non-terminal versions are marked
+ * `superseded`.
+ *
+ * Section B/C: sending/preparing a scope must NEVER write scope_status =
+ * 'accepted' / scope_accepted_at / scope_accepted_by. Only
+ * `acceptWorkOrderScope` (which calls the `accept_work_order_scope` RPC)
+ * records acceptance.
  */
-export async function recordScopeAcceptance(opts: {
+export async function createWorkOrderScopeVersion(opts: {
   workOrderId: string
   scopeSnapshot: ScopeSnapshot
-  acceptedBy: string
-}): Promise<{ acceptanceId: string } | { error: string }> {
+  composedBy: string
+  sendToClient?: boolean
+}): Promise<{ scopeVersionId: string; versionNumber: number } | { error: string }> {
   const sc = createServiceClient()
   if (!sc) return { error: 'Service client unavailable' }
 
   const snapshot = opts.scopeSnapshot
   const hash = hashScopeSnapshot(snapshot)
 
-  const { data, error } = await sc
-    .from('ai_work_order_scope_acceptances')
-    .insert({
-      work_order_id: opts.workOrderId,
-      scope_version: 1,
-      rendered_scope_text: JSON.stringify(snapshot, null, 2),
-      rendered_scope_json: snapshot as unknown as Record<string, unknown>,
-      document_hash: hash,
-      accepted_by: opts.acceptedBy,
-      price_cents: snapshot.price_cents,
-      currency: snapshot.currency,
-    })
-    .select('id')
+  // Determine next version number for this work order
+  const { data: maxVersion } = await sc
+    .from('ai_work_order_scope_versions')
+    .select('version_number')
+    .eq('work_order_id', opts.workOrderId)
+    .order('version_number', { ascending: false })
+    .limit(1)
     .single()
 
-  if (error || !data) {
-    return { error: error?.message || 'Failed to record scope acceptance' }
+  const nextVersion = (maxVersion?.version_number ?? 0) + 1
+
+  const versionStatus: ScopeVersionStatus = opts.sendToClient ? 'sent_to_client' : 'proposed'
+
+  const { data: version, error: insertError } = await sc
+    .from('ai_work_order_scope_versions')
+    .insert({
+      work_order_id: opts.workOrderId,
+      version_number: nextVersion,
+      scope_snapshot: snapshot as unknown as Record<string, unknown>,
+      document_hash: hash,
+      price_cents: snapshot.price_cents,
+      currency: snapshot.currency,
+      composed_by: opts.composedBy,
+      version_status: versionStatus,
+    })
+    .select('id, version_number')
+    .single()
+
+  if (insertError || !version) {
+    return { error: insertError?.message || 'Failed to create scope version' }
   }
 
-  // Transition Work Order to ready_for_checkout
+  // Supersede prior non-terminal versions (keep historical rows immutable;
+  // only their version_status flips to superseded).
+  await sc
+    .from('ai_work_order_scope_versions')
+    .update({ version_status: 'superseded', superseded_by: version.id })
+    .eq('work_order_id', opts.workOrderId)
+    .neq('id', version.id)
+    .in('version_status', ['proposed', 'sent_to_client'])
+
+  // Point the Work Order at the new current version and update mutable
+  // scope_* columns (these are convenience copies for display; the
+  // immutable source of truth is the scope_versions row).
+  const updateFields: Record<string, unknown> = {
+    current_scope_version_id: version.id,
+    scope_included: snapshot.scope_included,
+    scope_excluded: snapshot.scope_excluded,
+    required_inputs: snapshot.required_inputs,
+    deliverable_description: snapshot.deliverable_description,
+    desired_outcome: snapshot.desired_outcome,
+    scope_title: snapshot.title,
+    scope_price_cents: snapshot.price_cents,
+    scope_target_timing: snapshot.target_timing,
+    scope_status: opts.sendToClient ? 'sent_to_client' : 'needs_review',
+    scope_composed_by: opts.composedBy,
+    scope_composed_at: new Date().toISOString(),
+  }
+
+  if (opts.sendToClient) {
+    // Transition to awaiting_client_acceptance ONLY if currently in a
+    // pre-acceptance state. Do NOT touch accepted/paid/etc.
+    const { data: wo } = await sc
+      .from('ai_work_orders')
+      .select('status')
+      .eq('id', opts.workOrderId)
+      .single()
+
+    if (wo && (wo.status === 'awaiting_scope' || wo.status === 'draft' || wo.status === 'awaiting_client_acceptance')) {
+      updateFields.status = 'awaiting_client_acceptance'
+    }
+  }
+
   await sc
     .from('ai_work_orders')
-    .update({
-      scope_status: 'accepted',
-      status: 'ready_for_checkout',
-      scope_accepted_at: new Date().toISOString(),
-      scope_accepted_by: opts.acceptedBy,
-      scope_included: snapshot.scope_included,
-      scope_excluded: snapshot.scope_excluded,
-      required_inputs: snapshot.required_inputs,
-      deliverable_description: snapshot.deliverable_description,
-    })
+    .update(updateFields)
     .eq('id', opts.workOrderId)
 
-  return { acceptanceId: data.id }
+  return { scopeVersionId: version.id, versionNumber: version.version_number }
 }
 
 /**
- * Link a Stripe checkout session to a Work Order.
- * Called when checkout is created (before payment).
+ * Get the current offered scope version for a Work Order.
+ */
+export async function getCurrentScopeVersion(
+  workOrderId: string
+): Promise<WorkOrderScopeVersion | null> {
+  const sc = createServiceClient()
+  if (!sc) return null
+
+  const { data: wo } = await sc
+    .from('ai_work_orders')
+    .select('current_scope_version_id')
+    .eq('id', workOrderId)
+    .single()
+
+  if (!wo?.current_scope_version_id) return null
+
+  const { data: version } = await sc
+    .from('ai_work_order_scope_versions')
+    .select('*')
+    .eq('id', wo.current_scope_version_id)
+    .single()
+
+  return (version || null) as WorkOrderScopeVersion | null
+}
+
+/**
+ * List all scope versions for a Work Order (immutable history).
+ */
+export async function listScopeVersions(
+  workOrderId: string
+): Promise<WorkOrderScopeVersion[]> {
+  const sc = createServiceClient()
+  if (!sc) return []
+
+  const { data } = await sc
+    .from('ai_work_order_scope_versions')
+    .select('*')
+    .eq('work_order_id', workOrderId)
+    .order('version_number', { ascending: true })
+
+  return (data || []) as WorkOrderScopeVersion[]
+}
+
+/**
+ * Accept the current scope version for a Work Order.
+ *
+ * Section C: the client sends only { workOrderId, scopeVersionId, accept }.
+ * The server loads the canonical immutable version, validates it is the
+ * current offered version, and records acceptance via the
+ * `accept_work_order_scope` RPC (transactional — acceptance insert + WO
+ * transition + audit row in one transaction).
+ *
+ * If the acceptor is owner/admin, transition to ready_for_checkout. If the
+ * acceptor is a service-seat member (not owner/admin), transition to
+ * awaiting_owner_approval so the owner can approve and pay.
+ */
+export async function acceptWorkOrderScope(opts: {
+  workOrderId: string
+  scopeVersionId: string
+  acceptedBy: string
+  isOwnerAdmin: boolean
+}): Promise<{ acceptanceId: string; targetStatus: WorkOrderStatus } | { error: string }> {
+  const sc = createServiceClient()
+  if (!sc) return { error: 'Service client unavailable' }
+
+  const targetStatus: WorkOrderStatus = opts.isOwnerAdmin ? 'ready_for_checkout' : 'awaiting_owner_approval'
+
+  const { data, error } = await sc.rpc('accept_work_order_scope', {
+    p_work_order_id: opts.workOrderId,
+    p_scope_version_id: opts.scopeVersionId,
+    p_accepted_by: opts.acceptedBy,
+    p_transition_target: targetStatus,
+  })
+
+  if (error || !data) {
+    return { error: error?.message || 'Failed to accept scope' }
+  }
+
+  return { acceptanceId: data as string, targetStatus }
+}
+
+/**
+ * Record scope acceptance for a Work Order.
+ *
+ * DEPRECATED: this function predates immutable scope versions and is kept
+ * only for the legacy blueprint/checkout path that creates a standard scope
+ * and accepts it in one shot. New code must use `createWorkOrderScopeVersion`
+ * + `acceptWorkOrderScope` so the customer sees and accepts the exact
+ * version.
+ *
+ * For the legacy path, this now creates an immutable scope version AND
+ * accepts it in the same call (so the acceptance is still recorded against a
+ * real version row, not a free-form JSON blob).
+ */
+export async function recordScopeAcceptance(opts: {
+  workOrderId: string
+  scopeSnapshot: ScopeSnapshot
+  acceptedBy: string
+  isOwnerAdmin?: boolean
+}): Promise<{ acceptanceId: string } | { error: string }> {
+  // Create the immutable version (sent_to_client), then accept it.
+  const versionResult = await createWorkOrderScopeVersion({
+    workOrderId: opts.workOrderId,
+    scopeSnapshot: opts.scopeSnapshot,
+    composedBy: opts.acceptedBy,
+    sendToClient: true,
+  })
+
+  if ('error' in versionResult) {
+    return { error: versionResult.error }
+  }
+
+  const acceptResult = await acceptWorkOrderScope({
+    workOrderId: opts.workOrderId,
+    scopeVersionId: versionResult.scopeVersionId,
+    acceptedBy: opts.acceptedBy,
+    isOwnerAdmin: opts.isOwnerAdmin ?? true,
+  })
+
+  if ('error' in acceptResult) {
+    return { error: acceptResult.error }
+  }
+
+  return { acceptanceId: acceptResult.acceptanceId }
+}
+
+/**
+ * Link a Stripe checkout session to a Work Order and transition to
+ * payment_pending. Uses the validated RPC for the status transition so the
+ * audit row is written atomically and the transition matrix is enforced.
  */
 export async function linkCheckoutSession(
   workOrderId: string,
@@ -281,22 +469,49 @@ export async function linkCheckoutSession(
   const sc = createServiceClient()
   if (!sc) return { success: false, error: 'Service client unavailable' }
 
-  const { error } = await sc
+  // First set the checkout session id (non-status field), then transition
+  // via the RPC. The RPC does not touch stripe_checkout_session_id.
+  const { error: linkError } = await sc
     .from('ai_work_orders')
-    .update({
-      stripe_checkout_session_id: stripeCheckoutSessionId,
-      status: 'payment_pending',
-    })
+    .update({ stripe_checkout_session_id: stripeCheckoutSessionId })
     .eq('id', workOrderId)
 
-  if (error) return { success: false, error: error.message }
+  if (linkError) return { success: false, error: linkError.message }
+
+  const { error: rpcError } = await sc.rpc('transition_work_order_status', {
+    p_work_order_id: workOrderId,
+    p_new_status: 'payment_pending',
+    p_actor_role: 'platform_admin',
+    p_note: 'Stripe checkout session created.',
+  })
+
+  if (rpcError) {
+    // If the transition fails (e.g. already payment_pending from a prior
+    // session), that is acceptable — the session id is linked. Surface
+    // only genuine errors.
+    if (!/invalid_transition/.test(rpcError.message)) {
+      return { success: false, error: rpcError.message }
+    }
+  }
   return { success: true }
 }
 
 /**
  * Fulfill a Work Order after Stripe payment succeeds.
- * This is the webhook fulfillment path — uses service role.
- * Creates engagement, links payment, transitions status.
+ *
+ * Section F/G: delegates to the `fulfill_work_order` RPC which atomically:
+ *   - validates the Work Order exists
+ *   - validates workOrder.organization_id === organization_id (no mis-linking)
+ *   - validates the Work Order is in a fulfillable state
+ *   - links payment + engagement + stripe_payment_intent_id
+ *   - sets purchased_by_user_id when known (NOT null when known)
+ *   - sets paid_at (revenue source of truth, NOT scope_accepted_at)
+ *   - transitions status to `paid`
+ *   - inserts the audit update row
+ *
+ * Idempotent: if the Work Order is already paid/fulfilled, validates that
+ * the existing payment_id and engagement_id match and returns success. A
+ * mismatch raises (payment_id_conflict / engagement_id_conflict).
  */
 export async function fulfillWorkOrder(opts: {
   workOrderId: string
@@ -304,37 +519,21 @@ export async function fulfillWorkOrder(opts: {
   paymentId: string
   stripePaymentIntentId?: string
   engagementId: string
+  purchaserUserId?: string
 }): Promise<{ success: boolean; error?: string }> {
   const sc = createServiceClient()
   if (!sc) return { success: false, error: 'Service client unavailable' }
 
-  // Link payment + engagement to Work Order
-  const { error: updateError } = await sc
-    .from('ai_work_orders')
-    .update({
-      payment_id: opts.paymentId,
-      engagement_id: opts.engagementId,
-      stripe_payment_intent_id: opts.stripePaymentIntentId || null,
-      status: 'paid',
-      purchased_by_user_id: null, // set by caller if known
-    })
-    .eq('id', opts.workOrderId)
+  const { error } = await sc.rpc('fulfill_work_order', {
+    p_work_order_id: opts.workOrderId,
+    p_organization_id: opts.organizationId,
+    p_payment_id: opts.paymentId,
+    p_engagement_id: opts.engagementId,
+    p_purchaser_user_id: opts.purchaserUserId ?? null,
+    p_stripe_payment_intent_id: opts.stripePaymentIntentId ?? null,
+  })
 
-  if (updateError) return { success: false, error: updateError.message }
-
-  // Add Work Order update record
-  await sc
-    .from('ai_work_order_updates')
-    .insert({
-      work_order_id: opts.workOrderId,
-      author_role: 'platform_admin',
-      update_type: 'payment_event',
-      body: 'Payment received. Work Order is now active.',
-      previous_status: 'payment_pending',
-      new_status: 'paid',
-      is_client_visible: true,
-    })
-
+  if (error) return { success: false, error: error.message }
   return { success: true }
 }
 
@@ -493,7 +692,7 @@ export async function getFulfillmentState(
   if (workOrder.status === 'cancelled' || workOrder.status === 'refunded') {
     return { state: 'failed_support_required', workOrder }
   }
-  if (workOrder.status === 'draft' || workOrder.status === 'awaiting_scope' || workOrder.status === 'awaiting_approval' || workOrder.status === 'ready_for_checkout') {
+  if (workOrder.status === 'draft' || workOrder.status === 'awaiting_scope' || workOrder.status === 'awaiting_client_acceptance' || workOrder.status === 'awaiting_approval' || workOrder.status === 'awaiting_owner_approval' || workOrder.status === 'ready_for_checkout') {
     // Payment hasn't been recorded yet — webhook may not have processed
     return { state: 'fulfillment_pending', workOrder }
   }
@@ -503,6 +702,11 @@ export async function getFulfillmentState(
 
 /**
  * Transition Work Order status (service role, for advisor/admin operations).
+ *
+ * Section E/F: delegates to the `transition_work_order_status` RPC which
+ * enforces the canonical transition matrix atomically (status update +
+ * audit row in one transaction). Invalid transitions raise and are
+ * surfaced as `{ success: false, error }`.
  */
 export async function transitionWorkOrderStatus(
   workOrderId: string,
@@ -514,43 +718,15 @@ export async function transitionWorkOrderStatus(
   const sc = createServiceClient()
   if (!sc) return { success: false, error: 'Service client unavailable' }
 
-  // Get current status for update record
-  const { data: wo } = await sc
-    .from('ai_work_orders')
-    .select('status')
-    .eq('id', workOrderId)
-    .single()
+  const { error } = await sc.rpc('transition_work_order_status', {
+    p_work_order_id: workOrderId,
+    p_new_status: newStatus,
+    p_actor_role: actorRole,
+    p_actor_user_id: actorUserId ?? null,
+    p_note: note ?? null,
+  })
 
-  if (!wo) return { success: false, error: 'Work Order not found' }
-
-  const previousStatus = wo.status
-
-  // Update Work Order
-  const updateFields: Record<string, unknown> = { status: newStatus }
-  if (newStatus === 'delivered') updateFields.delivered_at = new Date().toISOString()
-  if (newStatus === 'completed') updateFields.completed_at = new Date().toISOString()
-
-  const { error: updateError } = await sc
-    .from('ai_work_orders')
-    .update(updateFields)
-    .eq('id', workOrderId)
-
-  if (updateError) return { success: false, error: updateError.message }
-
-  // Add update record
-  await sc
-    .from('ai_work_order_updates')
-    .insert({
-      work_order_id: workOrderId,
-      author_user_id: actorUserId || null,
-      author_role: actorRole,
-      update_type: 'status_change',
-      body: note || `Status changed from ${previousStatus} to ${newStatus}`,
-      previous_status: previousStatus,
-      new_status: newStatus,
-      is_client_visible: true,
-    })
-
+  if (error) return { success: false, error: error.message }
   return { success: true }
 }
 
@@ -590,7 +766,16 @@ export async function addAdvisorUpdate(opts: {
 
 /**
  * Compose/edit scope for a Work Order (advisor-side).
- * Updates scope fields and optionally transitions to awaiting_approval.
+ *
+ * Section B: sending a scope to the client must NEVER write
+ * scope_status = 'accepted', scope_accepted_at, or scope_accepted_by. Those
+ * are written ONLY by `acceptWorkOrderScope` when an authenticated customer
+ * accepts the exact immutable version.
+ *
+ * When `sendToClient` is true, this creates an immutable scope version in
+ * the `sent_to_client` state and transitions the Work Order to
+ * `awaiting_client_acceptance`. When false, it saves a `proposed` version
+ * (draft) without transitioning.
  */
 export async function composeWorkOrderScope(opts: {
   workOrderId: string
@@ -605,45 +790,56 @@ export async function composeWorkOrderScope(opts: {
   targetTiming?: string
   priceCents?: number
   sendToClient?: boolean
-}): Promise<{ success: boolean; error?: string; workOrder?: WorkOrder }> {
+}): Promise<{ success: boolean; error?: string; workOrder?: WorkOrder; scopeVersionId?: string }> {
+  // Load the current Work Order to build the snapshot from existing + new fields
   const sc = createServiceClient()
   if (!sc) return { success: false, error: 'Service client unavailable' }
 
-  const updateFields: Record<string, unknown> = {
-    scope_composed_by: opts.advisorUserId,
-    scope_composed_at: new Date().toISOString(),
-  }
-
-  if (opts.scopeTitle !== undefined) updateFields.scope_title = opts.scopeTitle
-  if (opts.scopeIncluded !== undefined) updateFields.scope_included = opts.scopeIncluded
-  if (opts.scopeExcluded !== undefined) updateFields.scope_excluded = opts.scopeExcluded
-  if (opts.requiredInputs !== undefined) updateFields.required_inputs = opts.requiredInputs
-  if (opts.deliverableDescription !== undefined) updateFields.deliverable_description = opts.deliverableDescription
-  if (opts.desiredOutcome !== undefined) updateFields.desired_outcome = opts.desiredOutcome
-  if (opts.workType !== undefined) updateFields.work_type = opts.workType
-  if (opts.targetTiming !== undefined) updateFields.scope_target_timing = opts.targetTiming
-  if (opts.priceCents !== undefined) {
-    updateFields.scope_price_cents = opts.priceCents
-    updateFields.standard_price_cents = opts.priceCents
-  }
-
-  if (opts.sendToClient) {
-    updateFields.scope_status = 'accepted'
-    updateFields.status = 'awaiting_approval'
-    updateFields.scope_accepted_at = new Date().toISOString()
-    updateFields.scope_accepted_by = opts.advisorUserId
-  } else {
-    updateFields.scope_status = 'needs_review'
-  }
-
-  const { data, error } = await sc
+  const { data: wo } = await sc
     .from('ai_work_orders')
-    .update(updateFields)
-    .eq('id', opts.workOrderId)
     .select('*')
+    .eq('id', opts.workOrderId)
     .single()
 
-  if (error || !data) return { success: false, error: error?.message || 'Failed to compose scope' }
+  if (!wo) return { success: false, error: 'Work Order not found' }
+
+  const workOrder = wo as WorkOrder
+
+  const snapshot: ScopeSnapshot = {
+    work_type: opts.workType ?? workOrder.work_type,
+    title: opts.scopeTitle ?? workOrder.scope_title ?? workOrder.title,
+    desired_outcome: opts.desiredOutcome ?? workOrder.desired_outcome ?? '',
+    scope_included: opts.scopeIncluded ?? workOrder.scope_included ?? '',
+    scope_excluded: opts.scopeExcluded ?? workOrder.scope_excluded ?? '',
+    required_inputs: opts.requiredInputs ?? workOrder.required_inputs ?? '',
+    deliverable_description: opts.deliverableDescription ?? workOrder.deliverable_description ?? '',
+    target_timing: opts.targetTiming ?? workOrder.scope_target_timing ?? null,
+    price_cents: opts.priceCents ?? workOrder.scope_price_cents ?? workOrder.standard_price_cents ?? 50000,
+    currency: workOrder.currency || 'USD',
+    assumptions: [
+      'Standard Work Order covers one bounded outcome.',
+      'If the work is larger than one standard Work Order, additional Work Orders or a custom scope will be discussed before proceeding.',
+      'The answer is allowed to be no — a recommendation to wait, buy, or simplify is a valid outcome.',
+    ],
+  }
+
+  const versionResult = await createWorkOrderScopeVersion({
+    workOrderId: opts.workOrderId,
+    scopeSnapshot: snapshot,
+    composedBy: opts.advisorUserId,
+    sendToClient: opts.sendToClient,
+  })
+
+  if ('error' in versionResult) {
+    return { success: false, error: versionResult.error }
+  }
+
+  // Reload the Work Order to return the updated row
+  const { data: updatedWo } = await sc
+    .from('ai_work_orders')
+    .select('*')
+    .eq('id', opts.workOrderId)
+    .single()
 
   // Add scope change update record
   await sc
@@ -653,11 +849,17 @@ export async function composeWorkOrderScope(opts: {
       author_user_id: opts.advisorUserId,
       author_role: 'advisor',
       update_type: 'scope_change',
-      body: opts.sendToClient ? 'Scope prepared and sent to client for approval.' : 'Scope draft saved.',
+      body: opts.sendToClient
+        ? `Scope v${versionResult.versionNumber} prepared and sent to client for acceptance.`
+        : `Scope v${versionResult.versionNumber} draft saved.`,
       is_client_visible: opts.sendToClient,
     })
 
-  return { success: true, workOrder: data as WorkOrder }
+  return {
+    success: true,
+    workOrder: (updatedWo || undefined) as WorkOrder | undefined,
+    scopeVersionId: versionResult.scopeVersionId,
+  }
 }
 
 /**
@@ -684,22 +886,24 @@ export async function requestClientInput(opts: {
 
   if (!wo) return { success: false, error: 'Work Order not found' }
 
-  const previousStatus = wo.status
+  // Transition to needs_client_input via validated RPC (atomic status + audit)
+  const { error: rpcError } = await sc.rpc('transition_work_order_status', {
+    p_work_order_id: opts.workOrderId,
+    p_new_status: 'needs_client_input',
+    p_actor_role: 'advisor',
+    p_actor_user_id: opts.advisorUserId,
+    p_note: opts.requestTitle,
+  })
 
-  // Transition to needs_client_input
-  const { error: updateError } = await sc
-    .from('ai_work_orders')
-    .update({ status: 'needs_client_input' })
-    .eq('id', opts.workOrderId)
-
-  if (updateError) return { success: false, error: updateError.message }
+  if (rpcError) return { success: false, error: rpcError.message }
 
   // Build the request body
   const bodyParts = [opts.requestTitle, '', opts.whatIsNeeded]
   if (opts.whyItMatters) bodyParts.push('', `Why it matters: ${opts.whyItMatters}`)
   if (opts.dueDate) bodyParts.push('', `Needed by: ${opts.dueDate}`)
 
-  // Add update record (client-visible)
+  // Add the client_input_requested detail record (separate from the
+  // status_change audit row the RPC inserted; this carries the request body)
   await sc
     .from('ai_work_order_updates')
     .insert({
@@ -708,8 +912,6 @@ export async function requestClientInput(opts: {
       author_role: 'advisor',
       update_type: 'client_input_requested',
       body: bodyParts.join('\n'),
-      previous_status: previousStatus,
-      new_status: 'needs_client_input',
       is_client_visible: true,
     })
 
@@ -772,32 +974,18 @@ export async function publishDeliverable(opts: {
       is_client_visible: opts.isClientVisible !== false,
     })
 
-  // Optionally transition to delivered
+  // Optionally transition to delivered via validated RPC (atomic)
   if (opts.markDelivered) {
-    const { data: wo } = await sc
-      .from('ai_work_orders')
-      .select('status')
-      .eq('id', opts.workOrderId)
-      .single()
-
-    if (wo) {
-      await sc
-        .from('ai_work_orders')
-        .update({ status: 'delivered', delivered_at: new Date().toISOString() })
-        .eq('id', opts.workOrderId)
-
-      await sc
-        .from('ai_work_order_updates')
-        .insert({
-          work_order_id: opts.workOrderId,
-          author_user_id: opts.advisorUserId,
-          author_role: 'advisor',
-          update_type: 'status_change',
-          body: 'Work Order marked as delivered.',
-          previous_status: wo.status,
-          new_status: 'delivered',
-          is_client_visible: true,
-        })
+    const { error: rpcError } = await sc.rpc('transition_work_order_status', {
+      p_work_order_id: opts.workOrderId,
+      p_new_status: 'delivered',
+      p_actor_role: 'advisor',
+      p_actor_user_id: opts.advisorUserId,
+      p_note: 'Work Order marked as delivered.',
+    })
+    if (rpcError) {
+      // Non-fatal: deliverable was published; log the transition failure
+      console.error('[publishDeliverable] transition to delivered failed:', rpcError.message)
     }
   }
 
@@ -1035,25 +1223,16 @@ export async function approveWorkOrderByOwner(opts: {
   // If scope needs composition, go to awaiting_scope (advisor composes first)
   const newStatus: WorkOrderStatus = wo.scope_status === 'accepted' ? 'ready_for_checkout' : 'awaiting_scope'
 
-  const { error } = await sc
-    .from('ai_work_orders')
-    .update({ status: newStatus })
-    .eq('id', opts.workOrderId)
+  // Use the validated RPC for the transition + audit row (atomic).
+  const { error: rpcError } = await sc.rpc('transition_work_order_status', {
+    p_work_order_id: opts.workOrderId,
+    p_new_status: newStatus,
+    p_actor_role: 'client',
+    p_actor_user_id: opts.ownerUserId,
+    p_note: 'Organization owner/admin approved this Work Order.',
+  })
 
-  if (error) return { success: false, error: error.message }
-
-  await sc
-    .from('ai_work_order_updates')
-    .insert({
-      work_order_id: opts.workOrderId,
-      author_user_id: opts.ownerUserId,
-      author_role: 'client',
-      update_type: 'status_change',
-      body: 'Organization owner/admin approved this Work Order.',
-      previous_status: 'awaiting_owner_approval',
-      new_status: newStatus,
-      is_client_visible: true,
-    })
+  if (rpcError) return { success: false, error: rpcError.message }
 
   return { success: true }
 }
@@ -1080,25 +1259,15 @@ export async function declineWorkOrderByOwner(opts: {
     return { success: false, error: 'Work Order is not awaiting owner approval' }
   }
 
-  const { error } = await sc
-    .from('ai_work_orders')
-    .update({ status: 'cancelled' })
-    .eq('id', opts.workOrderId)
+  const { error: rpcError } = await sc.rpc('transition_work_order_status', {
+    p_work_order_id: opts.workOrderId,
+    p_new_status: 'cancelled',
+    p_actor_role: 'client',
+    p_actor_user_id: opts.ownerUserId,
+    p_note: opts.reason ? `Work Order declined by organization owner/admin: ${opts.reason}` : 'Work Order declined by organization owner/admin.',
+  })
 
-  if (error) return { success: false, error: error.message }
-
-  await sc
-    .from('ai_work_order_updates')
-    .insert({
-      work_order_id: opts.workOrderId,
-      author_user_id: opts.ownerUserId,
-      author_role: 'client',
-      update_type: 'status_change',
-      body: opts.reason ? `Work Order declined by organization owner/admin: ${opts.reason}` : 'Work Order declined by organization owner/admin.',
-      previous_status: 'awaiting_owner_approval',
-      new_status: 'cancelled',
-      is_client_visible: true,
-    })
+  if (rpcError) return { success: false, error: rpcError.message }
 
   return { success: true }
 }

@@ -21,7 +21,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
-  description: 'Subodh KC is an AI advisor and AI systems architect with 16+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+  description: 'Subodh KC is an AI advisor and AI systems architect with 16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
-    description: '16+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization. 5 patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+    description: '16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
     url: 'https://subodhkc.com/executive-bio',
     type: 'profile',
     images: [
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
-    description: '16+ years across program leadership, production AI systems, manufacturing reliability, and technology commercialization.',
+    description: '16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems.',
   },
 }
 
@@ -77,7 +77,7 @@ const personSchema = {
   givenName: 'Subodh',
   familyName: 'KC',
   jobTitle: 'AI Advisor | AI Systems Architect',
-  description: 'AI advisor and AI systems architect with 16+ years across technology, program and portfolio leadership, product development, continuous improvement, and production AI systems.',
+  description: 'AI advisor and AI systems architect with 16+ years across software, infrastructure, program and portfolio leadership, product development, continuous improvement, and applied AI systems.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -338,7 +338,7 @@ export default function ExecutiveBioPage() {
           <h2 className="text-3xl font-bold mb-8">Executive Bio</h2>
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Subodh KC is an AI advisor and AI systems architect with 16+ years across technology, program and portfolio leadership, product development, continuous improvement, and production AI systems. He turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate.
+              Subodh KC is an AI advisor and AI systems architect with 16+ years across software, infrastructure, program and portfolio leadership, product development, continuous improvement, and applied AI systems. He turns AI ambiguity into possibilities, evidence-backed decisions, and systems organizations can actually operate.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               His career has been built from the operational level up. He has worked across public-sector technology, manufacturing systems, production reliability, small-business transformation, enterprise software, and artificial intelligence. That range gives him a practical understanding of transformation from both sides: what leadership expects from an investment and what engineering and operations must do to make it work.
@@ -350,7 +350,7 @@ export default function ExecutiveBioPage() {
               Earlier in his career, he worked in manufacturing technology and reliability engineering, including Manufacturing Execution System environments supporting more than 400 production stations. He has also worked with small and midsized businesses across Dallas-Fort Worth on technology implementation, business process improvement, automation, and program delivery. His experience at Louisiana Tech University's Office of Intellectual Property & Commercialization added exposure to invention assessment, intellectual property, market opportunity, and technology commercialization.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Subodh is also a founder and hands-on builder of applied AI systems. He created <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an AI assurance and governance platform focused on evaluation, controls, evidence, monitoring, and responsible deployment. He also built <Link href="/solutions/kestrelvoice" className="text-primary hover:underline font-semibold">Kestrel Voice</Link>, an AI communications and workflow platform that combines voice agents, business knowledge, scheduling, automation, integrations, escalation, and operational controls. His open-source and research work includes <Link href="/products/llmverify" className="text-primary hover:underline font-semibold">llmverify</Link> and five patent-pending systems related to AI assurance, behavioral drift, traceability, compliance automation, and system monitoring.
+              Subodh is also a founder and hands-on builder of applied AI systems. He created <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an AI assurance and governance platform focused on evaluation, controls, evidence, monitoring, and responsible deployment. He also built <Link href="/solutions/kestrelvoice" className="text-primary hover:underline font-semibold">Kestrel Voice</Link>, an AI communications and workflow platform that combines voice agents, business knowledge, scheduling, automation, integrations, escalation, and operational controls. His open-source and research work includes <Link href="/products/llmverify" className="text-primary hover:underline font-semibold">llmverify</Link> and patent-pending systems related to AI assurance, behavioral drift, traceability, compliance automation, and system monitoring.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               He developed Cognitive Systems Management (CSM), a governance methodology with four domains and six execution functions, published in 2025 and extended in CSM 2.0 with machine-readable contracts and 16 governance components for enterprise AI deployment.
@@ -717,7 +717,7 @@ export default function ExecutiveBioPage() {
                   Short reusable boilerplate
                 </p>
                 <p>
-                  Subodh KC is an AI advisor and AI systems architect based in Dallas-Fort Worth, TX. He has 16+ years across enterprise program leadership, production AI systems, manufacturing reliability, and technology commercialization. He is a former Sr. Program Manager at HP Inc. (Fortune 50), founder of HAIEC and KestrelVoice, and author of five patent-pending AI assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt. He speaks on AI governance, production AI reliability, program leadership, and the operational discipline required to deploy AI that works.
+                  Subodh KC is an AI advisor and AI systems architect based in Dallas-Fort Worth, TX. He has 16+ years across software, infrastructure, enterprise program leadership, manufacturing reliability, and applied AI systems. He is a former Sr. Program Manager at HP Inc. (Fortune 50), founder of HAIEC and KestrelVoice, and author of patent-pending AI assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt. He speaks on AI governance, production AI reliability, program leadership, and the operational discipline required to deploy AI that works.
                 </p>
               </CardDescription>
             </CardHeader>

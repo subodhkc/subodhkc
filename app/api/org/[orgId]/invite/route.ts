@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser, resolveOrganizationContext, resolveOrganizationContextById, AuthError } from '@/lib/auth/organization-resolver'
 import { createServiceClient } from '@/lib/supabase'
 import { sendInvitationEmail } from '@/lib/email'
-import { checkTeamSeatAvailable } from '@/lib/commercial/seat-limits'
+import { countServiceSeats } from '@/lib/commercial/seat-limits'
+import { recordFailure } from '@/lib/commercial/failures'
 import crypto from 'crypto'
 
 export const runtime = 'nodejs'
@@ -32,7 +33,11 @@ export async function POST(
   }
 
   const body = await request.json()
-  const { email, role } = body
+  const { email, role, assignSeats } = body as {
+    email: string
+    role: string
+    assignSeats?: string[]
+  }
 
   if (!email || !email.includes('@')) {
     return NextResponse.json({ error: 'invalid_email' }, { status: 400 })
@@ -50,15 +55,23 @@ export async function POST(
   const serviceClient = createServiceClient()
   if (!serviceClient) return NextResponse.json({ error: 'config' }, { status: 500 })
 
-  // Check team seat limit
-  const seatCheck = await checkTeamSeatAvailable(orgId)
-  if (!seatCheck.available && !ctx.isPlatformAdmin) {
-    return NextResponse.json({
-      error: 'team_seat_limit_reached',
-      message: `Your ${seatCheck.offerKey} subscription allows ${seatCheck.limit} team members. You currently have ${seatCheck.currentSeats}. Upgrade or remove a member to invite more.`,
-      currentSeats: seatCheck.currentSeats,
-      limit: seatCheck.limit,
-    }, { status: 402 })
+  // S1: Only check seat limits when service seats are explicitly requested.
+  // A plain org member invitation must NOT be blocked by Advisor seat limits.
+  // Organization membership and service seats are DISTINCT.
+  const requestedSeats = Array.isArray(assignSeats) ? assignSeats : []
+  if (requestedSeats.length > 0 && !ctx.isPlatformAdmin) {
+    for (const offeringKey of requestedSeats) {
+      const seatCheck = await countServiceSeats(orgId, offeringKey as any)
+      if (!seatCheck.available) {
+        return NextResponse.json({
+          error: 'seat_limit_reached',
+          message: `Your ${offeringKey} subscription allows ${seatCheck.limit} service seats. You currently have ${seatCheck.count} assigned. Remove a seat or invite without service access.`,
+          offeringKey,
+          currentSeats: seatCheck.count,
+          limit: seatCheck.limit,
+        }, { status: 402 })
+      }
+    }
   }
 
   // Generate secure token
@@ -77,6 +90,8 @@ export async function POST(
       token_hash: tokenHash,
       invited_by: user.id,
       expires_at: expiresAt.toISOString(),
+      requested_seat_offerings: requestedSeats.length > 0 ? requestedSeats : null,
+      email_sent: false,
     })
     .select('id')
     .single()
@@ -92,7 +107,7 @@ export async function POST(
     action: 'invitation.created',
     entity_type: 'invitation',
     entity_id: invitation.id,
-    metadata: { email, role },
+    metadata: { email, role, requestedSeats },
   })
 
   // Send invitation email via Resend
@@ -104,8 +119,24 @@ export async function POST(
     token,
   })
 
+  // S3: Record email_sent status on the invitation row
+  await serviceClient
+    .from('organization_invitations')
+    .update({ email_sent: emailResult.success })
+    .eq('id', invitation.id)
+
   if (!emailResult.success) {
     console.error('Failed to send invitation email:', emailResult.error)
+    // S10: Record the email delivery failure for operator visibility
+    await recordFailure({
+      organizationId: orgId,
+      userId: user.id,
+      failureType: 'invitation',
+      severity: 'warning',
+      message: `Invitation email delivery failed for ${email}: ${emailResult.error}`,
+      details: { invitation_id: invitation.id, email },
+      retryable: true,
+    }).catch(() => undefined)
     // Invitation is created in DB even if email fails - admin can resend
   }
 

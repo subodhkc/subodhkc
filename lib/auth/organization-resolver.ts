@@ -19,6 +19,8 @@ export interface OrganizationContext {
   } | null
   organizationRole: OrganizationRole | null
   isPlatformAdmin: boolean
+  /** S9: True if the user has the advisor_operator platform role. */
+  isAdvisorOperator: boolean
   entitlements: Array<{
     id: string
     offering_key: string
@@ -43,6 +45,8 @@ export interface AuthenticatedUser {
   displayName: string | null
   avatarUrl: string | null
   isPlatformAdmin: boolean
+  /** S9: True if the user has the advisor_operator platform role. */
+  isAdvisorOperator: boolean
 }
 
 export type AuthErrorCode =
@@ -91,12 +95,23 @@ export async function getAuthenticatedUser(): Promise<AuthenticatedUser | null> 
     .eq('role', 'platform_admin')
     .single()
 
+  // S9: Check advisor_operator role (separate from platform_admin).
+  // This is a distinct platform role for internal advisor operations.
+  // It is NOT inferred from organization ownership/admin status.
+  const { data: advisorOperatorRole } = await serviceClient
+    .from('platform_user_roles')
+    .select('role')
+    .eq('user_id', user.id)
+    .eq('role', 'advisor_operator')
+    .single()
+
   return {
     id: user.id,
     email: user.email ?? null,
     displayName: profile?.display_name ?? null,
     avatarUrl: profile?.avatar_url ?? null,
     isPlatformAdmin: !!platformRole,
+    isAdvisorOperator: !!advisorOperatorRole,
   }
 }
 
@@ -118,6 +133,27 @@ export async function requirePlatformAdmin(): Promise<AuthenticatedUser> {
   const user = await requireAuth()
   if (!user.isPlatformAdmin) {
     throw new AuthError('unauthorized', 'Platform admin access required')
+  }
+  return user
+}
+
+/**
+ * S9: Require an advisor operator (platform_admin OR advisor_operator).
+ *
+ * This is the canonical internal advisor authorization. It is NOT inferred
+ * from customer organization ownership/admin status. A customer org owner
+ * does NOT get internal advisor console privileges.
+ *
+ * Use this for advisor-authoritative operations:
+ *   - Publishing briefs, artifacts, outcomes
+ *   - Marking sessions completed
+ *   - Composing Work Order scope
+ *   - Internal advisor-only data access
+ */
+export async function requireAdvisorOperator(): Promise<AuthenticatedUser> {
+  const user = await requireAuth()
+  if (!user.isPlatformAdmin && !user.isAdvisorOperator) {
+    throw new AuthError('unauthorized', 'Advisor operator access required')
   }
   return user
 }
@@ -271,6 +307,7 @@ async function resolveOrganizationContextFromOrg(
     } : null,
     organizationRole: (membership?.role as OrganizationRole) ?? null,
     isPlatformAdmin: user.isPlatformAdmin,
+    isAdvisorOperator: user.isAdvisorOperator,
     entitlements: processedEntitlements,
     offeringRoles: (offeringRoles || []).map((r: any) => ({
       id: r.id,

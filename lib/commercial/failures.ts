@@ -20,6 +20,9 @@ export type FailureType =
   | 'artifact'
   | 'portal'
   | 'cancellation'
+  | 'scheduling'
+  | 'session_usage'
+  | 'invitation'
 
 export type Severity = 'warning' | 'error' | 'critical'
 

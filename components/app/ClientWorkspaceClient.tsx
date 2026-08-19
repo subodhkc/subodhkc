@@ -5,17 +5,14 @@ import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
 import {
   LogOut, ChevronRight, ChevronDown, Building2, Shield, Users, Settings,
-  Briefcase, Wrench, ArrowRight, Calendar, User as UserIcon,
-  AlertCircle, FileText, Clock, CheckCircle2, Loader2,
+  Briefcase, ArrowRight, Calendar, User as UserIcon,
+  AlertCircle, FileText,
 } from 'lucide-react'
 import type { AuthenticatedUser, OrganizationContext } from '@/lib/auth/organization-resolver'
 import {
-  getOfferingLabel, getOfferingDescription, getOfferingKindLabel,
-  getOfferingRoute, getOfferingStatus,
+  getOfferingLabel, getOfferingRoute, getOfferingStatus,
   getEngagementTypeLabel, getEngagementStatusLabel,
 } from '@/lib/auth/dashboard-types'
-import { NewsCardGrid } from './NewsCardGrid'
-import { ExecutiveBriefs } from './ExecutiveBriefs'
 
 interface OrgEngagement {
   id: string
@@ -42,6 +39,17 @@ interface UserOrgSummary {
   organization_kind: string
   status: string
   role: string
+}
+
+interface OrgWorkOrder {
+  id: string
+  work_order_number: string
+  title: string
+  work_type: string
+  status: string
+  status_label: string
+  action_label: string
+  updated_at: string
 }
 
 interface ClientWorkspaceClientProps {
@@ -76,39 +84,46 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
 
   const activeEngagements = engagements.filter(e => e.status === 'active')
 
-  // Needs Attention + Current Work for org home
-  const [orgAttention, setOrgAttention] = useState<any[]>([])
-  const [orgWorkSummary, setOrgWorkSummary] = useState<{ active: number; needsInput: number; delivered: number } | null>(null)
+  // Fetch Work Orders for this org (object-first rendering)
+  const [orgWorkOrders, setOrgWorkOrders] = useState<OrgWorkOrder[]>([])
   const [attentionLoading, setAttentionLoading] = useState(false)
+  const [workOrdersError, setWorkOrdersError] = useState<string | null>(null)
 
   useEffect(() => {
-    async function fetchOrgSummary() {
+    async function fetchOrgWorkOrders() {
       setAttentionLoading(true)
+      setWorkOrdersError(null)
       try {
         const res = await fetch(`/api/commercial/work-orders?orgSlug=${organization.slug}`)
         if (res.ok) {
           const data = await res.json()
           const wos = Array.isArray(data.workOrders) ? data.workOrders : []
-          const needsInput = wos.filter((w: any) => w.status === 'needs_client_input')
-          const awaitingApproval = wos.filter((w: any) => w.status === 'awaiting_approval' || w.status === 'ready_for_checkout')
-          const active = wos.filter((w: any) => ['in_progress', 'in_review', 'paid', 'scoped'].includes(w.status))
-          const delivered = wos.filter((w: any) => w.status === 'delivered')
-          const items = [
-            ...needsInput.map((w: any) => ({ type: 'input', title: `${w.work_order_number} needs your input`, link: `/app/${organization.slug}/work-orders/${w.id}`, status: w.status })),
-            ...awaitingApproval.map((w: any) => ({ type: 'approval', title: `${w.work_order_number} ready for approval`, link: `/app/${organization.slug}/work-orders/${w.id}`, status: w.status })),
-            ...delivered.map((w: any) => ({ type: 'delivered', title: `${w.work_order_number} delivered — review and complete`, link: `/app/${organization.slug}/work-orders/${w.id}`, status: w.status })),
-          ]
-          setOrgAttention(items)
-          setOrgWorkSummary({ active: active.length, needsInput: needsInput.length, delivered: delivered.length })
+          setOrgWorkOrders(wos.map((w: any) => ({
+            id: w.id,
+            work_order_number: w.work_order_number,
+            title: w.title,
+            work_type: w.work_type,
+            status: w.status,
+            status_label: w.status_label || w.status,
+            action_label: w.action_label || w.status_label || w.status,
+            updated_at: w.updated_at,
+          })))
+        } else {
+          setWorkOrdersError('Unable to load Work Orders.')
         }
       } catch {
-        // silent — org home should still render
+        setWorkOrdersError('Network error loading Work Orders.')
       } finally {
         setAttentionLoading(false)
       }
     }
-    fetchOrgSummary()
+    fetchOrgWorkOrders()
   }, [organization.slug])
+
+  const needsInput = orgWorkOrders.filter(w => w.status === 'needs_client_input')
+  const awaitingApproval = orgWorkOrders.filter(w => w.status === 'awaiting_approval' || w.status === 'ready_for_checkout')
+  const activeWork = orgWorkOrders.filter(w => ['in_progress', 'in_review', 'paid', 'scoped'].includes(w.status))
+  const deliveredWork = orgWorkOrders.filter(w => w.status === 'delivered' || w.status === 'completed')
 
   // Available offerings with routes
   const availableOfferings = entitlements
@@ -123,7 +138,15 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
       }
     })
 
-  // Tools and services offered by this org
+  // Active relationships: Advisor Desk and Fractional
+  const relationshipOfferings = availableOfferings.filter(o =>
+    o.offering_key === 'ai_advisor_desk' ||
+    o.offering_key === 'advisory' ||
+    o.offering_key === 'fractional_ai_advisor' ||
+    o.offering_key === 'fractional_ai'
+  )
+
+  // Other tools and services
   const orgTools = availableOfferings.filter(o => {
     const status = getOfferingStatus({
       offeringKey: o.offering_key,
@@ -134,7 +157,11 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
       hasRole: o.hasRole,
       userRole: o.userRole,
     })
-    return status === 'available'
+    return status === 'available' &&
+      o.offering_key !== 'ai_advisor_desk' &&
+      o.offering_key !== 'advisory' &&
+      o.offering_key !== 'fractional_ai_advisor' &&
+      o.offering_key !== 'fractional_ai'
   })
 
   const isSchoolOrg = organization.organization_kind === 'school'
@@ -142,7 +169,7 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-30">
+      <header className="border-b border-border bg-card sticky top-0 z-30">
         <div className="flex items-center justify-between px-4 h-14">
           <div className="flex items-center gap-2 min-w-0">
             <Link href="/app" className="font-semibold text-sm flex-shrink-0">
@@ -153,7 +180,9 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
             <div className="relative" ref={switcherRef}>
               <button
                 onClick={() => otherOrgs.length > 0 && setOrgSwitcherOpen(!orgSwitcherOpen)}
-                className="flex items-center gap-1 text-sm font-medium truncate hover:bg-accent px-2 py-1 rounded-md"
+                className="flex items-center gap-1 text-sm font-medium truncate hover:bg-accent/10 px-2 py-1 rounded-md"
+                aria-expanded={orgSwitcherOpen}
+                aria-label="Switch organization"
               >
                 <span className="truncate max-w-[120px] sm:max-w-[200px]">{organization.name}</span>
                 {otherOrgs.length > 0 && (
@@ -161,7 +190,7 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
                 )}
               </button>
               {orgSwitcherOpen && otherOrgs.length > 0 && (
-                <div className="absolute top-full left-0 mt-1 w-64 bg-card border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                <div className="absolute top-full left-0 mt-1 w-64 bg-card border border-border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
                   <div className="p-1">
                     <div className="px-2 py-1.5 text-xs text-muted-foreground font-medium">
                       Switch Organization
@@ -171,7 +200,7 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
                         key={org.id}
                         href={`/app/${org.slug}`}
                         onClick={() => setOrgSwitcherOpen(false)}
-                        className="flex items-center justify-between px-2 py-2 hover:bg-accent rounded-md text-sm"
+                        className="flex items-center justify-between px-2 py-2 hover:bg-accent/10 rounded-md text-sm"
                       >
                         <div className="min-w-0">
                           <div className="font-medium truncate">{org.name}</div>
@@ -180,11 +209,11 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
                         <ChevronRight className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
                       </Link>
                     ))}
-                    <div className="border-t mt-1 pt-1">
+                    <div className="border-t border-border mt-1 pt-1">
                       <Link
                         href="/app"
                         onClick={() => setOrgSwitcherOpen(false)}
-                        className="flex items-center gap-2 px-2 py-2 hover:bg-accent rounded-md text-sm text-muted-foreground"
+                        className="flex items-center gap-2 px-2 py-2 hover:bg-accent/10 rounded-md text-sm text-muted-foreground"
                       >
                         <Building2 className="h-3.5 w-3.5" />
                         All Organizations
@@ -205,8 +234,9 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
                 await fetch('/auth/logout', { method: 'POST' })
                 window.location.href = '/login'
               }}
-              className="p-1.5 hover:bg-accent rounded-md"
+              className="p-1.5 hover:bg-accent/10 rounded-md"
               title="Sign out"
+              aria-label="Sign out"
             >
               <LogOut className="h-4 w-4" />
             </button>
@@ -214,20 +244,20 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
         </div>
 
         {/* Sub-navigation */}
-        <div className="px-4 flex items-center gap-1 text-sm border-t overflow-x-auto">
+        <div className="px-4 flex items-center gap-1 text-sm border-t border-border overflow-x-auto">
           <Link
             href={basePath}
-            className={`px-3 py-2 hover:bg-accent whitespace-nowrap ${pathname === basePath ? 'bg-accent font-medium' : ''}`}
+            className={`px-3 py-2 hover:bg-accent/10 whitespace-nowrap ${pathname === basePath ? 'bg-accent/10 font-medium' : ''}`}
           >
             Overview
           </Link>
 
-          {orgTools.map((offering) => (
+          {availableOfferings.map((offering) => (
             <Link
               key={offering.offering_key}
               href={offering.route || '#'}
-              className={`px-3 py-2 hover:bg-accent whitespace-nowrap ${
-                pathname.startsWith(`${basePath}/${offering.offering_key}`) ? 'bg-accent font-medium' : ''
+              className={`px-3 py-2 hover:bg-accent/10 whitespace-nowrap ${
+                pathname.startsWith(`${basePath}/${offering.offering_key}`) ? 'bg-accent/10 font-medium' : ''
               }`}
             >
               {getOfferingLabel(offering.offering_key)}
@@ -238,8 +268,8 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
             <>
               <Link
                 href={`${basePath}/members`}
-                className={`px-3 py-2 hover:bg-accent flex items-center gap-1 whitespace-nowrap ${
-                  pathname === `${basePath}/members` ? 'bg-accent font-medium' : ''
+                className={`px-3 py-2 hover:bg-accent/10 flex items-center gap-1 whitespace-nowrap ${
+                  pathname === `${basePath}/members` ? 'bg-accent/10 font-medium' : ''
                 }`}
               >
                 <Users className="h-3.5 w-3.5" />
@@ -247,8 +277,8 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
               </Link>
               <Link
                 href={`${basePath}/settings`}
-                className={`px-3 py-2 hover:bg-accent flex items-center gap-1 whitespace-nowrap ${
-                  pathname === `${basePath}/settings` ? 'bg-accent font-medium' : ''
+                className={`px-3 py-2 hover:bg-accent/10 flex items-center gap-1 whitespace-nowrap ${
+                  pathname === `${basePath}/settings` ? 'bg-accent/10 font-medium' : ''
                 }`}
               >
                 <Settings className="h-3.5 w-3.5" />
@@ -261,7 +291,7 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
 
       {/* Main content */}
       <main className="max-w-5xl mx-auto px-4 py-6 sm:py-8 space-y-8">
-        {/* Org header */}
+        {/* 1. Org header */}
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{organization.name}</h1>
           <p className="text-sm text-muted-foreground mt-1">
@@ -274,20 +304,51 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
           </p>
         </div>
 
-        {/* Needs Attention */}
-        {orgAttention.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-amber-600" />
+        {/* 2. Needs Your Attention — object-first */}
+        {(needsInput.length > 0 || awaitingApproval.length > 0 || deliveredWork.length > 0) && (
+          <section aria-labelledby="attention-heading">
+            <h2 id="attention-heading" className="text-lg font-semibold mb-3">
               Needs Your Attention
             </h2>
-            <div className="space-y-2">
-              {orgAttention.map((item, i) => (
-                <Link key={i} href={item.link}
-                  className="flex items-center gap-3 border rounded-lg p-3 hover:bg-accent/5 group">
+            <div className="border border-border rounded-xl divide-y divide-border">
+              {needsInput.map(wo => (
+                <Link key={wo.id} href={`${basePath}/work-orders/${wo.id}`}
+                  className="flex items-center gap-3 p-4 hover:bg-accent/5 transition-colors group">
+                  <span className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0" aria-hidden="true" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium">{item.title}</p>
-                    <p className="text-xs text-muted-foreground capitalize mt-0.5">{item.status.replace(/_/g, ' ')}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.work_order_number}</span>
+                      <p className="text-sm font-medium truncate">{wo.title}</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">{wo.action_label}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
+                </Link>
+              ))}
+              {awaitingApproval.map(wo => (
+                <Link key={wo.id} href={`${basePath}/work-orders/${wo.id}`}
+                  className="flex items-center gap-3 p-4 hover:bg-accent/5 transition-colors group">
+                  <span className="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0" aria-hidden="true" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.work_order_number}</span>
+                      <p className="text-sm font-medium truncate">{wo.title}</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">{wo.action_label}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
+                </Link>
+              ))}
+              {deliveredWork.map(wo => (
+                <Link key={wo.id} href={`${basePath}/work-orders/${wo.id}`}
+                  className="flex items-center gap-3 p-4 hover:bg-accent/5 transition-colors group">
+                  <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0" aria-hidden="true" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.work_order_number}</span>
+                      <p className="text-sm font-medium truncate">{wo.title}</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">{wo.action_label}</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
                 </Link>
@@ -296,38 +357,93 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
           </section>
         )}
 
-        {/* Current Work Summary */}
-        {orgWorkSummary && (orgWorkSummary.active > 0 || orgWorkSummary.needsInput > 0 || orgWorkSummary.delivered > 0) && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <FileText className="h-5 w-5" />
-              Current Work
+        {/* 3. Active Relationships — Advisor Desk, Fractional */}
+        {relationshipOfferings.length > 0 && (
+          <section aria-labelledby="relationships-heading">
+            <h2 id="relationships-heading" className="text-lg font-semibold mb-3">
+              Active Relationships
             </h2>
-            <div className="grid grid-cols-3 gap-3">
-              <Link href={`${basePath}/work-orders`} className="border rounded-lg p-4 hover:bg-accent/5">
-                <div className="text-2xl font-bold">{orgWorkSummary.active}</div>
-                <div className="text-xs text-muted-foreground mt-1">Active Work Orders</div>
-              </Link>
-              <Link href={`${basePath}/work-orders`} className="border rounded-lg p-4 hover:bg-accent/5">
-                <div className="text-2xl font-bold text-amber-600">{orgWorkSummary.needsInput}</div>
-                <div className="text-xs text-muted-foreground mt-1">Needs Your Input</div>
-              </Link>
-              <Link href={`${basePath}/work-orders`} className="border rounded-lg p-4 hover:bg-accent/5">
-                <div className="text-2xl font-bold text-green-600">{orgWorkSummary.delivered}</div>
-                <div className="text-xs text-muted-foreground mt-1">Delivered</div>
-              </Link>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {relationshipOfferings.map((offering) => {
+                const route = getOfferingRoute(organization.slug, offering.offering_key)
+                if (!route) return null
+                return (
+                  <Link
+                    key={offering.offering_key}
+                    href={route}
+                    className="block border border-border rounded-xl p-4 hover:bg-accent/5 transition-colors group"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-medium text-sm">{getOfferingLabel(offering.offering_key)}</h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">Open workspace</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0 mt-0.5" />
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           </section>
         )}
 
-        {/* Active engagement summary */}
-        {activeEngagements.length > 0 && (
+        {/* 4. Current Work — actual Work Order objects */}
+        {activeWork.length > 0 && (
+          <section aria-labelledby="work-heading">
+            <h2 id="work-heading" className="text-lg font-semibold mb-3">
+              Current Work
+            </h2>
+            <div className="border border-border rounded-xl divide-y divide-border">
+              {activeWork.map(wo => (
+                <Link
+                  key={wo.id}
+                  href={`${basePath}/work-orders/${wo.id}`}
+                  className="flex items-start justify-between gap-3 p-4 hover:bg-accent/5 transition-colors group"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70">{wo.work_order_number}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-blue-500/10 text-blue-600">
+                        {wo.status_label}
+                      </span>
+                    </div>
+                    <p className="text-sm font-medium truncate mt-1">{wo.title}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{wo.action_label}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0 mt-0.5" />
+                </Link>
+              ))}
+            </div>
+            <Link href={`${basePath}/work-orders`} className="block text-sm text-primary hover:underline pt-2">
+              View all Work Orders
+            </Link>
+          </section>
+        )}
+
+        {/* Loading and error states for Work Orders */}
+        {attentionLoading && orgWorkOrders.length === 0 && (
           <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Briefcase className="h-5 w-5" />
+            <div className="border border-border rounded-xl p-4">
+              <p className="text-sm text-muted-foreground">Loading Work Orders...</p>
+            </div>
+          </section>
+        )}
+        {workOrdersError && (
+          <section>
+            <div className="border border-border rounded-xl p-4">
+              <p className="text-sm text-red-600">{workOrdersError}</p>
+            </div>
+          </section>
+        )}
+
+        {/* 5. Active engagement summary */}
+        {activeEngagements.length > 0 && (
+          <section aria-labelledby="engagement-heading">
+            <h2 id="engagement-heading" className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Briefcase className="h-5 w-5 text-muted-foreground" />
               Active Engagement
             </h2>
-            <div className="border rounded-lg p-4 space-y-3">
+            <div className="border border-border rounded-lg p-4 space-y-3">
               {activeEngagements.map((eng) => (
                 <div key={eng.id} className="flex items-start justify-between">
                   <div>
@@ -352,29 +468,25 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
           </section>
         )}
 
-        {/* Available tools and services */}
+        {/* 6. Included systems / Tools & Services — demoted */}
         {orgTools.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Wrench className="h-5 w-5" />
+          <section aria-labelledby="tools-heading">
+            <h2 id="tools-heading" className="text-lg font-semibold mb-3">
               {isSchoolOrg ? 'Applications' : 'Tools & Services'}
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {orgTools.map((tool) => {
                 const route = getOfferingRoute(organization.slug, tool.offering_key)
                 const content = (
-                  <div className="group border rounded-lg p-4 hover:border-primary/30 hover:bg-accent/30 transition-colors h-full">
+                  <div className="group border border-border rounded-lg p-4 hover:bg-accent/5 transition-colors h-full">
                     <h3 className="font-medium text-sm">{getOfferingLabel(tool.offering_key)}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {getOfferingDescription(tool.offering_key)}
-                    </p>
                     {route ? (
                       <span className="text-xs text-primary mt-2 inline-block group-hover:underline">
                         Open →
                       </span>
                     ) : (
                       <span className="text-xs text-muted-foreground mt-2 inline-block">
-                        {getOfferingKindLabel(tool.offering_key === 'kestrel' ? 'external_product' : '')}
+                        External platform
                       </span>
                     )}
                   </div>
@@ -389,20 +501,14 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
           </section>
         )}
 
-        {/* Executive Briefs */}
-        <ExecutiveBriefs />
-
-        {/* AI Intelligence News Card Grid */}
-        <NewsCardGrid initialLimit={12} />
-
-        {/* Team */}
+        {/* 7. Team */}
         {members.length > 0 && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Users className="h-5 w-5" />
+          <section aria-labelledby="team-heading">
+            <h2 id="team-heading" className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Users className="h-5 w-5 text-muted-foreground" />
               Team
             </h2>
-            <div className="border rounded-lg divide-y">
+            <div className="border border-border rounded-lg divide-y divide-border">
               {members.map((m) => (
                 <div key={m.id} className="flex items-center gap-3 p-3">
                   {m.avatar_url ? (
@@ -420,7 +526,7 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
                       <p className="text-xs text-muted-foreground truncate">{m.email}</p>
                     )}
                   </div>
-                  <span className="text-xs bg-accent px-2 py-0.5 rounded">{m.role}</span>
+                  <span className="text-xs bg-accent/10 px-2 py-0.5 rounded">{m.role}</span>
                 </div>
               ))}
             </div>
@@ -428,10 +534,10 @@ export function ClientWorkspaceClient({ user, ctx, engagements, members, userOrg
         )}
 
         {/* No offerings state */}
-        {orgTools.length === 0 && activeEngagements.length === 0 && (
+        {orgTools.length === 0 && relationshipOfferings.length === 0 && activeEngagements.length === 0 && orgWorkOrders.length === 0 && !attentionLoading && (
           <section>
-            <div className="border rounded-lg p-8 text-center">
-              <Building2 className="h-10 w-10 text-primary mx-auto mb-3" />
+            <div className="border border-border rounded-lg p-8 text-center">
+              <Building2 className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
               <h2 className="text-lg font-semibold">{organization.name}</h2>
               <p className="text-sm text-muted-foreground mt-1">
                 You have access to this organization. Available tools and services will appear here.

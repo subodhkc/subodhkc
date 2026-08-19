@@ -10,6 +10,7 @@
 export type WorkOrderStatus =
   | 'draft'
   | 'awaiting_scope'
+  | 'awaiting_client_acceptance'
   | 'awaiting_approval'
   | 'awaiting_owner_approval'
   | 'ready_for_checkout'
@@ -28,8 +29,16 @@ export type WorkOrderScopeStatus =
   | 'draft'
   | 'needs_review'
   | 'standard'
+  | 'sent_to_client'
   | 'custom_scope_required'
   | 'accepted'
+
+export type ScopeVersionStatus =
+  | 'proposed'
+  | 'sent_to_client'
+  | 'accepted'
+  | 'superseded'
+  | 'withdrawn'
 
 export type WorkType =
   | 'research'
@@ -110,8 +119,10 @@ export interface WorkOrder {
   target_date: string | null
   scope_accepted_at: string | null
   scope_accepted_by: string | null
+  paid_at: string | null
   delivered_at: string | null
   completed_at: string | null
+  current_scope_version_id: string | null
   parent_work_order_id: string | null
   source_request_id: string | null
   source_request_type: SourceRequestType | null
@@ -129,6 +140,7 @@ export interface WorkOrderScopeAcceptance {
   id: string
   work_order_id: string
   scope_version: number
+  scope_version_id: string | null
   rendered_scope_text: string | null
   rendered_scope_json: Record<string, unknown> | null
   document_hash: string
@@ -136,6 +148,21 @@ export interface WorkOrderScopeAcceptance {
   accepted_at: string
   price_cents: number
   currency: string
+}
+
+export interface WorkOrderScopeVersion {
+  id: string
+  work_order_id: string
+  version_number: number
+  scope_snapshot: Record<string, unknown>
+  document_hash: string
+  price_cents: number
+  currency: string
+  composed_by: string | null
+  composed_at: string
+  version_status: ScopeVersionStatus
+  superseded_by: string | null
+  created_at: string
 }
 
 export interface WorkOrderUpdate {
@@ -188,6 +215,7 @@ export interface ScopeSnapshot {
 const STATUS_LABELS: Record<WorkOrderStatus, string> = {
   draft: 'Draft',
   awaiting_scope: 'Scope being prepared',
+  awaiting_client_acceptance: 'Scope ready for your review',
   awaiting_approval: 'Ready for approval',
   awaiting_owner_approval: 'Awaiting organization approval',
   ready_for_checkout: 'Ready for payment',
@@ -211,6 +239,7 @@ export function statusLabel(status: WorkOrderStatus): string {
 const STATUS_ACTION_LABELS: Record<WorkOrderStatus, string> = {
   draft: 'Draft in progress',
   awaiting_scope: 'Subodh is preparing your scope',
+  awaiting_client_acceptance: 'Review and accept your scope',
   awaiting_approval: 'Review and approve your scope',
   awaiting_owner_approval: 'Waiting for your organization admin to approve',
   ready_for_checkout: 'Complete payment to start work',
@@ -234,9 +263,10 @@ export function statusActionLabel(status: WorkOrderStatus): string {
 const STATUS_ADVISOR_LABELS: Record<WorkOrderStatus, string> = {
   draft: 'Draft — not yet sent',
   awaiting_scope: 'Compose scope',
+  awaiting_client_acceptance: 'Sent — awaiting client acceptance',
   awaiting_approval: 'Sent — awaiting client approval',
   awaiting_owner_approval: 'Awaiting org owner/admin approval',
-  ready_for_checkout: 'Client approved — awaiting payment',
+  ready_for_checkout: 'Client accepted — awaiting payment',
   payment_pending: 'Payment processing',
   paid: 'Paid — ready to start work',
   scoped: 'Scope confirmed',
@@ -257,6 +287,7 @@ export function statusAdvisorLabel(status: WorkOrderStatus): string {
 const STATUS_PRIORITY: Record<WorkOrderStatus, 'high' | 'medium' | 'low'> = {
   draft: 'low',
   awaiting_scope: 'high',
+  awaiting_client_acceptance: 'high',
   awaiting_approval: 'medium',
   awaiting_owner_approval: 'medium',
   ready_for_checkout: 'low',
