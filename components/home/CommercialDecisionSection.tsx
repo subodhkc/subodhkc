@@ -155,7 +155,7 @@ export function CommercialDecisionSection() {
             </div>
             <div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--fg)', margin: 0 }}>
-                I want to find where AI could improve a workflow
+                I want a scoped piece of AI work done
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--op-muted)', margin: '4px 0 0' }}>
                 AI Work Order &middot; $500 standard
@@ -163,7 +163,8 @@ export function CommercialDecisionSection() {
             </div>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-            One defined outcome. Scoped before work begins. A Work Order can cover research,
+            One defined outcome. Scoped before work begins. Available through an active AI
+            Advisor or Fractional AI Advisor relationship. A Work Order can cover research,
             analysis, design, evaluation, configuration, architecture, integration, investigation
             or bounded implementation. If the work is larger, I will scope the next step before
             additional work begins.
@@ -179,7 +180,7 @@ export function CommercialDecisionSection() {
               color: 'var(--op-accent)',
             }}
           >
-            Start My Assessment
+            Start My Work Order
             <ArrowRight style={{ width: 14, height: 14 }} />
           </div>
         </Link>

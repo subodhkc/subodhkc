@@ -233,7 +233,7 @@ CSM is a practitioner-developed governance methodology, not a certification, reg
 
 ## Engagement & Pricing
 
-- **AI Advisor Desk:** $99/month
+- **AI Advisor for Business:** $99/month
 - **Fractional AI Advisor:** $1,250/month
 - **AI Work Order:** $500 standard (scoped before work begins)
 - **AI Systems Architecture & Implementation:** Custom scoped

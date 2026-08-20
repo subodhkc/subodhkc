@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import Grid from '@/components/Grid'
@@ -19,7 +20,6 @@ function CalendlyEmbed({ url }: { url: string }) {
       style={{
         position: 'relative',
         width: '100%',
-        minWidth: '320px',
         height: '700px',
         overflow: 'hidden',
         borderRadius: '8px',
@@ -45,12 +45,25 @@ function CalendlyEmbed({ url }: { url: string }) {
   )
 }
 
-export default function ContactPageClient() {
+function ContactForm() {
+  const searchParams = useSearchParams()
+  const subjectParam = searchParams.get('subject') || ''
+
+  const subjectToInterest: Record<string, string> = {
+    'ai-architecture-implementation': 'AI Systems Architecture & Implementation',
+    'ai-advisor': 'AI Advisor for Business',
+    'fractional-advisor': 'Fractional AI Advisor',
+    'ai-work-order': 'AI Work Order',
+    'ai-security-compliance': 'AI Security & Compliance Review',
+    'saas-security-review': 'SaaS & AI Security Review',
+    'ai-voice-agent': 'AI Voice Agent Deployment',
+  }
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
-    interest: '',
+    interest: subjectToInterest[subjectParam] || '',
     message: '',
     website: '',
   })
@@ -167,16 +180,19 @@ export default function ContactPageClient() {
   ]
 
   const interestAreas = [
-    'Advisory & Consulting',
+    'AI Advisor for Business',
+    'Fractional AI Advisor',
+    'AI Work Order',
+    'AI Systems Architecture & Implementation',
+    'AI Security & Compliance Review',
+    'SaaS & AI Security Review',
+    'AI Voice Agent Deployment',
     'AI Governance & Compliance Course',
     'AI Laws Webinar (Small Business)',
-    'AI Compliance Assessment',
     'HAIEC Platform',
     'Speaking Engagement',
-    'Executive Coaching',
     'Research Collaboration',
     'Media & Press',
-    'Mentorship',
     'Other',
   ]
 
@@ -482,5 +498,13 @@ export default function ContactPageClient() {
         }}
       />
     </>
+  )
+}
+
+export default function ContactPageClient() {
+  return (
+    <Suspense fallback={null}>
+      <ContactForm />
+    </Suspense>
   )
 }

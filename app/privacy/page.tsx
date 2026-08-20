@@ -188,7 +188,7 @@ export default function PrivacyPage() {
               <ul className="list-disc list-inside space-y-1 ml-2">
                 <li>Respond to your contact form submissions</li>
                 <li>Deliver newsletter emails you have opted into</li>
-                <li>Provide commercial services you have purchased (advisor questions, blueprint deliverables, security review reports)</li>
+                <li>Provide commercial services you have purchased (advisor questions, AI Work Order deliverables, security review reports)</li>
                 <li>Process subscription payments and manage billing through Stripe</li>
                 <li>Send service notifications (welcome emails, advisor responses, deliverable published notices)</li>
                 <li>Analyze website traffic in aggregate (no individual tracking)</li>
@@ -250,7 +250,7 @@ export default function PrivacyPage() {
               <p><strong className="text-foreground">Analytics Data:</strong> Retained for up to 90 days, after which it is automatically purged.</p>
               <p><strong className="text-foreground">Email &amp; Newsletter Data:</strong> Retained until you unsubscribe or request deletion. Product download and waitlist emails are retained for the duration of the product&apos;s lifecycle or until you request removal.</p>
               <p><strong className="text-foreground">Contact Form Submissions:</strong> Retained for up to 12 months to respond to inquiries and for record-keeping.</p>
-              <p><strong className="text-foreground">Commercial Service Data:</strong> Subscription records, advisor questions, security review findings, and engagement data are retained for the duration of your active subscription plus 12 months after cancellation for audit and dispute resolution. Blueprint qualification responses are retained for the lifecycle of the engagement.</p>
+              <p><strong className="text-foreground">Commercial Service Data:</strong> Subscription records, advisor questions, security review findings, and engagement data are retained for the duration of your active subscription plus 12 months after cancellation for audit and dispute resolution. AI Work Order qualification responses are retained for the lifecycle of the engagement.</p>
             </CardContent>
           </Card>
 

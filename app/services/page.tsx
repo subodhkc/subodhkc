@@ -58,7 +58,7 @@ const primaryPaths = [
   {
     icon: Eye,
     depth: 1,
-    depthLabel: 'Depth 01 · Watching',
+    depthLabel: 'Watching',
     offer: 'AI Advisor Desk',
     href: '/ai-advisor',
     price: '$99/month',
@@ -70,7 +70,7 @@ const primaryPaths = [
   {
     icon: Users,
     depth: 2,
-    depthLabel: 'Depth 02 · Working alongside',
+    depthLabel: 'Working alongside',
     offer: 'Fractional AI Advisor',
     href: '/advisory',
     price: '$1,250/month',
@@ -82,7 +82,7 @@ const primaryPaths = [
   {
     icon: Compass,
     depth: 3,
-    depthLabel: 'Depth 03 · Building',
+    depthLabel: 'Building',
     offer: 'AI Systems Architecture & Implementation',
     href: '/contact?subject=ai-architecture-implementation',
     price: 'Scoped',
@@ -143,14 +143,14 @@ export default function ServicesPage() {
       {/* Three primary paths · progression of depth */}
       <Section
         subtitle="Three Primary Paths"
-        title="Choose your depth of involvement"
-        description="Each path is a different relationship to AI decisions. Depth increases left to right: watching, working alongside, building. Not Bronze, Silver, Gold. The right path is the one that matches the decision in front of you."
+        title="Choose your level of involvement"
+        description="Each path is a different relationship to AI decisions. Involvement increases left to right: watching, working alongside, building. Not Bronze, Silver, Gold. The right path is the one that matches the decision in front of you."
         sectionNum="01"
       >
         <div className="max-w-6xl mx-auto">
           {/* Depth progression bar */}
           <div className="flex items-center justify-center gap-2 mb-10 flex-wrap">
-            <span className="text-sm font-medium text-muted-foreground">Shallow</span>
+            <span className="text-sm font-medium text-muted-foreground">Watching</span>
             <div className="flex items-center gap-1">
               {[1, 2, 3].map((d) => (
                 <div
@@ -161,7 +161,7 @@ export default function ServicesPage() {
               ))}
             </div>
             <ArrowRight className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm font-medium text-muted-foreground">Deep</span>
+            <span className="text-sm font-medium text-muted-foreground">Building</span>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">

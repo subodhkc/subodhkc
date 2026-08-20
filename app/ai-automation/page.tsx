@@ -19,7 +19,7 @@ import {
   FlaskConical,
   ShieldCheck,
 } from 'lucide-react'
-import { BlueprintQualificationCTA } from '@/components/commercial/BlueprintQualificationCTA'
+import { WorkOrderQualificationCTA } from '@/components/commercial/WorkOrderQualificationCTA'
 
 export const metadata = {
   title: 'AI Work Order | $500 Scoped AI Work | Subodh KC',
@@ -382,7 +382,7 @@ export default function AIAutomationPage() {
       </Section>
 
       <div id="start">
-        <BlueprintQualificationCTA
+        <WorkOrderQualificationCTA
           title="Start your AI Work Order."
           description="Describe what you need. You will see scope and membership options before payment. If you are already an AI Advisor member, you can continue to checkout. If not, you can join the AI Advisor Desk to commission this Work Order."
         />

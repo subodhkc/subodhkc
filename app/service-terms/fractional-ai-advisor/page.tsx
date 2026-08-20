@@ -33,15 +33,16 @@ export default function FractionalAdvisorServiceTermsPage() {
                 <a href="#sessions" className="text-primary hover:underline">3. Working Sessions</a>
                 <a href="#async" className="text-primary hover:underline">4. Async Advisory</a>
                 <a href="#included" className="text-primary hover:underline">5. Included Products</a>
-                <a href="#affiliation" className="text-primary hover:underline">6. Advisor Affiliation</a>
-                <a href="#billing" className="text-primary hover:underline">7. Billing & Cancellation</a>
-                <a href="#out-of-scope" className="text-primary hover:underline">8. Out of Scope</a>
-                <a href="#confidentiality" className="text-primary hover:underline">9. Confidentiality</a>
-                <a href="#ip" className="text-primary hover:underline">10. Intellectual Property</a>
-                <a href="#termination" className="text-primary hover:underline">11. Termination & Exit</a>
-                <a href="#conflicts" className="text-primary hover:underline">12. Conflicts</a>
-                <a href="#relationship" className="text-primary hover:underline">13. Relationship</a>
-                <a href="#changes" className="text-primary hover:underline">14. Changes</a>
+                <a href="#team" className="text-primary hover:underline">6. Team Members</a>
+                <a href="#affiliation" className="text-primary hover:underline">7. Advisor Affiliation</a>
+                <a href="#billing" className="text-primary hover:underline">8. Billing & Cancellation</a>
+                <a href="#out-of-scope" className="text-primary hover:underline">9. Out of Scope</a>
+                <a href="#confidentiality" className="text-primary hover:underline">10. Confidentiality</a>
+                <a href="#ip" className="text-primary hover:underline">11. Intellectual Property</a>
+                <a href="#termination" className="text-primary hover:underline">12. Termination & Exit</a>
+                <a href="#conflicts" className="text-primary hover:underline">13. Conflicts</a>
+                <a href="#relationship" className="text-primary hover:underline">14. Relationship</a>
+                <a href="#changes" className="text-primary hover:underline">15. Changes</a>
               </nav>
             </CardContent>
           </Card>
@@ -102,9 +103,18 @@ export default function FractionalAdvisorServiceTermsPage() {
             </CardHeader>
           </Card>
 
+          <Card id="team">
+            <CardHeader>
+              <CardTitle>6. Team Members</CardTitle>
+              <CardContent className="pt-0 text-sm text-muted-foreground">
+                <p>Up to 5 team members may be added to the organization. Each team member receives workspace access subject to the organization&apos;s entitlement. No per-seat charges. Organization membership is not limited to the service seat count.</p>
+              </CardContent>
+            </CardHeader>
+          </Card>
+
           <Card id="affiliation">
             <CardHeader>
-              <CardTitle>6. Advisor Affiliation</CardTitle>
+              <CardTitle>7. Advisor Affiliation</CardTitle>
               <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
                 <p>An active Fractional client may, with approval, identify Subodh KC as Fractional AI Advisor or External AI Advisor in appropriate materials, including team pages, proposals, partner discussions, investor materials, customer materials, and internal leadership materials.</p>
                 <p>The relationship can include identifying and evaluating strategic partnerships, technology partnerships, vendors, programs, external opportunities, and introductions where appropriate. This is exploration and evaluation support, not a promise of introductions or partnerships.</p>
@@ -116,7 +126,7 @@ export default function FractionalAdvisorServiceTermsPage() {
 
           <Card id="billing">
             <CardHeader>
-              <CardTitle>7. Billing and Cancellation</CardTitle>
+              <CardTitle>8. Billing and Cancellation</CardTitle>
               <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
                 <p>Monthly: $1,250/month, billed monthly. Cancel before your next billing date and you will not be charged again.</p>
                 <p>Annual: $12,500/year, billed annually. Twelve months for the equivalent of ten monthly payments.</p>
@@ -128,7 +138,7 @@ export default function FractionalAdvisorServiceTermsPage() {
 
           <Card id="out-of-scope">
             <CardHeader>
-              <CardTitle>8. Out of Scope</CardTitle>
+              <CardTitle>9. Out of Scope</CardTitle>
               <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
                 <p>The following are not included in the $1,250/month core relationship and require separate agreement and pricing:</p>
                 <ul className="list-disc pl-5 space-y-1">
@@ -145,7 +155,7 @@ export default function FractionalAdvisorServiceTermsPage() {
 
           <Card id="confidentiality">
             <CardHeader>
-              <CardTitle>9. Confidentiality and Client Material</CardTitle>
+              <CardTitle>10. Confidentiality and Client Material</CardTitle>
               <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
                 <p>Client-provided materials are confidential and are not disclosed to unrelated third parties except as necessary to provide the service through disclosed service providers/subprocessors, as authorized by the client, or as required by law.</p>
                 <p><strong className="text-foreground">Sensitive data warning:</strong> Do not submit passwords, API keys, payment card data, medical information, or regulated/specially protected data through the workspace unless a secure handling arrangement has been explicitly agreed.</p>
@@ -157,7 +167,7 @@ export default function FractionalAdvisorServiceTermsPage() {
 
           <Card id="ip">
             <CardHeader>
-              <CardTitle>10. Intellectual Property</CardTitle>
+              <CardTitle>11. Intellectual Property</CardTitle>
               <CardContent className="pt-0 space-y-3 text-sm text-muted-foreground">
                 <p><strong className="text-foreground">Background IP:</strong> Subodh KC methodologies, frameworks, templates, software, tools, and general know-how remain the intellectual property of Subodh KC or the appropriate entity.</p>
                 <p><strong className="text-foreground">Client Materials:</strong> All materials you provide remain your property.</p>
@@ -169,7 +179,7 @@ export default function FractionalAdvisorServiceTermsPage() {
 
           <Card id="termination">
             <CardHeader>
-              <CardTitle>11. Termination and Post-Cancellation Access</CardTitle>
+              <CardTitle>12. Termination and Post-Cancellation Access</CardTitle>
               <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
                 <p>You may cancel at any time. Cancellation takes effect at the end of the current billing period.</p>
                 <p>After paid service ends, you receive 30 days of read and download access to your workspace, including decision records, opportunity records, client-provided inputs, advisor artifacts, and action and history records.</p>
@@ -182,7 +192,7 @@ export default function FractionalAdvisorServiceTermsPage() {
 
           <Card id="conflicts">
             <CardHeader>
-              <CardTitle>12. Conflicts</CardTitle>
+              <CardTitle>13. Conflicts</CardTitle>
               <CardContent className="pt-0 text-sm text-muted-foreground">
                 <p>If a conflict of interest arises, Subodh KC will disclose it promptly. You may determine how to proceed, including whether to continue or terminate the relationship.</p>
               </CardContent>
@@ -191,17 +201,17 @@ export default function FractionalAdvisorServiceTermsPage() {
 
           <Card id="relationship">
             <CardHeader>
-              <CardTitle>13. Independent Contractor Relationship</CardTitle>
+              <CardTitle>14. Independent Contractor Relationship</CardTitle>
               <CardContent className="pt-0 space-y-2 text-sm text-muted-foreground">
                 <p>Subodh KC is an independent contractor. This relationship does not create employment, officer status, agency, fiduciary authority, or authority to bind either party.</p>
-                <p>Advisor affiliation rights (Section 6) are a limited permission to identify the relationship, not a grant of authority.</p>
+                <p>Advisor affiliation rights (Section 7) are a limited permission to identify the relationship, not a grant of authority.</p>
               </CardContent>
             </CardHeader>
           </Card>
 
           <Card id="changes">
             <CardHeader>
-              <CardTitle>14. Changes to These Terms</CardTitle>
+              <CardTitle>15. Changes to These Terms</CardTitle>
               <CardContent className="pt-0 text-sm text-muted-foreground">
                 <p>Material changes to these service terms will be communicated to active subscribers. Continued use after the effective date constitutes acceptance. The version label indicates the current version.</p>
               </CardContent>

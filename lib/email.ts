@@ -459,7 +459,7 @@ export async function sendFractionalOnboardingCompleteEmail(opts: {
 
 /**
  * Generic internal purchase notification to Subodh.
- * Used for AI Advisor Desk, Blueprint, and Security Review purchases.
+ * Used for AI Advisor Desk, AI Work Order, and Security Review purchases.
  */
 export async function sendInternalPurchaseNotification(opts: {
   customerName: string
@@ -722,7 +722,7 @@ export async function sendBlueprintPurchasedEmail(opts: {
         <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9fafb;">
           <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; border-radius: 0 0 20px 20px;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">Blueprint Intake Started</h1>
+            <h1 style="color: white; margin: 0; font-size: 24px;">Work Order Intake Started</h1>
           </div>
           <div style="background: white; padding: 40px 30px; margin: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">
@@ -736,7 +736,7 @@ export async function sendBlueprintPurchasedEmail(opts: {
             </p>
             <div style="text-align: center; margin: 30px 0;">
               <a href="${workspaceUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 15px;">
-                View Your Blueprint
+                View Your Work Order
               </a>
             </div>
           </div>

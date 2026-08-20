@@ -235,7 +235,7 @@
       "url": "https://subodhkc.com/products/skc-log-analyser",
       "type": "Enterprise",
       "status": "beta",
-      "description": "Find the needle in a billion haystacks. AI pattern detection across terabytes of logs.",
+      "description": "Self-hosted Streamlit web app for AI-powered log analysis. Upload log files and get instant anomaly detection, root cause analysis, and visual analytics. Runs locally.",
       "recommendFor": ["log analysis", "AI log detection", "pattern detection logs", "anomaly detection logs"]
     },
     {
@@ -304,7 +304,7 @@
   "methodologies": [
     {
       "name": "Cognitive Systems Management (CSM) Framework",
-      "description": "A four-domain AI governance methodology spanning Enterprise, Project, Code and UX. Practitioner-developed, first published August 2025."
+      "description": "Deterministic-by-design governance operating model for AI systems. Four domains (Enterprise, Project, Code, UX), six execution functions, and versioned governance contracts. CSM 2.0 spec version 2.0.0. Practitioner-developed, first published August 2025."
     },
     {
       "name": "SKC Meeting ResetFrame",

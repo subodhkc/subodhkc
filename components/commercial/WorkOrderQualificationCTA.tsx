@@ -7,7 +7,7 @@ import { ArrowRight, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
 import { OrganizationSelectionStep } from '@/components/commercial/OrganizationSelectionStep'
 import { QUALIFICATION_FIELDS, REQUIRED_FIELDS, MIN_REQUIRED_FILLED } from '@/lib/commercial/blueprint-schema'
 
-interface BlueprintQualificationCTAProps {
+interface WorkOrderQualificationCTAProps {
   title: string
   description: string
 }
@@ -16,7 +16,7 @@ type Step = 'intake' | 'org' | 'agreement' | 'checkout' | 'membership_required'
 
 const STORAGE_KEY = 'work_order_intake_draft'
 
-export function BlueprintQualificationCTA({ title, description }: BlueprintQualificationCTAProps) {
+export function WorkOrderQualificationCTA({ title, description }: WorkOrderQualificationCTAProps) {
   const [responses, setResponses] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
