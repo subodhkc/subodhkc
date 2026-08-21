@@ -902,6 +902,44 @@ export default function SaaSSecurityReviewPage() {
             <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
           </Link>
           <Link
+            href="/products/mcp-tenant-isolation"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px 20px',
+              borderRadius: 12,
+              border: '1px solid var(--op-border)',
+              background: 'var(--op-card)',
+              textDecoration: 'none',
+              color: 'var(--fg)',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+            }}
+          >
+            MCP Tenant Isolation Scanner (Open Source)
+            <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
+          </Link>
+          <Link
+            href="/products/ai-appsec"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px 20px',
+              borderRadius: 12,
+              border: '1px solid var(--op-border)',
+              background: 'var(--op-card)',
+              textDecoration: 'none',
+              color: 'var(--fg)',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+            }}
+          >
+            AI AppSec Scanner (Open Source)
+            <ArrowRight style={{ width: 16, height: 16, color: 'var(--op-accent)' }} />
+          </Link>
+          <Link
             href="/how-to-secure-and-govern-ai"
             style={{
               display: 'flex',

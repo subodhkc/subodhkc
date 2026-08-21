@@ -75,9 +75,31 @@ export const securityClaims: SecurityClaim[] = [
     technicalSource: 'llmverify (npm: llmverify@1.6.1, github.com/subodhkc/llmverify-npm)',
     implementationStatus: 'verified',
     validationSource:
-      'Public npm package with SLSA provenance attestations. 612 tests passing. Page: subodhkc.com/products/llmverify',
+      'Public npm package with SLSA provenance attestations. Page: subodhkc.com/products/llmverify',
     frameworkReference: ['OWASP LLM Top 10'],
     approvedWording: 'Runtime LLM output verification via llmverify (npm)',
+    lastVerified: '2026-08-21',
+  },
+  {
+    id: 'SC-018',
+    claim: 'AI application source security scanner (npm)',
+    technicalSource: 'AI AppSec (npm: ai-appsec@0.1.0, github.com/subodhkc/ai-appsec)',
+    implementationStatus: 'verified',
+    validationSource:
+      'Public npm package with SLSA provenance attestations. 122 Public Core detectors, 79 security checks, Semgrep 1.173.0 engine. MCP v2 server. Page: subodhkc.com/products/ai-appsec',
+    frameworkReference: ['OWASP LLM Top 10'],
+    approvedWording: 'Evidence-backed AppSec for AI applications and agents via AI AppSec (npm)',
+    lastVerified: '2026-08-21',
+  },
+  {
+    id: 'SC-019',
+    claim: 'MCP tenant isolation static analysis scanner (npm)',
+    technicalSource: 'MCP Tenant Isolation (npm: mcp-tenant-isolation@2.0.0, github.com/subodhkc/mcp-tenant-isolation)',
+    implementationStatus: 'verified',
+    validationSource:
+      'Public npm package with SLSA provenance attestations. 57 deterministic rules (42 general + 15 MCP-specific). MCP v2 server, stdio only. GitHub Action. Page: subodhkc.com/products/mcp-tenant-isolation',
+    frameworkReference: ['OWASP MCP Top 10'],
+    approvedWording: 'Deterministic tenant-boundary analysis for multi-tenant SaaS and MCP code via MCP Tenant Isolation (npm)',
     lastVerified: '2026-08-21',
   },
   {
@@ -222,10 +244,10 @@ export const blockedClaims = securityClaims.filter(
  * Canonical capability counts (derived from verified claims, not hardcoded).
  */
 export const capabilityCounts = {
-  staticAnalysisTools: 1, // HAIEC Action
+  staticAnalysisTools: 3, // HAIEC Action, AI AppSec, MCP Tenant Isolation
   runtimeAttackVectors: 5, // prompt injection, RAG data integrity, tool abuse, auth bypass, cross-tenant
   tenantIsolationTestSuites: 7, // rls, expanded-security, queue, auth-flow, onboarding, school-pickup, dismissal-groups
   frameworkMappings: 7, // EU AI Act, NIST AI RMF, ISO 42001, NYC LL144, SOC 2, TRAIGA, OWASP LLM
-  openSourceTools: 4, // llmverify, ISAF, Shadow AI Detector, HAIEC Action
+  openSourceTools: 6, // llmverify, AI AppSec, MCP Tenant Isolation, ISAF, Shadow AI Detector, HAIEC Action
   interactiveSecurityTools: 3, // blast radius, agent matrix, prompt injection library
 }

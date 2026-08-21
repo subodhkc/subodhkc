@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { 
@@ -19,35 +20,41 @@ import {
   Code2,
   Bot
 } from 'lucide-react'
+import { CopyCommandButton } from '@/components/CopyCommandButton'
 
 export const metadata: Metadata = {
-  title: 'llmverify | Open-Source LLM Output Verification | Subodh KC',
-  description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js. Prompt injection detection, PII redaction, hallucination scoring. Zero telemetry.',
+  title: 'LLMVerify: Local LLM Output Verification & Guardrails | Subodh KC',
+  description:
+    'MIT-licensed local-first LLM verification for prompt injection, PII redaction, hallucination risk signals, JSON repair, and runtime monitoring.',
   keywords: [
     'llmverify',
     'LLM verification',
+    'LLM guardrails',
     'prompt injection detection',
     'PII redaction',
-    'hallucination detection',
+    'hallucination risk',
+    'LLM output verification',
+    'local AI safety',
+    'LLM runtime monitoring',
     'open source',
     'Node.js',
-    'LLM security',
-    'AI safety',
     'Subodh KC'
   ],
   alternates: {
     canonical: 'https://subodhkc.com/products/llmverify',
   },
   openGraph: {
-    title: 'llmverify | LLM Output Verification',
-    description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js.',
+    title: 'LLMVerify: Local LLM Output Verification & Guardrails',
+    description:
+      'MIT-licensed local-first LLM verification for prompt injection, PII redaction, hallucination risk signals, JSON repair, and runtime monitoring.',
     url: 'https://subodhkc.com/products/llmverify',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'llmverify | LLM Output Verification',
-    description: 'Local-first LLM output monitoring, risk scoring, and classification for Node.js.',
+    title: 'LLMVerify: Local LLM Output Verification & Guardrails',
+    description:
+      'MIT-licensed local-first LLM verification for prompt injection, PII redaction, hallucination risk signals, JSON repair, and runtime monitoring.',
   },
   robots: {
     index: true,
@@ -60,57 +67,46 @@ export const metadata: Metadata = {
 
 export default function LLMVerifyPage() {
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4">
+    <div className="min-h-screen pt-24 md:pt-32 pb-16 md:pb-20 px-4">
       <div className="max-w-5xl mx-auto">
         
         {/* Hero - Executive Language First */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Package className="h-4 w-4" />
-            <span>Open Source NPM Package</span>
+            <span>LLMVERIFY · OPEN SOURCE · POWERED BY HAIEC</span>
           </div>
-          
+
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            llmverify — LLM Output Verification (npm)
+            Verify model interactions before they reach users.
           </h1>
-          
+
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
-            Local-first LLM output monitoring, risk scoring, and classification for Node.js.
+            Local-first verification and guardrails for LLM inputs and outputs,
+            including prompt-injection risk, PII redaction, hallucination risk signals,
+            JSON quality and runtime health.
           </p>
-          
+
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Built for teams shipping AI features who need guardrails that work without sending data to third parties.
           </p>
-        </div>
 
-        {/* Trust Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-12 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Lock className="h-4 w-4 text-green-500" />
-            <span>100% Local Processing</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4 text-green-500" />
-            <span>Zero Telemetry</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-green-500" />
-            <span>612 Tests Passing</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Code2 className="h-4 w-4 text-green-500" />
-            <span>TypeScript Ready</span>
+          {/* Proof bar */}
+          <div className="flex flex-wrap gap-3 mt-8 justify-center">
+            {['v1.6.1', 'MIT', 'Local-first', 'Zero telemetry'].map((item) => (
+              <span
+                key={item}
+                className="font-mono text-xs px-3 py-1.5 rounded-full border border-border bg-secondary/30"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-20">
-          <a href="https://www.npmjs.com/package/llmverify" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="gap-2">
-              <Package className="h-5 w-5" />
-              npm install llmverify
-            </Button>
-          </a>
+        <div className="flex flex-wrap justify-center gap-4 mb-12 md:mb-12 md:mb-20">
+          <CopyCommandButton command="npm install llmverify" npmUrl="https://www.npmjs.com/package/llmverify" />
           <a href="https://github.com/subodhkc/llmverify-npm" target="_blank" rel="noopener noreferrer">
             <Button size="lg" variant="outline" className="gap-2">
               <Github className="h-5 w-5" />
@@ -120,7 +116,7 @@ export default function LLMVerifyPage() {
         </div>
 
         {/* The Problem - SPIN: Situation */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">The Problem</h2>
           <div className="prose max-w-none">
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
@@ -142,13 +138,13 @@ export default function LLMVerifyPage() {
               </li>
             </ul>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Most teams end up with a patchwork of solutions-or skip validation entirely and hope for the best.
+              Most teams end up with a patchwork of solutions-or skip validation entirely and hope nothing goes wrong.
             </p>
           </div>
         </section>
 
         {/* The Solution - SPIN: Implication + Need-Payoff */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">What llmverify Does</h2>
           <p className="text-lg text-muted-foreground mb-8">
             A single npm package that handles the common LLM safety checks. No cloud dependencies. No ML infrastructure. 
@@ -237,7 +233,7 @@ export default function LLMVerifyPage() {
         </section>
 
         {/* Quick Start - Technical Credibility */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">Quick Start</h2>
           
           <div className="space-y-6">
@@ -282,41 +278,48 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
           </div>
         </section>
 
-        {/* Honest Limitations - Reddit-Proof */}
-        <section className="mb-20">
+        {/* Honest Limitations */}
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">Limitations</h2>
           <Card className="border-amber-500/30 bg-amber-500/5">
             <CardContent className="pt-6">
               <p className="text-muted-foreground mb-4">
-                <strong className="text-foreground">llmverify uses heuristics, not AI.</strong> It provides risk indicators, not ground truth.
+                <strong className="text-foreground">llmverify uses heuristics, not AI.</strong> It provides guardrails and risk indicators.
+                It does not establish ground truth, guarantee the absence of hallucinations, or replace human review
+                for high-stakes decisions.
               </p>
               <div className="space-y-3 text-sm text-muted-foreground">
                 <div className="flex items-start gap-3">
-                  <span className="font-mono bg-zinc-800 px-2 py-0.5 rounded text-xs">70-85%</span>
-                  <span>Prompt injection detection accuracy (pattern matching)</span>
+                  <span className="text-amber-500 mt-0.5">-</span>
+                  <span>Prompt-injection detection is pattern-based. Novel or obfuscated injections can evade detection.</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="font-mono bg-zinc-800 px-2 py-0.5 rounded text-xs">~90%</span>
-                  <span>PII detection accuracy (regex patterns)</span>
+                  <span className="text-amber-500 mt-0.5">-</span>
+                  <span>PII detection is regex-based. It catches standard formats but misses obfuscated, image-embedded, or encoded PII.</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="font-mono bg-zinc-800 px-2 py-0.5 rounded text-xs">~60%</span>
-                  <span>Harmful content detection accuracy (keyword matching)</span>
+                  <span className="text-amber-500 mt-0.5">-</span>
+                  <span>Hallucination risk signals are heuristic. They cannot definitively prove hallucinations. Ground-truth verification requires a source document you provide.</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-amber-500 mt-0.5">-</span>
+                  <span>Every result carries an explicit limitations array stating what was and was not checked.</span>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mt-4">
-                All results include confidence intervals, methodology explanations, and explicit limitations. 
                 This is a guardrail layer, not a replacement for human review on high-stakes decisions.
+                If a claim matters, verify it yourself. llmverify narrows the risk surface; it does not eliminate it.
               </p>
             </CardContent>
           </Card>
         </section>
 
-        {/* Compliance Alignment */}
-        <section className="mb-20">
-          <h2 className="text-2xl font-bold mb-6">Compliance Alignment</h2>
+        {/* Framework Alignment */}
+        <section className="mb-12 md:mb-20">
+          <h2 className="text-2xl font-bold mb-6">Framework Alignment</h2>
           <p className="text-muted-foreground mb-6">
-            llmverify provides technical evaluation and monitoring checks that can support selected activities within the AI Governance Execution Framework, implementing baseline checks for:
+            llmverify provides technical evaluation and monitoring checks aligned with selected frameworks.
+            This is baseline mapping, not certification:
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card className="text-center">
@@ -347,7 +350,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
         </section>
 
         {/* Privacy Guarantee */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">Privacy Guarantee</h2>
           <Card className="border-green-500/30 bg-green-500/5">
             <CardContent className="pt-6">
@@ -385,27 +388,27 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
         </section>
 
         {/* Why I Built This */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">Why I Built This</h2>
           <div className="prose max-w-none">
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-              I've spent years building AI governance frameworks for large-scale enterprise deployments. I've seen what happens 
-              when teams ship AI features without proper guardrails-and I've seen the compliance overhead that comes with 
+              I built AI governance frameworks for large-scale enterprise deployments. I saw what happens
+              when teams ship AI features without proper guardrails, and I saw the compliance overhead that comes with
               enterprise-grade solutions.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-              Most teams don't need a full ML pipeline for basic safety checks. They need something that works out of the box, 
-              runs locally, and doesn't require a PhD to configure.
+              Most teams do not need a full ML pipeline for basic safety checks. They need something that works out of the box,
+              runs locally, and does not require a PhD to configure.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              llmverify is that tool. It's not perfect-the limitations section is honest about that-but it covers 
-              the 80% case for teams who need to ship safely without overengineering.
+              llmverify is that tool. The limitations section is honest about what it can and cannot do. It covers
+              the common case for teams who need to ship safely without overengineering.
             </p>
           </div>
         </section>
 
         {/* How It Works Section */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">How It Works</h2>
           <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center">
@@ -448,7 +451,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
         </section>
 
         {/* Use Cases Section */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">Use Cases</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <Card className="p-6">
@@ -491,7 +494,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
         </section>
 
         {/* FAQ Section */}
-        <section className="mb-20">
+        <section className="mb-12 md:mb-20">
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
           <div className="space-y-4">
             <Card className="p-5">
@@ -577,6 +580,43 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
           }}
         />
 
+        {/* Family Links */}
+        <section className="mb-12 md:mb-20">
+          <div className="border-t border-border pt-8">
+            <p className="font-mono text-xs text-muted-foreground mb-4">HAIEC DEVELOPER SECURITY</p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <Link href="/products/ai-appsec" className="block">
+                <Card className="hover:border-primary/40 transition-colors h-full">
+                  <CardContent className="pt-6">
+                    <p className="font-mono text-xs text-muted-foreground mb-1">SOURCE SECURITY</p>
+                    <p className="font-semibold">AI AppSec</p>
+                    <p className="text-xs text-muted-foreground mt-1">Explore -&gt;</p>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/products/mcp-tenant-isolation" className="block">
+                <Card className="hover:border-primary/40 transition-colors h-full">
+                  <CardContent className="pt-6">
+                    <p className="font-mono text-xs text-muted-foreground mb-1">BOUNDARY SECURITY</p>
+                    <p className="font-semibold">MCP Tenant Isolation</p>
+                    <p className="text-xs text-muted-foreground mt-1">Explore -&gt;</p>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Card className="border-primary/30 bg-primary/5">
+                <CardContent className="pt-6">
+                  <p className="font-mono text-xs text-primary mb-1">RUNTIME</p>
+                  <p className="font-semibold">LLMVerify</p>
+                  <p className="text-xs text-muted-foreground mt-1">Current page</p>
+                </CardContent>
+              </Card>
+            </div>
+            <p className="text-sm text-muted-foreground mt-4">
+              Secure the code. Protect the tenant boundary. Verify the model interaction.
+            </p>
+          </div>
+        </section>
+
         {/* Final CTA */}
         <section className="text-center">
           <Card className="p-8 bg-gradient-to-br from-primary/5 to-accent/5">
@@ -607,19 +647,23 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
 
       <script
         type="application/ld+json"
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
             name: 'llmverify',
-            description: 'Open-source LLM output verification, prompt injection detection, PII redaction, and hallucination risk scoring for Node.js.',
+            description: 'MIT-licensed local-first LLM verification for prompt injection, PII redaction, hallucination risk signals, JSON repair, and runtime monitoring.',
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'Cross-platform',
+            softwareVersion: '1.6.1',
             license: 'https://opensource.org/licenses/MIT',
+            codeRepository: 'https://github.com/subodhkc/llmverify-npm',
             offers: {
               '@type': 'Offer',
               price: '0',
               priceCurrency: 'USD',
+              description: 'Free and open source (MIT)',
             },
             author: {
               '@type': 'Person',
