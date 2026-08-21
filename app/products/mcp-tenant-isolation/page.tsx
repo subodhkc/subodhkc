@@ -442,8 +442,8 @@ export default function MCPTenantIsolationPage() {
               </pre>
             </CardContent>
           </Card>
-          <div className="mt-4 space-y-2">
-            <table className="w-full text-sm">
+          <div className="mt-4 space-y-2 overflow-x-auto">
+            <table className="w-full text-sm min-w-[500px]">
               <thead>
                 <tr className="border-b border-border">
                   <th className="text-left py-2 font-mono text-xs text-muted-foreground">Tool</th>
@@ -454,7 +454,7 @@ export default function MCPTenantIsolationPage() {
               <tbody>
                 {TENANT_MCP_TOOLS.map((tool) => (
                   <tr key={tool.name} className="border-b border-border/50">
-                    <td className="py-2 font-mono text-xs">{tool.name}</td>
+                    <td className="py-2 font-mono text-xs whitespace-nowrap">{tool.name}</td>
                     <td className="py-2 text-muted-foreground text-xs">{tool.description}</td>
                     <td className="py-2">
                       {tool.write ? (

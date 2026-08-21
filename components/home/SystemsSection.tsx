@@ -563,13 +563,22 @@ export function SystemsSection() {
             style={{
               display: "flex",
               flexWrap: "wrap",
-              gap: 12,
-              fontSize: 11,
+              gap: 6,
+              fontSize: 10.5,
               fontFamily: "var(--font-mono)",
             }}
           >
             {LLMVERIFY_CARD.identity.map(([label, value]) => (
-              <span key={label} style={{ color: "var(--op-muted)" }}>
+              <span
+                key={label}
+                style={{
+                  color: "var(--op-muted)",
+                  padding: "2px 8px",
+                  border: "1px solid var(--op-border)",
+                  borderRadius: 999,
+                  whiteSpace: "nowrap",
+                }}
+              >
                 {label}: <span style={{ color: "var(--fg)" }}>{value}</span>
               </span>
             ))}

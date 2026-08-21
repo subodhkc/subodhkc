@@ -172,8 +172,8 @@ export default function LLMVerifyPage() {
                 </div>
                 <CardTitle>PII Redaction</CardTitle>
                 <CardDescription>
-                  25+ patterns including emails, SSNs, credit cards, API keys (AWS, GitHub, Stripe), 
-                  JWT tokens, and private keys. Regex-based, ~90% accuracy.
+                  25+ patterns including emails, SSNs, credit cards, API keys (AWS, GitHub, Stripe),
+                  JWT tokens, and private keys. Regex-based pattern matching with explicit limitations.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -518,7 +518,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
             <Card className="p-5">
               <h3 className="font-semibold mb-2">How accurate is prompt injection detection?</h3>
               <p className="text-sm text-muted-foreground">
-                llmverify uses pattern-based detection which catches common injection patterns (ignore previous instructions, role-play attacks, encoding tricks). It is not 100% - novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.
+                llmverify uses pattern-based detection which catches common injection patterns (ignore previous instructions, role-play attacks, encoding tricks). It is not 100% - novel or sophisticated attacks may evade detection. It covers common attack patterns for teams who need basic guardrails without deploying a separate ML model.
               </p>
             </Card>
             <Card className="p-5">
@@ -563,7 +563,7 @@ console.log(redacted); // "Contact [REDACTED] at [REDACTED]"`}
                 {
                   '@type': 'Question',
                   name: 'How accurate is prompt injection detection?',
-                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify uses pattern-based detection which catches common injection patterns. It is not 100% - novel or sophisticated attacks may evade detection. It covers the 80% case for teams who need basic guardrails without deploying a separate ML model.' },
+                  acceptedAnswer: { '@type': 'Answer', text: 'llmverify uses pattern-based detection which catches common injection patterns. It is not 100% - novel or sophisticated attacks may evade detection. It covers common attack patterns for teams who need basic guardrails without deploying a separate ML model.' },
                 },
                 {
                   '@type': 'Question',

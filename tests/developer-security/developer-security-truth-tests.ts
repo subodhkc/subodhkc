@@ -216,6 +216,8 @@ console.log('\n--- Section L: Stale LLMVerify Claims Removed ---')
   assert(!llmverifyPage.includes('612 Tests Passing'), 'LLMVerify page must not contain "612 Tests Passing"')
   assert(!llmverifyPage.includes('70-85%'), 'LLMVerify page must not contain "70-85%" accuracy claim')
   assert(!llmverifyPage.includes('~60%'), 'LLMVerify page must not contain "~60%" accuracy claim')
+  assert(!llmverifyPage.includes('~90%'), 'LLMVerify page must not contain "~90%" accuracy claim')
+  assert(!llmverifyPage.includes('80% case'), 'LLMVerify page must not contain "80% case" accuracy claim')
   assert(!llmverifyPage.includes('Runtime health monitor for LLM apps'), 'LLMVerify page must not contain stale tagline')
 }
 
