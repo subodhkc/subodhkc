@@ -5,7 +5,7 @@
 import type { GlyphKind } from "@/components/Glyph";
 
 export type ProductKind = "platform" | "package" | "enterprise" | "tool" | "oss";
-export type ProductStatus = "live" | "stable" | "beta" | "soon";
+export type ProductStatus = "live" | "stable" | "beta" | "soon" | "placeholder";
 
 export interface ProductAction {
   label: string;
@@ -42,6 +42,7 @@ export const STATUS_LABEL: Record<ProductStatus, string> = {
   stable: "Stable",
   beta: "Beta",
   soon: "Soon",
+  placeholder: "Placeholder",
 };
 
 export const PRODUCTS: Product[] = [
@@ -100,18 +101,17 @@ export const PRODUCTS: Product[] = [
     id: "llmverify-py",
     name: "llmverify-py",
     tagline:
-      "Python distribution of llmverify. Audit + compliance checks for LLM outputs, same deterministic core.",
+      "Python namespace reservation on PyPI. Full port of the llmverify deterministic core is planned; the current package is a placeholder.",
     kind: "package",
-    status: "stable",
+    status: "placeholder",
     glyph: "brackets-py",
-    meta: "PyPI · MIT",
+    meta: "PyPI · Placeholder",
     primary: {
-      label: "pip install llmverify",
-      href: "https://github.com/subodhkc/llmverify",
-      type: "install",
-      copyText: "pip install llmverify",
+      label: "View on PyPI",
+      href: "https://pypi.org/project/llmverify/",
+      type: "launch",
     },
-    secondary: { label: "GitHub", href: "https://github.com/subodhkc/llmverify", type: "github" },
+    secondary: { label: "npm package", href: "https://www.npmjs.com/package/llmverify", type: "launch" },
   },
   {
     id: "ai-article-generator",
