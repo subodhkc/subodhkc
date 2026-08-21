@@ -7,6 +7,7 @@ import { StickyCTA } from '@/components/StickyCTA'
 import StructuredData from '@/components/StructuredData'
 import { AnalyticsBeacon } from '@/components/AnalyticsBeacon'
 import { ScrollProgress } from '@/components/ScrollProgress'
+import { DeveloperSecurityReleaseNotice } from '@/components/DeveloperSecurityReleaseNotice'
 import { headers } from 'next/headers'
 import { buildSearchIndex } from '@/lib/search-index'
 
@@ -161,6 +162,7 @@ export default async function RootLayout({
         <SiteFooter />
         <StickyCTA />
         <AnalyticsBeacon />
+        <DeveloperSecurityReleaseNotice />
       </body>
     </html>
   )

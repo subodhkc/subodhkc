@@ -160,7 +160,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/products/llmverify`,
       lastModified,
       changeFrequency: 'monthly',
-      priority: 0.6,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/products/ai-appsec`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/products/mcp-tenant-isolation`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/insights/ai-appsec-mcp-tenant-isolation-release`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/products/ai-article-generator`,
