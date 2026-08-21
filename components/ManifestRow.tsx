@@ -12,6 +12,7 @@ const STATUS_COLOR: Record<ProductStatus, string> = {
   stable: "#0a8a4a",
   beta: "#c79a2a",
   soon: "#a0a0a0",
+  placeholder: "#a0a0a0",
 };
 
 interface Props {

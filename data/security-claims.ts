@@ -11,7 +11,7 @@ export interface SecurityClaim {
   id: string
   claim: string
   technicalSource: string
-  implementationStatus: 'verified' | 'described' | 'patent-pending' | 'planned'
+  implementationStatus: 'verified' | 'described' | 'patent-pending' | 'planned' | 'placeholder'
   validationSource: string
   frameworkReference?: string[]
   approvedWording: string
@@ -71,13 +71,26 @@ export const securityClaims: SecurityClaim[] = [
   },
   {
     id: 'SC-006',
-    claim: 'LLM output verification and guardrails',
-    technicalSource: 'llmverify (npm: llmverify, PyPI: llmverify, github.com/subodhkc/llmverify-npm)',
+    claim: 'LLM output verification and guardrails (npm)',
+    technicalSource: 'llmverify (npm: llmverify@1.6.1, github.com/subodhkc/llmverify-npm)',
     implementationStatus: 'verified',
-    validationSource: 'Public npm and PyPI packages. Page: subodhkc.com/products/llmverify',
+    validationSource:
+      'Public npm package with SLSA provenance attestations. 612 tests passing. Page: subodhkc.com/products/llmverify',
     frameworkReference: ['OWASP LLM Top 10'],
-    approvedWording: 'Runtime LLM output verification via llmverify (npm and PyPI)',
-    lastVerified: '2026-08-13',
+    approvedWording: 'Runtime LLM output verification via llmverify (npm)',
+    lastVerified: '2026-08-21',
+  },
+  {
+    id: 'SC-006a',
+    claim: 'Python distribution of llmverify (placeholder)',
+    technicalSource: 'llmverify (PyPI: llmverify@0.0.1, pypi.org/project/llmverify)',
+    implementationStatus: 'placeholder',
+    validationSource:
+      'PyPI package exists as a namespace reservation. Full port is planned; current package returns placeholder responses only.',
+    frameworkReference: [],
+    approvedWording:
+      'llmverify Python package is a PyPI placeholder; the production implementation is the npm package',
+    lastVerified: '2026-08-21',
   },
   {
     id: 'SC-007',

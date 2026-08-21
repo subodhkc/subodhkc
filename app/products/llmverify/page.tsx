@@ -71,7 +71,7 @@ export default function LLMVerifyPage() {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            llmverify - LLM Checker npm Package
+            llmverify — LLM Output Verification (npm)
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
@@ -95,7 +95,7 @@ export default function LLMVerifyPage() {
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-green-500" />
-            <span>360 Tests Passing</span>
+            <span>612 Tests Passing</span>
           </div>
           <div className="flex items-center gap-2">
             <Code2 className="h-4 w-4 text-green-500" />
