@@ -15,8 +15,8 @@ const BOOK_CSS = `
 html{background:#dfe6ec}
 body{margin:0;color:var(--ink);font-family:"Aptos","Segoe UI",Arial,sans-serif;background:#dfe6ec;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-.toolbar{position:sticky;top:0;z-index:999;display:flex;justify-content:space-between;align-items:center;padding:10px 18px;background:rgba(10,32,53,.98);color:#fff;box-shadow:0 5px 22px rgba(0,0,0,.22)}
-.toolbar strong{font-size:13px}.toolbar .actions{display:flex;gap:8px}.toolbar button,.toolbar a{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 13px;font-weight:750;font-size:12px;cursor:pointer}.toolbar a{background:#fff;color:var(--navy)}
+.toolbar{position:sticky;top:0;z-index:999;display:flex;justify-content:space-between;align-items:center;padding:10px 18px;background:rgba(10,32,53,.98);color:#fff;box-shadow:0 5px 22px rgba(0,0,0,.22);gap:8px}
+.toolbar strong{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}.toolbar .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.toolbar button,.toolbar a{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 13px;font-weight:750;font-size:12px;cursor:pointer;white-space:nowrap;min-height:36px;display:inline-flex;align-items:center}.toolbar a{background:#fff;color:var(--navy)}
 .book{padding:28px 0 60px}
 .page{position:relative;width:8.5in;height:11in;margin:0 auto 24px;background:var(--paper);overflow:hidden;box-shadow:var(--shadow);break-after:page;page-break-after:always}
 .page:last-child{break-after:auto;page-break-after:auto}
@@ -64,7 +64,9 @@ p{margin:0;color:var(--ink);font-size:10.5px;line-height:1.48}
   html,body{background:#fff}.toolbar{display:none!important}.book{padding:0}.page{margin:0;box-shadow:none}
   @page{size:Letter;margin:0}
 }
-@media screen and (max-width:900px){.page{transform-origin:top center}.book{padding-left:8px;padding-right:8px}.toolbar{position:relative}.page{width:min(8.5in,100%);height:auto;min-height:11in}.page-inner{padding:32px}.cover-copy{position:relative;width:100%;min-height:6.2in}.cover-photo{position:relative;width:100%;min-height:450px}.columns-2,.columns-3,.caseband,.contact-grid{grid-template-columns:1fr}.flow{flex-wrap:wrap}.flow .step{min-width:30%}}
+@media screen and (max-width:900px){.page{transform-origin:top center}.book{padding-left:8px;padding-right:8px}.toolbar{position:relative;flex-wrap:wrap;gap:6px;padding:8px 12px}.toolbar strong{font-size:12px;flex:1 1 100%;text-align:center}.toolbar .actions{flex:1 1 100%;justify-content:center;gap:6px}.toolbar button,.toolbar a{padding:7px 11px;font-size:11px;min-height:34px}.page{width:min(8.5in,100%);height:auto;min-height:11in}.page-inner{padding:32px}.cover-copy{position:relative;width:100%;min-height:6.2in}.cover-photo{position:relative;width:100%;min-height:450px}.columns-2,.columns-3,.caseband,.contact-grid{grid-template-columns:1fr}.flow{flex-wrap:wrap}.flow .step{min-width:30%}}
+@media screen and (max-width:480px){.toolbar{padding:8px 10px}.toolbar .actions{gap:5px}.toolbar button,.toolbar a{padding:6px 9px;font-size:10.5px;min-height:32px;flex:1 1 auto;text-align:center;justify-content:center}.hide-sm{display:none}.show-sm{display:inline}}
+@media screen and (min-width:481px){.show-sm{display:none}}
 `;
 
 const BOOK_HTML = `
@@ -647,7 +649,10 @@ export default function PortfolioPage() {
       <div className="toolbar" role="toolbar" aria-label="Portfolio actions">
         <strong>AI That Works - Executive Portfolio</strong>
         <div className="actions">
-          <button onClick={() => window.print()} aria-label="Print or save portfolio as PDF">Print / Save as PDF</button>
+          <button onClick={() => window.print()} aria-label="Print or save portfolio as PDF">
+            <span className="hide-sm">Print / Save as PDF</span>
+            <span className="show-sm">Print</span>
+          </button>
           <button
             className="mode-toggle"
             onClick={() => setMode(mode === 'flip' ? 'scroll' : 'flip')}
@@ -655,8 +660,14 @@ export default function PortfolioPage() {
           >
             {mode === 'flip' ? '☰ Scroll' : '📖 Flip'}
           </button>
-          <Link href="/resume" aria-label="View resume page">View Resume</Link>
-          <Link href="/local-ai-review" aria-label="Request an AI review">Request a Review</Link>
+          <Link href="/resume" aria-label="View resume page">
+            <span className="hide-sm">View Resume</span>
+            <span className="show-sm">Resume</span>
+          </Link>
+          <Link href="/local-ai-review" aria-label="Request an AI review">
+            <span className="hide-sm">Request a Review</span>
+            <span className="show-sm">Review</span>
+          </Link>
         </div>
       </div>
 

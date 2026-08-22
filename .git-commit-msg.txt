@@ -1,0 +1,18 @@
+fix: popup rebrand to Subodh KC + mobile toolbar optimization
+
+- Rebrand devsec popup from HAIEC-centered to Subodh KC-centered with
+  SK avatar, name, and AI Advisor title in header
+- Add Free / Open Source / MIT badge with green accent
+- Add three clickable product cards with role badges, versions, MCP tools
+- Enhance mobile: smaller header, compact product cards, iOS smooth scroll,
+  close button below drag handle, WebkitBackdropFilter for Safari
+- Fix portfolio toolbar overflow on mobile: stack title above wrapped buttons,
+  shorten labels at 480px breakpoint
+- Fix magazine toolbar overflow on mobile: 5 buttons now wrap and shorten
+  labels at 768px and 480px breakpoints
+- Fix resume toolbar for small screens: responsive padding, shorter labels,
+  32px min tap targets
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>

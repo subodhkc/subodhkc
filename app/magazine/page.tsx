@@ -68,18 +68,24 @@ export default function MagazinePage() {
           background: #071927;
           color: #fff;
           box-shadow: 0 4px 20px rgba(7, 25, 39, 0.15);
+          gap: 8px;
         }
         .magazine-toolbar strong {
           font-family: Georgia, serif;
           font-size: 15px;
           font-weight: 800;
           letter-spacing: -0.02em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          flex-shrink: 0;
         }
         .magazine-toolbar .actions {
           display: flex;
           gap: 10px;
           align-items: center;
           flex-wrap: wrap;
+          justify-content: flex-end;
         }
         .magazine-toolbar button, .magazine-toolbar a {
           border: 1px solid rgba(255, 255, 255, 0.25);
@@ -95,6 +101,8 @@ export default function MagazinePage() {
           align-items: center;
           gap: 6px;
           transition: background 0.15s;
+          white-space: nowrap;
+          min-height: 36px;
         }
         .magazine-toolbar button:hover, .magazine-toolbar a:hover {
           background: rgba(255, 255, 255, 0.15);
@@ -118,6 +126,44 @@ export default function MagazinePage() {
         }
         .mode-toggle:hover { background: rgba(255, 255, 255, 0.15); }
         .print-only { display: none; }
+        .mag-hide-sm { display: inline; }
+        .mag-show-sm { display: none; }
+        @media (max-width: 768px) {
+          .magazine-toolbar {
+            flex-wrap: wrap;
+            padding: 8px 14px;
+            gap: 6px;
+          }
+          .magazine-toolbar strong {
+            flex: 1 1 100%;
+            text-align: center;
+            font-size: 13px;
+          }
+          .magazine-toolbar .actions {
+            flex: 1 1 100%;
+            justify-content: center;
+            gap: 6px;
+          }
+          .magazine-toolbar button, .magazine-toolbar a {
+            padding: 7px 11px;
+            font-size: 11px;
+            min-height: 34px;
+          }
+        }
+        @media (max-width: 480px) {
+          .magazine-toolbar { padding: 8px 10px; }
+          .magazine-toolbar .actions { gap: 5px; }
+          .magazine-toolbar button, .magazine-toolbar a {
+            padding: 6px 9px;
+            font-size: 10.5px;
+            min-height: 32px;
+            flex: 1 1 auto;
+            justify-content: center;
+            text-align: center;
+          }
+          .mag-hide-sm { display: none; }
+          .mag-show-sm { display: inline; }
+        }
         @media print {
           .magazine-toolbar { display: none !important; }
           .flip-mode { display: none !important; }
@@ -217,7 +263,10 @@ export default function MagazinePage() {
       <div className="magazine-toolbar" role="toolbar" aria-label="Magazine actions">
         <strong>AI That Works - Issue 01</strong>
         <div className="actions">
-          <button onClick={() => window.print()} aria-label="Print or save magazine as PDF">Print / Save as PDF</button>
+          <button onClick={() => window.print()} aria-label="Print or save magazine as PDF">
+            <span className="mag-hide-sm">Print / Save as PDF</span>
+            <span className="mag-show-sm">Print</span>
+          </button>
           <button
             className="mode-toggle"
             onClick={() => setMode(mode === 'flip' ? 'scroll' : 'flip')}
@@ -226,7 +275,10 @@ export default function MagazinePage() {
             {mode === 'flip' ? '☰ Scroll' : '📖 Flip'}
           </button>
           <Link href="/" aria-label="Back to homepage">Home</Link>
-          <Link href="/about" aria-label="About the author">About Author</Link>
+          <Link href="/about" aria-label="About the author">
+            <span className="mag-hide-sm">About Author</span>
+            <span className="mag-show-sm">About</span>
+          </Link>
           <Link href="/contact" aria-label="Contact Subodh KC">Contact</Link>
         </div>
       </div>

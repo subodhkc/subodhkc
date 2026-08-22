@@ -5,16 +5,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 // Campaign configuration
-const CAMPAIGN_ID = 'haiec-devsec-release-2026-08'
-const CAMPAIGN_EXPIRY = new Date('2026-10-21T00:00:00Z').getTime() // 60-day campaign window
-const DELAY_MS = 10000 // 10-second trigger
-const SCROLL_THRESHOLD = 0.4 // 40% page scroll triggers
-const DISMISS_DAYS = 30 // 30-day dismissal persistence
-const MOBILE_BREAKPOINT = 768 // Below this, use bottom sheet
+const CAMPAIGN_ID = 'subodhkc-devsec-release-2026-08'
+const CAMPAIGN_EXPIRY = new Date('2026-10-21T00:00:00Z').getTime()
+const DELAY_MS = 8000 // 8-second trigger
+const SCROLL_THRESHOLD = 0.35 // 35% page scroll triggers
+const DISMISS_DAYS = 30
+const MOBILE_BREAKPOINT = 768
 const SESSION_KEY = `${CAMPAIGN_ID}-shown`
 const DISMISS_KEY = `${CAMPAIGN_ID}-dismissed`
 
-// Pages where the popup must NOT appear
 const EXCLUDED_PATHS = [
   '/contact',
   '/api',
@@ -67,6 +66,35 @@ function isMobile(): boolean {
   return window.innerWidth < MOBILE_BREAKPOINT
 }
 
+// ─── Product data for the visual cards ───────────────────────────────
+
+const PRODUCTS = [
+  {
+    role: 'SOURCE',
+    name: 'AI AppSec',
+    version: 'v0.1.0',
+    desc: 'Audit AI application code',
+    mcpTool: 'scan_ai_security',
+    href: '/products/ai-appsec',
+  },
+  {
+    role: 'BOUNDARY',
+    name: 'MCP Tenant Isolation',
+    version: 'v2.0.0',
+    desc: 'Check tenant boundaries',
+    mcpTool: 'scan_tenant_isolation',
+    href: '/products/mcp-tenant-isolation',
+  },
+  {
+    role: 'RUNTIME',
+    name: 'LLMVerify',
+    version: 'v1.6.1',
+    desc: 'Verify model interactions',
+    mcpTool: 'verify · redactPII',
+    href: '/products/llmverify',
+  },
+]
+
 export function DeveloperSecurityReleaseNotice() {
   const pathname = usePathname()
   const [visible, setVisible] = useState(false)
@@ -78,7 +106,6 @@ export function DeveloperSecurityReleaseNotice() {
     markShown()
   }, [])
 
-  // Track viewport changes for mobile/desktop switching
   useEffect(() => {
     const onResize = () => setMobile(isMobile())
     onResize()
@@ -86,7 +113,6 @@ export function DeveloperSecurityReleaseNotice() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  // Body scroll lock when visible
   useEffect(() => {
     if (!visible) return
     const originalOverflow = document.body.style.overflow
@@ -96,20 +122,11 @@ export function DeveloperSecurityReleaseNotice() {
     }
   }, [visible])
 
-  // Trigger logic - runs once per pathname change
   useEffect(() => {
     if (typeof window === 'undefined') return
-
-    // Exclusion checks
     if (isExcluded(pathname)) return
-
-    // Campaign expiry
     if (!isCampaignActive()) return
-
-    // Once-per-session
     if (wasShownThisSession()) return
-
-    // 30-day dismissal
     if (isDismissed()) return
 
     let triggered = false
@@ -123,10 +140,8 @@ export function DeveloperSecurityReleaseNotice() {
       clearTimeout(delayTimer)
     }
 
-    // 10-second delay trigger
     const delayTimer = window.setTimeout(show, DELAY_MS)
 
-    // Scroll trigger
     const onScroll = () => {
       const scrolled = window.scrollY
       const max = document.documentElement.scrollHeight - window.innerHeight
@@ -136,11 +151,8 @@ export function DeveloperSecurityReleaseNotice() {
     }
     window.addEventListener('scroll', onScroll, { passive: true, capture: true })
 
-    // Escape key dismissal (only active when visible)
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        dismiss()
-      }
+      if (e.key === 'Escape') dismiss()
     }
     document.addEventListener('keydown', onKey)
 
@@ -150,12 +162,20 @@ export function DeveloperSecurityReleaseNotice() {
       clearTimeout(delayTimer)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]) // Intentionally NOT depending on visible/dismiss to avoid re-triggering
+  }, [pathname])
 
   if (!visible) return null
 
-  // Mobile: bottom sheet style
-  // Desktop: centered modal
+  // Shared style fragments
+  const accentColor = 'var(--op-accent, #16d088)'
+  const bgColor = 'var(--bg, #2b2e33)'
+  const fgColor = 'var(--fg, #ebe6d8)'
+  const borderColor = 'var(--op-border, #404349)'
+  const mutedColor = 'var(--op-muted, #9a9a96)'
+  const textSecondary = 'var(--text-secondary, #c4c4be)'
+  const fontMono = 'var(--font-mono, monospace)'
+  const fontSans = 'var(--font-sans, sans-serif)'
+
   const overlayStyle: React.CSSProperties = mobile
     ? {
         position: 'fixed',
@@ -164,8 +184,9 @@ export function DeveloperSecurityReleaseNotice() {
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        backdropFilter: 'blur(4px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
       }
     : {
         position: 'fixed',
@@ -175,33 +196,40 @@ export function DeveloperSecurityReleaseNotice() {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '20px',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        backdropFilter: 'blur(4px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
       }
 
   const cardStyle: React.CSSProperties = mobile
     ? {
         maxWidth: '100%',
         width: '100%',
-        backgroundColor: 'var(--bg, #0a0a0a)',
-        border: '1px solid var(--op-border, #333)',
+        backgroundColor: bgColor,
+        border: `1px solid ${borderColor}`,
         borderBottom: 'none',
-        borderRadius: '16px 16px 0 0',
-        padding: '24px 20px 28px',
+        borderRadius: '20px 20px 0 0',
+        padding: 0,
         position: 'relative',
-        fontFamily: 'var(--font-sans, sans-serif)',
-        // Safe area padding for notched devices
-        paddingBottom: 'calc(28px + env(safe-area-inset-bottom, 0px))',
+        fontFamily: fontSans,
+        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        boxShadow: '0 -8px 40px rgba(0, 0, 0, 0.4)',
+        maxHeight: '92vh',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehavior: 'contain',
       }
     : {
-        maxWidth: 540,
+        maxWidth: 520,
         width: '100%',
-        backgroundColor: 'var(--bg, #0a0a0a)',
-        border: '1px solid var(--op-border, #333)',
-        borderRadius: 12,
-        padding: '32px 28px',
+        backgroundColor: bgColor,
+        border: `1px solid ${borderColor}`,
+        borderRadius: 16,
+        padding: 0,
         position: 'relative',
-        fontFamily: 'var(--font-sans, sans-serif)',
+        fontFamily: fontSans,
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
+        overflow: 'hidden',
       }
 
   return (
@@ -215,118 +243,313 @@ export function DeveloperSecurityReleaseNotice() {
       }}
     >
       <div style={cardStyle}>
-        {/* Mobile drag handle */}
-        {mobile && (
-          <div
-            aria-hidden="true"
-            style={{
-              width: 40,
-              height: 4,
-              backgroundColor: 'var(--op-border, #333)',
-              borderRadius: 2,
-              margin: '0 auto 16px',
-            }}
-          />
-        )}
-
-        {/* Close button - 44px min tap target for accessibility */}
-        <button
-          onClick={dismiss}
-          aria-label="Close notice"
-          style={{
-            position: 'absolute',
-            top: 14,
-            right: 14,
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: 22,
-            color: 'var(--text-secondary, #999)',
-            padding: '10px', // 44px total with font-size
-            lineHeight: 1,
-            minHeight: 44,
-            minWidth: 44,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          ×
-        </button>
-
-        {/* Eyebrow */}
+        {/* ─── Header band with gradient ─── */}
         <div
           style={{
-            fontFamily: 'var(--font-mono, monospace)',
-            fontSize: 11,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: 'var(--op-accent, #3b82f6)',
-            marginBottom: 12,
+            background:
+              'linear-gradient(135deg, rgba(22, 208, 136, 0.12) 0%, rgba(22, 208, 136, 0.03) 50%, transparent 100%)',
+            borderBottom: `1px solid ${borderColor}`,
+            padding: mobile ? '16px 16px 14px' : '28px 28px 20px',
+            position: 'relative',
           }}
         >
-          HAIEC Developer Security · New Release
-        </div>
-
-        {/* Title */}
-        <h2
-          id="devsec-notice-title"
-          style={{
-            margin: 0,
-            fontSize: mobile ? 20 : 22,
-            fontWeight: 600,
-            letterSpacing: '-0.02em',
-            lineHeight: 1.25,
-            color: 'var(--fg, #fff)',
-            marginBottom: 12,
-            paddingRight: 40, // Avoid overlap with close button
-          }}
-        >
-          Security checks your coding agent can call.
-        </h2>
-
-        {/* Body */}
-        <p
-          style={{
-            margin: 0,
-            fontSize: 14,
-            lineHeight: 1.55,
-            color: 'var(--text-secondary, #999)',
-            marginBottom: 16,
-          }}
-        >
-          Two new MIT-licensed tools for AI-assisted development: AI AppSec audits AI application
-          code, and MCP Tenant Isolation checks tenant boundaries across multi-tenant SaaS and MCP
-          server code. Both run locally and expose focused checks through MCP.
-        </p>
-
-        {/* Product chips */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
-          {['AI AppSec v0.1.0', 'MCP Tenant Isolation v2.0.0', 'LLMVerify v1.6.1'].map((chip) => (
-            <span
-              key={chip}
+          {/* Mobile drag handle - positioned at very top */}
+          {mobile && (
+            <div
+              aria-hidden="true"
               style={{
-                fontFamily: 'var(--font-mono, monospace)',
-                fontSize: 10.5,
-                padding: '3px 10px',
-                border: '1px solid var(--op-border, #333)',
-                borderRadius: 999,
-                color: 'var(--text-secondary, #999)',
+                width: 36,
+                height: 4,
+                backgroundColor: borderColor,
+                borderRadius: 2,
+                margin: '0 auto 12px',
+              }}
+            />
+          )}
+
+          {/* Close button - positioned to avoid drag handle on mobile */}
+          <button
+            onClick={dismiss}
+            aria-label="Close notice"
+            style={{
+              position: 'absolute',
+              top: mobile ? 32 : 12,
+              right: 12,
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 22,
+              color: textSecondary,
+              padding: '10px',
+              lineHeight: 1,
+              minHeight: 44,
+              minWidth: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 8,
+            }}
+          >
+            ×
+          </button>
+
+          {/* Brand row: Subodh KC avatar + name */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: mobile ? 8 : 10,
+              marginBottom: mobile ? 10 : 14,
+            }}
+          >
+            <div
+              style={{
+                width: mobile ? 32 : 36,
+                height: mobile ? 32 : 36,
+                borderRadius: 8,
+                background: accentColor,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: mobile ? 12 : 14,
+                fontWeight: 700,
+                color: bgColor,
+                flexShrink: 0,
               }}
             >
-              {chip}
+              SK
+            </div>
+            <div style={{ minWidth: 0 }}>
+              <div
+                style={{
+                  fontSize: mobile ? 12 : 13,
+                  fontWeight: 600,
+                  color: fgColor,
+                  lineHeight: 1.2,
+                }}
+              >
+                Subodh KC
+              </div>
+              <div
+                style={{
+                  fontFamily: fontMono,
+                  fontSize: mobile ? 9 : 10,
+                  color: mutedColor,
+                  letterSpacing: '0.04em',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                AI Advisor & AI Systems Architect
+              </div>
+            </div>
+          </div>
+
+          {/* FREE badge */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '4px 10px',
+              borderRadius: 999,
+              backgroundColor: 'rgba(22, 208, 136, 0.15)',
+              border: '1px solid rgba(22, 208, 136, 0.3)',
+              marginBottom: mobile ? 8 : 12,
+            }}
+          >
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                backgroundColor: accentColor,
+                display: 'inline-block',
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: fontMono,
+                fontSize: 10,
+                fontWeight: 600,
+                color: accentColor,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Free · Open Source · MIT
             </span>
+          </div>
+
+          {/* Title */}
+          <h2
+            id="devsec-notice-title"
+            style={{
+              margin: 0,
+              fontSize: mobile ? 18 : 22,
+              fontWeight: 600,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.25,
+              color: fgColor,
+              paddingRight: mobile ? 36 : 40,
+            }}
+          >
+            Free AI security tools your coding agent can call.
+          </h2>
+
+          {/* Subtitle */}
+          <p
+            style={{
+              margin: '6px 0 0',
+              fontSize: mobile ? 12 : 13,
+              lineHeight: 1.5,
+              color: textSecondary,
+              paddingRight: mobile ? 0 : 0,
+            }}
+          >
+            Built by Subodh KC. Three MIT-licensed packages that scan AI code, check tenant
+            boundaries, and verify model output. Run locally. No API key. No telemetry.
+          </p>
+        </div>
+
+        {/* ─── Product cards ─── */}
+        <div
+          style={{
+            padding: mobile ? '12px 16px' : '20px 28px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: mobile ? 6 : 8,
+          }}
+        >
+          {PRODUCTS.map((product) => (
+            <Link
+              key={product.name}
+              href={product.href}
+              data-track-click={`popup_${product.name.replace(/\s+/g, '_').toLowerCase()}_click`}
+              onClick={() => {
+                markShown()
+                setVisible(false)
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: mobile ? 8 : 12,
+                padding: mobile ? '10px 12px' : '12px 14px',
+                borderRadius: 10,
+                border: `1px solid ${borderColor}`,
+                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                textDecoration: 'none',
+                transition: 'border-color 0.15s, background-color 0.15s',
+                minHeight: 44,
+              }}
+            >
+              {/* Role badge - smaller on mobile */}
+              <div
+                style={{
+                  flexShrink: 0,
+                  width: mobile ? 48 : 56,
+                  textAlign: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: fontMono,
+                    fontSize: mobile ? 8 : 9,
+                    fontWeight: 600,
+                    color: accentColor,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    padding: '3px 4px',
+                    border: '1px solid rgba(22, 208, 136, 0.25)',
+                    borderRadius: 6,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {product.role}
+                </div>
+              </div>
+
+              {/* Product info */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: 5,
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: mobile ? 13 : 14,
+                      fontWeight: 600,
+                      color: fgColor,
+                    }}
+                  >
+                    {product.name}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: fontMono,
+                      fontSize: 10,
+                      color: mutedColor,
+                    }}
+                  >
+                    {product.version}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    fontSize: mobile ? 11 : 12,
+                    color: textSecondary,
+                    lineHeight: 1.4,
+                    marginTop: 2,
+                  }}
+                >
+                  {product.desc}
+                </div>
+                {/* MCP tool line - hidden on very small screens to save space */}
+                <div
+                  style={{
+                    fontFamily: fontMono,
+                    fontSize: mobile ? 9 : 10,
+                    color: mutedColor,
+                    marginTop: 3,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  MCP: {product.mcpTool}
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div
+                style={{
+                  flexShrink: 0,
+                  fontSize: 16,
+                  color: mutedColor,
+                }}
+              >
+                →
+              </div>
+            </Link>
           ))}
         </div>
 
-        {/* CTAs - full width on mobile, auto on desktop */}
+        {/* ─── CTA section ─── */}
         <div
           style={{
-            display: 'flex',
-            gap: 12,
-            flexWrap: mobile ? 'wrap' : 'nowrap',
+            padding: mobile ? '12px 16px 16px' : '0 28px 24px',
+            borderTop: `1px solid ${borderColor}`,
+            paddingTop: mobile ? 12 : 16,
           }}
         >
+          {/* Primary CTA */}
           <Link
             href="/insights/ai-appsec-mcp-tenant-isolation-release"
             data-track-click="popup_release_article_click"
@@ -335,58 +558,87 @@ export function DeveloperSecurityReleaseNotice() {
               setVisible(false)
             }}
             style={{
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 6,
-              padding: '12px 18px',
-              backgroundColor: 'var(--op-accent, #3b82f6)',
-              color: '#fff',
-              borderRadius: 999,
-              fontFamily: 'var(--font-mono, monospace)',
-              fontSize: 12,
-              fontWeight: 500,
+              gap: 8,
+              width: '100%',
+              padding: mobile ? '13px 20px' : '14px 20px',
+              backgroundColor: accentColor,
+              color: bgColor,
+              borderRadius: 10,
+              fontFamily: fontSans,
+              fontSize: mobile ? 13 : 14,
+              fontWeight: 600,
               textDecoration: 'none',
-              minHeight: 44,
-              flex: mobile ? '1 1 100%' : '0 1 auto',
+              minHeight: 48,
+              marginBottom: 8,
             }}
           >
-            Read the release →
+            Read the release article
+            <span style={{ fontSize: 16 }}>→</span>
           </Link>
+
+          {/* Secondary CTA */}
           <button
             onClick={dismiss}
             style={{
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '12px 18px',
-              border: '1px solid var(--op-border, #333)',
+              width: '100%',
+              padding: '12px 20px',
+              border: `1px solid ${borderColor}`,
               backgroundColor: 'transparent',
-              color: 'var(--text-secondary, #999)',
-              borderRadius: 999,
-              fontFamily: 'var(--font-mono, monospace)',
-              fontSize: 12,
+              color: textSecondary,
+              borderRadius: 10,
+              fontFamily: fontSans,
+              fontSize: 13,
               fontWeight: 500,
               cursor: 'pointer',
               minHeight: 44,
-              flex: mobile ? '1 1 100%' : '0 1 auto',
             }}
           >
             Not now
           </button>
-        </div>
 
-        {/* Privacy note */}
-        <p
-          style={{
-            margin: '16px 0 0',
-            fontSize: 10.5,
-            color: 'var(--op-muted, #666)',
-            fontFamily: 'var(--font-mono, monospace)',
-          }}
-        >
-          No tracking. No IP collection. No third-party analytics. Dismissed for 30 days.
-        </p>
+          {/* Trust line */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: mobile ? 8 : 12,
+              marginTop: 12,
+              flexWrap: 'wrap',
+            }}
+          >
+            {['No signup', 'No API key', 'No telemetry'].map((item) => (
+              <span
+                key={item}
+                style={{
+                  fontFamily: fontMono,
+                  fontSize: mobile ? 9 : 10,
+                  color: mutedColor,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <span
+                  style={{
+                    color: accentColor,
+                    fontSize: 11,
+                  }}
+                >
+                  ✓
+                </span>
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
