@@ -29,7 +29,7 @@ ADR:;;;;Dallas-Fort Worth;TX;;United States
 URL:https://subodhkc.com
 URL;TYPE=LinkedIn:https://www.linkedin.com/in/subodhkc
 URL;TYPE=GitHub:https://github.com/subodhkc
-NOTE:AI Advisor & AI Systems Architect
+NOTE:Enterprise AI Advisor & AI Systems Architect
 END:VCARD`
 
     const blob = new Blob([vcard], { type: 'text/vcard' })
@@ -45,8 +45,8 @@ END:VCARD`
 
   const shareCard = async () => {
     const shareData = {
-      title: 'Subodh Kumar Kc - AI Advisor & AI Systems Architect',
-      text: 'AI Advisor & AI Systems Architect\n\nConnect with me:',
+      title: 'Subodh Kumar Kc - Enterprise AI Advisor & AI Systems Architect',
+      text: 'Enterprise AI Advisor & AI Systems Architect\n\nConnect with me:',
       url: 'https://subodhkc.com'
     }
 
@@ -102,7 +102,7 @@ END:VCARD`
                 <CardContent className="p-6 space-y-4">
                   <div className="text-center space-y-2">
                     <h2 className="text-2xl font-bold">Subodh Kumar Kc</h2>
-                    <p className="text-sm text-muted-foreground">AI Advisor & AI Systems Architect</p>
+                    <p className="text-sm text-muted-foreground">Enterprise AI Advisor & AI Systems Architect</p>
                   </div>
 
                   <div className="space-y-3 pt-2">

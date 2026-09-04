@@ -40,9 +40,7 @@ export function FinalCTA() {
           maxWidth: 800,
         }}
       >
-        From possibility to decision.
-        <br />
-        From decision to production.
+        What consequential AI decision can you not defend confidently today?
       </h2>
 
       <p
@@ -54,16 +52,14 @@ export function FinalCTA() {
           maxWidth: 600,
         }}
       >
-        If you are deciding where AI belongs in your organization, the easiest entry point is the
-        AI Advisor Desk. If your decisions are interconnected and the stakes are higher, Fractional
-        AI Advisor is the next step.
+        Start with one material decision, the consequence attached to it, and the evidence or operating constraint your current process cannot resolve.
       </p>
 
       {/* CTAs */}
       <div style={{ marginTop: 32, display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
         <Link
-          href="/ai-advisor"
-          data-track="homepage_ai_advisor_click"
+          href="/diagnostics"
+          data-track="homepage_diagnostic_click"
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -81,11 +77,11 @@ export function FinalCTA() {
             textDecoration: "none",
           }}
         >
-          Explore AI Advisor →
+          Start a Diagnostic →
         </Link>
         <Link
-          href="/advisory"
-          data-track="homepage_fractional_click"
+          href="/contact?subject=executive-decision"
+          data-track="homepage_executive_decision_click"
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -103,11 +99,11 @@ export function FinalCTA() {
             textDecoration: "none",
           }}
         >
-          Explore Fractional Advisory
+          Discuss an Executive Decision
         </Link>
         <Link
-          href="/contact?subject=discuss-ai"
-          data-track="homepage_discuss_ai_click"
+          href="/portfolio"
+          data-track="homepage_work_click"
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -122,7 +118,7 @@ export function FinalCTA() {
             textDecoration: "none",
           }}
         >
-          Discuss an AI Decision
+          Inspect Selected Work
         </Link>
       </div>
     </section>

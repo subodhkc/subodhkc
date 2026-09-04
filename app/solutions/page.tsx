@@ -7,12 +7,12 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { ArrowRight, Shield, Phone, Sparkles, Scale, FileText, ExternalLink } from 'lucide-react'
 
 export const metadata = {
-  title: 'AI Solutions | Enterprise AI Systems & Compliance Platforms | Subodh KC',
-  description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform, and CourtCase evidence builder.',
+  title: 'AI Systems & Products | Subodh KC',
+  description: 'Inspectable systems and products across AI assurance, voice operations, developer security, decision support, and evidence workflows.',
   keywords: [
     'AI solutions',
     'enterprise AI',
-    'AI compliance platform',
+    'AI assurance platform',
     'AI governance software',
     'voice AI platform',
     'AI receptionist',
@@ -27,15 +27,15 @@ export const metadata = {
     canonical: 'https://subodhkc.com/solutions',
   },
   openGraph: {
-    title: 'AI Solutions | Enterprise AI Systems & Compliance Platforms',
-    description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform.',
+    title: 'AI Systems & Products | Subodh KC',
+    description: 'Inspectable systems across AI assurance, voice operations, developer security, decision support, and evidence workflows.',
     url: 'https://subodhkc.com/solutions',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Solutions | Enterprise AI Systems & Compliance Platforms',
-    description: 'Production-ready AI solutions for enterprise scale. HAIEC compliance platform, KestrelVoice AI receptionist, FrontOfAI intelligence platform.',
+    title: 'AI Systems & Products | Subodh KC',
+    description: 'Products and technical systems that make the underlying architecture, constraints, and evidence inspectable.',
   },
   robots: {
     index: true,
@@ -50,17 +50,17 @@ export default function SolutionsPage() {
   const solutions = [
     {
       name: 'HAIEC',
-      tagline: 'AI Compliance & Governance Platform',
-      description: 'Evidence-first frameworks for behavioral AI governance. AI Governance Execution Framework and AI readiness assessments for enterprise compliance.',
+      tagline: 'Evidence-Bound Assurance for Consequential AI',
+      description: 'Connect evaluated scope, action and access evidence, material divergence, explicit unknowns, and bounded decision receipts.',
       icon: Shield,
       href: '/solutions/haiec',
       external: 'https://www.haiec.com',
       badge: 'Enterprise',
       features: [
-        'EU AI Act Compliance',
-        'Risk Management System',
-        'Evidence-Grade Documentation',
-        'Runtime Adversarial Testing'
+        'Evaluated Scope',
+        'Action & Access Analysis',
+        'Evidence Coverage',
+        'Decision Receipts'
       ],
       color: 'indigo'
     },
@@ -133,23 +133,23 @@ export default function SolutionsPage() {
   return (
     <>
       <Hero
-        subtitle="Web Applications Portfolio"
+        subtitle="Systems Portfolio"
         title={
           <>
-            Production-Ready
+            Inspectable AI
             <br />
             <span className="gradient-text">AI Solutions</span>
             <br />
-            Built for Enterprise Scale
+            Built for Operating Reality
           </>
         }
-        description="Explore the suite of AI-powered applications I've built and deployed. From compliance platforms to voice infrastructure, each solution solves real enterprise challenges."
+        description="Selected products and technical systems that make the architecture, controls, failure modes, and decision evidence inspectable."
       />
 
       <Section
         subtitle="Solutions Portfolio"
-        title="Enterprise AI Applications"
-        description="Production-ready applications serving thousands of users across compliance, voice operations, and AI intelligence."
+        title="Products as operating evidence"
+        description="The systems demonstrate how advisory decisions meet architecture, production constraints, and verifiable implementation detail."
         sectionNum="01"
       >
         <div className="space-y-8">

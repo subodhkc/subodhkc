@@ -128,7 +128,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Failed to send email. Please text 682-224-9904 for immediate assistance.'
+          error: 'Failed to send the inquiry. Please email subodhkc@subodhkc.com.'
         },
         { status: 500 }
       )

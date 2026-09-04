@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Award, GraduationCap, Briefcase, Heart, Shield, TrendingUp, Zap, BookOpen, User, Newspaper, MapPin, Code2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'About Subodh KC | AI Advisor & AI Systems Architect',
+  title: 'About Subodh KC | Enterprise AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and AI systems architect with experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. patent-pending frameworks.',
+    'Subodh KC is an Enterprise AI Advisor and AI Systems Architect working across strategic diagnostics, consequential decisions, production architecture, and evidence-bound assurance. Founder of HAIEC and Kestrel Voice.',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
@@ -35,9 +35,9 @@ export const metadata = {
     canonical: 'https://subodhkc.com/about',
   },
   openGraph: {
-    title: 'About Subodh KC | AI Advisor & AI Systems Architect',
+    title: 'About Subodh KC | Enterprise AI Advisor & AI Systems Architect',
     description:
-      'Experience across program leadership, manufacturing reliability, technology commercialization, and production AI systems. Founder of HAIEC and Kestrel Voice. patent-pending frameworks.',
+      'Enterprise AI advisory, systems architecture, program leadership, technology commercialization, and evidence-bound assurance. Founder of HAIEC and Kestrel Voice.',
     url: 'https://subodhkc.com/about',
     type: 'profile',
     images: [
@@ -45,13 +45,13 @@ export const metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
+        alt: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Subodh KC | AI Advisor & AI Systems Architect',
+    title: 'About Subodh KC | Enterprise AI Advisor & AI Systems Architect',
     description: 'Experience across program leadership, AI governance, manufacturing reliability, and technology commercialization.',
   },
 }
@@ -72,7 +72,7 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'AI Advisor | AI Systems Architect',
+  jobTitle: 'Enterprise AI Advisor | AI Systems Architect',
   description: 'AI advisor and AI systems architect with experience across technology, program and portfolio leadership, digital transformation, product development, continuous improvement, and production AI systems.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
@@ -153,7 +153,7 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
-      name: 'AI Advisor & AI Systems Architect',
+      name: 'Enterprise AI Advisor & AI Systems Architect',
       occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
       startDate: '2026',
       description: 'Advising organizations on AI opportunity discovery, decisions, architecture, and production AI deployment. Helping teams move from possibility to decision and from decision to production.',
@@ -384,7 +384,7 @@ export default function AboutPage() {
               A model could produce an impressive answer. But could a company determine when its behavior had changed? Could it reproduce an important decision? Could it understand what controls were actually working? Could it show evidence of how a system had been tested? And when an AI system became part of a real business process, who was accountable when it failed?
             </p>
             <p className="text-base text-muted-foreground/80 leading-relaxed">
-              Those questions became the foundation for <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an AI assurance and governance platform focused on making AI systems more observable, testable, controlled, and defensible. His related research and invention work spans behavioral drift, deterministic assurance, AI evaluation, compliance automation, adversarial testing, traceability, monitoring, and evidence systems. Several of those ideas have developed into patent-pending systems and methodologies.
+              Those questions became the foundation for <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an evidence-bound assurance platform for consequential AI. His related research and invention work spans action boundaries, behavioral drift, deterministic verification, adversarial testing, traceability, and evidence systems. Several of those ideas have developed into patent-pending systems and methodologies.
             </p>
           </div>
 

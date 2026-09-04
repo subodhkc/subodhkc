@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Subodh KC - AI Systems Architect & Governance Expert',
+    name: 'Subodh KC - Enterprise AI Advisor & AI Systems Architect',
     short_name: 'Subodh KC',
     description: 'AI Systems Architect and Governance Expert. Former Sr. Program Manager, HP Inc., founder of KestrelVoice, founder of HAIEC. Production AI systems at enterprise scale.',
     start_url: '/',

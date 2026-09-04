@@ -3,12 +3,12 @@ import ContactPageClient from './client'
 
 export const metadata: Metadata = {
   title: 'Contact Subodh KC | AI Advisor and Systems Architect',
-  description: 'Get in touch with Subodh KC for advisory, consulting, speaking engagements, or collaboration opportunities. Multiple contact methods available.',
+  description: 'Submit a consequential AI decision for strategic diagnostics, executive advisory, systems architecture, assurance, or collaboration.',
   keywords: [
     'contact Subodh KC',
     'AI advisor contact',
     'AI systems architect contact',
-    'AI consulting inquiry',
+    'enterprise AI decision inquiry',
     'speaking engagement',
     'advisory services',
     'AI governance consulting',
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Contact Subodh KC | AI Advisor and Systems Architect',
-    description: 'Get in touch with Subodh KC for advisory, consulting, speaking engagements, or collaboration opportunities.',
+    description: 'Start with the decision, consequence, unresolved boundary, and timing. Then define the right engagement.',
     url: 'https://subodhkc.com/contact',
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'Contact Subodh KC | AI Advisor and Systems Architect',
-    description: 'Get in touch with Subodh KC for advisory, consulting, speaking engagements, or collaboration opportunities.',
+    description: 'Decision-led intake for diagnostics, executive AI advisory, systems architecture, and evidence-bound assurance.',
   },
   robots: {
     index: true,

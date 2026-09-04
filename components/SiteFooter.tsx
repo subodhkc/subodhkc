@@ -2,7 +2,6 @@
 "use client";
 
 import * as React from "react";
-import Script from "next/script";
 import Link from "next/link";
 import { SafeEmail } from "./SafeEmail";
 
@@ -25,12 +24,13 @@ function Arrow({ kind = "right" }: { kind?: "right" | "ext" }) {
 
 const SITEMAP = [
   {
-    head: "Work with Me",
+    head: "Engage",
     items: [
-      ["/ai-advisor", "AI Advisor"],
-      ["/advisory", "Fractional Advisor"],
+      ["/diagnostics", "Strategic Diagnostics"],
+      ["/advisory", "Executive AI Advisory"],
       ["/services", "Architecture & Implementation"],
-      ["/contact?subject=discuss-ai", "Discuss AI"],
+      ["/solutions/haiec", "AI Assurance"],
+      ["/contact?subject=executive-decision", "Discuss a Decision"],
     ],
   },
   {
@@ -71,8 +71,6 @@ const SITEMAP = [
     ],
   },
 ] as const;
-
-let chamberWidgetInit = false;
 
 export function SiteFooter() {
   const [submitting, setSubmitting] = React.useState(false);
@@ -317,7 +315,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* HEB Chamber Member badge - static link, no external JS */}
+      {/* Qualified community access */}
       <div
         className="footer-chamber-badge"
         style={{
@@ -332,9 +330,7 @@ export function SiteFooter() {
         }}
       >
         <a
-          href="https://hebtx.chambermaster.com/list/mbr/subodh-kc-18363"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/heb-chamber"
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -349,7 +345,7 @@ export function SiteFooter() {
             fontFamily: "var(--font-sans)",
           }}
         >
-          HEB Chamber Member
+          Nonprofit & HEB Chamber Member Access
         </a>
       </div>
 

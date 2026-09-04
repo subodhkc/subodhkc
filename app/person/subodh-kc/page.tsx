@@ -7,16 +7,16 @@ import Link from 'next/link'
 import { CheckCircle2, GraduationCap, Briefcase, Award, Building2, Shield, Code2, Cpu } from 'lucide-react'
 
 export const metadata = {
-  title: 'Subodh KC | AI Advisor & AI Systems Architect',
+  title: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
   description:
-    'Subodh KC is an AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. patent-pending AI compliance frameworks. 83+ projects delivered across enterprise, client, and founder-led work. 53 enterprise applications governed.',
+    'Subodh KC is an Enterprise AI Advisor and AI Systems Architect working across strategic diagnostics, consequential decisions, production systems, and evidence-bound assurance. Former Sr. Program Manager at HP Inc. Founder of Kestrel Voice and HAIEC.',
   alternates: {
     canonical: 'https://subodhkc.com/person/subodh-kc',
   },
   openGraph: {
-    title: 'Subodh KC | AI Advisor & AI Systems Architect',
+    title: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
     description:
-      'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. patent-pending frameworks. 83+ projects delivered across enterprise, client, and founder-led work.',
+      'Enterprise AI advisor and systems architect. Former Sr. Program Manager at HP Inc. Founder of Kestrel Voice and HAIEC. Decisions, systems, and evidence.',
     url: 'https://subodhkc.com/person/subodh-kc',
     type: 'profile',
     images: [
@@ -24,13 +24,13 @@ export const metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
+        alt: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Subodh KC | AI Advisor & AI Systems Architect',
+    title: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
     description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. patent-pending frameworks. 83+ projects delivered across enterprise, client, and founder-led work.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
@@ -81,9 +81,9 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'AI Advisor & AI Systems Architect',
+  jobTitle: 'Enterprise AI Advisor & AI Systems Architect',
   description:
-    'AI advisor and AI systems architect building production AI systems at enterprise scale. Former Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50). Founder of Kestrel Voice and HAIEC. patent-pending frameworks in AI compliance, drift detection, and behavioral verification. 83+ projects delivered across 53 enterprise applications.',
+    'Enterprise AI advisor and systems architect working across strategic diagnostics, consequential decisions, production systems, and evidence-bound assurance. Former Sr. Program Manager at HP Inc. Founder of Kestrel Voice and HAIEC.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
   image: 'https://subodhkc.com/portrait.jpeg',
@@ -163,7 +163,7 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
-      name: 'AI Advisor & Enterprise AI Governance Consultant',
+      name: 'Enterprise AI Advisor & AI Systems Architect',
       occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
       startDate: '2026',
       description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations.',
@@ -231,7 +231,7 @@ const personSchema = {
       '@type': 'Organization',
       name: 'HAIEC',
       url: 'https://haiec.com',
-      description: 'Enterprise AI governance and compliance platform',
+      description: 'Evidence-bound assurance for consequential AI',
     },
   ],
   award: ["Dean's Honor List", "President's Honor List", 'University Coding Competition Winner', 'Global Business Strategy Competition - Top 3 Global'],
@@ -283,7 +283,7 @@ export default function PersonPage() {
   const career = [
     {
       period: '2026 - Present',
-      role: 'AI Advisor & Enterprise AI Governance Consultant',
+      role: 'Enterprise AI Advisor & AI Systems Architect',
       org: 'Independent Practice',
       description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations with operational discipline gained from Fortune 50 experience.',
       achievements: ['Enterprise AI governance advisory', 'Compliance framework development', 'Production AI deployment consulting'],
@@ -306,7 +306,7 @@ export default function PersonPage() {
       period: '2020 - Present',
       role: 'Founder & CEO',
       org: 'HAIEC',
-      description: 'Built enterprise AI governance and compliance platform for EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144, and Texas TRAIGA. Introduced AI Governance Execution Framework with six operational functions, forensic audit toolkit, and modernization pathways for legacy systems.',
+      description: 'Built an evidence-bound assurance platform that connects evaluated scope, technical evidence, capability, authority, explicit unknowns, and bounded decision receipts.',
       achievements: ['Multi-regulation compliance engine', 'AI governance execution framework', 'Enterprise audit readiness platform'],
     },
     {
@@ -327,7 +327,7 @@ export default function PersonPage() {
 
   const patents = [
     { name: 'Adversarial Project Twin', description: 'Drift and sabotage simulation framework that proactively identifies AI system vulnerabilities before production deployment.' },
-    { name: 'AI Compliance Twin', description: 'Real-time regulatory enforcement engine that validates AI systems against EU AI Act, GDPR, and sector-specific compliance requirements.' },
+    { name: 'AI Compliance Twin', description: 'Patent-pending framework for binding selected AI behavior evidence to versioned obligation and control mappings.' },
     { name: 'Modular Audit Engine', description: 'AI fairness and transparency scoring with modular architecture. Provides evidence-grade documentation for enterprise deployments.' },
     { name: 'Precision Drift Detector', description: 'Numerical anomaly detection for AI model performance monitoring. Identifies behavioral drift patterns before they affect business outcomes.' },
     { name: 'Compliance Fingerprint Layer', description: 'Tamper-evident traceability for AI decision-making. Creates immutable audit trails for regulatory compliance and forensic analysis.' },
@@ -397,7 +397,7 @@ export default function PersonPage() {
           <>
             Subodh KC
             <br />
-            <span className="gradient-text">AI Advisor & AI Systems Architect</span>
+            <span className="gradient-text">Enterprise AI Advisor & AI Systems Architect</span>
           </>
         }
         description="Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. patent-pending frameworks. 83+ projects delivered across 53 enterprise applications."
@@ -418,7 +418,7 @@ export default function PersonPage() {
                   At HP, he delivered 83+ projects across a portfolio spanning 53 enterprise applications,
                   aligning 100+ stakeholders across product, engineering, quality, operations, vendors,
                   risk functions, and senior leadership. He is the founder of Kestrel Voice, an AI voice
-                  operations platform, and HAIEC, an enterprise AI governance and compliance platform.
+                  operations platform, and HAIEC, an evidence-bound assurance platform for consequential AI.
                   He has developed patent-pending methodologies for AI compliance, drift detection, and
                   behavioral verification.
                 </p>
@@ -588,7 +588,7 @@ export default function PersonPage() {
                   <div>
                     <CardTitle className="text-base mb-1">HAIEC</CardTitle>
                     <CardDescription className="text-sm">
-                      Enterprise AI governance and compliance platform. EU AI Act, NIST AI RMF, ISO 42001, NYC LL 144.
+                      Evidence-bound assurance for consequential AI systems, actions, authority, and decisions.
                     </CardDescription>
                     <p className="text-xs text-primary mt-2">Founder</p>
                   </div>
@@ -602,7 +602,7 @@ export default function PersonPage() {
       <Section subtitle="Compliance Guides" title="AI Compliance Law Guides">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm text-muted-foreground mb-6">
-            Complete guides to the AI regulations that matter most, informed by the HAIEC compliance engine and Zenodo-published research.
+            Framework mappings and readiness guides for selected AI obligations, informed by HAIEC research and technical evidence work.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link href="/guides/texas-ai-law" className="block">
@@ -610,7 +610,7 @@ export default function PersonPage() {
                 <CardHeader>
                   <CardTitle className="text-base mb-2">Texas AI Law (TRAIGA)</CardTitle>
                   <CardDescription className="text-sm">
-                    HB 149. Effective Jan 2026. Built on the HAIEC TRAIGA compliance engine.
+                    HB 149 readiness and applicability guidance with bounded technical evidence mappings.
                   </CardDescription>
                 </CardHeader>
               </Card>

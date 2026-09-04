@@ -20,7 +20,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
+  title: 'Executive Bio | Subodh KC - Enterprise AI Advisor & AI Systems Architect',
   description: 'Subodh KC is an AI advisor and AI systems architect with 16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
   keywords: [
     'Subodh KC',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/executive-bio',
   },
   openGraph: {
-    title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
+    title: 'Executive Bio | Subodh KC - Enterprise AI Advisor & AI Systems Architect',
     description: '16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
     url: 'https://subodhkc.com/executive-bio',
     type: 'profile',
@@ -58,13 +58,13 @@ export const metadata: Metadata = {
         url: 'https://subodhkc.com/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
+        alt: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Executive Bio | Subodh KC - AI Advisor & AI Systems Architect',
+    title: 'Executive Bio | Subodh KC - Enterprise AI Advisor & AI Systems Architect',
     description: '16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems.',
   },
 }
@@ -76,7 +76,7 @@ const personSchema = {
   alternateName: ['Subodh K.C.', 'Subodh Khatri Chhetri', 'Subodh Kumar KC'],
   givenName: 'Subodh',
   familyName: 'KC',
-  jobTitle: 'AI Advisor | AI Systems Architect',
+  jobTitle: 'Enterprise AI Advisor | AI Systems Architect',
   description: 'AI advisor and AI systems architect with 16+ years across software, infrastructure, program and portfolio leadership, product development, continuous improvement, and applied AI systems.',
   url: 'https://subodhkc.com',
   email: 'subodhkc@subodhkc.com',
@@ -157,7 +157,7 @@ const personSchema = {
   hasOccupation: [
     {
       '@type': 'Occupation',
-      name: 'AI Advisor & AI Systems Architect',
+      name: 'Enterprise AI Advisor & AI Systems Architect',
       occupationLocation: { '@type': 'Place', name: 'Dallas-Fort Worth, TX, United States' },
       description: 'Advising organizations on AI opportunity discovery, decisions, architecture, and production AI deployment. From possibility to decision, from decision to production.',
     },
@@ -285,7 +285,7 @@ export default function ExecutiveBioPage() {
           </h1>
 
           <p className="text-xl md:text-2xl text-foreground font-semibold mb-2">
-            AI Advisor + AI Systems Architect
+            Enterprise AI Advisor + AI Systems Architect
           </p>
 
           <p className="text-lg md:text-xl text-muted-foreground mb-8">
@@ -350,7 +350,7 @@ export default function ExecutiveBioPage() {
               Earlier in his career, he worked in manufacturing technology and reliability engineering, including Manufacturing Execution System environments supporting more than 400 production stations. He has also worked with small and midsized businesses across Dallas-Fort Worth on technology implementation, business process improvement, automation, and program delivery. His experience at Louisiana Tech University's Office of Intellectual Property & Commercialization added exposure to invention assessment, intellectual property, market opportunity, and technology commercialization.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Subodh is also a founder and hands-on builder of applied AI systems. He created <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an AI assurance and governance platform focused on evaluation, controls, evidence, monitoring, and responsible deployment. He also built <Link href="/solutions/kestrelvoice" className="text-primary hover:underline font-semibold">Kestrel Voice</Link>, an AI communications and workflow platform that combines voice agents, business knowledge, scheduling, automation, integrations, escalation, and operational controls. His open-source and research work includes <Link href="/products/llmverify" className="text-primary hover:underline font-semibold">llmverify</Link> and patent-pending systems related to AI assurance, behavioral drift, traceability, compliance automation, and system monitoring.
+              Subodh is also a founder and hands-on builder of applied AI systems. He created <Link href="/solutions/haiec" className="text-primary hover:underline font-semibold">HAIEC</Link>, an evidence-bound assurance platform for consequential AI systems, actions, and decisions. He also built <Link href="/solutions/kestrelvoice" className="text-primary hover:underline font-semibold">Kestrel Voice</Link>, an AI communications and workflow platform that combines voice agents, business knowledge, scheduling, automation, integrations, escalation, and operational controls. His open-source and research work includes <Link href="/products/llmverify" className="text-primary hover:underline font-semibold">llmverify</Link> and patent-pending systems related to AI assurance, behavioral drift, traceability, and system monitoring.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               He developed Cognitive Systems Management (CSM), a governance methodology with four domains and six execution functions, published in 2025 and extended in CSM 2.0 with machine-readable contracts and 16 governance components for enterprise AI deployment.
@@ -419,7 +419,7 @@ export default function ExecutiveBioPage() {
           <div className="space-y-4">
             <Card className="border-l-4 border-l-primary">
               <CardHeader>
-                <CardTitle className="text-xl">AI Advisor & AI Systems Architect</CardTitle>
+                <CardTitle className="text-xl">Enterprise AI Advisor & AI Systems Architect</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground mb-2">Present</CardDescription>
                 <CardDescription className="text-base">
                   Advising organizations on AI opportunity discovery, decisions, architecture, and production AI deployment. Independent practice based in Dallas-Fort Worth, TX.
@@ -462,7 +462,7 @@ export default function ExecutiveBioPage() {
                 <CardTitle className="text-xl">Founder · HAIEC</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground mb-2">2020 · Present</CardDescription>
                 <CardDescription className="text-base">
-                  Built HAIEC as an AI assurance and governance platform focused on evaluation, controls, evidence, monitoring, and responsible deployment. Includes an AI Governance Execution Framework, a forensic audit toolkit, and modernization pathways for legacy systems.
+                  Built HAIEC as an evidence-bound assurance platform focused on evaluated scope, action and access analysis, evidence coverage, explicit unknowns, and bounded decision receipts.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -526,7 +526,7 @@ export default function ExecutiveBioPage() {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Shield className="h-5 w-5 text-primary" />
-                  HAIEC · AI Assurance & Governance Platform
+                  HAIEC · Evidence-Bound Assurance for Consequential AI
                 </CardTitle>
                 <CardDescription className="text-base">
                   Founder and chief architect. Platform for evaluation, controls, evidence, monitoring, and responsible deployment of AI systems. Supports CSM governance activities and audit readiness.
@@ -717,7 +717,7 @@ export default function ExecutiveBioPage() {
                   Short reusable boilerplate
                 </p>
                 <p>
-                  Subodh KC is an AI advisor and AI systems architect based in Dallas-Fort Worth, TX. He has 16+ years across software, infrastructure, enterprise program leadership, manufacturing reliability, and applied AI systems. He is a former Sr. Program Manager at HP Inc. (Fortune 50), founder of HAIEC and KestrelVoice, and author of patent-pending AI assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt. He speaks on AI governance, production AI reliability, program leadership, and the operational discipline required to deploy AI that works.
+                  Subodh KC is an Enterprise AI Advisor and AI Systems Architect based in Dallas-Fort Worth, TX. He has 16+ years across software, infrastructure, enterprise program leadership, manufacturing reliability, and applied AI systems. He is a former Sr. Program Manager at HP Inc. (Fortune 50), founder of HAIEC and KestrelVoice, and author of patent-pending AI assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt. He speaks on consequential AI decisions, production reliability, action assurance, program leadership, and the operating discipline required to move AI from possibility into production.
                 </p>
               </CardDescription>
             </CardHeader>

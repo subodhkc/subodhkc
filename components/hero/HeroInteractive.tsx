@@ -2,6 +2,7 @@
 
 import { Aurora } from "./Aurora";
 import { ConstellationBackground } from "./ConstellationBackground";
+import { ActionConsequenceAtlas } from "@/components/enterprise/ActionConsequenceAtlas";
 
 const PROOF_POINTS = [
   { v: "16+", sub: "years", detail: "software, infrastructure, programs, AI systems" },
@@ -11,10 +12,10 @@ const PROOF_POINTS = [
 ];
 
 const LEVERAGE_PATH = [
-  { label: "POSSIBILITY", q: "What became possible?" },
-  { label: "DECISION", q: "What deserves action?" },
-  { label: "ARCHITECTURE", q: "How should it work?" },
-  { label: "PRODUCTION", q: "Can it operate?" },
+  { label: "DIAGNOSE", q: "What is materially true?" },
+  { label: "ADVISE", q: "What deserves commitment?" },
+  { label: "ARCHITECT / BUILD", q: "How should it operate?" },
+  { label: "ASSURE", q: "What does the evidence support?" },
 ];
 
 const EVIDENCE_NODES = [
@@ -65,7 +66,7 @@ export function HeroInteractive() {
             color: "var(--fg)",
           }}
         >
-          AI Advisor &amp;
+          Enterprise AI Advisor &amp;
           <br />
           <span style={{ position: "relative", display: "inline-block" }}>
             AI Systems Architect.
@@ -111,9 +112,7 @@ export function HeroInteractive() {
             textWrap: "balance",
           }}
         >
-          From possibility to decision.
-          <br />
-          From decision to production.
+          Turn consequential AI decisions into defensible operating choices.
         </p>
 
         {/* Supporting copy */}
@@ -127,15 +126,15 @@ export function HeroInteractive() {
             textWrap: "pretty",
           }}
         >
-          I help leaders find AI opportunities worth pursuing, pressure-test important decisions
-          before they become expensive, and architect systems that can actually operate.
+          I expose hidden constraints and opportunities, pressure-test material investments, and
+          translate qualified decisions into systems, controls, and evidence an organization can operate.
         </p>
 
         {/* CTAs */}
         <div style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap", alignItems: "center" }}>
           <a
-            href="/ai-advisor"
-            data-track="homepage_ai_advisor_click"
+            href="/diagnostics"
+            data-track="homepage_diagnostic_click"
             style={{
               appearance: "none",
               background: "var(--fg)",
@@ -155,11 +154,11 @@ export function HeroInteractive() {
               alignItems: "center",
             }}
           >
-            Explore AI Advisor →
+            Start a Diagnostic →
           </a>
           <a
-            href="/portfolio"
-            data-track="homepage_work_click"
+            href="/contact?subject=executive-decision"
+            data-track="homepage_executive_decision_click"
             style={{
               appearance: "none",
               background: "transparent",
@@ -179,11 +178,11 @@ export function HeroInteractive() {
               alignItems: "center",
             }}
           >
-            See Selected Work
+            Discuss an Executive Decision
           </a>
           <a
-            href="/contact?subject=discuss-ai"
-            data-track="homepage_discuss_ai_click"
+            href="/portfolio"
+            data-track="homepage_work_click"
             style={{
               appearance: "none",
               background: "transparent",
@@ -201,7 +200,7 @@ export function HeroInteractive() {
               alignItems: "center",
             }}
           >
-            Discuss an AI Decision
+            Inspect Selected Work
           </a>
         </div>
 
@@ -263,7 +262,7 @@ export function HeroInteractive() {
             letterSpacing: "0.04em",
           }}
         >
-          Former Fortune 50 Core Team Lead · Founder of HAIEC + KestrelVoice
+          Former Fortune 50 Core Team Lead · Founder of HAIEC + KestrelVoice · Dallas-Fort Worth
         </div>
 
         {/* Leverage path visual */}
@@ -282,7 +281,11 @@ export function HeroInteractive() {
             }}
           >
             <span style={{ width: 18, height: 1, background: "var(--op-border)" }} />
-            fig.01 - the decision path
+            fig.01 - the engagement path
+          </div>
+
+          <div style={{ marginTop: 28 }}>
+            <ActionConsequenceAtlas />
           </div>
 
           <div className="hero-leverage-path" style={{ display: "flex", alignItems: "stretch", gap: 0, flexWrap: "wrap" }}>

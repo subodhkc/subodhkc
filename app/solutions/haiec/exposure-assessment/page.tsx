@@ -341,7 +341,7 @@ export default function HAIECExposureAssessmentPage() {
                     </div>
                     <CardTitle className="text-sm">HAIEC Platform</CardTitle>
                   </div>
-                  <CardDescription className="text-sm">Full HAIEC AI security and compliance platform overview.</CardDescription>
+                  <CardDescription className="text-sm">HAIEC evidence-bound assurance and AI security overview.</CardDescription>
                   <span className="text-sm text-primary inline-flex items-center gap-1 mt-2">Explore <ArrowRight className="h-3 w-3" /></span>
                 </CardHeader>
               </Card>

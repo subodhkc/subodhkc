@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Resume - Subodh KC | AI Advisor & AI Systems Architect',
-  description: 'Executive resume for Subodh KC - AI Advisor & AI Systems Architect, former Sr. Program Manager at HP Inc., founder of KestrelVoice, founder of HAIEC. Production AI systems from startups to global enterprise.',
+  title: 'Resume - Subodh KC | Enterprise AI Advisor & AI Systems Architect',
+  description: 'Executive resume for Subodh KC, Enterprise AI Advisor and AI Systems Architect, former Sr. Program Manager at HP Inc., and founder of KestrelVoice and HAIEC.',
   keywords: [
     'AI program manager resume',
     'AI advisor CV',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/resume',
   },
   openGraph: {
-    title: 'Resume - Subodh KC | AI Advisor & AI Systems Architect',
+    title: 'Resume - Subodh KC | Enterprise AI Advisor & AI Systems Architect',
     description: 'Executive resume for Subodh KC - AI Systems Architect, former Sr. Program Manager at HP Inc., founder of KestrelVoice, founder of HAIEC.',
     url: 'https://subodhkc.com/resume',
     type: 'profile',

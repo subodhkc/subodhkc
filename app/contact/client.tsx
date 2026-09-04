@@ -1,510 +1,109 @@
-'use client'
+"use client";
 
-import { useState, useEffect, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import Hero from '@/components/Hero'
-import Section from '@/components/Section'
-import Grid from '@/components/Grid'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import PhoneNumber from '@/components/PhoneNumber'
-import VirtualBusinessCard from '@/components/VirtualBusinessCard'
-import { Mail, Linkedin, Calendar, MessageSquare, Download } from 'lucide-react'
+import { useSearchParams } from "next/navigation";
+import { Suspense, useMemo, useState } from "react";
+import Hero from "@/components/Hero";
+import Section from "@/components/Section";
 
-function CalendlyEmbed({ url }: { url: string }) {
-  const embedUrl = `${url}?embed_domain=${typeof window !== 'undefined' ? window.location.hostname : 'subodhkc.com'}&embed_type=Inline`
+const INTERESTS = [
+  "Strategic Diagnostic Intensive",
+  "Executive AI Advisory",
+  "AI Systems Architecture & Implementation",
+  "HAIEC Enterprise Assurance POC",
+  "Design Partnership",
+  "Partner / Agency Collaboration",
+  "Developer / Open Source Evaluation",
+  "Research Collaboration",
+  "Speaking / Executive Session",
+  "Not sure yet",
+];
 
-  return (
-    <div
-      className="calendly-embed-container"
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '700px',
-        overflow: 'hidden',
-        borderRadius: '8px',
-        border: '1px solid hsl(var(--border, 220 13% 91%))',
-      }}
-    >
-      <iframe
-        src={embedUrl}
-        title="Schedule a meeting with Subodh KC"
-        frameBorder="0"
-        scrolling="yes"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          border: 'none',
-        }}
-        loading="lazy"
-      />
-    </div>
-  )
-}
+const SUBJECT_MAP: Record<string, string> = {
+  "strategic-diagnostic": "Strategic Diagnostic Intensive",
+  "executive-decision": "Executive AI Advisory",
+  "ai-advisor": "Executive AI Advisory",
+  "ai-architecture-implementation": "AI Systems Architecture & Implementation",
+  "haiec-enterprise-poc": "HAIEC Enterprise Assurance POC",
+  "design-partner": "Design Partnership",
+  "partner-agency": "Partner / Agency Collaboration",
+  "developer-evaluation": "Developer / Open Source Evaluation",
+  "member-technical-review": "Partner / Agency Collaboration",
+};
 
-function ContactForm() {
-  const searchParams = useSearchParams()
-  const subjectParam = searchParams.get('subject') || ''
+function DecisionContactForm() {
+  const params = useSearchParams();
+  const initialInterest = useMemo(() => SUBJECT_MAP[params.get("subject") || ""] || "", [params]);
+  const [form, setForm] = useState({ name: "", email: "", company: "", interest: initialInterest, decision: "", consequence: "", blocker: "", timeline: "", website: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [error, setError] = useState("");
 
-  const subjectToInterest: Record<string, string> = {
-    'ai-architecture-implementation': 'AI Systems Architecture & Implementation',
-    'ai-advisor': 'AI Advisor for Business',
-    'fractional-advisor': 'Fractional AI Advisor',
-    'ai-work-order': 'AI Work Order',
-    'ai-security-compliance': 'AI Security & Compliance Review',
-    'saas-security-review': 'SaaS & AI Security Review',
-    'ai-voice-agent': 'AI Voice Agent Deployment',
+  function update(name: string, value: string) {
+    setForm((current) => ({ ...current, [name]: value }));
   }
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    interest: subjectToInterest[subjectParam] || '',
-    message: '',
-    website: '',
-  })
-
-  const [submitted, setSubmitted] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (formData.website) {
-      return
-    }
-    setIsSubmitting(true)
-    setError(null)
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (form.website) return;
+    setStatus("sending");
+    setError("");
+    const message = [
+      `Decision / objective:\n${form.decision}`,
+      `Material consequence:\n${form.consequence}`,
+      `Current blocker / unknown:\n${form.blocker}`,
+      `Decision timeline:\n${form.timeline || "Not specified"}`,
+    ].join("\n\n");
 
     try {
-      fetch("/api/track", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "form_submit", path: "/contact", meta: { form: "contact" } }),
-      }).catch(() => {});
-
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || 'Failed to send message')
-      }
-
-      fetch("/api/track", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "conversion", path: "/contact", meta: { form: "contact" } }),
-      }).catch(() => {});
-
-      setSubmitted(true)
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        interest: '',
-        message: '',
-        website: '',
-      })
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again.')
-      console.error('Form submission error:', err)
-    } finally {
-      setIsSubmitting(false)
+        body: JSON.stringify({ name: form.name, email: form.email, company: form.company, interest: form.interest, message, website: form.website }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.error || "The inquiry could not be sent.");
+      setStatus("sent");
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "The inquiry could not be sent.");
+      setStatus("error");
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+  if (status === "sent") {
+    return <div role="status" className="rounded-xl border border-primary/25 bg-primary/5 p-8"><h2 className="text-2xl font-semibold">Inquiry received.</h2><p className="mt-3 text-sm leading-relaxed text-muted-foreground">I will review the decision, consequence, and evidence constraint before proposing the appropriate next conversation.</p></div>;
   }
 
-  const contactMethods = [
-    {
-      icon: MessageSquare,
-      title: 'Text Message (Fastest)',
-      description: 'For urgent inquiries and quick responses',
-      value: 'protected',
-      link: null,
-      cta: 'Reveal number',
-      type: 'phone',
-    },
-    {
-      icon: Mail,
-      title: 'Email',
-      description: 'For general inquiries and opportunities',
-      value: 'admin@subodhkc.com',
-      link: 'mailto:admin@subodhkc.com',
-      cta: 'Send email',
-      type: 'email',
-    },
-    {
-      icon: Linkedin,
-      title: 'LinkedIn',
-      description: 'Connect for professional networking',
-      value: 'linkedin.com/in/subodhkc',
-      link: 'https://www.linkedin.com/in/subodhkc',
-      cta: 'Connect on LinkedIn',
-      type: 'linkedin',
-    },
-    {
-      icon: Download,
-      title: 'Virtual Business Card',
-      description: 'Save my contact info to your device',
-      value: 'Download or share my digital card',
-      link: null,
-      cta: 'Get Business Card',
-      type: 'vcard',
-    },
-    {
-      icon: Calendar,
-      title: 'Book a Call',
-      description: 'Schedule a 30-min consultation directly',
-      value: 'Pick a time that works for you',
-      link: 'https://calendly.com/subodhkc/30min',
-      cta: 'Open Calendar',
-      type: 'calendly',
-    },
-  ]
-
-  const interestAreas = [
-    'AI Advisor for Business',
-    'Fractional AI Advisor',
-    'AI Work Order',
-    'AI Systems Architecture & Implementation',
-    'AI Security & Compliance Review',
-    'SaaS & AI Security Review',
-    'AI Voice Agent Deployment',
-    'AI Governance & Compliance Course',
-    'AI Laws Webinar (Small Business)',
-    'HAIEC Platform',
-    'Speaking Engagement',
-    'Research Collaboration',
-    'Media & Press',
-    'Other',
-  ]
+  const inputClass = "mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground";
+  const labelClass = "block text-sm font-medium";
 
   return (
-    <>
-      <Hero
-        subtitle="Contact"
-        title={
-          <>
-            Let's Build Something
-            <br />
-            <span className="gradient-text">Exceptional Together</span>
-          </>
-        }
-        description="Whether you need strategic counsel, want to discuss a speaking engagement, or explore collaboration opportunities, I'm here to help."
-      />
-
-      <Section subtitle="Get in Touch" title="Choose Your Preferred Method">
-        <Grid cols={4}>
-          {contactMethods.map((method, index) => {
-            const Icon = method.icon
-            return (
-              <Card key={index}>
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl">{method.title}</CardTitle>
-                  <CardDescription>{method.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {method.type === 'phone' ? (
-                    <PhoneNumber />
-                  ) : method.type === 'vcard' ? (
-                    <div className="space-y-4">
-                      <p className="text-sm text-muted-foreground">{method.value}</p>
-                      <VirtualBusinessCard />
-                    </div>
-                  ) : method.type === 'calendly' ? (
-                    <>
-                      <p className="text-sm text-muted-foreground mb-4">{method.value}</p>
-                      {method.link && (
-                        <a href={method.link} target="_blank" rel="noopener noreferrer">
-                          <Button variant="outline" size="sm" className="w-full">
-                            {method.cta}
-                          </Button>
-                        </a>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-sm text-muted-foreground mb-4">{method.value}</p>
-                      {method.link && (
-                        <a href={method.link} target={method.link.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
-                          <Button variant="outline" size="sm" className="w-full">
-                            {method.cta}
-                          </Button>
-                        </a>
-                      )}
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-            )
-          })}
-        </Grid>
-      </Section>
-
-      <Section
-        id="form"
-        subtitle="Send a Message"
-        title="Direct Contact Form"
-        description="Fill out the form below and I'll get back to you within 24-48 hours."
-        className="bg-secondary/20"
-      >
-        <div className="max-w-2xl mx-auto">
-          {submitted ? (
-            <Card className="text-center p-8">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <MessageSquare className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-2">Message Sent!</h3>
-              <p className="text-muted-foreground mb-4">
-                Thank you for reaching out. I'll review your message and get back to you within 24-48 hours.
-              </p>
-              <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 mb-6">
-                <p className="text-sm font-medium text-accent mb-2">Need a faster response?</p>
-                <p className="text-sm text-muted-foreground mb-3">Text me for immediate assistance:</p>
-                <a href="sms:6822249904" className="inline-flex items-center gap-2 text-lg font-semibold text-primary hover:text-accent transition-colors">
-                  <MessageSquare className="h-5 w-5" />
-                  682-224-9904
-                </a>
-              </div>
-              <Button onClick={() => setSubmitted(false)}>Send another message</Button>
-            </Card>
-          ) : (
-            <Card>
-              <CardContent className="p-6">
-                {error && (
-                  <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
-                    <p className="text-red-500 text-sm">{error}</p>
-                  </div>
-                )}
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div style={{ position: 'absolute', left: -9999, top: -9999, width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
-                    <label htmlFor="website">Website (leave blank)</label>
-                    <input
-                      type="text"
-                      id="website"
-                      name="website"
-                      tabIndex={-1}
-                      autoComplete="off"
-                      value={formData.website}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                        Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                        placeholder="Your full name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-foreground mb-2">
-                      Company / Organization
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                      placeholder="Your company name"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="interest" className="block text-sm font-medium text-foreground mb-2">
-                      I'm interested in *
-                    </label>
-                    <select
-                      id="interest"
-                      name="interest"
-                      required
-                      value={formData.interest}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                    >
-                      <option value="">Select an option</option>
-                      {interestAreas.map((area, index) => (
-                        <option key={index} value={area}>
-                          {area}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                      placeholder="Tell me about your needs, project, or inquiry..."
-                    />
-                  </div>
-
-                  <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </Button>
-
-                  <p className="text-xs text-muted-foreground text-center">
-                    By submitting this form, you agree to be contacted regarding your inquiry.
-                  </p>
-                </form>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      </Section>
-
-      <Section subtitle="Schedule" title="Book a 30-Minute Call">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-center text-muted-foreground mb-6">
-            Prefer to skip the back-and-forth? Pick a time that works for you directly on the calendar below.
-          </p>
-          <CalendlyEmbed url="https://calendly.com/subodhkc/30min?hide_landing_page_details=1&hide_gdpr_banner=1" />
-          <p className="text-center text-xs text-muted-foreground mt-4">
-            Prefer to book on Calendly directly?{' '}
-            <a
-              href="https://calendly.com/subodhkc/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline font-medium"
-            >
-              Open in new tab
-            </a>
-          </p>
-        </div>
-      </Section>
-
-      <Section subtitle="FAQ" title="Common Questions">
-        <div className="max-w-3xl mx-auto space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">What's your typical response time?</CardTitle>
-              <CardDescription>
-                I aim to respond to all inquiries within 24-48 hours. For urgent matters, please indicate that in your message.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Do you take on freelance projects?</CardTitle>
-              <CardDescription>
-                I work primarily through advisory retainers, project engagements, and fractional leadership roles. Reach out to discuss your specific needs.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Can I book you for a podcast or interview?</CardTitle>
-              <CardDescription>
-                Yes! I'm selective about media appearances but open to opportunities that align with my expertise in AI governance, compliance, and technical leadership.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Are you available for mentorship?</CardTitle>
-              <CardDescription>
-                I dedicate time to mentoring emerging leaders, particularly those from Nepal or underrepresented communities in tech. Reach out to discuss mentorship opportunities.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </Section>
-
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: "What's your typical response time?",
-                acceptedAnswer: { '@type': 'Answer', text: 'I aim to respond to all inquiries within 24-48 hours. For urgent matters, please indicate that in your message.' },
-              },
-              {
-                '@type': 'Question',
-                name: 'Do you take on freelance projects?',
-                acceptedAnswer: { '@type': 'Answer', text: 'I work primarily through advisory retainers, project engagements, and fractional leadership roles. Reach out to discuss your specific needs.' },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I book you for a podcast or interview?',
-                acceptedAnswer: { '@type': 'Answer', text: "Yes! I'm selective about media appearances but open to opportunities that align with my expertise in AI governance, compliance, and technical leadership." },
-              },
-              {
-                '@type': 'Question',
-                name: 'Are you available for mentorship?',
-                acceptedAnswer: { '@type': 'Answer', text: 'I dedicate time to mentoring emerging leaders, particularly those from Nepal or underrepresented communities in tech. Reach out to discuss mentorship opportunities.' },
-              },
-            ],
-          }),
-        }}
-      />
-    </>
-  )
+    <form onSubmit={submit} className="rounded-2xl border border-border bg-card p-6 md:p-9">
+      <input name="website" value={form.website} onChange={(e) => update("website", e.target.value)} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <div className="grid gap-6 md:grid-cols-2">
+        <label className={labelClass}>Name *<input required name="name" value={form.name} onChange={(e) => update("name", e.target.value)} className={inputClass} /></label>
+        <label className={labelClass}>Work email *<input required type="email" name="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputClass} /></label>
+        <label className={labelClass}>Organization<input name="company" value={form.company} onChange={(e) => update("company", e.target.value)} className={inputClass} /></label>
+        <label className={labelClass}>Engagement path *<select required name="interest" value={form.interest} onChange={(e) => update("interest", e.target.value)} className={inputClass}><option value="">Select one</option>{INTERESTS.map((item) => <option key={item}>{item}</option>)}</select></label>
+      </div>
+      <div className="mt-6 grid gap-6">
+        <label className={labelClass}>What decision or objective requires clarity? *<textarea required rows={4} name="decision" value={form.decision} onChange={(e) => update("decision", e.target.value)} className={inputClass} placeholder="Name the decision, not only the requested deliverable." /></label>
+        <label className={labelClass}>What becomes materially different if the decision is wrong? *<textarea required rows={3} name="consequence" value={form.consequence} onChange={(e) => update("consequence", e.target.value)} className={inputClass} placeholder="Money, data, authority, infrastructure, customer state, operational availability, or another consequence." /></label>
+        <label className={labelClass}>What can your current process or evidence not establish confidently? *<textarea required rows={3} name="blocker" value={form.blocker} onChange={(e) => update("blocker", e.target.value)} className={inputClass} /></label>
+        <label className={labelClass}>Desired decision date<input type="date" name="timeline" value={form.timeline} onChange={(e) => update("timeline", e.target.value)} className={inputClass} /></label>
+      </div>
+      {status === "error" && <p role="alert" className="mt-5 text-sm text-red-600">{error}</p>}
+      <button disabled={status === "sending"} className="mt-7 inline-flex items-center rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground disabled:opacity-60">{status === "sending" ? "Sending..." : "Submit the Decision"}</button>
+      <p className="mt-5 text-xs leading-relaxed text-muted-foreground">No complete source or runtime access is required to begin scoping. Sensitive evidence should not be submitted through this form.</p>
+    </form>
+  );
 }
 
 export default function ContactPageClient() {
   return (
-    <Suspense fallback={null}>
-      <ContactForm />
-    </Suspense>
-  )
+    <>
+      <Hero subtitle="Decision Intake" title={<>Start with the decision.<br /><span className="gradient-text">Then define the work.</span></>} description="Provide the decision, consequence, unresolved boundary, and timing. The next step should match the real constraint, not a generic service catalog." />
+      <Section subtitle="Qualified Inquiry" title="What must become possible after this work?" description="Subodh reviews inquiries personally. For detailed context or supporting documents, email subodhkc@subodhkc.com after submitting the decision brief." sectionNum="01">
+        <Suspense fallback={<div className="rounded-xl border border-border p-8 text-sm text-muted-foreground">Loading decision intake...</div>}><DecisionContactForm /></Suspense>
+      </Section>
+    </>
+  );
 }
