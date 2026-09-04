@@ -45,7 +45,7 @@ export default function HAIECPage() {
         <p className="mt-7 max-w-3xl text-base leading-relaxed text-muted-foreground">Serious assurance does not turn missing evidence into a green check. Unknown is a boundary on the claim, not something to hide.</p>
       </Section>
 
-      <Section subtitle="Action-to-Consequence" title="Make the operating boundaries visible" description="The Atlas traces a consequential path and keeps intended, approved, effectively granted, code-capable, and observed evidence distinct." sectionNum="02">
+      <Section subtitle="AI Action & Access Map" title="See where approved access and available authority diverge" description="Follow one consequential action from request to outcome while keeping intent, policy, application capability, system authority, and observed evidence distinct." sectionNum="02">
         <ActionConsequenceAtlas />
       </Section>
 

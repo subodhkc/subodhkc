@@ -11,20 +11,6 @@ const PROOF_POINTS = [
   { v: "12K+", sub: "npm + pypi installs", detail: "public technical work" },
 ];
 
-const LEVERAGE_PATH = [
-  { label: "DIAGNOSE", q: "What is materially true?" },
-  { label: "ADVISE", q: "What deserves commitment?" },
-  { label: "ARCHITECT / BUILD", q: "How should it operate?" },
-  { label: "ASSURE", q: "What does the evidence support?" },
-];
-
-const EVIDENCE_NODES = [
-  { label: "HAIEC", href: "/solutions/haiec" },
-  { label: "Kestrel", href: "/solutions/kestrelvoice" },
-  { label: "MCP", href: "/products/mcp-tenant-isolation" },
-  { label: "llmverify", href: "/products/llmverify" },
-];
-
 export function HeroInteractive() {
   return (
     <>
@@ -204,11 +190,32 @@ export function HeroInteractive() {
           </a>
         </div>
 
+        {/* Compact product proof: one action, its authority, and its consequence */}
+        <div style={{ marginTop: 36 }}>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10.5,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "var(--op-muted)",
+              marginBottom: 14,
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <span style={{ width: 18, height: 1, background: "var(--op-border)" }} />
+            fig.01 - action &amp; access preview
+          </div>
+          <ActionConsequenceAtlas compact />
+        </div>
+
         {/* Proof rail */}
         <div
           className="hero-proof-grid"
           style={{
-            marginTop: 40,
+            marginTop: 36,
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
             borderTop: "1px solid var(--op-border)",
@@ -252,127 +259,8 @@ export function HeroInteractive() {
           ))}
         </div>
 
-        {/* Supporting line */}
-        <div
-          style={{
-            marginTop: 14,
-            fontFamily: "var(--font-mono)",
-            fontSize: 11,
-            color: "var(--op-muted)",
-            letterSpacing: "0.04em",
-          }}
-        >
+        <div style={{ marginTop: 14, fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--op-muted)", letterSpacing: "0.04em" }}>
           Former Fortune 50 Core Team Lead · Founder of HAIEC + KestrelVoice · Dallas-Fort Worth
-        </div>
-
-        {/* Leverage path visual */}
-        <div style={{ marginTop: 36, marginBottom: 8 }}>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 10.5,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "var(--op-muted)",
-              marginBottom: 16,
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-            }}
-          >
-            <span style={{ width: 18, height: 1, background: "var(--op-border)" }} />
-            fig.01 - the engagement path
-          </div>
-
-          <div style={{ marginTop: 28 }}>
-            <ActionConsequenceAtlas />
-          </div>
-
-          <div className="hero-leverage-path" style={{ display: "flex", alignItems: "stretch", gap: 0, flexWrap: "wrap" }}>
-            {LEVERAGE_PATH.map((stage, i) => (
-              <div key={stage.label} style={{ display: "flex", alignItems: "stretch", flex: "1 1 0", minWidth: 0 }}>
-                <div
-                  style={{
-                    flex: 1,
-                    padding: "16px 14px",
-                    background: i === 0 ? "var(--op-card)" : "transparent",
-                    borderTop: "1px solid var(--op-border)",
-                    borderBottom: "1px solid var(--op-border)",
-                    borderLeft: i === 0 ? "1px solid var(--op-border)" : "none",
-                    borderRight: "1px solid var(--op-border)",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 10,
-                      letterSpacing: "0.08em",
-                      color: "var(--op-muted)",
-                      marginBottom: 6,
-                    }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "-0.01em", color: "var(--fg)" }}>
-                    {stage.label}
-                  </div>
-                  <div style={{ fontSize: 11, color: "var(--text-secondary)", marginTop: 4, lineHeight: 1.4 }}>
-                    {stage.q}
-                  </div>
-                </div>
-                {i < LEVERAGE_PATH.length - 1 && (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0 2px",
-                      color: "var(--op-accent)",
-                      flexShrink: 0,
-                    }}
-                    className="hero-path-arrow"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 7 H11" />
-                      <path d="M9 5 L11 7 L9 9" />
-                    </svg>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Evidence nodes */}
-          <div
-            style={{
-              marginTop: 14,
-              display: "flex",
-              gap: 8,
-              flexWrap: "wrap",
-              fontFamily: "var(--font-mono)",
-              fontSize: 10.5,
-              color: "var(--op-muted)",
-              letterSpacing: "0.04em",
-            }}
-          >
-            <span style={{ opacity: 0.6 }}>evidence:</span>
-            {EVIDENCE_NODES.map((node, i) => (
-              <span key={node.label} style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-                <a
-                  href={node.href}
-                  data-track={`homepage_${node.label.toLowerCase()}_click`}
-                  style={{
-                    color: "var(--text-secondary)",
-                    textDecoration: "none",
-                    borderBottom: "1px dotted var(--op-border)",
-                    paddingBottom: 1,
-                  }}
-                >
-                  {node.label}
-                </a>
-                {i < EVIDENCE_NODES.length - 1 && <span style={{ opacity: 0.3 }}>·</span>}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -388,16 +276,6 @@ export function HeroInteractive() {
           .hero-proof-grid > div:nth-child(3),
           .hero-proof-grid > div:nth-child(4) {
             border-top: 1px solid var(--op-border);
-          }
-          .hero-leverage-path {
-            flex-direction: column !important;
-          }
-          .hero-leverage-path > div {
-            flex: 1 1 100% !important;
-          }
-          .hero-path-arrow {
-            transform: rotate(90deg);
-            padding: 4px 0 !important;
           }
           .hero-version {
             display: none !important;

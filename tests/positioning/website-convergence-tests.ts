@@ -62,11 +62,18 @@ assert(!read("lib/search-index.ts").includes("href: '/heb-chamber'"), "HEB route
 assert(read("app/robots.ts").includes('"/heb-chamber"'), "HEB route must be disallowed in robots");
 
 const haiecPage = read("app/solutions/haiec/page.tsx");
+const atlas = read("components/enterprise/ActionConsequenceAtlas.tsx");
 assert(haiecPage.includes("/contact?subject=haiec-enterprise-poc"), "enterprise assurance CTA must enter qualification");
 assert(!haiecPage.includes("/api/commercial") && !haiecPage.includes("CheckoutButton"), "enterprise assurance must not create checkout");
 assert(haiecPage.includes("$25,000 to $75,000"), "enterprise POC range must be explicit");
 assert(haiecPage.includes("Developer & Open Source"), "developer path must be preserved");
 assert(haiecPage.includes("Partner & Agency"), "partner path must be preserved");
+assert(atlas.includes("AI Action &amp; Access Map"), "Atlas must use the customer-facing Action & Access name");
+assert(atlas.includes("Alex becomes an administrator"), "Atlas must use the access-elevation example");
+assert(atlas.includes("Human approval required"), "Atlas must preserve the approved path");
+assert(atlas.includes("Service account can assign Administrator"), "Atlas must expose available authority separately");
+assert(atlas.includes("Not yet established"), "Atlas must preserve explicit unknown evidence");
+assert(!atlas.toLowerCase().includes("refund"), "Atlas must not regress to the refund example");
 
 assert(existsSync(join(root, "app/api/commercial/advisor-desk/checkout/route.ts")), "Advisor Desk checkout must remain");
 assert(existsSync(join(root, "app/api/commercial/fractional-advisor/checkout/route.ts")), "Fractional checkout must remain");
