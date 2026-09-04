@@ -341,7 +341,7 @@ export function DeveloperSecurityReleaseNotice() {
                   textOverflow: 'ellipsis',
                 }}
               >
-                AI Advisor & AI Systems Architect
+                Enterprise AI Advisor & AI Systems Architect
               </div>
             </div>
           </div>

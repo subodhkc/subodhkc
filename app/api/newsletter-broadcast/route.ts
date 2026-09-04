@@ -164,7 +164,7 @@ function generateNewsletterHtml(posts: any[], siteUrl: string): string {
       </div>
     </div>
     <div style="text-align: center; padding: 30px 20px; color: #9ca3af; font-size: 12px;">
-      <p style="margin: 0 0 10px;"><strong style="color: #6b7280;">Subodh KC</strong><br>AI Systems Architect & Governance Expert<br>Dallas, Texas, USA</p>
+      <p style="margin: 0 0 10px;"><strong style="color: #6b7280;">Subodh KC</strong><br>Enterprise AI Advisor & AI Systems Architect<br>Dallas, Texas, USA</p>
       <p style="margin: 10px 0;"><a href="${siteUrl}" style="color: #10B981; text-decoration: none;">subodhkc.com</a> | <a href="https://linkedin.com/in/subodhkc" style="color: #10B981; text-decoration: none;">LinkedIn</a></p>
       <p style="margin: 15px 0 0; color: #d1d5db; font-size: 11px;">You're receiving this because you subscribed to AI Insights at subodhkc.com<br><a href="${siteUrl}/unsubscribe" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a> | <a href="${siteUrl}/privacy" style="color: #9ca3af; text-decoration: underline;">Privacy Policy</a></p>
     </div>

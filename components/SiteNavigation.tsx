@@ -11,11 +11,11 @@ import { SearchDialog } from "./SearchDialog";
 import type { SearchEntry } from "@/lib/search-index";
 
 const servicesLinks = [
-  { name: "Fractional AI Advisor", href: "/advisory", desc: "Executive AI advisory, $1,250/month" },
-  { name: "AI Systems Architecture & Implementation", href: "/services", desc: "Architecture, integrations, production design" },
-  { name: "AI Security / Governance", href: "/ai-security-compliance", desc: "AI risk, controls, documentation" },
-  { name: "AI Voice / Workflow Systems", href: "/ai-voice-agent", desc: "Voice AI and workflow operations" },
-  { name: "View All Services", href: "/services", desc: "All services and offerings" },
+  { name: "Strategic Diagnostics", href: "/diagnostics", desc: "Expose hidden opportunity, constraints, and decision conflict" },
+  { name: "Executive AI Advisory", href: "/advisory", desc: "Independent judgment for consequential decisions" },
+  { name: "AI Systems Architecture", href: "/services", desc: "Architecture, integrations, controls, and production" },
+  { name: "HAIEC Assurance", href: "/solutions/haiec", desc: "Evidence-bound assurance for consequential AI" },
+  { name: "AI Advisor for Business", href: "/ai-advisor", desc: "Signal, context, systems, and human judgment" },
 ];
 
 const workLinks = [
@@ -206,7 +206,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 }}
                 className="nav-registry-label"
               >
-                AI Advisor
+                Enterprise AI Advisor
               </span>
             </span>
           </Link>
@@ -224,7 +224,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
             }}
           >
             <Link
-              href="/ai-advisor"
+              href="/diagnostics"
               onClick={() => setOpen(null)}
               style={{
                 color: "var(--op-muted)",
@@ -233,7 +233,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 fontFamily: "inherit",
               }}
             >
-              AI Advisor
+              Diagnostics
             </Link>
 
             <div style={{ position: "relative" }}>
@@ -253,7 +253,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                   color: open === "services" ? "var(--fg)" : "var(--op-muted)",
                 }}
               >
-                Services
+                Engage
                 <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ transform: open === "services" ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
                   <path d="M2 4 L5 7 L8 4" />
                 </svg>
@@ -420,7 +420,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
             </button>
 
             <Link
-              href="/contact?subject=discuss-ai"
+              href="/contact?subject=executive-decision"
               className="nav-cta"
               style={{
                 display: "inline-flex",
@@ -436,7 +436,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 transition: "opacity .12s",
               }}
             >
-              Discuss AI
+              Discuss a Decision
             </Link>
 
             {/* Mobile hamburger */}
@@ -514,7 +514,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               <Link href="/" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", color: "var(--fg)" }}>
                 <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
                   <span style={{ fontWeight: 600, fontSize: 14 }}>Subodh Kc</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 9.5, color: "var(--op-muted)", letterSpacing: "0.04em", marginTop: 1 }}>AI Advisor</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 9.5, color: "var(--op-muted)", letterSpacing: "0.04em", marginTop: 1 }}>Enterprise AI Advisor</span>
                 </span>
               </Link>
               <button
@@ -554,10 +554,10 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
               Search articles, tools, guides...
             </button>
 
-            {/* AI Advisor link */}
+            {/* Primary diagnostic link */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 20 }}>
               <Link
-                href="/ai-advisor"
+                href="/diagnostics"
                 onClick={() => setMobileOpen(false)}
                 style={{
                   fontFamily: "var(--font-mono)",
@@ -572,13 +572,13 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--card-hover)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
-                AI Advisor
+                Strategic Diagnostics
               </Link>
             </div>
 
-            {/* Services section */}
+            {/* Engagements section */}
             <div style={{ borderTop: "1px solid var(--op-border)", paddingTop: 16, marginBottom: 20 }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>Services</div>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--op-muted)", marginBottom: 6, padding: "0 12px" }}>Engage</div>
               {servicesLinks.map((l) => (
                 <Link
                   key={l.href}
@@ -682,7 +682,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
 
             <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid var(--op-border)", position: "sticky", bottom: 0, background: "var(--op-card)" }}>
             <Link
-              href="/contact?subject=discuss-ai"
+              href="/contact?subject=executive-decision"
               onClick={() => setMobileOpen(false)}
               style={{
                 display: "block",
@@ -698,7 +698,7 @@ export function SiteNavigation({ searchEntries }: { searchEntries: SearchEntry[]
                 marginBottom: 10,
               }}
             >
-              Discuss AI
+              Discuss a Decision
             </Link>
             {authChecked && user ? (
               <Link

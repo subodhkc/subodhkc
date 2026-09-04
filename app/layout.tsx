@@ -22,11 +22,11 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: 'AI Advisor & AI Systems Architect | Subodh KC',
+    default: 'Enterprise AI Advisor & AI Systems Architect | Subodh KC',
     template: '%s | Subodh KC',
   },
   description:
-    'AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.',
+    'Enterprise AI advisor and systems architect helping leaders expose hidden constraints, resolve consequential AI decisions, and move qualified systems into production.',
   keywords: [
     'AI Advisor',
     'AI Systems Architect',
@@ -65,24 +65,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://subodhkc.com',
-    siteName: 'Subodh KC | AI Advisor & AI Systems Architect',
-    title: 'AI Advisor & AI Systems Architect | Subodh KC',
+    siteName: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
+    title: 'Enterprise AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.',
+      'Turn consequential AI decisions into defensible operating choices through diagnostics, advisory, architecture, and evidence-bound assurance.',
     images: [
       {
         url: '/portrait.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Subodh KC | AI Advisor & AI Systems Architect',
+        alt: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Advisor & AI Systems Architect | Subodh KC',
+    title: 'Enterprise AI Advisor & AI Systems Architect | Subodh KC',
     description:
-      'AI advisor and systems architect. From possibility to decision. From decision to production.',
+      'Diagnostics, executive AI advisory, systems architecture, and evidence-bound assurance for consequential AI decisions.',
     creator: '@subodhkc',
     images: ['/portrait.jpeg'],
   },
@@ -141,7 +141,7 @@ export default async function RootLayout({
           <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GSC_VERIFICATION} />
         )}
         <meta name="person" content="Subodh KC" />
-        <meta name="person-type" content="AI Advisor & AI Systems Architect" />
+        <meta name="person-type" content="Enterprise AI Advisor & AI Systems Architect" />
         <meta name="profile:first_name" content="Subodh" />
         <meta name="profile:last_name" content="KC" />
         <meta name="profile:username" content="subodhkc" />

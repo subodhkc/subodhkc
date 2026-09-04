@@ -383,7 +383,7 @@ isaf.export("compliance_report.json")`}</code></pre>
           <Link href="/solutions/haiec" className="underline hover:text-foreground font-medium">
             HAIEC
           </Link>
-          {' - Holistic AI Ethics & Compliance'}
+          {' - High Assurance In Every Consequence'}
         </p>
       </div>
     </>

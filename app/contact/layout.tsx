@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contact Subodh KC | AI Advisor & AI Systems Architect',
+  title: 'Contact Subodh KC | Enterprise AI Advisor & AI Systems Architect',
   description:
-    'Contact Subodh KC for AI advisory, architecture, deployment, governance, or local business AI reviews. Text, email, or schedule a consultation. Response within 24-48 hours.',
+    'Contact Subodh KC about a consequential AI decision, strategic diagnostic, executive advisory engagement, systems architecture, or assurance POC.',
   keywords: [
     'contact Subodh KC',
     'AI advisor',
@@ -19,16 +19,16 @@ export const metadata: Metadata = {
     canonical: 'https://subodhkc.com/contact',
   },
   openGraph: {
-    title: 'Contact Subodh KC | AI Advisor & AI Systems Architect',
+    title: 'Contact Subodh KC | Enterprise AI Advisor & AI Systems Architect',
     description:
-      'Get in touch about AI advisory, architecture, deployment, governance, or local business AI reviews. Text, email, or schedule a consultation.',
+      'Start with the decision, consequence, unresolved boundary, and timing. Then define the right engagement.',
     url: 'https://subodhkc.com/contact',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Contact Subodh KC | AI Advisor',
-    description: 'AI advisory, architecture, deployment, governance consulting. Response within 24-48 hours.',
+    description: 'Decision-led intake for diagnostics, executive AI advisory, systems architecture, and evidence-bound assurance.',
   },
 }
 

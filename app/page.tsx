@@ -10,9 +10,9 @@ import { AboutSection } from "@/components/home/AboutSection";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const metadata = {
-  title: "AI Advisor & AI Systems Architect | Subodh KC",
+  title: "Enterprise AI Advisor & AI Systems Architect | Subodh KC",
   description:
-    "AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.",
+    "Enterprise AI advisor and systems architect helping leaders expose hidden constraints, resolve consequential AI decisions, and move qualified systems into production.",
   keywords: [
     "Subodh KC",
     "AI advisor",
@@ -33,9 +33,9 @@ export const metadata = {
     canonical: "https://subodhkc.com",
   },
   openGraph: {
-    title: "AI Advisor & AI Systems Architect | Subodh KC",
+    title: "Enterprise AI Advisor & AI Systems Architect | Subodh KC",
     description:
-      "AI advisor and systems architect helping leaders identify worthwhile AI opportunities, make evidence-backed decisions, and move the right systems from architecture into production.",
+      "Turn consequential AI decisions into defensible operating choices through diagnostics, advisory, architecture, and evidence-bound assurance.",
     url: "https://subodhkc.com",
     type: "website",
     images: [
@@ -43,15 +43,15 @@ export const metadata = {
         url: "https://subodhkc.com/portrait.jpeg",
         width: 1200,
         height: 630,
-        alt: "Subodh KC - AI Advisor & AI Systems Architect",
+        alt: "Subodh KC - Enterprise AI Advisor & AI Systems Architect",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Advisor & AI Systems Architect | Subodh KC",
+    title: "Enterprise AI Advisor & AI Systems Architect | Subodh KC",
     description:
-      "AI advisor and systems architect. From possibility to decision. From decision to production.",
+      "Diagnostics, executive AI advisory, systems architecture, and evidence-bound assurance for consequential AI decisions.",
     images: ["https://subodhkc.com/portrait.jpeg"],
   },
 };

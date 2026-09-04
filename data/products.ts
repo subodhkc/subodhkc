@@ -50,7 +50,7 @@ export const PRODUCTS: Product[] = [
     id: "haiec",
     name: "HAIEC",
     tagline:
-      "Holistic AI Ethics & Compliance. Deterministic governance engine for EU AI Act, NIST AI RMF, ISO 42001, NYC LL144.",
+      "High Assurance In Every Consequence. Evidence-bound assurance for consequential AI systems, actions, authority, and decisions.",
     kind: "platform",
     status: "live",
     glyph: "shield",

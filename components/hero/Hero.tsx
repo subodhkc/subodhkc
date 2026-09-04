@@ -10,11 +10,11 @@ export function Hero() {
       {/* SEO fallback: server-rendered text for crawlers */}
       <noscript>
         <div style={{ padding: "56px 28px", maxWidth: 1240, margin: "0 auto" }}>
-          <h1>Subodh KC - AI Advisor & AI Systems Architect</h1>
-          <p>From possibility to decision. From decision to production.</p>
+          <h1>Subodh KC - Enterprise AI Advisor & AI Systems Architect</h1>
+          <p>Turn consequential AI decisions into defensible operating choices.</p>
           <p>
-            I help leaders find AI opportunities worth pursuing, pressure-test important decisions
-            before they become expensive, and architect systems that can actually operate.
+            I expose hidden constraints and opportunities, pressure-test material investments, and
+            translate qualified decisions into systems, controls, and evidence an organization can operate.
             Former Fortune 50 Core Team Lead. Founder of HAIEC and KestrelVoice. Dallas-based.
           </p>
           <ul>
@@ -24,7 +24,7 @@ export function Hero() {
             <li>12K+ npm + PyPI installs across public open-source packages</li>
           </ul>
           <p>
-            <a href="/ai-advisor">Explore AI Advisor</a> | <a href="/portfolio">See Selected Work</a> | <a href="/contact?subject=discuss-ai">Discuss an AI Decision</a>
+            <a href="/diagnostics">Start a Diagnostic</a> | <a href="/portfolio">Inspect Selected Work</a> | <a href="/contact?subject=executive-decision">Discuss an Executive Decision</a>
           </p>
         </div>
       </noscript>
