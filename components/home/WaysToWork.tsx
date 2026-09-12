@@ -70,7 +70,8 @@ export function WaysToWork() {
         ))}
       </div>
       <p style={{ marginTop: 20, fontSize: 12.5, color: "var(--op-muted)", lineHeight: 1.55 }}>
-        Productized offers for eligible nonprofit organizations and active HEB Chamber of Commerce members are available through the private member route.
+        Productized offers for eligible nonprofit organizations and active HEB Chamber of Commerce members are available through the{" "}
+        <Link href="/heb-chamber" style={{ color: "var(--fg)", textDecoration: "none", borderBottom: "1px solid var(--op-border)" }}>private member route</Link>.
       </p>
       <style>{`@media (max-width: 760px) { .ways-grid { grid-template-columns: 1fr !important; } .ways-grid article { border-right: none !important; border-bottom: 1px solid var(--op-border) !important; } .ways-grid article:last-child { border-bottom: none !important; } }`}</style>
     </section>

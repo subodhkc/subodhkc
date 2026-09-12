@@ -16,6 +16,7 @@ const servicesLinks = [
   { name: "AI Systems Architecture", href: "/services", desc: "Architecture, integrations, controls, and production" },
   { name: "HAIEC Assurance", href: "/solutions/haiec", desc: "Evidence-bound assurance for consequential AI" },
   { name: "AI Advisor for Business", href: "/ai-advisor", desc: "Signal, context, systems, and human judgment" },
+  { name: "Member Access", href: "/heb-chamber", desc: "Nonprofit & HEB Chamber member offers" },
 ];
 
 const workLinks = [

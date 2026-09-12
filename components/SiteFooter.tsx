@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { SafeEmail } from "./SafeEmail";
 
 function Arrow({ kind = "right" }: { kind?: "right" | "ext" }) {
@@ -334,7 +335,7 @@ export function SiteFooter() {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: 8,
+            gap: 12,
             padding: "8px 16px",
             border: "1px solid var(--op-border)",
             borderRadius: 8,
@@ -345,6 +346,13 @@ export function SiteFooter() {
             fontFamily: "var(--font-sans)",
           }}
         >
+          <Image
+            src="/Proud-Member.png"
+            alt="Proud Member - Hurst Euless Bedford Chamber of Commerce"
+            width={80}
+            height={50}
+            style={{ width: "auto", height: 40, borderRadius: 4, background: "#fff" }}
+          />
           Nonprofit & HEB Chamber Member Access
         </a>
       </div>
