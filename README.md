@@ -18,7 +18,7 @@
 
 ## 🚀 About Me
 
-Former **AI Strategy CTL at a Fortune 50 company** and founder of **HAIEC (Human AI Evidence Company)**. I architect governance frameworks that turn regulatory requirements into competitive advantages. M.Sc. in Engineering & Technology Management from Louisiana Tech. Sixteen years into, full-stack product engineering experience building systems that scale.
+Former **AI Strategy CTL at a Fortune 100 company** and founder of **HAIEC (Human AI Evidence Company)**. I architect governance frameworks that turn regulatory requirements into competitive advantages. M.Sc. in Engineering & Technology Management from Louisiana Tech. Sixteen years into, full-stack product engineering experience building systems that scale.
 
 **What I Do:**
 - 🛡️ Architect AI governance frameworks that enable innovation at scale
