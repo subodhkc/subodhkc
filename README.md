@@ -10,7 +10,7 @@
 [![Website](https://img.shields.io/badge/🌐_Website-subodhkc.com-2563EB?style=for-the-badge)](https://subodhkc.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-subodhkc-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/subodhkc)
 [![Medium](https://img.shields.io/badge/Medium-@subodhkc-000000?style=for-the-badge&logo=medium)](https://medium.com/@subodhkc)
-[![Email](https://img.shields.io/badge/Email-Subodh.kc@haiec.com-EA4335?style=for-the-badge&logo=gmail)](mailto:Subodh.kc@haiec.com)
+[![Email](https://img.shields.io/badge/Email-Subodh.kc@haiec.com-EA4335?style=for-the-badge&logo=gmail)](mailto:Subodhkc@subodhkc.com)
 
 </div>
 
