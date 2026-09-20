@@ -203,8 +203,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         style={{
           fontFamily: 'var(--font-mono)',
           fontSize: 11,
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
           color: 'var(--text-secondary)',
-          marginBottom: 16,
+          marginBottom: 20,
           display: 'flex',
           gap: 12,
           alignItems: 'center',
@@ -232,18 +234,34 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <h1
         style={{
-          fontSize: 'clamp(26px, 3.5vw, 40px)',
-          fontWeight: 500,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.15,
-          margin: '0 0 16px',
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(34px, 5vw, 52px)',
+          fontWeight: 400,
+          letterSpacing: '-0.015em',
+          lineHeight: 1.08,
+          margin: '0 0 20px',
           color: 'var(--fg)',
         }}
       >
         {post.title}
       </h1>
 
-      <div style={{ marginBottom: 24 }}>
+      {(post.excerpt || post.metaDescription) && (
+        <p
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'clamp(18px, 2.2vw, 21px)',
+            fontStyle: 'italic',
+            lineHeight: 1.55,
+            color: 'var(--text-secondary)',
+            margin: '0 0 28px',
+          }}
+        >
+          {post.excerpt || post.metaDescription}
+        </p>
+      )}
+
+      <div style={{ marginBottom: 28 }}>
         <ShareButtons title={post.title} slug={post.slug} />
       </div>
 
@@ -252,9 +270,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           style={{
             width: '100%',
             aspectRatio: '16 / 9',
-            borderRadius: 8,
+            borderRadius: 10,
             overflow: 'hidden',
-            marginBottom: 40,
+            marginBottom: 48,
             border: '1px solid var(--op-border)',
           }}
         >
@@ -401,70 +419,100 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <style>{`
         .blog-content {
           color: var(--fg);
-          font-size: 16px;
-          line-height: 1.75;
+          font-size: 17px;
+          line-height: 1.8;
         }
         .blog-content h1 {
-          font-size: 28px;
-          font-weight: 500;
-          letter-spacing: -0.02em;
-          margin: 40px 0 16px;
+          font-family: var(--font-serif);
+          font-size: 36px;
+          font-weight: 400;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          margin: 56px 0 20px;
           color: var(--fg);
         }
         .blog-content h2 {
-          font-size: 22px;
-          font-weight: 500;
+          font-family: var(--font-serif);
+          font-size: 30px;
+          font-weight: 400;
           letter-spacing: -0.01em;
-          margin: 36px 0 14px;
+          line-height: 1.2;
+          margin: 52px 0 16px;
           color: var(--fg);
         }
         .blog-content h3 {
-          font-size: 18px;
-          font-weight: 500;
-          margin: 28px 0 12px;
+          font-size: 19px;
+          font-weight: 600;
+          letter-spacing: -0.005em;
+          margin: 36px 0 12px;
+          color: var(--fg);
+        }
+        .blog-content h4 {
+          font-size: 16px;
+          font-weight: 600;
+          margin: 28px 0 10px;
           color: var(--fg);
         }
         .blog-content p {
-          margin: 0 0 18px;
+          margin: 0 0 20px;
           color: var(--fg);
         }
         .blog-content ul, .blog-content ol {
-          margin: 0 0 18px;
-          padding-left: 24px;
+          margin: 0 0 20px;
+          padding-left: 26px;
         }
         .blog-content li {
-          margin-bottom: 8px;
+          margin-bottom: 10px;
           color: var(--fg);
+        }
+        .blog-content li::marker {
+          color: var(--op-accent);
         }
         .blog-content a {
           color: var(--op-accent);
           text-decoration: underline;
-          text-underline-offset: 2px;
+          text-decoration-thickness: 1px;
+          text-underline-offset: 3px;
+          transition: opacity 120ms ease;
+        }
+        .blog-content a:hover {
+          opacity: 0.75;
+        }
+        .blog-content strong {
+          font-weight: 600;
         }
         .blog-content blockquote {
-          margin: 24px 0;
-          padding: 16px 20px;
+          margin: 32px 0;
+          padding: 20px 24px;
           border-left: 3px solid var(--op-accent);
           background: var(--op-card);
-          border-radius: 0 6px 6px 0;
+          border-radius: 0 8px 8px 0;
           color: var(--text-secondary);
+          font-family: var(--font-serif);
+          font-size: 19px;
           font-style: italic;
+          line-height: 1.6;
+        }
+        .blog-content blockquote p:last-child {
+          margin-bottom: 0;
         }
         .blog-content code {
           font-family: var(--font-mono);
-          font-size: 14px;
+          font-size: 0.85em;
           background: var(--op-card);
-          padding: 2px 6px;
+          padding: 2px 7px;
           border-radius: 4px;
           border: 1px solid var(--op-border);
         }
         .blog-content pre {
-          margin: 24px 0;
-          padding: 20px;
+          margin: 28px 0;
+          padding: 22px 24px;
           background: var(--op-card);
-          border-radius: 8px;
+          border-radius: 10px;
           border: 1px solid var(--op-border);
           overflow-x: auto;
+          font-size: 14px;
+          line-height: 1.6;
         }
         .blog-content pre code {
           background: none;
@@ -477,37 +525,49 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         .blog-content img {
           max-width: 100%;
           height: auto;
-          border-radius: 8px;
-          margin: 24px 0;
+          border-radius: 10px;
+          border: 1px solid var(--op-border);
+          margin: 28px 0;
         }
         .blog-content table {
           width: 100%;
           border-collapse: collapse;
-          margin: 24px 0;
+          margin: 28px 0;
+          font-size: 15px;
         }
         .blog-content th, .blog-content td {
-          padding: 10px 14px;
+          padding: 12px 16px;
           border: 1px solid var(--op-border);
           text-align: left;
+          vertical-align: top;
         }
         .blog-content th {
           background: var(--op-card);
+          font-family: var(--font-mono);
+          font-size: 11px;
           font-weight: 500;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--text-secondary);
         }
         .blog-content hr {
           border: none;
           border-top: 1px solid var(--op-border);
-          margin: 32px 0;
+          margin: 48px 0;
         }
         @media (max-width: 768px) {
           .blog-content {
-            font-size: 15px;
+            font-size: 16px;
           }
           .blog-content h1 {
-            font-size: 24px;
+            font-size: 28px;
           }
           .blog-content h2 {
-            font-size: 20px;
+            font-size: 24px;
+            margin-top: 40px;
+          }
+          .blog-content blockquote {
+            font-size: 17px;
           }
         }
       `}</style>
