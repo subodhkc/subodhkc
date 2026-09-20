@@ -1,0 +1,23 @@
+{
+  "description": "Priority order for Dev.to cross-posting. The weekly workflow publishes the first slug in this queue that is not yet in devto-posted.json. Slugs not listed here fall back to oldest createdAt first, unless listed in exclude.",
+  "queue": [
+    "claude-code-mcp-failed-to-connect-stdio-enoent-timeout",
+    "fix-vllm-cuda-out-of-memory-kv-cache-docker",
+    "fastapi-websocket-1006-llm-streaming-disconnect",
+    "what-is-llms-txt",
+    "texas-hb-149-eu-ai-act-engineering-compliance-playbook",
+    "modal-fastapi-postgres-ai-voice-pipeline-architecture",
+    "hidden-seo-risk-ai-assisted-frontend-development",
+    "12-production-readiness-checks-for-ai-pilots",
+    "where-should-company-use-ai"
+  ],
+  "exclude": [
+    "build-a-logging-pipeline-for-eu-ai-act-compliance",
+    "implementing-immutable-audit-trails-for-soc-2-ai-compliance",
+    "recover-a-stalled-ai-pilot-in-30-days",
+    "ai-coding-agents-production-debugging-devin",
+    "hipaa-compliant-ai",
+    "legal-document-automation"
+  ],
+  "excludeNote": "Tier-3 posts are thin/generic — excluded from auto-cross-post. The three corrupt JSON files are excluded until repaired; hipaa-compliant-ai and legal-document-automation are already on Dev.to via tracker anyway."
+}

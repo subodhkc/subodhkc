@@ -1,9 +1,11 @@
 name: Daily Outreach Brief
 
 on:
-  schedule:
-    # 11:00 AM UTC-5 (4:00 PM UTC) daily - runs after daily-article workflow completes
-    - cron: '0 16 * * *'
+  # DISABLED - failing daily on Supabase 401 (stale SUPABASE_SERVICE_ROLE_KEY secret).
+  # Re-enable after rotating the secret.
+  # schedule:
+  #   # 11:00 AM UTC-5 (4:00 PM UTC) daily - runs after daily-article workflow completes
+  #   - cron: '0 16 * * *'
   workflow_dispatch:
 
 permissions:

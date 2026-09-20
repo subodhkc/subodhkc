@@ -1,11 +1,13 @@
 name: AI Article Generation
 
 on:
-  schedule:
-    # Weekly: every Monday at 14:00 UTC (09:00 CST)
-    # NOTE: Scheduled runs now default to --review-only (draft/manual approval mode)
-    # To auto-publish, manually dispatch with review_only=false
-    - cron: "0 14 * * 1"
+  # DISABLED - failing weekly: corrupt JSON in data/blog/posts/ kills generate-article.
+  # Re-enable after the corrupt post files are repaired.
+  # schedule:
+  #   # Weekly: every Monday at 14:00 UTC (09:00 CST)
+  #   # NOTE: Scheduled runs now default to --review-only (draft/manual approval mode)
+  #   # To auto-publish, manually dispatch with review_only=false
+  #   - cron: "0 14 * * 1"
   workflow_dispatch:
     inputs:
       topic:

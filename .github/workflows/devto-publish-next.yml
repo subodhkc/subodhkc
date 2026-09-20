@@ -1,9 +1,10 @@
-name: Dev.to Publish Next Draft
+name: Dev.to Weekly Cross-Post
 
 on:
   schedule:
-    # Run daily at 11:00 AM UTC (6:00 AM EST)
-    - cron: '0 11 * * *'
+    # Weekly: Tuesdays at 15:00 UTC (10:00 CST) - best dev.to engagement day
+    # Publishes exactly ONE new article per week (oldest unposted first).
+    - cron: '0 15 * * 2'
   workflow_dispatch:
 
 concurrency:
@@ -25,10 +26,46 @@ jobs:
         with:
           node-version: 20
 
-      - name: Publish next Dev.to draft
+      - name: Publish next unposted article to Dev.to
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
-        run: node scripts/cross-post-devto.mjs --publish-next
+        run: |
+          if [ -z "$DEVTO_API_KEY" ]; then
+            echo "::warning::DEVTO_API_KEY not set - skipping Dev.to cross-post"
+            exit 0
+          fi
+
+          # Pick the next post from the SEO-priority queue (data/blog/devto-queue.json)
+          # that is not yet in the tracker. Unlisted posts fall back to oldest createdAt.
+          SLUG=$(node -e "
+            const fs=require('fs');
+            const tracker=JSON.parse(fs.readFileSync('data/blog/devto-posted.json','utf-8'));
+            const valid=(s)=>{
+              try { JSON.parse(fs.readFileSync('data/blog/posts/'+s+'.json','utf-8')); return true; }
+              catch { return false; }
+            };
+            let queue=[], exclude=[];
+            try {
+              const q=JSON.parse(fs.readFileSync('data/blog/devto-queue.json','utf-8'));
+              queue=q.queue||[]; exclude=q.exclude||[];
+            } catch {}
+            const next=queue.find(s=>!tracker[s] && valid(s));
+            if (next) { console.log(next); process.exit(0); }
+            const posts=fs.readdirSync('data/blog/posts').filter(f=>f.endsWith('.json'))
+              .map(f=>f.replace('.json',''))
+              .filter(s=>!tracker[s] && !exclude.includes(s) && valid(s))
+              .map(s=>({s, d:JSON.parse(fs.readFileSync('data/blog/posts/'+s+'.json','utf-8')).createdAt||''}))
+              .sort((a,b)=>a.d.localeCompare(b.d));
+            if (posts[0]) console.log(posts[0].s);
+          ")
+
+          if [ -z "$SLUG" ]; then
+            echo "No new articles to cross-post."
+            exit 0
+          fi
+
+          echo "Cross-posting: $SLUG"
+          node scripts/cross-post-devto.mjs --slug="$SLUG" --publish
 
       - name: Commit updated tracker
         run: |

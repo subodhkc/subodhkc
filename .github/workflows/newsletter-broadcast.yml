@@ -1,8 +1,10 @@
 name: Weekly Newsletter Broadcast
 
 on:
-  schedule:
-    - cron: '0 10 * * 1'  # Every Monday at 10:00 UTC (5:00 AM CST)
+  # DISABLED - false-green: exits 0 with "No blog posts found" since 2026-08-17
+  # (corrupt post JSON makes getLatestPosts() return []). Re-enable after repair.
+  # schedule:
+  #   - cron: '0 10 * * 1'  # Every Monday at 10:00 UTC (5:00 AM CST)
   workflow_dispatch:
 
 jobs:
