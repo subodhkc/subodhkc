@@ -1,10 +1,10 @@
-name: Dev.to Weekly Cross-Post
+name: Dev.to Cross-Post
 
 on:
   schedule:
-    # Weekly: Tuesdays at 15:00 UTC (10:00 CST) - best dev.to engagement day
-    # Publishes exactly ONE new article per week (oldest unposted first).
-    - cron: '0 15 * * 2'
+    # Twice weekly: Tuesdays and Thursdays at 15:00 UTC (10:00 CST)
+    # Publishes exactly ONE queued article per run until the backlog clears.
+    - cron: '0 15 * * 2,4'
   workflow_dispatch:
 
 concurrency:

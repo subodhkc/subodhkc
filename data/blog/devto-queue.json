@@ -9,15 +9,15 @@
     "modal-fastapi-postgres-ai-voice-pipeline-architecture",
     "hidden-seo-risk-ai-assisted-frontend-development",
     "12-production-readiness-checks-for-ai-pilots",
-    "where-should-company-use-ai"
-  ],
-  "exclude": [
+    "where-should-company-use-ai",
     "build-a-logging-pipeline-for-eu-ai-act-compliance",
     "implementing-immutable-audit-trails-for-soc-2-ai-compliance",
-    "recover-a-stalled-ai-pilot-in-30-days",
+    "recover-a-stalled-ai-pilot-in-30-days"
+  ],
+  "exclude": [
     "ai-coding-agents-production-debugging-devin",
     "hipaa-compliant-ai",
     "legal-document-automation"
   ],
-  "excludeNote": "Tier-3 posts are thin/generic — excluded from auto-cross-post. The three corrupt JSON files are excluded until repaired; hipaa-compliant-ai and legal-document-automation are already on Dev.to via tracker anyway."
+  "excludeNote": "Corrupt JSON files — excluded until repaired. hipaa-compliant-ai and legal-document-automation are already on Dev.to via tracker."
 }

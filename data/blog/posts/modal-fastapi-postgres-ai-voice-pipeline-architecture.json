@@ -157,5 +157,6 @@
   "excerpt": "A production architecture for AI voice agents using Modal, FastAPI and Postgres: multi-tenant routing, three-layer pipeline, latency budgets, graceful degradation, and failure handling.",
   "author": "Subodh KC",
   "type": "authority",
-  "pillar": "ai-operations-and-deployment"
+  "pillar": "ai-operations-and-deployment",
+  "heroImageUrl": "/og/modal-fastapi-postgres-ai-voice-pipeline-architecture.svg"
 }
