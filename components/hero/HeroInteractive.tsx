@@ -260,7 +260,7 @@ export function HeroInteractive() {
         </div>
 
         <div style={{ marginTop: 14, fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--op-muted)", letterSpacing: "0.04em" }}>
-          Former Fortune 50 Core Team Lead · Founder of HAIEC + KestrelVoice · Dallas-Fort Worth
+          Former Fortune 100 Core Team Lead · Founder of HAIEC + KestrelVoice · Dallas-Fort Worth
         </div>
       </div>
 

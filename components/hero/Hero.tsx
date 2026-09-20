@@ -15,7 +15,7 @@ export function Hero() {
           <p>
             I expose hidden constraints and opportunities, pressure-test material investments, and
             translate qualified decisions into systems, controls, and evidence an organization can operate.
-            Former Fortune 50 Core Team Lead. Founder of HAIEC and KestrelVoice. Dallas-based.
+            Former Fortune 100 Core Team Lead. Founder of HAIEC and KestrelVoice. Dallas-based.
           </p>
           <ul>
             <li>16+ years across software, infrastructure, program delivery and AI systems</li>

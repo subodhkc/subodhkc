@@ -16,7 +16,7 @@ export const metadata = {
     'AI advisor HEB',
     'AI advisor Dallas Fort Worth',
     'AI systems architect enterprise',
-    'AI program management Fortune 50',
+    'AI program management Fortune 100',
     'HP Inc AI program manager',
     'HAIEC founder',
     'Kestrel Voice founder',
@@ -172,7 +172,7 @@ const personSchema = {
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2022',
       endDate: '2025',
-      description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 50 scale.',
+      description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 100 scale.',
     },
     {
       '@type': 'Occupation',
@@ -490,7 +490,7 @@ export default function AboutPage() {
             He started in technology fixing computers in underfunded schools. That work taught him something he carries into every program he leads today: technology succeeds only when it works inside the institution that depends on it. A broken system in a classroom is not an abstract problem. It affects real people trying to do their jobs.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            That principle scaled from school districts to manufacturing floors to Fortune 50 engineering organizations. The systems got larger. The stakes got higher. The core question stayed the same: does this actually work for the people who depend on it?
+            That principle scaled from school districts to manufacturing floors to Fortune 100 engineering organizations. The systems got larger. The stakes got higher. The core question stayed the same: does this actually work for the people who depend on it?
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
             AI adds a new dimension to that question. When a system can make decisions that affect people's lives, the obligation to govern it properly is not optional. Hidden bias, silent drift, and ungoverned automated decisions are not theoretical risks. They are operational failures waiting for the right conditions.

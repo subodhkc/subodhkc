@@ -192,7 +192,7 @@ export default function WritingPage() {
       <Section
         subtitle="Recent Articles"
         title="Published Insights"
-        description="Writing that bridges the gap between AI theory and production reality. Based on years of building compliant systems at Fortune 50 scale."
+        description="Writing that bridges the gap between AI theory and production reality. Based on years of building compliant systems at Fortune 100 scale."
       >
         <div className="blog-notes-board">
           {articles.map((article, index) => {

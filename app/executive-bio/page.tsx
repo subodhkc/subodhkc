@@ -21,7 +21,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Executive Bio | Subodh KC - Enterprise AI Advisor & AI Systems Architect',
-  description: 'Subodh KC is an AI advisor and AI systems architect with 16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+  description: 'Subodh KC is an AI advisor and AI systems architect with 16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 100).',
   keywords: [
     'Subodh KC',
     'Subodh KC AI advisor',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     'AI advisor HEB',
     'AI advisor Dallas Fort Worth',
     'AI systems architect enterprise',
-    'AI program management Fortune 50',
+    'AI program management Fortune 100',
     'AI governance program manager',
     'patent-pending AI compliance frameworks',
     'AI drift detection frameworks',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Executive Bio | Subodh KC - Enterprise AI Advisor & AI Systems Architect',
-    description: '16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 50).',
+    description: '16+ years across software, infrastructure, program delivery, manufacturing reliability, and applied AI systems. patent-pending AI assurance frameworks. Former Sr. Program Manager at HP Inc. (Fortune 100).',
     url: 'https://subodhkc.com/executive-bio',
     type: 'profile',
     images: [
@@ -183,7 +183,7 @@ const personSchema = {
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2022',
       endDate: '2025',
-      description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 50 scale.',
+      description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 100 scale.',
     },
     {
       '@type': 'Occupation',
@@ -327,7 +327,7 @@ export default function ExecutiveBioPage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-6">Short Bio</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Subodh KC is an AI advisor and AI systems architect based in Dallas-Fort Worth, TX. Over 16+ years he has led enterprise technology programs, production AI systems, manufacturing reliability, and technology commercialization. He advises leaders on AI opportunity, decisions, and architecture while building tools that make AI systems observable, testable, and defensible. His work spans HP Inc. (Fortune 50), founder-led AI products, and patent-pending assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt.
+            Subodh KC is an AI advisor and AI systems architect based in Dallas-Fort Worth, TX. Over 16+ years he has led enterprise technology programs, production AI systems, manufacturing reliability, and technology commercialization. He advises leaders on AI opportunity, decisions, and architecture while building tools that make AI systems observable, testable, and defensible. His work spans HP Inc. (Fortune 100), founder-led AI products, and patent-pending assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt.
           </p>
         </div>
       </Section>
@@ -344,7 +344,7 @@ export default function ExecutiveBioPage() {
               His career has been built from the operational level up. He has worked across public-sector technology, manufacturing systems, production reliability, small-business transformation, enterprise software, and artificial intelligence. That range gives him a practical understanding of transformation from both sides: what leadership expects from an investment and what engineering and operations must do to make it work.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              At HP Inc. (Fortune 50), Subodh led enterprise technology programs across a portfolio of 53 applications. He joined as Technical Program Manager in 2022, served as Core Team Lead for Platform Enabling Applications, and was promoted to Sr. Program Manager, AI Implementation & Governance in 2025. His work brought together product, engineering, quality, operations, vendors, risk functions, and senior leadership. His responsibilities included portfolio planning, program execution, dependency management, release readiness, risk management, stakeholder alignment, executive communication, and continuous improvement across large-scale technology environments.
+              At HP Inc. (Fortune 100), Subodh led enterprise technology programs across a portfolio of 53 applications. He joined as Technical Program Manager in 2022, served as Core Team Lead for Platform Enabling Applications, and was promoted to Sr. Program Manager, AI Implementation & Governance in 2025. His work brought together product, engineering, quality, operations, vendors, risk functions, and senior leadership. His responsibilities included portfolio planning, program execution, dependency management, release readiness, risk management, stakeholder alignment, executive communication, and continuous improvement across large-scale technology environments.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Earlier in his career, he worked in manufacturing technology and reliability engineering, including Manufacturing Execution System environments supporting more than 400 production stations. He has also worked with small and midsized businesses across Dallas-Fort Worth on technology implementation, business process improvement, automation, and program delivery. His experience at Louisiana Tech University's Office of Intellectual Property & Commercialization added exposure to invention assessment, intellectual property, market opportunity, and technology commercialization.
@@ -429,7 +429,7 @@ export default function ExecutiveBioPage() {
 
             <Card className="border-l-4 border-l-primary">
               <CardHeader>
-                <CardTitle className="text-xl">HP Inc. (Fortune 50) · Sr. Program Manager, AI Implementation & Governance</CardTitle>
+                <CardTitle className="text-xl">HP Inc. (Fortune 100) · Sr. Program Manager, AI Implementation & Governance</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground mb-2">2025 · 2026</CardDescription>
                 <CardDescription className="text-base">
                   Led strategic AI implementation across enterprise systems. Architected governance frameworks aligned to EU AI Act, NIST AI RMF, and ISO 42001. Coordinated across product, engineering, quality, operations, vendors, risk functions, and senior leadership.
@@ -439,7 +439,7 @@ export default function ExecutiveBioPage() {
 
             <Card className="border-l-4 border-l-primary">
               <CardHeader>
-                <CardTitle className="text-xl">HP Inc. (Fortune 50) · Core Team Lead, Platform Enabling Applications</CardTitle>
+                <CardTitle className="text-xl">HP Inc. (Fortune 100) · Core Team Lead, Platform Enabling Applications</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground mb-2">2023 · 2025</CardDescription>
                 <CardDescription className="text-base">
                   Led the core team for platform enabling applications. Coordinated delivery across product, engineering, quality, and operations for the education, manageability, and conferencing portfolios.
@@ -449,10 +449,10 @@ export default function ExecutiveBioPage() {
 
             <Card className="border-l-4 border-l-primary">
               <CardHeader>
-                <CardTitle className="text-xl">HP Inc. (Fortune 50) · Technical Program Manager</CardTitle>
+                <CardTitle className="text-xl">HP Inc. (Fortune 100) · Technical Program Manager</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground mb-2">2022 · 2025</CardDescription>
                 <CardDescription className="text-base">
-                  Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 50 scale. Managed dependency, release readiness, risk, and stakeholder alignment.
+                  Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 100 scale. Managed dependency, release readiness, risk, and stakeholder alignment.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -597,7 +597,7 @@ export default function ExecutiveBioPage() {
                 </div>
                 <CardTitle>Program & Portfolio Leadership</CardTitle>
                 <CardDescription className="text-base">
-                  Enterprise program and portfolio management across 53 applications. Dependency management, release readiness, stakeholder alignment, and continuous improvement at Fortune 50 scale.
+                  Enterprise program and portfolio management across 53 applications. Dependency management, release readiness, stakeholder alignment, and continuous improvement at Fortune 100 scale.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -717,7 +717,7 @@ export default function ExecutiveBioPage() {
                   Short reusable boilerplate
                 </p>
                 <p>
-                  Subodh KC is an Enterprise AI Advisor and AI Systems Architect based in Dallas-Fort Worth, TX. He has 16+ years across software, infrastructure, enterprise program leadership, manufacturing reliability, and applied AI systems. He is a former Sr. Program Manager at HP Inc. (Fortune 50), founder of HAIEC and KestrelVoice, and author of patent-pending AI assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt. He speaks on consequential AI decisions, production reliability, action assurance, program leadership, and the operating discipline required to move AI from possibility into production.
+                  Subodh KC is an Enterprise AI Advisor and AI Systems Architect based in Dallas-Fort Worth, TX. He has 16+ years across software, infrastructure, enterprise program leadership, manufacturing reliability, and applied AI systems. He is a former Sr. Program Manager at HP Inc. (Fortune 100), founder of HAIEC and KestrelVoice, and author of patent-pending AI assurance frameworks. He holds an M.S. in Engineering and Technology Management from Louisiana Tech University and is a Six Sigma Green Belt. He speaks on consequential AI decisions, production reliability, action assurance, program leadership, and the operating discipline required to move AI from possibility into production.
                 </p>
               </CardDescription>
             </CardHeader>

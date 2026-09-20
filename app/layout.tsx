@@ -71,9 +71,9 @@ export const metadata: Metadata = {
       'Turn consequential AI decisions into defensible operating choices through diagnostics, advisory, architecture, and evidence-bound assurance.',
     images: [
       {
-        url: '/portrait.jpeg',
-        width: 1200,
-        height: 630,
+        url: '/og-fallback-allowed-vs-actual.png',
+        width: 1024,
+        height: 576,
         alt: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
       },
     ],
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     description:
       'Diagnostics, executive AI advisory, systems architecture, and evidence-bound assurance for consequential AI decisions.',
     creator: '@subodhkc',
-    images: ['/portrait.jpeg'],
+    images: ['/og-fallback-allowed-vs-actual.png'],
   },
   robots: {
     index: true,

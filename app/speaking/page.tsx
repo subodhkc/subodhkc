@@ -116,7 +116,7 @@ export default function SpeakingPage() {
       icon: Mic,
       title: 'Technical Program Leadership at Scale',
       description:
-        'Lessons from driving complex, multi-stakeholder programs across Fortune 50 environments. What separates execution from activity.',
+        'Lessons from driving complex, multi-stakeholder programs across Fortune 100 environments. What separates execution from activity.',
       audience: 'TPMs, engineering leaders, project managers',
       format: 'Keynote (45-60 min) or Fireside Chat (30-45 min)',
       keyTakeaways: [
@@ -189,7 +189,7 @@ export default function SpeakingPage() {
             <span className="gradient-text">Systems & Leadership</span>
           </>
         }
-        description="Practical talks from building AI systems and driving programs at Fortune 50 scale. No buzzwords. Field-tested frameworks and real failure patterns."
+        description="Practical talks from building AI systems and driving programs at Fortune 100 scale. No buzzwords. Field-tested frameworks and real failure patterns."
       >
         <Link href="/contact?subject=speaking">
           <Button size="lg" className="group">

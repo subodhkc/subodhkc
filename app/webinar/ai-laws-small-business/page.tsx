@@ -251,11 +251,11 @@ export default function WebinarPage() {
             <CardHeader>
               <CardTitle className="text-xl mb-2">Subodh KC</CardTitle>
               <p className="text-sm font-medium text-primary mb-3">
-                AI Advisor & AI Systems Architect · Sr. Program Manager, HP Inc. (Fortune 50)
+                AI Advisor & AI Systems Architect · Sr. Program Manager, HP Inc. (Fortune 100)
               </p>
               <CardDescription className="text-base space-y-3">
                 <p>
-                  Subodh KC architects AI governance frameworks for a Fortune 50 company and has developed 5
+                  Subodh KC architects AI governance frameworks for a Fortune 100 company and has developed 5
                   patent-pending methodologies for AI compliance and drift detection. He is the founder of
                   HAIEC, an AI compliance platform, and founder of KestrelVoice, an AI voice operations platform.
                 </p>

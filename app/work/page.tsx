@@ -47,7 +47,7 @@ const WORK_GROUPS: WorkGroup[] = [
     label: "ENTERPRISE & PROGRAM LEADERSHIP",
     items: [
       {
-        title: "Fortune 50 Core Team Lead",
+        title: "Fortune 100 Core Team Lead",
         status: "FORMER ROLE",
         desc: "Senior Technical Program Manager at HP Inc. Led program and portfolio governance across 53 enterprise applications, coordinating delivery through multiple program managers and cross-functional teams.",
         proof: ["53 enterprise applications", "Cross-functional program execution", "Commercial Software AI Strategy initiative"],

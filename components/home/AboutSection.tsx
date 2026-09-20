@@ -139,7 +139,7 @@ export function AboutSection() {
               maxWidth: 560,
             }}
           >
-            Former Fortune 50 Core Team Lead and Senior Technical Program Manager. Led a
+            Former Fortune 100 Core Team Lead and Senior Technical Program Manager. Led a
             53-application enterprise portfolio and later worked across AI implementation,
             governance, and a Commercial Software AI Strategy initiative. Founder of HAIEC and
             KestrelVoice. 16+ years across software, infrastructure, enterprise program delivery,

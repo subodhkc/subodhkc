@@ -209,7 +209,7 @@ export default function CoursePage() {
         'Evidence preparation checklist and documentation requirements',
         'Governance committee structures and operating models',
         'Policy frameworks that engineers will actually follow',
-        'Case studies: Fortune 50 evidence readiness in practice',
+        'Case studies: Fortune 100 evidence readiness in practice',
       ],
     },
   ]
@@ -325,19 +325,19 @@ export default function CoursePage() {
             <CardHeader>
               <CardTitle className="text-xl mb-2">Subodh KC</CardTitle>
               <p className="text-sm font-medium text-primary mb-3">
-                AI Advisor & AI Systems Architect · Former Sr. Program Manager, HP Inc. (Fortune 50)
+                AI Advisor & AI Systems Architect · Former Sr. Program Manager, HP Inc. (Fortune 100)
               </p>
               <CardDescription className="text-base space-y-3">
                 <p>
                   Subodh KC is an AI Advisor and AI Systems Architect. He recently served as
-                  Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 50), where he
+                  Sr. Program Manager - AI Implementation & Governance at HP Inc. (Fortune 100), where he
                   drove strategic AI transformation across enterprise systems and architected governance
-                  frameworks for Fortune 50 scale.
+                  frameworks for Fortune 100 scale.
                 </p>
                 <p>
                   He has developed published methodologies for AI compliance, drift detection, and
                   behavioral verification. He is the founder of Kestrel Voice (AI voice operations) and
-                  founder of HAIEC (AI compliance platform). From field technician to Fortune 50
+                  founder of HAIEC (AI compliance platform). From field technician to Fortune 100
                   AI strategy leader.
                 </p>
                 <p>

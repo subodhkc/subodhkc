@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     'technical program manager resume',
     'AI systems architect resume',
     'Subodh KC resume',
-    'Fortune 50 AI strategy',
+    'Fortune 100 AI strategy',
     'AI compliance resume',
   ],
   robots: {

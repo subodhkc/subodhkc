@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
 export const metadata = {
-  title: 'AI Work Order | SubodhKC',
+  title: 'AI Blueprint | SubodhKC',
   robots: { index: false, follow: false },
 }
 

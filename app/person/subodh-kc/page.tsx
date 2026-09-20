@@ -31,7 +31,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Subodh KC | Enterprise AI Advisor & AI Systems Architect',
-    description: 'Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. patent-pending frameworks. 83+ projects delivered across enterprise, client, and founder-led work.',
+    description: 'Former Sr. Program Manager at HP Inc. (Fortune 100). Builds production AI systems at enterprise scale. patent-pending frameworks. 83+ projects delivered across enterprise, client, and founder-led work.',
     images: ['https://subodhkc.com/portrait.jpeg'],
   },
   keywords: [
@@ -48,7 +48,7 @@ export const metadata = {
     'Head of AI',
     'VP of AI Strategy',
     'Senior Program Manager AI',
-    'AI program management Fortune 50',
+    'AI program management Fortune 100',
     'HP Inc AI program manager',
     'enterprise AI strategy leader',
     'AI transformation leader',
@@ -182,7 +182,7 @@ const personSchema = {
       occupationLocation: { '@type': 'Place', name: 'HP Inc., United States' },
       startDate: '2022',
       endDate: '2025',
-      description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 50 scale.',
+      description: 'Directed development and release cycles for 53 enterprise applications. Led cross-functional teams through Agile delivery at Fortune 100 scale.',
     },
     {
       '@type': 'Occupation',
@@ -285,13 +285,13 @@ export default function PersonPage() {
       period: '2026 - Present',
       role: 'Enterprise AI Advisor & AI Systems Architect',
       org: 'Independent Practice',
-      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations with operational discipline gained from Fortune 50 experience.',
+      description: 'Advising enterprises on AI governance, compliance, and production AI deployment. Helping organizations navigate EU AI Act, NIST AI RMF, ISO 42001, and emerging state regulations with operational discipline gained from Fortune 100 experience.',
       achievements: ['Enterprise AI governance advisory', 'Compliance framework development', 'Production AI deployment consulting'],
     },
     {
       period: '2022 - 2026',
       role: 'Technical Program Manager → Sr. Program Manager (Promoted)',
-      org: 'HP Inc. (Fortune 50)',
+      org: 'HP Inc. (Fortune 100)',
       description: 'Joined HP as Technical Program Manager in 2022, promoted to Sr. Program Manager - AI Implementation & Governance in 2025. Directed development and release cycles for 53 enterprise applications. Architected governance frameworks that enabled innovation without regulatory risk. Orchestrated enterprise-wide AI rollouts with 100+ stakeholders. Delivered 83+ projects across enterprise, client, and founder-led work. Developed patent-pending compliance and drift frameworks.',
       achievements: ['83+ projects delivered', '53 enterprise applications governed', '100+ stakeholders aligned', 'patent-pending frameworks developed', 'Promoted from TPM to Sr. Program Manager'],
     },
@@ -400,7 +400,7 @@ export default function PersonPage() {
             <span className="gradient-text">Enterprise AI Advisor & AI Systems Architect</span>
           </>
         }
-        description="Former Sr. Program Manager at HP Inc. (Fortune 50). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. patent-pending frameworks. 83+ projects delivered across 53 enterprise applications."
+        description="Former Sr. Program Manager at HP Inc. (Fortune 100). Builds production AI systems at enterprise scale. Founder of Kestrel Voice and HAIEC. patent-pending frameworks. 83+ projects delivered across 53 enterprise applications."
       />
 
       <Section subtitle="Biography" title="About Subodh KC">
@@ -410,7 +410,7 @@ export default function PersonPage() {
               <CardDescription className="text-base leading-relaxed space-y-4">
                 <p>
                   Subodh KC is an AI advisor and AI systems architect. He recently served as
-                  Sr. Program Manager - AI Implementation & Governance at HP Inc., a Fortune 50 company,
+                  Sr. Program Manager - AI Implementation & Governance at HP Inc., a Fortune 100 company,
                   where he drove strategic AI transformation across enterprise systems and architected
                   governance frameworks that enable innovation without regulatory risk.
                 </p>
@@ -423,7 +423,7 @@ export default function PersonPage() {
                   behavioral verification.
                 </p>
                 <p>
-                  His career spans from field technician to Fortune 50 AI strategy leader, with
+                  His career spans from field technician to Fortune 100 AI strategy leader, with
                   experience across public-sector technology, manufacturing systems (Cummins, 400+ MES
                   stations), production reliability (ACTIVE Network), technology commercialization
                   (Louisiana Tech IP Office), and enterprise program leadership (HP Inc.). Born in
