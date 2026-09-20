@@ -346,7 +346,7 @@ export default function PersonPage() {
     { value: '100+', label: 'Stakeholders Aligned' },
     { value: '5', label: 'Patent-Pending Frameworks' },
     { value: '400+', label: 'MES Stations Deployed' },
-    { value: '12K+', label: 'Installs (npm + PyPI)' },
+    { value: '50K+', label: 'Installs (npm + PyPI)' },
     { value: '2', label: 'Companies Founded' },
   ]
 

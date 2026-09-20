@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: 'KC Webinar <noreply@subodhkc.com>',
-      to: ['admin@subodhkc.com'],
+      to: ['subodhkc@subodhkc.com'],
       reply_to: email,
       subject: `Webinar Registration: AI Laws for Small Business - ${safeName}`,
       html: `

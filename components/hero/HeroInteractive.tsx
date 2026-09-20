@@ -8,7 +8,7 @@ const PROOF_POINTS = [
   { v: "16+", sub: "years", detail: "software, infrastructure, programs, AI systems" },
   { v: "83+", sub: "projects delivered", detail: "enterprise, client, founder-led" },
   { v: "53", sub: "enterprise applications", detail: "core team / portfolio leadership" },
-  { v: "12K+", sub: "npm + pypi installs", detail: "public technical work" },
+  { v: "50K+", sub: "npm + pypi installs", detail: "public technical work" },
 ];
 
 export function HeroInteractive() {

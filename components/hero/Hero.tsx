@@ -21,7 +21,7 @@ export function Hero() {
             <li>16+ years across software, infrastructure, program delivery and AI systems</li>
             <li>83+ projects delivered across enterprise, client and founder-led work</li>
             <li>53 enterprise applications under core team / portfolio leadership</li>
-            <li>12K+ npm + PyPI installs across public open-source packages</li>
+            <li>50K+ npm + PyPI installs across public open-source packages</li>
           </ul>
           <p>
             <a href="/diagnostics">Start a Diagnostic</a> | <a href="/portfolio">Inspect Selected Work</a> | <a href="/contact?subject=executive-decision">Discuss an Executive Decision</a>

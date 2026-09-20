@@ -1,9 +1,13 @@
 // data/provenance/package-installs.ts
 // INTERNAL CLAIM-INTEGRITY RECORD - NOT FOR PUBLIC DISPLAY
 //
-// Purpose: Document the source of the 12K+ npm + PyPI installs figure.
+// Purpose: Document the source of the 50K+ npm + PyPI installs figure.
 // When later updated, homepage may continue using a rounded, durable figure
-// such as 12K+ until a meaningful threshold is crossed.
+// such as 50K+ until a meaningful threshold is crossed.
+//
+// The per-package records below are the 2026-08 measurement snapshot.
+// The owner-verified cumulative total crossed 50K in 2026-09; keep the
+// snapshot until the next full per-package re-measurement.
 //
 // Do NOT expose private credentials.
 // Do NOT turn this into visitor analytics.
@@ -61,12 +65,12 @@ export const PACKAGE_INSTALLS: PackageInstallRecord[] = [
 ];
 
 export const PROVENANCE_META = {
-  totalInstalls: 12000,
-  publicWording: "12K+ npm + PyPI installs",
-  alternativeWording: "12K+ open-source package installs",
-  lastVerified: "2026-08",
+  totalInstalls: 50000,
+  publicWording: "50K+ npm + PyPI installs",
+  alternativeWording: "50K+ open-source package installs",
+  lastVerified: "2026-09",
   prohibitions: [
-    "Do NOT label as: 12K users",
+    "Do NOT label as: 50K users",
     "Do NOT imply: enterprise customers",
     "Do NOT imply: active users",
     "Do NOT imply: unique developers",
@@ -74,5 +78,5 @@ export const PROVENANCE_META = {
     "Do NOT inflate the metric beyond the current verified value",
   ],
   updatePolicy:
-    "Homepage may continue using a rounded, durable figure such as 12K+ until a meaningful threshold is crossed (e.g., 15K+).",
+    "Homepage may continue using a rounded, durable figure such as 50K+ until a meaningful threshold is crossed (e.g., 60K+).",
 };

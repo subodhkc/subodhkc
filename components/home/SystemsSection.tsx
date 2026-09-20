@@ -237,7 +237,7 @@ export function SystemsSection() {
         }}
       >
         <p style={{ fontSize: 13, color: "var(--op-muted)", margin: 0 }}>
-          12K+ npm + PyPI installs across public open-source packages.
+          50K+ npm + PyPI installs across public open-source packages.
         </p>
         <Link
           href="/products"
