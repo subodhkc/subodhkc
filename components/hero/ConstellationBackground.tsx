@@ -142,8 +142,9 @@ export function ConstellationBackground() {
                   <Glyph kind={p.glyph} size={N.r} />
                 </g>
               </g>
-              {/* Hover label — CSS controls visibility via class, not inline style */}
-              <g className="constellation-bg-label" pointerEvents="none">
+              {/* Hover label — CSS controls visibility via class; visibility attribute
+                  is the no-stylesheet fallback so labels never paint as bare rects */}
+              <g className="constellation-bg-label" visibility="hidden" pointerEvents="none">
                 <rect
                   x={-labelWidth / 2}
                   y={N.r + 4}
@@ -178,6 +179,38 @@ export function ConstellationBackground() {
           );
         })}
       </svg>
+
+      {/* Scoped styles are inlined so the decorative layer still hides its labels
+          and masks correctly if the external stylesheet fails to load. */}
+      <style>{`
+        .constellation-bg {
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%, black 100%),
+                              radial-gradient(ellipse 100% 100% at 100% 50%, black 40%, transparent 90%);
+          -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(to right, transparent 0%, black 35%, black 100%),
+                      radial-gradient(ellipse 100% 100% at 100% 50%, black 40%, transparent 90%);
+          mask-composite: intersect;
+        }
+        .constellation-bg-label { visibility: hidden; opacity: 0; transition: opacity .15s; }
+        @media (hover: hover) and (pointer: fine) {
+          .constellation-bg-node:hover .constellation-bg-label { visibility: visible; opacity: 1; }
+          .constellation-bg-node:hover .constellation-bg-float { opacity: 1 !important; }
+          .constellation-bg-node:hover .constellation-bg-float circle[fill="var(--op-card)"] { opacity: 0.95 !important; stroke-width: 1.2; }
+          .constellation-bg-node:hover .constellation-bg-float g[style*="color: var(--op-accent)"] { opacity: 0.9 !important; }
+        }
+        @media (max-width: 768px) {
+          .constellation-bg-svg { opacity: 0.18 !important; }
+          .constellation-bg-hit { pointer-events: none !important; cursor: default !important; }
+          .constellation-bg-label { display: none !important; }
+          .constellation-bg {
+            -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%) !important;
+            mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%) !important;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .constellation-bg-svg * { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }

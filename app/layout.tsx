@@ -154,8 +154,17 @@ export default async function RootLayout({
         <link rel="me" href="https://medium.com/@subodhkc" />
         <link rel="alternate" hrefLang="en" href="https://subodhkc.com" />
         <link rel="alternate" hrefLang="x-default" href="https://subodhkc.com" />
+        <noscript>
+          <style>{`
+            .reveal { opacity: 1 !important; transform: none !important; }
+            .diagram-reveal svg line, .diagram-reveal svg path { stroke-dashoffset: 0 !important; }
+            .diagram-reveal svg rect, .diagram-reveal svg circle, .diagram-reveal svg text,
+            .diagram-reveal svg polygon, .diagram-reveal svg marker { opacity: 1 !important; }
+          `}</style>
+        </noscript>
       </head>
-      <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
+      {/* Hex fallbacks keep the operator surface readable if the stylesheet fails to load */}
+      <body style={{ background: "var(--bg, #2b2e33)", color: "var(--fg, #ebe6d8)" }}>
         <ScrollProgress />
         <SiteNavigation searchEntries={searchEntries} />
         <main className="min-h-screen">{children}</main>
