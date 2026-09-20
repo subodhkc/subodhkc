@@ -470,7 +470,13 @@ async function main() {
     }
 
     if (post.heroImageUrl) {
-      articleData.main_image = post.heroImageUrl
+      // Dev.to requires an absolute http(s) URL and does not accept SVGs.
+      const hero = post.heroImageUrl.startsWith('http')
+        ? post.heroImageUrl
+        : `${SITE_URL}${post.heroImageUrl}`
+      if (!/\.svg($|\?)/i.test(hero)) {
+        articleData.main_image = hero
+      }
     }
 
     try {
