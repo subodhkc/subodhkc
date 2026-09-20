@@ -12,6 +12,11 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
+  experimental: {
+    // Inline page CSS into the HTML so a failed external stylesheet
+    // request can never render the site unstyled.
+    inlineCss: true,
+  },
   async headers() {
     return [
       {

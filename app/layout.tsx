@@ -154,6 +154,32 @@ export default async function RootLayout({
         <link rel="me" href="https://medium.com/@subodhkc" />
         <link rel="alternate" hrefLang="en" href="https://subodhkc.com" />
         <link rel="alternate" hrefLang="x-default" href="https://subodhkc.com" />
+        {/* Design tokens inlined so inline var(--*) styles still resolve
+            if the external stylesheet fails to load. Keep in sync with
+            the :root block in globals.css. */}
+        <style>{`
+          :root {
+            --bg: #2b2e33; --fg: #ebe6d8; --op-muted: #9a9a96;
+            --text-secondary: #c4c4be; --op-border: #404349; --op-card: #34373d;
+            --card-hover: #3a3d44; --code: #25282d; --chip: #3e4147;
+            --op-accent: #16d088;
+          }
+          [data-theme="paper"] {
+            --bg: #f6f4ef; --fg: #1c1a16; --op-muted: #6f6a5e;
+            --op-border: #e3ddd1; --op-card: #fbfaf6; --card-hover: #fffdf8;
+            --code: #efebde; --chip: #ebe6d8; --op-accent: #c75c2a;
+          }
+          [data-theme="stark"] {
+            --bg: #ffffff; --fg: #0a0a0a; --op-muted: #737373;
+            --op-border: #e5e5e5; --op-card: #ffffff; --card-hover: #fafafa;
+            --code: #f4f4f4; --chip: #f0f0f0;
+          }
+          [data-theme="phosphor-light"] {
+            --bg: #0a1014; --fg: #d8efe0; --op-muted: #6e8a7a;
+            --op-border: #1b2a25; --op-card: #0f1719; --card-hover: #142022;
+            --code: #070d10; --chip: #16221e; --op-accent: #16d088;
+          }
+        `}</style>
         <noscript>
           <style>{`
             .reveal { opacity: 1 !important; transform: none !important; }
