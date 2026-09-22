@@ -58,5 +58,11 @@
     "url": "https://dev.to/subodhkc/what-is-llmstxt-why-every-ai-ready-website-should-publish-it-36i2",
     "published": true,
     "date": "2026-09-20T06:14:01.602Z"
+  },
+  "claude-code-mcp-failed-to-connect-stdio-enoent-timeout": {
+    "id": 4717474,
+    "url": "https://dev.to/subodhkc/claude-code-mcp-failed-to-connect-fix-stdio-enoent-timeout-2kok",
+    "published": true,
+    "date": "2026-09-22T15:17:18.007Z"
   }
 }
