@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/build-tm-forum-field-guide.mjs && next dev",
+    "build": "node scripts/build-tm-forum-field-guide.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "test:csm:golden": "tsx tests/csm-v2/golden-tests.ts",
@@ -47,7 +47,7 @@
     "postcss": "8.4.38",
     "pptxgenjs": "^4.0.1",
     "tailwindcss": "3.4.1",
-    "tailwindcss-animate": "1.0.7",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.5"
   }
 }
