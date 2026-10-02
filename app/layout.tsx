@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import './globals.css'
 import { SiteNavigation } from '@/components/SiteNavigation'
 import { SiteFooter } from '@/components/SiteFooter'
+import { TmForumFooterMenu } from '@/components/TmForumFooterMenu'
 import { StickyCTA } from '@/components/StickyCTA'
 import StructuredData from '@/components/StructuredData'
 import { AnalyticsBeacon } from '@/components/AnalyticsBeacon'
@@ -194,6 +195,7 @@ export default async function RootLayout({
         <ScrollProgress />
         <SiteNavigation searchEntries={searchEntries} />
         <main className="min-h-screen">{children}</main>
+        <TmForumFooterMenu />
         <SiteFooter />
         <StickyCTA />
         <AnalyticsBeacon />
