@@ -12,6 +12,11 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
+  outputFileTracingIncludes: {
+    '/tm-forum/team-field-guide.html': [
+      './public/tm-forum/data/team-field-guide-v4-original/*.txt',
+    ],
+  },
   experimental: {
     // Inline page CSS into the HTML so a failed external stylesheet
     // request can never render the site unstyled.
