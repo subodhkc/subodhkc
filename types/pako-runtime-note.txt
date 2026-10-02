@@ -1,0 +1,1 @@
+pako 1.0.11 is already installed by the existing lockfile dependency graph. The TM Forum Field Guide imports it locally so the decoder is bundled into the site build; no external CDN is used.
