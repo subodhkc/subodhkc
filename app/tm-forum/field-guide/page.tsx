@@ -84,7 +84,8 @@ function loadFieldGuide() {
       background:var(--bg);
       color:var(--text);
     }
-    .tmf-guide-body{min-height:100vh;background:var(--bg);color:var(--text)}
+    .tmf-guide-body{min-height:100vh;background:var(--bg);color:var(--text);position:relative;isolation:isolate}
+    .topbar{position:relative!important;top:auto!important}
     .brand .dot{background:linear-gradient(135deg,#16d088,#7de0b8);box-shadow:0 0 14px rgba(22,208,136,.5)}
     h1{background:linear-gradient(120deg,#fff 8%,#ebe6d8 45%,#8ee8c4 88%);-webkit-background-clip:text;background-clip:text;color:transparent}
   `;
