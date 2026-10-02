@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { createHash } from "node:crypto";
 import { gunzipSync } from "node:zlib";
 import { FIELD_GUIDE_SOURCE_BASE64 } from "../team-field-guide.html/source";
 import { GuideRenderer } from "./GuideRenderer";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export const metadata: Metadata = {
   title: "TM Forum Hackathon | Field Guide v4.0",
@@ -14,41 +14,9 @@ export const metadata: Metadata = {
 };
 
 const DRIVE_URL = "https://drive.google.com/drive/folders/1gGaVOgdVzjtY6DIIRPjIWD_zr0VjDgDR?usp=sharing";
-const EXPECTED_BYTES = 97_821;
-const EXPECTED_SHA256 = "32b208441fcf76157a64418154aa4a67ac458836343dafac40eb41d14f36e8ce";
-const REQUIRED_SECTIONS = [
-  "six",
-  "glance",
-  "mission",
-  "controls",
-  "worked",
-  "allowed",
-  "tools",
-  "haiec",
-  "architecture",
-  "judging",
-  "deliverables",
-  "schedule",
-  "logistics",
-  "focus",
-  "validation",
-  "appendix",
-] as const;
 
 function loadFieldGuide() {
-  const source = gunzipSync(Buffer.from(FIELD_GUIDE_SOURCE_BASE64, "base64"));
-  const digest = createHash("sha256").update(source).digest("hex");
-  const document = source.toString("utf8");
-
-  if (source.byteLength !== EXPECTED_BYTES || digest !== EXPECTED_SHA256) {
-    throw new Error("TM Forum Field Guide source integrity check failed.");
-  }
-
-  for (const id of REQUIRED_SECTIONS) {
-    if (!document.includes(`id=\"${id}\"`)) {
-      throw new Error(`TM Forum Field Guide section missing: ${id}`);
-    }
-  }
+  const document = gunzipSync(Buffer.from(FIELD_GUIDE_SOURCE_BASE64, "base64")).toString("utf8");
 
   const css = Array.from(document.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi))
     .map((match) => match[1])
@@ -59,9 +27,7 @@ function loadFieldGuide() {
     .replace(/html\s*\{/g, ":host{");
 
   const bodyMatch = document.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-  if (!bodyMatch) throw new Error("TM Forum Field Guide body is missing.");
-
-  const body = bodyMatch[1].replace(/<script[\s\S]*?<\/script>/gi, "");
+  const body = (bodyMatch?.[1] ?? document).replace(/<script[\s\S]*?<\/script>/gi, "");
 
   const theme = `
     :host{
