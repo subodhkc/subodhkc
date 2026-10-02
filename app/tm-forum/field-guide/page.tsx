@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { gunzipSync } from "node:zlib";
-import { FIELD_GUIDE_SOURCE_BASE64 } from "../team-field-guide.html/source";
+import { FIELD_GUIDE_SOURCE_PARTS } from "../team-field-guide.html/source";
+import { CANONICAL_FIELD_GUIDE_PART_1 } from "./canonical-part-1";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 };
 
 const DRIVE_URL = "https://drive.google.com/drive/folders/1gGaVOgdVzjtY6DIIRPjIWD_zr0VjDgDR?usp=sharing";
+const FIELD_GUIDE_SOURCE_BASE64 =
+  CANONICAL_FIELD_GUIDE_PART_1 + FIELD_GUIDE_SOURCE_PARTS.slice(1).join("");
 
 type GuideResult =
   | { ok: true; body: string; css: string; diagnostics: Record<string, string | number> }
@@ -20,6 +23,7 @@ type GuideResult =
 
 function loadFieldGuide(): GuideResult {
   const diagnostics: Record<string, string | number> = {
+    source: "canonical-part-1 + verified-parts-2-8",
     base64Length: FIELD_GUIDE_SOURCE_BASE64.length,
     prefix: FIELD_GUIDE_SOURCE_BASE64.slice(0, 20),
     suffix: FIELD_GUIDE_SOURCE_BASE64.slice(-20),
