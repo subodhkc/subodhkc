@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function AgenticAssuranceDeckPage() {
   return (
     <main style={{ minHeight: "100vh", background: "#08060e", color: "#fff" }}>
-      <div style={{ position: "fixed", zIndex: 30, top: 12, left: 12, display: "flex", gap: 8, alignItems: "center" }}>
+      <div style={{ position: "fixed", zIndex: 110, bottom: 18, left: 18, display: "flex", gap: 8, alignItems: "center" }}>
         <Link
           href="/tm-forum-challenge"
           style={{
@@ -21,10 +21,11 @@ export default function AgenticAssuranceDeckPage() {
             textDecoration: "none",
             color: "#f2eefb",
             border: "1px solid rgba(167,139,250,.28)",
-            background: "rgba(8,6,14,.82)",
+            background: "rgba(8,6,14,.88)",
             backdropFilter: "blur(12px)",
             borderRadius: 999,
             padding: "8px 12px",
+            boxShadow: "0 8px 30px rgba(0,0,0,.32)",
           }}
         >
           ← TM FORUM HUB
@@ -33,7 +34,7 @@ export default function AgenticAssuranceDeckPage() {
       <iframe
         title="HAIEC — When AI Can Act, Proof Has to Catch Up"
         src="/tm-forum/haiec-agentic-assurance-deck.html"
-        style={{ position: "fixed", inset: 0, width: "100%", height: "100%", border: 0, background: "#08060e" }}
+        style={{ position: "fixed", zIndex: 100, inset: 0, width: "100%", height: "100%", border: 0, background: "#08060e" }}
         allowFullScreen
       />
     </main>
