@@ -2,300 +2,117 @@
   const root = document.getElementById("tmf-p0-intake-root");
   if (!root) return;
 
-  const STORAGE_KEY = "tmf-2026-p0-intake-v1";
-  const groups = [
-    ["Connectivity", [
-      "AgentCore outbound HTTPS?",
-      "ServiceNow outbound HTTPS?",
-      "External HAIEC MCP allowed?",
-      "Must MCP be internal?",
-      "DNS/egress restrictions?",
-      "Latency/timeouts?",
-      "Supported secret path?",
-      "Real synchronous refusal hook?"
-    ]],
-    ["Telemetry", [
-      "OTel programmatic access?",
-      "CloudWatch groups/query access?",
-      "Gateway logs?",
-      "AICT traces?",
-      "Digital Twin/KPI source?"
-    ]],
-    ["Identity", [
-      "Authoritative run ID?",
-      "Authoritative RUN_START?",
-      "Trace/span IDs?",
-      "Session ID?",
-      "Agent execution ID?",
-      "Model/tool invocation ID?",
-      "Retry identity?",
-      "AgentCore runtime IDs?",
-      "AWS native IDs?",
-      "ServiceNow sys_ids?",
-      "Gateway IDs?"
-    ]],
-    ["Time", [
-      "eventTime field?",
-      "observedAt field?",
-      "ingestedAt field?",
-      "Timezone / UTC offset?",
-      "Clock domain / sourceClock?",
-      "Timestamp precision?",
-      "Sync source/mechanism?",
-      "Known skew?",
-      "Safe cross-system comparisons?"
-    ]],
-    ["Control / evidence contract", [
-      "Authoritative C7/C9/C16 definitions?",
-      "Authoritative evidence schemas?",
-      "Are immersion-session numerical examples illustrative?"
-    ]],
-    ["Source / deployment", [
-      "Organizer repository available?",
-      "Source folder/archive?",
-      "CloudShell workspace?",
-      "Deployment package?",
-      "Commit/snapshot digest?",
-      "Build/deployment identity?",
-      "ODA CR/change identity?",
-      "Deployed AgentCore/ServiceNow asset ID?"
-    ]],
-    ["C7 facts", [
-      "Expected event manifest?",
-      "Required zones?",
-      "Required enforcement points?",
-      "Event IDs/order?",
-      "Timing fields?",
-      "Cross-source join keys?"
-    ]],
-    ["C9 facts", [
-      "KPI?",
-      "Units/direction?",
-      "Baseline/version?",
-      "Comparable-window rule?",
-      "Alert mechanism?",
-      "Named recipient/queue?",
-      "Required response?"
-    ]],
-    ["C16 facts", [
-      "Token fields?",
-      "Accounting scope?",
-      "Retry semantics?",
-      "Provider call ID?",
-      "Cap?",
-      "Gateway/refusal hook?",
-      "Actual usage source?",
-      "Reservation/no-overshoot status?"
-    ]],
-    ["Mirrored telemetry", [
-      "Which sources mirror the same event?",
-      "Stable dedupe ID?",
-      "Primary source?",
-      "Corroborating sources?",
-      "Retry-vs-mirror distinction?"
-    ]],
-    ["Preservation", [
-      "When does lab access expire?",
-      "What can be exported?",
-      "What must be saved before shutdown?"
-    ]]
+  const STORAGE_KEY = "tmf-2026-full-intake-v2";
+  const customFields = [
+    ["event-gates", "Event gates", "Nemotron agent binding; AWS↔AICT connector; gateway/OTel/CloudWatch record proven; team SPOC/Teams room; blockers."],
+    ["identity", "Identity & run binding", "Authoritative run/session/RUN_START; trace/span; agent execution; model/tool invocation; gateway; AWS native IDs; ServiceNow sys_ids/connector ID."],
+    ["time", "Time integrity", "eventTime / observedAt / ingestedAt; timezone/UTC offset; precision; clock domain/sync; known skew; cross-source comparability."],
+    ["c7", "C7 freeze inputs", "Expected-event basis; required zones/enforcement points; event identity/order; gap limit; exception allowance; evidence sources."],
+    ["c9", "C9 freeze inputs", "KPI; producer; unit/direction; calibration; baseline snapshot; comparable window; threshold; allowance; alert recipient/ServiceNow path."],
+    ["c16", "C16 freeze inputs", "Provider call IDs; input/output/cache token semantics; retries; cost/token basis; hard cap; refusal hook; executed-call definition."],
+    ["aws", "AWS / AgentCore / gateway", "Account/region; agent/runtime/deployment IDs; gateway endpoint; sanctioned export/egress; synchronous enforcement hook; source limitations."],
+    ["snow", "ServiceNow AICT", "Unique HAIEC connector name/ID; AWS binding; CloudWatch log group; discovered agent sys_ids/native IDs; sessions/traces available; model/trace discovery gaps; human-loop evidence."],
+    ["nemotron", "Nemotron compliance", "Actual model identity of supplied agents. If Nemotron-backed, evidence the binding. If creating/replacing an agent, record chosen Nemotron model, deployment ID and invocation evidence. HAIEC evaluator remains deterministic."],
+    ["source", "Source/deployment binding", "Exact repository/snapshot/commit if available; deployment/runtime binding; CODE_CAPABLE established/not established; copied repo is not deployed-source proof."],
+    ["freeze", "Freeze record", "Discovery complete? calibration source? governing policy version/digest? exact scope? source profile? baseline/cap/threshold frozen? assessed-run selection rule? freeze time/owner?"],
+    ["support", "Support / blockers", "SPOC; Teams room; organizer/mentor answer; help-desk action; unresolved Blocker items; owner and next action."],
   ];
 
   root.innerHTML = `
     <style>
-      #tmf-p0-intake{max-width:1180px;margin:22px auto 34px;padding:24px;border:2px solid #16d088;border-radius:18px;background:linear-gradient(145deg,rgba(22,208,136,.08),#34373d);color:#ebe6d8;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-      #tmf-p0-intake *{box-sizing:border-box}
-      #tmf-p0-intake .p0-kicker{font:800 11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;color:#16d088;letter-spacing:.13em}
-      #tmf-p0-intake h1{font-size:clamp(26px,4vw,42px);line-height:1.05;margin:10px 0 10px;color:#fff}
-      #tmf-p0-intake .p0-lede{max-width:900px;color:#bbb5a9;line-height:1.6}
-      #tmf-p0-intake .p0-locks{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-      #tmf-p0-intake .p0-locks code{font:700 10px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;color:#8ee8c4;border:1px solid rgba(22,208,136,.24);border-radius:999px;padding:6px 8px;background:#2b2e33}
-      #tmf-p0-intake .p0-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:18px 0}
-      #tmf-p0-intake button,#tmf-p0-intake .p0-file-label{border:1px solid rgba(235,230,216,.16);border-radius:9px;padding:9px 11px;background:#2b2e33;color:#ebe6d8;cursor:pointer;font-weight:700;font-size:12px}
-      #tmf-p0-intake button:hover,#tmf-p0-intake .p0-file-label:hover{border-color:#16d088}
-      #tmf-p0-intake .danger{border-color:rgba(239,140,131,.35);color:#ef8c83}
-      #tmf-p0-intake input[type=file]{display:none}
-      #tmf-p0-intake .saved{margin-left:auto;color:#8f8a81;font:11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace}
-      #tmf-p0-intake .p0-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-      #tmf-p0-intake .p0-group{border:1px solid rgba(235,230,216,.12);border-radius:12px;padding:14px;background:#303338}
-      #tmf-p0-intake .p0-group h2{font-size:16px;margin:0 0 10px;color:#16d088}
-      #tmf-p0-intake .p0-row{display:grid;grid-template-columns:minmax(170px,.85fr) 1.15fr;gap:10px;align-items:start;padding:8px 0;border-top:1px solid rgba(235,230,216,.08)}
-      #tmf-p0-intake .p0-row:first-of-type{border-top:none}
-      #tmf-p0-intake label{font-size:12px;line-height:1.4;color:#bbb5a9}
-      #tmf-p0-intake textarea{width:100%;min-height:54px;resize:vertical;border:1px solid rgba(235,230,216,.14);border-radius:8px;background:#2b2e33;color:#ebe6d8;padding:8px;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
-      #tmf-p0-intake textarea:focus{outline:2px solid rgba(22,208,136,.25);border-color:#16d088}
-      #tmf-p0-intake .p0-note{margin-top:16px;padding:12px;border-left:3px solid #e6bd66;background:rgba(230,189,102,.06);font-size:12px;color:#bbb5a9;line-height:1.55}
-      #tmf-p0-intake .p0-note b{color:#e6bd66}
-      @media(max-width:820px){#tmf-p0-intake{margin:12px;padding:16px}#tmf-p0-intake .p0-grid{grid-template-columns:1fr}#tmf-p0-intake .p0-row{grid-template-columns:1fr}#tmf-p0-intake .saved{width:100%;margin-left:0}}
+      #tmf-p0-intake-root{font-family:system-ui,sans-serif;background:#24272c;color:#ebe6d8;border-bottom:2px solid #16d088}
+      .tmfp0{max-width:1180px;margin:auto;padding:24px 22px 30px}.tmfp0 h1{font-size:30px;margin:0 0 8px}.tmfp0 p{color:#bbb5a9;line-height:1.55}.tmfp0 .warn{border:1px solid #e6bd66;background:#332f23;padding:12px 14px;border-radius:10px;color:#ead9ab}.tmfp0 .gates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.tmfp0 .gate{border:1px solid #404349;background:#303339;padding:13px;border-radius:10px}.tmfp0 .gate b{display:block;color:#16d088;font:800 11px ui-monospace,monospace;margin-bottom:6px}.tmfp0 .gate small{color:#bbb5a9;line-height:1.5}.tmfp0 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.tmfp0 .f{border:1px solid #404349;background:#303339;padding:12px;border-radius:10px}.tmfp0 label{display:block;font-weight:800;font-size:12px;color:#e6e1d5;margin-bottom:6px}.tmfp0 textarea{width:100%;min-height:78px;resize:vertical;border:1px solid #50545b;border-radius:8px;background:#22252a;color:#f2eee5;padding:9px;font:13px/1.45 ui-monospace,monospace}.tmfp0 .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}.tmfp0 button,.tmfp0 .link{border:1px solid #50545b;border-radius:8px;background:#303339;color:#ebe6d8;padding:8px 10px;font-weight:700;cursor:pointer;text-decoration:none;font-size:12px}.tmfp0 button.primary{border-color:#16d088;color:#16d088}.tmfp0 .saved{color:#8ee8c4;font-size:12px;margin-left:auto}.tmfp0 .freeze{margin-top:14px;padding:12px;border-left:3px solid #e6bd66;background:#2e2b24;font:700 12px/1.6 ui-monospace,monospace;color:#e6d7aa}@media(max-width:800px){.tmfp0 .grid,.tmfp0 .gates{grid-template-columns:1fr}}
     </style>
-    <section id="tmf-p0-intake" aria-label="TM Forum first-hour P0 intake">
-      <div class="p0-kicker">FIRST-HOUR / P0 · LIVE ENVIRONMENT INTAKE</div>
-      <h1>Capture facts before assessed runs.</h1>
-      <p class="p0-lede">This operator layer sits above the source-preserving intake. Record only verified environment facts. Use <b>ONSITE VERIFY</b>, <b>UNKNOWN</b>, <b>LIMITED</b>, or <b>BLOCKED</b> when the environment has not established an answer.</p>
-      <div class="p0-locks">
-        <code>DISPLAY NAME != EVIDENCE IDENTITY</code>
-        <code>INGEST TIME != EVENT TIME</code>
-        <code>TIMESTAMP PROXIMITY != RUN MEMBERSHIP</code>
-        <code>MULTIPLE RECORDS != MULTIPLE ACTIONS</code>
-        <code>DO NOT STORE SECRETS HERE</code>
+    <div class="tmfp0">
+      <div style="font:800 11px ui-monospace,monospace;color:#16d088;letter-spacing:.1em">FIRST-HOUR / P0 OPERATING INTAKE · FULL-DOCUMENT AUTOSAVE</div>
+      <h1>Discover first. Freeze only what the live environment establishes.</h1>
+      <p>This layer is the event-day short form. <strong>All editable fields in the full reference below are now autosaved and included in export/restore too.</strong> Use the detailed worksheet when you need depth; use this layer to keep the critical path visible.</p>
+      <div class="warn"><strong>DO NOT STORE SECRETS HERE.</strong> Record secret location/reference only. Never paste AWS secret keys, bearer tokens, passwords, private keys, session cookies or other credentials into this page or its exports.</div>
+      <div class="gates">
+        <div class="gate"><b>GATE A · NEMOTRON</b><small>Organizer validity requirement applies to the agent path. Verify the actual model identity. Supplied Nemotron-backed agents can satisfy the path if confirmed; new/replacement agents must use Nemotron. HAIEC verdict remains deterministic.</small></div>
+        <div class="gate"><b>GATE B · AWS ↔ AICT</b><small>Create a unique HAIEC connector and prove agent discovery. Capture connector ID, AWS binding, CloudWatch log group, sys_ids/native IDs and any model/trace discovery limitations.</small></div>
+        <div class="gate"><b>GATE C · TELEMETRY</b><small>Prove one real gateway + OTel/CloudWatch record before freeze. Determine direct HAIEC ingestion vs LogSense normalization/export fallback.</small></div>
       </div>
-      <div class="p0-actions">
-        <button type="button" id="p0-export-json">Export Answers JSON</button>
-        <button type="button" id="p0-export-md">Export Answers Markdown</button>
-        <label class="p0-file-label" for="p0-import">Import / Restore</label>
-        <input id="p0-import" type="file" accept=".json,application/json">
-        <button type="button" id="p0-reset" class="danger">Clear / Reset</button>
-        <span class="saved" id="p0-saved">Not yet saved</span>
+      <div class="freeze">HAIEC CODE BASELINE = READY / KEEP STABLE<br>EVENT GOVERNING POLICY = NOT YET FROZEN<br>DISCOVER → QUALIFY → CALIBRATE → DECLARE → FREEZE → RUN → EVIDENCE → CONTROL TEST</div>
+      <div class="grid">
+        ${customFields.map(([id,label,ph]) => `<div class="f"><label for="tmf-${id}">${label}</label><textarea id="tmf-${id}" data-tmf-custom="${id}" placeholder="${ph.replace(/"/g,"&quot;")}"></textarea></div>`).join("")}
       </div>
-      <div class="p0-grid" id="p0-grid"></div>
-      <div class="p0-note"><b>Threshold rule:</b> CALIBRATE BEFORE FREEZE. Never tune a threshold from assessed results. If a threshold changes after freeze: NEW POLICY VERSION → NEW RUN. This intake must not contain passwords, secret access keys, tokens, private keys, session cookies, or other credentials.</div>
-    </section>
-  `;
+      <div class="tools">
+        <button class="primary" id="tmf-save">Save now</button>
+        <button id="tmf-export-json">Export JSON</button>
+        <button id="tmf-export-md">Export Markdown</button>
+        <button id="tmf-import">Import / Restore</button>
+        <button id="tmf-clear">Clear / Reset</button>
+        <a class="link" href="/tm-forum-challenge">Hub</a>
+        <a class="link" href="/tm-forum/field-guide">Canonical Field Guide</a>
+        <span class="saved" id="tmf-saved">Not saved yet</span>
+        <input id="tmf-file" type="file" accept="application/json,.json" hidden>
+      </div>
+    </div>`;
 
-  const grid = document.getElementById("p0-grid");
-  const savedEl = document.getElementById("p0-saved");
-  const fields = [];
+  const $ = (s, ctx=document) => ctx.querySelector(s);
+  const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
 
-  function keyFor(group, question) {
-    return (group + "__" + question).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+  function originalEditableNodes(){
+    return $$('input,textarea,select').filter(el => !root.contains(el) && el.type !== 'file' && el.type !== 'button' && el.type !== 'submit');
   }
+  function statusGroups(){ return $$('.status-pills').filter(g => !root.contains(g)); }
 
-  groups.forEach(([group, questions]) => {
-    const card = document.createElement("section");
-    card.className = "p0-group";
-    const title = document.createElement("h2");
-    title.textContent = group;
-    card.appendChild(title);
-
-    questions.forEach((question) => {
-      const key = keyFor(group, question);
-      const row = document.createElement("div");
-      row.className = "p0-row";
-      const label = document.createElement("label");
-      label.setAttribute("for", "p0-" + key);
-      label.textContent = question;
-      const area = document.createElement("textarea");
-      area.id = "p0-" + key;
-      area.dataset.key = key;
-      area.dataset.group = group;
-      area.dataset.question = question;
-      area.placeholder = "Verified value / UNKNOWN / ONSITE VERIFY / gap + source reference";
-      row.append(label, area);
-      card.appendChild(row);
-      fields.push(area);
-    });
-
-    grid.appendChild(card);
-  });
-
-  function snapshot() {
-    const answers = {};
-    fields.forEach((el) => {
-      answers[el.dataset.key] = {
-        group: el.dataset.group,
-        question: el.dataset.question,
-        value: el.value
-      };
-    });
+  function snapshot(){
     return {
-      schema: "tmf-p0-intake-v1",
+      version: 2,
       savedAt: new Date().toISOString(),
-      warning: "Secrets must not be stored in this file.",
-      answers
+      custom: Object.fromEntries($$('[data-tmf-custom]', root).map(el => [el.dataset.tmfCustom, el.value])),
+      originalFields: originalEditableNodes().map((el, i) => ({
+        i,
+        tag: el.tagName,
+        type: el.type || '',
+        value: (el.type === 'checkbox' || el.type === 'radio') ? !!el.checked : el.value,
+        name: el.name || '',
+        id: el.id || '',
+      })),
+      statusGroups: statusGroups().map((g, i) => ({ i, status: ($('.spill.active', g)?.dataset.status || 'open') })),
     };
   }
 
-  function save() {
-    const data = snapshot();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    savedEl.textContent = "Last saved: " + new Date(data.savedAt).toLocaleString();
+  function apply(data){
+    if (!data || typeof data !== 'object') return;
+    Object.entries(data.custom || {}).forEach(([k,v]) => { const el = $(`[data-tmf-custom="${CSS.escape(k)}"]`, root); if(el) el.value = String(v ?? ''); });
+    const nodes = originalEditableNodes();
+    (data.originalFields || []).forEach(rec => { const el = nodes[rec.i]; if(!el) return; if(el.type === 'checkbox' || el.type === 'radio') el.checked = !!rec.value; else el.value = rec.value ?? ''; });
+    const groups = statusGroups();
+    (data.statusGroups || []).forEach(rec => { const g = groups[rec.i]; if(!g) return; $$('.spill', g).forEach(p => p.classList.toggle('active', p.dataset.status === rec.status)); });
   }
 
-  function restore(data) {
-    if (!data || data.schema !== "tmf-p0-intake-v1" || !data.answers) throw new Error("Unsupported intake file");
-    fields.forEach((el) => {
-      const entry = data.answers[el.dataset.key];
-      if (entry) el.value = String(entry.value || "");
-    });
-    save();
+  function save(){
+    try{ const data=snapshot(); localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); $('#tmf-saved').textContent='Saved '+new Date(data.savedAt).toLocaleTimeString(); }
+    catch(err){ $('#tmf-saved').textContent='Save failed: '+String(err.message||err); }
   }
-
-  function load() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      restore(data);
-      if (data.savedAt) savedEl.textContent = "Last saved: " + new Date(data.savedAt).toLocaleString();
-    } catch (error) {
-      console.warn("Unable to restore P0 intake", error);
-    }
-  }
-
   let timer;
-  fields.forEach((el) => el.addEventListener("input", () => {
-    clearTimeout(timer);
-    savedEl.textContent = "Saving…";
-    timer = setTimeout(save, 250);
-  }));
+  function queueSave(){ clearTimeout(timer); timer=setTimeout(save,250); }
 
-  function download(name, type, content) {
-    const blob = new Blob([content], { type });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = name;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
+  function download(name, text, type){ const blob=new Blob([text],{type}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500); }
+  function markdown(data){
+    const lines=['# TM Forum 2026 — HAIEC + LogSense Intake Export','',`Saved: ${data.savedAt}`,'','## Critical event intake'];
+    customFields.forEach(([id,label])=>{ lines.push('',`### ${label}`,String(data.custom?.[id]||'').trim()||'_blank_'); });
+    lines.push('','## Full reference worksheet fields');
+    const current=originalEditableNodes();
+    (data.originalFields||[]).forEach(rec=>{ const el=current[rec.i]; if(!el) return; const card=el.closest('.q-card'); const qid=card?.querySelector('.q-id')?.textContent?.trim(); const q=card?.querySelector('.q-text')?.textContent?.trim(); const label=qid||q||el.id||el.name||`field-${rec.i}`; if(String(rec.value??'').trim() || rec.value===true) lines.push(`- **${label}:** ${String(rec.value)}`); });
+    lines.push('','## Status selections');
+    const groups=statusGroups();
+    (data.statusGroups||[]).forEach(rec=>{ const card=groups[rec.i]?.closest('.q-card'); const label=card?.querySelector('.q-id')?.textContent?.trim()||card?.querySelector('.q-text')?.textContent?.trim()||`status-${rec.i}`; lines.push(`- **${label}:** ${rec.status}`); });
+    return lines.join('\n');
   }
 
-  document.getElementById("p0-export-json").addEventListener("click", () => {
-    const data = snapshot();
-    save();
-    download("tmf-first-hour-intake.json", "application/json", JSON.stringify(data, null, 2));
-  });
+  document.addEventListener('input', e => { if(e.target.matches('input,textarea,select')) queueSave(); }, true);
+  document.addEventListener('change', queueSave, true);
+  document.addEventListener('click', e => { if(e.target.closest('.spill')) setTimeout(queueSave,0); }, true);
+  $('#tmf-save').addEventListener('click', save);
+  $('#tmf-export-json').addEventListener('click',()=>{const d=snapshot();save();download(`tmf-intake-${new Date().toISOString().replace(/[:.]/g,'-')}.json`,JSON.stringify(d,null,2),'application/json')});
+  $('#tmf-export-md').addEventListener('click',()=>{const d=snapshot();save();download(`tmf-intake-${new Date().toISOString().replace(/[:.]/g,'-')}.md`,markdown(d),'text/markdown')});
+  $('#tmf-import').addEventListener('click',()=>$('#tmf-file').click());
+  $('#tmf-file').addEventListener('change',async e=>{const f=e.target.files?.[0]; if(!f)return; try{const d=JSON.parse(await f.text());apply(d);save();alert('Intake restored. Review values before relying on them.');}catch(err){alert('Unable to restore: '+String(err.message||err));} e.target.value='';});
+  $('#tmf-clear').addEventListener('click',()=>{if(!confirm('Clear all saved TM Forum intake values, including the full reference worksheet?'))return; localStorage.removeItem(STORAGE_KEY); $$('[data-tmf-custom]',root).forEach(el=>el.value=''); originalEditableNodes().forEach(el=>{if(el.type==='checkbox'||el.type==='radio')el.checked=false;else el.value=''}); statusGroups().forEach(g=>$$('.spill',g).forEach((p,i)=>p.classList.toggle('active',p.dataset.status==='open'||(!g.querySelector('[data-status="open"]')&&i===0)))); $('#tmf-saved').textContent='Reset';});
 
-  document.getElementById("p0-export-md").addEventListener("click", () => {
-    const data = snapshot();
-    const lines = [
-      "# TM Forum First-Hour / P0 Intake",
-      "",
-      `Saved: ${data.savedAt}`,
-      "",
-      "> Secrets must not be stored in this file.",
-      ""
-    ];
-    groups.forEach(([group]) => {
-      lines.push(`## ${group}`, "");
-      Object.values(data.answers)
-        .filter((entry) => entry.group === group)
-        .forEach((entry) => lines.push(`- **${entry.question}** ${entry.value || "UNANSWERED"}`));
-      lines.push("");
-    });
-    save();
-    download("tmf-first-hour-intake.md", "text/markdown", lines.join("\n"));
-  });
-
-  document.getElementById("p0-import").addEventListener("change", async (event) => {
-    const file = event.target.files && event.target.files[0];
-    if (!file) return;
-    try {
-      restore(JSON.parse(await file.text()));
-    } catch (error) {
-      alert("Unable to import this intake file: " + String(error.message || error));
-    } finally {
-      event.target.value = "";
-    }
-  });
-
-  document.getElementById("p0-reset").addEventListener("click", () => {
-    if (!confirm("Clear all saved FIRST-HOUR / P0 intake answers on this browser?")) return;
-    localStorage.removeItem(STORAGE_KEY);
-    fields.forEach((el) => { el.value = ""; });
-    savedEl.textContent = "Cleared";
-  });
-
-  load();
+  try{const raw=localStorage.getItem(STORAGE_KEY); if(raw){const d=JSON.parse(raw);apply(d);$('#tmf-saved').textContent='Restored '+(d.savedAt?new Date(d.savedAt).toLocaleString():'saved data');}}catch(err){console.warn('TMF intake restore failed',err)}
 })();
