@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const DRIVE_URL = "https://drive.google.com/drive/folders/1gGaVOgdVzjtY6DIIRPjIWD_zr0VjDgDR?usp=sharing";
 const LOGSENSE_URL = "https://github.com/subodhkc/Enterprise-AI-Forensic-Log-Analyzer-";
 const HAIEC_LAB_URL = "https://www.haiec.com/dashboard/assurance-lab";
-const DECK_URL = "/tm-forum/agentic-assurance-deck";
+const DECK_URL = "/tm-forum/haiec-agentic-assurance-deck.html";
 
 const controls = [
   { id: "7", code: "AIA-LOG-001", title: "Automatic event recording", measure: "Expected-event coverage, required zones/enforcement points, timing gaps, exception rate." },
@@ -21,9 +21,10 @@ const controls = [
 const primary = [
   { n: "01", title: "FIELD GUIDE — START HERE", href: "/tm-forum/field-guide", body: "Mission, first-hour sequence, evidence identity, clock integrity, freeze discipline, query routing and judge-ready operating rules.", external: false },
   { n: "02", title: "LIVE ENVIRONMENT INTAKE", href: "/tm-forum/team-environment-integration-intake.html", body: "Capture P0 connectivity, telemetry, identity, time, source/deployment and C7/C9/C16 facts without losing the first-hour record.", external: true },
-  { n: "03", title: "LOGSENSE EVENT WORKBENCH", href: LOGSENSE_URL, body: "Open the merged LogSense repo in Devin and use the competition/event workbench to reconstruct what happened. LogSense produces measurements — never HAIEC verdicts.", external: true },
+  { n: "03", title: "LOGSENSE EVENT WORKBENCH", href: LOGSENSE_URL, body: "Open the merged LogSense repo in Devin and run `logsense` / `logsense ui` to use the competition workbench. LogSense reconstructs and measures what happened — never HAIEC verdicts.", external: true },
   { n: "04", title: "HAIEC ASSURANCE LAB", href: HAIEC_LAB_URL, body: "Use the existing HAIEC judge workspace for frozen governing instances, deterministic Control Tests and exact evidence-backed results.", external: true },
   { n: "05", title: "JUDGMENT-DAY DRIVE", href: DRIVE_URL, body: "Evidence File, Threshold & Governance Document, Control Test / Judge Operator Card, Named Runs Register, One-Page Architecture, and Gap / Remediation / Retest Register.", external: true },
+  { n: "06", title: "HAIEC AGENTIC ASSURANCE DECK", href: DECK_URL, body: "Corrected standalone HTML technical thesis: observability vs assurance, deterministic control proof, five evidence planes, claim boundaries, and synthetic examples clearly separated from assessed event evidence.", external: true },
 ] as const;
 
 export default function TmForumChallengePage() {
@@ -50,9 +51,9 @@ export default function TmForumChallengePage() {
       <section className="tmf-start" aria-label="Start here">
         <div className="tmf-start-copy">
           <div className="tmf-start-label">START HERE</div>
-          <h2>Five working links. One operating sequence.</h2>
-          <p>Use the Field Guide first, capture the live environment in Intake, reconstruct in LogSense, prove controls in HAIEC, and preserve the final package in the Judgment-Day Drive.</p>
-          <a className="tmf-deck-button" href={DECK_URL}>
+          <h2>Six working links. One operating sequence.</h2>
+          <p>Use the Field Guide first, capture the live environment in Intake, reconstruct in LogSense, prove controls in HAIEC, preserve the final package in the Judgment-Day Drive, and use the assurance deck for the architecture story.</p>
+          <a className="tmf-deck-button" href={DECK_URL} target="_blank" rel="noreferrer">
             OPEN HAIEC TECHNICAL THESIS DECK →
           </a>
         </div>
@@ -115,7 +116,7 @@ export default function TmForumChallengePage() {
         <div className="tmf-end-actions">
           <a href="/tm-forum/field-guide">Field Guide</a>
           <a href="/tm-forum/team-environment-integration-intake.html" target="_blank" rel="noreferrer">Intake</a>
-          <a href={DECK_URL}>Technical Thesis Deck</a>
+          <a href={DECK_URL} target="_blank" rel="noreferrer">Technical Thesis Deck</a>
           <a href={DRIVE_URL} target="_blank" rel="noreferrer">Judgment-Day Drive</a>
         </div>
       </section>
