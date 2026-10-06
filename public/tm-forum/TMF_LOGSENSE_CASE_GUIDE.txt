@@ -3,6 +3,11 @@ TM FORUM 2026 — LOGSENSE EVENT WORKBENCH: RUN IT + EVERY CASE + JUDGING PATH
 Companion to the frozen logsense-event/README.md inside package 7a0bb5f3.
 That README is immutable (digest-bound). This guide is the event-day addendum:
 how to open the workbench, what each case shows, and where the verdict lives.
+
+PLACEMENT: safe to copy this file INTO an extracted package or
+~/logsense-event/ — MANIFEST.sha256 verifies only the 506 listed files;
+an extra file is ignored by the integrity check. Do NOT repackage the
+tarball or edit any listed file — that changes the package digest.
 ================================================================================
 
 BOUNDARY (state this to judges)
@@ -119,8 +124,11 @@ Verify the evidence under every case is unmodified:
 ================================================================================
 4. DO NOT
 ================================================================================
-    - Do not edit files inside the extracted package — it is digest-bound;
-      verify integrity instead of repairing it.
+    - Do not EDIT files inside the extracted package — every listed file is
+      digest-bound; verify integrity instead of repairing it. (Adding NEW
+      unlisted files, like this guide, does not affect MANIFEST.sha256.)
+    - Do not repackage the tarball — a rebuilt tarball changes the digest
+      and silently forks the evidence chain (7a0bb5f3 is the final id).
     - Do not run scripts/starter/submit.sh.
     - LogSense cases prove reconstruction, not compliance — the verdict
       surface is HAIEC (VERIFY / Control Test / MCP / Judge Workspace).
