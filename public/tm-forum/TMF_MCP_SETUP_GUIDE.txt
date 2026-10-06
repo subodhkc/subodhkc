@@ -63,12 +63,12 @@ Do not store, print, or commit the API key anywhere else.
 
 ## Judge queries that work
 
-- "Identify the assessed TM Forum AI system."
-- "Show the current C7, C9 and C16 Control Test results."
-- "Was C16 satisfied for run fault-1791165466-51ab52?"
-- "Why did C7 fail?"
-- "Show me the C9 breach." → expected honest answer: an assessment-eligible breach is `NOT_ESTABLISHED`.
-- "Was delegation proven?" → expected: `UNKNOWN`, with the missing evidence named.
+- "Identify the assessed TM Forum AI systems." → 4043efee (organizer-assessed) + 44f861cf (participant/remediation).
+- "Show the current C7, C9 and C16 Control Test results." → six verdicts.
+- "Was C16 satisfied for run fault-1791165466-51ab52?" → NOT_SATISFIED, 106,829/60,000.
+- "Why did C7 fail — and was it remediated?" → original 9/10 NEGOTIATION missing (preserved); 10/10 system-scoped pass on 44f/dcfa.
+- "Show me the C9 breach." → fault-1791275895-048d48, IT +286.03% NOT_SATISFIED → alert → human ACK → ServiceNow INC0010337.
+- "Was delegation proven?" → original run: `UNKNOWN`/absent; remediation system: ESTABLISHED via observed negotiation.
 - "Distinguish synthetic evidence from real assessed-event evidence."
 
 ## Full judge prompt

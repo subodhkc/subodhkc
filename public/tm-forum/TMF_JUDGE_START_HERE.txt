@@ -1,19 +1,29 @@
 ================================================================================
 TM FORUM 2026 — HAIEC x LOGSENSE · JUDGE START HERE
 ================================================================================
-PACKAGE:  7a0bb5f3 (frozen · 506 files · SHA-256 pinned — never rebuilt)
-RESULTS:  C7 NOT_SATISFIED (9/10) · C9 SATISFIED x2 · C16 PASS + real BREACH
+OFFICIAL SUBMISSION:  submission-haiec-20261006T150621Z.zip
+                      submitted 2026-10-06T15:06:21Z via organizer submit.sh
+                      s3://team-evidence-352826992186/submissions/haiec/
+                      SHA-256 1fde8544f1d7bf13cccc58b3bfe6a84472132772037bdc82d39093f2de331ff0
+                      152 files: evidence/ register.yaml run-ids.txt gap-list.md sketch.png
+RESULTS:  C16 PASS + BREACH · C9 PASS + BREACH → human ACK → ServiceNow
+          C7 9/10 FAILURE → behavioral remediation → 10/10 system-scoped PASS
 READ THIS FIRST: every claim below is backed by a persisted ID you can verify
 yourself. Nothing here requires trusting our narrative.
+NOTE: earlier package 7a0bb5f3 (506 files) is historical provenance — it fed
+the submission but is NOT the submitted artifact.
 
 --------------------------------------------------------------------------------
 0 · THE ONE-PARAGRAPH VERSION
 --------------------------------------------------------------------------------
 The competition supplied a governed AI runtime, raw evidence, and a starter
-kit. LogSense reconstructed what the agents actually did (WHO / WHAT / WHEN /
-WHY). HAIEC then tested three frozen controls against that evidence —
-deterministically, after the runs, under policies frozen before them. One
-control failed honestly, two passed, and every verdict reproduces in seconds.
+kit. LogSense reconstructed what the agents actually did. HAIEC then tested
+frozen controls against that evidence — deterministically, post-run, under
+policies frozen before them. C16 produced a clean same-policy PASS and BREACH.
+C9 produced a real breach that fired an alert, got a named human ACK, and
+landed in ServiceNow. C7 failed honestly at 9/10, HAIEC isolated the exact
+missing proof edge, real agent behavior was remediated, and the fix was
+independently proved at 10/10 — while the original failure stayed untouched.
 
 --------------------------------------------------------------------------------
 1 · START WITH THE HUB — subodhkc.com/tm-forum
@@ -23,134 +33,152 @@ Everything a judge needs is reachable from one page:
     https://subodhkc.com/tm-forum
 
 What the hub contains (top to bottom):
-  - Start Here        the whole case + eight auditor questions, each answered
-                      with a status chip, a best-evidence pointer, and its
-                      open limitation
-  - Control Results   C7/C9/C16 cards: question, formula, measured values,
-                      frozen threshold, verdict, headroom/overshoot, and the
-                      "how the organizer's thresholds differ" explainer
-                      (why C16 is an absolute 60,000-token cap, not 10%)
-  - Results at a glance   canonical charts: tokens vs frozen cap, drift vs
-                      D=100%, coverage 9/10
-  - Judge Mode J1–J11   plain-spoken walkthrough: what was asked, what was
-                      tested, what passed/failed and WHY, what remains open
-  - Proof / Evidence    scenario replay ledger, five-plane authority model,
-                      detection-vs-control-test distinction
-  - Findings & Fixes    every finding with before → fix → retest proof
-  - Honest Frontier     every UNKNOWN/OPEN item: what's KNOWN, what's
-                      MISSING, WHY it's open, and what CLOSES it
-  - Downloads           self-contained HTML/PDF/JSON report, 11 diagrams,
-                      runbook, prompt pack, run portal, case guide
+  - The Proof          three archetype cards + a six-verdict judge quick-read
+                       table (runs, measured values, frozen rules, result IDs)
+  - Control Stories    C16 boundary proof · C9 drift→breach→governance ·
+                       C7 failure→exact gap→remediation→proof
+  - Evidence Lineage   ACTION → NATIVE RECORD → RECONSTRUCTION → MEASUREMENT →
+                       FROZEN RULE → DETERMINISTIC VERDICT → RESPONSE
+  - Evidence Boundaries what HAIEC refused to claim + bounded truth delivered
+  - Reports            final event report (HTML/JSON/source) + historical docs
+  - Artifacts          the six required organizer artifacts + official ZIP
+  - Diagrams           control results, C7 frontier, drift chart, coverage
+  - Ask HAIEC          read-only MCP + copy-paste judge prompts
+  - Reproduce          the six VERIFY presets with expected verdicts
+  - Downloads          everything below, offline-safe
 
 Key pages behind the hub:
-  - Full judge report (self-contained, works offline):
+  - Final event report (self-contained, works offline):
         https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT.html
-  - Same report as PDF (print-identical):
-        https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT.pdf
   - All canonical values as JSON (the shared data source):
         https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT_DATA.json
   - Judge Run Portal — every assessed run as a clickable card with a
     copyable command and its expected verdict:
         https://subodhkc.com/tm-forum/TMF_JUDGE_RUN_PORTAL.html
-  - Findings & Fixes ledger — before/during/after for every finding:
+  - Findings & Fixes ledger — before/during/after for every finding plus the
+    final event addendum:
         https://subodhkc.com/tm-forum/TMF_FINDINGS_AND_FIXES.txt
-  - Technical CLI runbook — every verification command:
+  - Technical CLI runbook (submitted-event technical reference):
         https://subodhkc.com/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt
-  - LogSense case guide — all 11 workbench cases, UI path + judging path:
+  - LogSense case guide (submitted-event technical reference):
         https://subodhkc.com/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt
+  - Final judge-cut deck (8 slides, the 10-minute story):
+        https://subodhkc.com/tm-forum/haiec-judge-cut.html
+  - Post-submission proof deck (the full assurance story):
+        https://subodhkc.com/tm-forum/haiec-agentic-assurance-deck.html
+  - Historical PDF (pre-submission render, labeled HISTORICAL):
+        https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT.pdf
 
 --------------------------------------------------------------------------------
 2 · THE LIVE HAIEC JUDGE WORKSPACE
 --------------------------------------------------------------------------------
 HAIEC's dashboard exposes a read-only Judge Workspace:
 
-    https://assure.haiec.com   ->  Dashboard -> Assurance Lab -> JUDGE tab
-
-    aiSystemId = 4043efee-cec6-4007-954b-1f8da2273f35
+    https://www.haiec.com/dashboard/assurance-lab
 
 In the workspace:
   - PROVE panel  -> VERIFY / VERIFY ALL re-derives every persisted Control
-    Test result from stored evidence (expected: 5/5 reproduced — reproduced,
-    not "passed"; C7's honest verdict is NOT_SATISFIED)
-  - REPLAY       -> reconstructs scenario runs S1 / S2 / S2-retest / S3
-  - Control Comparison panel -> the same three canonical charts
-    (C16 tokens vs cap, C9 drift vs D, C7 coverage) rendered from persisted
-    values — never hardcoded
-  - VERIFY is read-only: it recomputes from persisted records; it does not
-    re-execute the scenario and creates no new evidence.
+    Test result from stored evidence. Reproduced is not "passed" — the C7
+    original honestly reproduces as NOT_SATISFIED.
+  - REPLAY       -> reconstructs scenario runs (reconstruction, not execution)
+  - Control + Run/Window is the primary deterministic query.
 
-No workspace access? The standalone report (section 1) is identical content;
-VERIFY also exists as a read-only API:
+Assessed system identities (kept distinct):
+    4043efee-cec6-4007-954b-1f8da2273f35  organizer-assessed register system
+    44f861cf-9c09-43e5-9388-997b66649542  participant / remediation system
+
+Read-only verify API:
     GET /api/control-test/verify?aiSystemId=<id>&all=1
 
 --------------------------------------------------------------------------------
-3 · RUN LOGSENSE (the forensic workbench) IN A NEW WINDOW
+3 · THE SIX JUDGE PRESETS (the 5-minute path)
+--------------------------------------------------------------------------------
+Same frozen policy. Same evaluator. Different observed facts. Different verdicts.
+
+  1. C16 PASS        fault-1791167110-5e3126  35,559 / 60,000
+                     SATISFIED   ctr-237f39281d0e90bacd8697163ab304defff22154
+  2. C16 BREACH      fault-1791165466-51ab52  106,829 / 60,000 (+46,829)
+                     NOT_SATISFIED  ctr-6d14200872918691f27eee1985b3c329f50ebc01
+                     (same frozen policy 547f4a67 — the verdict follows evidence)
+
+  3. C9 PASS         fault-1791276114-723d80  worst +60.20% vs frozen D=+100%
+                     SATISFIED   ctr-d3383065a39d01863b236e54786cb9601f6bae82
+  4. C9 BREACH       fault-1791275895-048d48  IT +286.03% vs frozen D=+100%
+                     NOT_SATISFIED  ctr-0ba48de1737c253ce42933fd74395e3a4414bb7e
+                     then: alert -> named human ACK -> persisted response ->
+                     anti-replay -> ServiceNow INC0010337
+                     (same system 44f, same policy 13c07652, digest bccd8c3c…)
+
+  5. C7 ORIGINAL     fault-1791167110-5e3126  9/10, NEGOTIATION missing
+                     NOT_SATISFIED  (4043 / ae6d — preserved historical failure)
+  6. C7 REMEDIATION  fault-1791275895-048d48  10/10
+                     SATISFIED   ctr-bea968ae47b311a896d3d97cbadfc9d3342df773
+                     (44f / dcfa — SYSTEM-SCOPED remediation pass, NOT an exact
+                      canonical 4043/ae6d retest)
+
+  Then: ServiceNow INC0010319 (C16) and INC0010337 (C9) — resolved lifecycle
+  where established. A resolved incident does not rewrite a control verdict.
+
+  A/B SCOREBOARD (fresh post-submission runs 2026-10-06; same scenario, same
+  first hop haiec-agent — one variable: the third hop; scored with the
+  organizer's own score-run.py on the live audit store):
+    S1  haiec-network-agent fault-1791305796-8a097d  C7 10/10 · C16 29,334 · grade 7/8  vs reference 6/8
+    S2  haiec-network-agent fault-1791305929-e290e9  C7 10/10 · C16 38,067 · grade 7/10 vs reference 5/10
+    S3  haiec-network-agent fault-1791306067-db7812  C7 10/10 · C16 34,279 · grade 9/10 vs reference 8/10
+  Our chain won all three. Every haiec-network-agent run: C7 10/10 + 3
+  negotiation records; every reference-chain run: 9/10 + zero.
+  (C16 evaluated under the submitted canonical 60,000 cap. The "guardrail
+   verdict" check fails for both chains — audit record-format gap, not a
+   governance absence.)
+
+--------------------------------------------------------------------------------
+4 · RUN LOGSENSE (the forensic workbench)
 --------------------------------------------------------------------------------
 LogSense is the supplemental forensic layer — it explains the evidence
-underneath the verdicts. To run its workbench UI:
+underneath the verdicts. Commands assume the Workshop IDE terminal:
 
-    # one-time install + self-check (inside the hand-in / extracted package):
     cp -r logsense-event ~/logsense-event
     bash ~/logsense-event/scripts/install-logsense-event.sh
     bash ~/logsense-event/scripts/verify-logsense-event.sh
-
-    # start the workbench UI:
     bash ~/logsense-event/scripts/start-logsense-ui.sh
+    # then open http://localhost:8501 in a NEW window / IDE preview tab
 
-    # then open in a NEW browser window / IDE preview tab:
-        http://localhost:8501        (it binds 0.0.0.0:8501)
-
-Optional companions:
-    bash ~/logsense-event/scripts/start-logsense-api.sh    # http://127.0.0.1:8765
-    ~/venvs/logsense-event/bin/python -m logsense.cli mcp  # MCP (stdio)
-
-The 11 built-in cases (runaway loop, token semantics, ServiceNow identity,
-monitoring chain, etc.) are indexed in TMF_LOGSENSE_CASE_GUIDE.txt with the
-exact UI path and judging path for each.
+The 11 built-in cases are indexed in TMF_LOGSENSE_CASE_GUIDE.txt.
 
 IMPORTANT — LogSense vs HAIEC:
     LogSense reconstructs WHAT HAPPENED (forensic measurement).
     HAIEC decides WHETHER THE FROZEN CONTROL HELD (the verdict).
-    A LogSense bundle can be judged through our frozen evaluator — the
-    threshold stays ours — but LogSense output is never itself a verdict.
-
---------------------------------------------------------------------------------
-4 · WHAT TO VERIFY FIRST (the 5-minute path)
---------------------------------------------------------------------------------
-1. Package integrity:    sha256sum -c MANIFEST.sha256   (506 files, all OK)
-2. All verdicts:         Judge Workspace -> VERIFY ALL  (5/5 reproduced)
-3. The honest failure:   VERIFY C7 -> NOT_SATISFIED, 9/10, reason
-                         REQUIRED_CATEGORY_MISSING (NEGOTIATION)
-4. The real breach:      VERIFY C16 breach run -> NOT_SATISFIED, 106,829 vs
-                         frozen 60,000 cap, reason SPEND_CAP_EXCEEDED
-5. The non-breach:       VERIFY C16 pass run -> SATISFIED, 35,559 (59.3%)
+    LogSense output is never itself a verdict.
 
 --------------------------------------------------------------------------------
 5 · THE HONEST FRONTIER (what is NOT claimed, and why)
 --------------------------------------------------------------------------------
-  - DAI delegation: UNKNOWN — capability + permission proven, but no
-    negotiation record exists in any team's 835 records; we do not infer it.
-  - ServiceNow AICT: connector ACTIVE + AssumeRole OBSERVED (5 CloudTrail
-    events); discovery, cross-platform identity, HITL NOT_ESTABLISHED —
-    no discovery pass ran, no shared principal mapping exists, no approval
-    record emitted.
-  - Alerting: delivery rail PROVEN end-to-end (synthetic canary → finding →
-    alert → webhook + email; named human ACK ~4 min). Only the verdict→alert
-    producer is NOT_WIRED — nothing subscribes to verdict persistence yet.
-  - C9 eligible breach: NOT_ESTABLISHED — the intended-breach run degraded
-    only +28.5% vs frozen D=100%. No breach was manufactured.
-  - Full Assurance Evaluation: NOT_RUN — deliberately not manufactured.
+  - C7 exact canonical retest: the remediation pass runs on 44f/dcfa — a
+    distinct immutable policy instance with equivalent C7 semantics and
+    different system scope. It is a VALID system-scoped pass, not a 4043/ae6d
+    retest. The 9/10 original stays NOT_SATISFIED forever.
+  - C9 lineage scope: 13c/44f results are kept separate from the canonical
+    346b/4043 register lineage; no cross-projection is claimed.
+  - Inline continuous compliance: NOT_ESTABLISHED — HAIEC's delivered control
+    evaluation is retrospective/post-run. The organizer inline bonus is not
+    claimed; true inline enforcement is a post-event roadmap item.
+  - ServiceNow AICT depth: connector + human-loop proof established
+    (INC0010319, INC0010337); AICT asset materialization NOT_ESTABLISHED.
+  - Mailbox email delivery: provider-accepted ESTABLISHED; mailbox delivery
+    NOT_ESTABLISHED without provider receipts.
+  - Full Assurance Evaluation: no completed evaluationId exists — deliberately
+    not manufactured.
 
 --------------------------------------------------------------------------------
 6 · BOUNDARIES (so nothing gets scored wrong)
 --------------------------------------------------------------------------------
-  - Never run submit.sh. Package 7a0bb5f3 is frozen — do not rebuild it.
-  - This file is a companion: it may sit NEXT TO the extracted package (or
-    anywhere), never inside the tarball replacing a manifest-listed file.
-  - Synthetic canary evidence is labeled SYNTHETIC_NON_SCORED — it proves the
+  - Never run submit.sh again — the submission is final and immutable.
+  - This file is a companion: it sits NEXT TO the submission, never inside it.
+  - Synthetic canary evidence is labeled SYNTHETIC_NON_SCORED — it proved the
     alert mechanism, not a real incident.
   - Scenario scores are organizer grades; Control Test verdicts are ours.
     They answer different questions and are never blended.
+  - A resolved ServiceNow incident does not change a historical HAIEC verdict.
   - UNKNOWN is a finding, not a failure: it names exactly which proof edge
     is missing and what evidence would close it.
 ================================================================================

@@ -7,6 +7,7 @@
     .q{font-size:11px;fill:#333;font-style:italic}
     .pass{fill:#0a5c2e;font-weight:700;font-size:11px}
     .warn{fill:#8a5a00;font-weight:700;font-size:11px}
+    .fail{fill:#b00;font-weight:700;font-size:11px}
     .bar{fill:#0a5c2e}
     .bar2{fill:#8a5a00}
     .axis{stroke:#333;stroke-width:1.2}
@@ -16,40 +17,40 @@
     .take{font-size:10.5px;fill:#111;font-weight:600}
   </style>
 
-  <text x="16" y="22" class="hdr">C9 — Worst Relative Degradation vs Frozen Drift Limit</text>
+  <text x="16" y="22" class="hdr">C9 — Worst Relative Degradation vs Frozen Drift Limit (FINAL)</text>
   <text x="16" y="40" class="q">Question: did runtime duration degrade beyond the frozen baseline boundary?</text>
-  <text x="16" y="56" class="sub">Bars = worst per-agent-window relative degradation vs baseline · aws.bedrock-agentcore.duration_ms, MEAN, LOWER_IS_BETTER · Dashed line = frozen D = 100% (B9 = 0%, policy 346b5f43, c9-duration-thresholds-v2)</text>
+  <text x="16" y="56" class="sub">Bars = worst per-agent-window relative degradation vs baseline · aws.bedrock-agentcore.duration_ms, MEAN, LOWER_IS_BETTER · Dashed line = frozen D = +100% (B9 = 0%, policy 13c07652, system 44f861cf, digest bccd8c3c…)</text>
 
-  <!-- plot: y=0 at 370; y=100% at 130 => 2.4px per % -->
+  <!-- plot: y=0 at 370; scale 0.9px per % => +286% -> y≈112 -->
   <g>
     <line x1="90" y1="370" x2="930" y2="370" class="axis"/>
-    <line x1="90" y1="310" x2="930" y2="310" class="grid"/><text x="60" y="314" class="tick">25%</text>
-    <line x1="90" y1="250" x2="930" y2="250" class="grid"/><text x="60" y="254" class="tick">50%</text>
-    <line x1="90" y1="190" x2="930" y2="190" class="grid"/><text x="60" y="194" class="tick">75%</text>
-    <line x1="90" y1="130" x2="930" y2="130" class="grid"/><text x="52" y="134" class="tick">100%</text>
+    <line x1="90" y1="325" x2="930" y2="325" class="grid"/><text x="60" y="329" class="tick">50%</text>
+    <line x1="90" y1="280" x2="930" y2="280" class="grid"/><text x="56" y="284" class="tick">100%</text>
+    <line x1="90" y1="190" x2="930" y2="190" class="grid"/><text x="56" y="194" class="tick">200%</text>
+    <line x1="90" y1="100" x2="930" y2="100" class="grid"/><text x="56" y="104" class="tick">300%</text>
     <text x="62" y="374" class="tick">0</text>
-    <line x1="90" y1="100" x2="90" y2="370" class="axis"/>
+    <line x1="90" y1="92" x2="90" y2="370" class="axis"/>
 
-    <!-- frozen D line at 100% -> y=130 -->
-    <line x1="90" y1="130" x2="930" y2="130" class="cap"/>
-    <text x="560" y="122" class="mono" font-weight="700">FROZEN D = 100% relative degradation limit</text>
+    <!-- frozen D line at 100% -> y=280 -->
+    <line x1="90" y1="280" x2="930" y2="280" class="cap"/>
+    <text x="560" y="272" class="mono" font-weight="700">FROZEN D = +100% relative degradation limit</text>
 
-    <!-- run 1: +7.5% -> height 18 -> y=352 -->
-    <rect x="220" y="352" width="160" height="18" class="bar" opacity="0.85"/>
-    <rect x="220" y="352" width="160" height="18" fill="none" stroke="#111" stroke-width="1.2"/>
-    <text x="300" y="343" class="mono" text-anchor="middle" font-weight="700">+7.5%</text>
-    <text x="300" y="329" class="pass" text-anchor="middle">SATISFIED</text>
-    <text x="300" y="388" class="lbl" text-anchor="middle">C9_INTENDED_PASS · fault-1791183079-256a5e</text>
-    <text x="300" y="401" class="lbl" text-anchor="middle">worst window +7.5% (it agent) · ctr-214db6a9…b928</text>
+    <!-- PASS: +60.20% -> height 54.2 -> y=315.8 -->
+    <rect x="220" y="315.8" width="160" height="54.2" class="bar" opacity="0.85"/>
+    <rect x="220" y="315.8" width="160" height="54.2" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="300" y="306" class="mono" text-anchor="middle" font-weight="700">+60.20%</text>
+    <text x="300" y="292" class="pass" text-anchor="middle">SATISFIED</text>
+    <text x="300" y="388" class="lbl" text-anchor="middle">C9 PASS · fault-1791276114-723d80</text>
+    <text x="300" y="401" class="lbl" text-anchor="middle">0/3 violating · within D=+100% · ctr-d3383065…ae82</text>
 
-    <!-- run 2: +28.5% -> height 68.4 -> y=301.6 -->
-    <rect x="560" y="301.6" width="160" height="68.4" class="bar2" opacity="0.85"/>
-    <rect x="560" y="301.6" width="160" height="68.4" fill="none" stroke="#111" stroke-width="1.2"/>
-    <text x="640" y="292" class="mono" text-anchor="middle" font-weight="700">+28.5%</text>
-    <text x="640" y="278" class="warn" text-anchor="middle">SATISFIED</text>
-    <text x="640" y="388" class="lbl" text-anchor="middle">C9_INTENDED_BREACH · fault-1791183213-228329</text>
-    <text x="640" y="401" class="lbl" text-anchor="middle">worst window +28.5% (it agent) · ctr-72f8118b…cad3</text>
+    <!-- BREACH: +286.03% -> height 257.4 -> y=112.6 -->
+    <rect x="560" y="112.6" width="160" height="257.4" fill="#b00" opacity="0.8"/>
+    <rect x="560" y="112.6" width="160" height="257.4" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="640" y="103" class="mono" text-anchor="middle" font-weight="700">+286.03%</text>
+    <text x="640" y="89" class="fail" text-anchor="middle">NOT_SATISFIED → ALERT → ACK → INC0010337</text>
+    <text x="640" y="388" class="lbl" text-anchor="middle">C9 BREACH · fault-1791275895-048d48</text>
+    <text x="640" y="401" class="lbl" text-anchor="middle">IT agent window · exceeds D=+100% · ctr-0ba48de1…bb7e</text>
   </g>
 
-  <text x="90" y="422" class="take">Takeaway: the second run was intended to exercise a breach, but observed degradation stayed at +28.5% — under the frozen 100% boundary. HAIEC correctly returned SATISFIED instead of manufacturing a breach. ELIGIBLE_SANCTIONED_BREACH = NOT_ESTABLISHED.</text>
+  <text x="90" y="422" class="take">Takeaway: same system, same frozen policy — compliant behavior (+60.20%) vs a genuine deterministic breach (+286.03%) that fired alert → named human ACK → persisted response → anti-replay → ServiceNow INC0010337. Earlier 4043/346b runs (+7.5%, +28.5%) preserved as historical.</text>
 </svg>

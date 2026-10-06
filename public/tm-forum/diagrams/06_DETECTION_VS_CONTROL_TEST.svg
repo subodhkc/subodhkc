@@ -34,7 +34,7 @@
   <text x="24" y="218" class="hdr" fill="#7a5b00">SYNTHETIC CANARY — NON-SCORED, ISOLATED (never a real event violation)</text>
   <text x="24" y="236" class="sub">System e363482f-…daf6 · injected span → detector MCP-001 → finding arf-5da00f32 → alert alert-a66f3eaa → webhook + email</text>
   <text x="24" y="252" class="sub">Proves the detection→alert pipeline works end-to-end on a clearly-labeled synthetic system.</text>
-  <text x="24" y="268" class="sub">Control Test → alert wiring: NOT_WIRED (open gap). Real violation → auto-alert: NOT_OBSERVED.</text>
+  <text x="24" y="268" class="sub">Separately, the REAL C9 breach verdict (ctr-0ba48de1…) fired alert → named human ACK → persisted response → anti-replay → ServiceNow INC0010337 — proven, not wired-in-name-only.</text>
 
-  <text x="12" y="306" class="lbl">Source: package detection coverage matrix; live sweep evidence; canary finding/alert IDs; gap-list control-test→alert NOT_WIRED.</text>
+  <text x="12" y="306" class="lbl">Source: package detection coverage matrix; live sweep evidence; canary finding/alert IDs; C9 breach governance chain (INC0010337).</text>
 </svg>

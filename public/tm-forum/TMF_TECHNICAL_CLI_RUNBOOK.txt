@@ -1,7 +1,14 @@
 ================================================================================
 TM FORUM 2026 — AGENTIC ASSURANCE: COMPLETE TECHNICAL CLI RUNBOOK
-HAIEC x LogSense · Package 7a0bb5f3 · READ-ONLY — every command below either
-verifies, reads, or replays evidence. Nothing here mutates frozen state.
+HAIEC x LogSense · SUBMITTED-EVENT TECHNICAL REFERENCE (historical package
+7a0bb5f3 lineage) · READ-ONLY — every command below either verifies, reads,
+or replays evidence. Nothing here mutates frozen state.
+
+NOTE: The official submitted artifact is submission-haiec-20261006T150621Z.zip
+(submitted 2026-10-06T15:06:21Z). This runbook documents the technical
+reproduction commands from the event workspace — some C9/C7 run references
+are mid-event; the FINAL results are in TMF_JUDGE_START_HERE.txt and the
+report assets (DATA.json is authoritative where they differ).
 
 NEW HERE? Start with TMF_JUDGE_START_HERE.txt — hub links, HAIEC dashboard
 path, LogSense launch steps, and the 5-minute verification path.
@@ -349,26 +356,39 @@ frozen caps, by two different paths:
             ctr-4429…, ctr-d4d6…, ctr-7f27…, ctr-e8bc…)
     note:   this draft took on C7 + C16 only; C9 read as NOT TAKEN ON
 
-  ANALYSIS 2 — FINAL assessed package (HAIEC system 4043efee, THIS hand-in):
+  ANALYSIS 2 — assessed package lineage (HAIEC system 4043efee):
     system: 4043efee-cec6-4007-954b-1f8da2273f35 · policy c16-cap-v1, cap 60,000
     runs:   fault-1791167110-5e3126 (ASSESSED_PASS, 35,559/60,000)
             fault-1791165466-51ab52 (ASSESSED_BREACH, 106,829/60,000)
-            fault-1791183079-256a5e + fault-1791183213-228329 (C9 SATISFIED x2)
+            fault-1791183079-256a5e + fault-1791183213-228329 (C9 SATISFIED —
+            historical attempts; final C9 pair lives on 44f/13c07652)
     path:   full HAIEC Control Test under frozen policies + digest-bound package
-            7a0bb5f3 — THIS IS THE FINAL, AUTHORITATIVE SUBMISSION
+            7a0bb5f3 — provenance lineage; the authoritative submitted artifact
+            is submission-haiec-20261006T150621Z.zip (152 files)
 
-  Why two is a strength: the same structural truth reproduced under
-  different caps, different runs, and different analysis paths —
+  FINAL STATE (post-submission — supersedes the two-analysis framing above):
+    - C16: 35,559 SATISFIED + 106,829 NOT_SATISFIED under the same frozen
+      60,000 policy (547f4a67). The 40,000 cap is a separate participant
+      experimental lineage — never the canonical C16 threshold.
+    - C9: PASS +60.20% (fault-1791276114-723d80) and BREACH +286.03%
+      (fault-1791275895-048d48) on system 44f / policy 13c07652 → alert →
+      named human ACK → ServiceNow INC0010337.
+    - C7: original 9/10 NOT_SATISFIED (4043/ae6d, preserved) → real behavioral
+      remediation → 10/10 SATISFIED system-scoped pass (44f/dcfa, run
+      fault-1791275895-048d48, ctr-bea968ae…). Not an exact canonical retest.
+
+  Why multiple analyses is a strength: the same structural truth reproduced
+  under different caps, different runs, and different analysis paths —
     - C16: a real breach is caught in BOTH (50,853 > 40,000 and
       106,829 > 60,000). The cap does not depend on the environment.
-    - C7: the NEGOTIATION gap appears in BOTH — 0 real negotiation events
-      across 835 audit records (all teams), an organizer-image dependency,
-      not a measurement artifact.
+    - C7: the NEGOTIATION gap was real — and later closed by real agent
+      behavior, proven under a new system/policy/run identity.
     - Numbers differ because the systems and frozen caps differ — the
       draft register itself documents which register applies per system.
 
-  When a judge asks "which one counts": ANALYSIS 2 — package 7a0bb5f3,
-  system 4043efee, cap 60,000. Analysis 1 is corroborating history.
+  When a judge asks "which one counts": the six verdicts in
+  TMF_JUDGE_START_HERE.txt / DATA.json — submission
+  submission-haiec-20261006T150621Z.zip is the authoritative artifact.
 
 ================================================================================
 PART 10 — DO NOT RUN

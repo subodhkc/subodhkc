@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="300" viewBox="0 0 980 300" font-family="Segoe UI, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="348" viewBox="0 0 980 348" font-family="Segoe UI, Arial, sans-serif">
   <style>
     .bx{fill:#fff;stroke:#333;stroke-width:1.2}
     .hdr{font-size:12px;font-weight:700;fill:#111}
@@ -7,39 +7,40 @@
     .lbl{font-size:9px;fill:#555}
     .pass{fill:#0a5c2e;font-weight:700;font-size:11px}.fail{fill:#b00;font-weight:700;font-size:11px}.ne{fill:#6a6a6a;font-weight:700;font-size:11px}
   </style>
-  <text x="12" y="20" class="hdr" font-size="14">Deterministic Control Test results — frozen policies, persisted verdicts</text>
+  <text x="12" y="20" class="hdr" font-size="14">Deterministic Control Test results — frozen policies, persisted verdicts (FINAL)</text>
 
   <!-- C7 card -->
-  <rect x="12" y="40" width="306" height="200" class="bx"/>
+  <rect x="12" y="40" width="306" height="220" class="bx"/>
   <text x="24" y="62" class="hdr">C7 — AIA-LOG-001</text>
-  <text x="24" y="78" class="sub">HAIEC control: AIA-LOG-001 · organizer crosswalk not established</text>
-  <text x="24" y="96" class="sub">Coverage: 9/10 required categories</text>
-  <text x="24" y="110" class="sub">Missing facet: NEGOTIATION</text>
-  <text x="24" y="130" class="fail">RESULT: NOT_SATISFIED</text>
-  <text x="24" y="146" class="mono">policy ae6dda36-…e311</text>
-  <text x="24" y="158" class="mono">result ctr-abdf612f…4c7a</text>
-  <text x="24" y="170" class="mono">run fault-1791167110-5e3126</text>
-  <text x="24" y="192" class="sub">Permission != delegation. Capability</text>
-  <text x="24" y="205" class="sub">present; observed negotiation absent.</text>
-  <text x="24" y="228" class="lbl">status: FROZEN + ASSESSED</text>
+  <text x="24" y="78" class="sub">Required evidence-category coverage (10)</text>
+  <text x="24" y="96" class="fail">ORIGINAL 4043/ae6d: NOT_SATISFIED</text>
+  <text x="24" y="110" class="sub">9/10 · NEGOTIATION missing · preserved</text>
+  <text x="24" y="130" class="pass">REMEDIATION 44f/dcfa: SATISFIED</text>
+  <text x="24" y="144" class="sub">10/10 · real behavioral remediation</text>
+  <text x="24" y="164" class="mono">orig ctr-abdf612f…4c7a</text>
+  <text x="24" y="178" class="mono">remediation ctr-bea968ae…f773</text>
+  <text x="24" y="192" class="mono">runs fault-…5e3126 · fault-…048d48</text>
+  <text x="24" y="212" class="sub">System-scoped pass — not an exact</text>
+  <text x="24" y="225" class="sub">canonical 4043/ae6d retest.</text>
+  <text x="24" y="248" class="lbl">status: FAILURE → REMEDIATION → PROOF</text>
 
   <!-- C9 card -->
-  <rect x="336" y="40" width="306" height="200" class="bx"/>
+  <rect x="336" y="40" width="306" height="220" class="bx"/>
   <text x="348" y="62" class="hdr">C9 — AIA-ARC-006</text>
   <text x="348" y="78" class="sub">Metric: aws.bedrock-agentcore.duration_ms</text>
-  <text x="348" y="92" class="sub">MEAN/agent-window, LOWER_IS_BETTER</text>
-  <text x="348" y="106" class="sub">Baseline ms: 6781 / 8917 / 12141 · D=100% B9=0%</text>
-  <text x="348" y="126" class="pass">SATISFIED — run …256a5e (INTENDED_PASS)</text>
-  <text x="348" y="140" class="pass">SATISFIED — run …228329 (INTENDED_BREACH)</text>
-  <text x="348" y="156" class="ne">Eligible breach: NOT_ESTABLISHED</text>
-  <text x="348" y="172" class="mono">policy 346b5f43-…bab1</text>
-  <text x="348" y="184" class="mono">ctr-214db6a9…5b928 · ctr-72f8118b…8cad3</text>
-  <text x="348" y="206" class="sub">INTENDED_BREACH is a run role, not a</text>
-  <text x="348" y="219" class="sub">verdict. No breach was invented.</text>
-  <text x="348" y="234" class="lbl">status: FROZEN + ASSESSED</text>
+  <text x="348" y="92" class="sub">MEAN/agent-window · D=+100% frozen</text>
+  <text x="348" y="106" class="sub">Same system 44f, same policy 13c07652</text>
+  <text x="348" y="126" class="pass">PASS fault-…723d80: +60.20% SATISFIED</text>
+  <text x="348" y="140" class="fail">BREACH fault-…048d48: +286.03% NOT_SATISFIED</text>
+  <text x="348" y="156" class="pass">→ alert → human ACK → INC0010337</text>
+  <text x="348" y="174" class="mono">policy 13c07652-…4fd3 · bccd8c3c…</text>
+  <text x="348" y="188" class="mono">ctr-d3383065…ae82 · ctr-0ba48de1…bb7e</text>
+  <text x="348" y="208" class="sub">Post-run eval — inline bonus not claimed.</text>
+  <text x="348" y="221" class="sub">4043/346b runs (+7.5%, +28.5%) historical.</text>
+  <text x="348" y="248" class="lbl">status: FROZEN + ASSESSED + GOVERNED</text>
 
   <!-- C16 card -->
-  <rect x="660" y="40" width="308" height="200" class="bx"/>
+  <rect x="660" y="40" width="308" height="220" class="bx"/>
   <text x="672" y="62" class="hdr">C16 — ACN-COST-001</text>
   <text x="672" y="78" class="sub">Cap: 60,000 tokens/run (LTE)</text>
   <text x="672" y="96" class="pass">PASS …5e3126 — 35,559 SATISFIED</text>
@@ -48,11 +49,13 @@
   <text x="672" y="138" class="sub">(+46,829 over cap · 17 calls)</text>
   <text x="672" y="156" class="mono">policy 547f4a67-…bfe5</text>
   <text x="672" y="168" class="mono">ctr-237f3928…22154 · ctr-6d142008…ebc01</text>
-  <text x="672" y="188" class="sub">Post-run evaluation of persisted usage —</text>
-  <text x="672" y="201" class="sub">not inline runtime prevention.</text>
-  <text x="672" y="218" class="sub">Same frozen policy/digest → COMPARABLE.</text>
-  <text x="672" y="234" class="lbl">status: FROZEN + ASSESSED</text>
+  <text x="672" y="188" class="sub">Same rule, same evaluator, different</text>
+  <text x="672" y="201" class="sub">observed facts → different verdicts.</text>
+  <text x="672" y="218" class="sub">ServiceNow INC0010319 (governance).</text>
+  <text x="672" y="248" class="lbl">status: FROZEN + ASSESSED</text>
 
-  <text x="12" y="262" class="sub">All three controls frozen and assessed. Persisted ctr-* result IDs are queryable via haiec_control_test_query (MCP, read-only).</text>
-  <text x="12" y="284" class="lbl">Source: package 7a0bb5f3 control-result artifacts; HAIEC persisted control-test results; register.yaml named runs.</text>
+  <text x="12" y="282" class="sub">Six verdicts, three archetypes: boundary proof · drift→governance · remediation proof. Persisted ctr-* result IDs are queryable via haiec_control_test_query (MCP, read-only).</text>
+  <text x="12" y="304" class="lbl">Source: submission-haiec-20261006T150621Z.zip + HAIEC persisted control-test results. Earlier 4043/346b C9 lineage preserved as historical.</text>
+  <text x="12" y="326" class="sub">A/B scoreboard (fresh runs 2026-10-06, organizer's score-run.py): haiec-network-agent vs reference chain — S1 7/8 vs 6/8 · S2 7/10 vs 5/10 · S3 9/10 vs 8/10.</text>
+  <text x="12" y="341" class="sub">C7 10/10 + 3 negotiation records on every haiec-network-agent run; every reference run 9/10 + 0. C16 under the submitted 60,000 cap.</text>
 </svg>

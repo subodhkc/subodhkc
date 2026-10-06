@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,11 +11,11 @@ import {
   ArrowRight,
   ArrowUpRight,
   Copy,
-  HelpCircle,
   Download,
-  FileText,
   FileJson,
+  FileText,
   FlaskConical,
+  HelpCircle,
   Layers,
   MonitorCheck,
   Network,
@@ -28,14 +27,14 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "HAIEC × TM Forum 2026 — Judge Evidence Hub | Subodh KC",
+  title: "HAIEC × TM Forum 2026 — From Agent Activity to Defensible Proof | Subodh KC",
   description:
-    "TM Forum Innovate Americas 2026 Agentic Assurance: the complete evidence hub. Control results, reports, diagrams, reproducible verification, and a read-only HAIEC MCP interface for judges.",
+    "The official post-submission evidence hub. Three frozen controls, six verifiable verdicts, one submitted package: C16 boundary proof, C9 breach-to-governance, C7 failure-to-remediation.",
   alternates: { canonical: "https://subodhkc.com/tm-forum" },
   openGraph: {
-    title: "HAIEC × TM Forum 2026 — Agentic Assurance Judge Evidence Hub",
+    title: "HAIEC × TM Forum 2026 — From Agent Activity to Defensible Proof",
     description:
-      "What happened. What the controls proved. What remains unknown. Reproduce the evidence yourself.",
+      "Same frozen policy. Same deterministic evaluator. Different observed facts. Different verdicts. The verdict follows the evidence.",
     url: "https://subodhkc.com/tm-forum",
     type: "website",
   },
@@ -48,6 +47,10 @@ const MCP = `${HAIEC}/api/mcp`;
 const ASSET = "/tm-forum/assets";
 const DIAG = "/tm-forum/diagrams";
 
+const SUBMISSION_ZIP = "submission-haiec-20261006T150621Z.zip";
+const SUBMISSION_SHA = "1fde8544f1d7bf13cccc58b3bfe6a84472132772037bdc82d39093f2de331ff0";
+const SUBMISSION_S3 = "s3://team-evidence-352826992186/submissions/haiec/";
+
 const JUDGE_PROMPT = `You are reviewing HAIEC's TM Forum 2026 Agentic Assurance evidence.
 
 Use the connected HAIEC MCP tools as the source of truth.
@@ -56,23 +59,23 @@ Do not infer unsupported facts.
 
 Please:
 
-1. Identify the assessed TM Forum AI system.
-2. Show the current C7, C9 and C16 Control Test results.
-3. Explain each result in plain English.
-4. For each result show:
-   - frozen policy
+1. Identify the assessed TM Forum AI systems (4043efee organizer-assessed and 44f861cf participant/remediation).
+2. Show all six Control Test results: C16 PASS, C16 BREACH, C9 PASS, C9 BREACH, C7 ORIGINAL, C7 REMEDIATION.
+3. Explain each result in plain English with:
+   - frozen policy ID and digest
    - run ID
    - calculation
    - evidence references
+   - result ID
    - limitations
-5. Explain why C7 is NOT_SATISFIED.
-6. Compare the C16 PASS and BREACH runs.
-7. Tell me whether a valid C9 breach was established.
-8. Explain whether delegation was proven.
-9. Show the major findings.
-10. Explain what remains UNKNOWN or NOT_ESTABLISHED and why.
-11. Distinguish synthetic evidence from real assessed-event evidence.
-12. Do not convert missing evidence into PASS.`;
+4. Compare the C16 PASS and BREACH runs under the same frozen 60,000-token policy.
+5. Explain why C9 +60.20% is SATISFIED but C9 +286.03% is NOT_SATISFIED under frozen D=100%.
+6. Walk through the C7 story: 9/10 failure, the exact missing NEGOTIATION, the behavioral remediation, and the 10/10 system-scoped proof.
+7. Explain why the C7 remediation is a valid system-scoped pass but not an exact canonical 4043/ae6d retest.
+8. Show the alert to human-ACK to ServiceNow chain for the C9 breach.
+9. Tell me what remains UNKNOWN or NOT_ESTABLISHED and why.
+10. Distinguish synthetic evidence from real assessed-event evidence.
+11. Do not convert missing evidence into PASS.`;
 
 const MCP_AGENT_SETUP_PROMPT = `Add the HAIEC read-only evidence server to my MCP configuration.
 
@@ -169,11 +172,11 @@ function DiagramFigure({ src, title, lookingAt, matters }: { src: string; title:
       </div>
       <div className="space-y-1.5 px-5 py-4 text-sm">
         <p>
-          <span className="font-mono text-xs font-semibold text-primary">WHAT YOU ARE LOOKING AT — </span>
+          <span className="font-mono text-xs font-semibold text-primary">WHAT YOU ARE LOOKING AT - </span>
           <span className="text-muted-foreground">{lookingAt}</span>
         </p>
         <p>
-          <span className="font-mono text-xs font-semibold text-primary">WHY IT MATTERS — </span>
+          <span className="font-mono text-xs font-semibold text-primary">WHY IT MATTERS - </span>
           <span className="text-muted-foreground">{matters}</span>
         </p>
       </div>
@@ -185,41 +188,29 @@ export default function TmForumHub() {
   return (
     <>
       <Hero
-        subtitle="TM Forum Innovate Americas 2026 · Agentic Assurance: The Quest for Proof"
+        subtitle="TM Forum Innovate Americas 2026 · Agentic Assurance · Submitted 2026-10-06"
         title={
           <>
-            HAIEC × TM Forum 2026
+            From agent activity
             <br />
-            <span className="gradient-text">Judge Evidence Hub.</span>
+            <span className="gradient-text">to defensible proof.</span>
           </>
         }
-        description="What happened. What the controls proved. What remains unknown. Reproduce the evidence yourself."
+        description="HAIEC turns agent behavior into deterministic, queryable proof. Three frozen controls. Six verifiable verdicts. One submitted evidence package."
       >
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <Link href="#start" className="inline-flex items-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25">
-            START HERE <ArrowRight className="ml-2 h-4 w-4" />
+          <Link href="#proof" className="inline-flex items-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25">
+            See the proof <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+          <Link href="#mcp" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
+            Ask HAIEC
           </Link>
           <a href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
-            Open Judge Report
+            Download the evidence
           </a>
-          <ExtLink href={WORKSPACE} className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium !no-underline">
-            Open HAIEC Judge Workspace
-          </ExtLink>
-          <Link href="#mcp" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
-            Connect HAIEC MCP
-          </Link>
-          <Link href="#reproduce" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
-            Reproduce the Proof
-          </Link>
-          <a href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.pdf`} download className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
-            Download PDF
-          </a>
-          <Link href="#artifacts" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
-            View Required Artifacts
-          </Link>
         </div>
         <p className="mt-5 text-xs text-muted-foreground">
-          A read-only judge account has been prepared for TM Forum reviewers. Credentials are provided separately in the official judge handoff.
+          Official organizer submission: <span className="font-mono">{SUBMISSION_ZIP}</span> · A read-only judge account is provided separately in the judge handoff.
         </p>
       </Hero>
 
@@ -227,9 +218,9 @@ export default function TmForumHub() {
       <nav aria-label="Section navigation" className="sticky top-16 z-30 border-b border-border bg-background/95 backdrop-blur">
         <div className="section-container flex gap-1 overflow-x-auto py-2 text-xs font-medium">
           {[
-            ["#start", "Start"], ["#results", "Results"], ["#reports", "Reports"], ["#artifacts", "Artifacts"],
-            ["#diagrams", "Diagrams"], ["#haiec", "HAIEC"], ["#mcp", "MCP"], ["#reproduce", "Reproduce"],
-            ["#logsense", "LogSense"], ["#requirements", "Coverage"], ["#findings", "Open"], ["#downloads", "Downloads"],
+            ["#proof", "Proof"], ["#scoreboard", "Scoreboard"], ["#controls", "Controls"], ["#lineage", "Lineage"], ["#boundaries", "Boundaries"],
+            ["#reports", "Reports"], ["#artifacts", "Artifacts"], ["#diagrams", "Diagrams"], ["#mcp", "Ask HAIEC"],
+            ["#reproduce", "Reproduce"], ["#downloads", "Downloads"],
           ].map(([href, label]) => (
             <Link key={href} href={href} className="whitespace-nowrap rounded-md px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">
               {label}
@@ -238,101 +229,167 @@ export default function TmForumHub() {
         </div>
       </nav>
 
-      {/* ===================== START HERE ===================== */}
-      <Section id="start" subtitle="Start Here" title="The whole case in one read" sectionNum="01">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          The competition supplied a governed AI runtime, raw evidence, and a starter kit. We reconstructed what the agents actually did, then tested three frozen controls against that evidence. One control failed honestly, two passed, and every verdict can be independently reproduced.
+      {/* ===================== PROOF ===================== */}
+      <Section id="proof" subtitle="The Proof" title="Three proof archetypes. One deterministic evaluator." sectionNum="01">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          Telemetry tells you what was emitted. Logs tell you what was recorded. HAIEC determines what happened, which governed action it belonged to, which frozen rule applied, whether the control held, what evidence supports that conclusion, and what changed after remediation.
         </p>
-        <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            ["WHAT THE COMPETITION ASKED", "Prove that an agentic AI system can be governed and assured with evidence, not claims. Score scenarios, evaluate frozen controls, and let judges verify results independently."],
-            ["WHAT WE BUILT", "HAIEC: versioned frozen policies, an authority/effect evidence model, deterministic Control Tests, persistent results, and a reproducible judge interface. LogSense: preservation, correlation, and reconstruction of runtime evidence."],
-            ["WHAT WE TESTED", "Three frozen controls — C7 (delegation/logging coverage), C9 (latency policy), C16 (token spend cap) — plus four scenario runs including one failed remediation retest."],
-            ["WHAT WE FOUND", "C7 NOT_SATISFIED (9/10 evidence categories; agent negotiation not observed). C9 SATISFIED twice with no manufactured breach. C16 one PASS and one real BREACH under the same frozen policy."],
-            ["WHAT YOU CAN REPRODUCE", "All five persisted Control Test results via VERIFY in the Judge Workspace or the read-only verify API. Historical scenarios via REPLAY. The judge report is a self-contained artifact."],
-            ["WHAT REMAINS OPEN — and why", "ServiceNow connector is ACTIVE and AssumeRole observed — discovery, identity and HITL are open because no discovery pass ran, no AWS↔ServiceNow principal mapping exists, and no approval record emitted. The alert delivery rail is proven end-to-end (synthetic canary → webhook + email, human ACK ~4 min) — only the verdict→alert producer is unwired, because nothing subscribes to verdict persistence. DAI delegation is UNKNOWN because no negotiation record exists — we do not infer it. No completed full Assurance Evaluation exists, and we do not pretend one does."],
-          ].map(([h, b]) => (
-            <div key={h} className="bg-background p-6">
-              <h3 className="font-mono text-xs font-semibold tracking-wider text-primary">{h}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p>
-            </div>
-          ))}
+        <div className="grid gap-5 lg:grid-cols-3">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between gap-3">
+                <CardTitle className="text-xl">C16 · Boundary Proof</CardTitle>
+                <Chip tone="proven">PASS ↔ BREACH</Chip>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>Same frozen 60,000-token policy. Same evaluator. <span className="font-mono">35,559</span> → SATISFIED. <span className="font-mono">106,829</span> (+46,829) → NOT_SATISFIED.</p>
+              <p className="font-mono text-xs">ACN-COST-001 · policy 547f4a67 · ServiceNow INC0010319</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between gap-3">
+                <CardTitle className="text-xl">C9 · Drift → Governance</CardTitle>
+                <Chip tone="partial">PASS → BREACH</Chip>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>+60.20% within frozen D=100% → SATISFIED. IT +286.03% exceeds it → NOT_SATISFIED → alert → named human ACK → ServiceNow INC0010337.</p>
+              <p className="font-mono text-xs">AIA-ARC-006 · system 44f861cf · policy 13c07652</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between gap-3">
+                <CardTitle className="text-xl">C7 · Failure → Remediation</CardTitle>
+                <Chip tone="proven">9/10 → 10/10</Chip>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>9/10 missing IT↔Network NEGOTIATION → NOT_SATISFIED. Real behavioral remediation → 10/10 → SATISFIED. Original failure preserved untouched.</p>
+              <p className="font-mono text-xs">AIA-LOG-001 · 4043/ae6d → 44f/dcfa · SYSTEM-SCOPED</p>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="mt-10">
-          <h3 className="mb-4 text-lg font-semibold">Six auditor questions</h3>
-          <div className="overflow-x-auto rounded-xl border border-border">
-            <table className="w-full min-w-[860px] border-collapse text-left text-sm">
-              <thead>
-                <tr className="bg-card">
-                  <th className="p-4">Question</th>
-                  <th className="p-4">Answer</th>
-                  <th className="p-4">Status</th>
-                  <th className="p-4">Best evidence</th>
-                  <th className="p-4">Open limitation</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                <tr><td className="p-4 font-medium">Who acted?</td><td className="p-4">Customer, IT, and Network agents; governed runtime; operators.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Report §3, run register</td><td className="p-4">Run-start provenance is partially reconstructed.</td></tr>
-                <tr><td className="p-4 font-medium">What was touched?</td><td className="p-4">Model calls, governed tools, telemetry sinks, cost ledger.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Report §4–§6</td><td className="p-4">Telemetry coverage bounded by connected sources.</td></tr>
-                <tr><td className="p-4 font-medium">Was it authorized?</td><td className="p-4">Yes for the observed actions; authorization ≠ exercised delegation.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Report §7, five-plane matrix</td><td className="p-4">Permission evidence does not prove an action occurred.</td></tr>
-                <tr><td className="p-4 font-medium">Who approved?</td><td className="p-4">Governance and approval records where present; no silent escalation observed.</td><td className="p-4"><Chip tone="partial">PARTIAL</Chip></td><td className="p-4 font-mono text-xs">Report §7, §15</td><td className="p-4">HITL approval linkage is an open frontier.</td></tr>
-                <tr><td className="p-4 font-medium">Integrity?</td><td className="p-4">Frozen policies by digest; package 7a0bb5f3, 506 files, SHA-256 pinned.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Report J8–J9, DATA.json</td><td className="p-4">Digest binding shown; no clock-time freeze timestamps persisted.</td></tr>
-                <tr><td className="p-4 font-medium">Reconstruct?</td><td className="p-4">Yes — VERIFY re-derives every verdict; REPLAY reconstructs scenarios.</td><td className="p-4"><Chip tone="proven">REPRODUCIBLE</Chip></td><td className="p-4 font-mono text-xs">Workspace PROVE panel</td><td className="p-4">Reproduction is historical, not a re-execution.</td></tr>
-                <tr><td className="p-4 font-medium">When did it happen?</td><td className="p-4">Policies frozen before the assessed runs; results persisted after deterministic evaluation.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Report J8 — policy digests + run bindings</td><td className="p-4">Sub-second clock comparability across sources is limited.</td></tr>
-                <tr><td className="p-4 font-medium">Why the verdict?</td><td className="p-4">C7 REQUIRED_CATEGORY_MISSING · C16 SPEND_CAP_EXCEEDED · C9 worst window under frozen D.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Reason codes inside ctr-* results</td><td className="p-4">Reason codes bind to run + policy, not scenario score.</td></tr>
-              </tbody>
-            </table>
-          </div>
+        <h3 className="mb-4 mt-12 font-mono text-xs font-semibold tracking-wider text-primary">JUDGE QUICK-READ — SIX VERIFIABLE VERDICTS</h3>
+        <div className="overflow-x-auto rounded-xl border border-border">
+          <table className="w-full min-w-[860px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="bg-card">
+                <th className="p-4">Preset</th>
+                <th className="p-4">Run</th>
+                <th className="p-4">Measured</th>
+                <th className="p-4">Frozen rule</th>
+                <th className="p-4">Verdict</th>
+                <th className="p-4">Result ID</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              <tr><td className="p-4 font-medium">C16 PASS</td><td className="p-4 font-mono text-xs">fault-1791167110-5e3126</td><td className="p-4">35,559 tokens</td><td className="p-4">60,000 cap</td><td className="p-4"><Chip tone="proven">SATISFIED</Chip></td><td className="p-4 font-mono text-xs">ctr-237f…2154</td></tr>
+              <tr><td className="p-4 font-medium">C16 BREACH</td><td className="p-4 font-mono text-xs">fault-1791165466-51ab52</td><td className="p-4">106,829 tokens</td><td className="p-4">60,000 cap</td><td className="p-4"><Chip tone="partial">NOT_SATISFIED</Chip></td><td className="p-4 font-mono text-xs">ctr-6d14…bc01</td></tr>
+              <tr><td className="p-4 font-medium">C9 PASS</td><td className="p-4 font-mono text-xs">fault-1791276114-723d80</td><td className="p-4">worst +60.20%</td><td className="p-4">D = +100%</td><td className="p-4"><Chip tone="proven">SATISFIED</Chip></td><td className="p-4 font-mono text-xs">ctr-d338…ae82</td></tr>
+              <tr><td className="p-4 font-medium">C9 BREACH</td><td className="p-4 font-mono text-xs">fault-1791275895-048d48</td><td className="p-4">IT +286.03%</td><td className="p-4">D = +100%</td><td className="p-4"><Chip tone="partial">NOT_SATISFIED</Chip></td><td className="p-4 font-mono text-xs">ctr-0ba4…bb7e</td></tr>
+              <tr><td className="p-4 font-medium">C7 ORIGINAL</td><td className="p-4 font-mono text-xs">fault-1791167110-5e3126</td><td className="p-4">9/10 · NEGOTIATION missing</td><td className="p-4">10 categories</td><td className="p-4"><Chip tone="partial">NOT_SATISFIED</Chip></td><td className="p-4 font-mono text-xs">4043 / ae6d</td></tr>
+              <tr><td className="p-4 font-medium">C7 REMEDIATION</td><td className="p-4 font-mono text-xs">fault-1791275895-048d48</td><td className="p-4">10/10</td><td className="p-4">10 categories</td><td className="p-4"><Chip tone="proven">SATISFIED</Chip></td><td className="p-4 font-mono text-xs">ctr-bea9…f773</td></tr>
+            </tbody>
+          </table>
         </div>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Same frozen policy. Same deterministic evaluator. Different observed facts. Different verdicts. <span className="font-semibold text-foreground">The verdict follows the evidence.</span>
+        </p>
+      </Section>
 
-        <div className="mt-10 rounded-xl border border-primary/25 bg-primary/5 p-6 md:p-8">
-          <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">THE 90-SECOND VERSION — SAY IT PLAINLY</h3>
-          <ol className="space-y-2.5 text-sm leading-relaxed text-muted-foreground">
-            <li><span className="font-mono text-primary">1.</span> The organizer gave us a governed runtime and an assurance scaffold; we turned it into a reproducible evidence system.</li>
-            <li><span className="font-mono text-primary">2.</span> LogSense reconstructs what happened; HAIEC decides whether frozen controls actually held.</li>
-            <li><span className="font-mono text-primary">3.</span> We preserved good and bad outcomes: an honest C7 failure, two C9 satisfactions without inventing a breach, and a comparable C16 pass and breach.</li>
-            <li><span className="font-mono text-primary">4.</span> When evidence stops, HAIEC stops — permission does not become delegation and UNKNOWN does not become PASS.</li>
-            <li><span className="font-mono text-primary">5.</span> Give us a control and a run; you can reproduce the result and inspect the evidence directly.</li>
-          </ol>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground"><span className="font-mono text-xs font-semibold text-foreground">LOGS ≠ EVIDENCE — </span>logs are what the platform emitted. Evidence is what was qualified, deduplicated, bound to a frozen policy and digest-pinned. Every verdict here hangs on that distinction.</p>
+      {/* ===================== SCOREBOARD ===================== */}
+      <Section id="scoreboard" subtitle="A/B Scoreboard" title="Same scenario. Same first hop. One variable: the network agent." sectionNum="01.5">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          Fresh post-submission runs (2026-10-06, current agent version) on all three graded scenarios, executed by HAIEC and scored with the organizer's own <span className="font-mono text-xs">score-run.py</span> against the live audit store. The only difference between rows is the third hop: the stock <span className="font-mono text-xs">network-resolution-agent</span> vs <span className="font-mono text-xs">haiec-network-agent</span>. Our chain won all three scenarios.
+        </p>
+        <div className="overflow-x-auto rounded-xl border border-border">
+          <table className="w-full min-w-[980px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="bg-card">
+                <th className="p-4">Scenario</th>
+                <th className="p-4">Third hop</th>
+                <th className="p-4">Run</th>
+                <th className="p-4">Control 7 (events)</th>
+                <th className="p-4">Control 16 (cap 60,000)</th>
+                <th className="p-4">Grade</th>
+                <th className="p-4">Negotiation records</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              <tr>
+                <td className="p-4 font-medium">S1</td>
+                <td className="p-4 font-semibold text-foreground">haiec-network-agent</td>
+                <td className="p-4 font-mono text-xs">fault-1791305796-8a097d</td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 10/10</Chip></td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 29,334</Chip></td>
+                <td className="p-4 font-bold text-foreground">7/8</td>
+                <td className="p-4 font-bold text-foreground">3</td>
+              </tr>
+              <tr>
+                <td className="p-4 font-medium">S1</td>
+                <td className="p-4 text-muted-foreground">reference chain</td>
+                <td className="p-4 font-mono text-xs">fault-1791305867-e429bb</td>
+                <td className="p-4"><Chip tone="partial">NOT_SATISFIED · 9/10</Chip></td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 33,722</Chip></td>
+                <td className="p-4">6/8</td>
+                <td className="p-4">0</td>
+              </tr>
+              <tr>
+                <td className="p-4 font-medium">S2</td>
+                <td className="p-4 font-semibold text-foreground">haiec-network-agent</td>
+                <td className="p-4 font-mono text-xs">fault-1791305929-e290e9</td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 10/10</Chip></td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 38,067</Chip></td>
+                <td className="p-4 font-bold text-foreground">7/10</td>
+                <td className="p-4 font-bold text-foreground">3</td>
+              </tr>
+              <tr>
+                <td className="p-4 font-medium">S2</td>
+                <td className="p-4 text-muted-foreground">reference chain</td>
+                <td className="p-4 font-mono text-xs">fault-1791306007-0d11d6</td>
+                <td className="p-4"><Chip tone="partial">NOT_SATISFIED · 9/10</Chip></td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 34,071</Chip></td>
+                <td className="p-4">5/10</td>
+                <td className="p-4">0</td>
+              </tr>
+              <tr>
+                <td className="p-4 font-medium">S3</td>
+                <td className="p-4 font-semibold text-foreground">haiec-network-agent</td>
+                <td className="p-4 font-mono text-xs">fault-1791306067-db7812</td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 10/10</Chip></td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 34,279</Chip></td>
+                <td className="p-4 font-bold text-foreground">9/10</td>
+                <td className="p-4 font-bold text-foreground">3</td>
+              </tr>
+              <tr>
+                <td className="p-4 font-medium">S3</td>
+                <td className="p-4 text-muted-foreground">reference chain</td>
+                <td className="p-4 font-mono text-xs">fault-1791306125-f828d4</td>
+                <td className="p-4"><Chip tone="partial">NOT_SATISFIED · 9/10</Chip></td>
+                <td className="p-4"><Chip tone="proven">SATISFIED · 22,797</Chip></td>
+                <td className="p-4">8/10</td>
+                <td className="p-4">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-5 grid gap-4 text-sm text-muted-foreground md:grid-cols-3">
+          <p><span className="font-semibold text-foreground">Our chain won all three scenarios: 7/8 vs 6/8, 7/10 vs 5/10, 9/10 vs 8/10.</span> Grades are the organizer script's scenario checks — kept distinct from HAIEC control verdicts.</p>
+          <p><span className="font-semibold text-foreground">C7 10/10 with 3 negotiation records on every haiec-network-agent run — the reference chain stayed at 9/10 with zero.</span> The exact evidence category the original assessed run was missing is now produced on demand.</p>
+          <p><span className="font-semibold text-foreground">All six runs under the submitted 60,000-token C16 cap.</span> Tokens measured from model-request usage records; the canonical C16 verdicts remain the submitted pair (35,559 PASS / 106,829 BREACH).</p>
+        </div>
+        <div className="mt-4 rounded-lg border border-border bg-card/50 p-4 text-xs leading-relaxed text-muted-foreground">
+          <span className="font-semibold text-foreground">Why the grades are not perfect — reported as scored, not smoothed.</span> The check <span className="font-mono">"guardrail verdict on every model call"</span> fails on <span className="font-semibold">every run of both chains</span>: the audit <span className="font-mono">invocation</span> record (&quot;governed call via alias …&quot;) does not carry the literal <span className="font-mono">guardrail</span> token the grader searches for — a record-format gap, not a governance absence. On S1 and S3 our chain scored the maximum achievable under that constraint (7/8, 9/10). S2 expects a <span className="font-mono">gather-evidence</span> disposition under ambiguity; our agents recorded <span className="font-mono">auto-resolve</span> — shown exactly as graded — while the reference chain additionally failed to propose anything reversible.
         </div>
       </Section>
 
-      {/* ===================== RESULTS ===================== */}
-      <Section id="results" subtitle="Control Results" title="Three frozen controls, honest verdicts" sectionNum="02">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          Each control was declared and frozen before the assessed runs, then evaluated deterministically afterward. A Control Test answers one question: did the frozen rule hold against the persisted evidence. It is not a scenario score and not a full Assurance Evaluation.
-        </p>
+      {/* ===================== CONTROLS ===================== */}
+      <Section id="controls" subtitle="Control Stories" title="Failure is evidence too" sectionNum="02">
         <div className="grid gap-5 lg:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between gap-3">
-                <CardTitle className="text-xl">C7 · AIA-LOG-001</CardTitle>
-                <Chip tone="partial">NOT_SATISFIED</Chip>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p><span className="font-medium text-foreground">9 / 10</span> required evidence categories covered. Missing: IT ↔ Network <span className="font-mono">NEGOTIATION</span>.</p>
-              <p>The system had relevant capability and permission, but the required negotiation evidence was not observed. HAIEC failed the control rather than inferring delegation from permission.</p>
-              <p className="font-mono text-xs">Run fault-1791167110-5e3126 · Result ctr-abdf612f…4c7a · <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j3`}>full card J3</ExtLink></p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between gap-3">
-                <CardTitle className="text-xl">C9 · AIA-ARC-006</CardTitle>
-                <Chip tone="proven">SATISFIED ×2</Chip>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p>Two assessed runs both satisfied the frozen latency policy (mean agent-window duration vs per-agent baseline). Eligible breach: <span className="font-mono">NOT_ESTABLISHED</span>.</p>
-              <p>We did not manufacture a breach: the intended-breach run still satisfied the frozen policy (+28.5% did not degrade the measured metric below the rule). Workflow intent is not a verdict.</p>
-              <p className="font-mono text-xs">Runs fault-1791183079-256a5e / fault-1791183213-228329 · <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j2`}>full card J2</ExtLink></p>
-            </CardContent>
-          </Card>
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between gap-3">
@@ -341,22 +398,49 @@ export default function TmForumHub() {
               </div>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p>One frozen cap of 60,000 tokens per run. Pass run measured <span className="font-mono">35,559</span>. Breach run measured <span className="font-mono">106,829</span> (17 calls, +46,829 overshoot, <span className="font-mono">SPEND_CAP_EXCEEDED</span>).</p>
-              <p>Same frozen rule produced both outcomes on different persisted facts — a deterministic post-run Control Test, not a claim of inline pre-execution enforcement.</p>
-              <p className="font-mono text-xs">Runs fault-1791167110-5e3126 / fault-1791165466-51ab52 · <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j2`}>full card J2</ExtLink></p>
+              <p>One frozen cap of 60,000 qualified input+output tokens per run, no allowance. Pass run measured <span className="font-mono">35,559</span>. Breach run measured <span className="font-mono">106,829</span> across 17 calls (+46,829 overshoot, <span className="font-mono">SPEND_CAP_EXCEEDED</span>).</p>
+              <p>The cleanest demonstration that HAIEC is deterministic: identical rule, identical evaluator, different observed facts, different verdict.</p>
+              <p className="font-mono text-xs">Runs fault-1791167110-5e3126 / fault-1791165466-51ab52 · ServiceNow INC0010319 (governance, separate from verdict)</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between gap-3">
-                <CardTitle className="text-xl">DAI · Delegation</CardTitle>
-                <Chip tone="unknown">UNKNOWN</Chip>
+                <CardTitle className="text-xl">C9 · AIA-ARC-006</CardTitle>
+                <Chip tone="partial">PASS → BREACH → GOVERNANCE</Chip>
               </div>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p>Permission and capability were established; observed delegation was not. UNKNOWN names the exact evidence frontier instead of guessing.</p>
-              <p>UNKNOWN does not mean nothing was done. It means surrounding facts are proven and the stronger conclusion lacks its required proof edge.</p>
-              <p className="font-mono text-xs"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s14`}>report §14</ExtLink> · <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#p1`}>why UNKNOWN is not empty (P1)</ExtLink></p>
+              <p>Frozen threshold: degradation D = +100%. Baseline window worst agent <span className="font-mono">+60.20%</span> → SATISFIED. Breach window IT agent <span className="font-mono">+286.03%</span> → NOT_SATISFIED.</p>
+              <p>The breach did not stop at detection: deterministic verdict → alert → named human acknowledgement → persisted response → anti-replay protection → ServiceNow INC0010337.</p>
+              <p className="font-mono text-xs">Runs fault-1791276114-723d80 / fault-1791275895-048d48 · post-run evaluation; provider email accepted = ESTABLISHED, mailbox delivery = NOT_ESTABLISHED</p>
+            </CardContent>
+          </Card>
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <div className="flex items-center justify-between gap-3">
+                <CardTitle className="text-xl">C7 · AIA-LOG-001 — failure → exact gap → behavioral remediation → proof</CardTitle>
+                <Chip tone="proven">REMEDIATED</Chip>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-lg border border-border bg-muted/40 p-4">
+                  <p className="font-mono text-xs font-semibold text-foreground">ORIGINAL</p>
+                  <p className="mt-2">9/10 categories. Missing: IT ↔ Network NEGOTIATION. System 4043efee, policy ae6d.</p>
+                  <p className="mt-2"><Chip tone="partial">NOT_SATISFIED</Chip></p>
+                </div>
+                <div className="rounded-lg border border-border bg-muted/40 p-4">
+                  <p className="font-mono text-xs font-semibold text-foreground">WHY</p>
+                  <p className="mt-2">Configured capability existed. Permission existed. The qualifying observed negotiation did not. Capability is not delegation. Permission is not observed action.</p>
+                </div>
+                <div className="rounded-lg border border-border bg-muted/40 p-4">
+                  <p className="font-mono text-xs font-semibold text-foreground">REMEDIATION PROOF</p>
+                  <p className="mt-2">Real network-agent behavior changed: Network sent the negotiation, IT evaluated and returned the decision, Network received it — same correlation lineage. 10/10 on system 44f861cf, policy dcfa.</p>
+                  <p className="mt-2"><Chip tone="proven">SATISFIED</Chip></p>
+                </div>
+              </div>
+              <p><span className="font-semibold text-foreground">Boundary:</span> this is a valid system-scoped remediation pass, not an exact canonical 4043/ae6d retest. ae6 and dcfa are distinct immutable policy instances with equivalent C7 semantics and different system scope. The original 9/10 failure is preserved, not rewritten.</p>
             </CardContent>
           </Card>
         </div>
@@ -369,61 +453,115 @@ export default function TmForumHub() {
           </div>
           <div className="space-y-1.5 border-t border-border px-5 py-4 text-sm">
             <p>
-              <span className="font-mono text-xs font-semibold text-primary">WHAT THE BARS MEAN — </span>
+              <span className="font-mono text-xs font-semibold text-primary">WHAT THE BARS MEAN - </span>
               <span className="text-muted-foreground">Qualified input+output tokens observed for each assessed run.</span>
             </p>
             <p>
-              <span className="font-mono text-xs font-semibold text-primary">WHAT THE LINE MEANS — </span>
+              <span className="font-mono text-xs font-semibold text-primary">WHAT THE LINE MEANS - </span>
               <span className="text-muted-foreground">The frozen 60,000-token boundary. One run stayed below it; one exceeded it — under the same policy, digest, and accounting semantics.</span>
             </p>
           </div>
         </figure>
+      </Section>
 
-        {/* Threshold shapes — why C16 isn't 10% */}
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+      {/* ===================== LINEAGE ===================== */}
+      <Section id="lineage" subtitle="Evidence Lineage" title="How a log becomes a verdict" sectionNum="03">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          Every stage is evidence-bound. Missing or ambiguous evidence is reported as NOT_ESTABLISHED, never upgraded to SATISFIED.
+        </p>
+        <div className="overflow-x-auto rounded-xl border border-border bg-card p-6">
+          <div className="flex min-w-[900px] flex-wrap items-center gap-2 font-mono text-xs font-semibold tracking-wide">
+            {["ACTION", "NATIVE RECORD", "RECONSTRUCTION", "MEASUREMENT", "FROZEN RULE", "DETERMINISTIC VERDICT", "RESPONSE / REMEDIATION"].map((n, i) => (
+              <span key={n} className="flex items-center gap-2">
+                {i > 0 && <span className="text-muted-foreground">→</span>}
+                <span className="rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-primary">{n}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+        <figure className="mt-8 rounded-xl border border-border bg-card p-4">
+          <img src="/tm-forum/diagrams/HAIEC_ARCHITECTURE.png" alt="How agent actions become deterministic control proof — runtime enforcement, evidence capture, forensic reconstruction, and HAIEC judgment across Controls 7, 9, and 16" className="w-full rounded-lg" loading="lazy" />
+          <figcaption className="mt-3 text-center text-xs text-muted-foreground">
+            The full pipeline: scenario run → shared gateway + guardrail → audit-store/gateway/CloudWatch evidence → LogSense reconstruction → frozen-rule Control Test → judge / MCP / ServiceNow.
+          </figcaption>
+        </figure>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
           <Card>
-            <CardHeader><Scale className="h-5 w-5 text-primary" /><CardTitle className="pt-2 text-base">How the organizer&apos;s thresholds differ by control</CardTitle></CardHeader>
-            <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p>The organizer examples use different mathematical rule shapes for different controls. A percentage shown in one control is not automatically the threshold form for another.</p>
-              <ul className="space-y-2">
-                <li><span className="font-mono text-xs font-semibold text-foreground">C7 — </span>Event coverage + timing exception rate. A 10% example means the allowed share of eligible gaps that may violate timing — <span className="text-foreground">not</span> &quot;10% above the timing threshold.&quot;</li>
-                <li><span className="font-mono text-xs font-semibold text-foreground">C9 — </span>Relative degradation from a frozen baseline. D is how far the observed metric may degrade relative to baseline.</li>
-                <li><span className="font-mono text-xs font-semibold text-foreground">C16 — </span>Absolute whole-run resource cap. N is the maximum qualified input+output tokens for the entire run — not a drift percentage.</li>
-              </ul>
-              <details className="rounded-lg border border-border bg-muted/40 px-4 py-3">
-                <summary className="cursor-pointer text-sm font-medium text-foreground">Why isn&apos;t C16 10%?</summary>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  The organizer&apos;s 10% examples apply to percentage-shaped controls such as drift or exception rates. C16 is defined as an absolute per-run resource cap. The organizer&apos;s worked 10,000-token example is illustrative — our event-specific frozen cap is <span className="font-mono">60,000 tokens</span>, selected and frozen before the assessed runs.
-                </p>
-              </details>
+            <CardHeader><Layers className="h-5 w-5 text-primary" /><CardTitle className="pt-2 text-base">Five planes of action authority</CardTitle></CardHeader>
+            <CardContent className="space-y-2 text-sm text-muted-foreground">
+              <p><span className="font-mono text-xs font-semibold text-foreground">REQUESTED · POLICY_AUTHORIZED · EFFECTIVELY_GRANTED · CODE_CAPABLE · OBSERVED</span></p>
+              <p>Five independent evidence planes, not a causal sequence. C7 is the live example: capability yes, permission yes, observed delegation no — until remediation produced the observed negotiation.</p>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader><FlaskConical className="h-5 w-5 text-primary" /><CardTitle className="pt-2 text-base">Why the 60,000 cap is where it is</CardTitle></CardHeader>
-            <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p>Three healthy pre-freeze runs measured 40,167 / 40,681 / 49,969 tokens (min–max). The observed arithmetic <span className="font-mono">49,969 × 1.2 ≈ 59,962.8</span> rounds to the frozen 60,000 cap — consistent with a ~20% reserve over the maximum healthy run.</p>
-              <p className="text-xs">Honest classification: <span className="font-mono">ENGINEERING_BOUND</span> — the recovered population is arithmetic-consistent with the cap, but the policy recorded no pre-freeze derivation. Documented as such in the threshold defense.</p>
-              <p>The threshold was frozen before the assessed results and never moved after seeing them. A cap is a policy boundary, not a target: a run can sit comfortably below it and another materially above it — both evaluated with the same accounting semantics, scope, comparator, and frozen policy.</p>
+            <CardHeader><Scale className="h-5 w-5 text-primary" /><CardTitle className="pt-2 text-base">Reconstruct vs verify vs run</CardTitle></CardHeader>
+            <CardContent className="space-y-2 text-sm text-muted-foreground">
+              <p><span className="font-semibold text-foreground">RECONSTRUCT</span> what happened. <span className="font-semibold text-foreground">VERIFY / CONTROL TEST</span> whether the frozen control held. <span className="font-semibold text-foreground">NEW RUN</span> is fresh execution — never presented as historical reproduction.</p>
+              <p>Replay is not rerunning. Querying is not judging. Logs are not verdicts.</p>
             </CardContent>
           </Card>
         </div>
       </Section>
 
+      {/* ===================== BOUNDARIES ===================== */}
+      <Section id="boundaries" subtitle="Evidence Boundaries" title="What HAIEC refused to claim" sectionNum="04">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          Here is what we proved; here is precisely where the proof stops. The limitations strengthen the credibility of the evidence model — they are how you know the verdicts are real.
+        </p>
+        <div className="grid gap-5 md:grid-cols-2">
+          <Card>
+            <CardHeader><ShieldCheck className="h-5 w-5 text-primary" /><CardTitle className="pt-2 text-base">Refused to claim</CardTitle></CardHeader>
+            <CardContent>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>That permission proved delegation.</li>
+                <li>That the original C7 9/10 failure became a pass — it is preserved as historical NOT_SATISFIED.</li>
+                <li>That the C7 remediation was an exact canonical 4043/ae6d retest.</li>
+                <li>That C9 retrospective evaluation earned the inline continuous-compliance bonus.</li>
+                <li>That provider email acceptance proved mailbox delivery.</li>
+                <li>That resolving a ServiceNow incident changed the original control verdict.</li>
+                <li>That missing evidence meant zero events.</li>
+              </ul>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader><HelpCircle className="h-5 w-5 text-sky-500" /><CardTitle className="pt-2 text-base">Bounded truth delivered</CardTitle></CardHeader>
+            <CardContent>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><span className="font-semibold text-foreground">Inline continuous compliance</span> — delivered as post-run/retrospective evaluation; true inline enforcement is a P1 roadmap item.</li>
+                <li><span className="font-semibold text-foreground">C7 retest</span> — delivered as a genuine system-scoped remediation pass under distinct immutable policy dcfa.</li>
+                <li><span className="font-semibold text-foreground">C9 scope</span> — 13c/44f results kept separate from canonical 346b/4043 lineage.</li>
+                <li><span className="font-semibold text-foreground">ServiceNow AICT</span> — connector and human-loop proof established; asset materialization NOT_ESTABLISHED.</li>
+                <li><span className="font-semibold text-foreground">Email</span> — provider-accepted established; mailbox delivery NOT_ESTABLISHED without provider receipts.</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="mt-8 rounded-xl border border-primary/25 bg-primary/5 p-6 md:p-8">
+          <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">THE 90-SECOND VERSION — SAY IT PLAINLY</h3>
+          <ol className="space-y-2.5 text-sm leading-relaxed text-muted-foreground">
+            <li><span className="font-mono text-primary">1.</span> The organizer gave us a governed runtime and an assurance scaffold; we turned it into a reproducible evidence system.</li>
+            <li><span className="font-mono text-primary">2.</span> LogSense reconstructs what happened; HAIEC decides whether frozen controls actually held.</li>
+            <li><span className="font-mono text-primary">3.</span> C16: same frozen policy produced a clean PASS and a real BREACH. C9: drift crossed the frozen threshold, fired an alert, got a named human ACK, and landed in ServiceNow. C7: an honest 9/10 failure isolated the exact missing evidence, real agent behavior was remediated, and the fix was independently proved at 10/10.</li>
+            <li><span className="font-mono text-primary">4.</span> When evidence stops, HAIEC stops — permission does not become delegation and UNKNOWN does not become PASS.</li>
+            <li><span className="font-mono text-primary">5.</span> Give us a control and a run; you can reproduce the result and inspect the evidence directly.</li>
+          </ol>
+          <p className="mt-6 text-sm leading-relaxed text-muted-foreground"><span className="font-mono text-xs font-semibold text-foreground">LOGS ≠ EVIDENCE — </span>logs are what the platform emitted. Evidence is what was qualified, deduplicated, bound to a frozen policy and digest-pinned. Every verdict here hangs on that distinction.</p>
+        </div>
+      </Section>
+
       {/* ===================== REPORTS ===================== */}
-      <Section id="reports" subtitle="Reports & Evidence" title="Every report, labeled by role" sectionNum="03">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          The judge report is a supplemental evidence report, not a canonical Master Assurance Report — no completed canonical Evaluation exists and we do not call it one. Everything below opens without a login and stays usable even if live systems are torn down.
+      <Section id="reports" subtitle="Reports & Evidence" title="Every report, labeled by role" sectionNum="05">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          The judge report is the canonical post-submission evidence report for this event. Everything below opens without a login and stays usable even if live systems are torn down.
         </p>
 
         <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">START HERE</h3>
         <div className="mb-10 grid gap-5 md:grid-cols-2">
           <ReportCard
-            title="Final Supplemental Judge Evidence Report (HTML)"
-            answers="The whole case: Judge Mode in ~90 seconds, then Proof Mode and the full Technical Appendix in one self-contained file."
+            title="Final Event Assurance Report (HTML)"
+            answers="The whole case: the three control proofs, the assessment → findings → fixes → retest loop, and the full technical appendix in one self-contained file."
             href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html`}
-            pdf={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.pdf`}
-            status="SUPPLEMENTAL · CURRENT"
+            status="SUBMITTED SNAPSHOT"
           />
           <ReportCard
             title="Deterministic Fact Snapshot (JSON)"
@@ -438,40 +576,29 @@ export default function TmForumHub() {
           <ReportCard title="Thresholds, Policy Digests & Freeze Proof" answers="Exact frozen thresholds, policy IDs, and SHA-256 digests for C7/C9/C16, plus the honest temporal-binding chain." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j8`} status="IN REPORT J8" />
           <ReportCard title="Control Test Results" answers="Uniform control cards: policy, version, run, metric, threshold, formula, observed value, verdict, evidence, limitation, reproduction." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j2`} status="IN REPORT J2/§5" />
           <ReportCard title="Named Assessed Runs Register" answers="Every run ID, its role, and which result it produced — scenario runs kept distinct from assessed control runs." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j7`} status="IN REPORT J7/§6" />
-          <ReportCard title="Gap / Remediation / Retest Register" answers="Open gaps bound to control, run, and evidence — including the S2 failed retest preserved as NOT_FIXED." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s15`} status="IN REPORT §15/P1" />
+          <ReportCard title="C7 Failure → Remediation Chain" answers="The original 9/10 failure, the exact missing NEGOTIATION, the behavioral remediation, and the 10/10 system-scoped proof." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j3`} status="IN REPORT J3" />
           <ReportCard title="Report Narrative Source (Markdown)" answers="Editable source text of the judge report for reviewers who want to diff claims against evidence." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.txt`} status="SOURCE" />
         </div>
 
         <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">FORENSICS (LOGSENSE)</h3>
         <div className="mb-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           <ReportCard title="LogSense Reconstruction" answers="What LogSense reconstructed from raw platform telemetry: normalized events, correlation keys, and the run evidence chain." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s4`} status="IN REPORT §4" note="No standalone LogSense HTML report exists; its output is embedded in the report and replayable via REPLAY." />
-          <ReportCard title="Scenario Analysis & Retest" answers="S1 (6/8), S2 (5/10), S2 retest (5/10, NOT_FIXED), S3 (8/10) — scores, findings, and what each proved." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s6`} status="IN REPORT §6" />
           <ReportCard title="Findings & Security Analysis" answers="Runtime enforcement evidence, security findings, detection coverage, and the detector-vs-Control-Test distinction." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s11`} status="IN REPORT §9–§12" />
+          <ReportCard title="Findings, Fixes & Retest Ledger" answers="Before → fix → verified-after for every finding, plus the final event addendum: C7 remediation, C9 breach governance, and what remained NOT_ESTABLISHED." href="/tm-forum/TMF_FINDINGS_AND_FIXES.txt" status="STANDALONE · CURRENT" note="Preserves chronology; final addendum appended, history not rewritten." />
         </div>
 
-        <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">ASSURANCE</h3>
-        <div className="mb-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          <ReportCard title="Five-Plane Assurance Matrix" answers="Requested, policy-authorized, effectively-granted, code-capable, observed — five independent evidence planes." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s7`} status="IN REPORT §7" />
-          <ReportCard title="C7 Delegation Frontier" answers="Exactly where the delegation proof edge stops: capability yes, permission yes, observed negotiation no." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s8`} status="IN REPORT §8" />
-          <ReportCard title="Evidence Quality & Detection Coverage" answers="How each evidence class was qualified, and what monitoring/detection actually covered." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s12`} status="IN REPORT §12" />
-          <ReportCard title="ServiceNow AI Control Tower Boundary" answers="What ServiceNow integration established — and exactly what it does not prove." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s13`} status="IN REPORT §13 · PARTIAL" />
-          <ReportCard title="Finding & Retest Lineage" answers="How findings bind to runs and how the failed S2 remediation is preserved rather than hidden." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s6`} status="IN REPORT" />
-          <ReportCard title="Findings, Fixes & Retest Ledger" answers="Before → fix → verified-after for every finding: 8 self-found design defects with retests, 6 event-day corrections, organizer-owned findings, and what remains open." href="/tm-forum/TMF_FINDINGS_AND_FIXES.txt" status="STANDALONE · CURRENT" note="Companion addendum — sits next to package 7a0bb5f3, never inside the digest-bound archive." />
-        </div>
-
-        <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">ARCHITECTURE</h3>
+        <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">HISTORICAL / PRE-EVENT</h3>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          <ReportCard title="One-Page Architecture" answers="System → evidence → assurance in one view: runtime, LogSense, HAIEC evaluation, and the judge interface." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j6`} status="IN REPORT J6" />
-          <ReportCard title="Monitoring & Alert Pipeline" answers="Telemetry intake, monitoring binders, alerts, and the synthetic canary that proved the pipeline without faking an incident." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s9`} status="IN REPORT §9" />
-          <ReportCard title="Diagram Pack (8 SVG)" answers="All source-backed diagrams as standalone files, also inlined in the report." href="#diagrams" status="ON THIS PAGE" />
+          <ReportCard title="Pre-Event Technical Thesis Deck" answers="The pre-event architecture argument: observability is necessary but not assurance; permission is not execution." href="/tm-forum/haiec-agentic-assurance-deck.html" status="PRE-EVENT THESIS" note="Refreshed post-submission; earlier synthetic examples are labeled as such." />
+          <ReportCard title="Technical CLI Runbook" answers="Every command used in the event: package verification, control-test drill, evidence pull, scenario orchestration." href="/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt" status="SUBMITTED-EVENT TECHNICAL" />
+          <ReportCard title="LogSense Case Guide" answers="All 11 workbench cases with the UI path and judging path for each." href="/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt" status="SUBMITTED-EVENT TECHNICAL" />
         </div>
       </Section>
 
       {/* ===================== REQUIRED ARTIFACTS ===================== */}
-      <Section id="artifacts" subtitle="Required Judge Artifacts" title="The six required artifacts" sectionNum="04">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          The six organizer artifacts live in the official judge handoff (Google Drive folder, distributed with frozen package 7a0bb5f3). For each one we show what it answers and the covering section of the public report so judges never wait on Drive access.
+      <Section id="artifacts" subtitle="Required Judge Artifacts" title="The six required artifacts" sectionNum="06">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          The six organizer artifacts live in the official judge handoff. For each one we show what it answers and the covering section of the public report so judges never wait on Drive access.
         </p>
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full min-w-[760px] border-collapse text-left text-sm">
@@ -484,46 +611,44 @@ export default function TmForumHub() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              <tr><td className="p-4 font-medium">01 · Evidence File / START HERE</td><td className="p-4">Where all evidence lives and how to begin.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j1`}>Report J1</ExtLink></td><td className="p-4"><Chip tone="neutral">DRIVE HANDOFF</Chip></td></tr>
-              <tr><td className="p-4 font-medium">02 · Threshold &amp; Governance</td><td className="p-4">Frozen thresholds, policy IDs, digests, governance rules.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j8`}>Report J8</ExtLink></td><td className="p-4"><Chip tone="neutral">DRIVE HANDOFF</Chip></td></tr>
-              <tr><td className="p-4 font-medium">03 · Control Test Judge Operator Card</td><td className="p-4">How a judge operates and verifies each control.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j10`}>Report J10</ExtLink></td><td className="p-4"><Chip tone="neutral">DRIVE HANDOFF</Chip></td></tr>
-              <tr><td className="p-4 font-medium">04 · Named Assessed Runs Register</td><td className="p-4">Every assessed run, its role, and its result.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j7`}>Report J7</ExtLink></td><td className="p-4"><Chip tone="neutral">DRIVE HANDOFF</Chip></td></tr>
-              <tr><td className="p-4 font-medium">05 · One-Page Architecture</td><td className="p-4">The system and assurance architecture at a glance.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j6`}>Report J6</ExtLink></td><td className="p-4"><Chip tone="neutral">DRIVE HANDOFF</Chip></td></tr>
-              <tr><td className="p-4 font-medium">06 · Gap / Remediation / Retest Register</td><td className="p-4">Open gaps, remediations, and retest lineage.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s15`}>Report §15</ExtLink></td><td className="p-4"><Chip tone="neutral">DRIVE HANDOFF</Chip></td></tr>
+              <tr><td className="p-4 font-medium">01 · Evidence File / START HERE</td><td className="p-4">Where all evidence lives and how to begin.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j1`}>Report J1</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">02 · Threshold &amp; Governance</td><td className="p-4">Frozen thresholds, policy IDs, digests, governance rules.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j8`}>Report J8</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">03 · Control Test Judge Operator Card</td><td className="p-4">How a judge operates and verifies each control.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j10`}>Report J10</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">04 · Named Assessed Runs Register</td><td className="p-4">Every assessed run, its role, and its result.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j7`}>Report J7</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">05 · One-Page Architecture</td><td className="p-4">The system and assurance architecture at a glance.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j6`}>Report J6</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">06 · Gap / Remediation / Retest Register</td><td className="p-4">Open gaps, remediations, and retest lineage.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s15`}>Report §15</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
             </tbody>
           </table>
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          Frozen package: <span className="font-mono">7a0bb5f3</span> · 506 files · SHA-256 <span className="font-mono">0321b7127e544c5dcad453608f5e22f72c0c409735f07a1b924eaa4ecc4d966a</span> · state <span className="font-mono">FROZEN_DISTRIBUTED</span>. Distributed via the official handoff; not re-hosted here pending a full privacy review of the 506-file bundle.
+          Official submission: <span className="font-mono">{SUBMISSION_ZIP}</span> · submitted 2026-10-06T15:06:21Z · SHA-256 <span className="font-mono">{SUBMISSION_SHA}</span> · {SUBMISSION_S3} · 152 files including evidence/, register.yaml, run-ids.txt, gap-list.md. Earlier package <span className="font-mono">7a0bb5f3</span> is historical provenance, not the submitted artifact.
         </p>
       </Section>
 
       {/* ===================== DIAGRAMS ===================== */}
-      <Section id="diagrams" subtitle="Diagrams" title="The evidence, drawn" sectionNum="05">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          Each diagram is generated from the same persisted values as the report. Two additional diagrams — the starter-kit-to-HAIEC pipeline and the cross-source correlation chain — are inside the report at J6 and the Proof Mode evidence section.
+      <Section id="diagrams" subtitle="Diagrams" title="The evidence, drawn" sectionNum="07">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          Each diagram is generated from the same persisted values as the report.
         </p>
         <div className="grid gap-6 lg:grid-cols-2">
           <DiagramFigure src={`${DIAG}/01_SYSTEM_PROOF_FLOW.svg`} title="System → Evidence → Assurance" lookingAt="The end-to-end path from governed runtime events through LogSense reconstruction into HAIEC control evaluation and judge verification." matters="It shows where each claim comes from. Nothing in the verdicts relies on narration." />
           <DiagramFigure src={`${DIAG}/02_FIVE_PLANE_ASSURANCE.svg`} title="Five-Plane Assurance" lookingAt="Five independent evidence planes: requested, policy-authorized, effectively-granted, code-capable, observed." matters="Enterprise governance often stops at approved. HAIEC asks what actually happened after approval." />
-          <DiagramFigure src={`${DIAG}/03_CONTROL_RESULTS.svg`} title="Control Results" lookingAt="C7, C9, and C16 side by side with their frozen thresholds and measured values." matters="One frozen rule can honestly produce both pass and breach verdicts on different facts." />
-          <DiagramFigure src={`${DIAG}/04_C7_DELEGATION_FRONTIER.svg`} title="C7 Delegation Frontier" lookingAt="Exactly where C7 evidence stops: capability and permission established, observed negotiation absent." matters="Permission is not delegation. The verdict fails at the missing proof edge, not before or after it." />
+          <DiagramFigure src={`${DIAG}/03_CONTROL_RESULTS.svg`} title="Control Results" lookingAt="C7, C9, and C16 side by side with their frozen thresholds, measured values, and final verdicts." matters="One frozen rule can honestly produce both pass and breach verdicts on different facts — and a failure can be remediated and re-proved." />
+          <DiagramFigure src={`${DIAG}/04_C7_DELEGATION_FRONTIER.svg`} title="C7 — Failure → Remediation" lookingAt="Original 9/10 failure at the missing NEGOTIATION edge, then the 10/10 system-scoped remediation proof." matters="Permission is not delegation. The failure identified the exact missing proof edge; remediation produced the observed negotiation." />
           <DiagramFigure src={`${DIAG}/05_C16_PASS_VS_BREACH.svg`} title="C16 PASS vs BREACH" lookingAt="Two runs, one frozen 60,000-token cap: 35,559 passes, 106,829 breaches." matters="Identical policy, different facts, different verdicts — the definition of deterministic evaluation." />
           <DiagramFigure src={`${DIAG}/06_DETECTION_VS_CONTROL_TEST.svg`} title="Detection vs Control Test" lookingAt="Why generic detector findings and deterministic Control Tests answer different questions." matters="Zero generic findings does not mean a control passed. Each has its own contract." />
-          <DiagramFigure src={`${DIAG}/07_SCENARIO_REPLAY.svg`} title="Scenario Replay" lookingAt="The four scenario runs including the S2 retest that stayed NOT_FIXED." matters="Scenario scores are preserved as scores — never upgraded into control verdicts." />
-          <DiagramFigure src={`${DIAG}/08_SERVICENOW_BOUNDARY.svg`} title="ServiceNow Boundary" lookingAt="What the ServiceNow AI Control Tower integration established and where its proof stops." matters="A real boundary statement beats a claimed integration. PARTIAL is shown as PARTIAL." />
+          <DiagramFigure src={`${DIAG}/07_SCENARIO_REPLAY.svg`} title="Scenario Replay" lookingAt="Historical scenario runs including the S2 retest that stayed NOT_FIXED." matters="Scenario scores are preserved as scores — never upgraded into control verdicts." />
+          <DiagramFigure src={`${DIAG}/08_SERVICENOW_BOUNDARY.svg`} title="ServiceNow Boundary" lookingAt="Control verdict → alert → human ACK → ServiceNow incident, and where ServiceNow proof stops." matters="A resolved incident does not rewrite the control verdict. Governance and verdict are separate planes." />
           <DiagramFigure src={`${DIAG}/09_C16_TOKEN_CAP_CHART.svg`} title="C16 — Tokens vs Frozen Cap" lookingAt="Two assessed runs as bars against a dashed 60,000-token frozen-cap line, axis starting at zero." matters="One run clearly below the line, one clearly above — the same frozen boundary produced both verdicts." />
-          <DiagramFigure src={`${DIAG}/10_C9_DRIFT_CHART.svg`} title="C9 — Drift vs Frozen Limit" lookingAt="Worst per-window degradation (+7.5%, +28.5%) against the frozen D=100% line." matters="The intended-breach run stayed under the boundary, so SATISFIED is the honest verdict — no manufactured breach." />
-          <DiagramFigure src={`${DIAG}/11_C7_COVERAGE_CHART.svg`} title="C7 — Evidence Coverage 9/10" lookingAt="Ten required evidence categories as discrete cells: nine observed, NEGOTIATION missing." matters="Actual counts, not a hidden percentage — one missing required record fails coverage even when everything else is proven." />
+          <DiagramFigure src={`${DIAG}/10_C9_DRIFT_CHART.svg`} title="C9 — Drift vs Frozen Limit" lookingAt="Baseline +60.20% inside the D=100% bound; breach run +286.03% far outside it." matters="The same frozen threshold produced a legitimate PASS and a legitimate BREACH — then the governance chain took over." />
+          <DiagramFigure src={`${DIAG}/11_C7_COVERAGE_CHART.svg`} title="C7 — Coverage 9/10 → 10/10" lookingAt="Original run: nine of ten required categories observed, NEGOTIATION missing. Remediation run: all ten observed." matters="The gap was a missing proof edge, not a missing percentage point. Remediation closed it with real observed behavior." />
         </div>
       </Section>
 
-      {/* ===================== OPEN HAIEC ===================== */}
-      <Section id="haiec" subtitle="Open HAIEC" title="The live system, read-only" sectionNum="06">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          A read-only judge account has been prepared for TM Forum reviewers. Credentials are provided separately in the official judge handoff and are never published. Everything read-only on this page also works offline via the report artifacts.
+      {/* ===================== HAIEC / MCP ===================== */}
+      <Section id="haiec" subtitle="Open HAIEC" title="The live system, read-only" sectionNum="08">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          A read-only judge account has been prepared for TM Forum reviewers. Credentials are provided separately in the official judge handoff and are never published. Everything on this page also works offline via the report artifacts.
         </p>
         <div className="grid gap-5 md:grid-cols-3">
           <Card>
@@ -546,17 +671,15 @@ export default function TmForumHub() {
             <CardHeader><PlugZap className="h-6 w-6 text-primary" /><CardTitle className="pt-2 text-lg">MCP Endpoint</CardTitle></CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>Read-only Model Context Protocol interface for AI clients and IDEs.</p>
-              <p className="font-mono text-xs break-all">{MCP}</p>
+              <p className="font-mono break-all text-xs">{MCP}</p>
               <Link href="#mcp" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">Setup guide <ArrowRight className="h-3.5 w-3.5" /></Link>
             </CardContent>
           </Card>
         </div>
       </Section>
 
-      {/* ===================== MCP ===================== */}
-      <Section id="mcp" subtitle="Connect HAIEC to Your AI Agent" title="Ask the evidence, not the team" sectionNum="07">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+      <Section id="mcp" subtitle="Connect HAIEC to Your AI Agent" title="Ask the evidence, not the team" sectionNum="09">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
           HAIEC exposes a read-only MCP interface. Point any MCP-compatible AI client at it and ask questions — the answers come from persisted event data, so you do not have to trust our narration. The API key travels only in the private judge handoff.
         </p>
         <div className="grid gap-6 lg:grid-cols-2">
@@ -575,21 +698,13 @@ export default function TmForumHub() {
   }
 }`}</pre>
               <p className="text-xs text-muted-foreground">Substitute your read-only judge key for the placeholder. Never commit a config containing the real key.</p>
-              <ol className="list-decimal space-y-1 pl-5 text-muted-foreground">
-                <li>Open your client&apos;s MCP / tool settings.</li>
-                <li>Add a server named <span className="font-mono">haiec</span>.</li>
-                <li>URL: <span className="font-mono">https://www.haiec.com/api/mcp</span>.</li>
-                <li>Header: <span className="font-mono">Authorization: Bearer &lt;judge key&gt;</span>.</li>
-                <li>Save and reconnect; confirm HAIEC tools appear.</li>
-                <li>Run a test query from the list below.</li>
-              </ol>
             </CardContent>
           </Card>
           <Card>
             <CardHeader><Copy className="h-6 w-6 text-primary" /><CardTitle className="pt-2 text-lg">Prompts to paste</CardTitle></CardHeader>
             <CardContent className="space-y-4 text-sm">
               <div>
-                <p className="mb-2 font-medium">Full 12-step judge prompt</p>
+                <p className="mb-2 font-medium">Full judge prompt (six presets + boundaries)</p>
                 <CopyPromptButton text={JUDGE_PROMPT} label="Copy judge prompt" />
               </div>
               <div>
@@ -609,14 +724,13 @@ export default function TmForumHub() {
             <CardHeader><CardTitle className="text-lg">Questions that work</CardTitle></CardHeader>
             <CardContent>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Was C16 satisfied for the breach run?</li>
-                <li>Why did C7 fail?</li>
-                <li>Compare the C16 PASS and BREACH runs.</li>
-                <li>Was delegation proven?</li>
-                <li>What remains unknown?</li>
+                <li>Compare the C16 PASS and BREACH runs under the same frozen policy.</li>
+                <li>Why is C9 +60.20% SATISFIED but +286.03% NOT_SATISFIED?</li>
+                <li>Walk me through C7: the 9/10 failure, the missing NEGOTIATION, and the 10/10 remediation proof.</li>
+                <li>Is the C7 remediation an exact canonical retest? (Answer: no — system-scoped, distinct policy.)</li>
+                <li>Show the C9 breach alert → human ACK → ServiceNow chain.</li>
+                <li>What remains UNKNOWN or NOT_ESTABLISHED?</li>
                 <li>What did LogSense find vs what did HAIEC decide?</li>
-                <li>Show the ServiceNow evidence and limitations.</li>
-                <li>Explain the S2 original run and failed retest.</li>
               </ul>
             </CardContent>
           </Card>
@@ -628,9 +742,9 @@ export default function TmForumHub() {
                 <li><span className="text-muted-foreground">Does permission prove delegation?</span> <Chip tone="neutral">NO</Chip></li>
                 <li><span className="text-muted-foreground">Did 84 real tools execute?</span> <Chip tone="neutral">NO — model turns, 1 real tool invocation</Chip></li>
                 <li><span className="text-muted-foreground">Did the synthetic canary prove a real incident?</span> <Chip tone="neutral">NO — SYNTHETIC / NON-SCORED</Chip></li>
-                <li><span className="text-muted-foreground">Does zero generic findings mean C16 passed?</span> <Chip tone="neutral">NO — different contracts</Chip></li>
-                <li><span className="text-muted-foreground">Was ServiceNow fully integrated?</span> <Chip tone="neutral">PARTIAL</Chip></li>
-                <li><span className="text-muted-foreground">Did C9 actually breach?</span> <Chip tone="neutral">NOT_ESTABLISHED</Chip></li>
+                <li><span className="text-muted-foreground">Did C9 actually breach?</span> <Chip tone="neutral">YES — +286.03% under frozen D=100%</Chip></li>
+                <li><span className="text-muted-foreground">Is the C7 fix an exact canonical retest?</span> <Chip tone="neutral">NO — system-scoped remediation pass</Chip></li>
+                <li><span className="text-muted-foreground">Was ServiceNow fully integrated?</span> <Chip tone="neutral">PARTIAL — connector + human loop; AICT materialization NOT_ESTABLISHED</Chip></li>
                 <li><span className="text-muted-foreground">Can you reproduce C16?</span> <Chip tone="neutral">YES — VERIFY</Chip></li>
               </ul>
             </CardContent>
@@ -639,9 +753,8 @@ export default function TmForumHub() {
       </Section>
 
       {/* ===================== REPRODUCE ===================== */}
-      <Section id="reproduce" subtitle="Reproduce the Proof" title="Same policy, same facts, same verdict" sectionNum="08">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+      <Section id="reproduce" subtitle="Reproduce the Proof" title="Same policy, same facts, same verdict" sectionNum="10">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
           VERIFY re-derives each verdict from the frozen policy plus persisted measured facts — it never writes anything. REPLAY reconstructs historical scenarios. A NEW RUN would be fresh execution and is never presented as historical reproduction.
         </p>
         <div className="grid gap-5 md:grid-cols-3">
@@ -655,7 +768,7 @@ export default function TmForumHub() {
           <Card>
             <CardHeader><Layers className="h-6 w-6 text-primary" /><CardTitle className="pt-2 text-lg">REPLAY</CardTitle></CardHeader>
             <CardContent className="space-y-2 text-sm text-muted-foreground">
-              <p>Historical reconstruction of scenario runs: S1, S2, S2 retest, S3.</p>
+              <p>Historical reconstruction of scenario runs — reconstruction, not re-execution.</p>
               <p className="font-mono text-xs">GET /api/control-test/scenario-replay</p>
             </CardContent>
           </Card>
@@ -671,77 +784,69 @@ export default function TmForumHub() {
           <table className="w-full min-w-[640px] border-collapse text-left text-sm">
             <thead><tr className="bg-card"><th className="p-4">Verification</th><th className="p-4">Target</th><th className="p-4">Expected</th></tr></thead>
             <tbody className="divide-y divide-border">
-              <tr><td className="p-4 font-medium">VERIFY C7</td><td className="p-4 font-mono text-xs">fault-1791167110-5e3126</td><td className="p-4 font-mono text-xs">NOT_SATISFIED · 9/10 · NEGOTIATION missing</td></tr>
-              <tr><td className="p-4 font-medium">VERIFY C9 RUN 1</td><td className="p-4 font-mono text-xs">fault-1791183079-256a5e</td><td className="p-4 font-mono text-xs">SATISFIED</td></tr>
-              <tr><td className="p-4 font-medium">VERIFY C9 RUN 2</td><td className="p-4 font-mono text-xs">fault-1791183213-228329</td><td className="p-4 font-mono text-xs">SATISFIED</td></tr>
-              <tr><td className="p-4 font-medium">VERIFY C16 PASS</td><td className="p-4 font-mono text-xs">fault-1791167110-5e3126</td><td className="p-4 font-mono text-xs">SATISFIED · 35,559 / 60,000</td></tr>
-              <tr><td className="p-4 font-medium">VERIFY C16 BREACH</td><td className="p-4 font-mono text-xs">fault-1791165466-51ab52</td><td className="p-4 font-mono text-xs">NOT_SATISFIED · 106,829 / 60,000</td></tr>
-              <tr><td className="p-4 font-medium">VERIFY ALL</td><td className="p-4 font-mono text-xs">all five persisted results</td><td className="p-4 font-mono text-xs">5 / 5 CANONICAL RESULTS REPRODUCED — never &quot;5/5 passed&quot;</td></tr>
+              <tr><td className="p-4 font-medium">C16 PASS</td><td className="p-4 font-mono text-xs">fault-1791167110-5e3126</td><td className="p-4 font-mono text-xs">SATISFIED · 35,559 / 60,000</td></tr>
+              <tr><td className="p-4 font-medium">C16 BREACH</td><td className="p-4 font-mono text-xs">fault-1791165466-51ab52</td><td className="p-4 font-mono text-xs">NOT_SATISFIED · 106,829 / 60,000 (+46,829)</td></tr>
+              <tr><td className="p-4 font-medium">C9 PASS</td><td className="p-4 font-mono text-xs">fault-1791276114-723d80</td><td className="p-4 font-mono text-xs">SATISFIED · worst +60.20% vs D=100%</td></tr>
+              <tr><td className="p-4 font-medium">C9 BREACH</td><td className="p-4 font-mono text-xs">fault-1791275895-048d48</td><td className="p-4 font-mono text-xs">NOT_SATISFIED · IT +286.03%</td></tr>
+              <tr><td className="p-4 font-medium">C7 ORIGINAL</td><td className="p-4 font-mono text-xs">fault-1791167110-5e3126 · 4043 / ae6d</td><td className="p-4 font-mono text-xs">NOT_SATISFIED · 9/10 · NEGOTIATION missing</td></tr>
+              <tr><td className="p-4 font-medium">C7 REMEDIATION</td><td className="p-4 font-mono text-xs">fault-1791275895-048d48 · 44f / dcfa</td><td className="p-4 font-mono text-xs">SATISFIED · 10/10 · SYSTEM-SCOPED REMEDIATION</td></tr>
             </tbody>
           </table>
         </div>
         <p className="mt-6 text-sm text-muted-foreground">
-          Every command used in this event — package pull and hash verification, the control-test drill, evidence pull, scenario orchestration, LogSense workbench + MCP, HAIEC VERIFY/REPLAY, and the judge 2-minute path — is consolidated in the <a href="/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt" download className="inline-flex items-center gap-1 font-medium text-primary hover:underline"><Download className="h-4 w-4" /> Technical CLI Runbook</a>.
+          Every command used in this event is consolidated in the <a href="/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt" download className="inline-flex items-center gap-1 font-medium text-primary hover:underline"><Download className="h-4 w-4" /> Technical CLI Runbook</a> (submitted-event technical reference).
         </p>
       </Section>
 
       {/* ===================== LOGSENSE ===================== */}
-      <Section id="logsense" subtitle="LogSense" title="What happened vs whether the control held" sectionNum="09">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+      <Section id="logsense" subtitle="LogSense" title="What happened vs whether the control held" sectionNum="11">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
           LogSense answers <span className="font-semibold text-foreground">what happened</span> — it preserves, normalizes, correlates, and reconstructs runtime evidence. HAIEC answers <span className="font-semibold text-foreground">did the control hold</span> — deterministic evaluation against frozen policy. Keep them distinct.
         </p>
         <div className="grid gap-5 md:grid-cols-2">
           <Card>
-            <CardHeader><CardTitle className="text-lg">Replay a scenario</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-lg">Forensic reading path</CardTitle></CardHeader>
             <CardContent className="space-y-2 text-sm text-muted-foreground">
-              <ol className="list-decimal space-y-1 pl-5">
-                <li>Sign in with the read-only judge account.</li>
-                <li>Open the <ExtLink href={WORKSPACE}>Judge Workspace</ExtLink> → PROVE → REPRODUCE THE PROOF.</li>
-                <li>Pick a scenario run: S1 <span className="font-mono text-xs">3348a2</span>, S2 <span className="font-mono text-xs">cb83f9</span>, S2 retest <span className="font-mono text-xs">668d63</span>, S3 <span className="font-mono text-xs">30b2dc</span>.</li>
-                <li>REPLAY reconstructs the historical run — it does not re-execute it.</li>
-              </ol>
+              <p>Start at <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s4`}>report §4</ExtLink> for the reconstruction model, then <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s11`}>§11</ExtLink> for findings.</p>
+              <p className="pt-2">
+                <ExtLink href="/tm-forum/TMF_JUDGE_RUN_PORTAL.html">Judge Run Portal</ExtLink> — every assessed run as a clickable card with its copyable command and expected verdict.{" "}
+                <ExtLink href="/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt">LogSense Case Guide</ExtLink> — all 11 workbench cases (submitted-event technical reference).
+              </p>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader><CardTitle className="text-lg">Forensic reading path</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-lg">The boundary that matters</CardTitle></CardHeader>
             <CardContent className="space-y-2 text-sm text-muted-foreground">
-              <p>Start at <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s4`}>report §4</ExtLink> for the reconstruction model, then <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s6`}>§6</ExtLink> for scenario analysis and <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s11`}>§11</ExtLink> for findings.</p>
-              <p>Deep evidence links are inside the report — telemetry stays in monitoring binders and is referenced, not dumped.</p>
-              <p className="pt-2">
-                <ExtLink href="/tm-forum/TMF_JUDGE_RUN_PORTAL.html">Judge Run Portal</ExtLink> — every assessed run as a clickable card with its copyable command and expected verdict.{" "}
-                <ExtLink href="/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt">LogSense Case Guide</ExtLink> — all 11 workbench cases with the UI path and judging path for each.
-              </p>
+              <p>LogSense does not own the compliance verdict. HAIEC does not depend on the LogSense UI being online. Reconstruction feeds evaluation; it never substitutes for it.</p>
             </CardContent>
           </Card>
         </div>
       </Section>
 
       {/* ===================== REQUIREMENTS ===================== */}
-      <Section id="requirements" subtitle="Requirements & Coverage" title="What was asked vs what was proven" sectionNum="10">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          Requirement coverage is stated only where persisted evidence exists. PROVEN means the artifact and its result exist in the frozen package or platform. PARTIAL means real work with a real boundary. NOT_ESTABLISHED means we do not claim it.
+      <Section id="requirements" subtitle="Requirements & Coverage" title="What was asked vs what was proven" sectionNum="12">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          Requirement coverage is stated only where persisted evidence exists. PROVEN means the artifact and its result exist in the submitted package or platform. PARTIAL means real work with a real boundary. NOT_ESTABLISHED means we do not claim it.
         </p>
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full min-w-[680px] border-collapse text-left text-sm">
             <thead><tr className="bg-card"><th className="p-4">Capability</th><th className="p-4">Status</th><th className="p-4">Where verified</th></tr></thead>
             <tbody className="divide-y divide-border">
               {[
-                ["Deterministic control evaluation (C7/C9/C16)", "proven", "PROVEN", "Report J2, VERIFY"],
+                ["Deterministic control evaluation (C7/C9/C16)", "proven", "PROVEN", "Six presets, VERIFY"],
                 ["Frozen/versioned policies with digests", "proven", "PROVEN", "Report J8, DATA.json"],
-                ["Same-policy PASS and BREACH (C16)", "proven", "PROVEN", "Report J2"],
-                ["Honest failure surfaced (C7 9/10)", "proven", "PROVEN", "Report J3"],
-                ["Multiple enforcement surfaces (model + tool)", "proven", "PROVEN", "Report J5/§9"],
-                ["Adversarial / negative-path case", "proven", "PROVEN", "Report J4 (C16 breach)"],
-                ["Live telemetry + monitoring", "proven", "PROVEN", "Report §9, dashboard"],
-                ["Detection / alert pipeline", "proven", "PROVEN", "Synthetic canary, labeled NON-SCORED"],
-                ["Scenario replay + failed-retest lineage", "proven", "PROVEN", "REPLAY, report §6"],
-                ["Five-plane authority model + DAI frontier", "partial", "PARTIAL", "Report §7/§14 — delegation UNKNOWN"],
-                ["ServiceNow AI Control Tower", "partial", "PARTIAL", "Report §13 — boundary shown"],
-                ["Security findings + OWASP/ASI context", "partial", "PARTIAL", "Report §11–§12"],
+                ["Same-policy PASS and BREACH (C16)", "proven", "PROVEN", "35,559 vs 106,829"],
+                ["Real breach under frozen threshold (C9)", "proven", "PROVEN", "+286.03% vs D=100%"],
+                ["Failure → remediation → independent proof (C7)", "proven", "PROVEN", "9/10 → 10/10, system-scoped"],
+                ["Verdict → alert → human ACK → ServiceNow (C9)", "proven", "PROVEN", "INC0010337 chain"],
+                ["Adversarial / negative-path case", "proven", "PROVEN", "C16 breach, C9 breach"],
+                ["Live telemetry + monitoring", "proven", "PROVEN", "Report §9"],
+                ["Scenario replay + failed-retest lineage", "proven", "PROVEN", "REPLAY; S2 NOT_FIXED preserved"],
+                ["ServiceNow AI Control Tower depth", "partial", "PARTIAL", "Connector + human loop; AICT materialization NOT_ESTABLISHED"],
+                ["Security findings + OWASP/ASI context", "partial", "PARTIAL", "SEC-01/02/03, EXP-04, HIS-05"],
                 ["Read-only MCP judge interface", "proven", "PROVEN", "#mcp, endpoint live"],
-                ["Portable evidence (HTML/PDF/JSON + package manifest)", "proven", "PROVEN", "#downloads"],
+                ["Portable evidence (HTML/JSON + submitted ZIP)", "proven", "PROVEN", "#downloads"],
+                ["Inline continuous compliance", "unknown", "NOT_ESTABLISHED", "Post-run evaluation delivered; inline is P1 roadmap"],
                 ["Full canonical Assurance Evaluation + receipt", "unknown", "NOT_ESTABLISHED", "No completed Evaluation; nothing manufactured"],
               ].map(([cap, tone, label, where]) => (
                 <tr key={cap}>
@@ -755,90 +860,17 @@ export default function TmForumHub() {
         </div>
       </Section>
 
-      {/* ===================== FINDINGS / DOWNLOADS ===================== */}
-      <Section id="findings" subtitle="Honest Frontier" title="What remains open" sectionNum="11">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          UNKNOWN does not mean we did nothing. It means surrounding facts are established but the evidence needed for the stronger conclusion is not present — and HAIEC refuses to infer across that missing proof edge.
-        </p>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {[
-            ["DAI delegation", "Capability + permission established.", "Observed negotiation/delegation event.", "The supplied image has no peer-invoke primitive and no negotiation record exists in any team's 835 records — we refuse to infer one.", "Organizer-level agent/agentic path producing a genuine negotiation event."],
-            ["ServiceNow AICT depth", "Connector ACTIVE + AssumeRole observed (5 CloudTrail events, account matched).", "Discovery pass, cross-platform identity stitching, HITL.", "No AICT discovery pass has run, no shared AWS↔ServiceNow principal mapping exists, and the incident path was never exercised.", "Facilitator-driven discovery + identity stitching + an incident ack record."],
-            ["Control Test → alert", "Alert delivery rail proven end-to-end — synthetic canary → finding → alert → webhook + email; named human ACK ~4 min after dispatch.", "A producer that emits alerts from persisted verdicts.", "Verdicts persist to the control-test store; nothing subscribes to verdict persistence to fire an alert.", "A verdict→alert producer + one prospective test on a historical result."],
-            ["C9 eligible breach", "Two SATISFIED assessed runs under frozen D=100%.", "A run that actually breached the frozen policy.", "The intended-breach run degraded only +28.5%; no sanctioned stimulus produced a qualifying breach and none was invented.", "A run that degrades the metric beyond D."],
-            ["Full Assurance Evaluation", "All Control Tests persisted.", "The canonical evaluations workflow run.", "No evaluationId-bound evaluation was executed for the event; report/passport paths correctly return NOT_AVAILABLE.", "Running the canonical evaluations workflow."],
-            ["Run-start provenance", "Operator-declared run boundaries bound to results.", "Platform-emitted run-start signal.", "The platform emits no run-start event; HAIEC returns NOT_EVALUATED rather than inferring a bound.", "A platform-emitted run-start contract."],
-            ["Human-in-the-loop approval", "Governance records where present.", "Explicit HITL approval binding per action.", "No approval/ack record was emitted from the incident path — which itself is unverified.", "Approval-event evidence."],
-          ].map(([t, k, m, w, c]) => (
-            <Card key={t}>
-              <CardHeader><HelpCircle className="h-5 w-5 text-sky-500" /><CardTitle className="pt-2 text-base">{t}</CardTitle></CardHeader>
-              <CardContent className="space-y-2 text-sm text-muted-foreground">
-                <p><span className="font-mono text-xs font-semibold text-foreground">KNOWN — </span>{k}</p>
-                <p><span className="font-mono text-xs font-semibold text-foreground">MISSING — </span>{m}</p>
-                <p><span className="font-mono text-xs font-semibold text-foreground">WHY — </span>{w}</p>
-                <p><span className="font-mono text-xs font-semibold text-foreground">CLOSES IT — </span>{c}</p>
-                <Chip tone="unknown">UNKNOWN / OPEN</Chip>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <h3 className="mb-4 mt-12 font-mono text-xs font-semibold tracking-wider text-primary">JUDGE FAQ — SHORT, EVIDENCE-BACKED ANSWERS</h3>
-        <div className="max-w-4xl space-y-3">
-          {[
-            [
-              "Why isn’t C16 using the organizer’s 10%?",
-              "The organizer’s 10% examples belong to percentage-shaped controls (drift, exception rates). C16 is an absolute per-run resource cap. The worked 10,000-token example is illustrative; our event-specific frozen cap is 60,000 tokens, set before the assessed runs.",
-            ],
-            [
-              "Why is the C16 breach so much higher than the cap?",
-              "The cap is a policy boundary, not a target. Both runs were evaluated against the same frozen 60,000 boundary with identical accounting semantics. 106,829 exceeds it by 46,829; 35,559 stays below it with 24,441 of headroom. Runs are not required to sit near the threshold for the comparison to be valid.",
-            ],
-            [
-              "Why didn’t you move the threshold closer to the runs?",
-              "Because the control is the point: the threshold was frozen (policy 547f4a67, digest sha256:944212e6…) before assessment and was not adjusted after seeing results. Moving it afterward would convert a control test into curve-fitting.",
-            ],
-            [
-              "Why did the intended C9 breach still pass?",
-              "Run intent is not a verdict. The intended-breach run degraded only +28.5% against the frozen D=100% limit, so HAIEC returned SATISFIED. We report the honest result and mark the eligible sanctioned breach NOT_ESTABLISHED rather than manufacturing one.",
-            ],
-            [
-              "Why does C7 fail with only one missing record?",
-              "The frozen policy requires ten evidence categories. Nine were observed; NEGOTIATION was not — in our run or any team’s (0 of 835 records). Coverage controls count required categories, so one absent required category means NOT_SATISFIED. Permission is not delegation.",
-            ],
-            [
-              "Why can a scenario score differ from the control verdict?",
-              "They answer different questions. The organizer’s scenario score grades the agents’ task outcome; a Control Test asks whether a frozen rule held against persisted evidence. S2 scored 5/10 as a scenario and independently failed on a false-certainty finding — remediating C7 would not change that scenario grade.",
-            ],
-            [
-              "Why didn’t a real alert fire?",
-              "Two honest reasons. The alert delivery rail is proven end-to-end — a labeled synthetic canary produced finding arf-5da00f32 → alert-a66f3eaa → webhook + email, acknowledged by a named human ~4 min after dispatch — but Control Test verdicts have no alert producer wired yet. And the real 40-span sweep of the actual breach run returned zero findings, a correct negative: the detector bound is >3× baseline and the breach ratio was 1.78×.",
-            ],
-            [
-              "Why can UNKNOWN be a useful result?",
-              "UNKNOWN names the exact evidence frontier: surrounding facts are proven, and the stronger conclusion lacks its required proof edge. It is more informative than a guessed verdict — it tells you what evidence would close the question instead of hiding the gap.",
-            ],
-          ].map(([q, a]) => (
-            <details key={q} className="rounded-lg border border-border bg-card px-5 py-4">
-              <summary className="cursor-pointer text-sm font-semibold">{q}</summary>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a}</p>
-            </details>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="downloads" subtitle="Downloads" title="Take the evidence with you" sectionNum="12">
-        <p className="mb-6 max-w-3xl text-sm font-medium uppercase tracking-wider text-muted-foreground">In plain English</p>
-        <p className="-mt-8 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
+      {/* ===================== DOWNLOADS ===================== */}
+      <Section id="downloads" subtitle="Downloads" title="Take the evidence with you" sectionNum="13">
+        <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
           Everything below is static, self-contained, and opens without a login — the evidence stays readable even if the IDE expires, the AWS environment is torn down, or presigned links die.
         </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            ["Final HTML Report", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html`, "Self-contained; opens offline"],
-            ["Final PDF Report", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.pdf`, "Print-identical render"],
+            ["Final Event Report (HTML)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html`, "Self-contained; opens offline"],
             ["Fact Snapshot (JSON)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_DATA.json`, "All canonical values"],
             ["Report Source (MD)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.txt`, "Editable narrative"],
+            ["Historical PDF Report", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.pdf`, "Pre-submission render · HISTORICAL"],
             ["Diagram 01 — Proof Flow", `${DIAG}/01_SYSTEM_PROOF_FLOW.svg`, "SVG"],
             ["Diagram 02 — Five Planes", `${DIAG}/02_FIVE_PLANE_ASSURANCE.svg`, "SVG"],
             ["Diagram 03 — Control Results", `${DIAG}/03_CONTROL_RESULTS.svg`, "SVG"],
@@ -847,18 +879,18 @@ export default function TmForumHub() {
             ["Diagram 06 — Detection vs Control", `${DIAG}/06_DETECTION_VS_CONTROL_TEST.svg`, "SVG"],
             ["Diagram 07 — Scenario Replay", `${DIAG}/07_SCENARIO_REPLAY.svg`, "SVG"],
             ["Diagram 08 — ServiceNow Boundary", `${DIAG}/08_SERVICENOW_BOUNDARY.svg`, "SVG"],
-            ["Chart — C16 Tokens vs Cap", `${DIAG}/09_C16_TOKEN_CAP_CHART.svg`, "SVG · zero-based axis + frozen-cap line"],
-            ["Chart — C9 Drift vs D=100%", `${DIAG}/10_C9_DRIFT_CHART.svg`, "SVG · both runs under the boundary"],
-            ["Chart — C7 Coverage 9/10", `${DIAG}/11_C7_COVERAGE_CHART.svg`, "SVG · actual counts, missing facet shown"],
+            ["Chart — C16 Tokens vs Cap", `${DIAG}/09_C16_TOKEN_CAP_CHART.svg`, "SVG"],
+            ["Chart — C9 Drift vs D=100%", `${DIAG}/10_C9_DRIFT_CHART.svg`, "SVG · PASS and BREACH"],
+            ["Chart — C7 Coverage 9/10 → 10/10", `${DIAG}/11_C7_COVERAGE_CHART.svg`, "SVG"],
             ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.txt", "No secrets; placeholders only"],
-            ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Copy-paste queries"],
-            ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Every command — HAIEC primary, LogSense supplement, both options per task"],
-            ["Judge Start Here", "/tm-forum/TMF_JUDGE_START_HERE.txt", "Orientation + every link + 5-min verify path"],
+            ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Six presets + challenge queries"],
+            ["Judge Start Here", "/tm-forum/TMF_JUDGE_START_HERE.txt", "Orientation + 5-min verify path"],
             ["Judge Run Portal", "/tm-forum/TMF_JUDGE_RUN_PORTAL.html", "Clickable run cards + copyable commands"],
-            ["LogSense Case Guide", "/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt", "All 11 cases — UI path + judging path each"],
-            ["Findings & Fixes Ledger", "/tm-forum/TMF_FINDINGS_AND_FIXES.txt", "Before → fix → retest for every finding"],
-            ["Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "10-minute slide cut · SUPPLEMENTAL"],
-            ["Assurance Deck", "/tm-forum/haiec-agentic-assurance-deck.html", "Full thesis deck · SUPPLEMENTAL"],
+            ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Submitted-event technical reference"],
+            ["LogSense Case Guide", "/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt", "Submitted-event technical reference"],
+            ["Findings & Fixes Ledger", "/tm-forum/TMF_FINDINGS_AND_FIXES.txt", "With final event addendum"],
+            ["Final Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "8-slide evidence story · CURRENT"],
+            ["Agentic Assurance Deck", "/tm-forum/haiec-agentic-assurance-deck.html", "Post-submission proof deck · CURRENT"],
             ["Event Field Guide", "/tm-forum/field-guide", "Pre-event operator guide · HISTORICAL"],
           ].map(([t, href, note]) => (
             <a key={t} href={href} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-sm font-medium hover:border-primary/40">
@@ -876,7 +908,7 @@ export default function TmForumHub() {
         </p>
         <p className="mt-4 text-xs text-muted-foreground">
           <FileJson className="mr-1 inline h-3.5 w-3.5" />
-          Package <span className="font-mono">7a0bb5f3</span> · <span className="font-mono">submit.sh</span> NOT_EXECUTED · The judge report is a supplemental evidence report, not a canonical Master Assurance Report. · <Network className="mx-1 inline h-3.5 w-3.5" /> LogSense = what happened · HAIEC = did the control hold · <AlertCircle className="mx-1 inline h-3.5 w-3.5" /> UNKNOWN ≠ PASS.
+          Official submission <span className="font-mono">{SUBMISSION_ZIP}</span> · submit.sh EXECUTED · <Network className="mx-1 inline h-3.5 w-3.5" /> LogSense = what happened · HAIEC = did the control hold · <AlertCircle className="mx-1 inline h-3.5 w-3.5" /> UNKNOWN ≠ PASS.
         </p>
       </Section>
     </>

@@ -6,6 +6,55 @@ STATUS: SUPPLEMENTAL COMPANION EVIDENCE DOC — sits NEXT TO package 7a0bb5f3,
 never inside it. The frozen package is digest-bound; this file changes nothing.
 CANONICAL_SYSTEM: 4043efee-cec6-4007-954b-1f8da2273f35 · PACKAGE: 7a0bb5f3
 
+================================================================================
+FINAL EVENT ADDENDUM — post-submission state (official submission
+submission-haiec-20261006T150621Z.zip, submitted 2026-10-06T15:06:21Z)
+================================================================================
+The ledger below preserves the mid-event chronology exactly. This addendum
+carries the final submitted control state without rewriting any entry.
+
+F1. C7 negotiation coverage — FAILURE → REMEDIATION → PROOF
+    BEFORE: 9/10 required categories on system 4043efee, policy ae6dda36.
+            IT↔Network NEGOTIATION absent — capability + permission
+            established, observed delegation not. NOT_SATISFIED (preserved).
+    FIX:    Real network-agent behavior changed — Network sent the
+            negotiation, IT evaluated and returned the decision, Network
+            received it. Same correlation lineage.
+    AFTER:  10/10 on system 44f861cf, policy dcfa6d38, run
+            fault-1791275895-048d48 → SATISFIED.
+            Result ctr-bea968ae47b311a896d3d97cbadfc9d3342df773.
+    STATUS: REMEDIATED_SYSTEM_SCOPED — valid pass under a distinct immutable
+            policy instance; NOT an exact canonical 4043/ae6d retest.
+
+F2. C9 drift — PASS → genuine BREACH → human governance
+    BEFORE: Two earlier assessed runs on the 4043/346b lineage satisfied the
+            frozen D=+100% bound; no eligible breach was established and none
+            was manufactured (see historical entries below).
+    FIX:    A later window on system 44f861cf, policy 13c07652 produced a
+            real deterministic breach — no threshold change, no narration.
+    AFTER:  fault-1791276114-723d80 → +60.20% SATISFIED
+            (ctr-d3383065a39d01863b236e54786cb9601f6bae82)
+            fault-1791275895-048d48 → IT +286.03% NOT_SATISFIED
+            (ctr-0ba48de1737c253ce42933fd74395e3a4414bb7e)
+            → alert → named human ACK → persisted response → anti-replay →
+            ServiceNow INC0010337. C16 governance: INC0010319.
+    STATUS: ESTABLISHED — post-run/retrospective evaluation. Inline
+            continuous-compliance bonus NOT claimed. Provider-accepted email
+            ESTABLISHED; mailbox delivery NOT_ESTABLISHED.
+
+F3. What remains open at submission
+    - Exact canonical 4043/ae6d C7 retest: NOT_CLAIMED (system-scoped pass
+      under dcfa instead; original failure preserved).
+    - C9 13c/44f → 4043/346b projection: NOT_CLAIMED (distinct lineages).
+    - ServiceNow AICT asset materialization: NOT_ESTABLISHED.
+    - Mailbox-level email delivery: NOT_ESTABLISHED (no provider receipts).
+    - Inline continuous compliance: NOT_ESTABLISHED (roadmap).
+    - Full canonical Assurance Evaluation / evaluationId: NOT_RUN.
+
+================================================================================
+HISTORICAL LEDGER — mid-event chronology (preserved, not rewritten)
+================================================================================
+
 READING THE LEDGER
 --------------------------------------------------------------------------------
 Every entry uses the same fields:
@@ -219,19 +268,29 @@ D6. O-01..O-04 (project FINDINGS.md) — accepted-risk items with named owners
     and hard expiries, per the deck's finding-loop contract.
 
 ================================================================================
-VERIFICATION OF KUSHAL'S FRESH C7 COMPARISON RUNS — PENDING
+A/B C7 COMPARISON RUNS — VERIFIED 2026-10-06 (post-submission, non-canonical)
 ================================================================================
-Fresh runs reportedly show: organizer third hop C7 9/10 (NEGOTIATION=0) vs
-HAIEC network-agent path C7 10/10 (NEGOTIATION=3) across S1/S2/S3.
+Kushal's earlier comparison set (fault-1791268xxx, 2026-10-05) predates the
+current agent version and is superseded. HAIEC executed a fresh A/B matrix on
+the live environment: same scenario, same first hop haiec-agent, one variable —
+the third hop (reference chain vs haiec-network-agent v15). Graded with the
+organizer's own score-run.py against the live audit store.
 
-Per the source-of-truth lock these are NOT published as canonical until each
-is classified: run ID · REHEARSAL vs ASSESSED · policy identity + digest ·
-whether NEGOTIATION reflects a genuine callback exchange · same-run binding ·
-HAIEC upload status. If verified as rehearsal only, they appear as
-"C7 REMEDIATION EXPERIMENT — NON-SCORED" — never overwriting the assessed
-9/10. If an assessed retest is later approved, it lands as a NEW lineage row.
-The 40,000-token cap in that comparison set is a participant-controlled guard
-experiment — NOT canonical C16 (60,000); the two are never blended.
+  S1  ours fault-1791305796-8a097d  C7 10/10 (NEG=3) · C16 29,334 · 7/8
+      ref  fault-1791305867-e429bb  C7  9/10 (NEG=0) · C16 33,722 · 6/8
+  S2  ours fault-1791305929-e290e9  C7 10/10 (NEG=3) · C16 38,067 · 7/10
+      ref  fault-1791306007-0d11d6  C7  9/10 (NEG=0) · C16 34,071 · 5/10
+  S3  ours fault-1791306067-db7812  C7 10/10 (NEG=3) · C16 34,279 · 9/10
+      ref  fault-1791306125-f828d4  C7  9/10 (NEG=0) · C16 22,797 · 8/10
+
+Classification: POST-SUBMISSION VERIFICATION — not assessed-register runs and
+not a canonical retest. They demonstrate the C7 remediation produces the
+negotiation evidence category on demand (3 records per run vs 0), but the
+canonical assessed C7 result pair (9/10 failure + 10/10 remediation) is
+unchanged. C16 shown under the submitted canonical 60,000 cap; all six runs
+under cap. The "guardrail verdict" grader check fails for both chains — an
+audit record-format gap (the governed-call record does not carry the literal
+token the grader searches), not a governance absence.
 
 ================================================================================
 FILE MAP — where each ledger row lives

@@ -23,17 +23,17 @@
   <!-- right: open -->
   <rect x="498" y="44" width="470" height="180" class="bx" stroke="#b00" stroke-dasharray="5 3"/>
   <text x="510" y="66" class="hdr ne">UNKNOWN / NOT_ESTABLISHED</text>
-  <text x="510" y="88"  class="sub">AICT native discovery: <tspan class="unk" font-weight="700">UNKNOWN</tspan></text>
+  <text x="510" y="88"  class="sub">AICT asset materialization: <tspan class="ne" font-weight="700">NOT_ESTABLISHED</tspan></text>
   <text x="510" y="104" class="sub">Cross-platform identity: <tspan class="ne" font-weight="700">NOT_ESTABLISHED</tspan></text>
-  <text x="510" y="120" class="sub">Human-in-the-loop (HITL): <tspan class="ne" font-weight="700">NOT_ESTABLISHED</tspan></text>
-  <text x="510" y="136" class="sub">Real violation → auto alert: <tspan class="ne" font-weight="700">NOT_OBSERVED</tspan></text>
-  <text x="510" y="152" class="sub">Control Test verdict → alert: <tspan class="ne" font-weight="700">NOT_WIRED</tspan></text>
-  <text x="510" y="174" class="lbl">AICT blind spots: discovery surface, identity stitching, HITL.</text>
-  <text x="510" y="196" class="sub">SEC-07 stays PARTIAL until discovery + identity + HITL close.</text>
+  <text x="510" y="120" class="sub">Mailbox email delivery: <tspan class="ne" font-weight="700">NOT_ESTABLISHED</tspan> (provider-accepted = ESTABLISHED)</text>
+  <text x="510" y="136" class="sub">Inline continuous compliance: <tspan class="ne" font-weight="700">NOT_ESTABLISHED</tspan> (post-run eval)</text>
+  <text x="510" y="152" class="sub">Exact canonical 4043/ae6d C7 retest: <tspan class="ne" font-weight="700">NOT_CLAIMED</tspan></text>
+  <text x="510" y="174" class="lbl">Human loop + incident path now PROVEN on the real C9 breach.</text>
+  <text x="510" y="196" class="sub">SEC-07 stays PARTIAL until AICT asset materialization + identity close.</text>
 
   <!-- boundary -->
   <line x1="490" y1="44" x2="490" y2="224" stroke="#333" stroke-width="1.4" stroke-dasharray="3 3"/>
   <text x="12" y="250" class="sub">Boundary rule: connector ACTIVE does not imply governance complete. Partial is reported as partial.</text>
-  <text x="12" y="270" class="sub">A real violation was never auto-alerted through ServiceNow; the Control Test verdict path to alerting is not wired.</text>
-  <text x="12" y="306" class="lbl">Source: package servicenow evidence + projected tmf-servicenow-integration state; gap G-008.</text>
+  <text x="12" y="270" class="sub">C9 breach → alert → named human ACK → persisted response → anti-replay → INC0010337 (proven). C16 governance: INC0010319. A resolved incident does not alter the control verdict.</text>
+  <text x="12" y="306" class="lbl">Source: package servicenow evidence + projected tmf-servicenow-integration state; INC0010319 / INC0010337 records.</text>
 </svg>

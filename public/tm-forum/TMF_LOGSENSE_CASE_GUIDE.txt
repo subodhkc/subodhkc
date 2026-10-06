@@ -1,8 +1,12 @@
 ================================================================================
 TM FORUM 2026 — LOGSENSE EVENT WORKBENCH: RUN IT + EVERY CASE + JUDGING PATH
-Companion to the frozen logsense-event/README.md inside package 7a0bb5f3.
+Companion to the frozen logsense-event/README.md inside package 7a0bb5f3
+(historical provenance — the official submitted artifact is
+submission-haiec-20261006T150621Z.zip).
 That README is immutable (digest-bound). This guide is the event-day addendum:
 how to open the workbench, what each case shows, and where the verdict lives.
+SUBMITTED-EVENT TECHNICAL REFERENCE — case descriptions preserve the mid-event
+story; final control verdicts live in the report assets and START_HERE.
 
 PLACEMENT: safe to copy this file INTO an extracted package or
 ~/logsense-event/ — MANIFEST.sha256 verifies only the 506 listed files;
