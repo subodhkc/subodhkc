@@ -44,6 +44,7 @@ const HAIEC = "https://www.haiec.com";
 const WORKSPACE = `${HAIEC}/dashboard/assurance-lab`;
 const LOGIN = `${HAIEC}/login`;
 const MCP = `${HAIEC}/api/mcp`;
+const DRIVE = "https://drive.google.com/drive/folders/1gGaVOgdVzjtY6DIIRPjIWD_zr0VjDgDR?usp=sharing";
 const ASSET = "/tm-forum/assets";
 const DIAG = "/tm-forum/diagrams";
 
@@ -205,6 +206,9 @@ export default function TmForumHub() {
           <Link href="#mcp" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
             Ask HAIEC
           </Link>
+          <a href={WORKSPACE} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
+            Judge workspace <ArrowUpRight className="ml-2 h-4 w-4" />
+          </a>
           <a href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
             Download the evidence
           </a>
@@ -219,8 +223,8 @@ export default function TmForumHub() {
         <div className="section-container flex gap-1 overflow-x-auto py-2 text-xs font-medium">
           {[
             ["#proof", "Proof"], ["#scoreboard", "Scoreboard"], ["#controls", "Controls"], ["#lineage", "Lineage"], ["#boundaries", "Boundaries"],
-            ["#reports", "Reports"], ["#artifacts", "Artifacts"], ["#diagrams", "Diagrams"], ["#mcp", "Ask HAIEC"],
-            ["#reproduce", "Reproduce"], ["#downloads", "Downloads"],
+            ["#reports", "Reports"], ["#artifacts", "Artifacts"], ["#diagrams", "Diagrams"], ["#haiec", "Open HAIEC"], ["#mcp", "Ask HAIEC"],
+            ["#reproduce", "Reproduce"], ["#logsense", "LogSense"], ["#requirements", "Coverage"], ["#downloads", "Downloads"],
           ].map(([href, label]) => (
             <Link key={href} href={href} className="whitespace-nowrap rounded-md px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">
               {label}
@@ -569,6 +573,18 @@ export default function TmForumHub() {
             href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_DATA.json`}
             status="EVIDENCE · CURRENT"
           />
+          <ReportCard
+            title="Judge Start Here"
+            answers="Orientation and the 5-minute verify path: where everything lives, what to open first, and the shortest route to a reproduced verdict."
+            href="/tm-forum/TMF_JUDGE_START_HERE.txt"
+            status="STANDALONE · CURRENT"
+          />
+          <ReportCard
+            title="Judge Run Portal"
+            answers="Every assessed run as a clickable card with the copyable command and the expected verdict — the operator card for hands-on verification."
+            href="/tm-forum/TMF_JUDGE_RUN_PORTAL.html"
+            status="STANDALONE · CURRENT"
+          />
         </div>
 
         <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">CONTROL & GOVERNANCE</h3>
@@ -590,15 +606,18 @@ export default function TmForumHub() {
         <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">HISTORICAL / PRE-EVENT</h3>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           <ReportCard title="Pre-Event Technical Thesis Deck" answers="The pre-event architecture argument: observability is necessary but not assurance; permission is not execution." href="/tm-forum/haiec-agentic-assurance-deck.html" status="PRE-EVENT THESIS" note="Refreshed post-submission; earlier synthetic examples are labeled as such." />
+          <ReportCard title="Judge Cut — Final Deck" answers="The 11-slide evidence story optimized for a 10-minute judge presentation: six verdicts, A/B scoreboard, three control arcs, findings, honest boundaries." href="/tm-forum/haiec-judge-cut.html" status="POST-SUBMISSION · CURRENT" />
           <ReportCard title="Technical CLI Runbook" answers="Every command used in the event: package verification, control-test drill, evidence pull, scenario orchestration." href="/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt" status="SUBMITTED-EVENT TECHNICAL" />
           <ReportCard title="LogSense Case Guide" answers="All 11 workbench cases with the UI path and judging path for each." href="/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt" status="SUBMITTED-EVENT TECHNICAL" />
+          <ReportCard title="Assurance Report Template" answers="The judge-facing report structure we wrote against: five-plane chain, frozen governing instance, proof frontier." href="/tm-forum/assurance-report-template.html" status="TEMPLATE · HISTORICAL" />
+          <ReportCard title="Team Field Guide (canonical)" answers="The event-day operating guide the team ran: gates, freeze discipline, identity binding, judge flow." href="/tm-forum/field-guide" status="PRE-EVENT · HISTORICAL" />
         </div>
       </Section>
 
       {/* ===================== REQUIRED ARTIFACTS ===================== */}
       <Section id="artifacts" subtitle="Required Judge Artifacts" title="The six required artifacts" sectionNum="06">
         <p className="-mt-2 mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          The six organizer artifacts live in the official judge handoff. For each one we show what it answers and the covering section of the public report so judges never wait on Drive access.
+          The six organizer artifacts live in the official judge handoff (<ExtLink href={DRIVE}>Judgment-Day Drive folder</ExtLink>). For each one we show what it answers, the covering section of the public report, and a public copy where one exists — so judges never wait on Drive access.
         </p>
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full min-w-[760px] border-collapse text-left text-sm">
@@ -607,16 +626,17 @@ export default function TmForumHub() {
                 <th className="p-4">Artifact</th>
                 <th className="p-4">What it answers</th>
                 <th className="p-4">Public coverage</th>
+                <th className="p-4">Public copy</th>
                 <th className="p-4">Canonical copy</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              <tr><td className="p-4 font-medium">01 · Evidence File / START HERE</td><td className="p-4">Where all evidence lives and how to begin.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j1`}>Report J1</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
-              <tr><td className="p-4 font-medium">02 · Threshold &amp; Governance</td><td className="p-4">Frozen thresholds, policy IDs, digests, governance rules.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j8`}>Report J8</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
-              <tr><td className="p-4 font-medium">03 · Control Test Judge Operator Card</td><td className="p-4">How a judge operates and verifies each control.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j10`}>Report J10</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
-              <tr><td className="p-4 font-medium">04 · Named Assessed Runs Register</td><td className="p-4">Every assessed run, its role, and its result.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j7`}>Report J7</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
-              <tr><td className="p-4 font-medium">05 · One-Page Architecture</td><td className="p-4">The system and assurance architecture at a glance.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j6`}>Report J6</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
-              <tr><td className="p-4 font-medium">06 · Gap / Remediation / Retest Register</td><td className="p-4">Open gaps, remediations, and retest lineage.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s15`}>Report §15</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">01 · Evidence File / START HERE</td><td className="p-4">Where all evidence lives and how to begin.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j1`}>Report J1</ExtLink></td><td className="p-4"><ExtLink href="/tm-forum/TMF_JUDGE_START_HERE.txt">start-here.txt</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">02 · Threshold &amp; Governance</td><td className="p-4">Frozen thresholds, policy IDs, digests, governance rules.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j8`}>Report J8</ExtLink></td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_DATA.json`}>fact snapshot</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">03 · Control Test Judge Operator Card</td><td className="p-4">How a judge operates and verifies each control.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j10`}>Report J10</ExtLink></td><td className="p-4"><ExtLink href="/tm-forum/TMF_JUDGE_RUN_PORTAL.html">run portal</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">04 · Named Assessed Runs Register</td><td className="p-4">Every assessed run, its role, and its result.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j7`}>Report J7</ExtLink></td><td className="p-4"><ExtLink href="/tm-forum/TMF_JUDGE_RUN_PORTAL.html">run portal</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">05 · One-Page Architecture</td><td className="p-4">The system and assurance architecture at a glance.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j6`}>Report J6</ExtLink></td><td className="p-4"><ExtLink href={`${DIAG}/HAIEC_ARCHITECTURE.png`}>architecture.png</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
+              <tr><td className="p-4 font-medium">06 · Gap / Remediation / Retest Register</td><td className="p-4">Open gaps, remediations, and retest lineage.</td><td className="p-4"><ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s15`}>Report §15</ExtLink></td><td className="p-4"><ExtLink href="/tm-forum/TMF_FINDINGS_AND_FIXES.txt">findings ledger</ExtLink></td><td className="p-4"><Chip tone="neutral">IN SUBMITTED ZIP</Chip></td></tr>
             </tbody>
           </table>
         </div>
@@ -672,7 +692,10 @@ export default function TmForumHub() {
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>Read-only Model Context Protocol interface for AI clients and IDEs.</p>
               <p className="font-mono break-all text-xs">{MCP}</p>
-              <Link href="#mcp" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">Setup guide <ArrowRight className="h-3.5 w-3.5" /></Link>
+              <div className="flex flex-wrap gap-4">
+                <a href="/tm-forum/TMF_MCP_SETUP_GUIDE.txt" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline" download>Setup guide <Download className="h-3.5 w-3.5" /></a>
+                <Link href="#mcp" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">Prompts &amp; config <ArrowRight className="h-3.5 w-3.5" /></Link>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -889,9 +912,13 @@ export default function TmForumHub() {
             ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Submitted-event technical reference"],
             ["LogSense Case Guide", "/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt", "Submitted-event technical reference"],
             ["Findings & Fixes Ledger", "/tm-forum/TMF_FINDINGS_AND_FIXES.txt", "With final event addendum"],
-            ["Final Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "8-slide evidence story · CURRENT"],
+            ["Final Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "11-slide evidence story · CURRENT"],
             ["Agentic Assurance Deck", "/tm-forum/haiec-agentic-assurance-deck.html", "Post-submission proof deck · CURRENT"],
             ["Event Field Guide", "/tm-forum/field-guide", "Pre-event operator guide · HISTORICAL"],
+            ["Environment Intake Worksheet", "/tm-forum/team-environment-integration-intake.html", "P0 intake worksheet · HISTORICAL"],
+            ["Assurance Report Template", "/tm-forum/assurance-report-template.html", "Judge-facing report structure · HISTORICAL"],
+            ["Briefing Screenshots", "/tm-forum/tm-forum-briefing-screenshots.webp", "Event briefing captures · HISTORICAL"],
+            ["Team Operations Hub", "/tm-forum-challenge", "Pre-event team hub · HISTORICAL"],
           ].map(([t, href, note]) => (
             <a key={t} href={href} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-sm font-medium hover:border-primary/40">
               <span>

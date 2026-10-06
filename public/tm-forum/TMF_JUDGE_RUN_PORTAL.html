@@ -229,11 +229,25 @@ Our chain won all three — C7 10/10 with 3 negotiation records on every <code>h
 </footer>
 
 <script>
+function copyText(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(t)}
+  return new Promise(function(res,rej){
+    var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy')?res():rej(new Error('execCommand failed'))}catch(e){rej(e)}
+    document.body.removeChild(ta);
+  });
+}
 document.querySelectorAll('.copy').forEach(function(b){
   b.addEventListener('click',function(){
     var t=b.parentElement.querySelector('code').innerText;
-    navigator.clipboard.writeText(t).then(function(){
+    copyText(t).then(function(){
       b.textContent='Copied';b.classList.add('done');
+      setTimeout(function(){b.textContent='Copy';b.classList.remove('done');},1600);
+    }).catch(function(){
+      b.textContent='Select+copy';b.classList.add('done');
+      var r=document.createRange();r.selectNodeContents(b.parentElement.querySelector('code'));
+      var s=window.getSelection();s.removeAllRanges();s.addRange(r);
       setTimeout(function(){b.textContent='Copy';b.classList.remove('done');},1600);
     });
   });

@@ -68,7 +68,7 @@ export default function TmForumChallengePage() {
           <p>Field Guide → Intake → LogSense reconstruction → HAIEC Control Test → Judgment-Day package → presentation. The full deck tells the architecture story; the judge cut is optimized for the 10-minute presentation.</p>
           <div className="tmf-deck-row">
             <a className="tmf-deck-button" href={DECK_URL} target="_blank" rel="noreferrer">FULL TECHNICAL DECK →</a>
-            <a className="tmf-deck-button secondary" href={JUDGE_CUT_URL} target="_blank" rel="noreferrer">7-SLIDE JUDGE CUT →</a>
+            <a className="tmf-deck-button secondary" href={JUDGE_CUT_URL} target="_blank" rel="noreferrer">11-SLIDE JUDGE CUT →</a>
           </div>
         </div>
         <div className="tmf-start-actions">

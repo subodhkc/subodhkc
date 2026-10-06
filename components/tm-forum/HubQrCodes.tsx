@@ -6,6 +6,8 @@ export function HubQrCodes() {
   const items = [
     { label: 'This hub', url: 'https://subodhkc.com/tm-forum' },
     { label: 'HAIEC login', url: 'https://www.haiec.com/login' },
+    { label: 'Judge workspace', url: 'https://www.haiec.com/dashboard/assurance-lab' },
+    { label: 'Judge report', url: 'https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT.html' },
   ]
   return (
     <div className="mt-8 flex flex-wrap gap-8">
