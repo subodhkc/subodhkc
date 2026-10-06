@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="300" viewBox="0 0 980 300" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .bx{fill:#fff;stroke:#333;stroke-width:1.2}
+    .hdr{font-size:12px;font-weight:700;fill:#111}
+    .sub{font-size:9.5px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9px;fill:#333}
+    .lbl{font-size:9px;fill:#555}
+    .pass{fill:#0a5c2e;font-weight:700}.fail{fill:#b00;font-weight:700}
+    .barP{fill:#0a5c2e}.barF{fill:#b00}.cap{fill:#fff;stroke:#333;stroke-width:1.6;stroke-dasharray:8 4}
+  </style>
+  <text x="12" y="20" class="hdr" font-size="14">C16 — same frozen policy, two measured runs (post-run evaluation)</text>
+  <text x="12" y="38" class="lbl">Policy 547f4a67-76eb-4bf3-befb-c1212ae23f81 · digest sha256:944212e6…2bfe5 · cap = 60,000 tokens/run</text>
+
+  <!-- scale bar -->
+  <g>
+    <rect x="60" y="60" width="700" height="14" class="cap"/>
+    <text x="60" y="56" class="lbl">0</text>
+    <text x="744" y="56" class="lbl">60,000 (cap)</text>
+    <text x="770" y="72" class="lbl">CAP LINE</text>
+  </g>
+
+  <!-- pass run -->
+  <g>
+    <text x="60" y="106" class="hdr">PASS — fault-1791167110-5e3126</text>
+    <rect x="60" y="116" width="415" height="22" class="barP" opacity="0.85"/>
+    <text x="482" y="132" class="mono">35,559 tokens — within cap</text>
+    <text x="60" y="156" class="pass">SATISFIED · ctr-237f3928…22154</text>
+  </g>
+
+  <!-- breach run -->
+  <g>
+    <text x="60" y="196" class="hdr">BREACH — fault-1791165466-51ab52</text>
+    <rect x="60" y="206" width="700" height="22" class="barF" opacity="0.7"/>
+    <rect x="760" y="206" width="150" height="22" class="barF"/>
+    <text x="60" y="244" class="fail">106,829 tokens — SPEND_CAP_EXCEEDED (+46,829 over cap, 17 calls)</text>
+    <text x="60" y="262" class="mono">NOT_SATISFIED · ctr-6d142008…ebc01</text>
+    <line x1="760" y1="200" x2="760" y2="236" stroke="#b00" stroke-width="1.4" stroke-dasharray="4 3"/>
+  </g>
+
+  <text x="60" y="286" class="sub">Both runs evaluated post-run against the same frozen policy/digest → COMPARABLE. C16 is not an inline per-run preventer.</text>
+</svg>
