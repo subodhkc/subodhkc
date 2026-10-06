@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="320" viewBox="0 0 980 320" font-family="Segoe UI, Arial, sans-serif">
+  <defs><marker id="a4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#333"/></marker>
+  <marker id="a4d" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#b00"/></marker></defs>
+  <style>
+    .bx{fill:#fff;stroke:#333;stroke-width:1.2}
+    .hdr{font-size:11.5px;font-weight:700;fill:#111}
+    .sub{font-size:9.5px;fill:#444}
+    .lbl{font-size:9px;fill:#555}
+    .gap{fill:#fff;stroke:#b00;stroke-width:1.5;stroke-dasharray:5 3}
+    .cap{font-size:11px;fill:#b00;font-style:italic;font-weight:600}
+  </style>
+  <text x="12" y="20" class="hdr" font-size="14">C7 delegation frontier — where the proof chain breaks</text>
+
+  <!-- chain -->
+  <rect x="12"  y="50" width="150" height="56" class="bx"/><text x="24" y="72" class="hdr">CUSTOMER INTENT</text><text x="24" y="88" class="sub">assessed request</text><text x="24" y="100" class="sub">ESTABLISHED</text>
+  <rect x="196" y="50" width="150" height="56" class="bx"/><text x="208" y="72" class="hdr">CUSTOMER AGENT</text><text x="208" y="88" class="sub">delegates to IT agent</text><text x="208" y="100" class="sub">OBSERVED</text>
+  <rect x="380" y="50" width="150" height="56" class="bx"/><text x="392" y="72" class="hdr">IT AGENT</text><text x="392" y="88" class="sub">tool+model calls observed</text><text x="392" y="100" class="sub">OBSERVED</text>
+  <rect x="564" y="50" width="170" height="56" class="gap"/><text x="576" y="72" class="hdr" fill="#b00">IT ↔ NETWORK</text><text x="576" y="86" class="sub" fill="#b00">NEGOTIATION</text><text x="576" y="100" class="sub" fill="#b00">MISSING — no bound evidence</text>
+  <rect x="768" y="50" width="200" height="56" class="bx"/><text x="780" y="72" class="hdr">NETWORK AGENT</text><text x="780" y="88" class="sub">→ network consequence</text><text x="780" y="100" class="sub">consequence PARTIAL</text>
+
+  <line x1="162" y1="78" x2="192" y2="78" stroke="#333" stroke-width="1.4" marker-end="url(#a4)"/>
+  <line x1="346" y1="78" x2="376" y2="78" stroke="#333" stroke-width="1.4" marker-end="url(#a4)"/>
+  <line x1="530" y1="78" x2="560" y2="78" stroke="#b00" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#a4d)"/>
+  <line x1="734" y1="78" x2="764" y2="78" stroke="#999" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#a4)"/>
+
+  <!-- capability vs delegation boxes -->
+  <rect x="196" y="140" width="334" height="70" class="bx" stroke="#0a5c2e"/>
+  <text x="208" y="160" class="hdr" fill="#0a5c2e">CONFIGURED CAPABILITY + PERMISSION</text>
+  <text x="208" y="176" class="sub">IT→Network invocation path configured; Cedar policy permits;</text>
+  <text x="208" y="190" class="sub">credential evidence established (scoped). POLICY_AUTHORIZED ✓</text>
+  <rect x="564" y="140" width="404" height="70" class="gap"/>
+  <text x="576" y="160" class="hdr" fill="#b00">OBSERVED DELEGATION = NOT ESTABLISHED</text>
+  <text x="576" y="176" class="sub" fill="#b00">No A2A negotiate/delegate event in OBSERVED plane.</text>
+  <text x="576" y="190" class="sub" fill="#b00">Capability/permission do not establish observed delegation.</text>
+
+  <text x="196" y="236" class="cap">"Permission is not delegation."</text>
+  <text x="196" y="254" class="sub">C7 requires evidence of observed agent-to-agent negotiation, not just that the capability exists.</text>
+  <text x="196" y="270" class="sub">Result: ctr-abdf612f…4c7a = NOT_SATISFIED (9/10 categories; NEGOTIATION missing). UNKNOWN != PASS.</text>
+  <text x="12" y="306" class="lbl">Source: package TMF_CONSEQUENCE_PATH.md; ctr-abdf612f verdict; gap G-013; projected tmf-authority-planes OBSERVED facet.</text>
+</svg>

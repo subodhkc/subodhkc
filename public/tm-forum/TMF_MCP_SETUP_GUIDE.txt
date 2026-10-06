@@ -1,0 +1,76 @@
+# Connect HAIEC to Your AI Agent (MCP) — Judge Setup Guide
+
+**TM Forum Innovate Americas 2026 · Agentic Assurance**
+
+HAIEC exposes a read-only Model Context Protocol (MCP) interface. Connect it to an MCP-compatible AI client or IDE and ask questions against persisted, evidence-backed event data — not a narrated summary.
+
+- **Endpoint:** `https://www.haiec.com/api/mcp`
+- **Transport:** HTTP (streamable) MCP server
+- **Auth:** `Authorization: Bearer <token>` — a read-only judge key is provided in the private judge handoff. It is never published.
+- **Access:** read-only. No write, run, or admin tools are exposed to judge credentials.
+
+## Generic config (HTTP MCP clients)
+
+```json
+{
+  "mcpServers": {
+    "haiec": {
+      "url": "https://www.haiec.com/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${HAIEC_MCP_API_KEY}"
+      }
+    }
+  }
+}
+```
+
+`HAIEC_MCP_API_KEY` is an environment variable or manual placeholder. Substitute your private read-only judge key. Never commit a config containing the real key.
+
+## Per-client steps
+
+**Any MCP client that supports a remote HTTP server + custom headers:**
+
+1. Open MCP / tool settings.
+2. Add a new server; name it `haiec`.
+3. Set URL to `https://www.haiec.com/api/mcp`.
+4. Add header `Authorization: Bearer <your read-only judge key>`.
+5. Save and reconnect.
+6. Confirm HAIEC tools appear in the tool list.
+7. Run a test query (see below).
+
+Client-specific config file locations differ (Claude Desktop `claude_desktop_config.json`, Cursor `~/.cursor/mcp.json`, VS Code MCP extensions, and others). Paste the equivalent server block into your client's MCP config format — the endpoint and Authorization header are the same everywhere.
+
+## One-prompt setup (for agent-capable clients)
+
+Paste this into an agent-capable MCP client to have the agent configure itself:
+
+```text
+Add the HAIEC read-only evidence server to my MCP configuration.
+
+Server name: haiec
+Transport: streamable HTTP
+URL: https://www.haiec.com/api/mcp
+Auth: Authorization: Bearer <paste your read-only judge key from the private handoff>
+
+Steps:
+1. Add the server block to this client's MCP config (the JSON format this client uses).
+2. Reconnect or reload MCP servers.
+3. List the available HAIEC tools so I can confirm the connection worked.
+4. Then run the smoke query: "Show the C16 Control Test results for the assessed TM Forum system."
+
+Do not store, print, or commit the API key anywhere else.
+```
+
+## Judge queries that work
+
+- "Identify the assessed TM Forum AI system."
+- "Show the current C7, C9 and C16 Control Test results."
+- "Was C16 satisfied for run fault-1791165466-51ab52?"
+- "Why did C7 fail?"
+- "Show me the C9 breach." → expected honest answer: an assessment-eligible breach is `NOT_ESTABLISHED`.
+- "Was delegation proven?" → expected: `UNKNOWN`, with the missing evidence named.
+- "Distinguish synthetic evidence from real assessed-event evidence."
+
+## Full judge prompt
+
+See `TMF_JUDGE_PROMPT_PACK.txt` on this site for the full 12-step judge prompt and the challenge-the-evidence question set.

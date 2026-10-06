@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="330" viewBox="0 0 980 330" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .bx{fill:#fff;stroke:#333;stroke-width:1.2}
+    .hdr{font-size:11.5px;font-weight:700;fill:#111}
+    .sub{font-size:9.5px;fill:#444}
+    .lbl{font-size:9px;fill:#555}
+    .est{fill:#0a5c2e}.par{fill:#7a5b00}.unk{fill:#6a6a6a}.mis{fill:#b00}
+  </style>
+  <text x="12" y="20" class="hdr" font-size="14">Five independent evidence planes — not a causal proof chain</text>
+  <text x="12" y="36" class="lbl">Each plane is a distinct evidence type with distinct limitations. Status labels are per-plane, not an aggregate verdict.</text>
+
+  <g>
+    <rect x="12" y="54" width="178" height="96" class="bx"/>
+    <text x="24" y="74" class="hdr">REQUESTED</text>
+    <text x="24" y="90" class="sub">Customer intent declared in</text><text x="24" y="103" class="sub">assessed requests</text>
+    <text x="24" y="124" class="sub est">STATUS: ESTABLISHED</text>
+    <text x="24" y="140" class="lbl">src: scenario runs, intake records</text>
+  </g>
+  <g>
+    <rect x="206" y="54" width="178" height="96" class="bx"/>
+    <text x="218" y="74" class="hdr">POLICY_AUTHORIZED</text>
+    <text x="218" y="90" class="sub">Cedar policy + frozen Control</text><text x="218" y="103" class="sub">Test policy surface</text>
+    <text x="218" y="124" class="sub est">STATUS: ESTABLISHED</text>
+    <text x="218" y="140" class="lbl">src: policy digests (3 frozen)</text>
+  </g>
+  <g>
+    <rect x="400" y="54" width="178" height="96" class="bx"/>
+    <text x="412" y="74" class="hdr">EFFECTIVELY_GRANTED</text>
+    <text x="412" y="90" class="sub">Credential evidence; scoped,</text><text x="412" y="103" class="sub">not universal authority</text>
+    <text x="412" y="124" class="sub par">STATUS: ESTABLISHED*</text>
+    <text x="412" y="140" class="lbl">*within evaluated scope only</text>
+  </g>
+  <g>
+    <rect x="594" y="54" width="178" height="96" class="bx"/>
+    <text x="606" y="74" class="hdr">CODE_CAPABLE</text>
+    <text x="606" y="90" class="sub">Source/config capability</text><text x="606" y="103" class="sub">incl. tool exposure surface</text>
+    <text x="606" y="124" class="sub est">STATUS: ESTABLISHED</text>
+    <text x="606" y="140" class="lbl">src: agent/tool config, static</text>
+  </g>
+  <g>
+    <rect x="788" y="54" width="180" height="96" class="bx" stroke="#b00" stroke-dasharray="5 3"/>
+    <text x="800" y="74" class="hdr">OBSERVED</text>
+    <text x="800" y="90" class="sub">Runtime telemetry + bound</text><text x="800" y="103" class="sub">scenario evidence</text>
+    <text x="800" y="124" class="sub mis">STATUS: PARTIAL</text>
+    <text x="800" y="140" class="lbl">NEGOTIATION facet: MISSING</text>
+  </g>
+
+  <rect x="12" y="170" width="956" height="66" class="bx" stroke="#666"/>
+  <text x="24" y="190" class="hdr">DELEGATION ANALYTICS INSTANCE (DAI): UNKNOWN</text>
+  <text x="24" y="206" class="sub">tmf-dai-c7-negotiation-001 — daiRuleConfirmations: [] — observed delegation/NEGOTIATION is not established.</text>
+  <text x="24" y="222" class="sub">UNKNOWN is a correct, useful evaluator outcome: it marks the frontier rather than inferring delegation from permission.</text>
+
+  <text x="12" y="258" class="hdr" font-size="11">Hard distinctions preserved</text>
+  <text x="12" y="276" class="sub">PERMISSION != DELEGATION    |    POLICY_AUTHORIZED != EFFECTIVELY_GRANTED    |    CODE_CAPABLE != OBSERVED    |    OBSERVED TOOL CALL != ACTUAL EFFECT</text>
+  <text x="12" y="296" class="sub">Statuses used in this report: ESTABLISHED / PARTIAL / UNKNOWN / MISSING. UNKNOWN and MISSING are never converted to PASS or FAIL.</text>
+  <text x="12" y="318" class="lbl">Source: package TMF_FIVE_PLANE_ASSURANCE_MATRIX.md, TMF_CONSEQUENCE_PATH.md; projected tmf-authority-planes; get_governance (daiRuleConfirmations empty).</text>
+</svg>

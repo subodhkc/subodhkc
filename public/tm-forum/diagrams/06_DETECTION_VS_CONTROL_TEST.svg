@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="320" viewBox="0 0 980 320" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .bx{fill:#fff;stroke:#333;stroke-width:1.2}
+    .hdr{font-size:11.5px;font-weight:700;fill:#111}
+    .sub{font-size:9.5px;fill:#444}
+    .lbl{font-size:9px;fill:#555}
+    .syn{fill:#fff;stroke:#7a5b00;stroke-width:1.5;stroke-dasharray:6 3}
+    .mono{font-family:Consolas,monospace;font-size:9px;fill:#333}
+  </style>
+  <text x="12" y="20" class="hdr" font-size="14">Detection != Control Test — two different instruments, both correct</text>
+
+  <!-- lane 1: real telemetry detector sweep -->
+  <rect x="12" y="44" width="470" height="118" class="bx"/>
+  <text x="24" y="66" class="hdr">REAL TELEMETRY → GENERIC DETECTOR SWEEP</text>
+  <text x="24" y="84" class="sub">Live HAIEC detector sweep over real event telemetry</text>
+  <text x="24" y="98" class="sub">(126 batches / 7,613 records; 40-span assessed window)</text>
+  <text x="24" y="118" class="sub">Result: <tspan font-weight="700">0 generic findings</tspan></text>
+  <text x="24" y="134" class="sub">Interpretation: correct negative for the rules evaluated —</text>
+  <text x="24" y="148" class="sub">a generic detector scope, not a control verdict.</text>
+
+  <!-- lane 2: control test -->
+  <rect x="498" y="44" width="470" height="118" class="bx" stroke="#b00"/>
+  <text x="510" y="66" class="hdr">SAME TELEMETRY → C16 CONTROL TEST</text>
+  <text x="510" y="84" class="sub">Deterministic evaluation vs frozen policy</text>
+  <text x="510" y="98" class="mono">547f4a67-…bfe5, cap 60,000 tok/run</text>
+  <text x="510" y="118" class="sub">Result: <tspan font-weight="700" fill="#b00">NOT_SATISFIED</tspan> on breach run</text>
+  <text x="510" y="134" class="mono">106,829 tok · ctr-6d142008…ebc01 · SPEND_CAP_EXCEEDED</text>
+  <text x="510" y="150" class="sub">A detector "0 findings" does not contradict a Control Test FAIL.</text>
+
+  <text x="247" y="180" class="sub" font-weight="700">GENERIC DETECTOR  !=  FROZEN CONTROL TEST</text>
+
+  <!-- synthetic canary lane -->
+  <rect x="12" y="196" width="956" height="86" class="syn"/>
+  <text x="24" y="218" class="hdr" fill="#7a5b00">SYNTHETIC CANARY — NON-SCORED, ISOLATED (never a real event violation)</text>
+  <text x="24" y="236" class="sub">System e363482f-…daf6 · injected span → detector MCP-001 → finding arf-5da00f32 → alert alert-a66f3eaa → webhook + email</text>
+  <text x="24" y="252" class="sub">Proves the detection→alert pipeline works end-to-end on a clearly-labeled synthetic system.</text>
+  <text x="24" y="268" class="sub">Control Test → alert wiring: NOT_WIRED (open gap). Real violation → auto-alert: NOT_OBSERVED.</text>
+
+  <text x="12" y="306" class="lbl">Source: package detection coverage matrix; live sweep evidence; canary finding/alert IDs; gap-list control-test→alert NOT_WIRED.</text>
+</svg>

@@ -90,3 +90,7 @@ backlinks/*.yml
 *gcp-service-account*
 *service-account*.json
 public/magazine/subodhkc-*.json
+
+# private judge handoff - never commit
+TMF_PRIVATE_JUDGE_ACCESS.md
+PRIVATE_JUDGE_ACCESS.md

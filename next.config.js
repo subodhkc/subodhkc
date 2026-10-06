@@ -71,6 +71,9 @@ const nextConfig = {
       { source: '/advisor-desk', destination: '/ai-advisor', statusCode: 301 },
       // 301 redirect for consolidated tenant isolation page into SaaS & AI Security Review
       { source: '/services/saas-tenant-isolation-audit', destination: '/saas-security-review', statusCode: 301 },
+      // TM Forum judge hub aliases (canonical: /tm-forum)
+      { source: '/forum', destination: '/tm-forum', permanent: true },
+      { source: '/tm-forum-challenge', destination: '/tm-forum', permanent: true },
     ]
   },
 }
