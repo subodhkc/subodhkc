@@ -26,6 +26,8 @@ const EXCLUDED_PATHS = [
   '/products/mcp-tenant-isolation',
   '/products/llmverify',
   '/insights/ai-appsec-mcp-tenant-isolation-release',
+  // Judge-facing evidence hub — no promo overlay on a verification surface
+  '/tm-forum',
 ]
 
 function isExcluded(pathname: string): boolean {
