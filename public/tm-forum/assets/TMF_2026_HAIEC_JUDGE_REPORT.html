@@ -161,7 +161,8 @@ Each page answers: WHAT DOES THIS PROVE? HOW CAN THE JUDGE VERIFY IT?
 <tr><td><b>WHAT WE TESTED</b></td><td>Three frozen controls (C7 evidence trail, C9 performance drift, C16 spend cap) plus scenario replay, runtime enforcement evidence, monitoring, findings, and the ServiceNow boundary.</td></tr>
 <tr><td><b>WHAT WE FOUND</b></td><td>C7 NOT_SATISFIED (9/10 — required negotiation not observed). C9 SATISFIED on both assessed runs; no eligible breach established. C16 SATISFIED at 35,559 and NOT_SATISFIED at 106,829 under one frozen 60,000-token cap.</td></tr>
 <tr><td><b>WHAT THE JUDGE CAN REPRODUCE</b></td><td>Every deterministic verdict via VERIFY (same frozen policy + same persisted facts → same result); every scenario via REPLAY. No new execution; nothing mutates evidence.</td></tr>
-<tr><td><b>WHAT REMAINS OPEN</b></td><td>DAI/delegation UNKNOWN · ServiceNow AICT discovery / cross-platform identity / HITL NOT_ESTABLISHED · Control Test → alert NOT_WIRED · eligible C9 breach NOT_ESTABLISHED.</td></tr>
+<tr><td><b>WHAT IS ESTABLISHED</b></td><td>ServiceNow AICT connector ACTIVE + AssumeRole OBSERVED (5 CloudTrail events). HAIEC alert delivery rail proven end-to-end — synthetic canary → finding → alert → webhook + email, named human ACK ~4 min. All three control verdicts persisted.</td></tr>
+<tr><td><b>WHAT REMAINS OPEN — and why</b></td><td>DAI/delegation UNKNOWN (no observed negotiation record in any team's 835 records — not inferred). ServiceNow discovery/identity/HITL open (no AICT discovery pass ran; no shared AWS↔ServiceNow principal mapping exists; no approval/ack record emitted). Control Test→alert producer NOT_WIRED (verdicts persist to the control-test store; nothing subscribes to persist events). Eligible C9 breach NOT_ESTABLISHED (intended-breach run degraded only +28.5% vs frozen D=100%).</td></tr>
 </table>
 <h3>Six auditor questions</h3>
 <table>
@@ -172,6 +173,8 @@ Each page answers: WHAT DOES THIS PROVE? HOW CAN THE JUDGE VERIFY IT?
 <tr><td><b>WHO APPROVED?</b></td><td>Frozen governing policies + declared run roles</td><td>ESTABLISHED</td><td>policy ae6dda36 / 346b5f43 / 547f4a67 + digests</td><td>approver identity = operator, not modeled</td></tr>
 <tr><td><b>INTEGRITY?</b></td><td>Policy/result/input/output digests; package SHA-256</td><td>ESTABLISHED</td><td>package 7a0bb5f3 · 0321b712…</td><td>no signing/Merkle claims beyond digests</td></tr>
 <tr><td><b>RECONSTRUCT?</b></td><td>Yes — LogSense timeline + HAIEC scenario bindings</td><td>ESTABLISHED</td><td>REPLAY S1/S2/S2-retest/S3</td><td>raw bundle bytes minimized, not re-parsed</td></tr>
+<tr><td><b>WHEN did it happen?</b></td><td>Policies frozen 2026-10-05T01:28Z, before assessed runs; results persisted after evaluation</td><td>ESTABLISHED</td><td>control_test_policy.frozenAt + result digest bindings</td><td>sub-second cross-source clock comparability limited</td></tr>
+<tr><td><b>WHY the verdict?</b></td><td>C7 REQUIRED_CATEGORY_MISSING · C16 SPEND_CAP_EXCEEDED · C9 worst window under frozen D</td><td>ESTABLISHED</td><td>reason codes inside ctr-* results</td><td>reason codes bound to run + policy, not scenario</td></tr>
 </table>
 <h3>Spoken opening (final truth only)</h3>
 <ol class="tight">
@@ -181,6 +184,8 @@ Each page answers: WHAT DOES THIS PROVE? HOW CAN THE JUDGE VERIFY IT?
 <li>When evidence stops, HAIEC stops — permission does not become delegation and UNKNOWN does not become PASS.</li>
 <li>Give us a control and a run; you can reproduce the result and inspect the evidence directly.</li>
 </ol>
+<p class="small"><b>Logs ≠ evidence.</b> Logs are what the platform emitted. Evidence is what was qualified,
+deduplicated, bound to a frozen policy and digest-pinned — the distinction the verdicts depend on.</p>
 </div>
 
 <div class="section" id="j2">
@@ -588,6 +593,7 @@ and sees the verdict, the arithmetic, the evidence, and the limitation — fast.
 <tr><td><b>Why did the intended C9 breach still pass?</b></td><td>Run role is workflow intent, not a verdict. The intended-breach run degraded +28.5% against frozen D=100% — below the boundary — so the honest result is SATISFIED. Eligible sanctioned breach: NOT_ESTABLISHED. None was manufactured.</td></tr>
 <tr><td><b>Why does C7 fail with only one missing record?</b></td><td>The frozen policy requires ten evidence categories; nine were observed, NEGOTIATION was not — in our run or any team's (0 of 835 records). Coverage controls count required categories: one absent required category is NOT_SATISFIED. Permission is not delegation.</td></tr>
 <tr><td><b>Why can a scenario score differ from a control verdict?</b></td><td>They answer different questions: the organizer grader scores the task outcome; a Control Test asks whether a frozen rule held against persisted evidence. S2 scored 5/10 as a scenario and independently carries a false-certainty finding — remediating C7 would not change that scenario grade.</td></tr>
+<tr><td><b>Why didn't a real alert fire?</b></td><td>Two honest reasons: (1) the alert delivery rail is proven — a labeled synthetic canary produced finding arf-5da00f32 → alert-a66f3eaa → webhook + email, acknowledged by a named human ~4 min after dispatch — but Control Test verdicts have no alert producer wired yet; (2) the real 40-span sweep of the actual breach run returned 0 findings, a correct negative (the detector bound is >3× baseline; the breach ratio was 1.78×).</td></tr>
 <tr><td><b>Why can UNKNOWN be a useful result?</b></td><td>UNKNOWN names the exact evidence frontier: surrounding facts are proven and the stronger conclusion lacks its required proof edge. It states what evidence would close the question — more informative than a guessed verdict.</td></tr>
 </table>
 <div class="note"><b>What SATISFIED means — and does not.</b> SATISFIED = the observed evidence met the frozen
@@ -1242,7 +1248,7 @@ does not become spend. ActualRunTokens &lt;= 60,000 -> SATISFIED; &gt; 60,000 ->
 </svg>
 </div>
 <p>A live detector sweep over real event telemetry returned <b>0 generic findings</b> — and the C16 Control Test returned <b>NOT_SATISFIED</b> on the breach run. Both are correct: the generic detector evaluates its own rule set; the frozen Control Test evaluates persisted usage against a fixed policy. A detector clean sweep is not a control pass, and "0 findings" is not "no issues".</p>
-<p>The <b>synthetic canary</b> (system <code>e363482f-…daf6</code>) separately proves the detection→alert pipeline: injected span → detector MCP-001 → finding <code>arf-5da00f32</code> → alert <code>alert-a66f3eaa</code> → webhook + email. It is SYNTHETIC_NON_SCORED on an isolated system — never presented as a real event violation.</p>
+<p>The <b>synthetic canary</b> (system <code>e363482f-…daf6</code>) separately proves the detection→alert pipeline: injected span → detector MCP-001 → finding <code>arf-5da00f32</code> → alert <code>alert-a66f3eaa</code> → webhook + email. It is SYNTHETIC_NON_SCORED on an isolated system — never presented as a real event violation. A separate labeled test alert reached named human inboxes and was <b>acknowledged ~4 minutes after dispatch</b> — so the delivery rail is proven end-to-end including human receipt, not just dispatch. What remains unwired is only the verdict producer: Control Test results persist to the control-test store and nothing subscribes to emit alerts from them. The real 40-span sweep of the actual C16 breach run returned <b>0 findings — the correct negative</b>: the detector bound is &gt;3× baseline and the breach ratio was 1.78×.</p>
 <p class="src">Source: detection coverage matrix; canary finding/alert records; gap-list (control-test→alert NOT_WIRED).</p>
 </div>
 
@@ -1335,11 +1341,11 @@ does not become spend. ActualRunTokens &lt;= 60,000 -> SATISFIED; &gt; 60,000 ->
 <li>SEC-07: <span class="badge b-warn">PARTIAL</span></li>
 </ul></div>
 <div class="card"><b>Still open</b><ul class="tight">
-<li>AICT native discovery: <span class="badge b-unk">UNKNOWN</span></li>
-<li>Cross-platform identity: <span class="badge b-bad">NOT_ESTABLISHED</span></li>
-<li>HITL: <span class="badge b-bad">NOT_ESTABLISHED</span></li>
-<li>Real violation → auto alert: <span class="badge b-bad">NOT_OBSERVED</span></li>
-<li>Control Test → alert: <span class="badge b-bad">NOT_WIRED</span></li>
+<li>AICT native discovery: <span class="badge b-unk">UNKNOWN</span> — connector is ACTIVE, but no AICT discovery pass has been observed to run</li>
+<li>Cross-platform identity: <span class="badge b-bad">NOT_ESTABLISHED</span> — no shared principal mapping exists between the AWS and ServiceNow identity planes</li>
+<li>HITL: <span class="badge b-bad">NOT_ESTABLISHED</span> — no approval/ack record emitted; the incident path itself is unverified</li>
+<li>Real violation → auto alert: <span class="badge b-bad">NOT_OBSERVED</span> — the real 40-span sweep returned 0 findings (correct negative: breach ratio 1.78× below the &gt;3× detector bound)</li>
+<li>Control Test → alert: <span class="badge b-bad">NOT_WIRED</span> — delivery rail proven; nothing emits alerts from verdict persistence</li>
 </ul></div>
 </div>
 <p class="small">Connector ACTIVE ≠ governance complete. SEC-07 remains PARTIAL until discovery, identity stitching and HITL close.</p>
@@ -1360,20 +1366,21 @@ does not become spend. ActualRunTokens &lt;= 60,000 -> SATISFIED; &gt; 60,000 ->
 <!-- ===================== 14 OPEN GAPS ===================== -->
 <div class="section" id="s15">
 <h2>15 · Open Gaps / Honest Frontier</h2>
-<ul class="tight">
-<li><b>C7 NEGOTIATION</b> — missing required facet; IT↔Network NEGOTIATION not observed in the assessed evidence (G-013)</li>
-<li><b>C9 eligible breach</b> — NOT_ESTABLISHED; intended-breach run did not degrade the metric</li>
-<li><b>C9 notification/governance completeness</b> — response-or-silence handling remains a stated limitation</li>
-<li><b>ServiceNow</b> — AICT discovery, cross-platform native identity, HITL all NOT_ESTABLISHED</li>
-<li><b>Control Test → alert</b> — verdict-to-alert path NOT_WIRED</li>
-<li><b>Platform-native RUN_START semantics</b> — declared run boundaries are caller-declared, not platform-emitted</li>
-<li><b>Provider request/retry completeness</b> — not all provider-side retries captured</li>
-<li><b>Cross-source clock comparability</b> — fine-grained timestamp alignment across sources is limited</li>
-<li><b>Actual-effect completeness</b> — observed tool call ≠ proven real-world effect</li>
-<li><b>DAI delegation frontier</b> — UNKNOWN until observed negotiation evidence exists</li>
-<li><b>Evaluation surface</b> — no completed canonical assurance Evaluation (evaluationId) exists; Master-Report/Passport/Agent-Audit paths are NOT_AVAILABLE by design</li>
-<li><b>CR spec/runtime currency (G-017)</b>, <b>identity granularity (G-018)</b>, <b>correlation-key namespaces (G-019)</b></li>
-</ul>
+<table>
+<tr><th>Item</th><th>State</th><th>What is established</th><th>Why it remains open</th><th>What closes it</th></tr>
+<tr><td><b>C7 NEGOTIATION</b></td><td>OPEN — organizer dependency</td><td>9/10 categories observed; capability + permission proven</td><td>The supplied image has no peer-invoke primitive (no A2A tool provider); an AgentConfig edit would deploy an unapproved image digest</td><td>Organizer-level agent/agentic path producing a genuine negotiation event</td></tr>
+<tr><td><b>C9 eligible breach</b></td><td>NOT_ESTABLISHED</td><td>Two assessed runs SATISFIED under frozen D=100%</td><td>The intended-breach run degraded only +28.5% — no sanctioned stimulus produced a qualifying breach; none was invented</td><td>A run that actually degrades the metric beyond D</td></tr>
+<tr><td><b>C9 monitoring response</b></td><td>STATED LIMITATION</td><td>Monitoring layer declared; NOT_REQUIRED (no violation)</td><td>Response-or-silence evidence only exists when a violation fires — none did</td><td>A violation + recorded response or recorded silence</td></tr>
+<tr><td><b>ServiceNow AICT</b></td><td>PARTIAL</td><td>Connector ACTIVE; AssumeRole OBSERVED (5 CloudTrail events); account matched</td><td>No discovery pass observed; no AWS↔ServiceNow principal mapping; incident/HITL path never exercised</td><td>Facilitator-driven discovery + identity stitching + an incident ack record</td></tr>
+<tr><td><b>Control Test → alert</b></td><td>NOT_WIRED — producer missing</td><td>Alert delivery rail PROVEN (synthetic canary → finding → alert → webhook + email; human ACK ~4 min)</td><td>Verdicts persist to the control-test store; no producer subscribes to verdict persistence to emit an alert</td><td>A verdict→alert producer + one prospective notification test on a historical result</td></tr>
+<tr><td><b>Platform RUN_START</b></td><td>NOT_ESTABLISHED</td><td>Operator-declared run boundaries exist</td><td>The platform emits no run-start signal; HAIEC returns NOT_EVALUATED rather than inferring a bound</td><td>A platform-emitted run-start contract</td></tr>
+<tr><td><b>Provider retry completeness</b></td><td>PARTIAL</td><td>Counted calls reconcile with gateway records on tested runs</td><td>Not all provider-side request/retry paths are observable from the supplied surfaces</td><td>Provider-side request completeness evidence</td></tr>
+<tr><td><b>Clock comparability</b></td><td>LIMITED</td><td>Second-level ordering established</td><td>Sub-second alignment across independent sources is not proven</td><td>Clock-offset evidence across sources</td></tr>
+<tr><td><b>Actual-effect completeness</b></td><td>PARTIAL</td><td>Tool calls and denials observed</td><td>An observed call is not proof of real-world effect downstream</td><td>Effect-side evidence (state change, downstream record)</td></tr>
+<tr><td><b>DAI delegation</b></td><td>UNKNOWN</td><td>Capability + permission established</td><td>No observed negotiation/delegation event exists in assessed evidence — UNKNOWN names the frontier, not failure</td><td>Observed negotiation evidence (same close as C7 facet)</td></tr>
+<tr><td><b>Canonical Evaluation</b></td><td>NOT_RUN — by design</td><td>All Control Tests persisted</td><td>No evaluationId-bound evaluation was executed for the event; report/passport paths correctly return NOT_AVAILABLE</td><td>Running the canonical evaluations workflow</td></tr>
+<tr><td><b>G-017/018/019</b></td><td>OPEN — documented</td><td>CR spec drift, flat bootstrap principal, correlation-key namespaces all identified</td><td>Reconciling would deploy an unattested image / requires organizer path / namespaces differ by design</td><td>Organizer reconcile or documented accepted-risk</td></tr>
+</table>
 <p class="src">Source: gap-list.md, judgment-day artifact 06, projected OPEN_GAPS records.</p>
 </div>
 

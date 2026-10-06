@@ -1,0 +1,156 @@
+================================================================================
+TM FORUM 2026 — HAIEC x LOGSENSE · JUDGE START HERE
+================================================================================
+PACKAGE:  7a0bb5f3 (frozen · 506 files · SHA-256 pinned — never rebuilt)
+RESULTS:  C7 NOT_SATISFIED (9/10) · C9 SATISFIED x2 · C16 PASS + real BREACH
+READ THIS FIRST: every claim below is backed by a persisted ID you can verify
+yourself. Nothing here requires trusting our narrative.
+
+--------------------------------------------------------------------------------
+0 · THE ONE-PARAGRAPH VERSION
+--------------------------------------------------------------------------------
+The competition supplied a governed AI runtime, raw evidence, and a starter
+kit. LogSense reconstructed what the agents actually did (WHO / WHAT / WHEN /
+WHY). HAIEC then tested three frozen controls against that evidence —
+deterministically, after the runs, under policies frozen before them. One
+control failed honestly, two passed, and every verdict reproduces in seconds.
+
+--------------------------------------------------------------------------------
+1 · START WITH THE HUB — subodhkc.com/tm-forum
+--------------------------------------------------------------------------------
+Everything a judge needs is reachable from one page:
+
+    https://subodhkc.com/tm-forum
+
+What the hub contains (top to bottom):
+  - Start Here        the whole case + eight auditor questions, each answered
+                      with a status chip, a best-evidence pointer, and its
+                      open limitation
+  - Control Results   C7/C9/C16 cards: question, formula, measured values,
+                      frozen threshold, verdict, headroom/overshoot, and the
+                      "how the organizer's thresholds differ" explainer
+                      (why C16 is an absolute 60,000-token cap, not 10%)
+  - Results at a glance   canonical charts: tokens vs frozen cap, drift vs
+                      D=100%, coverage 9/10
+  - Judge Mode J1–J11   plain-spoken walkthrough: what was asked, what was
+                      tested, what passed/failed and WHY, what remains open
+  - Proof / Evidence    scenario replay ledger, five-plane authority model,
+                      detection-vs-control-test distinction
+  - Findings & Fixes    every finding with before → fix → retest proof
+  - Honest Frontier     every UNKNOWN/OPEN item: what's KNOWN, what's
+                      MISSING, WHY it's open, and what CLOSES it
+  - Downloads           self-contained HTML/PDF/JSON report, 11 diagrams,
+                      runbook, prompt pack, run portal, case guide
+
+Key pages behind the hub:
+  - Full judge report (self-contained, works offline):
+        https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT.html
+  - Same report as PDF (print-identical):
+        https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT.pdf
+  - All canonical values as JSON (the shared data source):
+        https://subodhkc.com/tm-forum/assets/TMF_2026_HAIEC_JUDGE_REPORT_DATA.json
+  - Judge Run Portal — every assessed run as a clickable card with a
+    copyable command and its expected verdict:
+        https://subodhkc.com/tm-forum/TMF_JUDGE_RUN_PORTAL.html
+  - Findings & Fixes ledger — before/during/after for every finding:
+        https://subodhkc.com/tm-forum/TMF_FINDINGS_AND_FIXES.txt
+  - Technical CLI runbook — every verification command:
+        https://subodhkc.com/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt
+  - LogSense case guide — all 11 workbench cases, UI path + judging path:
+        https://subodhkc.com/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt
+
+--------------------------------------------------------------------------------
+2 · THE LIVE HAIEC JUDGE WORKSPACE
+--------------------------------------------------------------------------------
+HAIEC's dashboard exposes a read-only Judge Workspace:
+
+    https://assure.haiec.com   ->  Dashboard -> Assurance Lab -> JUDGE tab
+
+    aiSystemId = 4043efee-cec6-4007-954b-1f8da2273f35
+
+In the workspace:
+  - PROVE panel  -> VERIFY / VERIFY ALL re-derives every persisted Control
+    Test result from stored evidence (expected: 5/5 reproduced — reproduced,
+    not "passed"; C7's honest verdict is NOT_SATISFIED)
+  - REPLAY       -> reconstructs scenario runs S1 / S2 / S2-retest / S3
+  - Control Comparison panel -> the same three canonical charts
+    (C16 tokens vs cap, C9 drift vs D, C7 coverage) rendered from persisted
+    values — never hardcoded
+  - VERIFY is read-only: it recomputes from persisted records; it does not
+    re-execute the scenario and creates no new evidence.
+
+No workspace access? The standalone report (section 1) is identical content;
+VERIFY also exists as a read-only API:
+    GET /api/control-test/verify?aiSystemId=<id>&all=1
+
+--------------------------------------------------------------------------------
+3 · RUN LOGSENSE (the forensic workbench) IN A NEW WINDOW
+--------------------------------------------------------------------------------
+LogSense is the supplemental forensic layer — it explains the evidence
+underneath the verdicts. To run its workbench UI:
+
+    # one-time install + self-check (inside the hand-in / extracted package):
+    cp -r logsense-event ~/logsense-event
+    bash ~/logsense-event/scripts/install-logsense-event.sh
+    bash ~/logsense-event/scripts/verify-logsense-event.sh
+
+    # start the workbench UI:
+    bash ~/logsense-event/scripts/start-logsense-ui.sh
+
+    # then open in a NEW browser window / IDE preview tab:
+        http://localhost:8501        (it binds 0.0.0.0:8501)
+
+Optional companions:
+    bash ~/logsense-event/scripts/start-logsense-api.sh    # http://127.0.0.1:8765
+    ~/venvs/logsense-event/bin/python -m logsense.cli mcp  # MCP (stdio)
+
+The 11 built-in cases (runaway loop, token semantics, ServiceNow identity,
+monitoring chain, etc.) are indexed in TMF_LOGSENSE_CASE_GUIDE.txt with the
+exact UI path and judging path for each.
+
+IMPORTANT — LogSense vs HAIEC:
+    LogSense reconstructs WHAT HAPPENED (forensic measurement).
+    HAIEC decides WHETHER THE FROZEN CONTROL HELD (the verdict).
+    A LogSense bundle can be judged through our frozen evaluator — the
+    threshold stays ours — but LogSense output is never itself a verdict.
+
+--------------------------------------------------------------------------------
+4 · WHAT TO VERIFY FIRST (the 5-minute path)
+--------------------------------------------------------------------------------
+1. Package integrity:    sha256sum -c MANIFEST.sha256   (506 files, all OK)
+2. All verdicts:         Judge Workspace -> VERIFY ALL  (5/5 reproduced)
+3. The honest failure:   VERIFY C7 -> NOT_SATISFIED, 9/10, reason
+                         REQUIRED_CATEGORY_MISSING (NEGOTIATION)
+4. The real breach:      VERIFY C16 breach run -> NOT_SATISFIED, 106,829 vs
+                         frozen 60,000 cap, reason SPEND_CAP_EXCEEDED
+5. The non-breach:       VERIFY C16 pass run -> SATISFIED, 35,559 (59.3%)
+
+--------------------------------------------------------------------------------
+5 · THE HONEST FRONTIER (what is NOT claimed, and why)
+--------------------------------------------------------------------------------
+  - DAI delegation: UNKNOWN — capability + permission proven, but no
+    negotiation record exists in any team's 835 records; we do not infer it.
+  - ServiceNow AICT: connector ACTIVE + AssumeRole OBSERVED (5 CloudTrail
+    events); discovery, cross-platform identity, HITL NOT_ESTABLISHED —
+    no discovery pass ran, no shared principal mapping exists, no approval
+    record emitted.
+  - Alerting: delivery rail PROVEN end-to-end (synthetic canary → finding →
+    alert → webhook + email; named human ACK ~4 min). Only the verdict→alert
+    producer is NOT_WIRED — nothing subscribes to verdict persistence yet.
+  - C9 eligible breach: NOT_ESTABLISHED — the intended-breach run degraded
+    only +28.5% vs frozen D=100%. No breach was manufactured.
+  - Full Assurance Evaluation: NOT_RUN — deliberately not manufactured.
+
+--------------------------------------------------------------------------------
+6 · BOUNDARIES (so nothing gets scored wrong)
+--------------------------------------------------------------------------------
+  - Never run submit.sh. Package 7a0bb5f3 is frozen — do not rebuild it.
+  - This file is a companion: it may sit NEXT TO the extracted package (or
+    anywhere), never inside the tarball replacing a manifest-listed file.
+  - Synthetic canary evidence is labeled SYNTHETIC_NON_SCORED — it proves the
+    alert mechanism, not a real incident.
+  - Scenario scores are organizer grades; Control Test verdicts are ours.
+    They answer different questions and are never blended.
+  - UNKNOWN is a finding, not a failure: it names exactly which proof edge
+    is missing and what evidence would close it.
+================================================================================

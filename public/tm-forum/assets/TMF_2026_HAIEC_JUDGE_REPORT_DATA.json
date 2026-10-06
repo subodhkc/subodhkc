@@ -456,5 +456,29 @@
    },
    "noncanonicalExperiment": "40,000-token participant guard — separate lineage, bonus/experimental only, never blended with canonical C16"
   }
+ },
+ "serviceNowRail": {
+  "role": "external governance/observability rail",
+  "connector": "ACTIVE",
+  "assumeRole": "OBSERVED — 5 CloudTrail events, ServiceNowAictUser -> SgcAictReadOnlyAccessRole, account 352826992186",
+  "discovery": "UNKNOWN — no AICT discovery pass observed",
+  "crossPlatformIdentity": "NOT_ESTABLISHED — no shared AWS<->ServiceNow principal mapping exists",
+  "hitl": "NOT_ESTABLISHED — no approval/ack record emitted; incident path unverified",
+  "evidence": "SERVICENOW_AICT_COVERAGE_MATRIX.md, SERVICENOW_AWS_IDENTITY_RECONCILIATION.md, IDE CloudTrail capture"
+ },
+ "notificationRail": {
+  "role": "HAIEC alerting/notification rail — separate from ServiceNow",
+  "alertMechanism": "PROVEN — org rules + dispatchAlert + webhook/slack/email channels + AlertEvent persistence",
+  "syntheticCanaryToAlert": "PROVEN — labeled span -> sweep -> finding arf-5da00f32 -> alert-a66f3eaa -> webhook delivered 2026-10-05T10:07:12Z + email dispatched",
+  "testAlertDelivery": "PROVEN — webhook.site verified + email inbox-verified; named human ACK ~4 min after dispatch (HUMAN_RESPONSE_STATE=ACKNOWLEDGED)",
+  "realViolationToAutoAlert": "NOT_OBSERVED — real 40-span sweep of the C16 breach run returned 0 findings (correct negative; detector bound >3x vs observed 1.78x)",
+  "controlTestVerdictToAlert": "NOT_WIRED — verdicts persist to control-test store; no producer subscribes to emit alerts",
+  "verdictToAlertPlan": {
+   "status": "PLANNED_NOT_IMPLEMENTED",
+   "design": "verdict-persist -> dispatchAlert producer hook; prospective test using a historical ctr-* result as input",
+   "honestyRule": "RESULT_CREATED (historical) vs NOTIFICATION_TESTED (current) timestamps recorded separately; never backdated",
+   "doesNotFix": "REAL_C9_BREACH_TO_ALERT remains NOT_ESTABLISHED without a genuine breach"
+  },
+  "evidence": "MONITORING_CHAIN_REPORT.md, DETECTION_CANARY.md, alert-dispatch-receipt.json, webhook-delivery-evidence.json, canary-alert-webhook.json"
  }
 }

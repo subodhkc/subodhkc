@@ -251,7 +251,7 @@ export default function TmForumHub() {
             ["WHAT WE TESTED", "Three frozen controls — C7 (delegation/logging coverage), C9 (latency policy), C16 (token spend cap) — plus four scenario runs including one failed remediation retest."],
             ["WHAT WE FOUND", "C7 NOT_SATISFIED (9/10 evidence categories; agent negotiation not observed). C9 SATISFIED twice with no manufactured breach. C16 one PASS and one real BREACH under the same frozen policy."],
             ["WHAT YOU CAN REPRODUCE", "All five persisted Control Test results via VERIFY in the Judge Workspace or the read-only verify API. Historical scenarios via REPLAY. The judge report is a self-contained artifact."],
-            ["WHAT REMAINS OPEN", "Delegation (DAI) is UNKNOWN — surrounding facts are proven, the negotiation proof edge is not. ServiceNow integration is PARTIAL. No completed full Assurance Evaluation exists, and we do not pretend one does."],
+            ["WHAT REMAINS OPEN — and why", "ServiceNow connector is ACTIVE and AssumeRole observed — discovery, identity and HITL are open because no discovery pass ran, no AWS↔ServiceNow principal mapping exists, and no approval record emitted. The alert delivery rail is proven end-to-end (synthetic canary → webhook + email, human ACK ~4 min) — only the verdict→alert producer is unwired, because nothing subscribes to verdict persistence. DAI delegation is UNKNOWN because no negotiation record exists — we do not infer it. No completed full Assurance Evaluation exists, and we do not pretend one does."],
           ].map(([h, b]) => (
             <div key={h} className="bg-background p-6">
               <h3 className="font-mono text-xs font-semibold tracking-wider text-primary">{h}</h3>
@@ -280,6 +280,8 @@ export default function TmForumHub() {
                 <tr><td className="p-4 font-medium">Who approved?</td><td className="p-4">Governance and approval records where present; no silent escalation observed.</td><td className="p-4"><Chip tone="partial">PARTIAL</Chip></td><td className="p-4 font-mono text-xs">Report §7, §15</td><td className="p-4">HITL approval linkage is an open frontier.</td></tr>
                 <tr><td className="p-4 font-medium">Integrity?</td><td className="p-4">Frozen policies by digest; package 7a0bb5f3, 506 files, SHA-256 pinned.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Report J8–J9, DATA.json</td><td className="p-4">Digest binding shown; no clock-time freeze timestamps persisted.</td></tr>
                 <tr><td className="p-4 font-medium">Reconstruct?</td><td className="p-4">Yes — VERIFY re-derives every verdict; REPLAY reconstructs scenarios.</td><td className="p-4"><Chip tone="proven">REPRODUCIBLE</Chip></td><td className="p-4 font-mono text-xs">Workspace PROVE panel</td><td className="p-4">Reproduction is historical, not a re-execution.</td></tr>
+                <tr><td className="p-4 font-medium">When did it happen?</td><td className="p-4">Policies frozen before the assessed runs; results persisted after deterministic evaluation.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Report J8 — policy digests + run bindings</td><td className="p-4">Sub-second clock comparability across sources is limited.</td></tr>
+                <tr><td className="p-4 font-medium">Why the verdict?</td><td className="p-4">C7 REQUIRED_CATEGORY_MISSING · C16 SPEND_CAP_EXCEEDED · C9 worst window under frozen D.</td><td className="p-4"><Chip tone="proven">ESTABLISHED</Chip></td><td className="p-4 font-mono text-xs">Reason codes inside ctr-* results</td><td className="p-4">Reason codes bind to run + policy, not scenario score.</td></tr>
               </tbody>
             </table>
           </div>
@@ -294,6 +296,7 @@ export default function TmForumHub() {
             <li><span className="font-mono text-primary">4.</span> When evidence stops, HAIEC stops — permission does not become delegation and UNKNOWN does not become PASS.</li>
             <li><span className="font-mono text-primary">5.</span> Give us a control and a run; you can reproduce the result and inspect the evidence directly.</li>
           </ol>
+          <p className="mt-6 text-sm leading-relaxed text-muted-foreground"><span className="font-mono text-xs font-semibold text-foreground">LOGS ≠ EVIDENCE — </span>logs are what the platform emitted. Evidence is what was qualified, deduplicated, bound to a frozen policy and digest-pinned. Every verdict here hangs on that distinction.</p>
         </div>
       </Section>
 
@@ -760,18 +763,20 @@ export default function TmForumHub() {
         </p>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {[
-            ["DAI delegation", "Capability + permission established.", "Observed negotiation/delegation event.", "More evidence, not inference, would close it."],
-            ["ServiceNow native identity", "Integration evidence exists.", "Full native-identity chain.", "Connector depth beyond event scope."],
-            ["C9 eligible breach", "Two SATISFIED assessed runs.", "A run that actually breached the frozen policy.", "An intended-breach stimulus that degrades the metric."],
-            ["Full Assurance Evaluation", "All Control Tests persisted.", "The canonical evaluations workflow run.", "Deliberately not manufactured for the event."],
-            ["Run-start provenance", "Run records and results bound.", "Complete provenance chain at trigger.", "Additional source linkage."],
-            ["Human-in-the-loop approval", "Governance records where present.", "Explicit HITL approval binding per action.", "Approval-event evidence."],
-          ].map(([t, k, m, c]) => (
+            ["DAI delegation", "Capability + permission established.", "Observed negotiation/delegation event.", "The supplied image has no peer-invoke primitive and no negotiation record exists in any team's 835 records — we refuse to infer one.", "Organizer-level agent/agentic path producing a genuine negotiation event."],
+            ["ServiceNow AICT depth", "Connector ACTIVE + AssumeRole observed (5 CloudTrail events, account matched).", "Discovery pass, cross-platform identity stitching, HITL.", "No AICT discovery pass has run, no shared AWS↔ServiceNow principal mapping exists, and the incident path was never exercised.", "Facilitator-driven discovery + identity stitching + an incident ack record."],
+            ["Control Test → alert", "Alert delivery rail proven end-to-end — synthetic canary → finding → alert → webhook + email; named human ACK ~4 min after dispatch.", "A producer that emits alerts from persisted verdicts.", "Verdicts persist to the control-test store; nothing subscribes to verdict persistence to fire an alert.", "A verdict→alert producer + one prospective test on a historical result."],
+            ["C9 eligible breach", "Two SATISFIED assessed runs under frozen D=100%.", "A run that actually breached the frozen policy.", "The intended-breach run degraded only +28.5%; no sanctioned stimulus produced a qualifying breach and none was invented.", "A run that degrades the metric beyond D."],
+            ["Full Assurance Evaluation", "All Control Tests persisted.", "The canonical evaluations workflow run.", "No evaluationId-bound evaluation was executed for the event; report/passport paths correctly return NOT_AVAILABLE.", "Running the canonical evaluations workflow."],
+            ["Run-start provenance", "Operator-declared run boundaries bound to results.", "Platform-emitted run-start signal.", "The platform emits no run-start event; HAIEC returns NOT_EVALUATED rather than inferring a bound.", "A platform-emitted run-start contract."],
+            ["Human-in-the-loop approval", "Governance records where present.", "Explicit HITL approval binding per action.", "No approval/ack record was emitted from the incident path — which itself is unverified.", "Approval-event evidence."],
+          ].map(([t, k, m, w, c]) => (
             <Card key={t}>
               <CardHeader><HelpCircle className="h-5 w-5 text-sky-500" /><CardTitle className="pt-2 text-base">{t}</CardTitle></CardHeader>
               <CardContent className="space-y-2 text-sm text-muted-foreground">
                 <p><span className="font-mono text-xs font-semibold text-foreground">KNOWN — </span>{k}</p>
                 <p><span className="font-mono text-xs font-semibold text-foreground">MISSING — </span>{m}</p>
+                <p><span className="font-mono text-xs font-semibold text-foreground">WHY — </span>{w}</p>
                 <p><span className="font-mono text-xs font-semibold text-foreground">CLOSES IT — </span>{c}</p>
                 <Chip tone="unknown">UNKNOWN / OPEN</Chip>
               </CardContent>
@@ -805,6 +810,10 @@ export default function TmForumHub() {
             [
               "Why can a scenario score differ from the control verdict?",
               "They answer different questions. The organizer’s scenario score grades the agents’ task outcome; a Control Test asks whether a frozen rule held against persisted evidence. S2 scored 5/10 as a scenario and independently failed on a false-certainty finding — remediating C7 would not change that scenario grade.",
+            ],
+            [
+              "Why didn’t a real alert fire?",
+              "Two honest reasons. The alert delivery rail is proven end-to-end — a labeled synthetic canary produced finding arf-5da00f32 → alert-a66f3eaa → webhook + email, acknowledged by a named human ~4 min after dispatch — but Control Test verdicts have no alert producer wired yet. And the real 40-span sweep of the actual breach run returned zero findings, a correct negative: the detector bound is >3× baseline and the breach ratio was 1.78×.",
             ],
             [
               "Why can UNKNOWN be a useful result?",
@@ -844,6 +853,7 @@ export default function TmForumHub() {
             ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.txt", "No secrets; placeholders only"],
             ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Copy-paste queries"],
             ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Every command — HAIEC primary, LogSense supplement, both options per task"],
+            ["Judge Start Here", "/tm-forum/TMF_JUDGE_START_HERE.txt", "Orientation + every link + 5-min verify path"],
             ["Judge Run Portal", "/tm-forum/TMF_JUDGE_RUN_PORTAL.html", "Clickable run cards + copyable commands"],
             ["LogSense Case Guide", "/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt", "All 11 cases — UI path + judging path each"],
             ["Findings & Fixes Ledger", "/tm-forum/TMF_FINDINGS_AND_FIXES.txt", "Before → fix → retest for every finding"],

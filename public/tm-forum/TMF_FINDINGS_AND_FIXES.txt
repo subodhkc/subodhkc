@@ -198,7 +198,16 @@ D2. Run-total vs per-agent enforcement boundary (register.yaml)
     Documented boundary, not hidden.
 
 D3. Control-test verdicts don't emit alerts (CONTROL_TEST_VERDICT_TO_ALERT =
-    NOT_WIRED). Alert path proven via labeled synthetic canary only.
+    NOT_WIRED). Split the state honestly: the alert DELIVERY rail is proven
+    end-to-end — synthetic canary → finding arf-5da00f32 → alert-a66f3eaa →
+    webhook delivered + email dispatched, and a labeled test alert was
+    inbox-verified with a named human ACK ~4 minutes after dispatch. What is
+    missing is only the producer: verdicts persist to the control-test store
+    and nothing subscribes to emit alerts from them. A verdict→alert producer
+    + one prospective notification test on a historical result is PLANNED —
+    recorded with separate RESULT_CREATED vs NOTIFICATION_TESTED timestamps,
+    never backdated. Real 40-span sweep of the actual breach run returned
+    0 findings — correct negative (detector bound >3x baseline, breach 1.78x).
 
 D4. 64KB ingest bound (ED-005) — the 2.83M runaway can't be evaluated by the
     control test; preserved as evidence only.

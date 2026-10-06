@@ -2,6 +2,9 @@
 TM FORUM 2026 — AGENTIC ASSURANCE: COMPLETE TECHNICAL CLI RUNBOOK
 HAIEC x LogSense · Package 7a0bb5f3 · READ-ONLY — every command below either
 verifies, reads, or replays evidence. Nothing here mutates frozen state.
+
+NEW HERE? Start with TMF_JUDGE_START_HERE.txt — hub links, HAIEC dashboard
+path, LogSense launch steps, and the 5-minute verification path.
 ================================================================================
 
 HOW TO READ THIS DOCUMENT

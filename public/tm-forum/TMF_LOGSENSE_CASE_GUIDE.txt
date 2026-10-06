@@ -8,6 +8,9 @@ PLACEMENT: safe to copy this file INTO an extracted package or
 ~/logsense-event/ — MANIFEST.sha256 verifies only the 506 listed files;
 an extra file is ignored by the integrity check. Do NOT repackage the
 tarball or edit any listed file — that changes the package digest.
+
+NEW HERE? Start with TMF_JUDGE_START_HERE.txt — orientation, hub links,
+HAIEC dashboard path, and the workbench launch steps.
 ================================================================================
 
 BOUNDARY (state this to judges)
