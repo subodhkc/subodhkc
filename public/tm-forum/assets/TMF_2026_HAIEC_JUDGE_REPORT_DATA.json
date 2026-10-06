@@ -480,5 +480,13 @@
    "doesNotFix": "REAL_C9_BREACH_TO_ALERT remains NOT_ESTABLISHED without a genuine breach"
   },
   "evidence": "MONITORING_CHAIN_REPORT.md, DETECTION_CANARY.md, alert-dispatch-receipt.json, webhook-delivery-evidence.json, canary-alert-webhook.json"
+ },
+ "engines": {
+  "structuredEventIngestion": "qualified, deduplicated evidence envelopes bound to runs",
+  "detectionSweep": "rules MCP-001/COST-001 -> deterministic arf-* findings (incl. correct 0-finding negative on real breach run)",
+  "alertDispatch": "dispatchAlert -> AlertEvent + org channels -> webhook/email, inbox-verified, human ACK ~4min",
+  "controlTestEvaluator": "frozen-policy ctr-* verdicts — assurance results of record",
+  "scenarioReplayBinder": "S1/S2/S2-retest/S3 run reconstructions",
+  "judgeWorkspace": "VERIFY / VERIFY ALL / REPLAY reproduction surface + read-only verify API"
  }
 }

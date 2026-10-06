@@ -498,6 +498,17 @@ distinct decision layers — never collapsed.</p>
 <tr><td>gap-list.md</td><td>evidence-bound gap / proof-frontier register (UNKNOWN named, not hidden)</td></tr>
 <tr><td>submit.sh package</td><td>frozen portable evidence bundle + standalone report + SHA manifest</td></tr>
 </table>
+<p><b>Which HAIEC engine produced each artifact:</b></p>
+<table>
+<tr><th>Engine / pipeline</th><th>What it produced for this event</th></tr>
+<tr><td>Structured-event ingestion + OTLP receiver</td><td>qualified, deduplicated evidence envelopes bound to runs</td></tr>
+<tr><td>Detection sweep (rules MCP-001, COST-001)</td><td>deterministic arf-* findings — incl. the correct 0-finding negative on the real breach run</td></tr>
+<tr><td>Alert dispatch (dispatchAlert → AlertEvent + org channels)</td><td>webhook + email delivery, inbox-verified, human ACK ~4 min</td></tr>
+<tr><td>Control Test evaluator</td><td>frozen-policy ctr-* verdicts — the assurance results of record</td></tr>
+<tr><td>Scenario replay binder</td><td>S1 / S2 / S2-retest / S3 run reconstructions</td></tr>
+<tr><td>Judge Workspace + read-only verify API</td><td>VERIFY / VERIFY ALL / REPLAY reproduction surface</td></tr>
+</table>
+<p class="small">LogSense is the forensic workbench underneath — it reconstructs and measures; the engines above evaluate, detect, notify and persist.</p>
 <p class="small">Deep-dive: §5 (system → evidence → assurance) · capability comparison §2.</p>
 </div>
 
@@ -1136,6 +1147,9 @@ does not become spend. ActualRunTokens &lt;= 60,000 -> SATISFIED; &gt; 60,000 ->
   <tr><td>OBSERVED</td><td><span class="badge b-warn">PARTIAL</span></td><td>runtime telemetry; NEGOTIATION facet MISSING</td></tr>
 </table>
 <p class="small">Preserved distinctions: PERMISSION ≠ DELEGATION · POLICY_AUTHORIZED ≠ EFFECTIVELY_GRANTED · CODE_CAPABLE ≠ OBSERVED · OBSERVED TOOL CALL ≠ ACTUAL EFFECT.</p>
+<p class="small"><b>Note on the MISSING facet:</b> the proven alert/notification path (synthetic canary → webhook/email → human ACK)
+is a <i>human-loop</i> proof edge on an isolated non-scored path — it does not and cannot substitute for the assessed
+agent-to-agent NEGOTIATION record. Each missing facet can only be set by evidence of its own kind on the assessed run.</p>
 <p class="small"><b>Scope:</b> these statuses apply only to the assessed paths and evidence represented here. They are not universal claims about every capability or action of the system.</p>
 <p class="src">Source: TMF_FIVE_PLANE_ASSURANCE_MATRIX.md; projected tmf-authority-planes; get_governance.</p>
 </div>
@@ -1256,16 +1270,17 @@ does not become spend. ActualRunTokens &lt;= 60,000 -> SATISFIED; &gt; 60,000 ->
 <div class="section" id="s11">
 <h2>11 · Findings</h2>
 <table>
-  <tr><th>ID</th><th>Finding</th><th>What it proves</th><th>What it does NOT prove</th></tr>
-  <tr><td class="mono">SEC-01</td><td>Shared plaintext runtime credential exposure</td><td>credential exposure in runtime config</td><td>credential abuse or compromise</td></tr>
-  <tr><td class="mono">SEC-02</td><td>Token-ceiling enforcement anomaly / gap-lag</td><td>2.83M tokens vs 2.5M/hr ceiling; 4 post-exhaustion HTTP 200s</td><td>that bypass was by design</td></tr>
-  <tr><td class="mono">SEC-03</td><td>Phantom tool-call / model-turn runaway</td><td>84 model turns → 1 real tool call (runaway amplification)</td><td>84 real executions</td></tr>
-  <tr><td class="mono">EXP-04</td><td>Public listener scanner exposure</td><td>external scanner probes returned 404</td><td>compromise</td></tr>
-  <tr><td class="mono">HIS-05</td><td>Historical configuration drift</td><td>a drift existed historically</td><td>current exposure (resolved)</td></tr>
-  <tr><td class="mono">S2-FALSE-CERTAINTY-001</td><td>S2 false-certainty / disposition drift</td><td>auto-resolve disposition while root cause undetermined</td><td>remediation occurred</td></tr>
-  <tr><td class="mono">C7_NEGOTIATION_MISSING</td><td>C7 negotiation evidence gap</td><td>required category has no bound evidence</td><td>that negotiation cannot occur</td></tr>
+  <tr><th>ID</th><th>Finding</th><th>What it proves</th><th>What it does NOT prove</th><th>OWASP / agentic-security context</th></tr>
+  <tr><td class="mono">SEC-01</td><td>Shared plaintext runtime credential exposure</td><td>credential exposure in runtime config</td><td>credential abuse or compromise</td><td>OWASP LLM02 — Sensitive Information Disclosure</td></tr>
+  <tr><td class="mono">SEC-02</td><td>Token-ceiling enforcement anomaly / gap-lag</td><td>2.83M tokens vs 2.5M/hr ceiling; 4 post-exhaustion HTTP 200s</td><td>that bypass was by design</td><td>OWASP LLM10 — Unbounded Consumption</td></tr>
+  <tr><td class="mono">SEC-03</td><td>Phantom tool-call / model-turn runaway</td><td>84 model turns → 1 real tool call (runaway amplification)</td><td>84 real executions</td><td>OWASP LLM06 — Excessive Agency / runaway loop</td></tr>
+  <tr><td class="mono">EXP-04</td><td>Public listener scanner exposure</td><td>external scanner probes returned 404</td><td>compromise</td><td>external attack-surface probing — reconnaissance only, no reach</td></tr>
+  <tr><td class="mono">HIS-05</td><td>Historical configuration drift</td><td>a drift existed historically</td><td>current exposure (resolved)</td><td>configuration-integrity class — resolved before assessment</td></tr>
+  <tr><td class="mono">S2-FALSE-CERTAINTY-001</td><td>S2 false-certainty / disposition drift</td><td>auto-resolve disposition while root cause undetermined</td><td>remediation occurred</td><td>OWASP LLM09 — Misinformation / overreliance on auto-resolve</td></tr>
+  <tr><td class="mono">C7_NEGOTIATION_MISSING</td><td>C7 negotiation evidence gap</td><td>required category has no bound evidence</td><td>that negotiation cannot occur</td><td>agentic inter-agent evidence gap — the frontier OWASP agentic concerns target</td></tr>
 </table>
 <p class="small">Canonical packaged IDs only. Superseded identifiers <code>SEC-04</code>/<code>SEC-05</code> resolve through <code>TMF_FINDING_LINEAGE.md</code> to <code>EXP-04</code>/<code>HIS-05</code> and are never substituted for final IDs.</p>
+<p class="small">The rightmost column is <b>context mapping, not certification</b> — it places each finding in the taxonomy judges already know; it does not claim the system was assessed against a framework. FRAMEWORK_MAPPING != CERTIFICATION.</p>
 <p class="src">Source: package security-findings register; TMF_FINDING_LINEAGE.md; bound tmf-event-findings records.</p>
 </div>
 
