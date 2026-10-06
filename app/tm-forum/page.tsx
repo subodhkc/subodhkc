@@ -654,6 +654,10 @@ export default function TmForumHub() {
             <CardContent className="space-y-2 text-sm text-muted-foreground">
               <p>Start at <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s4`}>report §4</ExtLink> for the reconstruction model, then <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s6`}>§6</ExtLink> for scenario analysis and <ExtLink href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s11`}>§11</ExtLink> for findings.</p>
               <p>Deep evidence links are inside the report — telemetry stays in monitoring binders and is referenced, not dumped.</p>
+              <p className="pt-2">
+                <ExtLink href="/tm-forum/TMF_JUDGE_RUN_PORTAL.html">Judge Run Portal</ExtLink> — every assessed run as a clickable card with its copyable command and expected verdict.{" "}
+                <ExtLink href="/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt">LogSense Case Guide</ExtLink> — all 11 workbench cases with the UI path and judging path for each.
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -747,6 +751,8 @@ export default function TmForumHub() {
             ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.txt", "No secrets; placeholders only"],
             ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Copy-paste queries"],
             ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Every command — HAIEC primary, LogSense supplement, both options per task"],
+            ["Judge Run Portal", "/tm-forum/TMF_JUDGE_RUN_PORTAL.html", "Clickable run cards + copyable commands"],
+            ["LogSense Case Guide", "/tm-forum/TMF_LOGSENSE_CASE_GUIDE.txt", "All 11 cases — UI path + judging path each"],
             ["Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "10-minute slide cut · SUPPLEMENTAL"],
             ["Assurance Deck", "/tm-forum/haiec-agentic-assurance-deck.html", "Full thesis deck · SUPPLEMENTAL"],
             ["Event Field Guide", "/tm-forum/field-guide", "Pre-event operator guide · HISTORICAL"],
