@@ -626,6 +626,9 @@ export default function TmForumHub() {
             </tbody>
           </table>
         </div>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Every command used in this event — package pull and hash verification, the control-test drill, evidence pull, scenario orchestration, LogSense workbench + MCP, HAIEC VERIFY/REPLAY, and the judge 2-minute path — is consolidated in the <a href="/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt" download className="inline-flex items-center gap-1 font-medium text-primary hover:underline"><Download className="h-4 w-4" /> Technical CLI Runbook</a>.
+        </p>
       </Section>
 
       {/* ===================== LOGSENSE ===================== */}
@@ -743,6 +746,7 @@ export default function TmForumHub() {
             ["Diagram 08 — ServiceNow Boundary", `${DIAG}/08_SERVICENOW_BOUNDARY.svg`, "SVG"],
             ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.txt", "No secrets; placeholders only"],
             ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Copy-paste queries"],
+            ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Every command: verify, drill, LogSense, HAIEC, orchestration"],
             ["Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "10-minute slide cut · SUPPLEMENTAL"],
             ["Assurance Deck", "/tm-forum/haiec-agentic-assurance-deck.html", "Full thesis deck · SUPPLEMENTAL"],
             ["Event Field Guide", "/tm-forum/field-guide", "Pre-event operator guide · HISTORICAL"],
