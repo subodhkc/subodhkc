@@ -82,5 +82,11 @@
     "url": "https://dev.to/subodhkc/texas-hb-149-vs-the-eu-ai-act-what-engineers-must-build-26pb",
     "published": true,
     "date": "2026-10-01T15:18:34.552Z"
+  },
+  "modal-fastapi-postgres-ai-voice-pipeline-architecture": {
+    "id": 4807639,
+    "url": "https://dev.to/subodhkc/low-latency-ai-voice-pipelines-with-modal-fastapi-postgres-8k4",
+    "published": true,
+    "date": "2026-10-06T15:17:17.415Z"
   }
 }
