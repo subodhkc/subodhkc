@@ -746,7 +746,7 @@ export default function TmForumHub() {
             ["Diagram 08 — ServiceNow Boundary", `${DIAG}/08_SERVICENOW_BOUNDARY.svg`, "SVG"],
             ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.txt", "No secrets; placeholders only"],
             ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Copy-paste queries"],
-            ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Every command: verify, drill, LogSense, HAIEC, orchestration"],
+            ["Technical CLI Runbook", "/tm-forum/TMF_TECHNICAL_CLI_RUNBOOK.txt", "Every command — HAIEC primary, LogSense supplement, both options per task"],
             ["Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "10-minute slide cut · SUPPLEMENTAL"],
             ["Assurance Deck", "/tm-forum/haiec-agentic-assurance-deck.html", "Full thesis deck · SUPPLEMENTAL"],
             ["Event Field Guide", "/tm-forum/field-guide", "Pre-event operator guide · HISTORICAL"],
