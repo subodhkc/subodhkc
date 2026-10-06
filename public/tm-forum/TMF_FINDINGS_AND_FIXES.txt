@@ -1,0 +1,239 @@
+================================================================================
+TM FORUM 2026 — FINDINGS, FIXES & RETEST LEDGER
+HAIEC / LogSense — every finding, what changed, and how it was verified
+================================================================================
+STATUS: SUPPLEMENTAL COMPANION EVIDENCE DOC — sits NEXT TO package 7a0bb5f3,
+never inside it. The frozen package is digest-bound; this file changes nothing.
+CANONICAL_SYSTEM: 4043efee-cec6-4007-954b-1f8da2273f35 · PACKAGE: 7a0bb5f3
+
+READING THE LEDGER
+--------------------------------------------------------------------------------
+Every entry uses the same fields:
+
+  BEFORE  — what we observed / what was wrong (with evidence)
+  FIX     — what actually changed (code, config, policy, data, or docs)
+  AFTER   — how it was verified, and the current truth
+  STATUS  — FIXED_WITH_RETEST / FIXED_VERIFIED / DOCUMENTED_ORGANIZER_OWNED /
+            OPEN / SUPERSEDED
+
+A "fix" only counts if it has a proof edge — a retest, a readback, or a
+verifiable artifact. Findings we documented but do not own are labeled
+ORGANIZER-OWNED: they are platform deficiencies discovered during our evidence
+work, disclosed honestly, and never presented as things we remediated.
+
+================================================================================
+A — WE BROKE OUR OWN DESIGN AND FIXED IT (adversarial suite → passing retest)
+================================================================================
+Source: tmforum-hackathon/docs/FINDINGS.md + adversarial.py + tests/
+Re-run everything:  python3 adversarial.py && python3 -m pytest -q
+
+A1. Late-dated threshold could still apply to an earlier run
+    BEFORE: A policy threshold dated AFTER a run was still accepted for it —
+            a temporal-binding hole.
+    FIX:    Gateway and controltest refuse thresholds declared after the run.
+    AFTER:  adversarial.py late_declaration; test_threshold_declared_after_run_is_refused — PASS.
+    STATUS: FIXED_WITH_RETEST (design defect, C16)
+
+A2. Dropped call record went unnoticed
+    BEFORE: A call that was never recorded was invisible — the ledger cannot
+            see what it was never told. Planted-failure demo.
+    FIX:    Run manifest declares expected records; coverage sub-check fails
+            the run when one is missing.
+    AFTER:  adversarial.py partial_evidence; test_dropped_call_record_is_detected — PASS.
+    STATUS: FIXED_WITH_RETEST (design defect, all controls)
+
+A3. Rewritten record turned a breach into a pass
+    BEFORE: An edited ledger record silently changed the verdict.
+    FIX:    Hash-chained seal; controltest refuses a broken chain.
+    AFTER:  adversarial.py tamper_record; test_edited_record_breaks_chain_and_controltest_refuses — PASS.
+    STATUS: FIXED_WITH_RETEST (operation, C16)
+
+A4. Runaway loop kept spending after the cap
+    BEFORE: Post-halt calls were still counted.
+    FIX:    Halt policy: later calls refused AND recorded; overshoot stays visible.
+    AFTER:  adversarial.py call_after_halt; test_calls_after_halt_are_refused_and_recorded_not_counted — PASS.
+    STATUS: FIXED_WITH_RETEST (operation, C16)
+
+A5. Boundary comparison accepted gap == limit
+    BEFORE: A gap of exactly 5 ms was accepted under a "<5 ms" rule.
+    FIX:    Strict comparison; mutation of >= to > fails 2 tests.
+    AFTER:  test_c7_gap_equal_to_limit_violates_strictly — PASS.
+    STATUS: FIXED_WITH_RETEST (design, C7)
+
+A6. Missing measurement read as zero drift
+    BEFORE: No measurement silently became "no degradation."
+    FIX:    Coverage check records NO_MEASUREMENT — absence is not zero.
+    AFTER:  adversarial.py missing_window; test_missing_measurement_is_not_zero_drift — PASS.
+    STATUS: FIXED_WITH_RETEST (design, C9)
+
+A7. Concurrent calls could both pass under the cap
+    BEFORE: Two simultaneous calls each reading 9,800 under a 10,000 cap
+            could both be admitted.
+    FIX:    Atomic reserve() then commit under a lock; locked ledger writes.
+    AFTER:  adversarial.py concurrent_race; tests/test_concurrency.py — PASS.
+    STATUS: FIXED_WITH_RETEST (design, C16)
+
+A8. C7 saw events from one source only
+    BEFORE: "Every enforcement point at once" was not actually joined.
+    FIX:    All enforcement points emit C7 events through one recorder.
+    AFTER:  test_control7_joins_events_from_every_enforcement_point_on_one_run — PASS.
+    STATUS: FIXED_WITH_RETEST (design, C7)
+
+================================================================================
+B — EVENT-DAY CORRECTIONS WE CAUGHT OURSELVES (the audit trail)
+================================================================================
+Source: evidence/judgment-day/event-decision-finding-log.md (append-only,
+ED-001…ED-031) + C9_TIMESTAMP_ERRATUM.md + DASHBOARD_PROJECTION_FIX.md +
+CLAIM_INTEGRITY_AUDIT.md
+
+B1. Token-ceiling semantics misread → corrected (ED-007 → ED-016)
+    BEFORE: Ceiling 2.5M tokens/hour attached but 2,828,243 tokens produced
+            zero 429s; first classified MEASUREMENT_BASIS_DIFFERS
+            ("tokens counts requests") based on a different doc surface.
+    FIX:    Read the DEPLOYED schema (agentgateway v1.4.1 / CRD v1alpha1):
+            local[].tokens = LLM input+output tokens charged post-completion.
+            ED-007 retracted via superseding entry; history preserved.
+    AFTER:  TOKEN_LIMIT_CONFIRMED_AND_ENFORCEMENT_ANOMALY — retained as an
+            organizer-owned finding (SEC-02). Observed fact unchanged:
+            91 HTTP 200s, 0×429, 4 post-exhaustion 200s on one replica.
+    STATUS: FIXED_VERIFIED (correction), finding itself → ORGANIZER-OWNED
+
+B2. ServiceNow connector "pending" claim superseded by evidence (ED-014 → ED-029)
+    BEFORE: Logged "no AssumeRole activity observed; activation pending."
+    FIX:    CloudTrail evidence located: 5 AssumeRole events
+            (ServiceNowAictUser → SgcAictReadOnlyAccessRole).
+    AFTER:  Connector = ACTIVE + ASSUMEROLE_PROVEN; discovery + incident path
+            still NOT_ESTABLISHED — boundary kept explicit.
+    STATUS: SUPERSEDED by verified evidence; residual gap OPEN (organizer path)
+
+B3. C9 policy v1 digest-binding mismatch → superseded before any assessment (ED-023 → ED-024)
+    BEFORE: Frozen policy 2b37f892 bound digests computed on partially
+            normalized baselines — LogSense emitted different digests.
+    FIX:    Superseded by policy v2 346b5f43-58eb-44f8-a74e-45cfde746d74 with
+            consistent normalization — frozen BEFORE any assessed evaluation.
+    AFTER:  Both assessed C9 runs (ctr-214db6a9…, ctr-72f8118b…) evaluated
+            under v2. The flawed v1 is preserved as history, never used.
+    STATUS: FIXED_VERIFIED (pre-assessment; zero assessed results affected)
+
+B4. C9 timestamp labeling defect
+    BEFORE: c9_build.py serialized local time with a literal "Z" — UTC labels
+            off by ~5 hours. Verdicts and measured values unaffected.
+    FIX:    Serialize via UTC conversion before formatting; originals preserved.
+    AFTER:  Corrected values verified by re-run; C9_TIMESTAMP_ERRATUM.md in
+            the package discloses before/after. Erratum, not re-assessment.
+    STATUS: FIXED_VERIFIED (documentation/timestamp integrity)
+
+B5. Dashboard showed hasMonitoring=false despite live telemetry
+    BEFORE: Stored declared field was stale; derived telemetryReadiness was
+            already correct — two different fields read as one.
+    FIX:    No code change. Corrected the declared attribute through the
+            canonical inventory API (PUT /api/inventory/{id}, hasMonitoring=true).
+    AFTER:  Verified readback — workspace projection SIGNAL_RECEIVED,
+            94 batches / 7,529 records; both binders CONFIGURED_ACTIVE.
+    STATUS: FIXED_VERIFIED (M1 in CLAIM_INTEGRITY_AUDIT)
+
+B6. Claim-to-evidence mismatches fixed in the audit pass (M1–M4)
+    BEFORE: Org-scoped feed misread as system binding failure; dashboard
+            claim based on backend readback only; "0 findings" could read as
+            "no risk"; judge-nav row conflated SEC-02 ceiling with C16 cap
+            (WRONG_COMPARATOR: 106,829 vs 60,000 is a different control).
+    FIX:    Scoped-claim wording, DETECTION_COVERAGE_REVIEW.md added,
+            judge-nav claim boundary, comparator corrected.
+    AFTER:  10 anti-pattern hunts all clean (SYNTHETIC_AS_REAL,
+            TELEMETRY_AS_VERDICT, RETEST_AS_PASS, CAPABILITY_AS_OBSERVED…).
+    STATUS: FIXED_VERIFIED (presentation integrity)
+
+================================================================================
+C — FINDINGS WE DOCUMENTED BUT DO NOT OWN (organizer platform)
+================================================================================
+Source: evidence/security-findings/SECURITY_FINDINGS_REGISTER.md +
+TMF_FINDING_LINEAGE.md. DISCLOSED ≠ REMEDIATED — we discovered and documented
+these on the supplied platform; remediation is organizer authority. We report
+them because discovering platform deficiencies during evidence work is itself
+a scored outcome — and because hiding them would be dishonest.
+
+C1. SEC-01 — plaintext shared runtime credential in agent spec environment
+    BEFORE: Shared credential surfaced in env of the agent specification.
+    DISPOSITION: CANONICAL_FINDING — organizer-owned platform deficiency.
+    OUR PART: documented, evidence-bound, framework crosswalk UNMAPPED (honest).
+
+C2. SEC-02 — token-limit confirmation and enforcement anomaly
+    BEFORE: 2.83M tokens through a 2.5M/hr ceiling, zero denials.
+    DISPOSITION: CANONICAL_FINDING — organizer-owned. See B1 for our
+    correction trail. Distinct from our C16 control (different mechanism).
+
+C3. SEC-03 — phantom tool-call / model-turn runaway (2.83M tokens, 91 calls)
+    BEFORE: Reconstructed forensically; terminated by a MalformedToolCall
+            policy deny, NOT by the token ceiling.
+    DISPOSITION: CANONICAL_FINDING — organizer-owned.
+
+C4. EXP-04 — public listener scanner exposure (probes reached listeners, all 404)
+    DISPOSITION: CAPABILITY_EXPOSURE — organizer-owned.
+
+C5. HIS-05 — historical config drift (spec 04b512e0 vs running 2f6e4556)
+    BEFORE: Desired-state drift; reconciling would deploy an unapproved image.
+    DISPOSITION: HISTORICAL/SUPERSEDED — current snapshot clean; an
+    AgentConfig edit to "fix" it is unsafe (ED-010/ED-017) — organizer-owned.
+
+C6. S2 false-certainty — remediation attempted, retest failed identically
+    BEFORE: Run fault-1791190160-cb83f9 graded 5/10 — agents claimed certainty
+            without evidence (S2-FALSE-CERTAINTY-001).
+    FIX:    Supplied-image behavior; our remediation attempt could not change it.
+    AFTER:  Retest fault-1791190812-668d63 graded 5/10 — identical failure.
+            Preserved as NOT_FIXED, never re-scored.
+    STATUS: RETEST_FAILED — honestly recorded, not hidden.
+
+================================================================================
+D — STILL OPEN, DELIBERATELY (a finding closed without a retest loses marks)
+================================================================================
+D1. C7 NEGOTIATION missing — 9/10 (G-013 / ED-017)
+    The supplied image has no peer-invoke primitive; ToolConfig providers are
+    agentCoreGateway|custom — no A2A type. Any AgentConfig edit reconciles a
+    pending UNAPPROVED image digest (ED-010) — unsafe. ORGANIZER_DEPENDENCY.
+    Fresh comparison runs (HAIEC network agent, NEGOTIATION=3) exist but are
+    unverified for classification — see note below.
+
+D2. Run-total vs per-agent enforcement boundary (register.yaml)
+    The in-path guard caps PER-AGENT calls; the per-run cap is post-run.
+    Documented boundary, not hidden.
+
+D3. Control-test verdicts don't emit alerts (CONTROL_TEST_VERDICT_TO_ALERT =
+    NOT_WIRED). Alert path proven via labeled synthetic canary only.
+
+D4. 64KB ingest bound (ED-005) — the 2.83M runaway can't be evaluated by the
+    control test; preserved as evidence only.
+
+D5. RUN_START is operator-declared — no platform run-start signal; HAIEC
+    returns NOT_EVALUATED rather than inferring.
+
+D6. O-01..O-04 (project FINDINGS.md) — accepted-risk items with named owners
+    and hard expiries, per the deck's finding-loop contract.
+
+================================================================================
+VERIFICATION OF KUSHAL'S FRESH C7 COMPARISON RUNS — PENDING
+================================================================================
+Fresh runs reportedly show: organizer third hop C7 9/10 (NEGOTIATION=0) vs
+HAIEC network-agent path C7 10/10 (NEGOTIATION=3) across S1/S2/S3.
+
+Per the source-of-truth lock these are NOT published as canonical until each
+is classified: run ID · REHEARSAL vs ASSESSED · policy identity + digest ·
+whether NEGOTIATION reflects a genuine callback exchange · same-run binding ·
+HAIEC upload status. If verified as rehearsal only, they appear as
+"C7 REMEDIATION EXPERIMENT — NON-SCORED" — never overwriting the assessed
+9/10. If an assessed retest is later approved, it lands as a NEW lineage row.
+The 40,000-token cap in that comparison set is a participant-controlled guard
+experiment — NOT canonical C16 (60,000); the two are never blended.
+
+================================================================================
+FILE MAP — where each ledger row lives
+================================================================================
+A1–A8   tmforum-hackathon/docs/FINDINGS.md + adversarial.py + tests/
+B1      event-decision-finding-log.md ED-007/ED-016 · SECURITY_FINDINGS_REGISTER.md
+B2      ED-014/ED-029 · SERVICENOW_AWS_IDENTITY_RECONCILIATION.md
+B3      ED-023/ED-024 · register.yaml (C9 policy 346b5f43)
+B4      C9_TIMESTAMP_ERRATUM.md · tool/c9_build.py
+B5/B6   DASHBOARD_PROJECTION_FIX.md · CLAIM_INTEGRITY_AUDIT.md
+C1–C5   SECURITY_FINDINGS_REGISTER.md · TMF_FINDING_LINEAGE.md
+C6      evidence/s2-false-certainty/ · ED-015
+D1–D6   gap-list.md · 06_Gap_Remediation_Retest_Register_WORKING.md · FINDINGS.md
+================================================================================

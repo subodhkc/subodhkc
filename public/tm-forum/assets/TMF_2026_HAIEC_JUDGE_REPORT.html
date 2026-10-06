@@ -112,6 +112,7 @@
   <a href="#j8">J8 · Thresholds &amp; Freeze Proof</a>
   <a href="#j9">J9 · Package Integrity</a>
   <a href="#j10">J10 · Two-Minute Query</a>
+  <a href="#j11">J11 · Judge FAQ</a>
   <b>Contents — LAYER 2 · PROOF MODE</b>
   <a href="#s1">1 · Executive Summary</a>
   <a href="#s2">2 · Why HAIEC Is Different</a>
@@ -206,6 +207,174 @@ recorded evidence and produced a verdict that anyone can recompute.</p>
 <p class="small"><b>Two different questions:</b> DID THE SCENARIO SUCCEED? is answered by the organizer grader
 (S1 6/8, S2 5/10, S3 8/10). DID THE CONTROL HOLD? is answered by the HAIEC deterministic Control Test.
 They are never interchangeable.</p>
+<h3>CONTROL COMPARISON — one frozen line each, actual measured values</h3>
+<p class="small"><b>Rule shapes differ by control.</b> The organizer's worked examples use different mathematical
+forms for different controls — a percentage in one control is not the threshold form for another:
+<b>C7</b> = required evidence-category coverage (a 10% example would mean the allowed share of violating timing
+gaps, not "10% above the limit"); <b>C9</b> = relative degradation vs a frozen baseline (D is a percentage);
+<b>C16</b> = an absolute whole-run cap (60,000 tokens — not a drift percentage). Organizer numerical examples
+are illustrative; our event-specific values were selected and frozen before assessed use.</p>
+<div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .pass{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .fail{fill:#b00;font-weight:700;font-size:11px}
+    .barP{fill:#0a5c2e}.barP:hover{fill:#0d7a3d}
+    .barF{fill:#b00}.barF:hover{fill:#d00}
+    .axis{stroke:#333;stroke-width:1.2}
+    .grid{stroke:#ddd;stroke-width:0.8}
+    .cap{stroke:#333;stroke-width:2;stroke-dasharray:10 5}
+    .tick{font-family:Consolas,monospace;font-size:9px;fill:#555}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C16 — Qualified Run Tokens vs Frozen 60,000-Token Cap</text>
+  <text x="16" y="40" class="q">Question: did each complete run remain within the frozen token budget?</text>
+  <text x="16" y="56" class="sub">Bars = qualified input+output tokens measured per assessed run · Dashed line = the frozen 60,000-token policy boundary (policy 547f4a67, c16-cap-v1, frozen 2026-10-05T01:28:02Z)</text>
+
+  <!-- plot area: x from 90 to 930; y=0 at 370, y=106829 at 78 -->
+  <!-- scale: 292px / 110000 tokens ≈ 0.0026545 px/token; cap 60000 -> y = 370 - 159.3 = 210.7 -->
+  <g>
+    <!-- gridlines + ticks -->
+    <line x1="90" y1="370" x2="930" y2="370" class="axis"/>
+    <line x1="90" y1="290" x2="930" y2="290" class="grid"/><text x="52" y="294" class="tick">30,000</text>
+    <line x1="90" y1="210" x2="930" y2="210" class="grid"/><text x="52" y="214" class="tick">60,000</text>
+    <line x1="90" y1="131" x2="930" y2="131" class="grid"/><text x="52" y="135" class="tick">90,000</text>
+    <text x="52" y="374" class="tick">0</text>
+    <line x1="90" y1="78" x2="90" y2="370" class="axis"/>
+
+    <!-- frozen cap line at y=210 -->
+    <line x1="90" y1="210.7" x2="930" y2="210.7" class="cap"/>
+    <text x="700" y="203" class="mono" font-weight="700">FROZEN C16 CAP — 60,000 tokens/run (LTE)</text>
+
+    <!-- PASS bar: 35,559 -> height 94.4 -> y=275.6 -->
+    <rect x="220" y="275.6" width="160" height="94.4" class="barP" opacity="0.85"/>
+    <rect x="220" y="275.6" width="160" height="94.4" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="300" y="266" class="mono" text-anchor="middle" font-weight="700">35,559 tokens</text>
+    <text x="300" y="252" class="pass" text-anchor="middle">SATISFIED</text>
+    <text x="300" y="388" class="lbl" text-anchor="middle">PASS · fault-1791167110-5e3126</text>
+    <text x="300" y="401" class="lbl" text-anchor="middle">cap 60,000 · headroom 24,441 (59.3% used)</text>
+
+    <!-- BREACH bar: 106,829 -> height 283.6 -> y=86.4 -->
+    <rect x="560" y="86.4" width="160" height="283.6" class="barF" opacity="0.8"/>
+    <rect x="560" y="86.4" width="160" height="283.6" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="640" y="76" class="mono" text-anchor="middle" font-weight="700">106,829 tokens</text>
+    <text x="640" y="62" class="fail" text-anchor="middle">NOT_SATISFIED</text>
+    <text x="640" y="388" class="lbl" text-anchor="middle">BREACH · fault-1791165466-51ab52</text>
+    <text x="640" y="401" class="lbl" text-anchor="middle">cap 60,000 · overshoot +46,829 (178.0% used, 17 calls)</text>
+  </g>
+
+  <text x="90" y="422" class="take">Takeaway: one run remained below the same frozen line; one exceeded it. Both were evaluated post-run under identical policy, digest, accounting semantics and comparator → COMPARABLE.</text>
+</svg>
+</div>
+<div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .pass{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .warn{fill:#8a5a00;font-weight:700;font-size:11px}
+    .bar{fill:#0a5c2e}
+    .bar2{fill:#8a5a00}
+    .axis{stroke:#333;stroke-width:1.2}
+    .grid{stroke:#ddd;stroke-width:0.8}
+    .cap{stroke:#333;stroke-width:2;stroke-dasharray:10 5}
+    .tick{font-family:Consolas,monospace;font-size:9px;fill:#555}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C9 — Worst Relative Degradation vs Frozen Drift Limit</text>
+  <text x="16" y="40" class="q">Question: did runtime duration degrade beyond the frozen baseline boundary?</text>
+  <text x="16" y="56" class="sub">Bars = worst per-agent-window relative degradation vs baseline · aws.bedrock-agentcore.duration_ms, MEAN, LOWER_IS_BETTER · Dashed line = frozen D = 100% (B9 = 0%, policy 346b5f43, c9-duration-thresholds-v2)</text>
+
+  <!-- plot: y=0 at 370; y=100% at 130 => 2.4px per % -->
+  <g>
+    <line x1="90" y1="370" x2="930" y2="370" class="axis"/>
+    <line x1="90" y1="310" x2="930" y2="310" class="grid"/><text x="60" y="314" class="tick">25%</text>
+    <line x1="90" y1="250" x2="930" y2="250" class="grid"/><text x="60" y="254" class="tick">50%</text>
+    <line x1="90" y1="190" x2="930" y2="190" class="grid"/><text x="60" y="194" class="tick">75%</text>
+    <line x1="90" y1="130" x2="930" y2="130" class="grid"/><text x="52" y="134" class="tick">100%</text>
+    <text x="62" y="374" class="tick">0</text>
+    <line x1="90" y1="100" x2="90" y2="370" class="axis"/>
+
+    <!-- frozen D line at 100% -> y=130 -->
+    <line x1="90" y1="130" x2="930" y2="130" class="cap"/>
+    <text x="560" y="122" class="mono" font-weight="700">FROZEN D = 100% relative degradation limit</text>
+
+    <!-- run 1: +7.5% -> height 18 -> y=352 -->
+    <rect x="220" y="352" width="160" height="18" class="bar" opacity="0.85"/>
+    <rect x="220" y="352" width="160" height="18" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="300" y="343" class="mono" text-anchor="middle" font-weight="700">+7.5%</text>
+    <text x="300" y="329" class="pass" text-anchor="middle">SATISFIED</text>
+    <text x="300" y="388" class="lbl" text-anchor="middle">C9_INTENDED_PASS · fault-1791183079-256a5e</text>
+    <text x="300" y="401" class="lbl" text-anchor="middle">worst window +7.5% (it agent) · ctr-214db6a9…b928</text>
+
+    <!-- run 2: +28.5% -> height 68.4 -> y=301.6 -->
+    <rect x="560" y="301.6" width="160" height="68.4" class="bar2" opacity="0.85"/>
+    <rect x="560" y="301.6" width="160" height="68.4" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="640" y="292" class="mono" text-anchor="middle" font-weight="700">+28.5%</text>
+    <text x="640" y="278" class="warn" text-anchor="middle">SATISFIED</text>
+    <text x="640" y="388" class="lbl" text-anchor="middle">C9_INTENDED_BREACH · fault-1791183213-228329</text>
+    <text x="640" y="401" class="lbl" text-anchor="middle">worst window +28.5% (it agent) · ctr-72f8118b…cad3</text>
+  </g>
+
+  <text x="90" y="422" class="take">Takeaway: the second run was intended to exercise a breach, but observed degradation stayed at +28.5% — under the frozen 100% boundary. HAIEC correctly returned SATISFIED instead of manufacturing a breach. ELIGIBLE_SANCTIONED_BREACH = NOT_ESTABLISHED.</text>
+</svg>
+</div>
+<div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .ok{fill:#0a5c2e}.miss{fill:#b00}
+    .okt{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .misst{fill:#b00;font-weight:700;font-size:11px}
+    .cell{stroke:#111;stroke-width:1}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C7 — Required Evidence Coverage</text>
+  <text x="16" y="40" class="q">Question: were all ten required governed-event records observed for the run?</text>
+  <text x="16" y="56" class="sub">Frozen policy ae6dda36 (10 required evidence categories) · assessed run fault-1791167110-5e3126 · counts shown as actual 9-of-10, not hidden behind a percentage</text>
+
+  <!-- 10 boxes across, 9 green, 1 red (NEGOTIATION) -->
+  <g>
+    <rect x="60"  y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="99" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 1</text><text x="99" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="146" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="185" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 2</text><text x="185" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="232" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="271" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 3</text><text x="271" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="318" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="357" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 4</text><text x="357" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="404" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="443" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 5</text><text x="443" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="490" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="529" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 6</text><text x="529" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="576" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="615" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 7</text><text x="615" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="662" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="701" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 8</text><text x="701" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="748" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="787" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 9</text><text x="787" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="834" y="90" width="78" height="60" class="cell miss" opacity="0.85"/><text x="873" y="110" class="mono" text-anchor="middle" fill="#fff" font-weight="700">NEGOTIATION</text><text x="873" y="128" class="mono" text-anchor="middle" fill="#fff">MISSING</text><text x="873" y="144" class="mono" text-anchor="middle" fill="#fff">REQUIRED</text>
+  </g>
+
+  <!-- count bar: 9 vs 10 -->
+  <g>
+    <text x="60" y="186" class="mono" font-weight="700">9 observed</text>
+    <rect x="140" y="174" width="666" height="16" class="ok" opacity="0.85"/>
+    <rect x="806" y="174" width="74" height="16" class="miss" opacity="0.85"/>
+    <rect x="140" y="174" width="740" height="16" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="888" y="187" class="mono">10 required</text>
+  </g>
+
+  <text x="60" y="224" class="okt">9/10 categories observed — permission and capability records all present</text>
+  <text x="60" y="244" class="misst">NEGOTIATION missing — REQUIRED_CATEGORY_MISSING → NOT_SATISFIED (ctr-abdf612f…c4c7a)</text>
+
+  <text x="60" y="278" class="sub">Permission is not delegation: configured capability and effective permission were evidenced, but no observed agent-to-agent negotiation record existed — in any team's run (0 of 835 records).</text>
+  <text x="60" y="312" class="take">Takeaway: one missing required record category fails the coverage control even when every other proof exists. This is an honest assessed failure, not a tool limitation.</text>
+</svg>
+</div>
 </div>
 
 <div class="section" id="j3">
@@ -225,6 +394,54 @@ prove that interaction happened, the control failed rather than guessing.</p>
 <tr><td><b>WHAT WE DO NOT KNOW</b></td><td>Whether the negotiation/delegation actually occurred — it was not observed in assessed evidence.</td></tr>
 <tr><td><b>WHY THE VERDICT IS CORRECT</b></td><td>The control required observed evidence of negotiation. Capability + permission + activity do not equal delegation. A weaker system could have inferred success from permission and activity; HAIEC did not.</td></tr>
 </table>
+<div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .ok{fill:#0a5c2e}.miss{fill:#b00}
+    .okt{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .misst{fill:#b00;font-weight:700;font-size:11px}
+    .cell{stroke:#111;stroke-width:1}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C7 — Required Evidence Coverage</text>
+  <text x="16" y="40" class="q">Question: were all ten required governed-event records observed for the run?</text>
+  <text x="16" y="56" class="sub">Frozen policy ae6dda36 (10 required evidence categories) · assessed run fault-1791167110-5e3126 · counts shown as actual 9-of-10, not hidden behind a percentage</text>
+
+  <!-- 10 boxes across, 9 green, 1 red (NEGOTIATION) -->
+  <g>
+    <rect x="60"  y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="99" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 1</text><text x="99" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="146" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="185" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 2</text><text x="185" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="232" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="271" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 3</text><text x="271" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="318" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="357" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 4</text><text x="357" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="404" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="443" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 5</text><text x="443" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="490" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="529" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 6</text><text x="529" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="576" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="615" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 7</text><text x="615" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="662" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="701" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 8</text><text x="701" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="748" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="787" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 9</text><text x="787" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="834" y="90" width="78" height="60" class="cell miss" opacity="0.85"/><text x="873" y="110" class="mono" text-anchor="middle" fill="#fff" font-weight="700">NEGOTIATION</text><text x="873" y="128" class="mono" text-anchor="middle" fill="#fff">MISSING</text><text x="873" y="144" class="mono" text-anchor="middle" fill="#fff">REQUIRED</text>
+  </g>
+
+  <!-- count bar: 9 vs 10 -->
+  <g>
+    <text x="60" y="186" class="mono" font-weight="700">9 observed</text>
+    <rect x="140" y="174" width="666" height="16" class="ok" opacity="0.85"/>
+    <rect x="806" y="174" width="74" height="16" class="miss" opacity="0.85"/>
+    <rect x="140" y="174" width="740" height="16" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="888" y="187" class="mono">10 required</text>
+  </g>
+
+  <text x="60" y="224" class="okt">9/10 categories observed — permission and capability records all present</text>
+  <text x="60" y="244" class="misst">NEGOTIATION missing — REQUIRED_CATEGORY_MISSING → NOT_SATISFIED (ctr-abdf612f…c4c7a)</text>
+
+  <text x="60" y="278" class="sub">Permission is not delegation: configured capability and effective permission were evidenced, but no observed agent-to-agent negotiation record existed — in any team's run (0 of 835 records).</text>
+  <text x="60" y="312" class="take">Takeaway: one missing required record category fails the coverage control even when every other proof exists. This is an honest assessed failure, not a tool limitation.</text>
+</svg>
+</div>
 <p class="small">Verify: VERIFY C7 in the Judge Workspace, or §18.</p>
 </div>
 
@@ -310,6 +527,20 @@ answers — and what the result means — is stated in one line each.</p>
 </table>
 <p class="small">Exact frozenAt timestamps live in the persisted control_test_policy rows; VERIFY re-resolves
 them server-side. No timestamps are asserted here that persisted evidence does not carry.</p>
+<h3>Organizer worked examples vs our frozen event policies</h3>
+<table>
+<tr><th>Control</th><th>Organizer worked example</th><th>Rule shape</th><th>Our event policy</th><th>Why different</th></tr>
+<tr><td>C7</td><td>illustrative timing / exception values</td><td>completeness + gap exception rate</td><td>10 required categories, all observed</td><td>coverage control — counts categories, not percentages</td></tr>
+<tr><td>C9</td><td>illustrative 10% drift</td><td>percentage from frozen baseline</td><td>D=100%, B9=0%</td><td>our calibrated bound — ~2x headroom over worst normal (+49% run-mean basis)</td></tr>
+<tr><td>C16</td><td>illustrative 10,000-token cap</td><td>absolute whole-run cap</td><td>N=60,000 tokens/run</td><td>our event-specific frozen value — not a mandate</td></tr>
+</table>
+<p class="small"><b>ORGANIZER NUMERICAL EXAMPLES ARE ILLUSTRATIVE.</b> We selected and froze our event-specific
+values before their assessed use; the organizer did not mandate 60,000.</p>
+<div class="note"><b>Why 60,000 (honest classification):</b> three healthy pre-freeze runs measured
+40,167 / 40,681 / 49,969 tokens. Observed arithmetic <span class="mono">49,969 x 1.2 = 59,962.8 - rounds to 60,000</span> -
+consistent with ~20% reserve over the healthy maximum (MAX_HEALTHY_PLUS_RECOVERY_RESERVE). The policy notes
+recorded no derivation, so this is classified <b>ENGINEERING_BOUND + INSUFFICIENT_PRE_FREEZE_RATIONALE</b>:
+the recovered population supports arithmetic consistency only, not a documented derivation.</div>
 </div>
 
 <div class="section" id="j9">
@@ -344,6 +575,25 @@ and sees the verdict, the arithmetic, the evidence, and the limitation — fast.
 <tr><td><b>TIMING</b></td><td><b>NOT_MEASURED</b> — no timed run was performed against the deployed authenticated surface. The designed path is ~3 clicks after sign-in; bottleneck is authentication + system selection, not the query itself. An honest measured value requires a live session — none was fabricated.</td></tr>
 </table>
 <p class="small">QUESTION → RESULT → CALCULATION → EVIDENCE → LIMITATION — all on one card.</p>
+</div>
+
+<div class="section" id="j11">
+<h2>J11 · Judge FAQ — plain-language answers</h2>
+<p><b>IN PLAIN ENGLISH:</b> The questions a skeptical judge actually asks, answered against persisted evidence.</p>
+<table>
+<tr><th>Question</th><th>Evidence-backed answer</th></tr>
+<tr><td><b>Why isn't C16 using the organizer's 10%?</b></td><td>The 10% examples belong to percentage-shaped controls (drift, exception rates). C16 is an absolute per-run resource cap — our event-specific frozen value is 60,000 tokens, selected before the assessed runs. The worked 10,000-token example is illustrative, not a mandate.</td></tr>
+<tr><td><b>Why is the C16 breach so much higher than the cap?</b></td><td>The cap is a policy boundary, not a target. 106,829 exceeds the frozen 60,000 boundary by 46,829 (178.0% used); 35,559 stays below it (59.3% used, headroom 24,441). Both were evaluated under the same accounting semantics, scope, comparator, and frozen policy — runs are not required to sit near the threshold.</td></tr>
+<tr><td><b>Why didn't you move the threshold closer to the runs?</b></td><td>The threshold was frozen (policy 547f4a67, digest sha256:944212e6…, frozenAt 2026-10-05T01:28:02Z) before assessment and never adjusted after seeing results. Moving it afterward converts a control test into curve-fitting.</td></tr>
+<tr><td><b>Why did the intended C9 breach still pass?</b></td><td>Run role is workflow intent, not a verdict. The intended-breach run degraded +28.5% against frozen D=100% — below the boundary — so the honest result is SATISFIED. Eligible sanctioned breach: NOT_ESTABLISHED. None was manufactured.</td></tr>
+<tr><td><b>Why does C7 fail with only one missing record?</b></td><td>The frozen policy requires ten evidence categories; nine were observed, NEGOTIATION was not — in our run or any team's (0 of 835 records). Coverage controls count required categories: one absent required category is NOT_SATISFIED. Permission is not delegation.</td></tr>
+<tr><td><b>Why can a scenario score differ from a control verdict?</b></td><td>They answer different questions: the organizer grader scores the task outcome; a Control Test asks whether a frozen rule held against persisted evidence. S2 scored 5/10 as a scenario and independently carries a false-certainty finding — remediating C7 would not change that scenario grade.</td></tr>
+<tr><td><b>Why can UNKNOWN be a useful result?</b></td><td>UNKNOWN names the exact evidence frontier: surrounding facts are proven and the stronger conclusion lacks its required proof edge. It states what evidence would close the question — more informative than a guessed verdict.</td></tr>
+</table>
+<div class="note"><b>What SATISFIED means — and does not.</b> SATISFIED = the observed evidence met the frozen
+control criteria. It does <b>not</b> mean the whole system is safe, that the scenario received a perfect score,
+that every detector was clean, or that all governance evidence exists. NOT_SATISFIED means the specific control
+did not hold — it does not mean the scenario failed. SCENARIO SCORE != CONTROL VERDICT.</div>
 </div>
 
 <div class="section" style="border:2px solid #111;background:#f4f4f0;padding:10px 16px"><b>LAYER 2 — PROOF MODE</b> · detailed assurance analysis · every claim anchored to persisted evidence.</div>
@@ -620,6 +870,124 @@ that pattern, not a replacement for it.</p>
   <text x="60" y="286" class="sub">Both runs evaluated post-run against the same frozen policy/digest → COMPARABLE. C16 is not an inline per-run preventer.</text>
 </svg>
 </div>
+<h3>Measured values vs frozen boundaries — actual quantities, zero-based axes</h3>
+<div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .pass{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .fail{fill:#b00;font-weight:700;font-size:11px}
+    .barP{fill:#0a5c2e}.barP:hover{fill:#0d7a3d}
+    .barF{fill:#b00}.barF:hover{fill:#d00}
+    .axis{stroke:#333;stroke-width:1.2}
+    .grid{stroke:#ddd;stroke-width:0.8}
+    .cap{stroke:#333;stroke-width:2;stroke-dasharray:10 5}
+    .tick{font-family:Consolas,monospace;font-size:9px;fill:#555}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C16 — Qualified Run Tokens vs Frozen 60,000-Token Cap</text>
+  <text x="16" y="40" class="q">Question: did each complete run remain within the frozen token budget?</text>
+  <text x="16" y="56" class="sub">Bars = qualified input+output tokens measured per assessed run · Dashed line = the frozen 60,000-token policy boundary (policy 547f4a67, c16-cap-v1, frozen 2026-10-05T01:28:02Z)</text>
+
+  <!-- plot area: x from 90 to 930; y=0 at 370, y=106829 at 78 -->
+  <!-- scale: 292px / 110000 tokens ≈ 0.0026545 px/token; cap 60000 -> y = 370 - 159.3 = 210.7 -->
+  <g>
+    <!-- gridlines + ticks -->
+    <line x1="90" y1="370" x2="930" y2="370" class="axis"/>
+    <line x1="90" y1="290" x2="930" y2="290" class="grid"/><text x="52" y="294" class="tick">30,000</text>
+    <line x1="90" y1="210" x2="930" y2="210" class="grid"/><text x="52" y="214" class="tick">60,000</text>
+    <line x1="90" y1="131" x2="930" y2="131" class="grid"/><text x="52" y="135" class="tick">90,000</text>
+    <text x="52" y="374" class="tick">0</text>
+    <line x1="90" y1="78" x2="90" y2="370" class="axis"/>
+
+    <!-- frozen cap line at y=210 -->
+    <line x1="90" y1="210.7" x2="930" y2="210.7" class="cap"/>
+    <text x="700" y="203" class="mono" font-weight="700">FROZEN C16 CAP — 60,000 tokens/run (LTE)</text>
+
+    <!-- PASS bar: 35,559 -> height 94.4 -> y=275.6 -->
+    <rect x="220" y="275.6" width="160" height="94.4" class="barP" opacity="0.85"/>
+    <rect x="220" y="275.6" width="160" height="94.4" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="300" y="266" class="mono" text-anchor="middle" font-weight="700">35,559 tokens</text>
+    <text x="300" y="252" class="pass" text-anchor="middle">SATISFIED</text>
+    <text x="300" y="388" class="lbl" text-anchor="middle">PASS · fault-1791167110-5e3126</text>
+    <text x="300" y="401" class="lbl" text-anchor="middle">cap 60,000 · headroom 24,441 (59.3% used)</text>
+
+    <!-- BREACH bar: 106,829 -> height 283.6 -> y=86.4 -->
+    <rect x="560" y="86.4" width="160" height="283.6" class="barF" opacity="0.8"/>
+    <rect x="560" y="86.4" width="160" height="283.6" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="640" y="76" class="mono" text-anchor="middle" font-weight="700">106,829 tokens</text>
+    <text x="640" y="62" class="fail" text-anchor="middle">NOT_SATISFIED</text>
+    <text x="640" y="388" class="lbl" text-anchor="middle">BREACH · fault-1791165466-51ab52</text>
+    <text x="640" y="401" class="lbl" text-anchor="middle">cap 60,000 · overshoot +46,829 (178.0% used, 17 calls)</text>
+  </g>
+
+  <text x="90" y="422" class="take">Takeaway: one run remained below the same frozen line; one exceeded it. Both were evaluated post-run under identical policy, digest, accounting semantics and comparator → COMPARABLE.</text>
+</svg>
+</div>
+<div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .pass{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .warn{fill:#8a5a00;font-weight:700;font-size:11px}
+    .bar{fill:#0a5c2e}
+    .bar2{fill:#8a5a00}
+    .axis{stroke:#333;stroke-width:1.2}
+    .grid{stroke:#ddd;stroke-width:0.8}
+    .cap{stroke:#333;stroke-width:2;stroke-dasharray:10 5}
+    .tick{font-family:Consolas,monospace;font-size:9px;fill:#555}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C9 — Worst Relative Degradation vs Frozen Drift Limit</text>
+  <text x="16" y="40" class="q">Question: did runtime duration degrade beyond the frozen baseline boundary?</text>
+  <text x="16" y="56" class="sub">Bars = worst per-agent-window relative degradation vs baseline · aws.bedrock-agentcore.duration_ms, MEAN, LOWER_IS_BETTER · Dashed line = frozen D = 100% (B9 = 0%, policy 346b5f43, c9-duration-thresholds-v2)</text>
+
+  <!-- plot: y=0 at 370; y=100% at 130 => 2.4px per % -->
+  <g>
+    <line x1="90" y1="370" x2="930" y2="370" class="axis"/>
+    <line x1="90" y1="310" x2="930" y2="310" class="grid"/><text x="60" y="314" class="tick">25%</text>
+    <line x1="90" y1="250" x2="930" y2="250" class="grid"/><text x="60" y="254" class="tick">50%</text>
+    <line x1="90" y1="190" x2="930" y2="190" class="grid"/><text x="60" y="194" class="tick">75%</text>
+    <line x1="90" y1="130" x2="930" y2="130" class="grid"/><text x="52" y="134" class="tick">100%</text>
+    <text x="62" y="374" class="tick">0</text>
+    <line x1="90" y1="100" x2="90" y2="370" class="axis"/>
+
+    <!-- frozen D line at 100% -> y=130 -->
+    <line x1="90" y1="130" x2="930" y2="130" class="cap"/>
+    <text x="560" y="122" class="mono" font-weight="700">FROZEN D = 100% relative degradation limit</text>
+
+    <!-- run 1: +7.5% -> height 18 -> y=352 -->
+    <rect x="220" y="352" width="160" height="18" class="bar" opacity="0.85"/>
+    <rect x="220" y="352" width="160" height="18" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="300" y="343" class="mono" text-anchor="middle" font-weight="700">+7.5%</text>
+    <text x="300" y="329" class="pass" text-anchor="middle">SATISFIED</text>
+    <text x="300" y="388" class="lbl" text-anchor="middle">C9_INTENDED_PASS · fault-1791183079-256a5e</text>
+    <text x="300" y="401" class="lbl" text-anchor="middle">worst window +7.5% (it agent) · ctr-214db6a9…b928</text>
+
+    <!-- run 2: +28.5% -> height 68.4 -> y=301.6 -->
+    <rect x="560" y="301.6" width="160" height="68.4" class="bar2" opacity="0.85"/>
+    <rect x="560" y="301.6" width="160" height="68.4" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="640" y="292" class="mono" text-anchor="middle" font-weight="700">+28.5%</text>
+    <text x="640" y="278" class="warn" text-anchor="middle">SATISFIED</text>
+    <text x="640" y="388" class="lbl" text-anchor="middle">C9_INTENDED_BREACH · fault-1791183213-228329</text>
+    <text x="640" y="401" class="lbl" text-anchor="middle">worst window +28.5% (it agent) · ctr-72f8118b…cad3</text>
+  </g>
+
+  <text x="90" y="422" class="take">Takeaway: the second run was intended to exercise a breach, but observed degradation stayed at +28.5% — under the frozen 100% boundary. HAIEC correctly returned SATISFIED instead of manufacturing a breach. ELIGIBLE_SANCTIONED_BREACH = NOT_ESTABLISHED.</text>
+</svg>
+</div>
+<div class="note"><b>C16 formula:</b> ActualRunTokens = sum(inputTokens + outputTokens) for every unique
+provider-executed call in the confirmed run, including genuine retries. Duplicate telemetry counts once;
+a genuine executed retry counts again; unknown usage does not become zero; denied-before-execution usage
+does not become spend. ActualRunTokens &lt;= 60,000 -> SATISFIED; &gt; 60,000 -> NOT_SATISFIED.</div>
 <div class="note"><b>C9 honest note:</b> "INTENDED_BREACH" is a workflow run role, not a verdict. The intended breach did not degrade the measured metric, so the honest result is SATISFIED with no eligible breach established.</div>
 <div class="note"><b>C16 semantics:</b> C16 is a <b>post-run deterministic Control Test</b> over persisted token usage against a frozen policy — it is <b>not</b> inline per-run runtime enforcement, and nothing here claims it prevented spend mid-run.</div>
 <p class="src">Source: persisted ctr-* results via MCP; package control-result artifacts; policy digests frozen.</p>

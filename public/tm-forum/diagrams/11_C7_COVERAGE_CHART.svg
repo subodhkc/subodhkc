@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .ok{fill:#0a5c2e}.miss{fill:#b00}
+    .okt{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .misst{fill:#b00;font-weight:700;font-size:11px}
+    .cell{stroke:#111;stroke-width:1}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C7 — Required Evidence Coverage</text>
+  <text x="16" y="40" class="q">Question: were all ten required governed-event records observed for the run?</text>
+  <text x="16" y="56" class="sub">Frozen policy ae6dda36 (10 required evidence categories) · assessed run fault-1791167110-5e3126 · counts shown as actual 9-of-10, not hidden behind a percentage</text>
+
+  <!-- 10 boxes across, 9 green, 1 red (NEGOTIATION) -->
+  <g>
+    <rect x="60"  y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="99" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 1</text><text x="99" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="146" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="185" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 2</text><text x="185" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="232" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="271" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 3</text><text x="271" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="318" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="357" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 4</text><text x="357" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="404" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="443" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 5</text><text x="443" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="490" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="529" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 6</text><text x="529" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="576" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="615" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 7</text><text x="615" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="662" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="701" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 8</text><text x="701" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="748" y="90" width="78" height="60" class="cell ok" opacity="0.85"/><text x="787" y="116" class="mono" text-anchor="middle" fill="#fff">RECORD 9</text><text x="787" y="134" class="mono" text-anchor="middle" fill="#fff">OBSERVED</text>
+    <rect x="834" y="90" width="78" height="60" class="cell miss" opacity="0.85"/><text x="873" y="110" class="mono" text-anchor="middle" fill="#fff" font-weight="700">NEGOTIATION</text><text x="873" y="128" class="mono" text-anchor="middle" fill="#fff">MISSING</text><text x="873" y="144" class="mono" text-anchor="middle" fill="#fff">REQUIRED</text>
+  </g>
+
+  <!-- count bar: 9 vs 10 -->
+  <g>
+    <text x="60" y="186" class="mono" font-weight="700">9 observed</text>
+    <rect x="140" y="174" width="666" height="16" class="ok" opacity="0.85"/>
+    <rect x="806" y="174" width="74" height="16" class="miss" opacity="0.85"/>
+    <rect x="140" y="174" width="740" height="16" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="888" y="187" class="mono">10 required</text>
+  </g>
+
+  <text x="60" y="224" class="okt">9/10 categories observed — permission and capability records all present</text>
+  <text x="60" y="244" class="misst">NEGOTIATION missing — REQUIRED_CATEGORY_MISSING → NOT_SATISFIED (ctr-abdf612f…c4c7a)</text>
+
+  <text x="60" y="278" class="sub">Permission is not delegation: configured capability and effective permission were evidenced, but no observed agent-to-agent negotiation record existed — in any team's run (0 of 835 records).</text>
+  <text x="60" y="312" class="take">Takeaway: one missing required record category fails the coverage control even when every other proof exists. This is an honest assessed failure, not a tool limitation.</text>
+</svg>

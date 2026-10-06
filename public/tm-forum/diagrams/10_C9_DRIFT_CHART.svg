@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .pass{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .warn{fill:#8a5a00;font-weight:700;font-size:11px}
+    .bar{fill:#0a5c2e}
+    .bar2{fill:#8a5a00}
+    .axis{stroke:#333;stroke-width:1.2}
+    .grid{stroke:#ddd;stroke-width:0.8}
+    .cap{stroke:#333;stroke-width:2;stroke-dasharray:10 5}
+    .tick{font-family:Consolas,monospace;font-size:9px;fill:#555}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C9 — Worst Relative Degradation vs Frozen Drift Limit</text>
+  <text x="16" y="40" class="q">Question: did runtime duration degrade beyond the frozen baseline boundary?</text>
+  <text x="16" y="56" class="sub">Bars = worst per-agent-window relative degradation vs baseline · aws.bedrock-agentcore.duration_ms, MEAN, LOWER_IS_BETTER · Dashed line = frozen D = 100% (B9 = 0%, policy 346b5f43, c9-duration-thresholds-v2)</text>
+
+  <!-- plot: y=0 at 370; y=100% at 130 => 2.4px per % -->
+  <g>
+    <line x1="90" y1="370" x2="930" y2="370" class="axis"/>
+    <line x1="90" y1="310" x2="930" y2="310" class="grid"/><text x="60" y="314" class="tick">25%</text>
+    <line x1="90" y1="250" x2="930" y2="250" class="grid"/><text x="60" y="254" class="tick">50%</text>
+    <line x1="90" y1="190" x2="930" y2="190" class="grid"/><text x="60" y="194" class="tick">75%</text>
+    <line x1="90" y1="130" x2="930" y2="130" class="grid"/><text x="52" y="134" class="tick">100%</text>
+    <text x="62" y="374" class="tick">0</text>
+    <line x1="90" y1="100" x2="90" y2="370" class="axis"/>
+
+    <!-- frozen D line at 100% -> y=130 -->
+    <line x1="90" y1="130" x2="930" y2="130" class="cap"/>
+    <text x="560" y="122" class="mono" font-weight="700">FROZEN D = 100% relative degradation limit</text>
+
+    <!-- run 1: +7.5% -> height 18 -> y=352 -->
+    <rect x="220" y="352" width="160" height="18" class="bar" opacity="0.85"/>
+    <rect x="220" y="352" width="160" height="18" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="300" y="343" class="mono" text-anchor="middle" font-weight="700">+7.5%</text>
+    <text x="300" y="329" class="pass" text-anchor="middle">SATISFIED</text>
+    <text x="300" y="388" class="lbl" text-anchor="middle">C9_INTENDED_PASS · fault-1791183079-256a5e</text>
+    <text x="300" y="401" class="lbl" text-anchor="middle">worst window +7.5% (it agent) · ctr-214db6a9…b928</text>
+
+    <!-- run 2: +28.5% -> height 68.4 -> y=301.6 -->
+    <rect x="560" y="301.6" width="160" height="68.4" class="bar2" opacity="0.85"/>
+    <rect x="560" y="301.6" width="160" height="68.4" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="640" y="292" class="mono" text-anchor="middle" font-weight="700">+28.5%</text>
+    <text x="640" y="278" class="warn" text-anchor="middle">SATISFIED</text>
+    <text x="640" y="388" class="lbl" text-anchor="middle">C9_INTENDED_BREACH · fault-1791183213-228329</text>
+    <text x="640" y="401" class="lbl" text-anchor="middle">worst window +28.5% (it agent) · ctr-72f8118b…cad3</text>
+  </g>
+
+  <text x="90" y="422" class="take">Takeaway: the second run was intended to exercise a breach, but observed degradation stayed at +28.5% — under the frozen 100% boundary. HAIEC correctly returned SATISFIED instead of manufacturing a breach. ELIGIBLE_SANCTIONED_BREACH = NOT_ESTABLISHED.</text>
+</svg>

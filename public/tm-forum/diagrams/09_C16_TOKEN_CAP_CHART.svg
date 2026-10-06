@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .hdr{font-size:14px;font-weight:700;fill:#111}
+    .sub{font-size:10px;fill:#444}
+    .mono{font-family:Consolas,monospace;font-size:9.5px;fill:#333}
+    .lbl{font-size:9.5px;fill:#555}
+    .q{font-size:11px;fill:#333;font-style:italic}
+    .pass{fill:#0a5c2e;font-weight:700;font-size:11px}
+    .fail{fill:#b00;font-weight:700;font-size:11px}
+    .barP{fill:#0a5c2e}.barP:hover{fill:#0d7a3d}
+    .barF{fill:#b00}.barF:hover{fill:#d00}
+    .axis{stroke:#333;stroke-width:1.2}
+    .grid{stroke:#ddd;stroke-width:0.8}
+    .cap{stroke:#333;stroke-width:2;stroke-dasharray:10 5}
+    .tick{font-family:Consolas,monospace;font-size:9px;fill:#555}
+    .take{font-size:10.5px;fill:#111;font-weight:600}
+  </style>
+
+  <text x="16" y="22" class="hdr">C16 — Qualified Run Tokens vs Frozen 60,000-Token Cap</text>
+  <text x="16" y="40" class="q">Question: did each complete run remain within the frozen token budget?</text>
+  <text x="16" y="56" class="sub">Bars = qualified input+output tokens measured per assessed run · Dashed line = the frozen 60,000-token policy boundary (policy 547f4a67, c16-cap-v1, frozen 2026-10-05T01:28:02Z)</text>
+
+  <!-- plot area: x from 90 to 930; y=0 at 370, y=106829 at 78 -->
+  <!-- scale: 292px / 110000 tokens ≈ 0.0026545 px/token; cap 60000 -> y = 370 - 159.3 = 210.7 -->
+  <g>
+    <!-- gridlines + ticks -->
+    <line x1="90" y1="370" x2="930" y2="370" class="axis"/>
+    <line x1="90" y1="290" x2="930" y2="290" class="grid"/><text x="52" y="294" class="tick">30,000</text>
+    <line x1="90" y1="210" x2="930" y2="210" class="grid"/><text x="52" y="214" class="tick">60,000</text>
+    <line x1="90" y1="131" x2="930" y2="131" class="grid"/><text x="52" y="135" class="tick">90,000</text>
+    <text x="52" y="374" class="tick">0</text>
+    <line x1="90" y1="78" x2="90" y2="370" class="axis"/>
+
+    <!-- frozen cap line at y=210 -->
+    <line x1="90" y1="210.7" x2="930" y2="210.7" class="cap"/>
+    <text x="700" y="203" class="mono" font-weight="700">FROZEN C16 CAP — 60,000 tokens/run (LTE)</text>
+
+    <!-- PASS bar: 35,559 -> height 94.4 -> y=275.6 -->
+    <rect x="220" y="275.6" width="160" height="94.4" class="barP" opacity="0.85"/>
+    <rect x="220" y="275.6" width="160" height="94.4" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="300" y="266" class="mono" text-anchor="middle" font-weight="700">35,559 tokens</text>
+    <text x="300" y="252" class="pass" text-anchor="middle">SATISFIED</text>
+    <text x="300" y="388" class="lbl" text-anchor="middle">PASS · fault-1791167110-5e3126</text>
+    <text x="300" y="401" class="lbl" text-anchor="middle">cap 60,000 · headroom 24,441 (59.3% used)</text>
+
+    <!-- BREACH bar: 106,829 -> height 283.6 -> y=86.4 -->
+    <rect x="560" y="86.4" width="160" height="283.6" class="barF" opacity="0.8"/>
+    <rect x="560" y="86.4" width="160" height="283.6" fill="none" stroke="#111" stroke-width="1.2"/>
+    <text x="640" y="76" class="mono" text-anchor="middle" font-weight="700">106,829 tokens</text>
+    <text x="640" y="62" class="fail" text-anchor="middle">NOT_SATISFIED</text>
+    <text x="640" y="388" class="lbl" text-anchor="middle">BREACH · fault-1791165466-51ab52</text>
+    <text x="640" y="401" class="lbl" text-anchor="middle">cap 60,000 · overshoot +46,829 (178.0% used, 17 calls)</text>
+  </g>
+
+  <text x="90" y="422" class="take">Takeaway: one run remained below the same frozen line; one exceeded it. Both were evaluated post-run under identical policy, digest, accounting semantics and comparator → COMPARABLE.</text>
+</svg>
