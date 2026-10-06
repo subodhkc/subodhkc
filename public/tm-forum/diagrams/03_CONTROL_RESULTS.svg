@@ -5,7 +5,7 @@
     .sub{font-size:9.5px;fill:#444}
     .mono{font-family:Consolas,monospace;font-size:8.5px;fill:#333}
     .lbl{font-size:9px;fill:#555}
-    .pass{fill:#0a5c2e;font-weight:700}.fail{fill:#b00;font-weight:700}.ne{fill:#6a6a6a;font-weight:700}
+    .pass{fill:#0a5c2e;font-weight:700;font-size:11px}.fail{fill:#b00;font-weight:700;font-size:11px}.ne{fill:#6a6a6a;font-weight:700;font-size:11px}
   </style>
   <text x="12" y="20" class="hdr" font-size="14">Deterministic Control Test results — frozen policies, persisted verdicts</text>
 
@@ -29,8 +29,8 @@
   <text x="348" y="78" class="sub">Metric: aws.bedrock-agentcore.duration_ms</text>
   <text x="348" y="92" class="sub">MEAN/agent-window, LOWER_IS_BETTER</text>
   <text x="348" y="106" class="sub">Baseline ms: 6781 / 8917 / 12141 · D=100% B9=0%</text>
-  <text x="348" y="126" class="pass">fault-…256a5e (INTENDED_PASS): SATISFIED</text>
-  <text x="348" y="140" class="pass">fault-…228329 (INTENDED_BREACH): SATISFIED</text>
+  <text x="348" y="126" class="pass">SATISFIED — run …256a5e (INTENDED_PASS)</text>
+  <text x="348" y="140" class="pass">SATISFIED — run …228329 (INTENDED_BREACH)</text>
   <text x="348" y="156" class="ne">Eligible breach: NOT_ESTABLISHED</text>
   <text x="348" y="172" class="mono">policy 346b5f43-…bab1</text>
   <text x="348" y="184" class="mono">ctr-214db6a9…5b928 · ctr-72f8118b…8cad3</text>
@@ -42,14 +42,15 @@
   <rect x="660" y="40" width="308" height="200" class="bx"/>
   <text x="672" y="62" class="hdr">C16 — ACN-COST-001</text>
   <text x="672" y="78" class="sub">Cap: 60,000 tokens/run (LTE)</text>
-  <text x="672" y="96" class="pass">PASS fault-…5e3126: 35,559 SATISFIED</text>
-  <text x="672" y="110" class="fail">BREACH fault-…51ab52: 106,829 NOT_SATISFIED</text>
-  <text x="672" y="124" class="sub">reason SPEND_CAP_EXCEEDED (+46,829, 17 calls)</text>
-  <text x="672" y="146" class="mono">policy 547f4a67-…bfe5</text>
-  <text x="672" y="158" class="mono">ctr-237f3928…22154 · ctr-6d142008…ebc01</text>
-  <text x="672" y="180" class="sub">Post-run evaluation of persisted usage —</text>
-  <text x="672" y="193" class="sub">not inline runtime prevention.</text>
-  <text x="672" y="214" class="sub">Same frozen policy/digest → COMPARABLE.</text>
+  <text x="672" y="96" class="pass">PASS …5e3126 — 35,559 SATISFIED</text>
+  <text x="672" y="110" class="fail">BREACH …51ab52 — 106,829</text>
+  <text x="672" y="124" class="fail">NOT_SATISFIED · SPEND_CAP_EXCEEDED</text>
+  <text x="672" y="138" class="sub">(+46,829 over cap · 17 calls)</text>
+  <text x="672" y="156" class="mono">policy 547f4a67-…bfe5</text>
+  <text x="672" y="168" class="mono">ctr-237f3928…22154 · ctr-6d142008…ebc01</text>
+  <text x="672" y="188" class="sub">Post-run evaluation of persisted usage —</text>
+  <text x="672" y="201" class="sub">not inline runtime prevention.</text>
+  <text x="672" y="218" class="sub">Same frozen policy/digest → COMPARABLE.</text>
   <text x="672" y="234" class="lbl">status: FROZEN + ASSESSED</text>
 
   <text x="12" y="262" class="sub">All three controls frozen and assessed. Persisted ctr-* result IDs are queryable via haiec_control_test_query (MCP, read-only).</text>

@@ -1,17 +1,18 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { HelpCircle, AlertCircle } from "lucide-react";
 import { CopyPromptButton } from "@/components/tm-forum/CopyPromptButton";
 import { HubQrCodes } from "@/components/tm-forum/HubQrCodes";
 import {
+  AlertCircle,
   ArrowRight,
   ArrowUpRight,
-  CheckCircle2,
   Copy,
+  HelpCircle,
   Download,
   FileText,
   FileJson,
@@ -207,11 +208,35 @@ export default function TmForumHub() {
           <Link href="#mcp" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
             Connect HAIEC MCP
           </Link>
+          <Link href="#reproduce" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
+            Reproduce the Proof
+          </Link>
+          <a href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.pdf`} download className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
+            Download PDF
+          </a>
+          <Link href="#artifacts" className="inline-flex items-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium">
+            View Required Artifacts
+          </Link>
         </div>
         <p className="mt-5 text-xs text-muted-foreground">
           A read-only judge account has been prepared for TM Forum reviewers. Credentials are provided separately in the official judge handoff.
         </p>
       </Hero>
+
+      {/* quick-jump navigation */}
+      <nav aria-label="Section navigation" className="sticky top-16 z-30 border-b border-border bg-background/95 backdrop-blur">
+        <div className="section-container flex gap-1 overflow-x-auto py-2 text-xs font-medium">
+          {[
+            ["#start", "Start"], ["#results", "Results"], ["#reports", "Reports"], ["#artifacts", "Artifacts"],
+            ["#diagrams", "Diagrams"], ["#haiec", "HAIEC"], ["#mcp", "MCP"], ["#reproduce", "Reproduce"],
+            ["#logsense", "LogSense"], ["#requirements", "Coverage"], ["#findings", "Open"], ["#downloads", "Downloads"],
+          ].map(([href, label]) => (
+            <Link key={href} href={href} className="whitespace-nowrap rounded-md px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">
+              {label}
+            </Link>
+          ))}
+        </div>
+      </nav>
 
       {/* ===================== START HERE ===================== */}
       <Section id="start" subtitle="Start Here" title="The whole case in one read" sectionNum="01">
@@ -258,6 +283,17 @@ export default function TmForumHub() {
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div className="mt-10 rounded-xl border border-primary/25 bg-primary/5 p-6 md:p-8">
+          <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">THE 90-SECOND VERSION — SAY IT PLAINLY</h3>
+          <ol className="space-y-2.5 text-sm leading-relaxed text-muted-foreground">
+            <li><span className="font-mono text-primary">1.</span> The organizer gave us a governed runtime and an assurance scaffold; we turned it into a reproducible evidence system.</li>
+            <li><span className="font-mono text-primary">2.</span> LogSense reconstructs what happened; HAIEC decides whether frozen controls actually held.</li>
+            <li><span className="font-mono text-primary">3.</span> We preserved good and bad outcomes: an honest C7 failure, two C9 satisfactions without inventing a breach, and a comparable C16 pass and breach.</li>
+            <li><span className="font-mono text-primary">4.</span> When evidence stops, HAIEC stops — permission does not become delegation and UNKNOWN does not become PASS.</li>
+            <li><span className="font-mono text-primary">5.</span> Give us a control and a run; you can reproduce the result and inspect the evidence directly.</li>
+          </ol>
         </div>
       </Section>
 
@@ -353,7 +389,7 @@ export default function TmForumHub() {
           <ReportCard title="Control Test Results" answers="Uniform control cards: policy, version, run, metric, threshold, formula, observed value, verdict, evidence, limitation, reproduction." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j2`} status="IN REPORT J2/§5" />
           <ReportCard title="Named Assessed Runs Register" answers="Every run ID, its role, and which result it produced — scenario runs kept distinct from assessed control runs." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j7`} status="IN REPORT J7/§6" />
           <ReportCard title="Gap / Remediation / Retest Register" answers="Open gaps bound to control, run, and evidence — including the S2 failed retest preserved as NOT_FIXED." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s15`} status="IN REPORT §15/P1" />
-          <ReportCard title="Report Narrative Source (Markdown)" answers="Editable source text of the judge report for reviewers who want to diff claims against evidence." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.txt`} status="SOURCE" />
+          <ReportCard title="Report Narrative Source (Markdown)" answers="Editable source text of the judge report for reviewers who want to diff claims against evidence." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.md`} status="SOURCE" />
         </div>
 
         <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">FORENSICS (LOGSENSE)</h3>
@@ -507,8 +543,8 @@ export default function TmForumHub() {
                 <CopyPromptButton text={MCP_AGENT_SETUP_PROMPT} label="Copy agent setup prompt" />
               </div>
               <div className="flex flex-wrap gap-4 pt-1 text-sm">
-                <a href="/tm-forum/TMF_MCP_SETUP_GUIDE.txt" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> MCP Setup Guide</a>
-                <a href="/tm-forum/TMF_JUDGE_PROMPT_PACK.txt" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> Judge Prompt Pack</a>
+                <a href="/tm-forum/TMF_MCP_SETUP_GUIDE.md" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> MCP Setup Guide</a>
+                <a href="/tm-forum/TMF_JUDGE_PROMPT_PACK.md" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> Judge Prompt Pack</a>
               </div>
             </CardContent>
           </Card>
@@ -696,7 +732,7 @@ export default function TmForumHub() {
             ["Final HTML Report", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html`, "Self-contained; opens offline"],
             ["Final PDF Report", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.pdf`, "Print-identical render"],
             ["Fact Snapshot (JSON)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_DATA.json`, "All canonical values"],
-            ["Report Source (MD)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.txt`, "Editable narrative"],
+            ["Report Source (MD)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.md`, "Editable narrative"],
             ["Diagram 01 — Proof Flow", `${DIAG}/01_SYSTEM_PROOF_FLOW.svg`, "SVG"],
             ["Diagram 02 — Five Planes", `${DIAG}/02_FIVE_PLANE_ASSURANCE.svg`, "SVG"],
             ["Diagram 03 — Control Results", `${DIAG}/03_CONTROL_RESULTS.svg`, "SVG"],
@@ -705,8 +741,8 @@ export default function TmForumHub() {
             ["Diagram 06 — Detection vs Control", `${DIAG}/06_DETECTION_VS_CONTROL_TEST.svg`, "SVG"],
             ["Diagram 07 — Scenario Replay", `${DIAG}/07_SCENARIO_REPLAY.svg`, "SVG"],
             ["Diagram 08 — ServiceNow Boundary", `${DIAG}/08_SERVICENOW_BOUNDARY.svg`, "SVG"],
-            ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.txt", "No secrets; placeholders only"],
-            ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Copy-paste queries"],
+            ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.md", "No secrets; placeholders only"],
+            ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.md", "Copy-paste queries"],
           ].map(([t, href, note]) => (
             <a key={t} href={href} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-sm font-medium hover:border-primary/40">
               <span>
