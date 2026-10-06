@@ -389,7 +389,7 @@ export default function TmForumHub() {
           <ReportCard title="Control Test Results" answers="Uniform control cards: policy, version, run, metric, threshold, formula, observed value, verdict, evidence, limitation, reproduction." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j2`} status="IN REPORT J2/§5" />
           <ReportCard title="Named Assessed Runs Register" answers="Every run ID, its role, and which result it produced — scenario runs kept distinct from assessed control runs." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#j7`} status="IN REPORT J7/§6" />
           <ReportCard title="Gap / Remediation / Retest Register" answers="Open gaps bound to control, run, and evidence — including the S2 failed retest preserved as NOT_FIXED." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html#s15`} status="IN REPORT §15/P1" />
-          <ReportCard title="Report Narrative Source (Markdown)" answers="Editable source text of the judge report for reviewers who want to diff claims against evidence." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.md`} status="SOURCE" />
+          <ReportCard title="Report Narrative Source (Markdown)" answers="Editable source text of the judge report for reviewers who want to diff claims against evidence." href={`${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.txt`} status="SOURCE" />
         </div>
 
         <h3 className="mb-4 font-mono text-xs font-semibold tracking-wider text-primary">FORENSICS (LOGSENSE)</h3>
@@ -543,8 +543,8 @@ export default function TmForumHub() {
                 <CopyPromptButton text={MCP_AGENT_SETUP_PROMPT} label="Copy agent setup prompt" />
               </div>
               <div className="flex flex-wrap gap-4 pt-1 text-sm">
-                <a href="/tm-forum/TMF_MCP_SETUP_GUIDE.md" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> MCP Setup Guide</a>
-                <a href="/tm-forum/TMF_JUDGE_PROMPT_PACK.md" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> Judge Prompt Pack</a>
+                <a href="/tm-forum/TMF_MCP_SETUP_GUIDE.txt" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> MCP Setup Guide</a>
+                <a href="/tm-forum/TMF_JUDGE_PROMPT_PACK.txt" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline" download><Download className="h-4 w-4" /> Judge Prompt Pack</a>
               </div>
             </CardContent>
           </Card>
@@ -732,7 +732,7 @@ export default function TmForumHub() {
             ["Final HTML Report", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.html`, "Self-contained; opens offline"],
             ["Final PDF Report", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT.pdf`, "Print-identical render"],
             ["Fact Snapshot (JSON)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_DATA.json`, "All canonical values"],
-            ["Report Source (MD)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.md`, "Editable narrative"],
+            ["Report Source (MD)", `${ASSET}/TMF_2026_HAIEC_JUDGE_REPORT_SOURCE.txt`, "Editable narrative"],
             ["Diagram 01 — Proof Flow", `${DIAG}/01_SYSTEM_PROOF_FLOW.svg`, "SVG"],
             ["Diagram 02 — Five Planes", `${DIAG}/02_FIVE_PLANE_ASSURANCE.svg`, "SVG"],
             ["Diagram 03 — Control Results", `${DIAG}/03_CONTROL_RESULTS.svg`, "SVG"],
@@ -741,8 +741,11 @@ export default function TmForumHub() {
             ["Diagram 06 — Detection vs Control", `${DIAG}/06_DETECTION_VS_CONTROL_TEST.svg`, "SVG"],
             ["Diagram 07 — Scenario Replay", `${DIAG}/07_SCENARIO_REPLAY.svg`, "SVG"],
             ["Diagram 08 — ServiceNow Boundary", `${DIAG}/08_SERVICENOW_BOUNDARY.svg`, "SVG"],
-            ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.md", "No secrets; placeholders only"],
-            ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.md", "Copy-paste queries"],
+            ["MCP Setup Guide", "/tm-forum/TMF_MCP_SETUP_GUIDE.txt", "No secrets; placeholders only"],
+            ["Judge Prompt Pack", "/tm-forum/TMF_JUDGE_PROMPT_PACK.txt", "Copy-paste queries"],
+            ["Judge-Cut Deck", "/tm-forum/haiec-judge-cut.html", "10-minute slide cut · SUPPLEMENTAL"],
+            ["Assurance Deck", "/tm-forum/haiec-agentic-assurance-deck.html", "Full thesis deck · SUPPLEMENTAL"],
+            ["Event Field Guide", "/tm-forum/field-guide", "Pre-event operator guide · HISTORICAL"],
           ].map(([t, href, note]) => (
             <a key={t} href={href} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-sm font-medium hover:border-primary/40">
               <span>
