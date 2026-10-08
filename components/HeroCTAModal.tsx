@@ -38,8 +38,13 @@ const HIRE_FIELDS: FieldDef[] = [
 
 export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
   const [formData, setFormData] = React.useState<Record<string, string>>({});
+  const [formStartedAt, setFormStartedAt] = React.useState(0);
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = React.useState("");
+
+  React.useEffect(() => {
+    if (isOpen) setFormStartedAt(Date.now());
+  }, [isOpen]);
 
   const fields = formType === "discuss" ? DISCUSS_FIELDS : HIRE_FIELDS;
   const endpoint = formType === "discuss" ? "/api/discuss" : "/api/hire";
@@ -66,7 +71,7 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, formStartedAt }),
       });
 
       const data = await response.json();
@@ -362,6 +367,18 @@ export function HeroCTAModal({ isOpen, onClose, formType }: Props) {
                     </div>
                   );
                 })}
+
+                {/* Honeypot — hidden from humans, bots fill it and get silently dropped */}
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website || ""}
+                  onChange={(e) => handleChange("website", e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0, pointerEvents: "none" }}
+                />
 
                 <button
                   type="submit"

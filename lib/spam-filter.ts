@@ -45,6 +45,29 @@ export function checkDisposableEmail(email: string): SpamCheckResult {
   return { isSpam: false }
 }
 
+// A human cannot meaningfully complete a form in under ~2 seconds.
+// Submissions older than 24h are treated as replayed/forged timestamps.
+export const MIN_FILL_TIME_MS = 2000
+export const MAX_FILL_TIME_MS = 24 * 60 * 60 * 1000
+
+/**
+ * Timing trap — legitimate submissions come from our forms carrying a
+ * render timestamp (formStartedAt). Missing, forged, or impossibly-fast
+ * timestamps indicate a bot posting directly to the endpoint.
+ * Caller should return a fake success response (200) to avoid tipping off bots.
+ */
+export function checkTimingTrap(formStartedAt: unknown): SpamCheckResult {
+  const startedAt = typeof formStartedAt === 'number' ? formStartedAt : Number(formStartedAt)
+  if (!Number.isFinite(startedAt)) {
+    return { isSpam: true, reason: 'missing_timestamp' }
+  }
+  const elapsed = Date.now() - startedAt
+  if (elapsed < MIN_FILL_TIME_MS || elapsed > MAX_FILL_TIME_MS) {
+    return { isSpam: true, reason: 'suspicious_timing' }
+  }
+  return { isSpam: false }
+}
+
 /**
  * Combined spam check for signup forms.
  * Returns isSpam=true if any check fails.

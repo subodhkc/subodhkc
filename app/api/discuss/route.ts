@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
+import { checkSignupSpam, checkTimingTrap } from '@/lib/spam-filter'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -23,7 +24,15 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(apiKey)
 
     const body = await request.json()
-    const { name, email, company, system, stack } = body
+    const { name, email, company, system, stack, website, formStartedAt } = body
+
+    // Spam check: honeypot + disposable domains + timing trap — fake success so bots don't adapt
+    const spamCheck = checkSignupSpam(typeof email === 'string' ? email : '', website)
+    const timingCheck = checkTimingTrap(formStartedAt)
+    if (spamCheck.isSpam || timingCheck.isSpam) {
+      console.log('Blocked spam submission:', { route: '/api/discuss', reason: spamCheck.reason || timingCheck.reason, timestamp: new Date().toISOString() })
+      return NextResponse.json({ success: true, data: { id: 'spam-blocked' } }, { status: 200 })
+    }
 
     if (!name || !email || !system) {
       return NextResponse.json(

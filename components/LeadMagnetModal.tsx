@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { X, Download, CheckCircle2, FileText } from 'lucide-react'
@@ -13,7 +13,13 @@ interface LeadMagnetModalProps {
 export default function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProps) {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
+  const [website, setWebsite] = useState('')
+  const [formStartedAt, setFormStartedAt] = useState(0)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
+
+  useEffect(() => {
+    if (isOpen) setFormStartedAt(Date.now())
+  }, [isOpen])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +32,7 @@ export default function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProp
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email }),
+        body: JSON.stringify({ name, email, website, formStartedAt }),
       })
 
       if (!response.ok) {
@@ -133,7 +139,18 @@ export default function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProp
                     autoComplete="name"
                   />
                 </div>
-                <Button 
+                {/* Honeypot — hidden from humans, bots fill it and get silently dropped */}
+                <input
+                  type="text"
+                  name="website"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0, pointerEvents: 'none' }}
+                />
+                <Button
                   type="submit" 
                   className="w-full"
                   disabled={status === 'loading'}

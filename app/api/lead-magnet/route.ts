@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
+import { checkSignupSpam, checkTimingTrap } from '@/lib/spam-filter'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,7 +20,15 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY)
     const body = await request.json()
-    const { name, email, resourceName } = body
+    const { name, email, resourceName, website, formStartedAt } = body
+
+    // Spam check: honeypot + disposable domains + timing trap — fake success so bots don't adapt
+    const spamCheck = checkSignupSpam(typeof email === 'string' ? email : '', website)
+    const timingCheck = checkTimingTrap(formStartedAt)
+    if (spamCheck.isSpam || timingCheck.isSpam) {
+      console.log('Blocked spam submission:', { route: '/api/lead-magnet', reason: spamCheck.reason || timingCheck.reason, timestamp: new Date().toISOString() })
+      return NextResponse.json({ success: true, data: { id: 'spam-blocked' } }, { status: 200 })
+    }
 
     if (!name || !email) {
       return NextResponse.json(
@@ -151,7 +160,7 @@ export async function POST(request: NextRequest) {
     // Also notify you about the new lead
     await resend.emails.send({
       from: 'Lead Notification <noreply@subodhkc.com>',
-      to: ['admin@subodhkc.com'],
+      to: ['subodhkc@subodhkc.com'],
       subject: `🎯 New Lead: ${safeName} downloaded ${safeResource}`,
       html: `
         <h2>New Lead Magnet Download</h2>

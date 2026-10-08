@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
+import { checkSignupSpam, checkTimingTrap } from '@/lib/spam-filter'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -23,7 +24,15 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(apiKey)
 
     const body = await request.json()
-    const { name, email, company, role, experience, goals } = body
+    const { name, email, company, role, experience, goals, website, formStartedAt } = body
+
+    // Spam check: honeypot + disposable domains + timing trap — fake success so bots don't adapt
+    const spamCheck = checkSignupSpam(typeof email === 'string' ? email : '', website)
+    const timingCheck = checkTimingTrap(formStartedAt)
+    if (spamCheck.isSpam || timingCheck.isSpam) {
+      console.log('Blocked spam submission:', { route: '/api/course-enroll', reason: spamCheck.reason || timingCheck.reason, timestamp: new Date().toISOString() })
+      return NextResponse.json({ success: true, data: { id: 'spam-blocked' } }, { status: 200 })
+    }
 
     if (!name || !email) {
       return NextResponse.json(
@@ -50,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: 'KC Course <noreply@subodhkc.com>',
-      to: ['admin@subodhkc.com'],
+      to: ['subodhkc@subodhkc.com'],
       reply_to: email,
       subject: `Course Enrollment: AI Governance & Compliance - ${safeName}`,
       html: `

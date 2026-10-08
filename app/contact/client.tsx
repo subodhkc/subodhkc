@@ -34,6 +34,7 @@ function DecisionContactForm() {
   const params = useSearchParams();
   const initialInterest = useMemo(() => SUBJECT_MAP[params.get("subject") || ""] || "", [params]);
   const [form, setForm] = useState({ name: "", email: "", company: "", interest: initialInterest, decision: "", consequence: "", blocker: "", timeline: "", website: "" });
+  const [formStartedAt] = useState(() => Date.now());
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -57,7 +58,7 @@ function DecisionContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: form.name, email: form.email, company: form.company, interest: form.interest, message, website: form.website }),
+        body: JSON.stringify({ name: form.name, email: form.email, company: form.company, interest: form.interest, message, website: form.website, formStartedAt }),
       });
       const data = await response.json();
       if (!response.ok || !data.success) throw new Error(data.error || "The inquiry could not be sent.");

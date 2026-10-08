@@ -75,6 +75,7 @@ export default function LocalAIReviewPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [source, setSource] = useState<string>('organic')
+  const [formStartedAt] = useState(() => Date.now())
 
   const [formData, setFormData] = useState({
     businessName: '',
@@ -89,6 +90,7 @@ export default function LocalAIReviewPage() {
     preferredDays: [] as string[],
     preferredTimeSlot: '',
     additionalInfo: '',
+    website: '',
   })
 
   useEffect(() => {
@@ -172,7 +174,7 @@ export default function LocalAIReviewPage() {
       const response = await fetch('/api/local-ai-review', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source }),
+        body: JSON.stringify({ ...formData, source, formStartedAt }),
       })
 
       const data = await response.json()
@@ -599,6 +601,17 @@ export default function LocalAIReviewPage() {
                 )}
 
                 <form onSubmit={handleSubmit}>
+                  {/* Honeypot — hidden from humans, bots fill it and get silently dropped */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={(e) => handleChange('website', e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0, pointerEvents: 'none' }}
+                  />
                   <AnimatePresence mode="wait">
                     {/* Step 1: About your business */}
                     {step === 1 && (

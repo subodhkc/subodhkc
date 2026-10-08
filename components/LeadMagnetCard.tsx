@@ -18,6 +18,8 @@ export function LeadMagnetCard({
 }: LeadMagnetCardProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
+  const [formStartedAt] = useState(() => Date.now())
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -31,7 +33,7 @@ export function LeadMagnetCard({
       const response = await fetch('/api/lead-magnet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, resourceName }),
+        body: JSON.stringify({ name, email, resourceName, website, formStartedAt }),
       })
 
       const data = await response.json()
@@ -98,6 +100,17 @@ export function LeadMagnetCard({
               required
               autoComplete="name"
               className="w-full px-4 py-2 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm"
+            />
+            {/* Honeypot — hidden from humans, bots fill it and get silently dropped */}
+            <input
+              type="text"
+              name="website"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0, pointerEvents: 'none' }}
             />
             <Button type="submit" size="sm" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? 'Sending...' : `Get the ${resourceName}`}

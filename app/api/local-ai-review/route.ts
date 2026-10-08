@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
+import { checkSignupSpam, checkTimingTrap } from '@/lib/spam-filter'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -37,7 +38,17 @@ export async function POST(request: NextRequest) {
       preferredTimeSlot,
       additionalInfo,
       source,
+      website,
+      formStartedAt,
     } = body
+
+    // Spam check: honeypot + disposable domains + timing trap — fake success so bots don't adapt
+    const spamCheck = checkSignupSpam(typeof email === 'string' ? email : '', website)
+    const timingCheck = checkTimingTrap(formStartedAt)
+    if (spamCheck.isSpam || timingCheck.isSpam) {
+      console.log('Blocked spam submission:', { route: '/api/local-ai-review', reason: spamCheck.reason || timingCheck.reason, timestamp: new Date().toISOString() })
+      return NextResponse.json({ success: true, data: { id: 'spam-blocked' } }, { status: 200 })
+    }
 
     // Validate required fields
     if (!businessName || !name || !email || !phone || !businessType || !teamSize) {
@@ -224,7 +235,7 @@ Reply to this email if you did not make this request.`
     const { data: userData, error: userError } = await resend.emails.send({
       from: 'Subodh KC <noreply@subodhkc.com>',
       to: [email],
-      reply_to: 'admin@subodhkc.com',
+      reply_to: 'subodhkc@subodhkc.com',
       subject: 'Your Local AI Review Request - Next Steps',
       html: userHtml,
       text: userText,
@@ -313,7 +324,7 @@ Reply to this email if you did not make this request.`
 
     const { data: internalData, error: internalError } = await resend.emails.send({
       from: 'Local AI Review <noreply@subodhkc.com>',
-      to: ['admin@subodhkc.com'],
+      to: ['subodhkc@subodhkc.com'],
       reply_to: email,
       subject: `Local AI Review Request: ${businessName}`,
       html: internalHtml,
