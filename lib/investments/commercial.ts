@@ -38,7 +38,7 @@ export const accountStages = [
 ] as const;
 
 export const planningGuardrails = [
- {title:"Margin separation",detail:"Commodity wholesale gross margin and higher-value service gross margin should be separately modeled; blended forecasts require an explicit mix. Existing 18–23% blended planning margins are not yet supported by a validated service mix."},
+ {title:"Margin separation",detail:"Wholesale distribution, configurable AI-ready hardware and contracted technical services require three separate cost and margin assumptions. The base scenario uses 12%, 28% and 35% respective gross margins; the old 18–23% consolidated plan is now an engineering-led upside sensitivity."},
  {title:"2027 ramp arithmetic",detail:"24 accounts × $75k annual purchases = $1.8M only if all 24 generate a full year of spending, or an equivalent level of account-years is achieved. Newly acquired accounts later in the year contribute proportionally less."},
  {title:"Service delivery readiness",detail:"A proposed response target is not a guaranteed SLA. Accept service contracts only after confirming qualified personnel, coverage, spare parts and partner capacity."},
  {title:"First-stock discipline",detail:"Stock is purchased after supplier and multi-channel price checks, without requiring a service pilot. Inventory allocations should reflect observed resale liquidity, expected cash conversion and warranty exposure."}
