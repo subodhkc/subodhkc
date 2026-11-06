@@ -31,6 +31,13 @@ const pathways = [
     href: "/investments/nepal-india-electronics/suppliers",
     cta: "Explore sourcing intelligence",
   },
+  {
+    label: "04 / INTERNATIONAL GROWTH",
+    title: "Future market pathways",
+    description: "Compare Bangladesh, Southeast Asia and U.S. opportunities, including market sizing, distributor competition and preferred entry roles.",
+    href: "/investments/nepal-india-electronics#future-markets",
+    cta: "Explore global expansion",
+  },
 ];
 
 export default function InvestmentsPage() {
