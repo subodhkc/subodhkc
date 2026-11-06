@@ -25,8 +25,12 @@ export const productPortfolio: PortfolioProduct[] = [
   {name:"Industrial SSD 1TB",family:"Computing",cost:105,sell:130,days:45,quarter:500,competition:4,model:"Standard product"},
   {name:"RTX 5060 8GB GPU",family:"Computing",cost:320,sell:365,days:35,quarter:200,competition:5,model:"Exact SKU wholesale"},
   {name:"RTX 5070 12GB GPU",family:"Computing",cost:500,sell:555,days:35,quarter:150,competition:5,model:"Exact SKU wholesale"},
+  {"name":"Universal Industrial Alert Box","family":"AI appliances","cost":250,"sell":799,"days":75,"quarter":40,"competition":4,"model":"Configured monitoring appliance"},
+  {"name":"AI Machine Monitor","family":"AI appliances","cost":380,"sell":1199,"days":90,"quarter":25,"competition":4,"model":"Sensor + edge inference bundle"},
+  {"name":"AI Vision Inspection Box","family":"AI appliances","cost":1100,"sell":3500,"days":105,"quarter":12,"competition":4,"model":"Edge vision quality-inspection bundle"},
 ];
 
+/** The three AI appliances below are prospective assembled products, not sourced stock.\n * Costs are conceptual hardware + assembly allowances; customer price targets exclude installation, tax, recurring SaaS, and full compliance qualification.\n * Quarterly counts are capacity sensitivities, not ordered units. */
 export const initialAllocation = [
   ["Industrial product inventory", 250000],
   ["GPU & computing trade", 100000],
