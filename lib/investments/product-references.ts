@@ -27,14 +27,13 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"Wi-Fi/web-controlled irrigation valves; example of the controller class. The planning model's fertigation system requires its own BOM and functional specification."
   },
   "Custom industrial control panel": {
-    name:"Custom industrial control panel",label:"Industrial control enclosure references",maker:"AutomationDirect / Hammond",model:"Control enclosure family",kind:"panel",match:"example",
-    url:"https://www.automationdirect.com/adc/shopping/catalog/enclosures_-a-_racks/junction_boxes",
-    detail:"Enclosure products used in control-panel construction. These are not complete, wired, certified industrial control panels; PLC, enclosure, testing and safety requirements differ by order."
+    name:"Custom industrial control panel",label:"Custom industrial control panel manufacturing example",maker:"Trimantec",model:"Configured UL508A panel",kind:"panel",match:"example",
+    url:"https://trimantec.com/pages/custom-control-panels",
+    detail:"A full custom panel-building capability example, not a standardized enclosure SKU or the proposed $420 acquisition BOM. PLC, HMI, wiring, testing and country certification determine the real price."
   },
   "Industrial IoT gateway": {
     name:"Industrial IoT gateway",label:"Moxa AIG-101 ready-to-deploy IIoT gateway",maker:"Moxa",model:"AIG-101 Series",kind:"gateway",match:"example",
     url:"https://www.moxa.com/en/products/industrial-computing/iiot-gateways/ready-to-deploy-iiot-gateways/aig-101-series",
-    image:"https://cdn-cms-frontdoor-dfc8ebanh6bkb3hs.a02.azurefd.net/en/getattachment/Products/INDUSTRIAL-COMPUTING/IIoT-Gateways/Ready-to-deploy-IIoT-Gateways/AIG-101-Series/moxa-aig-101-series-image-1-%282%29.jpg",
     detail:"Modbus/serial industrial IoT gateway with wired networking and edge-to-cloud connectivity. Example gateway, not the $115 modeled acquisition unit."
   },
   "Custom wiring harness assembly": {
@@ -48,21 +47,18 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"Capacitive 3.3–5.5V moisture sensor component. It is a reference sensor only, not an equivalent to a completed industrial sensor module with enclosure and calibration."
   },
   "Jetson-based edge AI kit": {
-    name:"Jetson-based edge AI kit",label:"Seeed reComputer J4012 Jetson Orin NX 16GB",maker:"Seeed Studio",model:"110110184",kind:"edge",match:"example",
-    url:"https://www.seeedstudio.com/reComputer-J4012-w-o-power-adapter-p-5628.html",
-    image:"https://m.media-amazon.com/images/I/51uVsANlpZL._AC_SL1400_.jpg",
-    detail:"Complete Jetson Orin NX 16GB computer. IMPORTANT: its published manufacturer price is not comparable to the modeled $420 acquisition target for a different configurable kit."
+    name:"Jetson-based edge AI kit",label:"NVIDIA Jetson Orin Nano Super Developer Kit",maker:"NVIDIA",model:"Jetson Orin Nano Super Developer Kit",kind:"edge",match:"example",
+    url:"https://developer.nvidia.com/embedded/faq",
+    detail:"Developer/evaluation kit example, not a production-certified assembled product. NVIDIA lists Jetson Orin Nano Super Developer Kit at $399 on its current FAQ; a $420 assembled-kit purchase target would require a separate supported production BOM, carrier, enclosure, power, software and quote. The prior Seeed J4012 16GB commercial system lists at $1,394 and is NOT an equivalent item."
   },
   "Industrial SSD 1TB": {
-    name:"Industrial SSD 1TB",label:"Crucial P3 Plus 1TB retail SSD example",maker:"Crucial / Micron",model:"CT1000P3PSSD8",kind:"ssd",match:"example",
-    url:"https://www.crucial.com/content/dam/crucial/ssd-products/p3-plus/flyers/b2c/crucial-p3plus-productflyer-consumer.pdf",
-    image:"https://paksell.pk/cdn/shop/products/crucial-p3-plus-ssd-1tb-500gb-pcie-gen4-3d-nand-nvme-upto-5000mbs-620480.jpg?v=1691492292&width=800",
-    detail:"Retail PCIe 4.0 1TB M.2 NVMe SSD used for format reference. This is NOT an industrial-rated SSD and must not be assumed equivalent to the portfolio's industrial SSD specification."
+    name:"Industrial SSD 1TB",label:"Transcend MTE720T industrial-grade SSD 1TB",maker:"Transcend",model:"TS1TMTE720T",kind:"ssd",match:"example",
+    url:"https://transcend-info.com/embedded/product/embedded-ssd-solutions/mte720t-mte720t-i",
+    detail:"Actual industrial/embedded SSD family with 1TB order SKU TS1TMTE720T, qualified operating temperature and component endurance. The modeled $105 target cost is NOT a manufacturer quotation."
   },
   "RTX 5060 8GB GPU": {
     name:"RTX 5060 8GB GPU",label:"PNY RTX 5060 OC Dual Fan 8GB",maker:"PNY",model:"VCG50608DFXPB1-O",kind:"gpu",match:"example",
     url:"https://www.pny.com/geforce-rtx-5060-8gb-models?sku=VCG50608DFXPB1-O",
-    image:"https://m.media-amazon.com/images/I/71zmLJZ77VL._AC_SL1500_.jpg",
     detail:"Manufacturer-defined 8GB GDDR7 Blackwell board reference. Exact MPN must match approved distributor terms; the site's modeled USD trading price is not a PNY quote."
   },
   "DDR5 16GB memory module": {
@@ -96,15 +92,24 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"VFD catalog for AC pump speed control. The proposed subassembly would also require motor specification, panel wiring, protective devices and testing."
   },
   "RTX 5070 12GB GPU": {
-    name:"RTX 5070 12GB GPU",label:"PNY RTX 5070 Triple Fan 12GB",maker:"PNY",model:"VCG507012TFXPB1",kind:"gpu",match:"example",
+    name:"RTX 5070 12GB GPU",label:"PNY RTX 5070 Triple Fan 12GB (non-OC)",maker:"PNY",model:"VCG507012TFXPB1",kind:"gpu",match:"example",
     url:"https://www.pny.com/geforce-rtx-5070-models?sku=VCG507012TFXPB1",
     detail:"12GB GDDR7 reference graphics card. The listed planning target does not represent a manufacturer quote for this exact board."
   }
 };
 
+  // Catalog benchmark uses a consumer SSD. Keep its exact part separate from the industrial portfolio row.
+productReferences["Crucial P3 Plus 1TB consumer"] = {
+  name:"Crucial P3 Plus 1TB consumer",
+  label:"Crucial P3 Plus 1TB NVMe retail SSD",
+  maker:"Crucial",model:"CT1000P3PSSD8",kind:"ssd",match:"example",
+  url:"https://www.crucial.com/content/dam/crucial/ssd-products/p3-plus/flyers/b2c/crucial-p3plus-productflyer-consumer.pdf",
+  detail:"Exact retail SKU shown by PC Mart at ₹6,200 (verified November 5, 2026). It is a consumer-grade PCIe Gen4 NVMe drive, not an industrial-temperature-rated MTE720T. ₹4,500 target acquisition remains unquoted."
+};
+
 export const catalogReferenceKeys: Record<string,string> = {
   "VCG50608DFXPB1-O":"RTX 5060 8GB GPU",
-  "CT1000P3PSSD8":"Industrial SSD 1TB",
+  "CT1000P3PSSD8":"Crucial P3 Plus 1TB consumer",
   "GPU-5070-12":"RTX 5070 12GB GPU",
   "GPU-EDGE-KIT":"Jetson-based edge AI kit",
   "DDR5-16G":"DDR5 16GB memory module",
