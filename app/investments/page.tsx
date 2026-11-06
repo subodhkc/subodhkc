@@ -86,7 +86,7 @@ export default function InvestmentsPage() {
             ))}
           </div>
           <p style={{fontSize:12,color:"#69776d",marginTop:28,lineHeight:1.7}}>
-            Market statistics are published third-party context; the company has no booked customer demand assumed in the projections. Supplier pricing,
+            Industry figures frame a market-entry thesis, while planned customer relationships and supplier agreements will determine the venture's operating performance. Supplier pricing,
             customer commitments and investment terms are established through commercial diligence.
           </p>
         </div>
