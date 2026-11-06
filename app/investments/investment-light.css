@@ -1052,3 +1052,17 @@ font:400 clamp(30px,4vw,47px)/1.12 var(--font-serif),Georgia,serif;color:#264a39
 @media(max-width:610px){.investment-light .ni-proposed-raise{display:block;padding:17px}.investment-light .ni-proposed-raise>div{border-right:0;border-bottom:1px solid #bed3bf;padding:0 0 12px;margin-bottom:12px}.investment-light .iv-ai-market-data,.investment-light .iv-engine-lanes,.investment-light .iv-ai-wedge,.investment-light .iv-ai-stack,.investment-light .iv-na-size-grid,.investment-light .iv-investor-usefunds{grid-template-columns:1fr}.investment-light .iv-ai-stack article>p{min-height:0}.investment-light .iv-ai-head h3{font-size:35px}.investment-light .iv-investor-ask,.investment-light .iv-na-growth{padding:19px}.investment-light .iv-investor-ask-metric strong{font-size:49px}.investment-light .iv-na-sensitivities>div:not(:first-child){display:block}.investment-light .iv-na-sensitivities strong{display:block;margin-top:7px}.investment-light .iv-engine-results{grid-template-columns:1fr 1fr}.investment-light .iv-engine-results strong{font-size:25px}}
 @media(prefers-reduced-motion:reduce){.investment-light .iv-ai-stack article{transition:none!important;transform:none!important}}
 @media print{.investment-light .iv-ai-stack article,.investment-light .iv-investor-ask{break-inside:avoid;box-shadow:none!important}}
+
+
+/* V14.1 / Phased AI-equipment platform horizon */
+.investment-light .iv-scale-horizon{border:1px solid #d0ddcf;border-radius:12px;background:linear-gradient(115deg,#eaf3e8,#fffefa);padding:24px;margin:24px 0}
+.investment-light .iv-scale-horizon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:18px 0}
+.investment-light .iv-scale-horizon-grid article{background:#fffefa;border:1px solid #d2e0d2;border-radius:10px;padding:18px;transition:transform .25s}
+.investment-light .iv-scale-horizon-grid article:hover{transform:translateY(-3px)}
+.investment-light .iv-scale-horizon-grid article>span{font:700 10px var(--font-mono),monospace;color:#aa6c48}
+.investment-light .iv-scale-horizon-grid h5{font:400 25px/1.15 var(--font-serif),Georgia,serif;color:#295b42;margin:12px 0}
+.investment-light .iv-scale-horizon-grid p{font-size:11px;line-height:1.7;color:#5d7361}
+.investment-light .iv-scale-horizon>p{font-size:11px;color:#677d6b;line-height:1.65;margin-bottom:0}
+@media(max-width:1000px){.investment-light .iv-scale-horizon-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.investment-light .iv-scale-horizon{padding:16px}.investment-light .iv-scale-horizon-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.investment-light .iv-scale-horizon-grid article{transition:none!important;transform:none!important}}
