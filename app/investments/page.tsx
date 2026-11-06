@@ -41,7 +41,7 @@ export default function InvestmentsPage() {
           <div className="iv-eyebrow iv-reveal">Subodh KC / Strategic investment opportunities</div>
           <h1 className="iv-serif iv-reveal">Capital meets<br/><em>operating leverage.</em></h1>
           <p className="iv-hub-lead iv-reveal">
-            A focused regional electronics platform positioned within India’s expanding industrial, components and automation ecosystem. Explore the market momentum, product economics and phased route to commercial scale.
+            A distribution-led regional electronics platform: secure manufacturer and distributor relationships, acquire a focused opening inventory assortment, and compound purchasing leverage through repeat wholesale resale. Future paths include Southeast Asia and the United States.
           </p>
           <div className="iv-hub-actions iv-reveal">
             <Link className="iv-btn" href="/investments/nepal-india-electronics">Explore the featured investment <span aria-hidden="true">↗</span></Link>
@@ -53,12 +53,10 @@ export default function InvestmentsPage() {
               <div className="iv-eyebrow">Featured opportunity / Nepal · India · Asia</div>
               <h2 className="iv-serif">Electronics & AI<br/>Hardware Corridor</h2>
               <p>
-                A scalable regional platform spanning electronics sourcing, industrial assembly,
-                distribution and integration. Develop an initial network of business accounts and expand
-                purchasing capacity through qualified supply partners and trade financing.
+                A regional electronics trade platform built around distributor access and fast-turn inventory in India and Nepal. Scale through repeat stock cycles, then extend into specialist industrial products and new international markets.
               </p>
               <Link href="/investments/nepal-india-electronics" className="iv-btn" style={{marginTop:12}}>
-                Explore the investment thesis <span aria-hidden="true">↗</span>
+                Explore the distribution opportunity <span aria-hidden="true">↗</span>
               </Link>
               <div className="iv-feature-metrics">
                 <div><strong>10</strong><span>Priority product families</span></div>
@@ -74,7 +72,7 @@ export default function InvestmentsPage() {
       <section className="iv-hub-section">
         <div className="iv-wrap">
           <div className="iv-eyebrow">Research and opportunity intelligence</div>
-          <h2 className="iv-serif">Explore the commercial case.</h2>
+          <h2 className="iv-serif">Explore the launch model and future markets.</h2>
           <div className="iv-path-grid">
             {pathways.map((item) => (
               <Link key={item.href} className="iv-path iv-reveal" href={item.href}>
