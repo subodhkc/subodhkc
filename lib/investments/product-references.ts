@@ -13,7 +13,7 @@ export type ProductRefInfo = {
   detail:string;
   image?:string;
   kind:"computer"|"controller"|"panel"|"gateway"|"harness"|"sensor"|"edge"|"ssd"|"gpu";
-  match:"example"|"exact-category";
+  match:"example"|"exact-sku";
 };
 export const productReferences: Record<string,ProductRefInfo> = {
   "Industrial AI vision controller": {
@@ -42,9 +42,9 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"Cable/harness assemblies built against drawings, pinouts and connector specifications. No single catalog SKU can represent a custom harness BOM."
   },
   "Industrial sensor module": {
-    name:"Industrial sensor module",label:"DFRobot Gravity SEN0193 soil moisture sensor",maker:"DFRobot",model:"SEN0193",kind:"sensor",match:"example",
-    url:"https://www.dfrobot.com/product-1385.html",
-    detail:"Capacitive 3.3–5.5V moisture sensor component. It is a reference sensor only, not an equivalent to a completed industrial sensor module with enclosure and calibration."
+    name:"Industrial sensor module",label:"Advantech ADAM-4017+ industrial analog-input interface",maker:"Advantech",model:"ADAM-4017+",kind:"sensor",match:"example",
+    url:"https://www.advantech.com/en-us/products/gf-5vtd/adam-4017/mod_10fd9e9c-8e8a-42f2-b749-a395f8426262",
+    detail:"8-channel analog industrial remote I/O interface using RS-485 and Modbus. This is an industrial interface example, not the modeled $65 assembly cost or an approved substitute BOM."
   },
   "Jetson-based edge AI kit": {
     name:"Jetson-based edge AI kit",label:"NVIDIA Jetson Orin Nano Super Developer Kit",maker:"NVIDIA",model:"Jetson Orin Nano Super Developer Kit",kind:"edge",match:"example",
@@ -57,8 +57,9 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"Actual industrial/embedded SSD family with 1TB order SKU TS1TMTE720T, qualified operating temperature and component endurance. The modeled $105 target cost is NOT a manufacturer quotation."
   },
   "RTX 5060 8GB GPU": {
-    name:"RTX 5060 8GB GPU",label:"PNY RTX 5060 OC Dual Fan 8GB",maker:"PNY",model:"VCG50608DFXPB1-O",kind:"gpu",match:"example",
+    name:"RTX 5060 8GB GPU",label:"PNY RTX 5060 OC Dual Fan 8GB",maker:"PNY",model:"VCG50608DFXPB1-O",kind:"gpu",match:"exact-sku",
     url:"https://www.pny.com/geforce-rtx-5060-8gb-models?sku=VCG50608DFXPB1-O",
+    image:"https://computechstore.in/media/uploads/wp/2025/08/PNY-RTX-5060-OC-8GB-GDDR7-Graphics-Card-1-e1755253495695.jpg",
     detail:"Manufacturer-defined 8GB GDDR7 Blackwell board reference. Exact MPN must match approved distributor terms; the site's modeled USD trading price is not a PNY quote."
   },
   "DDR5 16GB memory module": {
@@ -102,8 +103,9 @@ export const productReferences: Record<string,ProductRefInfo> = {
 productReferences["Crucial P3 Plus 1TB consumer"] = {
   name:"Crucial P3 Plus 1TB consumer",
   label:"Crucial P3 Plus 1TB NVMe retail SSD",
-  maker:"Crucial",model:"CT1000P3PSSD8",kind:"ssd",match:"example",
+  maker:"Crucial",model:"CT1000P3PSSD8",kind:"ssd",match:"exact-sku",
   url:"https://www.crucial.com/content/dam/crucial/ssd-products/p3-plus/flyers/b2c/crucial-p3plus-productflyer-consumer.pdf",
+  image:"https://pcmart.in/api/img/uploads/tenants/store-m5jrt9/products/c15-1785074677890-7ba5a062.avif?fit=cover&h=600&w=600",
   detail:"Exact retail SKU shown by PC Mart at ₹6,200 (verified November 5, 2026). It is a consumer-grade PCIe Gen4 NVMe drive, not an industrial-temperature-rated MTE720T. ₹4,500 target acquisition remains unquoted."
 };
 
