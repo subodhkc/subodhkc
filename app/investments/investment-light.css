@@ -616,3 +616,34 @@ font:400 clamp(30px,4vw,47px)/1.12 var(--font-serif),Georgia,serif;color:#264a39
 @media(max-width:530px){.investment-light .iv-project-track,.investment-light .iv-external-grid{grid-template-columns:1fr}.investment-light .iv-force{grid-template-columns:1fr}.investment-light .iv-force-name{display:flex;justify-content:space-between}.investment-light .iv-swot-card{padding:21px 18px}.investment-light .iv-risk-list article>div{align-items:start;flex-direction:column}.investment-light .iv-phase-content>p{min-height:0}.investment-light .iv-strategy-lead h3,.investment-light .iv-strategy-priority h3{font-size:34px}}
 @media(prefers-reduced-motion:reduce){.investment-light .iv-swot-card,.investment-light .iv-wedge-card,.investment-light .iv-project-phase{transition:none!important;transform:none!important}.investment-light .iv-details-plus{transition:none!important}}
 @media print{.investment-light .iv-strategy-details>summary{background:#fff!important}.investment-light .iv-swot-card,.investment-light .iv-wedge-card,.investment-light .iv-project-phase{box-shadow:none!important;transform:none!important;break-inside:avoid}}
+
+
+/* Supplier executive roadmap, aligned to main strategy without repeating full depth */
+.investment-light .sr-mini-plan{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:26px 0}
+.investment-light .sr-mini-phase{min-width:0;padding:18px;background:#fffefa;border:1px solid #cfdcd0;border-radius:11px;display:flex;flex-direction:column;box-shadow:0 9px 27px #365e3e0b;transition:transform .25s,border-color .25s}
+.investment-light .sr-mini-phase:hover{transform:translateY(-4px);border-color:#a3c8ae}
+.investment-light .sr-mini-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:13px;border-bottom:1px solid #dce6db}
+.investment-light .sr-mini-top span{color:#aa6845;font:400 29px var(--font-serif),Georgia,serif}
+.investment-light .sr-mini-top b{font:700 10px var(--font-mono),monospace;color:#28694c}
+.investment-light .sr-mini-phase h3{font:400 26px/1.1 var(--font-serif),Georgia,serif;margin:15px 0 10px;color:#28583f}
+.investment-light .sr-mini-phase>p{font-size:11px;line-height:1.65;color:#5f7465;min-height:94px}
+.investment-light .sr-mini-phase>div:nth-of-type(2){border-top:1px solid #dce7da;padding-top:12px;flex:1}
+.investment-light .sr-mini-phase>div strong{color:#ad6440;font:700 9px var(--font-mono),monospace;text-transform:uppercase;letter-spacing:.04em}
+.investment-light .sr-mini-phase ul{padding:0;list-style:none;margin:9px 0 12px;display:grid;gap:8px}
+.investment-light .sr-mini-phase li{font-size:10px;line-height:1.6;color:#506f59;position:relative;padding-left:12px}
+.investment-light .sr-mini-phase li:before{position:absolute;left:0;top:6px;content:"";width:5px;height:5px;border-radius:50%;background:#83af92}
+.investment-light .sr-mini-phase>small{font-size:10px;line-height:1.6;color:#365f47;border-top:1px solid #dce6db;padding-top:13px}
+.investment-light .sr-plan-foot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;background:linear-gradient(110deg,#e5f0e5,#fffaf3);border:1px solid #cbdccd;border-radius:11px;padding:20px;margin-top:20px}
+.investment-light .sr-plan-foot strong{font:400 24px var(--font-serif),Georgia,serif;color:#27583f}
+.investment-light .sr-plan-foot p{font-size:11px;line-height:1.7;color:#5b7562}
+.investment-light .sr-plan-deep-link{display:inline-block;margin-top:20px;font-size:12px;color:#226648;text-decoration:underline;text-underline-offset:4px;font-weight:700}
+.investment-light .sr-brief-plan{margin:22px 0;border-top:1px solid #bed2c3;border-bottom:1px solid #bed2c3;padding:14px 0}
+.investment-light .sr-brief-plan h3{font:400 22px Georgia,serif;color:#28543b;margin:0 0 12px}
+.investment-light .sr-brief-plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.investment-light .sr-brief-plan-grid strong{font:700 11px Arial,sans-serif;color:#2b5b43}
+.investment-light .sr-brief-plan-grid p,.investment-light .sr-brief-plan>p{font-size:10px;color:#586e5a;line-height:1.65;margin:8px 0}
+@media(max-width:1100px){.investment-light .sr-mini-plan{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.investment-light .sr-mini-plan{grid-template-columns:repeat(2,minmax(0,1fr))}.investment-light .sr-plan-foot{grid-template-columns:1fr}}
+@media(max-width:500px){.investment-light .sr-mini-plan,.investment-light .sr-brief-plan-grid{grid-template-columns:1fr}.investment-light .sr-mini-phase>p{min-height:0}}
+@media(prefers-reduced-motion:reduce){.investment-light .sr-mini-phase{transition:none!important;transform:none!important}}
+@media print{.investment-light .sr-brief-plan{margin:8px 0!important;padding:7px 0!important}.investment-light .sr-brief-plan h3{font-size:17px!important}.investment-light .sr-brief-plan-grid p,.investment-light .sr-brief-plan>p{font-size:9px!important}.investment-light .sr-mini-phase{box-shadow:none!important}}
