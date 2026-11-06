@@ -64,6 +64,7 @@ export function IndustrialAppliances({compact=false}:{compact?:boolean}) {
     <p style={{fontSize:12,color:"#a5ddbd",margin:"12px 0"}}>Optional software/support: {a.monthly}</p>
     <p style={{fontSize:12,color:"#b5c8c8",lineHeight:1.6}}><strong>Deployment boundary:</strong> {a.deployment}</p>
     {!compact&&<p style={{fontSize:12,color:"#b5c8c8",lineHeight:1.6}}><strong>Cost and engineering risks:</strong> {a.risks}</p>}
+    {a.id==="AI-ALERT-01"&&<Link href="/investments/nepal-india-electronics/uiab-100" style={{display:"block",fontSize:13,fontWeight:700,margin:"10px 0 14px",color:"#a9f1c2",textDecoration:"underline"}}>Explore UIAB-100 interactive prototype blueprint ↗</Link>}
     <a href={a.source} target="_blank" rel="noopener noreferrer" style={{fontSize:12,color:"#b1e8c7",textDecoration:"underline"}}>Manufacturer technical reference ↗</a>
    </article>)}
   </div>
