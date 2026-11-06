@@ -216,3 +216,142 @@
   .investment-light .ni-section,.investment-light .pc-section,.investment-light .sr-section {animation:iv-rise .7s ease-out both;animation-timeline:view();animation-range:entry 0% cover 19%;}
 }
 @media (prefers-reduced-motion:reduce), print { .investment-light .ni-section,.investment-light .pc-section,.investment-light .sr-section{animation:none!important} }
+
+
+/* V8: Coordinate the global navigation/footer with the investment collection.
+   This applies only while the investments route is mounted. */
+body:has(.investment-light){
+  --bg:#f6f4ef;
+  --fg:#252c27;
+  --op-card:#fffefa;
+  --card-hover:#f2f5ed;
+  --op-border:#d8dfd5;
+  --op-muted:#5b6b60;
+  --text-secondary:#506257;
+  --op-accent:#1e7150;
+  --code:#eff1e9;
+  --chip:#e8eee6;
+  background:#f6f4ef;
+  color:#252c27;
+}
+body:has(.investment-light) .site-nav{box-shadow:0 8px 24px #2048330d}
+body:has(.investment-light) footer#contact{border-color:#d8e1d5}
+body:has(.investment-light) .site-nav a:focus-visible,
+body:has(.investment-light) footer#contact a:focus-visible{outline:2px solid #a65d36;outline-offset:3px}
+
+/* Overview: the three economic engines, in place of repeating the corridor illustration. */
+.investment-light .iv-economic-map{background:linear-gradient(115deg,#fffefa,#eef2e9);border:1px solid #cfded0;border-radius:17px;padding:31px 35px;overflow:hidden;box-shadow:0 18px 45px #31583d16}
+.investment-light .iv-economic-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid #cbd9cb;padding-bottom:22px}
+.investment-light .iv-economic-head h3{font:400 clamp(29px,4vw,48px)/1.1 var(--font-serif),Georgia,serif;color:#264937;margin:12px 0 0}
+.investment-light .iv-economic-number{font:400 40px var(--font-serif),Georgia,serif;color:#a6bdaa}
+.investment-light .iv-engine-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding-top:25px}
+.investment-light .iv-engine{background:#fffefa;border:1px solid #cbdacb;border-radius:12px;padding:23px;min-height:225px;position:relative;overflow:hidden;animation:iv-rise .9s cubic-bezier(.16,1,.3,1) both;transition:transform .3s,box-shadow .3s,border-color .3s}
+.investment-light .iv-engine:nth-child(2){animation-delay:.1s}.investment-light .iv-engine:nth-child(3){animation-delay:.2s}
+.investment-light .iv-engine:hover{transform:translateY(-5px);box-shadow:0 18px 29px #284a3519;border-color:#a7cbb2}
+.investment-light .iv-engine-step{display:block;font:700 10px var(--font-mono),monospace;letter-spacing:.1em;color:#aa633e}
+.investment-light .iv-engine-rule{height:3px;width:70px;background:linear-gradient(90deg,#bb7646,#3e8b68);margin:19px 0}
+.investment-light .iv-engine strong{display:block;font:400 35px var(--font-serif),Georgia,serif;color:#244f3c}
+.investment-light .iv-engine h4{font-size:13px;color:#355b44;font-weight:700;margin:11px 0 7px}
+.investment-light .iv-engine p{font-size:12px;color:#5f6e63;line-height:1.55;max-width:230px}
+.investment-light .iv-engine-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;position:absolute;left:23px;right:23px;bottom:17px;border-top:1px solid #e1e8dc;padding-top:11px;font:10px var(--font-mono),monospace;color:#6b826f}
+.investment-light .iv-engine-bottom b{color:#b26f46;font-size:13px}
+.investment-light .iv-economic-note{font-size:12px;color:#617465;line-height:1.6;margin:17px 0 0}
+
+/* Supplier page: purposeful sourcing-network diagram. */
+.investment-light .iv-network{position:relative;background:linear-gradient(120deg,#fffefa,#eaf1e8);border:1px solid #cadccf;border-radius:16px;padding:22px 27px 18px;overflow:hidden;box-shadow:0 16px 50px #2b503716}
+.investment-light .iv-network-head{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.investment-light .iv-network-legend{font-size:11px;color:#6c7c6d}
+.investment-light .iv-network-svg{width:100%;height:auto;margin:7px 0 0;display:block}
+.investment-light .iv-network-flow{animation:iv-flow 4s linear infinite}
+.investment-light .iv-network-node{transition:transform .3s ease;transform-box:fill-box;transform-origin:center}
+.investment-light .iv-network-node:hover{transform:translateY(-5px)}
+.investment-light .iv-network-note{color:#5e7562;font-size:11px;line-height:1.65;margin:6px 0}
+.investment-light .iv-network-mobile{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:18px}
+.investment-light .iv-network-mobile>div{padding:16px;border:1px solid #d0ded1;background:#fffefa;border-radius:9px}
+.investment-light .iv-network-mobile strong{display:block;color:#275841;font:400 24px var(--font-serif),Georgia,serif}
+.investment-light .iv-network-mobile span{font-size:12px;color:#687b69}
+.investment-light .iv-network-mobile .iv-network-center{background:#2b634d;grid-column:1/-1}
+.investment-light .iv-network-mobile .iv-network-center strong,.investment-light .iv-network-mobile .iv-network-center span{color:#fff}
+
+/* Catalog: visual pricing bridge and responsive product cards. */
+.investment-light .pc-catalog-hero-note{margin:21px 0 0;padding:23px 27px;border:1px solid #cedfcf;border-radius:13px;background:linear-gradient(100deg,#fffdf7,#e8f0e5);box-shadow:0 12px 32px #30563a12;animation:iv-rise .7s .25s both}
+.investment-light .pc-catalog-hero-note strong{font:400 32px var(--font-serif),Georgia,serif;color:#24553e;display:block;margin:7px 0}
+.investment-light .pc-catalog-hero-note p{max-width:680px;color:#59705f;font-size:12px;line-height:1.55}
+.investment-light .iv-price-bridge{border:1px solid #cadaCB;border-radius:15px;background:linear-gradient(100deg,#fffefa,#edf3e8);padding:28px 30px;margin:22px 0;box-shadow:0 14px 35px #30533d15}
+.investment-light .iv-price-top{display:flex;justify-content:space-between;align-items:end;gap:20px}
+.investment-light .iv-price-top h3{font:400 clamp(24px,3vw,36px) var(--font-serif),Georgia,serif;color:#234e39;margin:11px 0}
+.investment-light .iv-price-topvalue{text-align:right}
+.investment-light .iv-price-topvalue strong{display:block;font:400 35px var(--font-serif),Georgia,serif;color:#255b43}
+.investment-light .iv-price-topvalue span{font-size:10px;color:#667767}
+.investment-light .iv-price-track{display:flex;overflow:hidden;height:30px;background:#e3e6db;border:1px solid #d4dccc;border-radius:7px;margin:22px 0 15px}
+.investment-light .iv-price-segment{height:100%;display:block;transition:width .45s cubic-bezier(.16,1,.3,1);min-width:0}
+.investment-light .iv-price-positive{background:#2b825b}
+.investment-light .iv-price-legend{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.investment-light .iv-price-legend>div{display:flex;align-items:start;gap:9px;border-top:1px solid #d6e0d6;padding-top:12px;min-width:0}
+.investment-light .iv-price-legend>div>span{width:9px;height:9px;border-radius:2px;flex-shrink:0;margin-top:3px}
+.investment-light .iv-price-result>span{background:#2b825b}
+.investment-light .iv-price-result.iv-price-negative>span{background:#b15c46}
+.investment-light .iv-price-legend small{display:block;font-size:10px;color:#647669;line-height:1.4}
+.investment-light .iv-price-legend strong{display:block;font:400 24px var(--font-serif),Georgia,serif;color:#234f3a;overflow-wrap:anywhere}
+.investment-light .iv-price-disclosure{margin:16px 0 0;color:#617463;font-size:11px;line-height:1.6}
+.investment-light .pc-mobile-list{display:none}
+.investment-light .pc-mobile-item{background:#fffefa;border:1px solid #d2ded3;border-radius:13px;padding:20px;box-shadow:0 7px 22px #28523b0d}
+.investment-light .pc-mobile-head{display:flex;gap:8px;justify-content:space-between;font-size:10px;color:#a4603b;text-transform:uppercase;letter-spacing:.08em}
+.investment-light .pc-mobile-item h3{font:400 28px var(--font-serif),Georgia,serif;color:#26523c;margin:12px 0 4px}
+.investment-light .pc-mobile-sku{font-size:11px;color:#6f7e70}
+.investment-light .pc-mobile-metrics{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:16px}
+.investment-light .pc-mobile-metrics div{border-top:1px solid #e0e7dd;padding-top:10px}
+.investment-light .pc-mobile-metrics small{display:block;font-size:10px;color:#6b7c6c}
+.investment-light .pc-mobile-metrics strong{font-size:17px;color:#235d44}
+.investment-light .pc-mobile-bottom{border-top:1px solid #e0e7dd;margin-top:15px;padding-top:12px;display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#59725d}
+.investment-light .pc-mobile-bottom a{color:#215b43}
+
+/* Supplier: mobile-first cards and financial scenario bridge. */
+.investment-light .sr-scale-context{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:22px 0}
+.investment-light .sr-scale-context>div{border-top:1px solid #c9d8c9;padding:14px 0 7px}
+.investment-light .sr-scale-context span{display:block;color:#657866;font-size:11px}
+.investment-light .sr-scale-context strong{display:block;font:400 32px var(--font-serif),Georgia,serif;color:#255b40;margin:7px 0}
+.investment-light .sr-scale-context small{display:block;color:#68786c;font-size:11px;line-height:1.5}
+.investment-light .sr-product-mobile,.investment-light .sr-suppliers-mobile{display:none}
+.investment-light .sr-mobile-card{background:#fffefa;border:1px solid #d0ded1;border-radius:12px;padding:19px;box-shadow:0 7px 25px #2b523816}
+.investment-light .sr-mobile-card-top{display:flex;justify-content:space-between;gap:10px;color:#aa6040;font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.investment-light .sr-mobile-card h3{font:400 27px var(--font-serif),Georgia,serif;color:#295b40;margin:13px 0 4px}
+.investment-light .sr-mobile-card p{font-size:12px;color:#657b67;margin:5px 0;line-height:1.5}
+.investment-light .sr-mobile-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:15px 0}
+.investment-light .sr-mobile-stats>div{border-top:1px solid #e1e8de;padding-top:11px}
+.investment-light .sr-mobile-stats small{font-size:10px;color:#657a66;display:block}
+.investment-light .sr-mobile-stats strong{font:400 23px var(--font-serif),Georgia,serif;color:#245c41;display:block;margin-top:4px}
+.investment-light .sr-mobile-card a{font-size:11px;text-decoration:underline;text-underline-offset:3px}
+
+@media(max-width:900px){
+  .investment-light .iv-engine-steps{grid-template-columns:1fr}
+  .investment-light .iv-engine{min-height:190px}
+  .investment-light .iv-network-svg{display:none}
+  .investment-light .iv-network-mobile{display:grid}
+  .investment-light .sr-scale-context{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .investment-light .iv-economic-map{padding:22px 17px}
+  .investment-light .iv-economic-number{display:none}
+  .investment-light .iv-economic-head h3{font-size:30px}
+  .investment-light .iv-price-bridge{padding:20px 17px}
+  .investment-light .iv-price-top{align-items:start;flex-direction:column}
+  .investment-light .iv-price-topvalue{text-align:left}
+  .investment-light .iv-price-legend{grid-template-columns:1fr 1fr}
+  .investment-light .pc-tablewrap{display:none}
+  .investment-light .pc-mobile-list{display:grid;gap:12px}
+  .investment-light .sr-product-desktop,.investment-light .sr-suppliers-desktop{display:none}
+  .investment-light .sr-product-mobile,.investment-light .sr-suppliers-mobile{display:grid;gap:12px}
+  .investment-light .sr-scale-context{grid-template-columns:1fr}
+}
+@media(max-width:480px){.investment-light .iv-network-mobile{grid-template-columns:1fr}.investment-light .iv-price-legend strong{font-size:21px}}
+@media(prefers-reduced-motion:reduce){
+  .investment-light .iv-engine,.investment-light .iv-network-flow{animation:none!important}
+  .investment-light .iv-price-segment{transition:none!important}
+}
+@media print{
+  body:has(.investment-light){background:#fff}
+  .investment-light .iv-engine,.investment-light .iv-network-flow{animation:none!important}
+  .investment-light .pc-mobile-list,.investment-light .sr-product-mobile,.investment-light .sr-suppliers-mobile{display:none!important}
+  .investment-light .pc-tablewrap,.investment-light .sr-product-desktop,.investment-light .sr-suppliers-desktop{display:block!important}
+}
