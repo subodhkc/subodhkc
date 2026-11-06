@@ -81,9 +81,9 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"10GbE SFP+ module family. Compatibility, connector, wavelength, distance and specific MPN must match buyer devices."
   },
   "Populated PCB · 100-component assembly": {
-    name:"Populated PCB · 100-component assembly",label:"Molex engineered connectivity/assembly reference",maker:"Molex",model:"Custom assembly overview",kind:"panel",match:"example",
-    url:"https://www.molex.com/en-us/products/cable-assemblies",
-    detail:"Category-level manufacturing/assembly illustration only. Populated PCB assembly is a different custom process requiring an exact PCB design, BOM, test fixture and quotation."
+    name:"Populated PCB · 100-component assembly",label:"JLCPCB PCB assembly service and SMT capabilities",maker:"JLCPCB",model:"Turnkey PCBA service",kind:"panel",match:"example",
+    url:"https://jlcpcb.com/pcb-assembly",
+    detail:"Manufacturer PCB-assembly service reference. Each populated PCB requires an exact design, BOM, pick-and-place files, testing method and supplier quotation; no single standard SKU matches this line."
   },
   "Industrial 24V power supply": {
     name:"Industrial 24V power supply",label:"MEAN WELL SDR-120-24 industrial DIN-rail power supply",maker:"MEAN WELL",model:"SDR-120-24",kind:"controller",match:"example",
