@@ -939,3 +939,116 @@ font:400 clamp(30px,4vw,47px)/1.12 var(--font-serif),Georgia,serif;color:#264a39
 /* V13.2 | Sales strategy gateway link */
 .investment-light .iv-feature-commercial{margin:16px 0 0;padding-top:14px;border-top:1px solid #d0ddce}
 .investment-light .iv-feature-commercial a{color:#225f46;text-decoration:underline;text-underline-offset:4px;font-size:12px;font-weight:700;line-height:1.6}
+
+
+/* V14 | AI-era industrialization investment narrative */
+.investment-light .ni-proposed-raise{display:flex;align-items:center;gap:26px;margin:26px 0 10px;padding:21px 25px;border:1px solid #c5d8c9;background:linear-gradient(110deg,#e2efe2,#fffefa);border-radius:12px;max-width:935px}
+.investment-light .ni-proposed-raise>div{min-width:200px;border-right:1px solid #bed3bf;padding-right:25px}
+.investment-light .ni-proposed-raise>div span{display:block;color:#6a766b;font:700 10px var(--font-mono),monospace;text-transform:uppercase}
+.investment-light .ni-proposed-raise strong{display:block;color:#255a42;font:400 40px var(--font-serif),Georgia,serif;margin-top:7px}
+.investment-light .ni-proposed-raise p{font-size:12px;line-height:1.7;color:#526e5b;margin:0}
+.investment-light .iv-ai-thesis,.investment-light .iv-engine-financials,.investment-light .iv-investor-capital{margin:25px 0;color:#2a4432}
+.investment-light .iv-ai-head{max-width:970px}
+.investment-light .iv-ai-head h3{font:400 clamp(34px,4.2vw,53px)/1.12 var(--font-serif),Georgia,serif;letter-spacing:-.026em;color:#22543e;margin:13px 0 17px}
+.investment-light .iv-ai-head>p{font-size:13px;line-height:1.82;color:#5a7260;max-width:950px}
+.investment-light .iv-ai-market-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:27px 0 13px}
+.investment-light .iv-ai-market-data article{border:1px solid #cdded0;background:linear-gradient(125deg,#fffefa,#eef5ed);padding:24px;border-radius:12px;box-shadow:0 10px 27px #305d4010}
+.investment-light .iv-ai-market-data article span{display:block;font:700 10px var(--font-mono),monospace;color:#667a69}
+.investment-light .iv-ai-market-data article strong{display:block;font:400 clamp(35px,4vw,50px) var(--font-serif),Georgia,serif;color:#246446;margin:15px 0}
+.investment-light .iv-ai-market-data article small{font-size:11px;color:#617667}
+.investment-light .iv-ai-sources{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0 36px}
+.investment-light .iv-ai-sources a{font-size:11px;color:#246747;text-decoration:underline;text-underline-offset:3px}
+.investment-light .iv-ai-stack-heading h4{font:400 32px/1.2 var(--font-serif),Georgia,serif;color:#28533d;margin:13px 0 23px;max-width:800px}
+.investment-light .iv-ai-stack{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;position:relative}
+.investment-light .iv-ai-stack article{background:#fffefa;border:1px solid #cfded1;border-radius:11px;padding:21px 19px;min-width:0;position:relative;transition:transform .25s,box-shadow .25s}
+.investment-light .iv-ai-stack article:hover{transform:translateY(-4px);box-shadow:0 15px 35px #2a523b19}
+.investment-light .iv-ai-stack article>div{display:flex;justify-content:space-between;align-items:center;gap:9px;border-bottom:1px solid #dde8dd;padding-bottom:13px}
+.investment-light .iv-ai-stack article>div span{font:400 28px var(--font-serif),Georgia,serif;color:#bc7651}
+.investment-light .iv-ai-stack article>div b{font-size:10px;color:#457254;text-align:right;line-height:1.5}
+.investment-light .iv-ai-stack h5{font:400 26px/1.14 var(--font-serif),Georgia,serif;color:#2b5b43;margin:16px 0 12px}
+.investment-light .iv-ai-stack article>p{font-size:12px;line-height:1.65;color:#5d7362;min-height:88px}
+.investment-light .iv-ai-stack article>small{display:block;border-top:1px solid #e0e9df;padding-top:12px;font-size:11px;line-height:1.65;color:#32674c}
+.investment-light .iv-ai-wedge{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:23px 0}
+.investment-light .iv-ai-wedge>div{background:#f3f8f0;border:1px solid #d1e0d0;border-radius:11px;padding:20px}
+.investment-light .iv-ai-wedge span{font:400 24px var(--font-serif),Georgia,serif;color:#ad6e48}
+.investment-light .iv-ai-wedge strong{display:block;font:400 24px var(--font-serif),Georgia,serif;color:#2d5a42;margin:10px 0}
+.investment-light .iv-ai-wedge p{color:#597261;font-size:12px;line-height:1.7}
+.investment-light .iv-ai-bottomline{background:linear-gradient(100deg,#e5f1e5,#fbfaf4);border-left:4px solid #397957;padding:20px 24px;color:#4e6d58;font-size:13px;line-height:1.75}
+.investment-light .iv-ai-bottomline strong{color:#275b42}
+.investment-light .iv-engine-lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0}
+.investment-light .iv-engine-lanes article{border:1px solid #d0dfd1;border-radius:11px;padding:22px;background:#fffefa}
+.investment-light .iv-engine-lanes article:first-child{border-top:4px solid #cf9c6d}
+.investment-light .iv-engine-lanes article:nth-child(2){border-top:4px solid #4e9571}
+.investment-light .iv-engine-lanes article:nth-child(3){border-top:4px solid #2b614e}
+.investment-light .iv-engine-lanes article>span{font:700 10px var(--font-mono),monospace;color:#a76d4a}
+.investment-light .iv-engine-lanes h4{font:400 28px var(--font-serif),Georgia,serif;color:#28583f;margin:14px 0}
+.investment-light .iv-engine-lanes strong{font:400 30px var(--font-serif),Georgia,serif;color:#2b7150}
+.investment-light .iv-engine-lanes p{font-size:12px;color:#587160;line-height:1.7;margin:13px 0 0}
+.investment-light .iv-engine-controls{display:grid;grid-template-columns:.87fr 1.13fr;gap:16px;margin:20px 0}
+.investment-light .iv-engine-control-panel,.investment-light .iv-engine-output{padding:24px;background:linear-gradient(125deg,#f2f8f0,#fffefa);border:1px solid #cdded1;border-radius:13px}
+.investment-light .iv-engine-year-tabs{display:flex;gap:8px;margin:18px 0}
+.investment-light .iv-engine-year-tabs button{padding:11px 18px;border:1px solid #bccfbe;border-radius:8px;background:#fffefa;color:#456950;font-weight:700;cursor:pointer}
+.investment-light .iv-engine-year-tabs button.selected{border-color:#4a9167;background:#dbeee0;color:#24603f}
+.investment-light .iv-engine-control-panel>label{display:block;font-size:12px;color:#516b5a;margin:19px 0}
+.investment-light .iv-engine-control-panel>label b{float:right;color:#265d43}
+.investment-light .iv-engine-control-panel input{display:block;width:100%;margin-top:11px;accent-color:#357c57;cursor:pointer}
+.investment-light .iv-engine-mixbar{display:flex;overflow:hidden;height:16px;border-radius:10px;background:#dce8dc;margin:15px 0}
+.investment-light .iv-engine-mixbar span{background:#caa073}.investment-light .iv-engine-mixbar i{background:#5c9978}.investment-light .iv-engine-mixbar b{background:#2b654b}
+.investment-light .iv-engine-legend{display:flex;gap:13px;flex-wrap:wrap;color:#5b7262;font-size:10px}
+.investment-light .iv-engine-results{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:21px 0}
+.investment-light .iv-engine-results>div{border-top:1px solid #d0dfd0;padding:12px 0}
+.investment-light .iv-engine-results small{display:block;color:#637a69;font-size:11px}
+.investment-light .iv-engine-results strong{display:block;color:#275e45;font:400 30px var(--font-serif),Georgia,serif;margin-top:7px}
+.investment-light .iv-engine-output>p{font-size:12px;line-height:1.65;color:#5c7060}
+.investment-light .iv-engine-output>p strong{color:#a46440}
+.investment-light .iv-engine-snapshot{overflow-x:auto;border:1px solid #d0dfd1;border-radius:10px;background:#fffefa}
+.investment-light .iv-engine-snapshot table{border-collapse:collapse;width:100%;min-width:900px}
+.investment-light .iv-engine-snapshot th{background:#ebf3e9;font:700 10px var(--font-mono),monospace;color:#42634e;text-align:left;padding:14px 12px}
+.investment-light .iv-engine-snapshot td{font-size:12px;color:#4d6756;padding:13px 12px;border-top:1px solid #dce7dc}
+.investment-light .iv-engine-snapshot tr:nth-child(even) td{background:#f6f9f3}
+.investment-light .iv-engine-note,.investment-light .iv-investor-note{font-size:11px;color:#617868;line-height:1.75;margin:15px 0}
+.investment-light .iv-investor-ask{display:grid;grid-template-columns:1.35fr .65fr;gap:24px;align-items:center;border:1px solid #c9dbca;background:linear-gradient(120deg,#f2f8ef,#e3efe2);border-radius:15px;padding:29px}
+.investment-light .iv-investor-ask h3{font:400 clamp(33px,3.8vw,47px)/1.13 var(--font-serif),Georgia,serif;color:#28593f;margin:12px 0}
+.investment-light .iv-investor-ask p{font-size:13px;color:#587060;line-height:1.7}
+.investment-light .iv-investor-ask-metric{padding:25px;background:#fffefa;border:1px solid #cfded0;border-radius:12px}
+.investment-light .iv-investor-ask-metric span{font:700 11px var(--font-mono),monospace;color:#a16647}
+.investment-light .iv-investor-ask-metric strong{display:block;color:#26684b;font:400 63px var(--font-serif),Georgia,serif;margin:12px 0}
+.investment-light .iv-investor-ask-metric small{color:#607565;font-size:11px}
+.investment-light .iv-investor-usefunds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:21px 0}
+.investment-light .iv-investor-usefunds article{padding:18px;border:1px solid #cfded0;background:#fffefa;border-radius:10px}
+.investment-light .iv-investor-usefunds article>span{display:block;font:700 11px var(--font-mono),monospace;color:#587262;line-height:1.5}
+.investment-light .iv-investor-usefunds article>strong{display:block;font:400 31px var(--font-serif),Georgia,serif;color:#295c45;margin:10px 0}
+.investment-light .iv-investor-fundbar{height:8px;border-radius:10px;background:#e3ebe1;overflow:hidden}
+.investment-light .iv-investor-fundbar i{height:100%;background:linear-gradient(90deg,#cba574,#357e59);display:block}
+.investment-light .iv-investor-usefunds article>p{font-size:11px;line-height:1.65;color:#647866;margin:12px 0 0}
+.investment-light .iv-na-growth{padding:31px;background:linear-gradient(120deg,#f2f7ed,#fffefa);border:1px solid #cbdccc;border-radius:15px;margin:35px 0 0}
+.investment-light .iv-na-size-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:22px 0}
+.investment-light .iv-na-size-grid>div{padding:19px;background:#fffefa;border:1px solid #d3dfd1;border-radius:10px}
+.investment-light .iv-na-size-grid span,.investment-light .iv-na-sensitivities span{font-size:11px;color:#5b7463;display:block}
+.investment-light .iv-na-size-grid strong{display:block;font:400 40px var(--font-serif),Georgia,serif;color:#286b4b;margin:10px 0}
+.investment-light .iv-na-size-grid small{color:#708171;font-size:10px}
+.investment-light .iv-na-sensitivities{padding:21px;border:1px solid #cddccb;border-radius:10px;background:#fffefa}
+.investment-light .iv-na-sensitivities>div:not(:first-child){display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 0;border-top:1px solid #dee8dc}
+.investment-light .iv-na-sensitivities>div:nth-child(2){margin-top:17px}
+.investment-light .iv-na-sensitivities strong{font:400 27px var(--font-serif),Georgia,serif;color:#286a4c;white-space:nowrap}
+.investment-light .iv-na-caution{font-size:11px;line-height:1.65;color:#708174;margin:12px 0 27px}
+.investment-light .iv-na-model{border-top:1px solid #cddcca;padding-top:25px}
+.investment-light .iv-na-model h4{font:400 31px var(--font-serif),Georgia,serif;color:#29593f;margin:11px 0}
+.investment-light .iv-na-lineitems{background:#fffefa;border:1px solid #d4e2d5;border-radius:11px;padding:14px 21px}
+.investment-light .iv-na-lineitems>div{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:13px 0;border-bottom:1px solid #e3eae1}
+.investment-light .iv-na-lineitems>div>span{font-size:12px;color:#365d43}
+.investment-light .iv-na-lineitems small{display:block;font-size:10px;color:#748575;margin-top:5px}
+.investment-light .iv-na-lineitems strong{font:400 29px var(--font-serif),Georgia,serif;color:#28674a}
+.investment-light .iv-na-lineitems .iv-na-total{border-bottom:0;background:#eef5ec;margin:10px -11px -5px;padding:17px 11px;border-radius:8px}
+.investment-light .iv-na-total span{font-weight:700!important}
+.investment-light .iv-na-model>p{font-size:11px;line-height:1.7;color:#687e6c}
+.investment-light .sr-brief-ai,.investment-light .sr-brief-financial{background:#f1f7ef;border:1px solid #c6dcc9;border-radius:8px;padding:15px 18px;margin:13px 0}
+.investment-light .sr-brief-ai strong,.investment-light .sr-brief-financial h3{font:400 23px Georgia,serif;color:#285d43}
+.investment-light .sr-brief-ai p,.investment-light .sr-brief-financial p{font-size:11px;color:#557060;line-height:1.68;margin:8px 0}
+.investment-light .sr-brief-ai a{color:#2b6c4c;text-decoration:underline}
+.investment-light .iv-us-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:1100px){.investment-light .iv-ai-stack{grid-template-columns:1fr 1fr}.investment-light .iv-investor-usefunds{grid-template-columns:1fr 1fr}.investment-light .iv-us-metrics{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.investment-light .iv-ai-market-data,.investment-light .iv-engine-lanes,.investment-light .iv-ai-wedge{grid-template-columns:1fr 1fr}.investment-light .iv-investor-ask,.investment-light .iv-engine-controls{grid-template-columns:1fr}}
+@media(max-width:610px){.investment-light .ni-proposed-raise{display:block;padding:17px}.investment-light .ni-proposed-raise>div{border-right:0;border-bottom:1px solid #bed3bf;padding:0 0 12px;margin-bottom:12px}.investment-light .iv-ai-market-data,.investment-light .iv-engine-lanes,.investment-light .iv-ai-wedge,.investment-light .iv-ai-stack,.investment-light .iv-na-size-grid,.investment-light .iv-investor-usefunds{grid-template-columns:1fr}.investment-light .iv-ai-stack article>p{min-height:0}.investment-light .iv-ai-head h3{font-size:35px}.investment-light .iv-investor-ask,.investment-light .iv-na-growth{padding:19px}.investment-light .iv-investor-ask-metric strong{font-size:49px}.investment-light .iv-na-sensitivities>div:not(:first-child){display:block}.investment-light .iv-na-sensitivities strong{display:block;margin-top:7px}.investment-light .iv-engine-results{grid-template-columns:1fr 1fr}.investment-light .iv-engine-results strong{font-size:25px}}
+@media(prefers-reduced-motion:reduce){.investment-light .iv-ai-stack article{transition:none!important;transform:none!important}}
+@media print{.investment-light .iv-ai-stack article,.investment-light .iv-investor-ask{break-inside:avoid;box-shadow:none!important}}
