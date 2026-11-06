@@ -92,6 +92,9 @@ export const productReferences: Record<string,ProductRefInfo> = {
     url:"https://www.automationdirect.com/adc/shopping/catalog/drives_-a-_soft_starters/ac_variable_frequency_drives_%28vfd%29",
     detail:"VFD catalog for AC pump speed control. The proposed subassembly would also require motor specification, panel wiring, protective devices and testing."
   },
+  "Universal Industrial Alert Box": {name:"Universal Industrial Alert Box",label:"Seeed reComputer R1100 industrial gateway reference",maker:"Seeed Studio",model:"reComputer R1100 family",kind:"gateway",match:"example",url:"https://wiki.seeedstudio.com/recomputer_r1100_intro/",detail:"RS485, Ethernet and industrial I/O foundation for a proposed packaged alerting appliance. Hardware reference only: no finished product, compatibility or purchase price verified."},
+  "AI Machine Monitor": {name:"AI Machine Monitor",label:"Seeed reComputer R1100 gateway reference",maker:"Seeed Studio",model:"reComputer R1100 family",kind:"gateway",match:"example",url:"https://wiki.seeedstudio.com/recomputer_r1100_intro/",detail:"Candidate gateway with external current, vibration and temperature sensors; sensor/BOM selection, calibration and industrial installation require validation."},
+  "AI Vision Inspection Box": {name:"AI Vision Inspection Box",label:"NVIDIA Jetson Orin Nano Super developer reference",maker:"NVIDIA",model:"Jetson Orin Nano Super Developer Kit",kind:"edge",match:"example",url:"https://docs.nvidia.com/jetson/orin-nano-devkit/user-guide/latest/",detail:"Developer platform for a camera + edge vision prototype. A production appliance requires industrial carrier, enclosure, power, EMC, camera and safety qualification."},
   "RTX 5070 12GB GPU": {
     name:"RTX 5070 12GB GPU",label:"PNY RTX 5070 Triple Fan 12GB (non-OC)",maker:"PNY",model:"VCG507012TFXPB1",kind:"gpu",match:"example",
     url:"https://www.pny.com/geforce-rtx-5070-models?sku=VCG507012TFXPB1",
@@ -124,7 +127,10 @@ export const catalogReferenceKeys: Record<string,string> = {
   "PLC-PANEL-01":"Custom industrial control panel",
   "PCB-SMT-01":"Populated PCB · 100-component assembly",
   "POWER-24V":"Industrial 24V power supply",
-  "PUMP-VFD":"Pump VFD control subassembly"
+  "PUMP-VFD":"Pump VFD control subassembly",
+  "AI-ALERT-01":"Universal Industrial Alert Box",
+  "AI-MONITOR-01":"AI Machine Monitor",
+  "AI-VISION-01":"AI Vision Inspection Box"
 };
 
 export function competitionDescription(level:number):{label:string;meaning:string;tone:string}{
