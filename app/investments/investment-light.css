@@ -935,3 +935,7 @@ font:400 clamp(30px,4vw,47px)/1.12 var(--font-serif),Georgia,serif;color:#264a39
 .investment-light .sr-brief-sales p{font-size:10px;line-height:1.68;color:#597160;margin:0}
 @media(max-width:690px){.investment-light .pc-price-evidence{grid-template-columns:1fr}}
 @media print{.investment-light .sr-brief-sales{padding:8px!important;margin:8px 0!important}.investment-light .sr-brief-sales h3{font-size:17px!important}.investment-light .sr-brief-sales p{font-size:9px!important}}
+
+/* V13.2 | Sales strategy gateway link */
+.investment-light .iv-feature-commercial{margin:16px 0 0;padding-top:14px;border-top:1px solid #d0ddce}
+.investment-light .iv-feature-commercial a{color:#225f46;text-decoration:underline;text-underline-offset:4px;font-size:12px;font-weight:700;line-height:1.6}
