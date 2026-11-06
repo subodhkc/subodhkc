@@ -1,0 +1,207 @@
+/* Investment collection: Subodh KC paper-light visual system.
+   Scoped to /investments so the rest of the site remains unchanged. */
+.investment-light{
+  --iv-paper:#f6f4ef;--iv-white:#fffefa;--iv-soft:#eeebe2;--iv-ink:#252b29;
+  --iv-muted:#59635d;--iv-line:#dcded4;--iv-green:#1d5b48;--iv-orange:#b65e34;
+  --iv-sage:#dce9de;--iv-gold:#d8a36d;
+  background:var(--iv-paper);color:var(--iv-ink);min-height:100vh;
+  isolation:isolate;
+}
+.investment-light *{scroll-margin-top:112px}
+.investment-light ::selection{background:#d9e7d6;color:#1b4436}
+.investment-light .iv-serif{font-family:var(--font-serif),Georgia,serif;font-weight:400;letter-spacing:-.035em}
+.investment-light .iv-eyebrow{font-family:var(--font-mono),monospace;letter-spacing:.14em;font-size:10px;text-transform:uppercase;color:var(--iv-orange)}
+.investment-light .iv-rule{height:1px;background:linear-gradient(90deg,var(--iv-orange),var(--iv-line) 42%,transparent)}
+.investment-light .iv-reveal{animation:iv-rise .75s both;animation-timing-function:cubic-bezier(.16,1,.3,1)}
+.investment-light .iv-reveal:nth-child(2){animation-delay:.12s}
+.investment-light .iv-reveal:nth-child(3){animation-delay:.22s}
+.investment-light .iv-reveal:nth-child(4){animation-delay:.3s}
+@keyframes iv-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes iv-flow{to{stroke-dashoffset:-60}}
+@keyframes iv-pulse{0%,100%{opacity:.28;transform:scale(.94)}50%{opacity:.58;transform:scale(1.05)}}
+@keyframes iv-orbit{0%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-13px) rotate(2deg)}100%{transform:translateY(0) rotate(-2deg)}}
+@keyframes iv-bar{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+.investment-light .iv-corridor{position:relative;overflow:hidden;border:1px solid #d3d9ce;border-radius:18px;background:linear-gradient(128deg,#fffcf4 0%,#e9eee7 57%,#e0ebe3 100%);box-shadow:0 20px 65px #2c4a3920}
+.investment-light .iv-corridor:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#55705c0c 1px,transparent 1px),linear-gradient(90deg,#55705c0c 1px,transparent 1px);background-size:34px 34px;pointer-events:none}
+.investment-light .iv-corridor:after{content:"";position:absolute;right:-90px;top:-90px;width:300px;height:300px;border:1px solid #a6c5ae;border-radius:50%;box-shadow:0 0 0 60px #a6c5ae17,0 0 0 120px #a6c5ae0d;animation:iv-orbit 14s ease-in-out infinite;pointer-events:none}
+.investment-light .iv-corridor-inner{position:relative;z-index:1;padding:28px 28px 20px}
+.investment-light .iv-corridor-top{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.investment-light .iv-corridor-top span{font-family:var(--font-mono),monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#567566}
+.investment-light .iv-corridor-svg{width:100%;height:auto;display:block;margin:12px 0 4px}
+.investment-light .iv-flow-line{stroke-dasharray:7 9;animation:iv-flow 3s linear infinite}
+.investment-light .iv-node{transition:transform .35s ease;transform-box:fill-box;transform-origin:center}
+.investment-light .iv-node:hover{transform:translateY(-5px)}
+.investment-light .iv-corridor-caption{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11px;color:#4b6858;border-top:1px solid #cbd9ce;padding-top:13px}
+.investment-light .iv-btn,.investment-light .iv-link-button{display:inline-flex;align-items:center;gap:9px;text-decoration:none;border:1px solid #255d49;background:#255d49;color:white;padding:13px 19px;border-radius:7px;font-size:12px;font-weight:700;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+.investment-light .iv-btn:hover,.investment-light .iv-link-button:hover{transform:translateY(-3px);box-shadow:0 12px 30px #1c4b3828;background:#194b39}
+.investment-light .iv-btn.iv-outline{background:transparent;color:#24533f;border-color:#afc4b6}
+.investment-light .iv-btn.iv-outline:hover{background:#e4ece4}
+.investment-light .iv-hub{padding:0 0 90px;background:var(--iv-paper);color:var(--iv-ink);overflow:hidden}
+.investment-light .iv-wrap{max-width:1220px;margin:auto;padding:0 28px}
+.investment-light .iv-hub-hero{position:relative;padding:88px 0 58px;background:radial-gradient(circle at 83% 8%,#dce8da 0,transparent 38%),linear-gradient(180deg,#faf8f2,#f6f4ef)}
+.investment-light .iv-hub-hero h1{font-size:clamp(52px,7.3vw,104px);line-height:.96;max-width:880px;margin:25px 0;color:#222a25}
+.investment-light .iv-hub-hero h1 em{color:var(--iv-green);font-weight:400}
+.investment-light .iv-hub-lead{font-size:clamp(16px,2vw,20px);line-height:1.68;color:#5b675e;max-width:720px}
+.investment-light .iv-hub-actions{display:flex;gap:12px;flex-wrap:wrap;margin:30px 0}
+.investment-light .iv-hub-feature{display:grid;grid-template-columns:1fr .9fr;gap:24px;align-items:stretch;margin-top:42px}
+.investment-light .iv-feature-card{background:#fffefa;border:1px solid #d7ddd3;border-radius:18px;padding:38px;box-shadow:0 22px 60px #2b463010}
+.investment-light .iv-feature-card h2{font-size:clamp(35px,4.5vw,58px);line-height:1.05;margin:16px 0}
+.investment-light .iv-feature-card p{color:#5a665e;font-size:14px;line-height:1.75}
+.investment-light .iv-feature-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border-top:1px solid var(--iv-line);padding-top:25px;margin-top:27px}
+.investment-light .iv-feature-metrics strong{display:block;font-family:var(--font-serif),Georgia,serif;font-size:33px;font-weight:400;color:#225b45}
+.investment-light .iv-feature-metrics span{font-size:11px;color:#667169}
+.investment-light .iv-hub-section{padding:64px 0 0}
+.investment-light .iv-hub-section h2{font-size:clamp(33px,4.4vw,55px);margin:15px 0 30px}
+.investment-light .iv-path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.investment-light .iv-path{position:relative;overflow:hidden;border:1px solid #d9dfd5;background:#fffefa;border-radius:14px;padding:29px;text-decoration:none;color:#27312b;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.investment-light .iv-path:before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,#c67643,#3b8667);transform:scaleX(.12);transform-origin:left;transition:transform .35s}
+.investment-light .iv-path:hover{transform:translateY(-7px);box-shadow:0 22px 40px #2e52391a;border-color:#b6cbbb}
+.investment-light .iv-path:hover:before{transform:scaleX(1)}
+.investment-light .iv-path h3{font-family:var(--font-serif),Georgia,serif;font-weight:400;font-size:30px;line-height:1.12;margin:16px 0}
+.investment-light .iv-path p{font-size:13px;line-height:1.65;color:#66736b}
+.investment-light .iv-path small{color:#b65e34;font-size:10px;letter-spacing:.12em}
+.investment-light .iv-path .iv-arrow{display:inline-block;margin-top:20px;color:#255c47;font-size:13px;font-weight:700}
+
+/* Investment overview */
+.investment-light .ni-root{--n-bg:var(--iv-paper);--n-panel:#fffefa;--n-line:#d8dfd4;--n-mute:#596a61;--n-ink:#252c28;--n-mint:#1d634c;--n-gold:#b75f38;background:var(--iv-paper);color:var(--iv-ink)}
+.investment-light .ni-top{position:relative;overflow:hidden;padding-top:72px;padding-bottom:44px;background:radial-gradient(circle at 84% 23%,#dfece0 0,transparent 36%)}
+.investment-light .ni-eyebrow,.investment-light .ni-kicker{color:#b65e34}
+.investment-light .ni-title{color:#222b26;animation:iv-rise .7s both}
+.investment-light .ni-title span{color:#25664d!important}
+.investment-light .ni-lead{color:#5d6c63;animation:iv-rise .8s .13s both}
+.investment-light .ni-pills{animation:iv-rise .8s .22s both}
+.investment-light .ni-pill{background:#fffefa;color:#4c6458;border-color:#cbd9ce}
+.investment-light .ni-actions{animation:iv-rise .8s .3s both}
+.investment-light .ni-btn{background:#245e49;color:#fff;border:1px solid #245e49;transition:transform .25s,box-shadow .25s}
+.investment-light .ni-btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px #1b5d4124}
+.investment-light .ni-btn.alt{background:#fffefa;color:#275a45;border-color:#baccc0}
+.investment-light .ni-tabs{background:#f8f6f0f5;border-color:#d7ddd2;box-shadow:0 5px 18px #2e50380a}
+.investment-light .ni-tabs a{color:#58695d}
+.investment-light .ni-tabs a:hover{color:#ae552e}
+.investment-light .ni-section{border-color:#d9dfd4}
+.investment-light .ni-h2{color:#25342b}
+.investment-light .ni-copy,.investment-light .ni-list{color:#5e6b62}
+.investment-light .ni-card{background:#fffefa;border-color:#d9e0d5;box-shadow:0 8px 30px #37533b0a;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.investment-light .ni-card:hover{transform:translateY(-5px);box-shadow:0 18px 38px #37533b18;border-color:#b6cabb}
+.investment-light .ni-card p{color:#5e6d63}
+.investment-light .ni-number{color:#205d47}
+.investment-light .ni-label{color:#697a6d}
+.investment-light .ni-tablewrap{border-color:#d4ddd3;background:#fffefa}
+.investment-light .ni-table th{background:#e9eee6;color:#355344}
+.investment-light .ni-table td{color:#34453c;border-color:#e1e7de}
+.investment-light .ni-table tr:hover td{background:#f2f6f0}
+.investment-light .ni-table .ni-highlight{color:#206549}
+.investment-light .ni-field label{color:#50685a}
+.investment-light .ni-field input,.investment-light .ni-field select{background:#fffefa;color:#243b2d;border-color:#c5d4c8;accent-color:#256e52}
+.investment-light .ni-mini,.investment-light .ni-caption{color:#68786b}
+.investment-light .ni-bar{background:#e2e8de}
+.investment-light .ni-bar span{background:linear-gradient(90deg,#c57a47,#3e9471);animation:iv-flow 2s linear infinite;background-size:180% 100%}
+.investment-light .ni-stat{border-color:#d9e1d6;color:#3b5143}
+.investment-light .ni-stat strong{color:#20634a}
+.investment-light .ni-notice{background:#f5eee4;color:#62533f;border-color:#bd7b51}
+.investment-light .ni-column .ni-colfill{background:linear-gradient(180deg,#9acbb1,#317a59);transform-origin:bottom;animation:iv-bar 1s cubic-bezier(.16,1,.3,1) both}
+.investment-light .ni-column:nth-child(2) .ni-colfill{animation-delay:.15s}
+.investment-light .ni-column:nth-child(3) .ni-colfill{animation-delay:.3s}
+.investment-light .ni-column small{color:#637469}
+.investment-light .ni-link,.investment-light .ni-source{color:#1b674c}
+.investment-light .ni-footer{color:#5d6e62}
+.investment-light .ni-badge{color:#205e47;border-color:#a7c9b1;background:#eff7ef}
+.investment-light .ni-spot{border-color:#c9dacb;background:linear-gradient(120deg,#fffefa,#e5efe5);box-shadow:0 18px 40px #31573a10}
+.investment-light .ni-spot strong{color:#205e47}
+.investment-light .ni-corridor-block{margin-top:28px;animation:iv-rise .8s .35s both}
+
+/* India wholesale catalog */
+.investment-light .pc-root{background:var(--iv-paper);color:#28342c}
+.investment-light .pc-hero{position:relative;overflow:hidden;padding-top:84px;background:radial-gradient(circle at 80% 5%,#e1ece0,transparent 43%);border-color:#d9e0d6}
+.investment-light .pc-kicker{color:#b65e34}
+.investment-light .pc-title{color:#24372c;animation:iv-rise .7s both}
+.investment-light .pc-title span{color:#1f6549!important}
+.investment-light .pc-lead{color:#5d6b62;animation:iv-rise .8s .12s both}
+.investment-light .pc-section{border-color:#d8e0d6}
+.investment-light .pc-section h2{color:#27392e}
+.investment-light .pc-card{background:#fffefa;border-color:#d7dfd5;box-shadow:0 8px 28px #2d503914;transition:transform .3s,box-shadow .3s}
+.investment-light .pc-card:hover{transform:translateY(-4px);box-shadow:0 18px 34px #2d50391c}
+.investment-light .pc-label{color:#69776a}
+.investment-light .pc-value{color:#23684c}
+.investment-light .pc-card p,.investment-light .pc-caption{color:#637267}
+.investment-light .pc-control label{color:#4b6556}
+.investment-light .pc-control input,.investment-light .pc-control select{background:#fffefa;color:#273e30;border-color:#c4d4c7;accent-color:#286c51}
+.investment-light .pc-tablewrap{border-color:#d6e0d5;background:#fffefa}
+.investment-light .pc-table th{background:#e8eee6;color:#355546}
+.investment-light .pc-table td{color:#34493b;border-color:#e0e7dd}
+.investment-light .pc-table tbody tr:hover{background:#f0f5ef}
+.investment-light .pc-link{color:#1d684c}
+.investment-light .pc-tag{color:#3b6c4f;border-color:#bdd1c1;background:#f0f7ef}
+.investment-light .pc-alert{background:#f5eee5;color:#655442;border-color:#bb794f}
+.investment-light .pc-row{color:#3e5547;border-color:#dce5d9}
+.investment-light .pc-row strong{color:#205e46}
+.investment-light .pc-btn{background:#255e48;color:#fff;border-color:#255e48;transition:transform .25s,box-shadow .25s}
+.investment-light .pc-btn:hover{transform:translateY(-3px);box-shadow:0 12px 26px #255e4826}
+.investment-light .pc-btn.alt{background:#fffefa;color:#255e48;border-color:#b7ccbb}
+.investment-light .pc-steps{color:#576d5c}
+.investment-light .pc-root footer{color:#66776b!important}
+.investment-light .pc-corridor-block{margin:24px 0 0}
+
+/* Asia manufacturing and supplier intelligence */
+.investment-light .sr-root{--ink:#f6f4ef;--panel:#fffefa;--panel2:#f1f3eb;--line:#d9e1d6;--mint:#206549;--soft:#5e6d63;--warm:#b15d38;background:var(--iv-paper);color:#26342b}
+.investment-light .sr-root a{color:#23664c}
+.investment-light .sr-root a:hover{color:#ad5933}
+.investment-light .sr-nav{background:#faf8f3ed;border-color:#d7dfd4;box-shadow:0 8px 24px #234b3212}
+.investment-light .sr-brand{color:#264734}
+.investment-light .sr-navlinks a{color:#586b5e}
+.investment-light .sr-eyebrow{color:#b65e34}
+.investment-light .sr-hero{background:radial-gradient(ellipse at 80% 8%,#e0ebdf,transparent 46%),radial-gradient(ellipse at 10% 95%,#f5e6d9,transparent 50%),#faf8f2}
+.investment-light .sr-hero:after{border-color:#c7d9c6;box-shadow:0 0 0 90px #c9ddcb35,0 0 0 180px #d5e2d528;animation:iv-orbit 15s ease-in-out infinite}
+.investment-light .sr-title{color:#27342c;animation:iv-rise .7s both}
+.investment-light .sr-accent{color:#23654c}
+.investment-light .sr-deck{color:#596d60;animation:iv-rise .8s .13s both}
+.investment-light .sr-cta{animation:iv-rise .8s .22s both}
+.investment-light .sr-button{background:#255f49;color:#fff!important;border-color:#255f49;transition:transform .25s,box-shadow .25s}
+.investment-light .sr-button.secondary{background:#fffefa;color:#255f49!important;border-color:#b8cbbd}
+.investment-light .sr-button:hover{transform:translateY(-3px);box-shadow:0 12px 28px #2b573b22}
+.investment-light .sr-hero-foot{border-color:#cbd9cb}
+.investment-light .sr-hero-stat{border-color:#d2ded1}
+.investment-light .sr-hero-stat strong{color:#205b46}
+.investment-light .sr-hero-stat span{color:#607465}
+.investment-light .sr-section{border-color:#d8e1d6}
+.investment-light .sr-h2{color:#2a382e}
+.investment-light .sr-intro{color:#5b6c60}
+.investment-light .sr-card{background:linear-gradient(145deg,#fffefa,#f3f6ef);border-color:#d3ded2;box-shadow:0 9px 28px #31553d0d;transition:transform .3s,box-shadow .3s,border-color .3s}
+.investment-light .sr-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px #31553d19;border-color:#adcab5}
+.investment-light .sr-card h3{color:#2d4937}
+.investment-light .sr-card p{color:#5d6f61}
+.investment-light .sr-card-index{color:#a95a37}
+.investment-light .sr-card strong{color:#205e47}
+.investment-light .sr-highlight{background:linear-gradient(105deg,#e6efe4,#fffaf2);border-color:#c3d6c7}
+.investment-light .sr-highlight p{color:#566c5d}
+.investment-light .sr-control{color:#516a59}
+.investment-light .sr-control input,.investment-light .sr-control select{background:#fffefa;color:#2d4835;border-color:#bfcfc1;accent-color:#236c4d}
+.investment-light .sr-kpi{border-color:#7ca98a}
+.investment-light .sr-kpi span{color:#637767}
+.investment-light .sr-kpi strong{color:#245c43}
+.investment-light .sr-kpi small{color:#667c6c}
+.investment-light .sr-tablewrap{border-color:#d3dfd3;background:#fffefa}
+.investment-light .sr-table th{background:#e8eee5;color:#365743}
+.investment-light .sr-table td{color:#384b3e;border-color:#e0e8de}
+.investment-light .sr-table tbody tr:hover{background:#f0f5ef}
+.investment-light .sr-table a{color:#1e6b4c}
+.investment-light .sr-sub{color:#6a806f}
+.investment-light .sr-pill{color:#246c4b;background:#e9f4e9;border-color:#b8d4be}
+.investment-light .sr-pill.warm{color:#a25c37;background:#f9f0e6;border-color:#e6c8aa}
+.investment-light .sr-caption{color:#66776b}
+.investment-light .sr-brief{background:#fffefa;border-color:#c5d8c7;box-shadow:0 24px 55px #33533d18}
+.investment-light .sr-bottom{background:linear-gradient(115deg,#e2ede1,#f8f2e8)}
+.investment-light .sr-bottom .sr-intro{color:#536d5a}
+.investment-light .sr-corridor-block{margin-top:30px}
+.investment-light .sr-root section[style*="#0e2026"]{background:#eaf0e7!important}
+.investment-light .sr-root section[style*="#0e2026"] .sr-card{background:#fffefa}
+.investment-light .sr-brief-header h2{color:#244733}
+.investment-light .sr-brief-footer{color:#536b5b}
+
+/* Shared motion and responsive controls */
+.investment-light .ni-root a,.investment-light .pc-root a,.investment-light .sr-root a{transition:color .2s ease}
+.investment-light .ni-root input:focus-visible,.investment-light .pc-root input:focus-visible,.investment-light .sr-root input:focus-visible,.investment-light .ni-root select:focus-visible,.investment-light .pc-root select:focus-visible,.investment-light .sr-root select:focus-visible{outline:2px solid #b65e34;outline-offset:3px}
+@media(max-width:950px){.investment-light .iv-hub-feature{grid-template-columns:1fr}.investment-light .iv-path-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.investment-light .iv-wrap{padding:0 17px}.investment-light .iv-hub-hero{padding:64px 0 40px}.investment-light .iv-hub-hero h1{font-size:53px}.investment-light .iv-feature-card{padding:24px}.investment-light .iv-feature-metrics{grid-template-columns:repeat(3,1fr)}.investment-light .iv-feature-metrics strong{font-size:26px}.investment-light .iv-path-grid{grid-template-columns:1fr}.investment-light .iv-corridor-inner{padding:16px}.investment-light .iv-corridor-caption{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.investment-light *,.investment-light *:before,.investment-light *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.investment-light{background:white!important;color:#1c2e23!important}.investment-light .iv-corridor{box-shadow:none!important}.investment-light .iv-reveal{animation:none!important}.investment-light .sr-brief{box-shadow:none!important}.investment-light .ni-card,.investment-light .pc-card,.investment-light .sr-card{box-shadow:none!important;transform:none!important}}
