@@ -65,6 +65,7 @@ export default function InvestmentsPage() {
               <Link href="/investments/nepal-india-electronics" className="iv-btn" style={{marginTop:12}}>
                 Explore the distribution opportunity <span aria-hidden="true">↗</span>
               </Link>
+              <div className="iv-feature-commercial"><Link href="/investments/nepal-india-electronics#sales-strategy">Wholesale sales levels, buyer acquisition and service contracts ↗</Link></div>
               <div className="iv-feature-metrics">
                 <div><strong>10</strong><span>Priority product families</span></div>
                 <div><strong>23</strong><span>Supplier research references</span></div>
