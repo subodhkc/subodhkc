@@ -31,8 +31,8 @@ export function ProductThumbnail({kind,image,alt}:{kind:Kind;image?:string;alt:s
   </svg>;
 }
 
-export function ProductReferenceCell({productName,number,compact=false}:{productName:string;number?:number;compact?:boolean}){
-  const item=productReferences[productName];
+export function ProductReferenceCell({productName,number,compact=false,referenceKey}:{productName:string;number?:number;compact?:boolean;referenceKey?:string}){
+  const item=productReferences[referenceKey||productName];
   if(!item)return <strong>{productName}</strong>;
   return <div className={"iv-prod-ref "+(compact?"iv-prod-compact":"")}>
     <a href={item.url} target="_blank" rel="noopener noreferrer" className="iv-prod-thumb-link"
@@ -41,7 +41,7 @@ export function ProductReferenceCell({productName,number,compact=false}:{product
     </a>
     <div className="iv-prod-details">
       <strong>{number?number+". ":""}{productName}</strong>
-      <span className="iv-prod-model">{item.maker} · {item.model}</span>
+      <span className="iv-prod-model">Reference example · {item.maker} / {item.model}</span>
       <div className="iv-prod-actions">
         <a href={item.url} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()}>View product reference ↗</a>
         <details onClick={e=>e.stopPropagation()}><summary>Details</summary><div className="iv-prod-popover"><strong>{item.label}</strong><p>{item.detail}</p><span>Reference example · Not a quoted or confirmed purchase item</span></div></details>
