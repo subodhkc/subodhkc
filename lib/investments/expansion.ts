@@ -17,6 +17,17 @@ export const futureMarkets = [
  {name:"Saudi Arabia",flag:"West Asia",phase:"Longer-horizon strategic partnership",role:"Value-added industrial and automation sales",offer:"Industrial integration, control systems and automation hardware",case:"National industrial-modernization initiatives support a possible distributor and integrator partnership route.",signal:"Vision 2030 programs emphasize future factories and automation",source:"Saudi Vision 2030 Annual Report 2025",url:"https://www.vision2030.gov.sa/media/ecdjfopq/vision2030_annual_report_2025_en.pdf",constraint:"Local partner execution, approvals and project qualification"}
 ] as const;
 
+export const canadaMarket = {
+ role:"Future engineered equipment, industry channel and technical-service market",
+ market2025UsdBn:8.5089,
+ market2033UsdBn:14.8332,
+ forecastCagrPercent:7.2,
+ source:"Grand View Research · Canada industrial automation and controls, 2025–2033",
+ url:"https://www.grandviewresearch.com/horizon/outlook/industrial-automation-and-control-systems-market/canada",
+ priorityProducts:["Industrial edge-AI monitoring hardware","Configured sensors and industrial gateway systems","Engineered controls and industrial assemblies"],
+ entryCondition:"Canadian product standards and import classification, qualified reseller/integrator partners, warranty and technical service capacity"
+} as const;
+
 export const usMarket = {
  role:"Later specialist distribution and integration path",
  market2025UsdBn:51.8363,
