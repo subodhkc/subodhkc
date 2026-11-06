@@ -29,7 +29,8 @@ const products:Item[]=[
 {sku:"AI-MONITOR-01",name:"AI Machine Monitor",category:"AI appliances",route:"Nepal integration",target:35000,resale:103000,cycle:90,moq:10,confidence:"Planning model",notes:"Concept: industrial gateway with vibration, current and temperature sensing, local anomaly rules and event dashboard. Sensor installation, calibration and service labor require separate costing."},
 {sku:"AI-VISION-01",name:"AI Vision Inspection Box",category:"AI appliances",route:"India / Nepal integration",target:95000,resale:295000,cycle:105,moq:5,confidence:"Planning model",notes:"Concept: production-rated Jetson-class computer, industrial camera, lighting and on-device quality inference. Developer kits are prototypes; qualified hardware and deployment costs are not verified."},
 ];
-// New appliance SKUs: modeled INR planning cases, not forex conversions of USD reference scenarios. Hardware/assembly only; software and commissioning are separate.\nconst money=(n:number)=>"₹"+Math.round(n).toLocaleString("en-IN");
+// New appliance SKUs: modeled INR planning cases, not forex conversions of USD reference scenarios. Hardware/assembly only; software and commissioning are separate.
+const money=(n:number)=>"₹"+Math.round(n).toLocaleString("en-IN");
 const tier=(price:number,q:number)=>Math.round(price*(q>=1000?.95:q>=500?.97:q>=100?.99:1));
 export default function CatalogPage(){
  const [category,setCategory]=useState("All");const [search,setSearch]=useState("");const [quantity,setQuantity]=useState(100);const [gst,setGst]=useState(18);const [margin,setMargin]=useState(12);const [logistics,setLogistics]=useState(500);const [finance,setFinance]=useState(2);const [days,setDays]=useState(45);const [picked,setPicked]=useState(products[0].sku);const [view,setView]=useState("all");
