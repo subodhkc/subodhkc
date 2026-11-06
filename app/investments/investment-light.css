@@ -31,6 +31,11 @@
 .investment-light .iv-flow-line{stroke-dasharray:7 9;animation:iv-flow 3s linear infinite}
 .investment-light .iv-node{transition:transform .35s ease;transform-box:fill-box;transform-origin:center}
 .investment-light .iv-node:hover{transform:translateY(-5px)}
+.investment-light .iv-corridor-mobile{display:none;gap:10px;flex-direction:column;margin:18px 0}
+.investment-light .iv-corridor-mobile>div{padding:15px 18px;background:#fffefa;border:1px solid #cbd9cd;border-radius:9px;display:flex;flex-direction:column;gap:5px}
+.investment-light .iv-corridor-mobile small{font-size:10px;letter-spacing:.12em;color:#b65e34}
+.investment-light .iv-corridor-mobile strong{font:400 25px var(--font-serif),Georgia,serif;color:#255942}
+.investment-light .iv-corridor-mobile span{font-size:12px;color:#667669}
 .investment-light .iv-corridor-caption{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11px;color:#4b6858;border-top:1px solid #cbd9ce;padding-top:13px}
 .investment-light .iv-btn,.investment-light .iv-link-button{display:inline-flex;align-items:center;gap:9px;text-decoration:none;border:1px solid #255d49;background:#255d49;color:white;padding:13px 19px;border-radius:7px;font-size:12px;font-weight:700;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
 .investment-light .iv-btn:hover,.investment-light .iv-link-button:hover{transform:translateY(-3px);box-shadow:0 12px 30px #1c4b3828;background:#194b39}
@@ -202,6 +207,12 @@
 .investment-light .ni-root a,.investment-light .pc-root a,.investment-light .sr-root a{transition:color .2s ease}
 .investment-light .ni-root input:focus-visible,.investment-light .pc-root input:focus-visible,.investment-light .sr-root input:focus-visible,.investment-light .ni-root select:focus-visible,.investment-light .pc-root select:focus-visible,.investment-light .sr-root select:focus-visible{outline:2px solid #b65e34;outline-offset:3px}
 @media(max-width:950px){.investment-light .iv-feature-card{display:block}.investment-light .iv-path-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:650px){.investment-light .iv-wrap{padding:0 17px}.investment-light .iv-hub-hero{padding:64px 0 40px}.investment-light .iv-hub-hero h1{font-size:53px}.investment-light .iv-feature-card{padding:24px}.investment-light .iv-feature-metrics{grid-template-columns:repeat(3,1fr)}.investment-light .iv-feature-metrics strong{font-size:26px}.investment-light .iv-path-grid{grid-template-columns:1fr}.investment-light .iv-corridor-inner{padding:16px}.investment-light .iv-corridor-caption{font-size:10px}}
+@media(max-width:650px){.investment-light .iv-wrap{padding:0 17px}.investment-light .iv-hub-hero{padding:64px 0 40px}.investment-light .iv-hub-hero h1{font-size:53px}.investment-light .iv-feature-card{padding:24px}.investment-light .iv-feature-metrics{grid-template-columns:repeat(3,1fr)}.investment-light .iv-feature-metrics strong{font-size:26px}.investment-light .iv-path-grid{grid-template-columns:1fr}.investment-light .iv-corridor-inner{padding:16px}.investment-light .iv-corridor-svg{display:none}.investment-light .iv-corridor-mobile{display:flex}.investment-light .iv-corridor-caption{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.investment-light *,.investment-light *:before,.investment-light *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{.investment-light{background:white!important;color:#1c2e23!important}.investment-light .iv-corridor{box-shadow:none!important}.investment-light .iv-reveal{animation:none!important}.investment-light .sr-brief{box-shadow:none!important}.investment-light .ni-card,.investment-light .pc-card,.investment-light .sr-card{box-shadow:none!important;transform:none!important}}
+
+/* Progressive section reveal: only browsers with scroll-driven animation support. */
+@supports (animation-timeline: view()) {
+  .investment-light .ni-section,.investment-light .pc-section,.investment-light .sr-section {animation:iv-rise .7s ease-out both;animation-timeline:view();animation-range:entry 0% cover 19%;}
+}
+@media (prefers-reduced-motion:reduce), print { .investment-light .ni-section,.investment-light .pc-section,.investment-light .sr-section{animation:none!important} }
