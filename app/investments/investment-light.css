@@ -355,3 +355,144 @@ body:has(.investment-light) footer#contact a:focus-visible{outline:2px solid #a6
   .investment-light .pc-mobile-list,.investment-light .sr-product-mobile,.investment-light .sr-suppliers-mobile{display:none!important}
   .investment-light .pc-tablewrap,.investment-light .sr-product-desktop,.investment-light .sr-suppliers-desktop{display:block!important}
 }
+
+
+/* V9 / Industry-backed investor narrative */
+.investment-light .iv-hub-market{padding:46px 0 56px;background:linear-gradient(180deg,#f6f4ef,#edf1e8);border-bottom:1px solid #d8e2d7}
+.investment-light .iv-market-strip{background:#fffefa;border:1px solid #d3dfd3;border-radius:16px;padding:28px 32px;box-shadow:0 18px 45px #355d4112}
+.investment-light .iv-market-strip-header{display:flex;justify-content:space-between;gap:15px;align-items:center;padding-bottom:18px;border-bottom:1px solid #d8e3d7}
+.investment-light .iv-market-strip-header strong{font:400 20px var(--font-serif),Georgia,serif;color:#295340}
+.investment-light .iv-market-strip-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:22px 0 12px}
+.investment-light .iv-market-strip-card{position:relative;padding:6px 15px 8px 0;border-right:1px solid #d5e1d6}
+.investment-light .iv-market-strip-card:last-child{border:0}
+.investment-light .iv-market-strip-card>span{display:block;color:#577262;font:10px var(--font-mono),monospace;letter-spacing:.035em;line-height:1.5}
+.investment-light .iv-market-strip-card>strong{display:block;font:400 clamp(27px,3.5vw,40px) var(--font-serif),Georgia,serif;color:#205740;margin:12px 0 7px;letter-spacing:-.02em}
+.investment-light .iv-market-strip-card>strong em{font-size:16px;letter-spacing:0;font-style:normal}
+.investment-light .iv-market-strip-card>small{display:block;font-size:11px;color:#63796a;line-height:1.5;min-height:32px}
+.investment-light .iv-market-source{display:inline-block;color:#21684b!important;font-size:11px;text-decoration:underline;text-underline-offset:3px;margin-top:9px}
+.investment-light .iv-market-source:hover{color:#ac5d37!important}
+.investment-light .iv-market-strip>p{color:#6c7a6d;font-size:11px;line-height:1.65;margin:15px 0 0}
+.investment-light .iv-hub-market-cta{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;margin:20px 5px 0}
+.investment-light .iv-hub-market-cta p{flex:1;min-width:200px;max-width:740px;color:#5d7162;font-size:13px;line-height:1.6;margin:0}
+.investment-light .iv-hub-market-cta a{font-size:12px;color:#235d45;font-weight:700;text-decoration:none;border-bottom:1px solid #a2c3ad;padding-bottom:5px}
+.investment-light .ni-market-section{padding-top:75px}
+.investment-light .iv-market-deep{background:#fffefa;border:1px solid #d1ddce;border-radius:16px;padding:36px;margin:27px 0;box-shadow:0 18px 44px #2f503719}
+.investment-light .iv-market-deep-lead h3{font:400 clamp(29px,3.6vw,45px)/1.08 var(--font-serif),Georgia,serif;letter-spacing:-.025em;color:#234b39;max-width:800px;margin:13px 0}
+.investment-light .iv-market-deep-lead h3 span{color:#ad6540}
+.investment-light .iv-market-deep-lead p{color:#607264;font-size:13px;line-height:1.8;max-width:870px}
+.investment-light .iv-market-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:28px 0}
+.investment-light .iv-market-kpi{padding:22px 21px;background:linear-gradient(145deg,#f5f7ee,#eff5ed);border:1px solid #d7e2d3;border-radius:12px;transition:transform .25s,border-color .25s}
+.investment-light .iv-market-kpi:hover{transform:translateY(-4px);border-color:#94bda4}
+.investment-light .iv-market-kpi>span{font:10px var(--font-mono),monospace;color:#576e60;line-height:1.6}
+.investment-light .iv-market-kpi>strong{display:block;color:#1f6145;font:400 clamp(28px,3vw,40px) var(--font-serif),Georgia,serif;margin:15px 0 8px}
+.investment-light .iv-market-kpi>strong small{font-size:16px}
+.investment-light .iv-market-kpi>p{font-size:12px;line-height:1.6;color:#617467;min-height:65px}
+.investment-light .iv-market-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.investment-light .iv-market-chart-panel{background:#fffefa;border:1px solid #dbe4d9;border-radius:12px;padding:23px 20px}
+.investment-light .iv-market-chart-title{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:28px}
+.investment-light .iv-market-chart-title h4{font:400 27px var(--font-serif),Georgia,serif;color:#254e3a;margin:8px 0 0}
+.investment-light .iv-market-chart-title>span{font-size:10px;color:#657568}
+.investment-light .iv-market-bar-row{display:grid;grid-template-columns:105px 1fr 51px;gap:12px;align-items:center;margin:15px 0}
+.investment-light .iv-market-bar-row>span{font-size:10px;color:#5e7462}
+.investment-light .iv-market-bar-row>strong{font-size:14px;color:#285c42;text-align:right}
+.investment-light .iv-market-bar-track{height:13px;border-radius:20px;background:#e9eee6;overflow:hidden}
+.investment-light .iv-market-bar-track i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#cba273,#347c59);transform-origin:left;animation:iv-bar-grow 1.05s cubic-bezier(.2,1,.3,1) both}
+.investment-light .iv-market-bar-track i.iv-market-forecast-bar{background:linear-gradient(90deg,#79ab8d,#235b42)}
+@keyframes iv-bar-grow{from{transform:scaleX(.07)}to{transform:scaleX(1)}}
+.investment-light .iv-market-chart-panel>p{font-size:11px;line-height:1.65;color:#65796b;border-top:1px solid #e5ebe1;padding-top:13px;margin:25px 0 0}
+.investment-light .iv-market-bottom{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:23px;margin-top:24px;border-top:1px solid #d9e4da;padding-top:21px}
+.investment-light .iv-market-bottom strong{font:400 23px var(--font-serif),Georgia,serif;color:#31513e}
+.investment-light .iv-market-bottom p{font-size:12px;color:#657366;line-height:1.7}
+.investment-light .iv-market-bottom b{color:#255843;font-weight:700}
+.investment-light .ni-market-drivers{padding:25px 0 8px}
+.investment-light .iv-catalysts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0 10px}
+.investment-light .iv-catalyst{padding:23px;border:1px solid #d2e0d1;background:#fffefa;border-radius:11px;box-shadow:0 9px 27px #2451390d;transition:transform .25s,border-color .25s}
+.investment-light .iv-catalyst:hover{transform:translateY(-4px);border-color:#9dc4ab}
+.investment-light .iv-catalyst>span{font:10px var(--font-mono),monospace;color:#ad613b}
+.investment-light .iv-catalyst h3{font:400 28px var(--font-serif),Georgia,serif;color:#245239;margin:13px 0}
+.investment-light .iv-catalyst p{font-size:12px;color:#5e7060;line-height:1.7;min-height:78px}
+.investment-light .iv-catalyst>strong{display:block;font-size:11px;color:#2a6748;margin:17px 0 4px;font-weight:700}
+.investment-light .iv-entry-model{background:linear-gradient(140deg,#fffefa,#eff4eb);border:1px solid #cbdccf;border-radius:16px;padding:35px;box-shadow:0 16px 50px #31533b16;margin:26px 0}
+.investment-light .iv-entry-head{display:flex;justify-content:space-between;gap:18px;align-items:end}
+.investment-light .iv-entry-head h3{font:400 clamp(31px,3.7vw,46px)/1.11 var(--font-serif),Georgia,serif;color:#234e39;max-width:800px;margin:12px 0}
+.investment-light .iv-entry-head p{font-size:12px;line-height:1.7;color:#617565;max-width:730px}
+.investment-light .iv-entry-link{font-size:11px;color:#276549;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+.investment-light .iv-entry-years{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:26px 0 20px}
+.investment-light .iv-entry-years button{background:#fffefa;border:1px solid #d1e0d2;border-radius:9px;padding:16px 19px;text-align:left;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.investment-light .iv-entry-years button:hover{transform:translateY(-3px);border-color:#8cbaa1}
+.investment-light .iv-entry-years button.active{background:#e3eee1;border:1px solid #76a88b;box-shadow:inset 0 3px #327550}
+.investment-light .iv-entry-years button span{display:block;font-size:11px;color:#576c5e}
+.investment-light .iv-entry-years button strong{display:block;font:400 31px var(--font-serif),Georgia,serif;color:#225c43;margin:6px 0}
+.investment-light .iv-entry-years button small{font-size:10px;color:#6c806e}
+.investment-light .iv-entry-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+.investment-light .iv-entry-controls{padding:23px;border:1px solid #d7e2d6;border-radius:11px;background:#fffefa}
+.investment-light .iv-entry-controls label{display:block;font-size:12px;color:#516a59;margin-bottom:24px}
+.investment-light .iv-entry-controls label strong{float:right;color:#255d44;font-size:15px}
+.investment-light .iv-entry-controls input{display:block;width:100%;accent-color:#2d7352;margin:12px 0 0;cursor:pointer}
+.investment-light .iv-entry-controls p{border-top:1px solid #e4e9df;padding-top:17px;font-size:11px;line-height:1.7;color:#647568}
+.investment-light .iv-entry-outcomes{padding:10px 23px;border:1px solid #cadbcf;border-radius:11px;background:#e7f0e5}
+.investment-light .iv-entry-outcomes>div{padding:15px 0;border-bottom:1px solid #c6d8c8}
+.investment-light .iv-entry-outcomes>div:last-child{border:0}
+.investment-light .iv-entry-outcomes span{display:block;color:#546d5c;font-size:11px}
+.investment-light .iv-entry-outcomes strong{display:block;font:400 clamp(25px,3vw,38px) var(--font-serif),Georgia,serif;color:#255b42;margin:5px 0}
+.investment-light .iv-entry-outcomes small{font-size:11px;color:#667a69}
+.investment-light .iv-entry-note{font-size:11px;color:#627564;line-height:1.65;margin:20px 0 0}
+
+/* Data-to-opportunity bridge on the supplier and catalog views */
+.investment-light .sr-market-section{background:linear-gradient(125deg,#eff3ea,#f9f8f2)}
+.investment-light .sr-market-grid,.investment-light .pc-market-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}
+.investment-light .sr-market-card,.investment-light .pc-market-stat{padding:23px 22px;border:1px solid #cddccd;background:#fffefa;border-radius:12px;box-shadow:0 10px 28px #284d350e;transition:transform .25s,box-shadow .25s}
+.investment-light .sr-market-card:hover,.investment-light .pc-market-stat:hover{transform:translateY(-4px);box-shadow:0 16px 34px #284d351b}
+.investment-light .sr-market-card small,.investment-light .pc-market-stat span{display:block;font:10px var(--font-mono),monospace;color:#607464;line-height:1.5}
+.investment-light .sr-market-card strong,.investment-light .pc-market-stat strong{display:block;font:400 clamp(29px,3.6vw,44px) var(--font-serif),Georgia,serif;color:#245c42;margin:15px 0 8px}
+.investment-light .sr-market-card p,.investment-light .pc-market-stat p{font-size:12px;color:#607565;line-height:1.7;min-height:78px}
+.investment-light .sr-market-card a,.investment-light .pc-market-stat a{font-size:11px;color:#20684b;text-decoration:underline;text-underline-offset:4px}
+.investment-light .sr-market-direction{display:flex;justify-content:space-between;align-items:center;gap:21px;flex-wrap:wrap;border:1px solid #bad3c0;background:linear-gradient(110deg,#e0ede0,#fdfaf3);padding:22px 25px;border-radius:11px}
+.investment-light .sr-market-direction strong{font:400 25px var(--font-serif),Georgia,serif;color:#27553e}
+.investment-light .sr-market-direction p{flex:1;min-width:250px;font-size:12px;line-height:1.7;color:#57715e;margin:0}
+.investment-light .sr-market-direction a{font-size:11px;text-decoration:underline;color:#206347;white-space:nowrap}
+.investment-light .pc-market-section{background:linear-gradient(115deg,#f8f7f1,#ecf2e9);border-radius:13px;padding:28px;margin-top:24px}
+.investment-light .pc-market-section>h2{margin-bottom:18px}
+.investment-light .pc-market-stat strong{font-size:36px}
+.investment-light .pc-market-section>.pc-caption{max-width:980px;font-size:11px;margin-bottom:12px}
+.investment-light .sr-brief-market{margin:24px 0 0;background:#f0f5eb;border:1px solid #cadbc9;border-radius:8px;padding:17px 20px}
+.investment-light .sr-brief-market strong{font:400 22px Georgia,serif;color:#235641}
+.investment-light .sr-brief-market p{font-size:11px;line-height:1.6;margin:8px 0}
+.investment-light .sr-brief-market a{color:#245f46;text-decoration:underline}
+
+@media(max-width:970px){
+  .investment-light .iv-market-three,.investment-light .iv-catalysts,.investment-light .sr-market-grid,.investment-light .pc-market-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .investment-light .iv-market-charts{grid-template-columns:1fr}
+  .investment-light .iv-market-kpi:last-child,.investment-light .iv-catalyst:last-child{grid-column:1/-1}
+}
+@media(max-width:680px){
+  .investment-light .iv-hub-market{padding:27px 0}
+  .investment-light .iv-market-strip{padding:20px 17px}
+  .investment-light .iv-market-strip-header,.investment-light .iv-entry-head{display:block}
+  .investment-light .iv-market-strip-grid,.investment-light .iv-market-three,.investment-light .iv-catalysts,.investment-light .sr-market-grid,.investment-light .pc-market-grid,.investment-light .iv-market-bottom,.investment-light .iv-entry-grid{grid-template-columns:1fr}
+  .investment-light .iv-market-strip-card{border-right:0;border-bottom:1px solid #d9e4d9;padding:11px 0 18px}
+  .investment-light .iv-market-strip-card:last-child{border-bottom:0}
+  .investment-light .iv-market-strip-card>small{min-height:0}
+  .investment-light .iv-market-deep,.investment-light .iv-entry-model{padding:23px 17px}
+  .investment-light .iv-market-kpi:last-child,.investment-light .iv-catalyst:last-child{grid-column:auto}
+  .investment-light .iv-market-chart-panel{padding:19px 13px}
+  .investment-light .iv-market-chart-title{display:block}
+  .investment-light .iv-market-bar-row{grid-template-columns:84px 1fr 43px;gap:8px}
+  .investment-light .iv-market-bar-row>span{font-size:9px}
+  .investment-light .iv-entry-years{gap:7px}
+  .investment-light .iv-entry-years button{padding:12px 10px}
+  .investment-light .iv-entry-years button strong{font-size:22px}
+  .investment-light .sr-market-direction{display:block}
+  .investment-light .sr-market-direction a{white-space:normal}
+  .investment-light .pc-market-section{padding:23px 15px}
+}
+@media(prefers-reduced-motion:reduce){
+  .investment-light .iv-market-bar-track i{animation:none!important}
+  .investment-light .iv-market-kpi,.investment-light .iv-catalyst,.investment-light .sr-market-card,.investment-light .pc-market-stat{transition:none!important}
+}
+@media print{
+  .investment-light .iv-market-bar-track i{animation:none!important}
+  .investment-light .iv-entry-controls input{display:none!important}
+  .investment-light .sr-brief-market{background:#fff!important;border:1px solid #bcd0bf}
+  .investment-light .sr-brief-market p{font-size:10px!important}
+}
