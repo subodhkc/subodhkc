@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { firstInventoryPolicy, deliveryPhases } from "@/lib/investments/strategy";
 import { initialTradeCapital } from "@/lib/investments/electronics";
-import { coreMarkets, futureMarkets, usMarket } from "@/lib/investments/expansion";
+import { coreMarkets, futureMarkets, usMarket, canadaMarket } from "@/lib/investments/expansion";
 
 const money=(n:number)=>"$"+Math.round(n).toLocaleString("en-US");
 
@@ -73,8 +73,8 @@ export function RegionalExpansionPaths() {
   return <div className="iv-expansion-suite">
     <div className="iv-expansion-intro">
       <span className="iv-eyebrow">Geographic strategy / Future paths</span>
-      <h3>Build the distribution base first. Expand where channel economics justify it.</h3>
-      <p>India and Nepal are the initial operating markets. Other countries serve different purposes: prospective distribution customers, supplier diversification, contract manufacturing and later industrial specialist sales. Each entry path follows proven purchasing and resale economics rather than simultaneous country launches.</p>
+      <h3>Start with Asian distribution. Build North American AI-equipment market access.</h3>
+      <p>India and Nepal are the initial distribution base. Thailand, Vietnam and Malaysia broaden component and manufacturing access. The United States and Canada are the planned high-value engineered-equipment markets, with tailored edge AI, sensing, industrial controls and technical services delivered through qualified partners.</p>
     </div>
     <div className="iv-market-roles">
       {coreMarkets.map(m=><article key={m.name}><span>{m.position} MARKET</span><h4>{m.name}</h4><strong>{m.role}</strong><p>{m.description}</p><small>{m.strategicValue}</small></article>)}
@@ -90,19 +90,19 @@ export function RegionalExpansionPaths() {
       </article>)}
     </div>
     <div className="iv-us-expansion">
-      <div className="iv-us-head"><span className="iv-eyebrow">United States / Future strategic market</span><h3>A larger automation market, with far tougher distribution competition.</h3><p>Explore the U.S. as a specialist distribution and integration route after supplier economics, technical documentation and operating processes are proven. Broad catalog competition against national distributors is not the intended entry point.</p></div>
+      <div className="iv-us-head"><span className="iv-eyebrow">United States and Canada / Engineering-led scale</span><h3>The next equipment cycle creates opportunities beyond catalog distribution.</h3><p>National distributors and legacy automation OEMs are strong incumbents. The differentiated opportunity is to combine industrial sensors, edge inference, equipment interfaces, tested custom assemblies and technical support into application-specific systems across both North American markets.</p></div>
       <div className="iv-us-metrics">
         <div><span>U.S. automation & controls · 2025 estimate</span><strong>$51.84B</strong></div>
         <div><span>U.S. automation & controls · 2033 projection</span><strong>$113.98B</strong></div>
-        <div><span>Independent forecast CAGR · 2026–2033</span><strong>10.4%</strong></div>
+        <div><span>Canada automation · 2025 estimate</span><strong>$8.51B</strong></div><div><span>Canada automation · 2033 forecast</span><strong>$14.83B</strong></div>
       </div>
-      <a href={usMarket.url} target="_blank" rel="noopener noreferrer" className="iv-us-source">Source: {usMarket.source} ↗</a>
+      <div className="iv-us-source"><a href={usMarket.url} target="_blank" rel="noopener noreferrer">U.S. market source ↗</a> · <a href={canadaMarket.url} target="_blank" rel="noopener noreferrer">Canada market source ↗</a></div>
       <div className="iv-us-two">
         <div><h4>More attractive market niches</h4><ul>{usMarket.promisingLanes.map(x=><li key={x}>{x}</li>)}</ul></div>
         <div><h4>Competitive reality</h4>{usMarket.competition.map(c=><div className="iv-us-competitor" key={c.name}><strong>{c.name}</strong><p>{c.focus}</p><span>{c.response}</span></div>)}</div>
       </div>
       <p className="iv-us-note">{usMarket.conditions} {usMarket.interpretation}</p>
     </div>
-    <div className="iv-expansion-foot"><strong>Phased expansion principle</strong><p>Phase 1: India and Nepal distributor agreements, first stock purchases and repeated turnover. Phase 2: Bangladesh wholesale channels plus diversified Southeast Asian supply. Phase 3: differentiated U.S. and West Asian industrial opportunities through qualified local partners.</p></div>
+    <div className="iv-expansion-foot"><strong>Phased expansion principle</strong><p>Phase 1: India and Nepal distributor agreements, first stock purchases and repeated turnover. Phase 2: Bangladesh wholesale channels plus diversified Southeast Asian supply. Phase 3: AI-engineered industrial hardware and technical-service channels in the U.S. and Canada. West Asia is a later option.</p></div>
   </div>;
 }
