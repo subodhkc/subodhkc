@@ -4,56 +4,40 @@
  * Source context: Government of India ECMS progress and PRS analysis of electronics manufacturing constraints.
  */
 export const swot = [
-  {
-    id: "strengths", symbol: "S", title: "Strengths", subtitle: "Proposed structural advantages", tone: "positive",
-    points: [
-      "Flexible route selection: source directly into India or Nepal, and use Nepal-based integration when it adds technical value.",
-      "Blended offer: distribution establishes access, while controls, industrial assemblies and services can deepen account economics.",
-      "Asset-light launch path through qualified OEM, authorized-channel and contract-manufacturing partners."
-    ],
-    response: "Lead with configured industrial products and customer-backed orders; build durable supply and service capabilities before scaling stock."
-  },
-  {
-    id: "weaknesses", symbol: "W", title: "Weaknesses", subtitle: "Execution gaps to close", tone: "caution",
-    points: [
-      "Pre-commercial plan: no verified active B2B buying accounts or booked pipeline included in the model.",
-      "Limited initial supplier pricing power, unproven warranty/returns operations and insufficient evidence on country-of-origin economics.",
-      "An all-products baseline purchase cycle exceeds the initially earmarked $600k trade capital before financing or phased ordering."
-    ],
-    response: "Start with two product wedges, obtain comparable RFQs, recruit anchor accounts and release inventory capital in stages."
-  },
-  {
-    id: "opportunities", symbol: "O", title: "Opportunities", subtitle: "Demand and capability tailwinds", tone: "growth",
-    points: [
-      "India's electronics-component investment and industrial automation expansion support a wider ecosystem of specialized equipment buyers.",
-      "Short-run panels, controllers, harnesses and gateways can differentiate on configuration, service and reliable fulfillment.",
-      "Repeat OEM and systems-integrator purchasing can support volume aggregation, negotiated terms and recurring technical services."
-    ],
-    response: "Build a qualified-account funnel in automation, agritech and industrial integration; validate product configurations and reorder cadence."
-  },
-  {
-    id: "threats", symbol: "T", title: "Threats", subtitle: "External pressure", tone: "risk",
-    points: [
-      "Large distributors can outperform a new entrant on price, credit, catalog breadth and national fulfillment.",
-      "GPUs and commodity compute carry rapid price erosion, obsolescence, warranty and inventory-financing exposure.",
-      "FX shifts, import duties, certification and origin rules can alter landed economics or restrict a trade route."
-    ],
-    response: "Keep commodity exposure selective; price per route after taxes, limit aged inventory and verify classification and origin before committing volume."
-  }
+ {id:"strengths",symbol:"S",title:"Strengths",subtitle:"Potential commercial advantages",tone:"positive",points:[
+   "India–Nepal route flexibility with direct-market imports wherever they offer the best landed economics.",
+   "Distribution-first entry can generate product sales before committing to proprietary manufacturing capacity.",
+   "Multiple supplier ecosystems and the option to attach configuration, assembly and support services later."
+ ],response:"Make distributor economics the near-term advantage: secure authorized supply, selective stock availability, reliable fulfillment and faster reorder cycles."},
+ {id:"weaknesses",symbol:"W",title:"Weaknesses",subtitle:"Launch constraints",tone:"caution",points:[
+   "Distribution agreements and factory-issued acquisition prices remain to be negotiated, so true buy-side margin is not yet proven.",
+   "First-time inventory carries real liquidity exposure without established sales history or returns experience.",
+   "A full baseline inventory cycle exceeds the $600k capital earmarked for initial inventory and revolving trade."
+ ],response:"Negotiate resalable product terms and selective initial inventory allocations; preserve capital for fast reorder and working-capital contingencies."},
+ {id:"opportunities",symbol:"O",title:"Opportunities",subtitle:"Market and channel expansion",tone:"growth",points:[
+   "India electronics and industrial-automation demand supports repeat procurement of computing, networking, storage and control products.",
+   "Authorized distributor or stockist relationships may give access to better tier pricing, channel programs and replenishment.",
+   "Bangladesh, Thailand, Vietnam, Malaysia and the United States offer different future sales, sourcing or industrial-specialist paths."
+ ],response:"Start with high-liquidity SKUs and accountable stock turns, then expand manufacturer relationships, country coverage and value-added industrial product lines."},
+ {id:"threats",symbol:"T",title:"Threats",subtitle:"Competitive and inventory exposure",tone:"risk",points:[
+   "Large incumbents can undercut commodity prices, offer longer buyer credit and handle warranties at scale.",
+   "Compute price changes, counterfeits, FX shifts, duties and product obsolescence can erase a quoted trading spread.",
+   "Unsold inventory ties up cash; distributor authorization and territory rights may constrain resale."
+ ],response:"Purchase only exact-MPN, traceable inventory with tested channel exit routes, age limits, margin floors and clearly documented RMA/return terms."}
 ] as const;
 
 export const competitionForces = [
-  {name:"Industry rivalry", level:"High", strength:5, why:"Established ICT distributors and scaled electronics manufacturers compete on buying power, brand access and service reach.", play:"Avoid a commodity-first price war; concentrate on integration-intensive niches."},
-  {name:"Buyer bargaining", level:"High", strength:5, why:"Professional buyers can compare quotes, negotiate credit and switch standardized hardware suppliers.", play:"Win on specification ownership, engineering support and dependable replenishment."},
-  {name:"Supplier bargaining", level:"Medium–High", strength:4, why:"Authorized products, exact MPN supply and small initial orders limit negotiating leverage.", play:"Dual-source qualified equivalents and aggregate demand before factory RFQs."},
-  {name:"Substitute solutions", level:"Medium", strength:3, why:"Importers, local integrators and customer-built assemblies can replace parts of the offer.", play:"Provide testing, pre-configuration, installation and warranty coordination."},
-  {name:"New entrants", level:"Medium", strength:3, why:"Trading models are accessible; industrial execution, quality and repeat contracts take longer to replicate.", play:"Build customer-side process integration and reliable service evidence."}
+ {name:"Industry rivalry",level:"High",strength:5,why:"Major distributors compete on manufacturer access, purchasing scale, logistics and credit.",play:"Use narrow stock availability, trusted channel relationships and targeted replenishment rather than a nationwide price war."},
+ {name:"Buyer bargaining",level:"High",strength:5,why:"Resellers and systems integrators can compare exact SKUs across numerous sellers.",play:"Offer documented provenance, competitive landed prices, rapid dispatch and dependable stock."},
+ {name:"Supplier bargaining",level:"Medium–High",strength:4,why:"New distributors have limited tier leverage, authorization and credit history.",play:"Negotiate resale rights, pricing tiers, stock rotation, RMA and future credit before scaling purchase orders."},
+ {name:"Substitute solutions",level:"Medium",strength:3,why:"Regional wholesalers, e-commerce and OEM-direct channels compete for the same orders.",play:"Differentiate on assured availability, bundles and flexible quantities."},
+ {name:"New entrants",level:"Medium",strength:3,why:"Basic electronics trading is easy to enter; sustainable supplier terms and channel trust are harder.",play:"Build preferential distribution economics and a track record of repeat sell-through."}
 ] as const;
 
 export const investmentWedges = [
-  {label:"Lead", title:"Industrial controls & configured automation", why:"Engineering content, repeat B2B needs and service attachment create a more defensible commercial entry point.", proof:"Two exact application BOMs, two qualified manufacturing routes and paid customer pilot scopes.", capital:"Low-volume, made-to-spec batches; milestone-based funding"},
-  {label:"Build", title:"Wiring harnesses, sensors & engineered assemblies", why:"Customized assemblies offer repeat part numbers, quality differentiation and manageable inventory when ordered against drawings.", proof:"Approved drawing/BOM, sample inspection report, repeat-order intent and documented warranty process.", capital:"Sample lots first, then scheduled batch commitments"},
-  {label:"Selective", title:"GPUs, SSDs & general computing trade", why:"Trading can generate cash cycles but pricing is transparent, working capital intensive and exposed to obsolescence.", proof:"Authorized-channel landed quote, customer purchase order and acceptable net margin after finance.", capital:"Back-to-back purchase cycles; minimal speculative stock"}
+ {label:"Launch",title:"Fast-turn distribution inventory",why:"Start commercial operations with a narrow set of standardized, resalable electronics with established channel demand and clear MPNs.",proof:"Supplier authorization or valid resale terms, comparative landed quotes, written warranty support, multiple buyer-channel quotes and documented stock-exit routes.",capital:"Controlled first stock tranche, then replenish against actual velocity"},
+ {label:"Expand",title:"OEM / distributor channel relationships",why:"More durable supplier access can improve acquisition costs, stock rotation, assortment and payment terms over successive orders.",proof:"Manufacturer/distributor agreement or written channel terms, tier pricing, credit/RMA conditions and territory clarity.",capital:"Revolving working capital and negotiated supplier credit"},
+ {label:"Future",title:"Configured industrial systems and services",why:"Engineering, testing and integration provide differentiated margin opportunities after the distribution platform builds purchasing and fulfillment capability.",proof:"Qualified engineering partner, tested BOM, service capability and repeat product requirements.",capital:"Expand selectively from distribution cash flows and separately approved capex"}
 ] as const;
 
 export const externalDrivers = [
@@ -65,53 +49,49 @@ export const externalDrivers = [
 ] as const;
 
 export const principalRisks = [
-  {risk:"Demand conversion", exposure:"High", indicator:"Pipeline is inquiry-only; repeat-order commitments absent", action:"Use paid pilots and buyer PO/deposits before broad inventory purchases"},
-  {risk:"Gross-to-net margin", exposure:"High", indicator:"Supplier quote changes, freight/duty leakage, slow sell-through", action:"Price exact MPN/BOM after landed costs and warranty reserve"},
-  {risk:"Working capital", exposure:"High", indicator:"Inventory + receivables outrun trade-capital facility", action:"Stage purchases; negotiate deposits, supplier credit and receivable limits"},
-  {risk:"Supply and quality", exposure:"Medium", indicator:"Single-source BOM, delivery variance or batch failure", action:"Dual-source, test pilot lots and document acceptance criteria"},
-  {risk:"Cross-border compliance", exposure:"High", indicator:"Unclear origin, HS classification or importer requirements", action:"Validate each route with customs and qualified local counsel"},
-  {risk:"Inventory obsolescence", exposure:"Medium–High", indicator:"Aged GPU/compute stock, falling market price", action:"Favor back-to-back trade and enforce SKU aging limits"}
+ {risk:"Inventory sell-through",exposure:"High",indicator:"Slow-moving SKUs, weak reseller bids, rising stock age",action:"Begin with limited resalable lots, market-check multiple exit channels, age inventory and halt reorders on poor turnover"},
+ {risk:"Gross-to-net margin",exposure:"High",indicator:"Price drops or freight, tax, RMA and payment fees erode spread",action:"Calculate landed net contribution per exact SKU and preserve a margin floor before PO approval"},
+ {risk:"Supplier legitimacy",exposure:"High",indicator:"Unverified stock, lack of authorization, unclear serial provenance",action:"Request channel documentation, serial traceability and written warranty/RMA conditions"},
+ {risk:"Working capital",exposure:"High",indicator:"Purchases, taxes and receivables consume the available cash pool",action:"Limit initial deployment, maintain liquidity reserve and use short credit terms until collections are proven"},
+ {risk:"Country compliance",exposure:"High",indicator:"Unclear import, certification, resale, warranty or origin requirements",action:"Verify product classification and route-specific obligations before importing or cross-border shipment"},
+ {risk:"Price erosion",exposure:"Medium–High",indicator:"New compute launches or currency movements discount held stock",action:"Reduce speculative GPU exposure; refresh competitor prices and hold stock aging thresholds"}
 ] as const;
+
+export const firstInventoryPolicy = {
+ availableTradeCapitalUsd:600000,
+ openingTrancheLowPct:10,
+ openingTrancheHighPct:25,
+ initialSkuCount:"4–8",
+ preferredStock:"Standardized, traceable, channel-eligible stock with observable market prices",
+ decisionRule:"Landed net margin after taxes, freight, fees, financing and warranty allowances, plus credible multiple-channel resalability",
+ pacing:"Order → receive → list through qualified resale partners → sell → collect → replenish",
+ capitalApproach:"A proposed 10–25% opening release of the $600k trade-capital bucket ($60k–$150k); not a committed order or recommended spend without live quotes."
+} as const;
 
 /** Dates are relative to program kickoff, not claims of work already completed. */
 export const deliveryPhases = [
-  {
-    code:"01", window:"Day 0–30", title:"Foundation & validation",
-    focus:"Confirm investment vehicle, target buyer segments and the first two product wedges.",
-    deliverables:["Operating plan and decision rights","10 qualified buyer discovery conversations (target)","3 comparable RFQs per priority BOM (target)","Route-level tax, origin and landed-cost memo"],
-    gate:"Select two commercially viable product wedges before releasing major inventory capital."
-  },
-  {
-    code:"02", window:"Day 31–90", title:"Commercial proof",
-    focus:"Convert prospects into pilot scopes and test actual supply reliability.",
-    deliverables:["2 customer-backed pilot orders or paid scopes (target)","Sample/first-article acceptance tests","Written warranty and return workflow","Purchase-cycle cash forecast by route"],
-    gate:"Release the first pilot-order tranche after buyer and supplier terms are evidenced."
-  },
-  {
-    code:"03", window:"Months 4–6", title:"Repeatable delivery",
-    focus:"Prove replenishment, quality and service attachment on a narrow catalog.",
-    deliverables:["Track repeat order and delivery metrics","Establish supplier price validity and backup sources","Document integration / support service offer","Monthly gross margin and cash-conversion review"],
-    gate:"Scale proven SKUs that meet contribution and cash-cycle thresholds."
-  },
-  {
-    code:"04", window:"Months 7–12", title:"Channel expansion",
-    focus:"Expand into adjacent industrial accounts and contracted assembly programs.",
-    deliverables:["Broaden qualified OEM/system-integrator pipeline","Standardize small-batch manufacturing QA","Negotiate tiered pricing and credit","Add technical service and channel support capacity"],
-    gate:"Seek additional working capital when supported by repeat orders and supplier terms."
-  },
-  {
-    code:"05", window:"Months 13–18", title:"Regional scaling",
-    focus:"Concentrate on repeat demand and selectively broaden regional distribution.",
-    deliverables:["Multi-quarter purchase and production plans","Preferred supply agreements where justified","Revolving trade-finance framework","Investor milestone and capital-efficiency reporting"],
-    gate:"Expand funded order volume on evidence of delivery, quality and collections."
-  }
+ {code:"01",window:"Days 0–30",title:"Secure distribution access",focus:"Negotiate manufacturer, authorized-distributor and regional-wholesaler relationships for fast-turn standard products.",
+  deliverables:["Build a prioritized 4–8 SKU opening shortlist (target)","Compare 3 supplier/stockist quotes per priority SKU (target)","Negotiate territory, RMA, MOQ, stock rotation and payment terms","Complete landed-cost, import and serial-provenance checks"],
+  gate:"Select suppliers and SKUs with verified resale rights, margin headroom and more than one credible channel exit."},
+ {code:"02",window:"Days 31–60",title:"Acquire opening inventory",focus:"Purchase the first limited inventory tranche and activate reseller, B2B and wholesale channel listings.",
+  deliverables:["Set opening stock purchase approvals and limits","Receive, inspect and reconcile exact-MPN inventory","Set up channel price sheets, fulfillment, returns and serial tracking","Launch initial wholesale and distributor/reseller listings"],
+  gate:"Keep the first stock tranche within a controlled portion of trade capital; expand only against observed price and sales velocity."},
+ {code:"03",window:"Days 61–90",title:"Sell through and reorder",focus:"Flip the first stock, measure cash conversion and adjust SKU allocation.",
+  deliverables:["Track SKU-level gross-to-net contribution and days to sale","Compare channel sales, stock aging and cash collection","Replenish only top-turning SKUs","Use first-cycle performance to negotiate next distributor tiers"],
+  gate:"Release reorder capital for SKUs that clear return, margin, sell-through and cash-conversion standards."},
+ {code:"04",window:"Months 4–9",title:"Broaden channels and product breadth",focus:"Scale repeat inventory cycles and negotiate stronger upstream terms.",
+  deliverables:["Add qualified distribution and wholesale relationships","Expand repeat-selling product categories by demonstrated velocity","Negotiate volume tiers and credit/consignment where available","Introduce bundled industrial and configured electronics where justified"],
+  gate:"Expand line card and trade capital with reconciled sell-through and supplier terms, not merely market-size projections."},
+ {code:"05",window:"Months 10–18",title:"Build regional expansion options",focus:"Extend proven supply lines to Nepal and selective adjacent Asian channels; prepare U.S. specialist distribution later.",
+  deliverables:["Evaluate Bangladesh and Southeast Asia distribution partnerships","Develop Malaysia/Vietnam/Thailand sourcing routes where economic","Assess U.S. compliance, distributor competition and specialized niche selection","Explore engineered systems and support as second-stage margin expansion"],
+  gate:"Open a new geography or service line only when the trading base and channel economics can support it."}
 ] as const;
 
 export const launchMeasures = [
-  {name:"Qualified demand", target:"Buyer interviews → paid pilot → repeat purchase", category:"Commercial"},
-  {name:"Supply qualification", target:"Comparable RFQs, exact BOM, warranty and delivery", category:"Procurement"},
-  {name:"Unit economics", target:"Positive gross contribution after landed cost and reserves", category:"Economics"},
-  {name:"Cash discipline", target:"Collection days, inventory age and committed funding per PO", category:"Capital"}
+ {name:"Distribution relationships",target:"Signed terms, authorization, tier quotes, MOQ, RMA and replenishment",category:"Supply access"},
+ {name:"Inventory velocity",target:"SKU sell-through, days-to-cash, aging and reorder frequency",category:"Commercial"},
+ {name:"Net unit economics",target:"Landed resale contribution after freight, taxes, fees and returns",category:"Economics"},
+ {name:"Capital discipline",target:"Opening tranche utilization, channel collections and available reorder cash",category:"Capital"}
 ] as const;
 
 export const analysisSources = [
