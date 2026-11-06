@@ -97,29 +97,34 @@ export function MarketEntryPlanner() {
   const row=targetAccountScenarios[index];
   const [accounts,setAccounts]=useState<number>(row.accounts);
   const [spend,setSpend]=useState<number>(row.annualSpendUsd);
-  const modeledRevenue=accounts*spend;
+  const [months,setMonths]=useState<number>([6,9,12][index]);
+  const effectiveAccounts=accounts*months/12;
+  const modeledRevenue=effectiveAccounts*spend;
   const planRevenue=row.accounts*row.annualSpendUsd;
   const delta=modeledRevenue-planRevenue;
   const grossProfit=modeledRevenue*row.marginPercent/100;
-  const selectYear=(next:number)=>{setIndex(next);setAccounts(targetAccountScenarios[next].accounts);setSpend(targetAccountScenarios[next].annualSpendUsd);};
+  const requiredAccounts=Math.ceil(planRevenue/(spend*months/12));
+  const selectYear=(next:number)=>{setIndex(next);setAccounts(targetAccountScenarios[next].accounts);setSpend(targetAccountScenarios[next].annualSpendUsd);setMonths([6,9,12][next]);};
   const totalPlan=useMemo(()=>targetAccountScenarios.map(x=>x.accounts*x.annualSpendUsd),[]);
   return <div className="iv-entry-model">
-    <div className="iv-entry-head"><div><div className="iv-eyebrow">Commercial plan / Target-account economics</div><h3>Translate industry growth into a focused account plan.</h3><p>Translate sector momentum into practical purchasing relationships. Model the business-account base and annual spending required to support each year&apos;s revenue plan.</p></div><Link href="/investments/nepal-india-electronics/suppliers#scale" className="iv-entry-link">Explore procurement scale ↗</Link></div>
+    <div className="iv-entry-head"><div><div className="iv-eyebrow">Commercial planning / Customer acquisition and duration</div><h3>Convert account targets into recognized annual sales.</h3><p>An annual account-spend target assumes a full year of activity. Adjust the average number of purchasing months to reflect when accounts start buying and the impact of ramp-up on the annual forecast.</p></div><Link href="/investments/nepal-india-electronics#sales-strategy" className="iv-entry-link">Review wholesale acquisition strategy ↗</Link></div>
     <div className="iv-entry-years" role="group" aria-label="Forecast year">
-      {targetAccountScenarios.map((scenario,i)=><button key={scenario.year} className={i===index?"active":""} type="button" aria-pressed={i===index} onClick={()=>selectYear(i)}><span>{scenario.year}</span><strong>{usdMillions(totalPlan[i])}</strong><small>Planning case</small></button>)}
+      {targetAccountScenarios.map((scenario,i)=><button key={scenario.year} className={i===index?"active":""} type="button" aria-pressed={i===index} onClick={()=>selectYear(i)}><span>{scenario.year}</span><strong>{usdMillions(totalPlan[i])}</strong><small>Existing planning target</small></button>)}
     </div>
     <div className="iv-entry-grid">
       <div className="iv-entry-controls">
-        <label>Active business accounts <strong>{accounts.toLocaleString("en-US")}</strong><input aria-label="Active business accounts" type="range" min="1" max="200" step="1" value={accounts} onChange={e=>setAccounts(+e.target.value)}/></label>
-        <label>Average annual purchasing / account <strong>{usd(spend)}</strong><input aria-label="Average annual purchasing per account" type="range" min="25000" max="300000" step="5000" value={spend} onChange={e=>setSpend(+e.target.value)}/></label>
-        <p>Example account categories: industrial system integrators, OEM manufacturers, agritech equipment providers and specialist IT distributors. Customers, annual spend and margin are prospective modeling inputs, not contracts or verified buying intentions.</p>
+        <label>Purchasing accounts <strong>{accounts.toLocaleString("en-US")}</strong><input aria-label="Purchasing accounts" type="range" min="1" max="200" step="1" value={accounts} onChange={e=>setAccounts(+e.target.value)}/></label>
+        <label>Average annualized purchasing / account <strong>{usd(spend)}</strong><input aria-label="Annualized purchases per account" type="range" min="25000" max="300000" step="5000" value={spend} onChange={e=>setSpend(+e.target.value)}/></label>
+        <label>Average active purchasing months <strong>{months} / 12</strong><input aria-label="Average months of purchasing activity per account" type="range" min="1" max="12" step="1" value={months} onChange={e=>setMonths(+e.target.value)}/></label>
+        <p>Scenario assumes uniform account spend while active. Real purchasing is uneven, and customer acquisition is unverified. Wholesale and service revenues should also be modeled separately.</p>
       </div>
       <div className="iv-entry-outcomes">
-        <div><span>Illustrative annual sales</span><strong>{usdMillions(modeledRevenue)}</strong><small>{accounts} accounts × {usd(spend)} annual purchasing</small></div>
-        <div><span>Gross profit at {row.marginPercent}% target margin</span><strong>{usdMillions(grossProfit)}</strong><small>Before personnel, facilities, financing and taxes</small></div>
-        <div><span>Compared with {row.year} business plan</span><strong>{delta===0?"On plan":(delta>0?"+":"−")+usdMillions(Math.abs(delta))}</strong><small>Illustrative scenario variance, not a performance result</small></div>
+        <div><span>Illustrative annual sales after ramp</span><strong>{usdMillions(modeledRevenue)}</strong><small>{accounts} accounts × {usd(spend)} annual rate × {months}/12</small></div>
+        <div><span>Accounts required for {row.year} plan</span><strong>{requiredAccounts}</strong><small>At the selected spend and average active months, versus {accounts} in this scenario</small></div>
+        <div><span>Gross profit at {row.marginPercent}% blended forecast margin</span><strong>{usdMillions(grossProfit)}</strong><small>Illustrative margin assumption; excludes fixed operating, financing and taxes</small></div>
+        <div><span>Gap to {row.year} revenue target</span><strong>{delta===0?"On plan":(delta>0?"+":"−")+usdMillions(Math.abs(delta))}</strong><small>Accounts and spend must both be achieved to realize the plan</small></div>
       </div>
     </div>
-    <p className="iv-entry-note">The projections assume the business develops a customer base and supplier economics over time. Neither market growth nor scenario arithmetic establishes product-market fit. This model intentionally does not claim existing customer orders.</p>
+    <p className="iv-entry-note">Illustration: 24 accounts at $75k annual spending achieve $1.8M only if they each purchase throughout all 12 months. At six average active months the same accounts yield $900k; roughly 48 accounts are needed for $1.8M if average spending is unchanged. These are prospective calculations, not contracted buyers.</p>
   </div>;
 }
