@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CorridorDiagram } from "@/components/investments/CorridorDiagram";
+import { MarketSignalStrip } from "@/components/investments/MarketOpportunity";
 
 export const metadata: Metadata = {
   title: "Investment Opportunities | Regional Electronics & Industrial Growth",
@@ -40,8 +41,7 @@ export default function InvestmentsPage() {
           <div className="iv-eyebrow iv-reveal">Subodh KC / Strategic investment opportunities</div>
           <h1 className="iv-serif iv-reveal">Capital meets<br/><em>operating leverage.</em></h1>
           <p className="iv-hub-lead iv-reveal">
-            Investment opportunities shaped around supply-chain advantage, regional manufacturing,
-            technology distribution and disciplined commercial expansion.
+            A focused regional electronics platform positioned within India’s expanding industrial, components and automation ecosystem. Explore the market momentum, product economics and phased route to commercial scale.
           </p>
           <div className="iv-hub-actions iv-reveal">
             <Link className="iv-btn" href="/investments/nepal-india-electronics">Explore the featured investment <span aria-hidden="true">↗</span></Link>
@@ -54,8 +54,8 @@ export default function InvestmentsPage() {
               <h2 className="iv-serif">Electronics & AI<br/>Hardware Corridor</h2>
               <p>
                 A scalable regional platform spanning electronics sourcing, industrial assembly,
-                distribution and integration. Start with targeted commercial demand and expand
-                purchasing capacity through supplier relationships and trade financing.
+                distribution and integration. Develop an initial network of business accounts and expand
+                purchasing capacity through qualified supply partners and trade financing.
               </p>
               <Link href="/investments/nepal-india-electronics" className="iv-btn" style={{marginTop:12}}>
                 Explore the investment thesis <span aria-hidden="true">↗</span>
@@ -70,6 +70,7 @@ export default function InvestmentsPage() {
           </div>
         </div>
       </section>
+      <section className="iv-hub-market"><div className="iv-wrap"><MarketSignalStrip /><div className="iv-hub-market-cta"><p>India's industrial automation and electronics ecosystems are expanding. The investment case focuses on the specialized product and integration channels that can serve this demand.</p><Link href="/investments/nepal-india-electronics#market">Explore market size and growth drivers ↗</Link></div></div></section>
       <section className="iv-hub-section">
         <div className="iv-wrap">
           <div className="iv-eyebrow">Research and opportunity intelligence</div>
@@ -85,7 +86,7 @@ export default function InvestmentsPage() {
             ))}
           </div>
           <p style={{fontSize:12,color:"#69776d",marginTop:28,lineHeight:1.7}}>
-            Market benchmarks and product economics are research scenarios. Supplier pricing,
+            Market statistics are published third-party context; the company has no booked customer demand assumed in the projections. Supplier pricing,
             customer commitments and investment terms are established through commercial diligence.
           </p>
         </div>
