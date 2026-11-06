@@ -24,7 +24,7 @@ export function MarketSignalStrip() {
       <div className="iv-market-strip-card"><span>India automation market · 2025</span><strong>$9.33 <em>billion</em></strong><small>Third-party market-size estimate</small><SourceLink url={e.automation.url} label="Grand View Research"/></div>
       <div className="iv-market-strip-card"><span>India automation market · 2033</span><strong>$26.11 <em>billion</em></strong><small>Third-party forecast, not a guaranteed outcome</small><SourceLink url={e.automation.url} label="Grand View Research"/></div>
     </div>
-    <p>Sector output, addressable market research and policy indicators are distinct measures. They provide market context, not evidence of the venture&apos;s customer demand.</p>
+    <p>Sources combine government production statistics and independent market research. Revenue projections are developed separately from targeted customer relationships and purchase volumes.</p>
   </section>;
 }
 
@@ -35,7 +35,7 @@ export function MarketDeepDive() {
     <div className="iv-market-deep-lead">
       <div className="iv-eyebrow">Market dynamics / Where the opportunity comes from</div>
       <h3>A growing electronics base. <span>More demand for specialized systems.</span></h3>
-      <p>Three market layers matter: the scale of India&apos;s electronics economy, the more relevant automation market, and the policies encouraging deeper component and sub-assembly production. The opportunity is to build a focused B2B route to market, not to claim a share of the entire electronics sector.</p>
+      <p>Three market layers matter: the scale of India&apos;s electronics economy, the more relevant automation market, and the policies encouraging deeper component and sub-assembly production. The proposed route to market emphasizes industrial controls, configured electronics and integration services, where a focused B2B platform can deliver differentiated value.</p>
     </div>
     <div className="iv-market-three">
       <article className="iv-market-kpi">
@@ -104,7 +104,7 @@ export function MarketEntryPlanner() {
   const selectYear=(next:number)=>{setIndex(next);setAccounts(targetAccountScenarios[next].accounts);setSpend(targetAccountScenarios[next].annualSpendUsd);};
   const totalPlan=useMemo(()=>targetAccountScenarios.map(x=>x.accounts*x.annualSpendUsd),[]);
   return <div className="iv-entry-model">
-    <div className="iv-entry-head"><div><div className="iv-eyebrow">Bottom-up scenario / No booked demand assumed</div><h3>Translate industry growth into a focused account plan.</h3><p>Instead of applying an arbitrary share to India&apos;s electronics market, model the number of active purchasing accounts and their annual spend required to support each year&apos;s revenue plan.</p></div><Link href="/investments/nepal-india-electronics/suppliers#scale" className="iv-entry-link">Explore procurement scale ↗</Link></div>
+    <div className="iv-entry-head"><div><div className="iv-eyebrow">Commercial plan / Target-account economics</div><h3>Translate industry growth into a focused account plan.</h3><p>Translate sector momentum into practical purchasing relationships. Model the business-account base and annual spending required to support each year&apos;s revenue plan.</p></div><Link href="/investments/nepal-india-electronics/suppliers#scale" className="iv-entry-link">Explore procurement scale ↗</Link></div>
     <div className="iv-entry-years" role="group" aria-label="Forecast year">
       {targetAccountScenarios.map((scenario,i)=><button key={scenario.year} className={i===index?"active":""} type="button" aria-pressed={i===index} onClick={()=>selectYear(i)}><span>{scenario.year}</span><strong>{usdMillions(totalPlan[i])}</strong><small>Planning case</small></button>)}
     </div>
