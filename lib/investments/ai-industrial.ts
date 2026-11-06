@@ -36,7 +36,7 @@ export const unitMarginAssumptions={
  engineered:28,
  services:35
 } as const;
-export function calculateWeightedGrossMargin(mix:{wholesalePct:number;engineeredPct:number;servicePct:number},margins=unitMarginAssumptions){
+export function calculateWeightedGrossMargin(mix:{wholesalePct:number;engineeredPct:number;servicePct:number},margins:{wholesale:number;engineered:number;services:number}=unitMarginAssumptions){
  return (mix.wholesalePct*margins.wholesale+mix.engineeredPct*margins.engineered+mix.servicePct*margins.services)/100;
 }
 export const investmentRaise={
