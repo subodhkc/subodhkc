@@ -1,0 +1,3 @@
+import type { Metadata } from "next";
+export const metadata:Metadata={title:"Nepal–India Electronics & AI Hardware Investment",description:"Interactive investment opportunity: cross-border electronics distribution, industrial manufacturing, procurement economics and three-year financial projections.",alternates:{canonical:"https://subodhkc.com/investments/nepal-india-electronics"},openGraph:{title:"Nepal–India Electronics & AI Hardware Investment",description:"A $1 million regional electronics distribution and manufacturing investment framework.",url:"https://subodhkc.com/investments/nepal-india-electronics"}};
+export default function InvestmentLayout({children}:{children:React.ReactNode}){return children;}
