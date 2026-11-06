@@ -65,6 +65,11 @@ export function CorridorDiagram({ compact = false }: { compact?: boolean }) {
             <text x="742" y="280">Recurring B2B demand</text>
           </g>
         </svg>
+        <div className="iv-corridor-mobile" aria-hidden="true">
+          <div><small>01 / SOURCE</small><strong>Asian manufacturing</strong><span>China · Taiwan · EMS</span></div>
+          <div><small>02 / ENGINEER</small><strong>Nepal assembly</strong><span>Testing · Integration · Products</span></div>
+          <div><small>03 / DISTRIBUTE</small><strong>India + Nepal</strong><span>B2B channels · Services</span></div>
+        </div>
         {!compact && (
           <div className="iv-corridor-caption">
             <span>Global manufacturing access</span>
