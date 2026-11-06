@@ -36,8 +36,19 @@ export const initialAllocation = [
   ["Logistics & reserve", 150000],
 ] as const;
 
-/** Year, modeled revenue in millions, gross margin percent, operating expense in thousands. */
+/** Year, revenue ($M), three-engine weighted gross margin (%), operating costs ($000).
+ * Uses base distribution/engineered/service mix from ai-industrial.ts:
+ * 2027: 83% / 12% / 5%; 2028: 65% / 25% / 10%; 2029: 47% / 35% / 18%.
+ * Base stream margins: 12%, 28%, 35%. All are planning scenarios.
+ */
 export const forecastRows = [
+  [2027, 1.8, 15.07, 250],
+  [2028, 4, 18.30, 500],
+  [2029, 7.5, 21.74, 850],
+] as const;
+
+/** Earlier, more aggressive gross margin case; now explicitly engineering-led upside. */
+export const upsideForecastRows = [
   [2027, 1.8, 18, 250],
   [2028, 4, 21, 500],
   [2029, 7.5, 23, 850],
