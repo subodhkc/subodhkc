@@ -77,7 +77,7 @@ export default function InvestmentsPage() {
           </div>
         </div>
       </section>
-      <section className="iv-film-section" aria-label="AI at the Industrial Edge film"><div className="iv-wrap"><InvestmentVideo /></div></section>
+      <section id="film" className="iv-film-section" aria-label="AI at the Industrial Edge film"><div className="iv-wrap"><InvestmentVideo /></div></section>
       <section className="iv-hub-market"><div className="iv-wrap"><MarketSignalStrip /><div className="iv-hub-market-cta"><p>As AI moves from software into physical equipment, industrial customers require sensors, local compute, tested controls and integrated engineering. This is the longer-range opportunity beyond distribution.</p><Link href="/investments/nepal-india-electronics#market">Explore market size and growth drivers ↗</Link></div></div></section>
       <section className="iv-hub-section">
         <div className="iv-wrap">
