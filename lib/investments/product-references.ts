@@ -12,7 +12,7 @@ export type ProductRefInfo = {
   model:string;
   detail:string;
   image?:string;
-  kind:"computer"|"controller"|"panel"|"gateway"|"harness"|"sensor"|"edge"|"ssd"|"gpu";
+  kind:"computer"|"controller"|"panel"|"gateway"|"harness"|"sensor"|"edge"|"ssd"|"gpu"|"memory"|"transceiver"|"psu"|"pcb";
   match:"example"|"exact-sku";
 };
 export const productReferences: Record<string,ProductRefInfo> = {
@@ -63,7 +63,7 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"Manufacturer-defined 8GB GDDR7 Blackwell board reference. Exact MPN must match approved distributor terms; the site's modeled USD trading price is not a PNY quote."
   },
   "DDR5 16GB memory module": {
-    name:"DDR5 16GB memory module",label:"Crucial Basics DDR5 16GB (CB16GU4800)",maker:"Crucial",model:"CB16GU4800",kind:"ssd",match:"example",
+    name:"DDR5 16GB memory module",label:"Crucial Basics DDR5 16GB (CB16GU4800)",maker:"Crucial",model:"CB16GU4800",kind:"memory",match:"example",
     url:"https://content.crucial.com/content/dam/crucial/dram-products/basics/flyer/crucial-basics-memory-productflyer.pdf",
     detail:"Manufacturer datasheet for a 16GB DDR5 UDIMM, 4800MT/s. Verify speed, form factor and exact MPN: the generic catalog target is not an executable quote."
   },
@@ -73,17 +73,17 @@ export const productReferences: Record<string,ProductRefInfo> = {
     detail:"Consumer PCIe 4.0 2TB reference specification; this product is not qualified as an industrial SSD or guaranteed reseller inventory."
   },
   "10G SFP+ optical transceiver": {
-    name:"10G SFP+ optical transceiver",label:"FS 10G SFP+ optics technical datasheet",maker:"FS",model:"SFP-10G product family",kind:"gateway",match:"example",
+    name:"10G SFP+ optical transceiver",label:"FS 10G SFP+ optics technical datasheet",maker:"FS",model:"SFP-10G product family",kind:"transceiver",match:"example",
     url:"https://resource.fs.com/mall/doc/20221219143135iscwcs.pdf",
     detail:"10GbE SFP+ module family. Compatibility, connector, wavelength, distance and specific MPN must match buyer devices."
   },
   "Populated PCB · 100-component assembly": {
-    name:"Populated PCB · 100-component assembly",label:"JLCPCB PCB assembly service and SMT capabilities",maker:"JLCPCB",model:"Turnkey PCBA service",kind:"panel",match:"example",
+    name:"Populated PCB · 100-component assembly",label:"JLCPCB PCB assembly service and SMT capabilities",maker:"JLCPCB",model:"Turnkey PCBA service",kind:"pcb",match:"example",
     url:"https://jlcpcb.com/pcb-assembly",
     detail:"Manufacturer PCB-assembly service reference. Each populated PCB requires an exact design, BOM, pick-and-place files, testing method and supplier quotation; no single standard SKU matches this line."
   },
   "Industrial 24V power supply": {
-    name:"Industrial 24V power supply",label:"MEAN WELL SDR-120-24 industrial DIN-rail power supply",maker:"MEAN WELL",model:"SDR-120-24",kind:"controller",match:"example",
+    name:"Industrial 24V power supply",label:"MEAN WELL SDR-120-24 industrial DIN-rail power supply",maker:"MEAN WELL",model:"SDR-120-24",kind:"psu",match:"example",
     url:"https://www.meanwell.com/Upload/PDF/SDR-120/SDR-120-SPEC.PDF",
     detail:"24V DC, 5A, 120W industrial DIN-rail reference. This exact unit and compliance profile may differ from the planning product."
   },
