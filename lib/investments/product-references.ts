@@ -65,11 +65,59 @@ export const productReferences: Record<string,ProductRefInfo> = {
     image:"https://m.media-amazon.com/images/I/71zmLJZ77VL._AC_SL1500_.jpg",
     detail:"Manufacturer-defined 8GB GDDR7 Blackwell board reference. Exact MPN must match approved distributor terms; the site's modeled USD trading price is not a PNY quote."
   },
+  "DDR5 16GB memory module": {
+    name:"DDR5 16GB memory module",label:"Crucial Basics DDR5 16GB (CB16GU4800)",maker:"Crucial",model:"CB16GU4800",kind:"ssd",match:"example",
+    url:"https://content.crucial.com/content/dam/crucial/dram-products/basics/flyer/crucial-basics-memory-productflyer.pdf",
+    detail:"Manufacturer datasheet for a 16GB DDR5 UDIMM, 4800MT/s. Verify speed, form factor and exact MPN: the generic catalog target is not an executable quote."
+  },
+  "NVMe 2TB Gen4 SSD": {
+    name:"NVMe 2TB Gen4 SSD",label:"Crucial P3 Plus 2TB family specification",maker:"Crucial",model:"CT2000P3PSSD8",kind:"ssd",match:"example",
+    url:"https://www.crucial.com/content/dam/crucial/ssd-products/p3-plus/flyers/b2c/crucial-p3plus-productflyer-consumer.pdf",
+    detail:"Consumer PCIe 4.0 2TB reference specification; this product is not qualified as an industrial SSD or guaranteed reseller inventory."
+  },
+  "10G SFP+ optical transceiver": {
+    name:"10G SFP+ optical transceiver",label:"FS 10G SFP+ optics technical datasheet",maker:"FS",model:"SFP-10G product family",kind:"gateway",match:"example",
+    url:"https://resource.fs.com/mall/doc/20221219143135iscwcs.pdf",
+    detail:"10GbE SFP+ module family. Compatibility, connector, wavelength, distance and specific MPN must match buyer devices."
+  },
+  "Populated PCB · 100-component assembly": {
+    name:"Populated PCB · 100-component assembly",label:"Molex engineered connectivity/assembly reference",maker:"Molex",model:"Custom assembly overview",kind:"panel",match:"example",
+    url:"https://www.molex.com/en-us/products/cable-assemblies",
+    detail:"Category-level manufacturing/assembly illustration only. Populated PCB assembly is a different custom process requiring an exact PCB design, BOM, test fixture and quotation."
+  },
+  "Industrial 24V power supply": {
+    name:"Industrial 24V power supply",label:"MEAN WELL SDR-120-24 industrial DIN-rail power supply",maker:"MEAN WELL",model:"SDR-120-24",kind:"controller",match:"example",
+    url:"https://www.meanwell.com/Upload/PDF/SDR-120/SDR-120-SPEC.PDF",
+    detail:"24V DC, 5A, 120W industrial DIN-rail reference. This exact unit and compliance profile may differ from the planning product."
+  },
+  "Pump VFD control subassembly": {
+    name:"Pump VFD control subassembly",label:"AutomationDirect variable-frequency drives",maker:"AutomationDirect",model:"VFD product families",kind:"panel",match:"example",
+    url:"https://www.automationdirect.com/adc/shopping/catalog/drives_-a-_soft_starters/ac_variable_frequency_drives_%28vfd%29",
+    detail:"VFD catalog for AC pump speed control. The proposed subassembly would also require motor specification, panel wiring, protective devices and testing."
+  },
   "RTX 5070 12GB GPU": {
     name:"RTX 5070 12GB GPU",label:"PNY RTX 5070 Triple Fan 12GB",maker:"PNY",model:"VCG507012TFXPB1",kind:"gpu",match:"example",
     url:"https://www.pny.com/geforce-rtx-5070-models?sku=VCG507012TFXPB1",
     detail:"12GB GDDR7 reference graphics card. The listed planning target does not represent a manufacturer quote for this exact board."
   }
+};
+
+export const catalogReferenceKeys: Record<string,string> = {
+  "VCG50608DFXPB1-O":"RTX 5060 8GB GPU",
+  "CT1000P3PSSD8":"Industrial SSD 1TB",
+  "GPU-5070-12":"RTX 5070 12GB GPU",
+  "GPU-EDGE-KIT":"Jetson-based edge AI kit",
+  "DDR5-16G":"DDR5 16GB memory module",
+  "NVME-2TB":"NVMe 2TB Gen4 SSD",
+  "10G-SFP":"10G SFP+ optical transceiver",
+  "IOT-RS485-4G":"Industrial IoT gateway",
+  "CTRL-IRR-01":"Smart irrigation / fertigation controller",
+  "SENSOR-MOD-01":"Industrial sensor module",
+  "HARNESS-01":"Custom wiring harness assembly",
+  "PLC-PANEL-01":"Custom industrial control panel",
+  "PCB-SMT-01":"Populated PCB · 100-component assembly",
+  "POWER-24V":"Industrial 24V power supply",
+  "PUMP-VFD":"Pump VFD control subassembly"
 };
 
 export function competitionDescription(level:number):{label:string;meaning:string;tone:string}{
