@@ -639,7 +639,7 @@ font:400 clamp(30px,4vw,47px)/1.12 var(--font-serif),Georgia,serif;color:#264a39
 .investment-light .sr-plan-deep-link{display:inline-block;margin-top:20px;font-size:12px;color:#226648;text-decoration:underline;text-underline-offset:4px;font-weight:700}
 .investment-light .sr-brief-plan{margin:22px 0;border-top:1px solid #bed2c3;border-bottom:1px solid #bed2c3;padding:14px 0}
 .investment-light .sr-brief-plan h3{font:400 22px Georgia,serif;color:#28543b;margin:0 0 12px}
-.investment-light .sr-brief-plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.investment-light .sr-brief-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
 .investment-light .sr-brief-plan-grid strong{font:700 11px Arial,sans-serif;color:#2b5b43}
 .investment-light .sr-brief-plan-grid p,.investment-light .sr-brief-plan>p{font-size:10px;color:#586e5a;line-height:1.65;margin:8px 0}
 @media(max-width:1100px){.investment-light .sr-mini-plan{grid-template-columns:repeat(3,minmax(0,1fr))}}
