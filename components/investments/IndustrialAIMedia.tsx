@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const shortUrl = "https://youtube.com/shorts/kK95JMg7elU";
+const originalInfographicUrl = "https://drive.google.com/file/d/1ht2flNKvy3y22aVOyRQ-uiYZZa1NY3kL/view?usp=drivesdk";
 const reportUrl = "https://notebook.google.com/notebook/4d51f73a-5b5c-4c11-b3df-87c84cdcf972/artifact/42475799-7ff5-4b75-82e0-508b99d2ac3a";
 
 const engines = [
@@ -33,6 +34,8 @@ export function IndustrialAIMedia({compact=false}:{compact?:boolean}) {
    {!compact&&<div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:12,marginTop:14}}>
     {stack.map(x=><div key={x.step} style={{border:"1px solid #36525a",borderRadius:12,padding:18,background:"#10242b"}}><span style={{fontSize:27,color:"#91c7ee",fontWeight:700,marginRight:12}}>{x.step}</span><strong style={{fontSize:16}}>{x.name}</strong><p style={{fontSize:13,lineHeight:1.55,color:"#b5c9ca",margin:"8px 0 0"}}>{x.detail}</p></div>)}
    </div>}
+   <p style={{margin:"14px 0 6px"}}><a href={originalInfographicUrl} target="_blank" rel="noopener noreferrer" style={{color:"#a4e5c7",textDecoration:"underline",fontSize:14}}>View original industrial AI margin infographic (PNG) ↗</a></p>
+   <p style={{fontSize:12,color:"#a5bdbc",margin:"0 0 8px"}}>Original image hosted on Google Drive; availability to visitors depends on its sharing settings.</p>
    <p style={{fontSize:12,color:"#a5bdbc",lineHeight:1.6,margin:"12px 0 24px"}}>Illustrative gross-margin targets: wholesale 12%, customized solutions 28%, technical services 35%. Actual outcomes depend on landed cost, pricing, labor utilization, installation scope, warranty obligations and customer contracts. A mix of these businesses does not imply a 35% consolidated margin.</p>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(255px,1fr))",gap:16,alignItems:"start"}}>
     <div style={{border:"1px solid #36525a",background:"#11252c",padding:18,borderRadius:14}}>
