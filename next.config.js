@@ -29,7 +29,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://calendly.com https://assets.calendly.com https://*.supabase.co; frame-src 'self' https://calendly.com https://accounts.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://calendly.com https://assets.calendly.com https://*.supabase.co; frame-src 'self' https://calendly.com https://accounts.google.com https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
           },
           {
             key: 'Permissions-Policy',
