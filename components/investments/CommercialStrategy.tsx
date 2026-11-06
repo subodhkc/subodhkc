@@ -1,24 +1,16 @@
 "use client";
 
-import {useState} from "react";
 import Link from "next/link";
 import {wholesaleTiers,serviceOfferings,supportLevels,acquisitionChannels,accountStages,planningGuardrails} from "@/lib/investments/commercial";
-import {forecastRows} from "@/lib/investments/electronics";
 
-const pct=(n:number)=>n.toFixed(1)+"%";
 
 /** Channel strategy for investors; proposed sales/service terms are not live customer offers. */
 export function CommercialStrategy(){
- const [wholesaleMargin,setWholesaleMargin]=useState(12);
- const [servicesMargin,setServicesMargin]=useState(35);
- const [serviceShare,setServiceShare]=useState(20);
- const blend=wholesaleMargin*(1-serviceShare/100)+servicesMargin*serviceShare/100;
- const requiredShare=(target:number)=>servicesMargin>wholesaleMargin?Math.max(0,Math.min(100,(target-wholesaleMargin)/(servicesMargin-wholesaleMargin)*100)):null;
  return <div className="iv-commercial">
    <div className="iv-commercial-hero">
     <div><span className="iv-eyebrow">Commercial architecture / Distributor-led entry</span>
-    <h3>Three wholesale account levels. Optional services that grow with the installed base.</h3>
-    <p>Initial revenue is driven by buying traceable stock at qualified distributor prices, selling through wholesale/reseller channels, collecting cash and replenishing fast-turn SKUs. Configuration, deployment and support contracts become a separate margin engine as technical delivery capacity develops.</p></div>
+    <h3>Wholesale relationships provide the launch channel. Custom AI equipment drives the next growth stage.</h3>
+    <p>Initial revenue is driven by buying traceable stock at qualified distributor prices, selling through wholesale/reseller channels, collecting cash and replenishing fast-turn SKUs. Application-specific edge AI hardware, industrial controls and integration services are proposed expansion layers after the distribution base develops.</p></div>
     <div className="iv-commercial-split"><div><span>Launch</span><strong>Wholesale distribution</strong><small>Orders → cash → reorder</small></div><div><span>Expand</span><strong>Technical service contracts</strong><small>Scope → deliver → support</small></div></div>
    </div>
 
@@ -51,23 +43,9 @@ export function CommercialStrategy(){
    </div>
 
    <div className="iv-commercial-block iv-margin-section">
-    <div className="iv-commercial-title"><span className="iv-eyebrow">04 / Sales mix and forecast reconciliation</span><h4>Wholesale turnover and higher service margins must reconcile.</h4><p>The existing 2027–2029 forecast assumes blended margins of 18%, 21% and 23%. These are more ambitious than a commodity-heavy distribution start. Test what share of sales needs to come from higher-margin contracts to support the forecast.</p></div>
-    <div className="iv-margin-grid">
-      <div className="iv-margin-controls">
-        <label>Wholesale gross margin <strong>{wholesaleMargin}%</strong><input type="range" min="5" max="22" step="1" value={wholesaleMargin} onChange={e=>setWholesaleMargin(+e.target.value)}/></label>
-        <label>Service gross margin <strong>{servicesMargin}%</strong><input type="range" min="20" max="55" step="1" value={servicesMargin} onChange={e=>setServicesMargin(+e.target.value)}/></label>
-        <label>Service share of sales <strong>{serviceShare}%</strong><input type="range" min="0" max="65" step="5" value={serviceShare} onChange={e=>setServiceShare(+e.target.value)}/></label>
-        <p>Both wholesale and service margins are assumptions. Neither is verified by supplier quotes, customers or historical financial results.</p>
-      </div>
-      <div className="iv-margin-results">
-        <span>Modeled blended gross margin</span><strong>{pct(blend)}</strong>
-        <div className="iv-margin-split"><span style={{width:100-serviceShare+"%"}}/><i style={{width:serviceShare+"%"}}/></div>
-        <p>{100-serviceShare}% product resale + {serviceShare}% service revenue. This is a revenue mix, not an allocation of gross profit.</p>
-        <div className="iv-margin-forecast">{forecastRows.map(([yr,rev,target])=><div key={yr}><span>{yr} forecast · {target}% gross margin</span><b>{requiredShare(target)===null?"Not solvable":pct(requiredShare(target)!)} service sales needed</b></div>)}</div>
-      </div>
-    </div>
-    <div className="iv-margin-warning"><strong>Investment-model implication</strong><p>With wholesale at 12% gross margin and services at 35%, the original 18% first-year blended margin requires approximately 26% of revenue from services. Reaching 23% would require roughly 48% service revenue. A pure-distribution year should therefore be evaluated under a lower-margin base case until the contract mix is established.</p></div>
+    <div className="iv-commercial-title"><span className="iv-eyebrow">04 / Connecting channel sales to engineered margins</span><h4>A distribution business evolves into an AI-enabled industrial equipment business.</h4><p>Wholesale product turnover supplies channel access and procurement volume. The next commercial layers are engineered equipment bundles with tested components and separately contracted integration or lifecycle support. These three streams must be modeled independently.</p></div>
     <div className="iv-commercial-risks">{planningGuardrails.map(x=><div key={x.title}><strong>{x.title}</strong><p>{x.detail}</p></div>)}</div>
+    <p className="iv-commercial-disclosure">The financial strategy models 12% distribution, 28% configured-hardware and 35% service gross-margin scenarios, together with each year's projected sales mix. The earlier 18–23% blended-margin assumptions are retained only as an engineering-upside case. <a href="#engineering-economics">Explore the three-engine financial model ↗</a></p>
    </div>
    <p className="iv-commercial-footnote">This is a proposed commercial operating plan. Business levels, service response targets and profit mixes are illustrative and do not represent current contracts, actual gross margins, or guaranteed outcomes. <Link href="/investments/nepal-india-electronics/suppliers#roadmap">See execution and inventory roadmap ↗</Link></p>
  </div>;
