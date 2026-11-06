@@ -508,3 +508,111 @@ body:has(.investment-light) footer#contact a:focus-visible{outline:2px solid #a6
 .investment-light .iv-industrial-segments>p{grid-column:1/-1;border-top:1px solid #d0dfcd;padding-top:12px;font-size:11px;line-height:1.65;color:#617563;margin:0}
 @media(max-width:800px){.investment-light .iv-industrial-segments{grid-template-columns:1fr}}
 @media(max-width:430px){.investment-light .iv-industrial-values strong{font-size:27px}}
+
+
+/* V10 — investment strategy, competitive structure and execution plan */
+.investment-light .iv-strategy-suite{margin:32px 0 5px}
+.investment-light .iv-strategy-lead{max-width:850px;margin:0 0 26px}
+.investment-light .iv-strategy-lead h3,.investment-light .iv-strategy-priority h3,.investment-light .iv-execution-intro h3{
+font:400 clamp(30px,4vw,47px)/1.12 var(--font-serif),Georgia,serif;color:#264a39;margin:14px 0}
+.investment-light .iv-strategy-lead>p,.investment-light .iv-strategy-priority>div>p,.investment-light .iv-execution-intro>p{color:#5b7060;font-size:13px;line-height:1.75}
+.investment-light .iv-swot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.investment-light .iv-swot-card{position:relative;overflow:hidden;display:flex;flex-direction:column;background:#fffefa;border:1px solid #d2dfd3;border-radius:13px;padding:25px 27px;box-shadow:0 8px 29px #2e583d0b;transition:border-color .25s,box-shadow .25s,transform .25s}
+.investment-light .iv-swot-card:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:#3a8a65}
+.investment-light .iv-swot-caution:before{background:#c08a50}
+.investment-light .iv-swot-growth:before{background:linear-gradient(90deg,#347e60,#9cbf9f)}
+.investment-light .iv-swot-risk:before{background:#b56c53}
+.investment-light .iv-swot-card:hover{transform:translateY(-4px);border-color:#a8c5af;box-shadow:0 20px 38px #2f513d16}
+.investment-light .iv-swot-top{display:flex;gap:16px;align-items:center;padding-bottom:13px;border-bottom:1px solid #dce6db}
+.investment-light .iv-swot-letter{display:flex;align-items:center;justify-content:center;width:49px;height:49px;border:1px solid #b3cbbb;border-radius:9px;background:#e8f0e6;color:#2e694b;font:400 33px var(--font-serif),Georgia,serif;flex-shrink:0}
+.investment-light .iv-swot-caution .iv-swot-letter{color:#a4683c;background:#f6eee2;border-color:#e0c9af}
+.investment-light .iv-swot-risk .iv-swot-letter{color:#a45e4b;background:#f6ebe6;border-color:#e4c9c0}
+.investment-light .iv-swot-top h4{font:400 29px var(--font-serif),Georgia,serif;color:#2b4f3b;margin:0 0 4px}
+.investment-light .iv-swot-top small{font:10px var(--font-mono),monospace;color:#66806e;line-height:1.3}
+.investment-light .iv-swot-card ul{list-style:none;padding:0;margin:17px 0;display:grid;gap:11px;flex:1}
+.investment-light .iv-swot-card li{position:relative;padding-left:16px;color:#5c6c60;font-size:12px;line-height:1.65}
+.investment-light .iv-swot-card li:before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:#8daf8e}
+.investment-light .iv-swot-action{border-top:1px solid #dbe6dc;padding-top:13px;margin-top:auto;background:linear-gradient(180deg,transparent,#f7faf5)}
+.investment-light .iv-swot-action span{color:#a3643e;text-transform:uppercase;font:10px var(--font-mono),monospace;letter-spacing:.08em}
+.investment-light .iv-swot-action p{font-size:12px;color:#315942;line-height:1.6;margin:8px 0 0;font-weight:500}
+.investment-light .iv-strategy-priority{margin:42px 0 0}
+.investment-light .iv-strategy-priority>div:first-child{max-width:900px}
+.investment-light .iv-wedge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:25px}
+.investment-light .iv-wedge-card{position:relative;padding:23px;border:1px solid #d4dfd2;border-radius:12px;background:linear-gradient(125deg,#fffefa,#f1f6ef);transition:transform .25s,box-shadow .25s}
+.investment-light .iv-wedge-card:hover{transform:translateY(-4px);box-shadow:0 15px 32px #2a553d15}
+.investment-light .iv-wedge-head{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #dce6dc;padding-bottom:14px}
+.investment-light .iv-wedge-head span{display:inline-flex;color:#2a6649;border:1px solid #a9c9b4;background:#e7f2e8;border-radius:30px;padding:5px 11px;font:700 10px var(--font-mono),monospace}
+.investment-light .iv-wedge-head b{font:400 26px var(--font-serif),Georgia,serif;color:#c4d0c0}
+.investment-light .iv-wedge-card h4{font:400 29px/1.12 var(--font-serif),Georgia,serif;color:#28513d;margin:18px 0 10px}
+.investment-light .iv-wedge-card>p{font-size:12px;color:#5b7361;line-height:1.67;min-height:96px}
+.investment-light .iv-wedge-card>div:not(.iv-wedge-head){padding:13px 0;border-top:1px solid #dbe5db}
+.investment-light .iv-wedge-card small{font:700 10px var(--font-mono),monospace;color:#a76643;text-transform:uppercase;letter-spacing:.05em}
+.investment-light .iv-wedge-card>div p{font-size:11px;line-height:1.65;color:#486450;margin:5px 0 0}
+.investment-light .iv-strategy-details{margin:26px 0;border:1px solid #cddccf;border-radius:12px;background:#fffefa;overflow:hidden}
+.investment-light .iv-strategy-details>summary{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:21px 25px;cursor:pointer;list-style:none;background:linear-gradient(110deg,#f1f6ed,#fffefa)}
+.investment-light .iv-strategy-details>summary::-webkit-details-marker{display:none}
+.investment-light .iv-strategy-details>summary strong{display:block;font:400 26px var(--font-serif),Georgia,serif;color:#295b42}
+.investment-light .iv-strategy-details>summary small{font-size:12px;color:#687b6c;line-height:1.7}
+.investment-light .iv-details-plus{font:400 26px var(--font-serif),Georgia,serif;color:#427459;transition:transform .25s}
+.investment-light .iv-strategy-details[open] .iv-details-plus{transform:rotate(45deg)}
+.investment-light .iv-forces,.investment-light .iv-external{padding:28px;border-top:1px solid #dbe5da}
+.investment-light .iv-analysis-title h4{font:400 28px var(--font-serif),Georgia,serif;color:#28583f;margin:8px 0 20px}
+.investment-light .iv-force{display:grid;grid-template-columns:190px 150px minmax(0,1fr) minmax(0,1.3fr);gap:15px;align-items:start;border-top:1px solid #e2e9df;padding:14px 0}
+.investment-light .iv-force-name strong{display:block;color:#2b543f;font-size:12px}
+.investment-light .iv-force-name span{font-size:11px;color:#a3603e;display:block;margin-top:7px}
+.investment-light .iv-force-meter{display:flex;gap:5px;padding-top:4px}
+.investment-light .iv-force-meter i{height:9px;width:16px;border-radius:2px;background:#e3ebe0}
+.investment-light .iv-force-meter i.active{background:#b0805a}
+.investment-light .iv-force>p{font-size:11px;color:#5d7060;line-height:1.65;margin:0}
+.investment-light .iv-force-play{font-size:11px;color:#3c6950;line-height:1.65}
+.investment-light .iv-force-play b{color:#24583d}
+.investment-light .iv-analysis-caption{font-size:11px;color:#708071;line-height:1.65;margin:18px 0 0}
+.investment-light .iv-external-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.investment-light .iv-external-grid article{background:#f4f7f1;border:1px solid #dae4d8;border-radius:9px;padding:15px}
+.investment-light .iv-external-code{font:400 29px var(--font-serif),Georgia,serif;color:#b36943}
+.investment-light .iv-external-grid h5{font:400 22px var(--font-serif),Georgia,serif;color:#285a41;margin:8px 0}
+.investment-light .iv-external-grid p{font-size:11px;color:#627566;line-height:1.65}
+.investment-light .iv-external-grid strong{font-size:11px;color:#316448;line-height:1.6;font-weight:600}
+.investment-light .iv-analysis-source{font-size:11px;color:#708070;line-height:1.9;margin:20px 0 0}
+.investment-light .iv-analysis-source a{color:#286b4e;text-decoration:underline;text-underline-offset:3px}
+.investment-light .iv-execution{margin:34px 0 0}
+.investment-light .iv-execution-intro{max-width:800px}
+.investment-light .iv-project-track{position:relative;margin:28px 0 30px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.investment-light .iv-project-phase{position:relative;min-width:0;background:#fffefa;border:1px solid #d1ded1;border-radius:11px;padding:19px 17px;box-shadow:0 11px 29px #29543c0a;transition:transform .25s,border-color .25s}
+.investment-light .iv-project-phase:hover{transform:translateY(-4px);border-color:#a5c9ac}
+.investment-light .iv-phase-index{font:400 30px var(--font-serif),Georgia,serif;color:#b4714d;margin-bottom:10px}
+.investment-light .iv-phase-header{border-bottom:1px solid #e0e8de;padding-bottom:11px}
+.investment-light .iv-phase-header span{font:700 10px var(--font-mono),monospace;color:#326d51}
+.investment-light .iv-phase-header h4{font:400 23px/1.1 var(--font-serif),Georgia,serif;margin:8px 0 0;color:#25563f}
+.investment-light .iv-phase-content>p{font-size:11px;line-height:1.7;color:#677968;min-height:91px}
+.investment-light .iv-project-phase ul{list-style:none;margin:13px 0;padding:0;display:grid;gap:9px}
+.investment-light .iv-project-phase li{padding-left:13px;position:relative;font-size:10px;line-height:1.65;color:#556e5b}
+.investment-light .iv-project-phase li:before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;background:#83a58b;border-radius:50%}
+.investment-light .iv-phase-gate{margin-top:16px;border-top:1px solid #dce6dc;padding-top:12px}
+.investment-light .iv-phase-gate strong{display:block;text-transform:uppercase;letter-spacing:.045em;font:700 9px var(--font-mono),monospace;color:#b06540;margin-bottom:7px}
+.investment-light .iv-phase-gate span{font-size:11px;color:#335f44;line-height:1.65;display:block}
+.investment-light .iv-phase-connector{position:absolute;right:-11px;top:48px;width:11px;height:2px;background:#9bb9a2;z-index:2}
+.investment-light .iv-execution-bottom{display:grid;grid-template-columns:1.07fr .93fr;gap:17px;margin:30px 0}
+.investment-light .iv-capital-panel,.investment-light .iv-measures-panel{padding:26px;background:linear-gradient(120deg,#eff4e9,#fffefa);border:1px solid #cfded0;border-radius:12px}
+.investment-light .iv-capital-panel h4{font:400 33px var(--font-serif),Georgia,serif;color:#26543c;margin:14px 0}
+.investment-light .iv-capital-panel p{font-size:12px;line-height:1.75;color:#587160;margin:12px 0}
+.investment-light .iv-capital-panel p strong{color:#205a40}
+.investment-light .iv-capital-panel a{font-size:11px;font-weight:700;color:#266647;text-decoration:underline;text-underline-offset:3px;display:inline-block;margin-top:8px}
+.investment-light .iv-measure{border-top:1px solid #d4e1d4;padding:11px 0}
+.investment-light .iv-measure span{font:700 9px var(--font-mono),monospace;color:#ac6544;text-transform:uppercase;letter-spacing:.06em}
+.investment-light .iv-measure strong{display:block;font:400 22px var(--font-serif),Georgia,serif;color:#26543d;margin:4px 0}
+.investment-light .iv-measure p{font-size:11px;line-height:1.5;color:#627c65;margin:0}
+.investment-light .iv-risk-list{padding:25px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.investment-light .iv-risk-list article{border:1px solid #d7e3d6;border-radius:9px;padding:17px;background:#f8faf5}
+.investment-light .iv-risk-list article>div{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid #e1e9df}
+.investment-light .iv-risk-list article strong{font:400 24px var(--font-serif),Georgia,serif;color:#27563e}
+.investment-light .iv-risk-list article>div span{font:700 9px var(--font-mono),monospace;color:#ac6445;white-space:nowrap}
+.investment-light .iv-risk-list article p{font-size:11px;color:#627766;line-height:1.6;margin:10px 0 0}
+.investment-light .iv-risk-list article p b{color:#2a694a}
+.investment-light .iv-risks-details>.iv-analysis-caption{padding:0 25px 20px;margin:0}
+@media(max-width:1200px){.investment-light .iv-project-track{grid-template-columns:repeat(3,minmax(0,1fr))}.investment-light .iv-phase-connector{display:none}}
+@media(max-width:960px){.investment-light .iv-external-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.investment-light .iv-force{grid-template-columns:1fr 150px}.investment-light .iv-force>p,.investment-light .iv-force-play{grid-column:auto}.investment-light .iv-wedge-grid{grid-template-columns:1fr 1fr}.investment-light .iv-wedge-card>p{min-height:0}}
+@media(max-width:730px){.investment-light .iv-swot-grid,.investment-light .iv-wedge-grid,.investment-light .iv-execution-bottom,.investment-light .iv-risk-list{grid-template-columns:1fr}.investment-light .iv-project-track{grid-template-columns:1fr 1fr}.investment-light .iv-external-grid{grid-template-columns:1fr 1fr}.investment-light .iv-strategy-details>summary{padding:20px}.investment-light .iv-forces,.investment-light .iv-external{padding:18px}.investment-light .iv-risk-list{padding:16px}}
+@media(max-width:530px){.investment-light .iv-project-track,.investment-light .iv-external-grid{grid-template-columns:1fr}.investment-light .iv-force{grid-template-columns:1fr}.investment-light .iv-force-name{display:flex;justify-content:space-between}.investment-light .iv-swot-card{padding:21px 18px}.investment-light .iv-risk-list article>div{align-items:start;flex-direction:column}.investment-light .iv-phase-content>p{min-height:0}.investment-light .iv-strategy-lead h3,.investment-light .iv-strategy-priority h3{font-size:34px}}
+@media(prefers-reduced-motion:reduce){.investment-light .iv-swot-card,.investment-light .iv-wedge-card,.investment-light .iv-project-phase{transition:none!important;transform:none!important}.investment-light .iv-details-plus{transition:none!important}}
+@media print{.investment-light .iv-strategy-details>summary{background:#fff!important}.investment-light .iv-swot-card,.investment-light .iv-wedge-card,.investment-light .iv-project-phase{box-shadow:none!important;transform:none!important;break-inside:avoid}}
